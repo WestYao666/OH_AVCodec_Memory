@@ -1,75 +1,100 @@
+---
 id: MEM-DEVFLOW-007
-title: 新需求开发标准流程——从插件注册到单测验证
+title: 新需求开发标准流程
 type: dev_flow
-scope: [Process, NewFeature, Plugin, Build]
 status: approved
 confidence: high
 summary: >
-  AVCodec 新增功能（Codec/解封装/封装支持）遵循标准流程：
-  (1) 确定扩展点：新增 demuxer/muxer/codec 插件 → 在 services/media_engine/plugins/ 对应子目录实现；
-  (2) 插件注册：demuxer/muxer 插件在 BUILD.gn 中声明 ohos_shared_library，编译入 libmedia_demuxer_plugin.a；
-  codec 插件在 media_codec.cpp 中工厂函数创建；
-  (3) 实现接口：在 interfaces/plugin/XXX_plugin.h 基类基础上实现子类（SetDataSource/GetMediaInfo/ReadSample 等）；
-  (4) 在 services/media_engine/plugins/demuxer/BUILD.gn 中添加 source 文件路径，Build 系统自动编译；
-  (5) 编写单测：在 test/moduletest/ 对应模块下新增 BUILD.gn target，参考同类 codec 的目录结构；
-  (6) 验证：hb build av_codec -i（so）编译通过 + hb build av_codec -t（test）单测全绿。
-  关键约束：新增 codec 需在 interfaces/kits/c/ 补充 C API（如需要）；所有新插件必须有对应单测。
-why_it_matters:
- - 新需求开发：遵循标准流程避免"改了代码不知道改哪里"的问题
- - 插件发现：Build 系统通过 GN 编译时收集插件，不需要运行时动态注册
- - 质量保证：单测覆盖是新增功能的质量门槛，不可跳过
- - 扩展边界：明确知道在哪里扩展（plugins/）vs 哪里不要碰（frameworks/）
+  AVCodec 新增一种 Codec（如 EAC3 解码器）的标准开发流程分为7步：
+  ① config.gni 加 feature flag → ② avcodec_codec_name.h 加名称常量 →
+  ③ avcodec_mime_type.h 加 MIME 常量 → ④ kits/c/ 扩展 C API（如需）→
+  ⑤ plugins/ 下实现 CodecPlugin 子类 + PLUGIN_DEFINITION 注册 →
+  ⑥ 子目录 BUILD.gn + plugins/BUILD.gn deps 注册 target →
+  ⑦ test/moduletest/ 写 gtest 单测。
+why_it_matters: >
+  AVCodec 是高度模块化的插件架构，新增 Codec 涉及多个目录的联动修改。
+  理解标准流程可避免漏改文件、build 失败或单测遗漏。
+  本记忆是"新需求开发"场景（L3）的核心参考。
+scope: AVCodec 新功能开发流程 / 新增 Codec 插件
+service_scenario: "新需求开发"
 evidence:
- - kind: code
-   ref: services/media_engine/plugins/demuxer/BUILD.gn
-   anchor: 插件GN target声明
-   note: |
-     ohos_shared_library("media_plugin_FFmpegDemuxer") 和 ohos_shared_library("media_plugin_MPEG4Demuxer")
-     通过 sources=[...] 包含所有 .cpp 文件；external_deps 链接 ffmpeg 库
- - kind: code
-   ref: services/media_engine/plugins/demuxer/mpeg4_demuxer/mpeg4_demuxer_plugin.h
-   anchor: 插件实现模板
-   note: |
-     继承 DemuxerPlugin，实现 SetDataSource / GetMediaInfo / SelectTrack / ReadSampleData
-     参照接口 interfaces/plugin/demuxer_plugin.h 的纯虚函数定义
- - kind: code
-   ref: services/media_engine/plugins/demuxer/BUILD.gn
-   anchor: 插件编译链路
-   note: |
-     BUILD.gn 中 demuxer_config 定义 include_dirs 和编译参数
-     media_plugin_FFmpegDemuxer deps = [ "$av_codec_root_dir/services/dfx:av_codec_service_dfx" ]
-     插件与 dfx 模块链接，SetFaultEvent 可用
- - kind: code
-   ref: interfaces/plugin/demuxer_plugin.h
-   anchor: 插件基类接口
-   note: DemuxerPlugin 继承 PluginBase，纯虚接口：SetDataSource/GetUserMeta/SelectTrack/UnselectTrack/ReadSample/SeekToTime
- - kind: code
-   ref: interfaces/plugin/muxer_plugin.h
-   anchor: MuxerPlugin基类
-   note: MuxerPlugin 继承 PluginBase，实现 WriteSample / SetOffset 等接口
- - kind: build
-   ref: hb build av_codec -i --skip-download
-   anchor: 编译命令
-   note: -i 编译so；--skip-download 避免重复拉取依赖库
- - kind: build
-   ref: hb build av_codec -t
-   anchor: 单测编译命令
-   note: -t 编译测试目标；单测在 test/moduletest/ 各模块下按 BUILD.gn 执行
- - kind: code
-   ref: test/moduletest/vcodec/BUILD.gn
-   anchor: 单测target规范
-   note: 同名 codec 单测命名规范：模块名_moduletest_native（参考 hwdecoder_moduletest）
+  - kind: code
+    ref: /home/west/OH_AVCodec/config.gni
+    anchor: av_codec_enable_codec_eac3, av_codec_defines += ["SUPPORT_CODEC_EAC3"]
+    note: >
+      config.gni 是全局 feature flag 定义入口。新 codec 需要添加
+      av_codec_enable_codec_XXX = false 开关 + 条件 av_codec_defines += ["SUPPORT_CODEC_XXX"]。
+      示例：eac3 开关在第50行，条件定义在第210行。
+
+  - kind: code
+    ref: /home/west/OH_AVCodec/services/media_engine/plugins/BUILD.gn
+    anchor: av_codec_media_engine_plugins, deps
+    note: >
+      插件汇总 BUILD.gn。所有 ohos_shared_library 插件通过 deps 列表注册。
+      新插件必须在此 deps 中出现（含条件 if (flag) 块）才能被构建。
+
+  - kind: code
+    ref: /home/west/OH_AVCodec/services/media_engine/plugins/ffmpeg_adapter/audio_decoder/eac3/ffmpeg_eac3_decoder_plugin.cpp
+    anchor: RegisterAudioDecoderPlugins, PLUGIN_DEFINITION
+    note: >
+      EAC3 解码器是"新增 codec"的标准参考实现。
+      PLUGIN_DEFINITION 宏（第68行）来自 plugin/plugin_definition.h（外部框架），
+      在 .so 加载时自动调用注册函数，使用 reg->AddPlugin(definition) 注入能力。
+
+  - kind: code
+    ref: /home/west/OH_AVCodec/interfaces/inner_api/native/avcodec_codec_name.h
+    anchor: AUDIO_DECODER_EAC3_NAME, #ifdef SUPPORT_CODEC_EAC3
+    note: >
+      Codec 名称常量定义文件。新 codec 名称 ID 必须添加，
+      用 #ifdef SUPPORT_CODEC_XXX 条件编译包裹。
+
+  - kind: code
+    ref: /home/west/OH_AVCodec/interfaces/kits/c/native_avcodec_base.h
+    anchor: OH_AVCODEC_MIMETYPE_AUDIO_EAC3
+    note: >
+      Kits 层 C API MIME 字符串 extern 声明（第484行）。
+      新 codec 如需暴露给应用层，在此添加 extern 声明。
+
+  - kind: code
+    ref: /home/west/OH_AVCodec/test/moduletest/audio_decoder/BUILD.gn
+    anchor: ohos_unittest("audio_decoder_module_test")
+    note: >
+      单测构建入口。使用 ohos_unittest target 类型，
+      依赖 av_codec_client 和 av_codec_service。
+      新 codec 单测文件需加入 sources 列表。
+
+  - kind: code
+    ref: /home/west/OH_AVCodec/test/moduletest/audio_decoder/NativeAPI/NativeFunctionTest.cpp
+    anchor: testing::Test, CreateByMime, PushInputData
+    note: >
+      单测标准模式：gtest::Test 基类，CreateByMime 创建解码器实例，
+      Configure → Start → PushInputData → FreeOutputBuffer 流程。
+
+  - kind: code
+    ref: /home/west/OH_AVCodec/services/media_engine/plugins/ffmpeg_adapter/muxer/ffmpeg_muxer_register.cpp
+    anchor: PLUGIN_DEFINITION(FFmpegMuxer,...), RegisterMuxerPlugins
+    note: >
+      Muxer 插件注册参考，证明 demuxer/muxer 使用相同 PLUGIN_DEFINITION 模式。
+
+  - kind: doc
+    ref: /home/west/OH_AVCodec/README.md
+    anchor: Contribution
+    note: >
+      无独立 CODEOWNERS / CONTRIBUTING.md。贡献流程遵循 OpenHarmony 标准
+      PR 模式：Fork → Feat_xxx branch → Commit → Pull Request。
+
 related:
- - MEM-ARCH-AVCODEC-003
- - MEM-ARCH-AVCODEC-007
- - MEM-DEVFLOW-001
- - MEM-DEVFLOW-002
- - MEM-DEVFLOW-006
+  - MEM-DEVFLOW-001  # 可关联：构建系统入口
+  - MEM-DEVFLOW-003  # 可关联：FFmpeg 适配层结构
+  - MEM-DEVFLOW-005  # 可关联：API 层结构
+  - MEM-CODEC-002    # 可关联：Audio Decoder 模块地图
+  - MEM-TEST-001     # 可关联：单测运行命令
 owner: 耀耀
 review:
   owner: 耀耀
   approved_at: "2026-04-17"
-  change_policy: update_on_code_change
+change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-17"
 updated_at: "2026-04-17"
+---
