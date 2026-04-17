@@ -56,8 +56,8 @@
 |---|------|-------|---------|------|------|
 | P4a | 构建入口与命令 | Build | 新人入项 | pending | ✅ 已入库 MEM-DEVFLOW-001 |
 | P4b | 单测运行入口与命令 | Test | 新人入项 | pending | ✅ 已入库 MEM-DEVFLOW-002 |
-| P4c | 问题修复回归流程 | Process | 问题定位 | pending | |
-| P4d | 新需求开发标准流程 | Process | 新需求开发 | pending | 依赖 P1a/P1e |
+| P4c ✅ 问题修复回归流程 | Process, Test | 问题定位 | **approved** | MEM-DEVFLOW-006 | | |
+| P4d ✅ 新需求开发标准流程 | Process | 新需求开发 | **approved** | MEM-DEVFLOW-007 | | 依赖 P1a/P1e |
 
 ---
 
