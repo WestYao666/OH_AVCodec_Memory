@@ -1,0 +1,160 @@
+# B4: 新增事件接入流程 - Evidence Bundle
+# 生成时间: 2026-04-17
+# 证据类型标注: kind/ref/anchor/note
+
+kind: evidence
+category: code_event_flow
+topic: B4_new_event_integration_flow
+
+entries:
+
+  # ============================================================
+  # E1: CodecDfxInfo 结构体定义
+  # ============================================================
+  - id: E1
+    kind: code
+    type: header_struct_def
+    ref: "services/dfx/include/avcodec_sysevent.h"
+    anchor: "struct CodecDfxInfo { ... }"
+    note: |
+      CodecDfxInfo 是 CodecStartEventWrite 的数据结构载体，包含15个字段：
+      clientPid, clientUid, codecInstanceId, codecName, codecIsVendor, codecMode,
+      encoderBitRate, videoWidth, videoHeight, videoFrameRate, videoPixelFormat,
+      audioChannelCount, audioSampleRate
+    lines: "39-53"
+
+  # ============================================================
+  # E2: 新增事件 Write 函数的三段式调用模式
+  # ============================================================
+  - id: E2
+    kind: code
+    type: cpp_event_write_implementation
+    ref: "services/dfx/avcodec_sysevent.cpp"
+    anchor: "CodecStartEventWrite() / CodecStopEventWrite() / FaultDemuxerEventWrite() / ..."
+    note: |
+      所有事件写入函数遵循统一模式：
+      1. 声明结构体变量（如 CodecDfxInfo info;）
+      2. 填充各字段（从 Format 或其他来源读取）
+      3. 调用对应 XxxEventWrite() 写入
+      图中展示了 CodecStartEventWrite、FaultDemuxerEventWrite、FaultAudioCodecEventWrite
+      等多个 Write 函数的实现，每个都直接调用 HiSysEventWrite()
+    lines: "74-94, 99-149"
+
+  # ============================================================
+  # E3: hisysevent.yaml 定义字段（只包含 AV_CODEC domain 的部分事件）
+  # ============================================================
+  - id: E3
+    kind: code
+    type: yaml_event_definition
+    ref: "hisysevent.yaml"
+    anchor: "domain: AV_CODEC / CODEC_START_INFO / CODEC_STOP_INFO / FAULT / STATISTICS_INFO"
+    note: |
+      hisysevent.yaml 定义了 AV_CODEC domain 下所有事件及字段类型。
+      注意：yaml 中只有 CODEC_START_INFO / CODEC_STOP_INFO / FAULT / STATISTICS_INFO 四个事件。
+      而 avcodec_sysevent.cpp 中还有多个以 Domain::MULTI_MEDIA 上报的故障事件
+     （DEMUXER_FAILURE / AUDIO_CODEC_FAILURE / VIDEO_CODEC_FAILURE / MUXER_FAILURE / RECORD_AUDIO_FAILURE），
+      这些在当前 hisysevent.yaml 中未出现，可能是平台级预定义事件。
+    lines: "15-47"
+
+  # ============================================================
+  # E4: CodecServer 中如何填充 CodecDfxInfo 并调用 Write
+  # ============================================================
+  - id: E4
+    kind: code
+    type: cpp_call_site
+    ref: "services/services/codec/server/video/codec_server.cpp"
+    anchor: "CodecStartEventWrite(codecDfxInfo)"
+    note: |
+      在 CodecServer::Start() 中，codec 启动成功后：
+      1. 声明 CodecDfxInfo codecDfxInfo;
+      2. 调用 GetCodecDfxInfo(codecDfxInfo) 填充字段
+      3. 调用 CodecStartEventWrite(codecDfxInfo) 写入
+      GetCodecDfxInfo() 从 codecBase_->GetOutputFormat(format) 读取元数据并填入结构体
+    lines: "368-370, 1288-1315"
+
+  # ============================================================
+  # E5: 多处调用点（CodecStopEventWrite）
+  # ============================================================
+  - id: E5
+    kind: code
+    type: cpp_call_site
+    ref: "services/services/codec/server/video/codec_server.cpp"
+    anchor: "CodecStopEventWrite()"
+    note: |
+      CodecStopEventWrite 在多处被调用（函数返回/异常/释放时），
+      传入 caller_.pid / caller_.uid / FAKE_POINTER(this)
+    lines: "405, 443, 465, 497, 537"
+
+  # ============================================================
+  # E6: 故障事件调用点（DemuxerFilter / AudioEncoderFilter 等）
+  # ============================================================
+  - id: E6
+    kind: code
+    type: cpp_call_site
+    ref: "services/media_engine/filters/demuxer_filter.cpp 等"
+    anchor: "FaultDemuxerEventWrite() / FaultAudioCodecEventWrite() / FaultVideoCodecEventWrite()"
+    note: |
+      故障事件在 media_engine 层被调用：
+      - FaultDemuxerEventWrite: demuxer_filter.cpp:365
+      - FaultAudioCodecEventWrite: audio_encoder_filter.cpp:369, audio_decoder_filter.cpp:231
+      - FaultVideoCodecEventWrite: video_decoder_adapter.cpp:214, surface_encoder_adapter.cpp:713
+    lines: "各文件对应行"
+
+  # ============================================================
+  # E7: HiSysEventWrite 接口
+  # ============================================================
+  - id: E7
+    kind: code
+    type: cpp_hisysevent_api
+    ref: "services/dfx/avcodec_sysevent.cpp"
+    anchor: "#include \"hisysevent.h\" / HiSysEventWrite(...)"
+    note: |
+      HiSysEventWrite 是统一的上报接口。
+      调用方式: HiSysEventWrite(domain, eventName, eventType, key1, val1, key2, val2, ...)
+      domain 可为 HISYSEVENT_DOMAIN_AVCODEC ("AV_CODEC") 或 HiSysEvent::Domain::MULTI_MEDIA
+      eventType 可为 BEHAVIOR / FAULT / STATISTIC
+    lines: "24, 46, 56, 64, 75, 94, 101, 114, 125, 136, 149, 187"
+
+  # ============================================================
+  # E8: DFX 模块构建配置
+  # ============================================================
+  - id: E8
+    kind: build
+    type: gn_build_config
+    ref: "services/dfx/BUILD.gn"
+    anchor: "ohos_shared_library(\"av_codec_service_dfx\")"
+    note: |
+      DFX 模块编译为独立共享库 av_codec_service_dfx，
+      依赖 hisysevent:libhisysevent / hicollie:libhicollie / openssl:libcrypto_shared 等
+      源码列表包含 avcodec_sysevent.cpp / avcodec_dfx_component.cpp / avcodec_dump_utils.cpp / avcodec_xcollie.cpp
+    lines: "1-85"
+
+  # ============================================================
+  # E9: SourceStatisticsEventWrite 特殊实现（JSON + 定期上报）
+  # ============================================================
+  - id: E9
+    kind: code
+    type: cpp_complex_event
+    ref: "services/dfx/avcodec_sysevent.cpp"
+    anchor: "SourceStatisticsEventWrite()"
+    note: |
+      SourceStatisticsEventWrite 是最复杂的事件：数据存入 list，
+      每 4 小时批量上报一次，使用 nlohmann::json 构造消息体并做 SHA256 哈希。
+      这展示了事件可以有自己的聚合/缓冲逻辑。
+    lines: "159-190"
+
+  # ============================================================
+  # E10: avcodec_sysevent.h 完整函数声明列表
+  # ============================================================
+  - id: E10
+    kind: code
+    type: header_function_declarations
+    ref: "services/dfx/include/avcodec_sysevent.h"
+    anchor: "void XxxEventWrite(...)"
+    note: |
+      所有导出的事件写入函数：
+      FaultEventWrite / ServiceStartEventWrite / CodecStartEventWrite / CodecStopEventWrite /
+      FaultDemuxerEventWrite / FaultAudioCodecEventWrite / FaultVideoCodecEventWrite /
+      FaultMuxerEventWrite / FaultRecordAudioEventWrite / StreamAppPackageNameEventWrite /
+      SourceStatisticsEventWrite
+    lines: "80-94"
