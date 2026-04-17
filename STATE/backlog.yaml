@@ -23,7 +23,7 @@
 | P1a | media_codec 编解码数据流 | AVCodec, Core | 新人入项/新需求开发 | approved | ✅ 已入库 MEM-ARCH-AVCODEC-006 |
 | P1b ✅ demuxer插件与容器格式支持 | AVCodec, Demuxer | 三方应用/新需求开发 | **approved** | MEM-ARCH-AVCODEC-007 | | mp4/mkv/hls/dash 支持列表 |
 | P1c ✅ muxer封装流程 | AVCodec, Muxer | 三方应用/新需求开发 | **approved** | MEM-ARCH-AVCODEC-008 | | 封装步骤与插件机制 |
-| P1d | 硬件 vs 软件 Codec 区分与切换 | AVCodec, HW | 三方应用/问题定位 | pending | codecIsVendor / 切换机制 |
+| P1d ✅ 硬件vs软件Codec区分 | AVCodec, HW | 三方应用/问题定位 | **approved** | MEM-ARCH-AVCODEC-009 | | codecIsVendor / 切换机制 |
 | P1e | Codec 实例生命周期管理 | AVCodec, Core | 新需求开发 | pending | Create→Configure→Start→Stop→Release |
 
 ---
