@@ -11,7 +11,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| A1 | AVCodec 模块总览 | AVCodec | 新人入项 / 三方应用 | **in_progress** | 已扫描，evidence已产出，待合成草案 |
+| A1 | AVCodec 模块总览 | AVCodec | 新人入项 / 三方应用 | **approved** | 已入库，evidence bundle已产出 |
 | A2 | DFX 统计事件框架职责边界 | DFX, StatisticsEvent | 三方应用 / 问题定位 | pending | 高价值，代码量大，拆成 A2a/A2b |
 | A3 | 子事件接入协议边界 | DFX, Event | 新需求开发 | pending | 待与 A2 合并 |
 | A4 | 上报链路 | DFX, Event | 三方应用 / 问题定位 | pending | 依赖 A2 |
