@@ -19,7 +19,7 @@ why_it_matters:
  - VSCode 跳转：避免"代码看得到但跳转失败"的开发体验问题
 evidence:
  - kind: doc
-   ref: https://gitee.com/westyao/westyao/raw/master/OpenHarmony/狴戔攭缂栧 20OH 20av_codec 20⑦827⑦86B96BC.md
+   ref: [稀疏拉取 AVCodec 仓](https://gitee.com/westyao/westyao/blob/master/OpenHarmony/%E7%8B%AC%E7%AB%8B%E7%BC%96%E8%AF%91%20OH%20av_codec%20%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.md)
    anchor: 全文
    note: 完整环境搭建指南，含 WSL2 配置 / 换源 / 稀疏拉取 / hb 安装 / VSCode配置 / 编译命令
  - kind: build
