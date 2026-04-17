@@ -1,0 +1,14 @@
+# pending_actions.yaml — 飞书审批指令队列
+# 由 feishu-minimax agent 写入，主 agent 读取处理
+
+---
+
+queue: []
+
+# 格式：
+# - type: approval_response
+#   decision: approve|revise|reject|hold
+#   mem_id: MEM-ARCH-AVCODEC-XXX
+#   timestamp: ISO8601
+
+last_updated: "2026-04-17T08:54:00Z"

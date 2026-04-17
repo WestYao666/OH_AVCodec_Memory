@@ -1,0 +1,39 @@
+id: HEARTBEAT-CHECK-APPROVALS
+name: 审批指令心跳检查
+description: >
+  定期检查 pending_actions.yaml，发现审批指令则执行 approve/revise/reject/hold，
+  处理后 git push 并发飞书通知。
+trigger:
+  type: schedule
+  cron: "*/5 * * * *"
+  timezone: Asia/Shanghai
+payload:
+  kind: agentTurn
+  message: |
+    检查并处理 pending_actions.yaml 中的审批指令。
+
+    步骤：
+    1. 读取 /home/west/.openclaw/workspace-main/avcodec-dfx-memory/STATE/pending_actions.yaml
+    2. 如果 queue 为空或全部已处理，输出 HEARTBEAT_OK
+    3. 如果有未处理的指令，逐条执行：
+       - decision=approve：更新 MEMORY/ 对应 .md，git push，发飞书确认卡
+       - decision=revise：更新状态为 draft
+       - decision=reject：移动到 DRAFTS/rejected/
+       - decision=hold：更新状态为 hold
+    4. 处理完毕后标记为 processed
+
+    飞书发消息用：
+    - app_id: cli_a948ccbd9db81bc9
+    - app_secret: HjK7kInCyQOcc2sSLY6b1lnLfXB8utbC
+    - chat_id: oc_459341b87039573d4844caa5b15e7c36
+    - 通过 POST https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=chat_id 发消息
+
+    Git 操作：
+    - cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+    - GIT_SSH_COMMAND="ssh -i $HOME/.ssh/github_avcodec"
+    - 远程：git@github.com:WestYao666/OH_AVCodec_Memory.git
+
+    执行完毕后输出处理结果摘要。
+delivery:
+  mode: announce
+  channel: feishu
