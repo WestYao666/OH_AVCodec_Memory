@@ -1,0 +1,222 @@
+# question_pool.yaml — AVCodec/DFX 场景问题池
+# 生成时间：2026-04-17
+# 生成方式：基于代码仓扫描 + 人工分析
+
+questions:
+
+  # ========== 场景1：新人入项问答（newcomer）==========
+
+  - id: Q-SCENE1-001
+    scene: newcomer
+    question: 如何编译 av_codec 部件并运行单测？
+    why_must_ask: >
+      构建入口分散在 BUILD.gn / build.sh / bundle.json 中，
+      新人第一个问题永远是"怎么跑起来"，必须给出精确命令。
+    priority: high
+    related_topics: [B1, B2]
+    status: pending
+
+  - id: Q-SCENE1-002
+    scene: newcomer
+    question: services/engine 和 services/services 两个目录是什么关系？为什么每个子模块都有两套？
+    why_must_ask: >
+      从代码结构看，engine 层是功能实现，services 层是 IPC 封装，
+      但新人会困惑"我该在哪层改代码"。
+    priority: high
+    related_topics: [A1]
+    status: pending
+
+  - id: Q-SCENE1-003
+    scene: newcomer
+    question: interfaces/kits 和 interfaces/inner_api 的区别是什么？我该用哪套接口？
+    why_must_ask: >
+      接口分为应用级（kits）和系统组件级（inner_api），两者都存在，
+      新人不清楚自己的场景该用哪套。
+    priority: high
+    related_topics: [A1]
+    status: pending
+
+  - id: Q-SCENE1-004
+    scene: newcomer
+    question: 如何判断一个Codec是硬件Codec还是软件Codec？
+    why_must_ask: >
+      README提到硬件/软件Codec两种实现，但代码里没有明确标识，
+      新人接入时需要知道选哪个。
+    priority: medium
+    related_topics: [A1, D2]
+    status: pending
+
+  - id: Q-SCENE1-005
+    scene: newcomer
+    question: 新增一种音视频格式的Codec支持，需要改哪些模块？
+    why_must_ask: >
+      新人经常不知道从哪个目录入手，codec/demuxer/muxer/plugin 都有关系，
+      需要一个明确的修改路径图。
+    priority: high
+    related_topics: [B4, A3]
+    status: pending
+
+  # ========== 场景2：三方应用问题解答（integrator）==========
+
+  - id: Q-SCENE2-001
+    scene: integrator
+    question: 三方应用如何查询设备支持哪些Codec？（编解码能力列表在哪里查）
+    why_must_ask: >
+      代码中存在 codeclist 模块，说明能力查询是独立功能，
+      但三方应用如何调用这个能力查询接口需要明确。
+    priority: high
+    related_topics: [A1, C1]
+    status: pending
+
+  - id: Q-SCENE2-002
+    scene: integrator
+    question: 解封装（demuxer）支持哪些容器格式？在哪里配置？
+    why_must_ask: >
+      接入方最常问"我这种格式支持吗"，需要明确的格式支持列表和接入方式。
+    priority: high
+    related_topics: [A1, D2]
+    status: pending
+
+  - id: Q-SCENE2-003
+    scene: integrator
+    question: 接入AVCodec后，遇到解码失败应该如何定位？（错误码/日志入口在哪里）
+    why_must_ask: >
+      从 avcodec_sysevent.h 看，有多种 FaultType（FREEZE/CRASH/INNER_ERROR），
+      但接入方不知道如何接收和解读这些错误。
+    priority: high
+    related_topics: [B3, D4]
+    status: pending
+
+  - id: Q-SCENE2-004
+    scene: integrator
+    question: 视频分辨率/帧率支持哪些组合？是否有上限？
+    why_must_ask: >
+      CodecDfxInfo 中有 videoWidth/videoHeight/videoFrameRate 字段，
+      说明这些有规格限制，但具体数值在哪里查不清楚。
+    priority: medium
+    related_topics: [A1, D2]
+    status: pending
+
+  - id: Q-SCENE2-005
+    scene: integrator
+    question: 编码时视频宽高变化（分辨率切换）应该如何处理？
+    why_must_ask: >
+      视频流中途分辨率变化是常见场景，接入方不知道Codec是否支持以及如何响应。
+    priority: medium
+    related_topics: [A2, D4]
+    status: pending
+
+  # ========== 场景3：新需求开发（feature_dev）==========
+
+  - id: Q-SCENE3-001
+    scene: feature_dev
+    question: 新增一种视频格式的编解码支持，代码路径是什么？
+    why_must_ask: >
+      plugin 目录存在说明Codec可能是插件化加载的，但具体插件机制不明确，
+      新需求开发必须知道从哪入手。
+    priority: high
+    related_topics: [B4, A5]
+    status: pending
+
+  - id: Q-SCENE3-002
+    scene: feature_dev
+    question: 新增DFX统计项（例如新的错误类型），应该如何接入？
+    why_must_ask: >
+      services/dfx 中有 avcodec_sysevent.cpp 定义了多种事件写入函数，
+      但新增一种统计事件需要遵循什么流程不清楚。
+    priority: high
+    related_topics: [A2, A3]
+    status: pending
+
+  - id: Q-SCENE3-003
+    scene: feature_dev
+    question: 编解码器实例的生命周期管理是谁负责的？
+    why_must_ask: >
+      README提到"编解码生命周期管理"，但具体是哪个模块、什么时机创建和销毁实例，
+      新需求开发需要知道在哪个时机注入自己的逻辑。
+    priority: medium
+    related_topics: [A1]
+    status: pending
+
+  - id: Q-SCENE3-004
+    scene: feature_dev
+    question: 如何新增一种容器格式的封装/解封装支持？
+    why_must_ask: >
+      demuxer 和 muxer 是独立模块，但两者有共同的数据结构，
+      新增格式需要同时考虑两端，需要明确代码修改范围。
+    priority: medium
+    related_topics: [B4]
+    status: pending
+
+  - id: Q-SCENE3-005
+    scene: feature_dev
+    question: codec 和 source 的关系是什么？source 在编解码流程中处于什么位置？
+    why_must_ask: >
+      services/engine/source 目录存在，但它的作用不清晰，
+      新需求开发如果涉及数据源接入，需要知道如何利用 source 模块。
+    priority: low
+    related_topics: [A1]
+    status: pending
+
+  # ========== 场景4：问题定位与修复（debug）==========
+
+  - id: Q-SCENE4-001
+    scene: debug
+    question: 解码画面冻结（FREEZE）的常见原因有哪些？如何排查？
+    why_must_ask: >
+      avcodec_sysevent.h 定义了 FAULT_TYPE_FREEZE，说明这是一种已知错误场景，
+      但常见根因和排查路径没有文档化。
+    priority: high
+    related_topics: [D4, B3]
+    status: pending
+
+  - id: Q-SCENE4-002
+    scene: debug
+    question: Codec实例crash的调试方法是什么？有哪些关键日志点？
+    why_must_ask: >
+      services/dfx 包含 avcodec_dump_utils.cpp 和 avcodec_xcollie.cpp，
+      说明有专门的调试手段，但接入方不知道如何使用。
+    priority: high
+    related_topics: [B3, C2]
+    status: pending
+
+  - id: Q-SCENE4-003
+    scene: debug
+    question: 内存泄漏问题如何定位？AVCodec有提供哪些内存追踪工具？
+    why_must_ask: >
+      高频问题，services/dfx 中有 xcollie（看门狗超时检测），
+      但内存泄漏的定位方法没有文档化。
+    priority: medium
+    related_topics: [C3, B3]
+    status: pending
+
+  - id: Q-SCENE4-004
+    scene: debug
+    question: 音视频不同步（av sync）问题的调试思路是什么？
+    why_must_ask: >
+      这是三方应用中常见的问题，但代码中是否有相关统计或调试能力不明确。
+    priority: medium
+    related_topics: [D4]
+    status: pending
+
+  - id: Q-SCENE4-005
+    scene: debug
+    question: 硬编码和软编码的切换逻辑在哪里？如何确认当前使用的是哪种？
+    why_must_ask: >
+      遇到兼容性问题时，接入方需要确认是硬编还是软编，
+      但没有明确的查询和切换方法。
+    priority: low
+    related_topics: [D4, A1]
+    status: pending
+
+# 统计
+total_count: 20
+by_scene:
+  newcomer: 5
+  integrator: 5
+  feature_dev: 5
+  debug: 5
+by_priority:
+  high: 10
+  medium: 7
+  low: 3
