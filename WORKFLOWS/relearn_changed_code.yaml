@@ -1,0 +1,193 @@
+# WORKFLOWS/relearn_changed_code.yaml
+# 代码变更再学习工作流 — 当 AVCodec 代码仓有变更时触发
+
+name: relearn_changed_code
+description: >
+  监控 AVCodec 代码仓的 commit 变化，
+  识别受影响的 memory entry，标为 stale，
+  加入 publish_queue 等待重新验证。
+
+trigger:
+  type: schedule
+  cron: "0 */6 * * *"
+  timezone: Asia/Shanghai
+
+input:
+  - name: codec_repo_path
+    type: string
+    default: /home/west/OH_AVCodec
+
+steps:
+  - name: fetch_latest
+    type: shell
+    timeout: 60
+    command: |
+      cd /home/west/OH_AVCodec
+      git remote update 2>/dev/null || true
+      echo "FETCHED=$(date +%s)"
+
+  - name: get_last_commit
+    type: shell
+    command: |
+      cd /home/west/OH_AVCodec
+      LAST_COMMIT_FILE="/tmp/oh_avcodec_last_commit.txt"
+      CURRENT_COMMIT=$(git rev-parse HEAD)
+      if [ -f "$LAST_COMMIT_FILE" ]; then
+        LAST_COMMIT=$(cat "$LAST_COMMIT_FILE")
+        echo "CURRENT=$CURRENT_COMMIT"
+        echo "LAST=$LAST_COMMIT"
+        if [ "$CURRENT_COMMIT" != "$LAST_COMMIT" ]; then
+          echo "HAS_CHANGE=true"
+        else
+          echo "HAS_CHANGE=false"
+        fi
+      else
+        echo "FIRST_RUN=true"
+        echo "HAS_CHANGE=false"
+        echo "$CURRENT_COMMIT" > "$LAST_COMMIT_FILE"
+      fi
+
+  - name: exit_if_no_change
+    type: condition
+    condition: "{{ HAS_CHANGE }}" == "false"
+    on_true:
+      - name: no_code_change
+        type: log
+        message: "代码仓无新 commit，退出"
+
+  - name: get_changed_files
+    type: shell
+    command: |
+      cd /home/west/OH_AVCodec
+      LAST_COMMIT=$(cat /tmp/oh_avcodec_last_commit.txt)
+      git diff --name-only "$LAST_COMMIT" HEAD > /tmp/changed_files.txt
+      echo "CHANGED_COUNT=$(wc -l < /tmp/changed_files.txt)"
+      head -20 /tmp/changed_files.txt
+
+  - name: identify_affected_entries
+    type: shell
+    command: |
+      # 根据变更文件路径，识别受影响的 memory entry
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+import os
+
+changed_files = []
+with open('/tmp/changed_files.txt') as f:
+    changed_files = [line.strip() for line in f if line.strip()]
+
+affected = []
+for root, dirs, files in os.walk('MEMORY/'):
+    for file in files:
+        if file.endswith('.yaml') or file.endswith('.md'):
+            full_path = os.path.join(root, file)
+            with open(full_path) as f:
+                content = f.read().lower()
+            for cf in changed_files[:10]:
+                cf_lower = cf.lower()
+                # 简单匹配：文件名/路径是否出现在记忆内容中
+                short = '/'.join(cf_lower.split('/')[-2:])
+                if short in content or cf_lower.split('.')[0] in content:
+                    rel = os.path.relpath(full_path, 'MEMORY/')
+                    if rel not in affected:
+                        affected.append(rel)
+
+print('AFFECTED_COUNT=' + str(len(affected)))
+print('AFFECTED=' + ','.join(affected))
+      "
+
+  - name: check_affected
+    type: condition
+    condition: "{{ AFFECTED_COUNT }}" > "0"
+    on_false:
+      - name: no_affected
+        type: log
+        message: "无受影响的 memory entry，记录 commit 后退出"
+
+  - name: mark_stale_entries
+    type: shell
+    command: |
+      # 将受影响的 entry 标为 stale，加入 publish_queue
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      AFFECTED_FILES="{{ AFFECTED }}"
+
+      for entry in $(echo "$AFFECTED_FILES" | tr ',' '\n'); do
+        if [ -f "MEMORY/$entry" ]; then
+          # 读取并更新 status 为 stale
+          python3 -c "
+import yaml
+entry = '$entry'
+with open('MEMORY/$entry') as f:
+    data = yaml.safe_load(f) or {}
+data['status'] = 'stale'
+data['updated_at'] = '$(date -u +%Y-%m-%d)'
+data['stale_reason'] = '代码变更触发重新验证'
+data['change_commit'] = '$(git rev-parse HEAD | cut -c1-8)'
+with open('MEMORY/$entry', 'w') as f:
+    yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
+print('Marked stale:', entry)
+          "
+        fi
+      done
+
+  - name: enqueue_stale_for_review
+    type: shell
+    command: |
+      # 加入 publish_queue.yaml（作为 stale 条目，不需要重新探索）
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      AFFECTED_FILES="{{ AFFECTED }}"
+      COMMIT_HASH=$(git rev-parse HEAD | cut -c1-8)
+
+      python3 -c "
+import yaml
+from datetime import datetime
+
+affected = '$AFFECTED_FILES'.split(',')
+queue_file = 'STATE/publish_queue.yaml'
+with open(queue_file) as f:
+    data = yaml.safe_load(f) or {}
+
+if 'queue' not in data:
+    data['queue'] = []
+
+for entry in affected:
+    if entry:
+        data['queue'].append({
+            'mem_id': entry,
+            'topic': '(stale recheck)',
+            'file': 'MEMORY/' + entry,
+            'enqueued_at': datetime.now().isoformat() + 'Z',
+            'reason': 'code_change',
+            'change_commit': '$COMMIT_HASH',
+            'priority': 'high'
+        })
+
+with open(queue_file, 'w') as f:
+    yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
+print('Enqueued', len(affected), 'stale entries for recheck')
+      "
+
+  - name: update_last_commit
+    type: shell
+    command: |
+      cd /home/west/OH_AVCodec
+      git rev-parse HEAD > /tmp/oh_avcodec_last_commit.txt
+      echo "Last commit updated"
+
+  - name: notify_stale
+    type: feishu_message
+    chat_id: oc_459341b87039573d4844caa5b15e7c36
+    message: |
+      🔄 代码变更触发记忆再学习
+
+      **变更 commit**：{{ commit_hash }}
+      **受影响条目**：{{ AFFECTED_COUNT }} 个
+      **状态**：已标为 stale，加入待验证队列
+
+      请在方便时处理 publish_queue 中的 stale 条目。
+
+error_handler:
+  - name: on_error
+    type: notify
+    message: "relearn_changed_code 执行出错，请检查日志"

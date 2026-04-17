@@ -1,0 +1,167 @@
+# WORKFLOWS/publish_loop.yaml
+# 发布工作流 — 当 publish_queue.yaml 不为空时触发
+
+name: publish_loop
+description: >
+  按 FIFO 顺序处理 publish_queue 中的条目，
+  调用 publish_after_approval.sh 执行 Git 发布，
+  成功后更新 CHANGELOG.md 并发飞书通知。
+
+trigger:
+  type: schedule
+  cron: "0 */4 * * *"
+  timezone: Asia/Shanghai
+
+input:
+  - name: queue_file
+    type: string
+    default: STATE/publish_queue.yaml
+
+steps:
+  - name: check_queue
+    type: shell
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+with open('STATE/publish_queue.yaml') as f:
+    data = yaml.safe_load(f)
+queue = data.get('queue', [])
+if queue:
+    print('QUEUE_COUNT=' + str(len(queue)))
+    print('NEXT_ITEM=' + queue[0].get('mem_id', 'unknown'))
+else:
+    print('QUEUE_COUNT=0')
+    print('NEXT_ITEM=')
+      "
+
+  - name: exit_if_empty
+    type: condition
+    condition: "{{ QUEUE_COUNT }}" == "0"
+    on_true:
+      - name: no_queue_items
+        type: log
+        message: "publish_queue 为空，退出本轮"
+
+  - name: process_queue_item
+    type: loop
+    condition: "{{ QUEUE_COUNT }}" > "0"
+    items: "{{ QUEUE }}"
+    max_concurrent: 1
+    loop_variables:
+      - name: item_mem_id
+        value: "{{ item.mem_id }}"
+      - name: item_topic
+        value: "{{ item.topic }}"
+      - name: item_file
+        value: "{{ item.file }}"
+      - name: item_branch
+        value: "memory/update-$(date +%Y%m%d)-{{ item.mem_id }}"
+
+  - name: validate_before_publish
+    type: shell
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 SCRIPTS/validate_memory.py "{{ item_file }}"
+      echo "VALIDATE_RESULT=$?"
+
+  - name: execute_publish
+    type: shell
+    condition: "{{ VALIDATE_RESULT }}" == "0"
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      bash SCRIPTS/publish_after_approval.sh \
+        "memory/update-$(date +%Y%m%d)-{{ item.mem_id }}" \
+        "{{ item.topic }}" \
+        "{{ item_file }}"
+      echo "PUBLISH_EXIT=$?"
+
+  - name: on_publish_success
+    type: shell
+    condition: "{{ PUBLISH_EXIT }}" == "0"
+    command: |
+      # 更新 CHANGELOG.md
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      ITEM_DATE=$(date +%Y-%m-%d)
+      ITEM_MEM_ID="{{ item.mem_id }}"
+      ITEM_TOPIC="{{ item_topic }}"
+      ITEM_COMMIT=$(git rev-parse HEAD | cut -c1-8)
+
+      python3 -c "
+import yaml
+from datetime import datetime
+
+changelog_entry = f'''
+## {{{{ ITEM_DATE }}}}
+
+### {{{{ ITEM_MEM_ID }}}}
+
+- 主题：{{ item_topic }}
+- Commit：{{{{ ITEM_COMMIT }}}}
+- 文件：{{{{ item_file }}}}
+'''
+with open('CHANGELOG.md', 'a') as f:
+    f.write(changelog_entry)
+print('CHANGELOG updated')
+      "
+
+  - name: notify_success
+    type: feishu_message
+    condition: "{{ PUBLISH_EXIT }}" == "0"
+    chat_id: oc_459341b87039573d4844caa5b15e7c36
+    message: |
+      ✅ 记忆条目已发布！
+
+      **主题**：{{ item_topic }}
+      **条目ID**：{{ item_mem_id }}
+      **Commit**：{{ item_commit }}
+
+  - name: on_publish_fail
+    type: notify
+    condition: "{{ PUBLISH_EXIT }}" != "0"
+    message: |
+      ❌ 发布失败
+
+      主题：{{ item_topic }}
+      文件：{{ item_file }}
+      请检查日志
+
+  - name: remove_from_queue
+    type: shell
+    command: |
+      # 从 publish_queue 中移除已处理的条目
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+with open('STATE/publish_queue.yaml') as f:
+    data = yaml.safe_load(f)
+# 移除第一个
+queue = data.get('queue', [])
+if queue:
+    removed = queue.pop(0)
+    data['queue'] = queue
+    # 记录最近发布
+    data.setdefault('recent', [])
+    data['recent'].insert(0, {
+        'mem_id': removed.get('mem_id'),
+        'topic': removed.get('topic'),
+        'published_at': '$(date -u +%Y-%m-%dT%H:%M:%SZ)'
+    })
+    data['recent'] = data['recent'][:10]  # 保留最近10条
+with open('STATE/publish_queue.yaml', 'w') as f:
+    yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
+print('Queue updated, removed:', removed.get('mem_id'))
+      "
+
+  - name: commit_queue_update
+    type: shell
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      git add STATE/publish_queue.yaml CHANGELOG.md
+      git commit -m "[AUTO] 更新 publish_queue + CHANGELOG"
+      GIT_SSH_COMMAND="ssh -i $HOME/.ssh/github_avcodec" git push origin master
+
+error_handler:
+  - name: on_error
+    type: notify
+    message: "publish_loop 执行出错，请检查日志"

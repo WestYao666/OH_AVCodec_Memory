@@ -1,0 +1,170 @@
+# WORKFLOWS/review_loop.yaml
+# 草案评审工作流 — 当 DRAFTS/proposals/ 下有新草案时触发
+
+name: review_loop
+description: >
+  检测到新草案后，调用 Reviewer 生成 diff，
+  发送飞书审批卡，等待用户审批回调，根据结果处理草案。
+
+trigger:
+  type: file_watch
+  path: DRAFTS/proposals/
+  events:
+    - create
+    - modify
+
+input:
+  - name: draft_file
+    type: string
+    description: 新增或修改的草案文件路径
+
+steps:
+  - name: detect_draft
+    type: shell
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      DRAFT_FILE="{{ draft_file }}"
+      if [ -f "$DRAFT_FILE" ]; then
+        echo "Draft detected: $DRAFT_FILE"
+        ls -la "$DRAFT_FILE"
+      else
+        echo "Draft file not found: $DRAFT_FILE"
+        exit 1
+      fi
+    output: DRAFT_INFO
+
+  - name: prepare_review
+    type: shell
+    command: |
+      # 生成 review ticket ID
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      REVIEW_ID="REV-$(date +%Y%m%d)-$(openssl rand -hex 4)"
+      echo "REVIEW_ID=$REVIEW_ID"
+
+      # 生成 diff 内容（当前草案 vs 上一个已入库版本）
+      DRAFT_FILE="{{ draft_file }}"
+      DRAFT_BASENAME=$(basename "$DRAFT_FILE" .md)
+      MEM_TARGET="MEMORY/${DRAFT_BASENAME}.md"
+
+      if [ -f "$MEM_TARGET" ]; then
+        echo "=== DIFF vs $MEM_TARGET ==="
+        diff -u "$MEM_TARGET" "$DRAFT_FILE" || true
+      else
+        echo "=== NEW ENTRY (no prior version) ==="
+        cat "$DRAFT_FILE"
+      fi > /tmp/review_diff.txt
+      echo "REVIEW_ID=$REVIEW_ID" >> /tmp/review_env.sh
+      echo "DRAFT_FILE=$DRAFT_FILE" >> /tmp/review_env.sh
+
+  - name: generate_feishu_card
+    type: shell
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      source /tmp/review_env.sh
+      python3 SCRIPTS/generate_review_card.py "$DRAFT_FILE" "DRAFTS/review_cards/${REVIEW_ID}.json"
+      echo "Card generated: DRAFTS/review_cards/${REVIEW_ID}.json"
+
+  - name: send_approval_card
+    type: feishu_card
+    card_file: "DRAFTS/review_cards/${REVIEW_ID}.json"
+    chat_id: oc_459341b87039573d4844caa5b15e7c36
+    output: CARD_SENT
+
+  - name: wait_approval
+    type: approval
+    timeout: 72h
+    prompt: |
+      记忆草案待审批：
+
+      草案：{{ draft_file }}
+      审批ID：{{ REVIEW_ID }}
+
+      请选择操作：
+    choices:
+      - label: "✅ 批准入库"
+        value: approved
+      - label: "🔧 需要修改"
+        value: revise
+      - label: "❌ 拒绝"
+        value: rejected
+      - label: "⏸ 暂不入库"
+        value: hold
+
+  - name: handle_approved
+    type: condition
+    condition: "{{ approval_result }}" == "approved"
+
+  - name: action_approved
+    type: script
+    condition: "{{ approval_result }}" == "approved"
+    script: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      source /tmp/review_env.sh
+      BRANCH="memory/update-$(date +%Y%m%d)-${REVIEW_ID,,}"
+      bash SCRIPTS/publish_after_approval.sh "$BRANCH" "review-$REVIEW_ID" "$DRAFT_FILE"
+      echo "PUBLISH_RESULT=success"
+
+  - name: action_revise
+    type: script
+    condition: "{{ approval_result }}" == "revise"
+    script: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      source /tmp/review_env.sh
+      # 写入修改意见到草案头部
+      echo -e "\n\n## 修改意见（来自审批）\n{{ revision_comment }}\n" >> "$DRAFT_FILE"
+      echo "Revise notes appended to $DRAFT_FILE"
+
+  - name: action_rejected
+    type: shell
+    condition: "{{ approval_result }}" == "rejected"
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      source /tmp/review_env.sh
+      mkdir -p DRAFTS/rejected/
+      mv "$DRAFT_FILE" "DRAFTS/rejected/$(basename $DRAFT_FILE)"
+      echo "Moved to DRAFTS/rejected/"
+
+  - name: action_hold
+    type: log
+    condition: "{{ approval_result }}" == "hold"
+    message: "草案暂不入库，留在原位置等待后续处理"
+
+  - name: write_review_ticket
+    type: shell
+    command: |
+      # 写入 review ticket
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      source /tmp/review_env.sh
+      python3 -c "
+import yaml
+from datetime import datetime
+ticket = {
+    'id': '$REVIEW_ID',
+    'mem_id': '$(basename {{ draft_file }} .md)',
+    'draft_file': '$DRAFT_FILE',
+    'submitted_at': datetime.now().isoformat() + 'Z',
+    'decision': '{{ approval_result }}',
+    'reviewer': '耀耀',
+    'comment': '{{ approval_comment }}',
+    'decided_at': datetime.now().isoformat() + 'Z'
+}
+with open('STATE/review_ticket.yaml', 'a') as f:
+    yaml.dump([ticket], f, allow_unicode=True, default_flow_style=False)
+print('Review ticket written')
+      "
+
+  - name: notify_result
+    type: feishu_message
+    condition: "{{ approval_result }}" == "approved"
+    chat_id: oc_459341b87039573d4844caa5b15e7c36
+    message: |
+      ✅ 记忆条目已批准入库！
+
+      主题：{{ draft_file }}
+      审批ID：{{ REVIEW_ID }}
+      Commit：{{ commit_hash }}
+
+error_handler:
+  - name: on_timeout
+    type: notify
+    message: "审批超时（72h），草案仍在 DRAFTS/proposals/，请手动处理"

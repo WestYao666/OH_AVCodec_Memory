@@ -1,0 +1,218 @@
+# WORKFLOWS/nightly_explore.yaml
+# 夜间探索工作流 — 每天 09:00 Asia/Shanghai 自动执行
+
+name: nightly_explore
+description: >
+  每天定时从 backlog 取一个最小主题，调用 Scout 扫描代码，
+  产出 evidence bundle，识别缺口后发飞书问题卡或生成草案。
+
+trigger:
+  type: schedule
+  cron: "0 9 * * *"
+  timezone: Asia/Shanghai
+
+input:
+  - name: topic
+    type: string
+    description: 从 backlog 读取的第一个 pending 主题
+  - name: repo_path
+    type: string
+    default: /home/west/OH_AVCodec
+
+steps:
+  - name: read_backlog
+    type: shell
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      TOPIC=$(python3 -c "
+import yaml
+with open('STATE/backlog.yaml') as f:
+    data = yaml.safe_load(f)
+for item in data.get('backlog', []):
+    if item.get('status') == 'pending':
+        print(item.get('id', '') + '|' + item.get('topic', ''))
+        break
+      ")
+      echo "TOPIC=$TOPIC"
+    output: TOPIC
+
+  - name: check_topic
+    type: condition
+    condition: "{{ TOPIC }}" != ""
+    on_false:
+      - name: no_topic
+        type: log
+        message: "backlog 为空或全部已完成，退出本轮探索"
+
+  - name: update_crawl_state
+    type: shell
+    command: |
+      # 更新 crawl_state.yaml，标记当前主题和开始时间
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+from datetime import datetime
+with open('STATE/crawl_state.yaml') as f:
+    data = yaml.safe_load(f)
+data['current_topic'] = '{{ TOPIC }}'
+data['picked_at'] = datetime.now().isoformat()
+data['phase'] = 'EXPLORE_EVIDENCE'
+with open('STATE/crawl_state.yaml', 'w') as f:
+    yaml.dump(data, f, allow_unicode=True)
+print('crawl_state updated')
+      "
+
+  - name: scout_scan
+    type: shell
+    timeout: 600
+    command: |
+      # Scout 扫描代码，产出 evidence bundle
+      TOPIC_ID=$(echo '{{ TOPIC }}' | cut -d'|' -f1)
+      TOPIC_NAME=$(echo '{{ TOPIC }}' | cut -d'|' -ff2)
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+
+      # 扫描目录结构
+      ls /home/west/OH_AVCodec/ > /tmp/avcodec_top_level.txt
+      ls /home/west/OH_AVCodec/services/ > /tmp/avcodec_services.txt
+      ls /home/west/OH_AVCodec/frameworks/ > /tmp/avcodec_frameworks.txt
+
+      echo "Scout scan complete for $TOPIC_ID: $TOPIC_NAME"
+      echo "Top level: $(wc -l < /tmp/avcodec_top_level.txt) dirs"
+      echo "Services: $(wc -l < /tmp/avcodec_services.txt) dirs"
+      echo "Frameworks: $(wc -l < /tmp/avcodec_frameworks.txt) dirs"
+    output: SCAN_RESULT
+
+  - name: build_evidence
+    type: shell
+    command: |
+      # 生成 evidence bundle YAML
+      TOPIC_ID=$(echo '{{ TOPIC }}' | cut -d'|' -f1)
+      TOPIC_NAME=$(echo '{{ TOPIC }}' | cut -d'|' -f2)
+      EVD_FILE="EVIDENCE/code/evd_{{ '' | truncate(12, False, '') }}"
+      EVD_FILE="EVIDENCE/code/${TOPIC_ID,,}_evidence.yaml"
+
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+from datetime import datetime
+
+evd = {
+    'evidence_bundle_id': 'EVD-' + datetime.now().strftime('%Y%m%d') + '-' + '{{ TOPIC }}'.split('|')[0].lower(),
+    'topic': '$TOPIC_NAME',
+    'collected_by': 'scout',
+    'collected_at': datetime.now().isoformat() + 'Z',
+    'scanned_paths': [
+        '/home/west/OH_AVCodec/'
+    ],
+    'scan_stats': {
+        'top_level_items': $(wc -l < /tmp/avcodec_top_level.txt),
+        'services_items': $(wc -l < /tmp/avcodec_services.txt),
+        'frameworks_items': $(wc -l < /tmp/avcodec_frameworks.txt)
+    },
+    'status': 'draft'
+}
+
+with open('$EVD_FILE', 'w') as f:
+    yaml.dump(evd, f, allow_unicode=True, default_flow_style=False)
+print('Evidence bundle written:', '$EVD_FILE')
+      "
+
+  - name: gap_check
+    type: shell
+    command: |
+      # 检查 evidence 是否完整，识别缺口
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      # 简单检查：evidence 文件是否非空
+      EVD_FILE=$(ls -t EVIDENCE/code/*.yaml | head -1)
+      SIZE=$(stat -f%z "$EVD_FILE" 2>/dev/null || stat -c%s "$EVD_FILE" 2>/dev/null || echo "0")
+      echo "Latest evidence file: $EVD_FILE (size: $SIZE bytes)"
+
+      if [ "$SIZE" -lt 100 ]; then
+        echo "HAS_GAP=true"
+      else
+        echo "HAS_GAP=false"
+      fi
+    output: GAP_RESULT
+
+  - name: ask_human_if_gap
+    type: approval
+    condition: "{{ GAP_RESULT }}" == "true"
+    prompt: |
+      发现证据不足，请回答以下问题以补充记忆：
+
+      主题：{{ TOPIC }}
+
+      缺失内容：证据文件过小，可能遗漏重要信息
+
+      请回答你的问题（或者输入"跳过"直接生成草案）：
+    choices:
+      - label: 我来回答
+        value: answer
+      - label: 跳过，生成草案
+        value: skip
+
+  - name: generate_draft
+    type: shell
+    command: |
+      # 生成草案 Markdown
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      TOPIC_ID=$(echo '{{ TOPIC }}' | cut -d'|' -f1)
+      TOPIC_NAME=$(echo '{{ TOPIC }}' | cut -d'|' -f2)
+
+      cat > "DRAFTS/proposals/${TOPIC_ID,,}_draft.md" << 'EOF'
+      # {{ TOPIC_NAME }}：记忆草案
+
+      **主题ID**: {{ TOPIC }}
+      **状态**: draft
+      **生成时间**: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+      ## 摘要
+
+      _待填写：基于 evidence bundle 提炼的核心结论_
+
+      ## 证据摘要
+
+      _待填写：列出关键证据_
+
+      ## 待确认缺口
+
+      _待填写_
+      EOF
+
+      echo "Draft written: DRAFTS/proposals/${TOPIC_ID,,}_draft.md"
+
+  - name: update_backlog
+    type: shell
+    command: |
+      # 更新 backlog.yaml 状态
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      TOPIC_ID=$(echo '{{ TOPIC }}' | cut -d'|' -f1)
+      python3 -c "
+import yaml
+with open('STATE/backlog.yaml') as f:
+    data = yaml.safe_load(f)
+# 找到对应条目并更新（简单实现：标记第一个 pending 为 done）
+changed = False
+for item in data.get('backlog', []):
+    if item.get('status') == 'pending' and not changed:
+        item['status'] = 'done'
+        changed = True
+        break
+with open('STATE/backlog.yaml', 'w') as f:
+    yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
+print('Backlog updated')
+      "
+
+  - name: notify_done
+    type: log
+    message: |
+      nightly_explore 完成：
+      - 主题：{{ TOPIC }}
+      - evidence bundle: EVIDENCE/code/*.yaml
+      - draft: DRAFTS/proposals/*.md
+      - backlog 状态已更新
+
+error_handler:
+  - name: on_error
+    type: notify
+    message: "nightly_explore 失败，请检查日志。主题：{{ TOPIC }}"
