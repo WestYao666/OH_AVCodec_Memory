@@ -2,7 +2,7 @@ id: MEM-ARCH-AVCODEC-004
 title: DFX 事件体系——HiSysEvent + 进程内调试工具
 type: architecture_fact
 scope: [DFX, HiSysEvent, Statistics]
-status: draft
+status: approved
 confidence: high
 summary: >
   AVCodec DFX 体系包含两套独立机制：
@@ -54,7 +54,7 @@ related:
 owner: 耀耀
 review:
   owner: 耀耀
-  approved_at: pending
+  approved_at: "2026-04-17"
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-17"

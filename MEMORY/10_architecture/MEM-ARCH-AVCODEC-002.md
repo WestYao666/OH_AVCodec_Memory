@@ -2,7 +2,7 @@ id: MEM-ARCH-AVCODEC-002
 title: DFX 统计事件框架职责边界
 type: architecture_fact
 scope: [DFX, StatisticsEvent, FaultType]
-status: draft
+status: approved
 confidence: high
 summary: >
   services/dfx/ 是 AVCodec 唯一的 DFX 模块，包含两套独立机制：
@@ -53,7 +53,7 @@ related:
 owner: 耀耀
 review:
   owner: 耀耀
-  approved_at: pending
+  approved_at: "2026-04-17"
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-17"

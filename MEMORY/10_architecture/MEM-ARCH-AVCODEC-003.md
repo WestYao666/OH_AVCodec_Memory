@@ -2,7 +2,7 @@ id: MEM-ARCH-AVCODEC-003
 title: Plugin 架构——解封装/封装/源/池四类插件
 type: architecture_fact
 scope: [AVCodec, Plugin, Demuxer, Muxer]
-status: draft
+status: approved
 confidence: high
 summary: >
   services/media_engine/plugins/ 目录下存在四类插件：
@@ -44,7 +44,7 @@ related:
 owner: 耀耀
 review:
   owner: 耀耀
-  approved_at: pending
+  approved_at: "2026-04-17"
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-17"
