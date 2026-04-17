@@ -2,7 +2,7 @@ id: FAQ-SCENE1-001
 title: 新人入项 FAQ — Top5（新人入项问答）
 type: faq
 scope: [FAQ, Newcomer]
-status: draft
+status: approved
 confidence: high
 summary: >
   整理 AVCodec/DFX 新人最常见的 5 个入项问题及其答案。
@@ -38,7 +38,7 @@ related:
 owner: 耀耀
 review:
   owner: 耀耀
-  approved_at: pending
+  approved_at: "2026-04-17"
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-17"

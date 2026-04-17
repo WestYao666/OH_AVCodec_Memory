@@ -2,7 +2,7 @@ id: MEM-TOOLCHAIN-001
 title: 常用代码导航工具与路径
 type: toolchain
 scope: [Toolchain, Navigation]
-status: draft
+status: approved
 confidence: high
 summary: >
   AVCodec 代码仓常用导航命令：
@@ -39,7 +39,7 @@ related:
 owner: 耀耀
 review:
   owner: 耀耀
-  approved_at: pending
+  approved_at: "2026-04-17"
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-17"
