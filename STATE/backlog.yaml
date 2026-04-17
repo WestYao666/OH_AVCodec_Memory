@@ -33,7 +33,7 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | P2a ✅ interfaces/kits C API契约 | API, Integration | 三方应用/新需求开发 | **approved** | MEM-ARCH-AVCODEC-011 | | native_avcodec_* API 总览 |
-| P2b | 能力查询 API（codeclist） | API, Capability | 三方应用 | pending | 查询设备支持哪些 Codec |
+| P2b ✅ 能力查询API（codeclist）| API, Capability | 三方应用 | **approved** | MEM-ARCH-AVCODEC-012 | | 查询设备支持哪些 Codec |
 | P2c | 编解码参数配置（Format） | API, Configuration | 新需求开发 | pending | 宽高/帧率/码率/像素格式等 |
 | P2d | 三方应用接入 FAQ Top 10 | Integration | 三方应用 | pending | 依赖 P2a/P2b |
 
