@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AVCodec DFX Memory Entry",
+  "description": "AVCodec/DFX 长期记忆条目的标准结构",
+  "type": "object",
+  "required": ["id", "title", "type", "status", "summary", "evidence", "scope", "owner"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^MEM-[A-Z]+-[A-Z]+-\\d{3}$",
+      "description": "格式：MEM-<领域>-<类型>-序号，例如 MEM-ARCH-AVCODEC-001"
+    },
+    "title": {
+      "type": "string",
+      "description": "简洁的主题标题，不超过 50 字符"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "architecture_fact",
+        "dev_flow",
+        "toolchain",
+        "scenario",
+        "faq",
+        "glossary",
+        "decision"
+      ],
+      "description": "记忆类型"
+    },
+    "scope": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "所属模块/子领域的标签列表"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending_review", "approved", "rejected", "stale"],
+      "description": "当前状态"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "证据置信度"
+    },
+    "summary": {
+      "type": "string",
+      "description": "一段话总结核心内容（3-5 句）"
+    },
+    "why_it_matters": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "说明这条记忆存在的价值，关联哪些场景"
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["kind", "ref"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["code", "doc", "build", "commit", "user", "run"]
+          },
+          "ref": { "type": "string" },
+          "anchor": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      },
+      "description": "证据列表，每条记忆至少需要 1 条 evidence"
+    },
+    "related": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "关联的记忆条目 ID 列表"
+    },
+    "owner": {
+      "type": "string",
+      "description": "负责维护这条记忆的人"
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "owner": { "type": "string" },
+        "approved_at": { "type": "string", "format": "date" },
+        "change_policy": { "type": "string" }
+      }
+    },
+    "update_trigger": {
+      "type": "string",
+      "description": "什么情况下需要重新验证这条记忆（code_change / manual_review / scheduled_recheck）"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date"
+    }
+  }
+}

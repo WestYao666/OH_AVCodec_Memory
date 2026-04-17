@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FAQ Entry",
+  "description": "FAQ 条目结构，支持多场景分类",
+  "type": "object",
+  "required": ["id", "question", "scene", "status", "answer", "evidence"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^FAQ-[a-z]+-\\d{3}$"
+    },
+    "question": {
+      "type": "string"
+    },
+    "scene": {
+      "type": "string",
+      "enum": ["newcomer", "integrator", "feature_dev", "debug"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "approved", "stale"]
+    },
+    "answer": {
+      "type": "object",
+      "properties": {
+        "summary": { "type": "string" },
+        "steps": { "type": "array", "items": { "type": "string" } },
+        "best_practice": { "type": "string" }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string" },
+          "ref": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "related_mem": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "owner": { "type": "string" },
+    "created_at": { "type": "string", "format": "date" }
+  }
+}

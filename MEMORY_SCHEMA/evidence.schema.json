@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Evidence",
+  "description": "证据记录结构",
+  "type": "object",
+  "required": ["id", "kind", "ref", "captured_at"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EVD-\\d{8}-[a-z0-9]+$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["code", "doc", "build", "commit", "user", "run"]
+    },
+    "ref": {
+      "type": "string"
+    },
+    "anchor": {
+      "type": "string"
+    },
+    "content_snippet": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "captured_by": {
+      "type": "string",
+      "enum": ["scout", "interviewer", "user"]
+    },
+    "related_mem": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
