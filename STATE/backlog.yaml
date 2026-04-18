@@ -43,10 +43,10 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| P3a | DFX 统计事件框架职责边界 | DFX | 三方应用/问题定位 | pending | 保留，压缩范围 |
-| P3b | 日志定位流程 | DFX, Log | 问题定位 | pending | ✅ 已入库 MEM-DEVFLOW-003 |
-| P3c | 新增 DFX 事件接入流程 | DFX | 新需求开发 | pending | ✅ 已入库 MEM-DEVFLOW-004 |
-| P3d | 问题定位首查路径 | DFX | 问题定位 | pending | 依赖 P3b |
+| P3a | DFX 统计事件框架职责边界 | DFX | 三方应用/问题定位 | **approved** | ✅ 已入库 MEM-ARCH-AVCODEC-002 |
+| P3b | 日志定位流程 | DFX, Log | 问题定位 | **approved** | ✅ 已入库 MEM-DEVFLOW-003 |
+| P3c | 新增 DFX 事件接入流程 | DFX | 新需求开发 | **approved** | ✅ 已入库 MEM-DEVFLOW-004 |
+| P3d | 问题定位首查路径 | DFX | 问题定位 | ✅ 已入库 MEM-DEVFLOW-008 | ✅ 已入库 MEM-DEVFLOW-008（草案待审） |
 
 ---
 
