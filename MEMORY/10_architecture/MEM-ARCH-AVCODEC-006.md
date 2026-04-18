@@ -1,4 +1,19 @@
-# MEM-ARCH-AVCODEC-006: MediaCodec 编解码数据流
+---
+id: MEM-ARCH-AVCODEC-006
+title: MediaCodec 编解码数据流
+type: architecture_fact
+scope: [AVCodec, Core]
+status: approved
+confidence: high
+summary: >
+  MediaCodec 是 AVCodec 的核心类，负责音频编解码完整数据流。
+  内部维护 CodecState 状态机（UNINITIALIZED→INITIALIZING→INITIALIZED→CONFIGURED→PREPARED→RUNNING），
+  通过 AVBufferQueue 管理输入/输出 buffer，支持 Surface 模式和 Buffer 模式两种数据通路。
+  封装 CodecPlugin，支持 DRM 解密（可选），Plugin 可动态切换。
+关联主题: [P1a]
+created: 2026-04-17
+evidence: services/media_engine/modules/media_codec/media_codec.h + media_codec.cpp
+---
 
 ## 基础信息
 
