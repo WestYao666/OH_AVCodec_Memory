@@ -2,7 +2,7 @@ id: MEM-DEVFLOW-008
 title: 问题定位首查路径——症状→工具→日志决策树
 type: dev_flow
 scope: [DFX, Diagnosis, HiSysEvent, HiLog, XCollie, HiTrace]
-status: draft
+status: approved
 confidence: high
 summary: >
   AVCodec 问题定位遵循"症状 → 工具 → 域/标签 → 细节"的四步决策树。
@@ -207,7 +207,7 @@ related:
 owner: 耀耀
 review:
   owner: 耀耀
-  approved_at: ""
+  approved_at: "2026-04-18"
   change_policy: update_on_code_change
 update_trigger: 新增 FAULT 事件类型 / 新增 LOG_DOMAIN / XCollie 阈值调整
 created_at: "2026-04-18"
