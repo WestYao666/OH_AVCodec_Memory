@@ -12,3 +12,8 @@ queue: []
 #   timestamp: ISO8601
 
 last_updated: "2026-04-17T08:54:00Z"
+- type: approval_response
+  decision: approve
+  mem_id: MEM-DEVFLOW-008
+  timestamp: "2026-04-19T01:09:00+08:00"
+  sender: ou_60d8641be684f82e8d9cb84c3015dde7
