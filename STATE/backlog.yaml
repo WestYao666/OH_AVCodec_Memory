@@ -54,8 +54,8 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| P4a | 构建入口与命令 | Build | 新人入项 | pending | ✅ 已入库 MEM-DEVFLOW-001 |
-| P4b | 单测运行入口与命令 | Test | 新人入项 | pending | ✅ 已入库 MEM-DEVFLOW-002 |
+| P4a ✅ | 构建入口与命令 | Build | 新人入项 | **approved** | ✅ 已入库 MEM-DEVFLOW-001 |
+| P4b ✅ | 单测运行入口与命令 | Test | 新人入项 | **approved** | ✅ 已入库 MEM-DEVFLOW-002 |
 | P4c ✅ 问题修复回归流程 | Process, Test | 问题定位 | **approved** | MEM-DEVFLOW-006 | | |
 | P4d ✅ 新需求开发标准流程 | Process | 新需求开发 | **approved** | MEM-DEVFLOW-007 | | 依赖 P1a/P1e |
 
@@ -65,8 +65,8 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| P5a | 新人入项 FAQ Top 10 | Process | 新人入项 | pending | ✅ 已入库 FAQ-SCENE1-001 |
-| P5b | Plugin 架构 | AVCodec, Plugin | 新人入项/新需求开发 | pending | ✅ 已入库 MEM-ARCH-AVCODEC-003 |
+| P5a ✅ | 新人入项 FAQ Top 10 | Process | 新人入项 | **approved** | ✅ 已入库 FAQ-SCENE1-001 |
+| P5b ✅ | Plugin 架构 | AVCodec, Plugin | 新人入项/新需求开发 | **approved** | ✅ 已入库 MEM-ARCH-AVCODEC-003 |
 
 ---
 
