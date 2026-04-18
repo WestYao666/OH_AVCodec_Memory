@@ -1,7 +1,7 @@
 id: MEM-DEVFLOW-006
 title: 问题修复回归流程
 type: dev_flow
-status: draft
+status: approved
 confidence: high
 scope: avcodec_testing
 summary: >
@@ -120,7 +120,7 @@ related:
 owner: 耀耀
 review:
   owner: 耀耀
-  approved_at: ""
+  approved_at: "2026-04-18"
   change_policy: update_on_code_change
 update_trigger: test/BUILD.gn 变更 / 新增 moduletest 模块 / XCollie 阈值调整
 created_at: "2026-04-17"
