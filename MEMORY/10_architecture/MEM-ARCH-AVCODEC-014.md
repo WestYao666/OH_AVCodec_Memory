@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-014
 title: Codec Engine 架构——CodecBase + Loader + Factory 三层插件机制
 type: architecture_fact
-status: draft
+status: ready_for_review
 confidence: medium
 scope: [AVCodec, CodecEngine, Plugin, HardwareCodec]
 service_scenario: 新需求开发 / 三方应用问题定位
@@ -250,10 +250,131 @@ int32_t AVCodecAudioCodecImpl::Init(AVCodecType type, bool isMimeType, const std
 
 ---
 
-## 8. 待确认问题
+## 8. 源码级证据（来自 gitee.com/openharmony/multimedia_av_codec）
 
-| # | 问题 | 关联 |
+### 8.1 AVCodecBaseFactory 完整实现（CRTP 编译期注册）
+
+> 源码：`services/engine/factory/av_codec_base_factory.h`
+
+```cpp
+template <typename I, typename Identity, typename... Args>
+class AVCodecBaseFactory {
+    // builders() 是静态 map，按 Identity（如 codec name）存储创建函数
+    static auto &builders() {
+        static std::unordered_map<Identity, builder> box;
+        return box;
+    }
+
+    // CRTP CodecRegister：子类 T 通过友元访问，触发编译期注册
+    template <typename T>
+    struct CodecRegister : public I {
+        friend T;
+        static bool avRegister() {
+            const auto r = T::Identify();  // 调用子类的 Identify() 获取注册键
+            builders()[r] = [](Args &&...args) -> std::shared_ptr<I> {
+                return std::make_shared<T>(std::forward<Args>(args)...);
+            };
+            return true;
+        }
+        static bool registered;  // 静态成员，在编译单元加载时触发 avRegister()
+    };
+};
+
+// 关键：静态成员定义，在 .cpp 中实例化即触发自注册
+template <typename I, typename Identify, typename... Args>
+template <typename T>
+bool AVCodecBaseFactory<I, Identify, Args...>::CodecRegister<T>::registered =
+    AVCodecBaseFactory<I, Identify, Args...>::CodecRegister<T>::avRegister();
+```
+
+**关键机制**：每个 codec 子类（如 `FCodec`、`HCodec`）只需要在头文件中声明 `CodecRegister<MyCodec>::registered` 静态成员，即可在编译单元加载时自动注册，无需集中注册表。`make_sharePtr(identity)` 按名称查找创建函数。
+
+### 8.2 VideoCodecLoader dlopen 实现
+
+> 源码：`services/engine/codec/video/video_codec_loader.cpp`
+
+```cpp
+int32_t VideoCodecLoader::Init() {
+    void *handle = dlopen(libPath_, RTLD_LAZY);  // 懒加载 so
+    CHECK_AND_RETURN_RET_LOG(handle != nullptr, AVCS_ERR_UNKNOWN,
+        "Load codec failed: %{public}s", libPath_);
+
+    auto handleSP = std::shared_ptr<void>(handle, dlclose);  // RAII 自动 dlclose
+
+    // 解析两个标准导出符号
+    auto createFunc = reinterpret_cast<CreateByNameFuncType>(
+        dlsym(handle, createFuncName_));
+    auto getCapsFunc = reinterpret_cast<GetCapabilityFuncType>(
+        dlsym(handle, getCapsFuncName_));
+
+    codecHandle_ = handleSP;
+    createFunc_ = createFunc;
+    getCapsFunc_ = getCapsFunc;
+    return AVCS_ERR_OK;
+}
+
+std::shared_ptr<CodecBase> VideoCodecLoader::Create(const std::string &name) {
+    std::shared_ptr<CodecBase> codec;
+    (void)createFunc_(name, codec);  // 调用 so 库内的 CreateByName 函数
+    return codec;
+}
+```
+
+**dlopen 失败排查三步**：1) 确认 `libPath_` 路径存在；2) 检查 `dlsym(createFuncName_)` 是否返回 nullptr（符号名不匹配）；3) 检查 so 库是否依赖其他库缺失。
+
+### 8.3 CodecBase 插件接口定义
+
+> 源码：`interfaces/plugin/codec_plugin.h`
+
+```cpp
+class CodecPlugin : public Plugins::PluginBase {
+public:
+    virtual Status GetInputBuffers(std::vector<std::shared_ptr<AVBuffer>> &inputBuffers) = 0;
+    virtual Status GetOutputBuffers(std::vector<std::shared_ptr<AVBuffer>> &outputBuffers) = 0;
+    virtual Status QueueInputBuffer(const std::shared_ptr<AVBuffer> &inputBuffer) = 0;
+    virtual Status QueueOutputBuffer(std::shared_ptr<AVBuffer> &outputBuffer) = 0;
+    virtual Status SetParameter(const std::shared_ptr<Meta> &parameter) = 0;
+    virtual Status GetParameter(std::shared_ptr<Meta> &parameter) = 0;
+    virtual Status Start() = 0;
+    virtual Status Stop() = 0;
+    virtual Status Flush() = 0;
+    virtual Status Reset() = 0;
+    virtual Status Release() = 0;
+    virtual Status SetDataCallback(DataCallback *dataCallback) = 0;
+};
+```
+
+### 8.4 AudioCodecServer::Create() 接入路径
+
+> 源码：`frameworks/native/avcodec/avcodec_audio_codec_impl.cpp`
+
+```cpp
+int32_t AVCodecAudioCodecImpl::Init(AVCodecType type, bool isMimeType, const std::string &name) {
+    // 检查是否支持 outer（厂商）codec
+    bool enableOuter = isMimeType
+        ? AVCodecMimeType::CheckAudioCodecMimeSupportOuter(name, ...)
+        : AVCodecCodecName::CheckAudioCodecNameSupportOuter(name);
+    if (!enableOuter) {
+        return AVCS_ERR_UNSUPPORT;
+    }
+
+    codecService_ = AudioCodecServer::Create();  // 创建服务实例
+    CHECK_AND_RETURN_RET_LOG(codecService_ != nullptr, AVCS_ERR_UNKNOWN,
+        "failed to create codec service");
+
+    implBufferQueue_ = Media::AVBufferQueue::Create(...);  // 建立 buffer queue
+    return codecService_->Init(type, isMimeType, name, *format.GetMeta(), API_VERSION::API_VERSION_11);
+}
+```
+
+注意：`AudioCodecServer::Create()` 在 `multimedia_av_codec` 仓库中未直接暴露工厂调用细节，但从调用链可知它是服务实例的创建入口，实际 codec 实例创建逻辑在 `services/` 层（属于 `multimedia_services` 仓库）。
+
+---
+
+## 9. 待确认问题（已部分明确）
+
+| # | 问题 | 状态 |
 |---|------|------|
-| Q1 | AudioCodecServer 内部是否也使用 AVCodecBaseFactory 创建 codec 实例？ | 需确认 `services/services/codec/server/audio/` 内是否有 factory 调用 |
-| Q2 | 厂商 so 插件路径由谁配置？是在 config.json 还是编译时指定？ | 影响新增硬件 codec 的接入流程 |
-| Q3 | VideoCodecLoader 的 `libPath_` 是如何在运行时确定的？ | 影响问题定位（dlopen 失败排查路径）|
+| Q1 | AudioCodecServer 内部是否也使用 AVCodecBaseFactory 创建 codec 实例？ | AudioCodecServer::Create() 在 services 层，factory 注册机制在 `services/engine/factory/`，两者协同工作；具体 services 层实现需参考 `multimedia_services` 仓库 |
+| Q2 | 厂商 so 插件路径由谁配置？ | libPath_ 由 VideoCodecLoader 子类（HCodecLoader）指定，通过编译期配置或硬件抽象层（HAL）注入 |
+| Q3 | VideoCodecLoader 的 `libPath_` 运行时确定方式？ | dlopen 失败时，日志关键字 "Load codec failed" 可直接定位 libPath_ 值，排查顺序：路径是否存在 → 符号是否导出 → 依赖库是否缺失 |
