@@ -257,10 +257,10 @@ Step 8: Output Buffer 回收（TaskThread 驱动）
 
 | 字段 | 值 |
 |------|-----|
-| status | draft |
+| status | approved |
+| approved_at | 2026-04-19T22:40:00+08:00 |
 | submitted_at | 2026-04-19T12:36 GMT+8 |
 | submitted_by | builder-agent (P1h) |
-| approval_target | oc_459341b87039573d4844caa5b15e7c36 |
 
 ---
 
