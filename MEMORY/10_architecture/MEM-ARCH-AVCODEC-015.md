@@ -66,7 +66,7 @@ API Call (返回 AVCS_ERR_*)
 | `AVCS_ERR_NO_MEMORY` | 内存不足 | buffer 分配失败 |
 | `AVCS_ERR_INVALID_STATE` | 状态非法 | 未初始化时调用 Start |
 | `AVCS_ERR_INVALID_PARAM` | 参数非法 | null pointer / 非法值 |
-| `AVCS_ERR_UNSUPPORTED` | 能力不支持 | 不支持的 codec / format |
+| `AVCS_ERR_UNSUPPORT` | 能力不支持 | 不支持的 codec / format（注意：无 ED 后缀） |
 | `AVCS_ERR_UNKNOWN` | 未知错误 | dlopen 失败 / 插件加载失败 |
 
 **错误码使用模式**：
@@ -107,7 +107,7 @@ int32_t AVCodecAudioCodecImpl::Init(AVCodecType type, bool isMimeType, const std
 AVCODEC_LOGE_LIMIT(100, "codec error occurred");
 ```
 
-> Evidence: `services/dfx/avcodec_errors.h` — 完整错误码定义（需确认具体路径）；`services/dfx/include/avcodec_log.h` — CHECK_AND_RETURN_RET_LOG + 限频宏
+> Evidence: `interfaces/inner_api/native/avcodec_errors.h` — 完整错误码定义（50+错误码，已验证）；`services/dfx/include/avcodec_log.h` — CHECK_AND_RETURN_RET_LOG + 限频宏
 
 ---
 
@@ -436,7 +436,7 @@ HiSysEventWrite(MULTI_MEDIA domain, "DEMUXER_FAILURE", FAULT, ...)
 
 | 文件 | 职责 |
 |------|------|
-| `services/dfx/avcodec_errors.h` | 错误码常量定义（AVCS_ERR_*） |
+| `interfaces/inner_api/native/avcodec_errors.h` | 错误码常量定义（AVCS_ERR_*，共50+个） |
 | `services/dfx/include/avcodec_log.h` | 日志宏 + CHECK_AND_RETURN_RET_LOG + 限频宏 |
 | `services/dfx/avcodec_sysevent.cpp` | HiSysEvent 写入实现（7个 Write 函数） |
 | `services/dfx/include/avcodec_sysevent.h` | FaultType 枚举 + 6 个 FaultInfo struct |
@@ -445,7 +445,28 @@ HiSysEventWrite(MULTI_MEDIA domain, "DEMUXER_FAILURE", FAULT, ...)
 
 ---
 
-## 7. 相关已入库条目
+## 7. 错误码速查（精选）
+
+> 完整50+错误码见 `interfaces/inner_api/native/avcodec_errors.h`（已验证）
+
+| 错误码 | 含义 | 错误码 | 含义 |
+|--------|------|--------|------|
+| `AVCS_ERR_OK` | 成功 | `AVCS_ERR_STREAM_CHANGED` | 输出格式变化 |
+| `AVCS_ERR_NO_MEMORY` | 内存不足 | `AVCS_ERR_INPUT_DATA_ERROR` | 输入数据错误 |
+| `AVCS_ERR_INVALID_OPERATION` | 操作不允许 | `AVCS_ERR_VIDEO_UNSUPPORT_COLOR_SPACE_CONVERSION` | 色彩空间不支持 |
+| `AVCS_ERR_INVALID_VAL` | 参数非法 | `AVCS_ERR_ILLEGAL_PARAMETER_SETS` | 非法的参数集 |
+| `AVCS_ERR_UNKNOWN` | 未知错误 | `AVCS_ERR_MISSING_PARAMETER_SETS` | 缺少参数集 |
+| `AVCS_ERR_SERVICE_DIED` | 服务已死 | `AVCS_ERR_INSUFFICIENT_HARDWARE_RESOURCES` | 硬件资源不足 |
+| `AVCS_ERR_INVALID_STATE` | 状态非法 | `AVCS_ERR_UNSUPPORTED_CODEC_SPECIFICATION` | 不支持的 codec spec |
+| `AVCS_ERR_UNSUPPORT` | 能力不支持 | `AVCS_ERR_TRY_AGAIN` | 稍后重试 |
+| `AVCS_ERR_DEMUXER_FAILED` | 解封装失败 | `AVCS_ERR_DECRYPT_FAILED` | DRM 解密失败 |
+| `AVCS_ERR_MUXER_FAILED` | 封装失败 | `AVCS_ERR_NOT_ENOUGH_DATA` | 输出 buffer 未满 |
+| `AVCS_ERR_AUD_DEC_FAILED` | 音频解码失败 | `AVCS_ERR_END_OF_STREAM` | 流结束 |
+| `AVCS_ERR_VID_DEC_FAILED` | 视频解码失败 | `AVCS_ERR_IPC_UNKNOWN` | IPC 未知错误 |
+
+---
+
+## 8. 相关已入库条目
 
 - **MEM-DEVFLOW-008** — 问题定位首查路径（四步决策树 + XCollie/HiSysEvent）
 - **MEM-ARCH-AVCODEC-002** — DFX 统计事件框架职责边界
@@ -453,10 +474,12 @@ HiSysEventWrite(MULTI_MEDIA domain, "DEMUXER_FAILURE", FAULT, ...)
 
 ---
 
-## 8. 待确认问题
+## 9. Q&A（已验证）
 
-| # | 问题 | 状态 |
+| # | 问题 | 答案 |
 |---|------|------|
-| Q1 | AVCS_ERR_* 完整错误码列表在哪里？ | 路径可能是 `services/dfx/avcodec_errors.h`，需确认 |
-| Q2 | 限频宏 AVCODEC_LOGE_LIMIT 的 frequency 参数单位是什么？ | 频率（N 条日志打印一次） |
-| Q3 | COLLIE_LISTEN 的 recovery 参数作用？ | recovery=true 时 XCollie FLAG 会带上 RECOVERY 标志，用于自动恢复场景 |
+| Q1 | ~~错误码文件在哪里？~~ | ✅ `interfaces/inner_api/native/avcodec_errors.h`（已验证） |
+| Q2 | `AVCS_ERR_UNSUPPORTED` 还是 `AVCS_ERR_UNSUPPORT`？ | ✅ 正确为 `AVCS_ERR_UNSUPPORT`（无 ED 后缀） |
+| Q3 | 限频宏 AVCODEC_LOGE_LIMIT 的 frequency 参数含义？ | ✅ 每 N 次调用打印一次（第 N 次触发打印） |
+| Q4 | COLLIE_LISTEN 的 recovery 参数作用？ | recovery=true → XCollie FLAG 带 RECOVERY 标志，用于自动恢复场景 |
+| Q5 | SetInterfaceTimer 的 dumpLog 参数作用？ | 设为 true 时超时会触发额外日志转储（需进一步确认） |
