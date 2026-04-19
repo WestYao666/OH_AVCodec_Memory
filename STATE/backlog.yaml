@@ -25,8 +25,8 @@
 | P1c ✅ muxer封装流程 | AVCodec, Muxer | 三方应用/新需求开发 | **approved** | MEM-ARCH-AVCODEC-008 | | 封装步骤与插件机制 |
 | P1d ✅ 硬件vs软件Codec区分 | AVCodec, HW | 三方应用/问题定位 | **approved** | MEM-ARCH-AVCODEC-009 | | codecIsVendor / 切换机制 |
 | P1e ✅ Codec实例生命周期 | AVCodec, Core | 新需求开发 | **approved** | MEM-ARCH-AVCODEC-010 | | Create→Configure→Start→Stop→Release |
-| P1f | Codec Engine 架构（CodecBase+Loader+Factory三层插件） | AVCodec, CodecEngine, Plugin | 新需求开发/问题定位 | **pending** | MEM-ARCH-AVCODEC-014 | 草案已生成，已提交审批队列 |
-| P1g ✅ | Codec 错误处理与恢复机制 | AVCodec, ErrorHandling, DFX | 问题定位 | **pending** | MEM-ARCH-AVCODEC-015 | 草案已提交审批队列（2026-04-19T12:22） |
+| P1f | Codec Engine 架构（CodecBase+Loader+Factory三层插件） | AVCodec, CodecEngine, Plugin | 新需求开发/问题定位 | **in_review** | MEM-ARCH-AVCODEC-014 | 草案已生成，已提交审批队列 |
+| P1g ✅ | Codec 错误处理与恢复机制 | AVCodec, ErrorHandling, DFX | 问题定位 | **in_review** | MEM-ARCH-AVCODEC-015 | 草案已提交审批队列（2026-04-19T12:22） |
 
 ---
 
@@ -48,7 +48,7 @@
 | P3a | DFX 统计事件框架职责边界 | DFX | 三方应用/问题定位 | **approved** | ✅ 已入库 MEM-ARCH-AVCODEC-002 |
 | P3b | 日志定位流程 | DFX, Log | 问题定位 | **approved** | ✅ 已入库 MEM-DEVFLOW-003 |
 | P3c | 新增 DFX 事件接入流程 | DFX | 新需求开发 | **approved** | ✅ 已入库 MEM-DEVFLOW-004 |
-| P3d | 问题定位首查路径 | DFX | 问题定位 | ✅ 已入库 MEM-DEVFLOW-008 | ✅ 已入库 MEM-DEVFLOW-008（草案待审） |
+| P3d | 问题定位首查路径 | DFX | 问题定位 | ✅ 已入库 MEM-DEVFLOW-008 | ✅ 已入库 MEM-DEVFLOW-008（草案已审批） |
 
 ---
 
@@ -93,6 +93,14 @@
 - 优先做 P1（Codec 核心功能）和 P2（接口接入），DFX 只做 P3a
 - 完成后标记状态并更新备注
 - backlog 变更需要 commit
+
+---
+
+## 新增主题（2026-04-19 Builder评估）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| P1h | AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制 | AVCodec, Core, BufferQueue | 新需求开发/问题定位 | pending | 草案待生成 |
 
 ---
 
