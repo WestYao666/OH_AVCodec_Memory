@@ -2,9 +2,10 @@
 id: MEM-ARCH-AVCODEC-014
 title: Codec Engine 架构——CodecBase + Loader + Factory 三层插件机制
 type: architecture_fact
-status: draft
+status: approved
+approved_at: "2026-04-19T22:40:00+08:00"
 created_at: 2026-04-19T11:36:00+08:00
-updated_at: 2026-04-19T11:36:00+08:00
+updated_at: 2026-04-19T22:40:00+08:00
 author: builder-agent
 tags: [AVCodec, CodecEngine, Plugin, dlopen, CRTP, Factory]
 related_scenes: [新需求开发, 三方应用问题定位, 硬件/软件Codec区分]

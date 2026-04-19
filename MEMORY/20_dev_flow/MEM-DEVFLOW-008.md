@@ -2,7 +2,8 @@
 id: MEM-DEVFLOW-008
 title: 问题定位首查路径——症状→工具→域/标签→细节决策树
 type: dev_flow
-status: draft
+status: approved
+approved_at: "2026-04-19T22:40:00+08:00"
 confidence: high
 scope: [DFX, 问题定位]
 service_scenario: 三方应用/问题定位

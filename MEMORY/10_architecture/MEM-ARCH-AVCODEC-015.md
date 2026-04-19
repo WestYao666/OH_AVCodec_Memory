@@ -2,9 +2,10 @@
 id: MEM-ARCH-AVCODEC-015
 title: Codec 错误处理与恢复机制——错误码/HiSysEvent/XCollie 三层联动
 type: architecture_fact
-status: draft
+status: approved
+approved_at: "2026-04-19T22:40:00+08:00"
 created_at: 2026-04-19T12:22:00+08:00
-updated_at: 2026-04-19T12:22:00+08:00
+updated_at: 2026-04-19T22:40:00+08:00
 author: builder-agent
 tags: [AVCodec, ErrorHandling, Recovery, DFX, HiSysEvent, XCollie, ErrorCode]
 related_scenes: [问题定位, 三方应用, 新需求开发]
