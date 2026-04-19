@@ -165,37 +165,51 @@ faultType_summary:
     - RECORD_AUDIO_FAILURE
     yaml_definable: false (平台侧管理)
 evidence:
+  # gitcode.com探索（2026-04-19，代码验证于本地 OH_AVCodec）
   - kind: code
-    ref: https://gitee.com/openharmony/multimedia_av_codec/blob/master/services/dfx/avcodec_sysevent.cpp
-    anchor: FAULT_TYPE_TO_STRING + 两个 domain 分支
+    ref: https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/dfx/avcodec_sysevent.cpp
+    anchor: Line 30-35: HISYSEVENT_DOMAIN_AVCODEC + FAULT_TYPE_TO_STRING; Line 64/101/114/125/136/149: 两个 domain 分支
+    local_verified: /home/west/OH_AVCodec/services/dfx/avcodec_sysevent.cpp
     note: |
-      FAULT_TYPE_TO_STRING: FREEZE/Crash/Inner error
-      AV_CODEC domain: FAULT, CODEC_START_INFO, CODEC_STOP_INFO, SERVICE_START_INFO
-      MULTI_MEDIA domain: DEMUXER_FAILURE, AUDIO_CODEC_FAILURE, VIDEO_CODEC_FAILURE, MUXER_FAILURE, RECORD_AUDIO_FAILURE
+      Line 30: constexpr char HISYSEVENT_DOMAIN_AVCODEC[] = "AV_CODEC";
+      Line 33-35: FAULT_TYPE_TO_STRING → Freeze/Crash/Inner error
+      Line 64: HiSysEventWrite(..., Domain::MULTI_MEDIA, "MEDIAKIT_STATISTICS", ...)
+      Line 101: HiSysEventWrite(..., Domain::MULTI_MEDIA, "DEMUXER_FAILURE", ...)
+      Line 114: HiSysEventWrite(..., Domain::MULTI_MEDIA, "AUDIO_CODEC_FAILURE", ...)
+      Line 125: HiSysEventWrite(..., Domain::MULTI_MEDIA, "VIDEO_CODEC_FAILURE", ...)
+      Line 136: HiSysEventWrite(..., Domain::MULTI_MEDIA, "MUXER_FAILURE", ...)
+      Line 149: HiSysEventWrite(..., Domain::MULTI_MEDIA, "RECORD_AUDIO_FAILURE", ...)
   - kind: code
-    ref: https://gitee.com/openharmony/multimedia_av_codec/blob/master/services/dfx/avcodec_xcollie.cpp
-    anchor: ServiceInterfaceTimerCallback / ClientInterfaceTimerCallback
+    ref: https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/dfx/avcodec_xcollie.cpp
+    anchor: Line 151-166: ServiceInterfaceTimerCallback; Line 170: ClientInterfaceTimerCallback; Line 161: threshold=1
+    local_verified: /home/west/OH_AVCodec/services/dfx/avcodec_xcollie.cpp
     note: |
-      Service 超时 → FAULT_TYPE_FREEZE + _exit(-1)（杀进程）
-      Client 超时 → FAULT_TYPE_FREEZE（不杀进程）
-      threshold = 1，首次超时计数，第2次杀进程
+      Line 151: ServiceInterfaceTimerCallback() → HiSysEvent FREEZE + _exit(-1)
+      Line 161: threshold = 1（首次超时计数，第2次才杀进程）
+      Line 170: ClientInterfaceTimerCallback() → HiSysEvent FREEZE（不杀进程）
   - kind: code
-    ref: https://gitee.com/openharmony/multimedia_av_codec/blob/master/services/dfx/include/avcodec_xcollie.h
+    ref: https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/dfx/include/avcodec_xcollie.h
     anchor: timerTimeout = 10, SetInterfaceTimer 默认 30s, COLLIE_LISTEN 宏
+    local_verified: /home/west/OH_AVCodec/services/dfx/include/avcodec_xcollie.h
     note: |
       constexpr uint32_t timerTimeout = 10（默认10秒）
       SetInterfaceTimer(uint32_t timeout = 30)
       COLLIE_LISTEN(stmt, name, isService, recovery, timeout) RAII 便捷宏
   - kind: code
-    ref: https://gitee.com/openharmony/multimedia_av_codec/blob/master/services/dfx/include/avcodec_log.h
-    anchor: 6个 LOG_DOMAIN 定义 + AVCODEC_LOGF/LOGE/LOGW/LOGI/LOGD + _LIMIT 限频宏
+    ref: https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/dfx/include/avcodec_log.h
+    anchor: Line 25-37: 7个 LOG_DOMAIN 定义（0xD002B30 ~ 0xD002B3B）
+    local_verified: /home/west/OH_AVCodec/services/dfx/include/avcodec_log.h
     note: |
-      FRAMEWORK(0xD002B30) / AUDIO(0xD002B31) / HCODEC(0xD002B32) /
-      TEST(0xD002B36) / DEMUXER(0xD002B3A) / MUXER(0xD002B3B)
-      限频宏：AVCODEC_LOGE_LIMIT / AVCODEC_LOGW_LIMIT / AVCODEC_LOGI_LIMIT / AVCODEC_LOGD_LIMIT
+      Line 25: LOG_DOMAIN_FRAMEWORK 0xD002B30
+      Line 27: LOG_DOMAIN_AUDIO 0xD002B31
+      Line 29: LOG_DOMAIN_HCODEC 0xD002B32
+      Line 33: LOG_DOMAIN_TEST 0xD002B36
+      Line 35: LOG_DOMAIN_DEMUXER 0xD002B3A
+      Line 37: LOG_DOMAIN_MUXER 0xD002B3B
   - kind: code
-    ref: https://gitee.com/openharmony/multimedia_av_codec/blob/master/services/dfx/include/avcodec_trace.h
+    ref: https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/dfx/include/avcodec_trace.h
     anchor: AVCODEC_SYNC_TRACE / TraceBegin/TraceEnd / CounterTrace, HITRACE_TAG_ZMEDIA
+    local_verified: /home/west/OH_AVCodec/services/dfx/include/avcodec_trace.h
     note: |
       HITRACE_TAG_ZMEDIA，AVCODEC_SYNC_TRACE 标记函数入口，
       TraceBegin/End 支持异步 trace，CounterTrace 记录计数器
@@ -217,5 +231,11 @@ review:
   change_policy: update_on_code_change
 update_trigger: 新增 FAULT 事件类型 / 新增 LOG_DOMAIN / XCollie 阈值调整
 created_at: "2026-04-19"
-updated_at: "2026-04-19"
+updated_at: "2026-04-19T13:40:00+08:00"
+revised_by: builder-agent (gitcode.com 探索 + 本地代码验证)
+revision_note: |
+  - 将 evidence ref 从 gitee.com 更新为 gitcode.com
+  - 增加 Line number anchors 和 local_verified 字段
+  - 本地验证文件: /home/west/OH_AVCodec/services/dfx/{avcodec_sysevent.cpp,avcodec_xcollie.cpp}
+  - 本地验证文件: /home/west/OH_AVCodec/services/dfx/include/{avcodec_log.h,avcodec_xcollie.h,avcodec_trace.h}
 ---

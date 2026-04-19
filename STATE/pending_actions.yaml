@@ -16,5 +16,17 @@ queue:
     submitted_by: builder-agent
     submitted_at: "2026-04-19T13:07:00+08:00"
     summary: Codec Engine 架构——CodecBase + Loader + Factory 三层插件机制
+  - type: draft_submission
+    mem_id: MEM-DEVFLOW-008
+    decision: pending
+    submitted_by: builder-agent
+    submitted_at: "2026-04-19T13:40:00+08:00"
+    summary: 问题定位首查路径——症状→工具→域/标签→细节决策树
+    topic: P3d
+    evidence_sources:
+      - https://gitcode.com/openharmony/multimedia_av_codec (explored, local code verified)
+      - /home/west/OH_AVCodec/services/dfx/avcodec_sysevent.cpp
+      - /home/west/OH_AVCodec/services/dfx/avcodec_xcollie.cpp
+      - /home/west/OH_AVCodec/services/dfx/include/avcodec_log.h
 
-last_updated: "2026-04-19T13:07:00+08:00"
+last_updated: "2026-04-19T13:40:00+08:00"
