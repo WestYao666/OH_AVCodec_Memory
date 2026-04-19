@@ -3,13 +3,12 @@
 
 ---
 
-queue: []
+queue:
+  - type: draft_submission
+    mem_id: MEM-ARCH-AVCODEC-015
+    decision: pending
+    submitted_by: builder-agent
+    submitted_at: "2026-04-19T12:22:00+08:00"
+    summary: Codec 错误处理与恢复机制——错误码/HiSysEvent/XCollie 三层联动
 
-# 格式：
-# - type: approval_response
-#   decision: approve|revise|reject|hold
-#   mem_id: MEM-ARCH-AVCODEC-XXX
-#   timestamp: ISO8601
-
-last_updated: "2026-04-19T01:20:00Z"
-queue: []
+last_updated: "2026-04-19T12:22:00+08:00"
