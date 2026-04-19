@@ -28,5 +28,17 @@ queue:
       - /home/west/OH_AVCodec/services/dfx/avcodec_sysevent.cpp
       - /home/west/OH_AVCodec/services/dfx/avcodec_xcollie.cpp
       - /home/west/OH_AVCodec/services/dfx/include/avcodec_log.h
+  - type: draft_submission
+    mem_id: MEM-ARCH-AVCODEC-016
+    decision: pending
+    submitted_by: builder-agent
+    submitted_at: "2026-04-19T21:36:00+08:00"
+    summary: AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制
+    topic: P1h
+    evidence_sources:
+      - https://gitcode.com/openharmony/multimedia_av_codec (explored)
+      - /home/west/OH_AVCodec/services/utils/task_thread.cpp
+      - /home/west/OH_AVCodec/services/media_engine/filters/surface_decoder_adapter.cpp
+      - /home/west/OH_AVCodec/services/media_engine/modules/demuxer/sample_queue.h
 
-last_updated: "2026-04-19T13:40:00+08:00"
+last_updated: "2026-04-19T21:36:00+08:00"
