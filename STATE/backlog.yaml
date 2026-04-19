@@ -25,8 +25,8 @@
 | P1c ✅ muxer封装流程 | AVCodec, Muxer | 三方应用/新需求开发 | **approved** | MEM-ARCH-AVCODEC-008 | | 封装步骤与插件机制 |
 | P1d ✅ 硬件vs软件Codec区分 | AVCodec, HW | 三方应用/问题定位 | **approved** | MEM-ARCH-AVCODEC-009 | | codecIsVendor / 切换机制 |
 | P1e ✅ Codec实例生命周期 | AVCodec, Core | 新需求开发 | **approved** | MEM-ARCH-AVCODEC-010 | | Create→Configure→Start→Stop→Release |
-| P1f | Codec Engine 架构（CodecBase+Loader+Factory三层插件） | AVCodec, CodecEngine, Plugin | 新需求开发/问题定位 | **in_review** | MEM-ARCH-AVCODEC-014 | 草案已生成，已提交审批队列 |
-| P1g ✅ | Codec 错误处理与恢复机制 | AVCodec, ErrorHandling, DFX | 问题定位 | **in_review** | MEM-ARCH-AVCODEC-015 | 草案已提交审批队列（2026-04-19T12:22） |
+| P1f | Codec Engine 架构（CodecBase+Loader+Factory三层插件） | AVCodec, CodecEngine, Plugin | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-014 | ✅ 已入库 |
+| P1g ✅ | Codec 错误处理与恢复机制 | AVCodec, ErrorHandling, DFX | 问题定位 | **approved** | MEM-ARCH-AVCODEC-015 | ✅ 已入库 |
 
 ---
 
@@ -100,8 +100,8 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| P1h | AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制 | AVCodec, Core, BufferQueue | 新需求开发/问题定位 | **in_review** | MEM-ARCH-AVCODEC-016 | 草案已生成，已提交审批队列（2026-04-19T20:36） |
-| P1i | DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链 | AVCodec, DRM, CENC, ContentProtection | 三方应用/新需求开发/问题定位 | **in_review** | MEM-ARCH-AVCODEC-017 | 草案已生成，9条证据已验证，提交审批队列（2026-04-20T02:35） |
+| P1h | AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制 | AVCodec, Core, BufferQueue | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-016 | ✅ 已入库（2026-04-19T22:40） |
+| P1i | DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链 | AVCodec, DRM, CENC, ContentProtection | 三方应用/新需求开发/问题定位 | **in_review** | MEM-ARCH-AVCODEC-017 | ✅ 审批队列中，等待耀耀审批 |
 
 ---
 
