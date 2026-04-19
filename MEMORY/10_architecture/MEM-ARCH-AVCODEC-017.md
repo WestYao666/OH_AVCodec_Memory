@@ -3,8 +3,10 @@ id: MEM-ARCH-AVCODEC-017
 title: DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链
 type: architecture_fact
 scope: [AVCodec, DRM, CENC, ContentProtection, SecureVideoPath, SVP]
-status: draft
-confidence: medium
+status: in_review
+confidence: high
+submitted_at: "2026-04-20T02:22:00+08:00"
+submitted_by: builder-agent
 summary: >
   AVCodec 的 DRM 解密由 CodecDrmDecrypt 类处理，位于 services/drm_decryptor/ 目录，
   支持 AVC/H264、HEVC/H265、AVS 三种视频格式的 CENC (Common Encryption) 解密。
@@ -96,12 +98,15 @@ related:
  - MEM-DEVFLOW-003      (DFX: avcodec_xcollie 看门狗)
 owner: builder-agent
 review:
-  owner: 待指定
-  submitted_at: "2026-04-19T23:20:00+08:00"
+  owner: 耀耀
+  decision: pending_review
+  submitted_at: "2026-04-20T02:22:00+08:00"
+  approval_trigger: 飞书审批指令（approve/revise/reject）
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-19T23:20:00+08:00"
-updated_at: "2026-04-20T01:25:00+08:00"
+updated_at: "2026-04-20T03:05:00+08:00"
+last_action: status updated to in_review, memory file aligned with pending_actions queue
 source_repo: https://gitcode.com/openharmony/multimedia_av_codec
 source_commit: local clone (OH_AVCodec)
 notes: |
