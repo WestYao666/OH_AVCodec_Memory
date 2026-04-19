@@ -6,7 +6,7 @@
 
 ---
 
-## 修订后的微主题（共 20 个）
+## 修订后的微主题（共 21 个）
 
 ### P0 - 核心骨架（已完成）
 
@@ -25,6 +25,7 @@
 | P1c ✅ muxer封装流程 | AVCodec, Muxer | 三方应用/新需求开发 | **approved** | MEM-ARCH-AVCODEC-008 | | 封装步骤与插件机制 |
 | P1d ✅ 硬件vs软件Codec区分 | AVCodec, HW | 三方应用/问题定位 | **approved** | MEM-ARCH-AVCODEC-009 | | codecIsVendor / 切换机制 |
 | P1e ✅ Codec实例生命周期 | AVCodec, Core | 新需求开发 | **approved** | MEM-ARCH-AVCODEC-010 | | Create→Configure→Start→Stop→Release |
+| P1f | Codec Engine 架构（CodecBase+Loader+Factory三层插件） | AVCodec, CodecEngine, Plugin | 新需求开发/问题定位 | **pending** | MEM-ARCH-AVCODEC-014 | 新增条目：dlopen插件加载+CRTP工厂注册 |
 
 ---
 
@@ -74,7 +75,7 @@
 
 | 方向 | 数量 | 占比 |
 |------|------|------|
-| P1 Codec 核心功能 | 5个 | 25% |
+| P1 Codec 核心功能 | 6个 | 29% |
 | P2 接口与接入 | 4个 | 20% |
 | P3 DFX/调试（精简） | 4个 | 20% |
 | P4 开发流程 | 4个 | 20% |
