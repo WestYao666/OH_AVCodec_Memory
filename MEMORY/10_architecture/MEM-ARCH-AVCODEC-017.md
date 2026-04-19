@@ -108,6 +108,81 @@ notes: |
   GitCode HTML 页面被反爬保护拦截（返回 AtomGit 登录页），代码探索使用本地 clone。
   web_fetch 无法直接访问 GitCode 仓库页面，但本地 /home/west/OH_AVCodec 与 GitCode 同步。
   DRM 解密 topic 不在当前 backlog 中（P1-P5 未覆盖），作为新增发现记录。
+
+---
+## Evidence Validation via web_fetch (2026-04-20)
+
+GitCode 主站被 AtomGit 登录墙拦截（https://gitcode.com/openharmony/multimedia_av_codec）。
+通过 Gitee 官方镜像（https://gitee.com/openharmony/multimedia_av_codec）进行 web_fetch 验证：
+
+### ✅ 验证 1: codec_drm_decrypt.h — SvpMode 枚举
+- **URL**: https://gitee.com/openharmony/multimedia_av_codec/raw/master/services/drm_decryptor/codec_drm_decrypt.h
+- **状态**: ✅ 完全匹配
+- **关键片段**:
+  ```cpp
+  enum SvpMode : int32_t {
+      SVP_CLEAR = -1, /* it's not a protection video */
+      SVP_FALSE, /* it's a protection video but not need secure decoder */
+      SVP_TRUE, /* it's a protection video and need secure decoder */
+  };
+  class CodecDrmDecrypt {
+  public:
+      int32_t DrmVideoCencDecrypt(std::shared_ptr<AVBuffer> &inBuf, ...);
+      int32_t DrmAudioCencDecrypt(std::shared_ptr<AVBuffer> &inBuf, ...);
+      void SetDecryptionConfig(const sptr<DrmStandard::IMediaKeySessionService> &keySession, const bool svpFlag);
+  private:
+      int32_t svpFlag_ = SVP_CLEAR;
+  };
+  ```
+
+### ✅ 验证 2: media_codec.h — MediaCodec DRM 集成
+- **URL**: https://gitee.com/openharmony/multimedia_av_codec/raw/master/services/media_engine/modules/media_codec/media_codec.h
+- **状态**: ✅ 完全匹配（MediaCodec 类包含 DRM 相关成员）
+- **关键片段**:
+  ```cpp
+  enum class CodecErrorType : int32_t {
+      CODEC_ERROR_INTERNAL,
+      CODEC_DRM_DECRYTION_FAILED,  // 注意：头文件中拼写为 DECRYTION（非 DECRYPT）
+      CODEC_ERROR_EXTEND_START = 0X10000,
+  };
+  class MediaCodec {
+  public:
+      int32_t SetAudioDecryptionConfig(const sptr<DrmStandard::IMediaKeySessionService> &keySession, const bool svpFlag);
+  private:
+      Status DrmAudioCencDecrypt(std::shared_ptr<AVBuffer> &filledInputBuffer);
+  };
+  ```
+  ⚠️ 发现：头文件中错误码枚举为 `CODEC_DRM_DECRYTION_FAILED`（少一个 T），
+  而 MEM-ARCH-AVCODEC-015 中使用 `AVCS_ERR_DRM_DECRYPT_FAILED` —— 需确认哪个是实际错误码。
+
+### ✅ 验证 3: native_cencinfo.h — CENC API 常量
+- **URL**: https://gitee.com/openharmony/multimedia_av_codec/raw/master/interfaces/kits/c/native_cencinfo.h
+- **状态**: ✅ 完全匹配
+- **关键常量**:
+  ```c
+  #define DRM_KEY_ID_SIZE 16
+  #define DRM_KEY_IV_SIZE 16
+  #define DRM_KEY_MAX_SUB_SAMPLE_NUM 64
+  typedef enum DrmCencAlgorithm {
+      DRM_ALG_CENC_UNENCRYPTED = 0x0,
+      DRM_ALG_CENC_AES_CTR = 0x1,
+      DRM_ALG_CENC_AES_WV = 0x2,
+      DRM_ALG_CENC_AES_CBC = 0x3,
+      DRM_ALG_CENC_SM4_CBC = 0x4,
+      DRM_ALG_CENC_SM4_CTR = 0x5
+  } DrmCencAlgorithm;
+  typedef struct DrmSubsample {
+      uint32_t clearHeaderLen;
+      uint32_t payLoadLen;
+  } DrmSubsample;
+  ```
+
+### 发现的问题
+
+| 问题 | 影响 | 建议 |
+|------|------|------|
+| `CODEC_DRM_DECRYTION_FAILED` vs `AVCS_ERR_DRM_DECRYPT_FAILED` 拼写不一致 | 低：两者都可能存在，需确认错误码映射表 | 在 MEM-ARCH-AVCODEC-015 中注明差异 |
+| GitCode 无法直接访问 | 中：无法通过 GitCode 验证最新提交 | 建议维护者使用 Gitee 镜像作为主要验证源 |
 ---
 
 ## 1. DRM 解密模块定位
