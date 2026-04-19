@@ -25,8 +25,8 @@
 | P1c ✅ muxer封装流程 | AVCodec, Muxer | 三方应用/新需求开发 | **approved** | MEM-ARCH-AVCODEC-008 | | 封装步骤与插件机制 |
 | P1d ✅ 硬件vs软件Codec区分 | AVCodec, HW | 三方应用/问题定位 | **approved** | MEM-ARCH-AVCODEC-009 | | codecIsVendor / 切换机制 |
 | P1e ✅ Codec实例生命周期 | AVCodec, Core | 新需求开发 | **approved** | MEM-ARCH-AVCODEC-010 | | Create→Configure→Start→Stop→Release |
-| P1f | Codec Engine 架构（CodecBase+Loader+Factory三层插件） | AVCodec, CodecEngine, Plugin | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-014 | 草案已生成，等待审批 |
-| P1g ✅ | Codec 错误处理与恢复机制 | AVCodec, ErrorHandling, DFX | 问题定位 | **draft** | MEM-ARCH-AVCODEC-015 | 草案已生成，待送审 |
+| P1f | Codec Engine 架构（CodecBase+Loader+Factory三层插件） | AVCodec, CodecEngine, Plugin | 新需求开发/问题定位 | **pending** | MEM-ARCH-AVCODEC-014 | 草案已生成，已提交审批队列 |
+| P1g ✅ | Codec 错误处理与恢复机制 | AVCodec, ErrorHandling, DFX | 问题定位 | **pending** | MEM-ARCH-AVCODEC-015 | 草案已提交审批队列（2026-04-19T12:22） |
 
 ---
 

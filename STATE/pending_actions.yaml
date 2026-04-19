@@ -10,5 +10,11 @@ queue:
     submitted_by: builder-agent
     submitted_at: "2026-04-19T12:22:00+08:00"
     summary: Codec 错误处理与恢复机制——错误码/HiSysEvent/XCollie 三层联动
+  - type: draft_submission
+    mem_id: MEM-ARCH-AVCODEC-014
+    decision: pending
+    submitted_by: builder-agent
+    submitted_at: "2026-04-19T13:07:00+08:00"
+    summary: Codec Engine 架构——CodecBase + Loader + Factory 三层插件机制
 
-last_updated: "2026-04-19T12:22:00+08:00"
+last_updated: "2026-04-19T13:07:00+08:00"
