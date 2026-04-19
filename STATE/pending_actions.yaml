@@ -3,40 +3,6 @@
 
 ---
 
-queue:
-  - type: draft_submission
-    mem_id: MEM-ARCH-AVCODEC-015
-    decision: approved
-    approved_at: "2026-04-19T22:40:00+08:00"
-    approved_by: 耀耀
-    submitted_by: builder-agent
-    submitted_at: "2026-04-19T12:22:00+08:00"
-    summary: Codec 错误处理与恢复机制——错误码/HiSysEvent/XCollie 三层联动
-  - type: draft_submission
-    mem_id: MEM-ARCH-AVCODEC-014
-    decision: approved
-    approved_at: "2026-04-19T22:40:00+08:00"
-    approved_by: 耀耀
-    submitted_by: builder-agent
-    submitted_at: "2026-04-19T13:07:00+08:00"
-    summary: Codec Engine 架构——CodecBase + Loader + Factory 三层插件机制
-  - type: draft_submission
-    mem_id: MEM-DEVFLOW-008
-    decision: approved
-    approved_at: "2026-04-19T22:40:00+08:00"
-    approved_by: 耀耀
-    submitted_by: builder-agent
-    submitted_at: "2026-04-19T13:40:00+08:00"
-    summary: 问题定位首查路径——症状→工具→域/标签→细节决策树
-    topic: P3d
-  - type: draft_submission
-    mem_id: MEM-ARCH-AVCODEC-016
-    decision: approved
-    approved_at: "2026-04-19T22:40:00+08:00"
-    approved_by: 耀耀
-    submitted_by: builder-agent
-    submitted_at: "2026-04-19T21:36:00+08:00"
-    summary: AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制
-    topic: P1h
+queue: []
 
-last_updated: "2026-04-19T22:40:00+08:00"
+last_updated: "2026-04-19T22:50:00+08:00"
