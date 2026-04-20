@@ -1,7 +1,2 @@
-# pending_actions.yaml — 飞书审批指令队列
-# 由 feishu-minimax agent 写入，主 agent 读取处理
-
----
-
+last_updated: '2026-04-20T14:22:00.036772Z'
 queue: []
-last_updated: "2026-04-20T14:20:00+08:00"
