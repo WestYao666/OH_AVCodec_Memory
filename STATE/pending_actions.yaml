@@ -2,9 +2,9 @@
 # 自动清理，保留空队列结构
 queue:
   - id: MEM-ARCH-AVCODEC-018
-    type: approval_request
-    decision: pending_review
+    type: approval_response
+    decision: approved
     mem_id: MEM-ARCH-AVCODEC-018
-    timestamp: '2026-04-20T14:07:00.000000Z'
-    note: 'builder-agent draft complete, awaiting approval'
-last_updated: '2026-04-20T14:07:00.000000Z'
+    timestamp: "2026-04-21T01:58:00+08:00"
+    responder: ou_60d8641be684f82e8d9cb84c3015dde7
+last_updated: "2026-04-21T01:58:00+08:00"

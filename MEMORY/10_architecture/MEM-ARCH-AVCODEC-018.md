@@ -3,9 +3,10 @@ id: MEM-ARCH-AVCODEC-018
 title: 硬件编解码器 HDI 架构——IPC vs Passthrough 双模式与 CodecComponentManager 工厂
 type: architecture_fact
 scope: [AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager]
-status: draft
+status: approved
 confidence: high
 created_at: "2026-04-20T21:00:00+08:00"
+approved_at: "2026-04-21T02:05:00+08:00"
 author: builder-agent
 related_scenes: [新需求开发, 问题定位, 硬件/软件Codec区分, 安全视频路径]
 service_scenario: 新需求开发 / 问题定位 / 安全视频
