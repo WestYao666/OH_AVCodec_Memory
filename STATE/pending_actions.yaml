@@ -1,2 +1,4 @@
-last_updated: '2026-04-20T14:22:00.036772Z'
+# pending_actions.yaml — 记忆工厂审批队列
+# 自动清理，保留空队列结构
 queue: []
+last_updated: '2026-04-20T07:50:00.000000Z'
