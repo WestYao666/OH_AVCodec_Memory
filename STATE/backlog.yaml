@@ -111,4 +111,4 @@
 |------|------|------|
 | 2026-04-17 | 初始化 | 耀耀设计，初始 12 个微主题 |
 | 2026-04-17 | 修订 | 耀耀反馈 DFX 占比过高，重新规划 20 个微主题，DFX 从 42% 降至 20% |
-| P1j | 硬件编解码器 HDI 架构——IPC vs Passthrough 双模式与 CodecComponentManager 工厂 | AVCodec, HardwareCodec, HDI, IPC, Passthrough | 新需求开发/问题定位 | draft | MEM-ARCH-AVCODEC-018 | ✅ 草案已提交（2026-04-20T21:36） |
+| P1j | 硬件编解码器 HDI 架构——IPC vs Passthrough 双模式与 CodecComponentManager 工厂 | AVCodec, HardwareCodec, HDI, IPC, Passthrough | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-018 | ✅ 已入库（2026-04-20T22:05） |
