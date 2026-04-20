@@ -101,7 +101,7 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | P1h | AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制 | AVCodec, Core, BufferQueue | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-016 | ✅ 已入库（2026-04-19T22:40） |
-| P1i | DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链 | AVCodec, DRM, CENC, ContentProtection | 三方应用/新需求开发/问题定位 | **in_review** | MEM-ARCH-AVCODEC-017 | ✅ 审批队列中，等待耀耀审批 |
+| P1i | DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链 | AVCodec, DRM, CENC, ContentProtection | 三方应用/新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-017 | ✅ 审批队列中，等待耀耀审批 |
 
 ---
 
