@@ -17,12 +17,26 @@ import yaml
 import os
 from datetime import datetime
 from http.server import HTTPServer, BaseHTTPRequestHandler
-from urllib.parse import parse_qs
 
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 3000
 STATE_FILE = "/home/west/.openclaw/workspace-main/avcodec-dfx-memory/STATE/pending_actions.yaml"
 
 class CallbackHandler(BaseHTTPRequestHandler):
+    def send_json(self, code=0, msg="ok"):
+        payload = json.dumps({"code": code, "msg": msg}).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", len(payload))
+        self.end_headers()
+        self.wfile.write(payload)
+
+    def do_GET(self):
+        if self.path == "/":
+            self.send_json(0, "feishu callback server running")
+            return
+        self.send_response(404)
+        self.end_headers()
+
     def do_POST(self):
         if self.path != "/callback":
             self.send_response(404)
@@ -30,112 +44,86 @@ class CallbackHandler(BaseHTTPRequestHandler):
             self.wfile.write(b"not found")
             return
 
-        content_len = int(self.headers.get("Content-Length", 0))
-        body = self.rfile.read(content_len).decode("utf-8")
-        print(f"[Callback] POST /callback — {content_len} bytes", flush=True)
+        # Read content-length
+        cl = int(self.headers.get("Content-Length", 0) or 0)
+        if cl == 0:
+            body = b""
+        else:
+            body = self.rfile.read(cl)
+
+        print(f"[Callback] POST /callback — {cl} bytes", flush=True)
 
         try:
-            payload = json.loads(body)
+            payload = json.loads(body.decode("utf-8"))
         except Exception as e:
             print(f"[Callback] JSON parse error: {e}", flush=True)
-            self.send_response(400)
-            self.send_header("Content-Type", "application/json")
-            self.wfile.write(json.dumps({"code": 1, "msg": "invalid json"}).encode())
+            self.send_json(1, f"invalid json: {e}")
             return
 
-        # 解析 card callback
-        # 飞书 card callback 格式: { "action": { "value": "approve:MEM-XXX" } }
+        # 解析飞书 card callback 格式: { "action": { "value": "approve:MEM-XXX" } }
+        action_value = None
+        if "action" in payload and isinstance(payload["action"], dict):
+            action_value = payload["action"].get("value")
+
+        if not action_value:
+            print(f"[Callback] No action.value found in payload", flush=True)
+            self.send_json(0, "no action.value")
+            return
+
+        decision, mem_id = action_value.split(":", 1) if ":" in action_value else (action_value, None)
+        decision = decision.strip().lower()
+        print(f"[Callback] decision={decision}, mem_id={mem_id}", flush=True)
+
         action = {
             "timestamp": datetime.now().isoformat() + "Z",
             "type": "card_callback",
+            "decision": decision,
+            "mem_id": mem_id,
             "raw_payload": payload
         }
 
-        decision = None
-        mem_id = None
-
-        if "action" in payload and "value" in payload["action"]:
-            value = payload["action"]["value"]
-            print(f"[Callback] action.value = {value}", flush=True)
-            if ":" in value:
-                decision, mem_id = value.split(":", 1)
-            else:
-                decision = value
-                mem_id = None
-
-        if decision is None:
-            print(f"[Callback] No decision found in payload", flush=True)
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.wfile.write(json.dumps({"code": 0, "msg": "no decision"}).encode())
-            return
-
-        action["decision"] = decision
-        action["mem_id"] = mem_id
-
-        # 写入 pending_actions.yaml（保持 queue 结构）
+        # 写入 pending_actions.yaml
         try:
-            # 读取现有结构
             if os.path.exists(STATE_FILE):
                 with open(STATE_FILE, "r") as f:
                     data = yaml.safe_load(f) or {}
-                # 确保是 dict 结构
                 if not isinstance(data, dict):
                     data = {"queue": []}
             else:
                 data = {"queue": []}
 
-            # 规范化 decision 值（统一为 approve/revise/reject/hold）
-            norm_decision = decision.strip().lower()
-            action["decision"] = norm_decision
-
-            # 更新 last_updated
             data["last_updated"] = datetime.now().isoformat() + "Z"
-
-            # 查找同 mem_id 的 pending_review 条目，更新为 approved/revise/reject
             queue = data.setdefault("queue", [])
+
+            # 查找同 mem_id 的 pending approval_request，更新 decision
             found = False
             for item in queue:
                 if item.get("mem_id") == mem_id and item.get("type") == "approval_request":
-                    item["decision"] = norm_decision
+                    item["decision"] = decision
                     item["timestamp"] = action["timestamp"]
-                    if "responder" in payload:
-                        item["responder"] = payload.get("responder")
                     found = True
-                    print(f"[Callback] Updated existing approval_request for {mem_id}", flush=True)
+                    print(f"[Callback] Updated approval_request for {mem_id} → {decision}", flush=True)
                     break
 
             if not found:
-                # 没有 pending_request，直接追加 response
                 action["type"] = "approval_response"
                 queue.append(action)
                 print(f"[Callback] Appended new approval_response for {mem_id}", flush=True)
 
-            # 写回文件
             with open(STATE_FILE, "w") as f:
                 yaml.dump(data, f, allow_unicode=True, default_flow_style=False)
-            print(f"[Callback] Written to {STATE_FILE}", flush=True)
 
         except Exception as e:
             print(f"[Callback] Write error: {e}", flush=True)
-            action["write_error"] = str(e)
 
-        self.send_response(200)
-        self.send_header("Content-Type", "application/json")
-        self.wfile.write(json.dumps({"code": 0, "msg": "ok"}).encode())
-
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-Type", "text/plain")
-        self.wfile.write(b"feishu callback server running\n")
-        self.wfile.write(f"State file: {STATE_FILE}\n".encode())
+        self.send_json(0, "ok")
 
     def log_message(self, fmt, *args):
         print(f"[Callback] {fmt % args}", flush=True)
 
 if __name__ == "__main__":
     server = HTTPServer(("0.0.0.0", PORT), CallbackHandler)
-    print(f"Feishu callback server listening on 0.0.0.0:{PORT}")
-    print(f"Callback URL: http://<public-ip>:{PORT}/callback")
+    print(f"Feishu callback server listening on 0.0.0.0:{PORT}", flush=True)
+    print(f"Callback URL: http://<public-ip>:{PORT}/callback", flush=True)
     sys.stdout.flush()
     server.serve_forever()
