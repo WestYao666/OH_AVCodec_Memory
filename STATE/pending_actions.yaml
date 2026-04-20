@@ -1,4 +1,10 @@
 # pending_actions.yaml — 记忆工厂审批队列
 # 自动清理，保留空队列结构
-queue: []
-last_updated: '2026-04-20T07:50:00.000000Z'
+queue:
+  - id: MEM-ARCH-AVCODEC-018
+    type: approval_request
+    decision: pending_review
+    mem_id: MEM-ARCH-AVCODEC-018
+    timestamp: '2026-04-20T14:07:00.000000Z'
+    note: 'builder-agent draft complete, awaiting approval'
+last_updated: '2026-04-20T14:07:00.000000Z'
