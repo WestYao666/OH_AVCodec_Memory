@@ -3,7 +3,8 @@ id: MEM-ARCH-AVCODEC-017
 title: DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链
 type: architecture_fact
 scope: [AVCodec, DRM, CENC, ContentProtection, SecureVideoPath, SVP]
-status: in_review
+status: approved
+approved_at: "2026-04-20T14:08:00+08:00"
 confidence: high
 submitted_at: "2026-04-20T02:22:00+08:00"
 submitted_by: builder-agent

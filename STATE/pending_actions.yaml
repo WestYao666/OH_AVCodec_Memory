@@ -3,14 +3,5 @@
 
 ---
 
-queue:
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-017
-    title: "DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链"
-    submitted_at: "2026-04-20T02:22:00+08:00"
-    submitted_by: builder-agent (subagent)
-    decision: pending_review
-    validation: web_fetch from Gitee mirror (gitcode blocked)
-    evidence_count: 9 evidence items validated
-
-last_updated: "2026-04-19T23:27:00+08:00"
+queue: []
+last_updated: "2026-04-20T14:20:00+08:00"
