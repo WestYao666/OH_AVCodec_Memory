@@ -1,10 +1,4 @@
 # pending_actions.yaml — 记忆工厂审批队列
 # 自动清理，保留空队列结构
-queue:
-  - id: MEM-ARCH-AVCODEC-018
-    type: approval_response
-    decision: approved
-    mem_id: MEM-ARCH-AVCODEC-018
-    timestamp: "2026-04-21T01:58:00+08:00"
-    responder: ou_60d8641be684f82e8d9cb84c3015dde7
-last_updated: "2026-04-21T01:58:00+08:00"
+queue: []
+last_updated: "2026-04-21T02:05:00+08:00"
