@@ -3,8 +3,26 @@ id: MEM-ARCH-AVCODEC-S2
 title: interfaces/kits C API 视频编解码使用场景与 key 搭配
 scope: [AVCodec, API, Integration]
 status: draft
+author: Builder Agent
+created_at: "2026-04-21T23:07:00+08:00"
 type: architecture_fact
 confidence: medium
+tags: [AVCodec, API, Integration, VideoDecoder, VideoEncoder, OH_MD_KEY]
+evidence_links:
+  - https://gitee.com/openharmony/multimedia_av_codec/blob/master/interfaces/kits/c/native_avcodec_base.h
+  - https://gitee.com/openharmony/multimedia_av_codec/blob/master/interfaces/kits/c/native_avcodec_videodecoder.h
+  - https://gitee.com/openharmony/multimedia_av_codec/blob/master/interfaces/kits/c/native_avcodec_videoencoder.h
+related:
+  - MEM-ARCH-AVCODEC-011
+  - MEM-ARCH-AVCODEC-013
+  - MEM-ARCH-AVCODEC-010
+owner: 耀耀
+review:
+  owner: 耀耀
+  change_policy: update_on_code_change
+update_trigger: code_change
+created_at: "2026-04-21"
+updated_at: "2026-04-21"
 summary: >
   综合 AVCodec C API 契约（MEM-ARCH-AVCODEC-011）、参数配置体系（MEM-ARCH-AVCODEC-013）、
   实例生命周期（MEM-ARCH-AVCODEC-010），形成面向三方接入和新人的接口使用场景指南。
