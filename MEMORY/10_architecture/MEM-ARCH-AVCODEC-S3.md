@@ -27,10 +27,14 @@ review:
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-21"
-updated_at: "2026-04-21"
+updated_at: "2026-04-22"
+builder_verified: true
+builder_verified_at: "2026-04-22T01:40:00+08:00"
 ---
 
 # CodecServer Pipeline 数据流与状态机
+
+> **Builder 验证记录（2026-04-22）**：已通过本地 `/home/west/av_codec_repo` 代码仓库对关键路径进行逐行核对，确认以下内容与源码一致：CodecStatus 枚举办号（行50-57）、QueueInputBuffer 的 isFree_ 检查机制（行626）、Flush()→FLUSHED 转换（行416）、Stop()→CONFIGURED 转换（行381）、ReleaseOutputBuffer 双路径分发（行780-782）、framerateCalculator_ 集成（行768-777）。
 
 ## 1. 概述
 
@@ -59,7 +63,34 @@ enum CodecStatus {
 
 **源码证据**：`codec_server.h` 行 40-48
 
-### 2.2 完整状态转换图
+### 2.2 isFree_ 标志位（输入/输出拦截器）
+
+`isFree_` 是 CodecServer 的**双向拦截标志**，在 Stop/Flush/Reset/Release 时置为 `true`，在 Start 时重置为 `false`：
+
+| 方法 | 行号 | isFree_ 变化 | 效果 |
+|------|------|-------------|------|
+| Start() | 305 | `SetFreeStatus(false)` | 允许输入/输出 |
+| Stop() | 345 | `SetFreeStatus(true)` | 拒绝新输入 + 停止 releaseBufferTask_ |
+| Flush() | 391 | `SetFreeStatus(true)` | 停止输入，flush 后端 |
+| Reset() | 438 | `SetFreeStatus(true)` | 全面停止 |
+| Release() | 480 | `SetFreeStatus(true)` | 全面停止 |
+
+**源码证据**：`codec_server.cpp` 行 626/760
+```cpp
+// QueueInputBuffer 中检查（行626）
+if (isFree_) {
+    AVCODEC_LOGE_WITH_TAG("In invalid state, free out");
+    return AVCS_ERR_INVALID_STATE;
+}
+
+// ReleaseOutputBuffer 中检查（行760）
+if (isFree_) {
+    AVCODEC_LOGE_WITH_TAG("In invalid state, free out");
+    return AVCS_ERR_INVALID_STATE;
+}
+```
+
+### 2.3 完整状态转换图
 
 ```
                     ┌──────────────────────────────────────────────────────┐
@@ -126,7 +157,7 @@ inline void CodecServer::StatusChanged(CodecStatus newStatus, bool printLog)
 }
 ```
 
-### 2.3 关键状态转换条件
+### 2.4 关键状态转换条件
 
 | 当前状态 | 操作 | 目标状态 | 源码行 |
 |---------|------|---------|--------|
