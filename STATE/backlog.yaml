@@ -112,3 +112,22 @@
 | 2026-04-17 | 初始化 | 耀耀设计，初始 12 个微主题 |
 | 2026-04-17 | 修订 | 耀耀反馈 DFX 占比过高，重新规划 20 个微主题，DFX 从 42% 降至 20% |
 | P1j | 硬件编解码器 HDI 架构——IPC vs Passthrough 双模式与 CodecComponentManager 工厂 | AVCodec, HardwareCodec, HDI, IPC, Passthrough | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-018 | ✅ 已入库（2026-04-20T22:05） |
+
+---
+
+## 新增主题（耀耀 2026-04-21）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S1 | codec_server.cpp 所承载的能力、插件与类上下文 | AVCodec, Core, Server | 新需求开发/问题定位 | pending | 探索 codec_server 的服务注册、能力通告、插件加载机制 |
+| S2 | interfaces/kits/c/ 视频编解码使用场景与 key 搭配 | AVCodec, API, Integration | 三方应用/新人入项 | pending | 视频编码/解码各场景下的关键配置 key 如何搭配 |
+
+---
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-17 | 初始化 | 耀耀设计，初始 12 个微主题 |
+| 2026-04-17 | 修订 | 耀耀反馈 DFX 占比过高，重新规划 20 个微主题，DFX 从 42% 降至 20% |
+| 2026-04-21 | 新增 | 耀耀新增 S1（codec_server）、S2（kits C API 使用场景）两个主题 |
