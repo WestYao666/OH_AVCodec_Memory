@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S3
 title: CodecServer Pipeline 数据流与状态机
 scope: [AVCodec, Core, Pipeline, StateMachine]
-status: draft
+status: approved
+approved_at: "2026-04-22"
 author: Builder Agent
 created_at: "2026-04-21T23:21:00+08:00"
 type: architecture_fact

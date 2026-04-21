@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S1
 title: codec_server.cpp 所承载的能力、插件与类上下文
 scope: [AVCodec, Core, Server]
-status: draft
+status: approved
+approved_at: "2026-04-22"
 created: 2026-04-21
 updated: 2026-04-21
 evidence_sources:

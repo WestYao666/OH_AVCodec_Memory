@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S2
 title: interfaces/kits C API 视频编解码使用场景与 key 搭配
 scope: [AVCodec, API, Integration]
-status: draft
+status: approved
+approved_at: "2026-04-22"
 author: Builder Agent
 created_at: "2026-04-21T23:07:00+08:00"
 type: architecture_fact
