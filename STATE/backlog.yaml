@@ -121,6 +121,8 @@
 |---|------|-------|---------|------|------|
 | S1 | codec_server.cpp 所承载的能力、插件与类上下文 | AVCodec, Core, Server | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S1 | ✅ 已入库（2026-04-22） |
 | S2 | interfaces/kits/c/ 视频编解码使用场景与 key 搭配 | AVCodec, API, Integration | 三方应用/新人入项 | **approved** | MEM-ARCH-AVCODEC-S2 | ✅ 已入库（2026-04-22） |
+| S3 | CodecServer Pipeline 数据流与状态机 | AVCodec, Core, Pipeline, StateMachine | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S3 | ✅ 已入库（2026-04-22） |
+| S4 | Surface Mode 与 Buffer Mode 双模式切换机制 | AVCodec, Core, SurfaceMode, BufferMode, ModeSwitch | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S4 | ✅ 草案已生成（2026-04-22） |
 
 ---
 
