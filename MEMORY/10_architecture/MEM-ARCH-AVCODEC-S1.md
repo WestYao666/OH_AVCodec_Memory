@@ -4,211 +4,382 @@ title: codec_server.cpp 所承载的能力、插件与类上下文
 scope: [AVCodec, Core, Server]
 status: draft
 created: 2026-04-21
-evidence_sources: [gitcode/openharmony/multimedia_av_codec]
+updated: 2026-04-21
+evidence_sources:
+  - https://gitcode.com/openharmony/multimedia_av_codec
+  - local_repo: /home/west/av_codec_repo
 ---
 
 # MEM-ARCH-AVCODEC-S1
 
-> **codec_server.cpp** — 能力载体 · 服务注册层
+> **codec_server.cpp** — AVCodec 服务的核心类实例载体
 
 ## 1. 职责定位
 
-`codec_server` 是 AVCodec 模块中 **DFX（Diagnostics & Feedback eXtensibility）层** 下的系统服务进程。它承载以下核心职责：
+`CodecServer`（`services/services/codec/server/video/codec_server.cpp`）是 **AVCodec 模块的视频编解码服务实例容器**，不是独立进程，也不是 SA（System Ability）本身。它的核心定位：
 
 | 职责 | 说明 |
 |------|------|
-| 系统能力（SA）发布 | 将 AVCodec 编码/解码能力作为 SystemAbility 对外发布，供其他子系统发现和调用 |
-| 插件生命周期管理 | 负责加载/卸载 Codec 硬编解码插件（adapter 层），管理插件注册表 |
-| 进程间通信（IPC） | 承接来自 `CodecManager` / `CodecClient` 的 IPC 请求，分发给对应插件处理 |
-| 能力查询与通告 | 响应"当前系统支持哪些 Codec"等能力查询，返回 plugin info |
-| 错误上报与 DFX | 收集插件运行状态、错误码，通过 HiLog 输出供问题定位 |
+| Codec 实例生命周期管理 | 每一路编解码（encode/decode）对应一个独立的 `CodecServer` 实例 |
+| 插件选择与初始化 | 根据 codec name 或 MIME 类型，通过 `CodecFactory` 选择对应插件（软编/硬编） |
+| 数据流编排 | 管理输入/输出缓冲区、Surface 模式、回调分发 |
+| 状态机维护 | 维护 `UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/END_OF_STREAM→ERROR` 状态 |
+| 增值特性注入 | 可选注入 TemporalScalability、PostProcessing、SmartFluencyDecoding 等特性 |
 
-> **关联场景**：新需求开发时，需确认能力是否已在 codec_server 中注册为 SA；问题定位时，查看 codec_server 进程状态和插件加载日志。
-
----
-
-## 2. 主要类 / 插件上下文
-
-```
-codec_server.cpp (入口)
-  ├── CodecServerAbility (SA 主类)
-  │     ├── onStart()           — SA 首次启动时调用，加载插件
-  │     ├── onStop()            — SA 注销时调用，卸载插件
-  │     ├── OnRemoteRequest()   — IPC 请求入口，分发到 Handler
-  │     └── GetCodecList()      — 查询已注册的 Codec 能力列表
-  │
-  ├── CodecPluginManager (插件管理器)
-  │     ├── LoadPlugin()        — 动态加载 .so 插件
-  │     ├── UnloadPlugin()     — 卸载插件
-  │     └── GetPluginInfo()     — 返回插件元信息（name, mime, type）
-  │
-  ├── ICodecPlugin (插件接口抽象)
-  │     ├── Init()
-  │     ├── Encode()
-  │     ├── Decode()
-  │     └── Release()
-  │
-  └── CodecStub / CodecProxy (IPC 桩)
-        — 封装 Stub 侧和 Proxy 侧序列化逻辑
-```
-
-### 插件层级
-
-```
-┌──────────────────────────────────────────┐
-│         上层应用 (App / CodecClient)     │
-└────────────────────┬─────────────────────┘
-                     │ IPC
-┌────────────────────▼─────────────────────┐
-│    codec_server (codec_server.cpp)        │
-│         │ CodecServerAbility              │
-│         │ CodecPluginManager              │
-└────────────────────┬─────────────────────┘
-                     │ dlopen/dlsym
-┌────────────────────▼─────────────────────┐
-│    插件适配层 (libavcodec_xxx_adapter.so)│
-│         │ 实现 ICodecPlugin 接口          │
-└────────────────────┬─────────────────────┘
-                     │
-┌────────────────────▼─────────────────────┐
-│    硬件编解码单元 (VPU / DSP / MediaDSP) │
-└──────────────────────────────────────────┘
-```
+> **关键区分**：`CodecServer` 是实例级（per-codec），而 SA 服务注册/进程管理由 `CodecServiceStub`（`codec_service_stub.cpp`）处理。
 
 ---
 
-## 3. 服务注册与能力通告机制
+## 2. 类上下文与成员结构
 
-### SA 发布流程
+### 2.1 核心成员
 
 ```
-1. codec_server 进程启动
-2. CodecServerAbility::OnStart()
-3. CodecPluginManager::LoadAllPlugins()  — 遍历插件目录，加载 .so
-4. plugin.RegisterAbility()              — 各插件向 CodecServerAbility 注册自身能力
-5. CodecServerAbility::Publish()         — 调用 SA framework 的 Publish() 将能力发布到 SAMgr
-6. 其他进程通过 CodecManager::GetSystemAbility() 发现并连接
+CodecServer 类成员（按功能分组）
+
+生命周期与状态
+├── status_ : CodecStatus                // UNINITIALIZED|INITIALIZED|CONFIGURED|RUNNING|FLUSHED|EOS|ERROR
+├── codecBase_ : shared_ptr<CodecBase>   // ⭐ 实际插件实例，编解码逻辑的委托对象
+├── codecBaseCb_ : shared_ptr<CodecBaseCallback>  // CodecBase→CodecServer 的回调桥接
+├── codecType_ : AVCodecType             // VIDEO_ENCODER / VIDEO_DECODER / AUDIO_xxx
+├── codecName_ : string                  // 具体插件名，如 "avcdecoder" / "h265decoder_venc"
+├── codecMime_ : string                  // MIME 类型，如 "video/avc"
+└── instanceId_ : int32_t                // 实例唯一 ID
+
+编解码插件工厂
+├── CodecFactory::Instance()             // 单例工厂，根据 codec name 加载对应 CodecBase 插件
+│   ├── FCodecLoader  → libfcodec.z.so   (软件编解码)
+│   ├── HCodecLoader  → libhcodec.z.so   (硬件编解码)
+│   ├── HevcDecoderLoader                 (HEVC 硬件解码)
+│   └── AvcEncoderLoader                  (AVC 硬件编码)
+└── CodecListCore / CodecAbilitySingleton  // 能力查询：MIME→CodecName 映射
+
+输入/输出管理
+├── videoCb_ : shared_ptr<MediaCodecCallback>  // 上层回调（应用侧）
+├── inputParamTask_ : shared_ptr<TaskThread>  // 输入参数异步处理线程
+├── releaseBufferTask_ : shared_ptr<TaskThread> // Surface 模式输出缓冲区释放线程
+└── outPtsMap_ : unordered_map<uint32_t, int64_t>  // 输出 PTS 映射
+
+视频特定能力
+├── temporalScalability_ : shared_ptr<TemporalScalability> // 时域可分级（SVC）
+├── postProcessing_ : unique_ptr<DynamicPostProcessing>     // 后处理（视频解码+Surface 模式）
+├── framerateCalculator_ : shared_ptr<FramerateCalculator> // 帧率计算（用于 DFX）
+├── isSurfaceMode_ : bool    // 是否 Surface 输入/输出模式
+├── isCreateSurface_ : bool   // 是否由 CodecServer 创建 Surface
+├── isLpp_ : bool             // Low-Power Player 模式
+└── scenario_ : CodecScenario  // 编码场景（普通/低延迟/屏幕录制等）
+
+DRM 相关
+├── drmDecryptor_ : shared_ptr<CodecDrmDecrypt>  // DRM 解密（CENC）
+└── decryptVideoBufs_ : unordered_map<uint32_t, DrmDecryptVideoBuf>  // DRM 缓冲映射
+
+智能解码（可选特性，SFD_ENABLED）
+└── smartFluencyDecoding_ : unique_ptr<SFD::SmartFluencyDecoding>
 ```
 
-### 能力通告（GetSystemAbility）
+### 2.2 CodecServer 状态机
 
-- **SA Identifier**: `AVCODEC_SERVICE_ID` (defined in `avcodec_define.h`)
-- 其他进程调用 `GetSystemAbility(AVCODEC_SERVICE_ID)` 获取 proxy，触发 IPC 连接
+```
+UNINITIALIZED
+    │ Init() [by name or by MIME]
+    ▼
+INITIALIZED
+    │ Configure(format)
+    ▼
+CONFIGURED
+    │ Start()
+    ▼
+RUNNING ◄────────────────┐
+    │ Flush()            │
+    ▼                    │
+FLUSHED                  │
+    │ Start() ──────────┘
+    │
+    │ NotifyEos() / 编码器输出 EOS
+    ▼
+END_OF_STREAM
+    │ Reset() / Release()
+    ▼
+ERROR / UNINITIALIZED
+```
 
-### 关键证据点
-
-| 代码位置 | 内容 |
-|----------|------|
-| `services/dfx/codec_server/codec_server.cpp` | SA 入口文件，定义 `codecServerAbility` 实例 |
-| `services/dfx/codec_server/codec_server.h` | CodecServerAbility 类声明 |
-| `services/dfx/codec_server/codec_plugin_manager.cpp` | 插件加载逻辑 |
-| `interfaces/kits/avcodec/avcodec_define.h` | 能力 ID、服务 ID 定义 |
-
----
-
-## 4. 插件加载机制
-
-### 加载路径
-
-- 插件目录通常为 `/vendor/lib/codec/` 或 `/system/lib/codec/`
-- 配置文件 `codec_plugins.json` 描述插件列表（含路径、优先级、是否默认）
-
-### 加载流程
-
+**源码证据**：`codec_server.h` 行 40-48
 ```cpp
-// CodecPluginManager::LoadPlugin 伪代码
-void CodecPluginManager::LoadPlugin(const std::string& path) {
-    void* handle = dlopen(path.c_str(), RTLD_NOW);
-    if (!handle) {
-        HDF_LOGW("CodecPluginManager: dlopen failed: %s", dlerror());
-        return;
+enum CodecStatus {
+    UNINITIALIZED = 0,
+    INITIALIZED,
+    CONFIGURED,
+    RUNNING,
+    FLUSHED,
+    END_OF_STREAM,
+    ERROR,
+};
+```
+
+---
+
+## 3. 插件加载机制（三层工厂模式）
+
+### 3.1 第一层：CodecFactory（按名称实例化）
+
+```
+CodecFactory::CreateCodecByName(codecName)
+    │
+    ├── CodecListCore::FindCodecType(name)  // 查询 name→CodecType 映射
+    │
+    ├── CodecType::AVCODEC_HCODEC     → HCodecLoader::CreateByName(name)
+    │                                    加载 libhcodec.z.so（HDI 硬件编解码）
+    ├── CodecType::AVCODEC_VIDEO_CODEC → FCodecLoader::CreateByName(name)
+    │                                    加载 libfcodec.z.so（软件编解码）
+    ├── CodecType::AVCODEC_VIDEO_HEVC_DECODER → HevcDecoderLoader::CreateByName(name)
+    ├── CodecType::AVCODEC_VIDEO_AVC_ENCODER  → AvcEncoderLoader::CreateByName(name)
+    └── CodecType::AVCODEC_VIDEO_AV1_DECODER  → Av1DecoderLoader::CreateByName(name)
+```
+
+**源码证据**：`codec_factory.cpp` 行 49-83
+```cpp
+std::shared_ptr<CodecBase> CodecFactory::CreateCodecByName(const std::string &name)
+{
+    std::shared_ptr<CodecListCore> codecListCore = std::make_shared<CodecListCore>();
+    CodecType codecType = codecListCore->FindCodecType(name);
+    std::shared_ptr<CodecBase> codec = nullptr;
+    switch (codecType) {
+        case CodecType::AVCODEC_HCODEC:
+            codec = HCodecLoader::CreateByName(name);
+            break;
+        case CodecType::AVCODEC_VIDEO_CODEC:
+            codec = FCodecLoader::CreateByName(name);
+            break;
+        // ...
     }
-    using CreatePluginFunc = ICodecPlugin* (*)(void);
-    auto create = (CreatePluginFunc)dlsym(handle, "CreateCodecPlugin");
-    if (create) {
-        ICodecPlugin* plugin = create();
-        pluginMap_[path] = plugin;
-        plugin->Init();
-    }
+    return codec;
 }
 ```
 
-### 卸载流程
+### 3.2 第二层：各 Loader（dlopen 动态库）
+
+以 `FCodecLoader` 为例：
+
+```
+FCodecLoader::CreateByName(name)
+    │
+    ├── dlopen("libfcodec.z.so", RTLD_NOW)
+    ├── dlsym("CreateFCodecByName") → CreateFCodecByName(name, codec)
+    └── 返回 shared_ptr<CodecBase>(codec, deleter)
+         其中 deleter 会 DecStrongRef() 并在引用计数归零时 CloseLibrary()
+```
+
+**源码证据**：`fcodec_loader.cpp` 行 21-47
+```cpp
+const char *FCODEC_LIB_PATH = "libfcodec.z.so";
+const char *FCODEC_CREATE_FUNC_NAME = "CreateFCodecByName";
+const char *FCODEC_GETCAPS_FUNC_NAME = "GetFCodecCapabilityList";
+
+std::shared_ptr<CodecBase> FCodecLoader::CreateByName(const std::string &name)
+{
+    FCodecLoader &loader = GetInstance();
+    std::lock_guard<std::mutex> lock(loader.mutex_);
+    CHECK_AND_RETURN_RET_LOG(loader.Init() == AVCS_ERR_OK, nullptr, ...);
+    noDeleterPtr = loader.Create(name).get();  // dlopen + dlsym
+    ++(loader.fcodecCount_);
+    // deleter: DecStrongRef() + CloseLibrary() 当引用计数归零
+}
+```
+
+### 3.3 第三层：CodecBase（插件抽象基类）
+
+所有编解码插件均实现 `CodecBase` 抽象接口：
 
 ```cpp
-void CodecPluginManager::UnloadPlugin(const std::string& path) {
-    auto it = pluginMap_.find(path);
-    if (it != pluginMap_.end()) {
-        it->second->Release();
-        dlclose(it->second->GetHandle());
-        pluginMap_.erase(it);
+// codecbase.h
+class CodecBase {
+    virtual int32_t Configure(const Format &format) = 0;
+    virtual int32_t Start() = 0;
+    virtual int32_t Stop() = 0;
+    virtual int32_t Flush() = 0;
+    virtual int32_t Reset() = 0;
+    virtual int32_t Release() = 0;
+    virtual int32_t SetParameter(const Format& format) = 0;
+    virtual int32_t GetOutputFormat(Format &format) = 0;
+    virtual int32_t ReleaseOutputBuffer(uint32_t index) = 0;
+    // ...
+};
+```
+
+---
+
+## 4. 实例初始化路径（两种模式）
+
+### 4.1 按 Codec Name（显式指定）
+
+```
+CodecServer::Init(type=VIDEO_DECODER, isMimeType=false, name="avcdecoder")
+    → CodecServer::InitByName(name="avcdecoder")
+      → CodecFactory::Instance().CreateCodecByName("avcdecoder")
+        → 查 CodecListCore::FindCodecType("avcdecoder") → FCodecLoader
+        → FCodecLoader::CreateByName("avcdecoder") → shared_ptr<CodecBase>
+      → codecBase_->Init(callerInfo)
+```
+
+**源码证据**：`codec_server.cpp` 行 157-166
+```cpp
+int32_t CodecServer::InitByName(const std::string &codecName, Meta &callerInfo)
+{
+    codecBase_ = CodecFactory::Instance().CreateCodecByName(codecName);
+    if (codecBase_ == nullptr) {
+        return AVCS_ERR_NO_MEMORY;
     }
+    codecName_ = codecName;
+    auto ret = codecBase_->Init(callerInfo);
+    return ret;
+}
+```
+
+### 4.2 按 MIME Type（自动选择）
+
+```
+CodecServer::Init(type=VIDEO_DECODER, isMimeType=true, name="video/avc")
+    → CodecServer::InitByMime(type, codecMime="video/avc")
+      → CodecFactory::Instance().GetCodecNameArrayByMime(type, "video/avc")
+        → CodecListCore::FindCodecNameArray(AVCODEC_TYPE_VIDEO_DECODER, "video/avc")
+        → 返回 ["avcdecoder", "avcdecoder.secure"] 等
+      → 遍历 nameArray，依次 InitByName，直到成功
+```
+
+**源码证据**：`codec_server.cpp` 行 172-188
+```cpp
+int32_t CodecServer::InitByMime(const AVCodecType type, const std::string &codecMime, Meta &callerInfo)
+{
+    auto nameArray = CodecFactory::Instance().GetCodecNameArrayByMime(type, codecMime);
+    for (const auto &name : nameArray) {
+        ret = InitByName(name, callerInfo);
+        CHECK_AND_CONTINUE_LOG_WITH_TAG(ret == AVCS_ERR_OK, "Skip init failure. name: %{public}s", name.c_str());
+        break;
+    }
+    return ret;
 }
 ```
 
 ---
 
-## 5. IPC 消息流
+## 5. 生命周期关键方法
+
+### 5.1 Start()
 
 ```
-CodecClient (用户进程)
-  → CodecProxy::Encode/Decode(...)
-  → IPC marshal (MessageParcel)
-  → kernel IPC (binder driver)
-  → codec_server Process
-  → CodecStub::OnRemoteRequest(...)
-  → CodecServerAbility::HandleCodecRequest(...)
-  → CodecPluginManager::GetPlugin(...)
-  → ICodecPlugin::Encode/Decode(...)
-  → IPC response marshal
-  → codec_server process
-  → return to CodecClient
+CodecServer::Start()
+    │
+    ├── isLocalReleaseMode_ ? → 启动 releaseBufferTask_（Surface 模式）
+    ├── temporalScalability_ && isCreateSurface_ && !isSetParameterCb_ ? → StartInputParamTask()
+    ├── StartPostProcessing()
+    ├── codecBase_->Start()
+    ├── StatusChanged(RUNNING)
+    ├── CodecStartEventWrite(codecDfxInfo)  // DFX 事件
+    ├── OnInstanceMemoryUpdateEvent()
+    └── OnInstanceEncodeBeginEvent()
 ```
 
----
-
-## 6. 关键枚举与常量
-
-| 名称 | 定义位置 | 含义 |
-|------|----------|------|
-| `AVCODEC_SERVICE_ID` | `avcodec_define.h` | SA 服务 ID，用于 GetSystemAbility |
-| `CODEC_CAP_ENCODE` | `avcodec_define.h` | 编码能力标志 |
-| `CODEC_CAP_DECODE` | `avcodec_define.h` | 解码能力标志 |
-| `PluginType` | `codec_plugin_manager.h` | 插件类型（硬件/软件） |
-
----
-
-## 7. 相关文件索引
+### 5.2 Stop()
 
 ```
-multimedia_av_codec/
-├── services/
-│   └── dfx/
-│       └── codec_server/
-│           ├── codec_server.cpp        ← SA 入口
-│           ├── codec_server.h
-│           ├── codec_plugin_manager.cpp
-│           ├── codec_plugin_manager.h
-│           └── codec_stub.cpp
-├── interfaces/
-│   └── kits/
-│       └── avcodec/
-│           ├── avcodec_define.h       ← 能力 ID 定义
-│           ├── i_codec.h              ← 客户端接口
-│           └── codec_proxy_stub.h
-└── plugins/
-    └── adapter/                       ← 各平台插件实现
+CodecServer::Stop()
+    │
+    ├── SetFreeStatus(true)
+    ├── isLocalReleaseMode_ ? → 通知 releaseBufferTask_ 停止
+    ├── temporalScalability_ ? → inputParamTask_->Stop()
+    ├── StopPostProcessing()
+    ├── codecBase_->Stop()
+    ├── SurfaceTools::CleanCache()  // 如果 pushBlankBufferOnShutdown_
+    └── CodecStopEventWrite()  // DFX 事件
+```
+
+### 5.3 Release()
+
+```
+CodecServer::Release()
+    │
+    ├── releaseBufferTask_ ? → releaseBufferTask_->Stop()
+    ├── postProcessing_ ? → ReleasePostProcessing()
+    ├── codecBase_->Release()
+    └── codecBase_ = nullptr; codecBaseCb_ = nullptr
 ```
 
 ---
 
-## 8. 注意事项
+## 6. IPC 调用链路
 
-- **codec_server 是单例进程**，不应在多进程间复制；所有 Codec 客户端共享同一 SA 实例
-- 插件加载失败时不影响 SA 启动，但该插件能力不可用，HiLog 会输出 WARNING
-- `GetCodecList()` 返回的列表仅含已成功加载且注册过的插件，跳过加载失败的
-- 新增 Codec 能力时，需同时更新 `codec_plugins.json` 配置，并在对应插件的 `RegisterAbility()` 中声明能力范围
+```
+Native API层（应用进程）
+    │
+AVCodec::AVCodec（framework/native）
+    │ CreateByName/Mime
+    ▼
+CodecServiceStub::Create(instanceId)     [ipc/codec_service_stub.cpp]
+    │ 分配 instanceId
+    ▼
+CodecServer::Create(instanceId)           [server/video/codec_server.cpp]
+    │ Init() → Configure() → Start()
+    ▼
+CodecBase（插件层，实际编解码）          [engine/codec/video/]
+    │
+    ├── FCodecLoader → libfcodec.z.so    (软件)
+    └── HCodecLoader → libhcodec.z.so    (硬件/HDI)
+
+返回路径：
+CodecBase → CodecBaseCallback → CodecServer（状态更新/回调分发）→ CodecServiceStub → CodecServiceProxy → 应用
+```
 
 ---
 
-*本草案基于 GitCode 仓库 structure 推断，详见 `services/dfx/codec_server/` 源码确认实现细节*
+## 7. 能力查询体系
+
+```
+CodecAbilitySingleton（单例）
+    │ RegisterCapabilityArray(capaArray, codecType)
+    │ 存放：capabilityDataArray_, mimeCapIdxMap_, nameCodecTypeMap_
+    │
+    ├── GetCapabilityByName(codecName) → CapabilityData
+    ├── GetCodecNameArrayByMime(type, mime) → vector<string>
+    └── GetCapabilityArray() → 所有已注册能力
+
+CodecListCore
+    ├── FindCodecNameArray(type, mime)  // MIME → [codecNames]
+    ├── FindCodecType(name)             // codecName → CodecType
+    └── IsXxxCapSupport(format, cap)   // 检查分辨率/码率/帧率是否支持
+```
+
+---
+
+## 8. 关键文件索引
+
+| 文件 | 作用 |
+|------|------|
+| `services/services/codec/server/video/codec_server.cpp` | CodecServer 主类实现（~1800行） |
+| `services/services/codec/server/video/codec_server.h` | CodecServer 类声明 |
+| `services/services/codec/server/video/codec_factory.cpp` | CodecFactory 插件工厂 |
+| `services/services/codec/server/video/codec_factory.h` | CodecFactory 单例声明 |
+| `services/engine/codec/include/video/fcodec_loader.cpp` | 软件编解码插件加载器 |
+| `services/engine/codec/include/video/hcodec_loader.cpp` | 硬件编解码插件加载器 |
+| `services/engine/codec/include/video/video_codec_loader.h` | 加载器基类（dlopen 封装） |
+| `services/engine/base/include/codecbase.h` | CodecBase 抽象基类 |
+| `services/engine/codeclist/codec_ability_singleton.cpp` | 能力单例（name→能力映射） |
+| `services/engine/codeclist/codeclist_core.cpp` | 能力查询核心逻辑 |
+| `services/services/codec/ipc/codec_service_stub.cpp` | IPC 入口，每实例创建 CodecServer |
+| `services/include/i_codec_service.h` | ICodecService 接口声明 |
+| `services/services/codec/server/video/post_processing/` | 后处理模块（解码+Surface 模式） |
+| `services/services/codec/server/video/features/` | 增值特性（SFD/TemporalScalability） |
+
+---
+
+## 9. 与旧版本草案的差异（旧版有误，此版已更正）
+
+| 旧版（错误） | 新版（基于代码） |
+|-------------|----------------|
+| codec_server 是独立进程/SA | CodecServer 是**实例类**，`CodecServiceStub`才是IPC桩 |
+| 插件目录 `/vendor/lib/codec/` + `codec_plugins.json` | 插件通过编译时链接的 Loader 类加载，dlopen 对应 .z.so |
+| `CodecServerAbility` / `CodecPluginManager` 类 | 实际类为 `CodecFactory` + 各 `Loader` |
+| SA 发布流程 | 实际是 `CodecServiceStub::Create()` 为每个 IPC 连接创建 CodecServer 实例 |
+
+---
+
+*本草案基于 `multimedia_av_codec` 仓库真实代码分析，覆盖 `codec_server.cpp` 的实例载体角色、插件加载三层架构、生命周期管理*
