@@ -13,3 +13,13 @@
   decision: pending_approval
   path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S6.md
   timestamp: "2026-04-22T16:22:00+08:00"
+- type: draft_ready
+  mem_id: MEM-ARCH-AVCODEC-S4
+  decision: pending_approval
+  path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S4.md
+  timestamp: "2026-04-22T18:20:00+08:00"
+- type: draft_ready
+  mem_id: MEM-ARCH-AVCODEC-S7
+  decision: pending_approval
+  path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S7.md
+  timestamp: "2026-04-22T18:20:00+08:00"
