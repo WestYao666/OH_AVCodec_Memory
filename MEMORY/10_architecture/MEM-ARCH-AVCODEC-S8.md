@@ -2,8 +2,9 @@
 id: MEM-ARCH-AVCODEC-S8
 title: 音频编解码 FFmpeg 插件架构——AudioBaseCodec 抽象层与音频格式支持列表
 scope: [AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec]
-status: pending_approval
+status: approved
 created_at: "2026-04-22T23:10:00+08:00"
+approved_at: 2026-04-23
 author: builder-agent
 type: architecture_fact
 confidence: high
