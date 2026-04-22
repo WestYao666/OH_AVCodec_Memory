@@ -129,6 +129,10 @@
 
 ---
 
+| S8 | 音频编解码 FFmpeg 插件架构——AudioBaseCodec 抽象层与音频格式支持列表 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec | 新需求开发/问题定位/音频编解码接入 | **draft** | MEM-ARCH-AVCODEC-S8 | ✅ 草案已生成（2026-04-22T23:10） |
+
+---
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
@@ -136,3 +140,4 @@
 | 2026-04-17 | 初始化 | 耀耀设计，初始 12 个微主题 |
 | 2026-04-17 | 修订 | 耀耀反馈 DFX 占比过高，重新规划 20 个微主题，DFX 从 42% 降至 20% |
 | 2026-04-21 | 新增 | 耀耀新增 S1（codec_server）、S2（kits C API 使用场景）两个主题 |
+| 2026-04-22 | Builder | 新增 S8：音频 FFmpeg 插件架构，对比视频硬件 HDI 路径 |
