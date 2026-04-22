@@ -11,4 +11,9 @@ queue:
     mem_id: MEM-ARCH-AVCODEC-S5
     timestamp: "2026-04-22T08:52:00+08:00"
     note: "四层 Loader 插件热加载机制——dlopen/RTLD_LAZY 与引用计数 lifecycle，待耀耀审批"
-last_updated: "2026-04-22T08:52:00+08:00"
+  - type: approval_request
+    decision: pending
+    mem_id: MEM-ARCH-AVCODEC-S6
+    timestamp: "2026-04-22T10:10:00+08:00"
+    note: "内存复用（ZeroCopy）与 DMA-BUF 机制——SwapOut/SwapIn 与 BufferOwner 生命周期，待耀耀审批"
+last_updated: "2026-04-22T10:10:00+08:00"
