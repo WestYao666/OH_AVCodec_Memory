@@ -1,4 +1,9 @@
 # pending_actions.yaml — 记忆工厂审批队列
 # 自动清理，保留空队列结构
-queue: []
-last_updated: "2026-04-21T02:05:00+08:00"
+queue:
+  - type: approval_request
+    decision: pending
+    mem_id: MEM-ARCH-AVCODEC-S4
+    timestamp: "2026-04-22T06:50:00+08:00"
+    note: "Surface Mode 与 Buffer Mode 双模式切换机制，待耀耀审批"
+last_updated: "2026-04-22T06:51:00+08:00"
