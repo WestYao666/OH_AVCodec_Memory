@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S8
 title: 音频编解码 FFmpeg 插件架构——AudioBaseCodec 抽象层与音频格式支持列表
 scope: [AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec]
-status: draft
+status: pending_approval
 created_at: "2026-04-22T23:10:00+08:00"
 author: builder-agent
 type: architecture_fact
@@ -14,6 +14,7 @@ summary: >
   各格式插件（audio_ffmpeg_aac_decoder_plugin 等）。
   支持格式：AAC/HE-AAC/MP3/FLAC/Vorbis/Opus/AMR-NB/AMR-WB/G.711mu/G.711a/OGG 等。
   硬件音频编解码（若有）走 HDI path，与软件路径完全独立。
+status: pending_approval
 evidence_sources:
   - local_repo: /home/west/av_codec_repo
   - services/engine/codec/audio/audio_codec.h
@@ -30,6 +31,9 @@ evidence_sources:
   - services/engine/codec/audio/decoder/audio_g711mu_encoder_plugin.cpp
   - services/engine/codec/include/audio/audio_common_info.h
   - services/engine/codeclist/audio_codeclist_info.h
+  # GitCode 探索说明: gitcode.com/openharmony/multimedia_av_codec 对自动化抓取返回 AtomGit 平台占位页，
+  # 代码内容无法直接提取。以下 evidence 均来自本地镜像仓库 /home/west/av_codec_repo，
+  # 该仓库与 GitCode master 分支同步。
 related_scenes: [新需求开发, 问题定位, 音频编解码接入, FFmpeg音频插件新增]
 why_it_matters: >
   音频编解码在 OpenHarmony AVCodec 中走纯软件 FFmpeg 路径，与硬件Codec完全独立。
@@ -122,29 +126,68 @@ class AudioCodecWorker : public NoCopyable {
 **文件**: `services/engine/codec/include/audio/audio_base_codec.h`
 
 ```cpp
+// Line 28: AudioBaseCodec 抽象基类，继承自 AVCodecBaseFactory 工厂模板
 class AudioBaseCodec : public AVCodecBaseFactory<AudioBaseCodec, std::string>, public NoCopyable {
 public:
-    virtual int32_t Init(const Media::Format &format) = 0;
-    virtual int32_t ProcessSendData(const std::shared_ptr<AudioBufferInfo> &inputBuffer) = 0;
-    virtual int32_t ProcessRecieveData(std::shared_ptr<AudioBufferInfo> &outBuffer) = 0;
-    virtual int32_t Reset() = 0;
-    virtual int32_t Release() = 0;
-    virtual int32_t Flush() = 0;
-    virtual int32_t GetInputBufferSize() const = 0;
-    virtual int32_t GetOutputBufferSize() const = 0;
-    virtual Media::Format GetFormat() const noexcept = 0;
-    virtual bool EnableResample(AVSampleFormat targetFormat);  // FFmpeg 重采样支持
+    virtual int32_t Init(const Media::Format &format) = 0;                      // Line 34
+    virtual int32_t ProcessSendData(const std::shared_ptr<AudioBufferInfo> &inputBuffer) = 0;  // Line 36
+    virtual int32_t ProcessRecieveData(std::shared_ptr<AudioBufferInfo> &outBuffer) = 0;        // Line 38
+    virtual int32_t Reset() = 0;                                                   // Line 40
+    virtual int32_t Release() = 0;                                                 // Line 42
+    virtual int32_t Flush() = 0;                                                   // Line 44
+    virtual int32_t GetInputBufferSize() const = 0;                                // Line 46
+    virtual int32_t GetOutputBufferSize() const = 0;                               // Line 48
+    virtual Media::Format GetFormat() const noexcept = 0;                          // Line 50
+    virtual std::string_view GetCodecType() const noexcept = 0;                    // Line 52
 };
 ```
 
-`AVCodecBaseFactory<AudioBaseCodec, std::string>` 是工厂模板，通过 codec name 字符串创建插件实例：
+`AVCodecBaseFactory<AudioBaseCodec, std::string>` 是工厂模板，通过 codec name 字符串创建插件实例。
+插件子类通过在构造时持有 `AudioFfmpegDecoderPlugin`（FFmpeg libavcodec 封装）来复用通用解码逻辑：
 
 ```cpp
-// 插件注册宏（AudioFFmpegAacDecoderPlugin.cpp）
-AudioFFmpegAacDecoderPlugin::AudioFFmpegAacDecoderPlugin()
-    : basePlugin(std::make_unique<AudioFfmpegDecoderPlugin>()) {}
-// 插件名称常量
+// audio_ffmpeg_aac_decoder_plugin.cpp Line 45-46: AAC 解码插件构造
+AudioFFMpegAacDecoderPlugin::AudioFFMpegAacDecoderPlugin()
+    : basePlugin(std::make_unique<AudioFfmpegDecoderPlugin>()), channels_(0) {}
+
+// audio_ffmpeg_aac_decoder_plugin.cpp Line 33: 插件名称常量
 static constexpr std::string_view AUDIO_CODEC_NAME = "aac";
+```
+
+**FFmpeg 解码器注册流程** (`services/engine/codec/audio/decoder/audio_ffmpeg_decoder_plugin.cpp`):
+
+```cpp
+// Line 260: avcodec_find_decoder_by_name() 按名称查找 FFmpeg 解码器
+avCodec_ = std::shared_ptr<AVCodec>(const_cast<AVCodec *>(avcodec_find_decoder_by_name(name.c_str())), ...);
+
+// Line 331: avcodec_open2() 打开解码器上下文
+auto res = avcodec_open2(avCodecContext_.get(), avCodec_.get(), nullptr);
+
+// Line 137: avcodec_receive_frame() 接收解码帧
+auto ret = avcodec_receive_frame(avCodecContext_.get(), cachedFrame_.get());
+
+// Line 167/251: avcodec_flush_buffers() 刷新缓存
+avcodec_flush_buffers(avCodecContext_.get());
+```
+
+**G.711 μ-law 解码插件** (`services/engine/codec/audio/decoder/audio_g711mu_decoder_plugin.cpp`)，无 FFmpeg 依赖，查表实现：
+
+```cpp
+// Line 38: 插件名称
+constexpr std::string_view AUDIO_CODEC_NAME = "g711mu-decode";
+
+// Line 29-33: μ-law PCM 压扩常量
+constexpr int AUDIO_G711MU_SIGN_BIT = 0x80;
+constexpr int AVCODEC_G711MU_QUANT_MASK = 0xf;
+constexpr int AVCODEC_G711MU_SHIFT = 4;
+constexpr int AVCODEC_G711MU_SEG_MASK = 0x70;
+constexpr int G711MU_LINEAR_BIAS = 0x84;
+
+// AAC 编码器 FFmpeg 调用 (audio_ffmpeg_aac_encoder_plugin.cpp)
+// Line 292: avcodec_find_encoder_by_name()
+avCodec_ = std::shared_ptr<AVCodec>(const_cast<AVCodec *>(avcodec_find_encoder_by_name(name.c_str())), ...);
+// Line 338: avcodec_open2() 打开编码器
+auto res = avcodec_open2(avCodecContext_.get(), avCodec_.get(), nullptr);
 ```
 
 ## 3. FFmpeg 插件实现模式
@@ -202,6 +245,9 @@ class AudioG711muDecoderPlugin : public AudioBaseCodec {
 
 ### 解码器
 
+> **Evidence**: `services/engine/codeclist/audio_codeclist_info.h` 第 27-69 行，定义各格式能力查询函数。
+> AAC 插件: `services/engine/codec/audio/decoder/audio_ffmpeg_aac_decoder_plugin.cpp` Line 34-40，定义支持的采样率/格式。
+
 | 格式 | 插件类 | FFmpeg 依赖 | 说明 |
 |------|--------|-------------|------|
 | AAC / HE-AAC | `AudioFFMpegAacDecoderPlugin` | ✅ libavcodec | 支持 ADTS/LATM 封装 |
@@ -250,6 +296,38 @@ class AudioG711muDecoderPlugin : public AudioBaseCodec {
 
 **关键结论**：音频 Codec 不走 HDI，不存在"音频硬件编解码器"的概念。
 音频 DRM 解密（`SetAudioDecryptionConfig`）通过 FFmpeg 解密后再解码，与视频 SVP 安全路径完全不同。
+
+---
+
+## 附录：GitCode 代码源探索记录
+
+**目标仓库**: `https://gitcode.com/openharmony/multimedia_av_codec`
+
+**探索结果**: GitCode (AtomGit) 对自动化 HTTP 访问返回平台占位页，代码内容无法直接提取（所有路径均返回 `"AtomGit | GitCode - 全球开发者的开源社区"` 平台标识页）。
+
+**解决方案**: 所有 evidence 均来自本地镜像仓库 `/home/west/av_codec_repo`（与 GitCode master 同步）。
+
+**本地仓库文件清单**（已验证存在）:
+
+| 文件 | 验证 |
+|------|------|
+| `services/engine/codec/include/audio/audio_base_codec.h` | ✅ |
+| `services/engine/codec/audio/audio_codec.h` | ✅ |
+| `services/engine/codec/audio/audio_codec_worker.h` | ✅ |
+| `services/engine/codec/audio/decoder/audio_ffmpeg_aac_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_ffmpeg_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_ffmpeg_mp3_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_ffmpeg_flac_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_ffmpeg_vorbis_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_opus_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_ffmpeg_amrnb_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_ffmpeg_amrwb_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/decoder/audio_g711mu_decoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/encoder/audio_ffmpeg_aac_encoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/encoder/audio_opus_encoder_plugin.cpp` | ✅ |
+| `services/engine/codec/audio/audio_resample.cpp` | ✅ |
+| `services/engine/common/ffmpeg_converter.cpp` | ✅ |
+| `services/engine/codeclist/audio_codeclist_info.h` | ✅ |
 
 ## 6. FFmpeg 公共组件
 
