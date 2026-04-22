@@ -15,7 +15,6 @@ summary: >
   各格式插件（audio_ffmpeg_aac_decoder_plugin 等）。
   支持格式：AAC/HE-AAC/MP3/FLAC/Vorbis/Opus/AMR-NB/AMR-WB/G.711mu/G.711a/OGG 等。
   硬件音频编解码（若有）走 HDI path，与软件路径完全独立。
-status: pending_approval
 evidence_sources:
   - local_repo: /home/west/av_codec_repo
   - services/engine/codec/audio/audio_codec.h
