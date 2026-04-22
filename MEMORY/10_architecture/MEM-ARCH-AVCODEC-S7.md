@@ -2,8 +2,9 @@
 id: MEM-ARCH-AVCODEC-S7
 title: SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制
 scope: [AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy]
-status: draft
+status: approved
 created_at: "2026-04-22T17:45:00+08:00"
+approved_at: 2026-04-23
 author: builder-agent
 evidence_sources:
   - local_repo: /home/west/av_codec_repo

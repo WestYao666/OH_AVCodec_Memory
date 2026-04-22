@@ -2,8 +2,9 @@
 id: MEM-ARCH-AVCODEC-S4
 title: Surface Mode 与 Buffer Mode 双模式切换机制
 scope: [AVCodec, Core, SurfaceMode, BufferMode, ModeSwitch]
-status: draft
+status: approved
 created_at: 2026-04-22
+approved_at: 2026-04-23
 ---
 
 # Surface Mode 与 Buffer Mode 双模式切换机制

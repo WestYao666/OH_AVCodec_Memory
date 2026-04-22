@@ -2,8 +2,9 @@ id: MEM-ARCH-AVCODEC-P1I
 title: DRM CENC 解密流程——SVP 安全视频路径与 CodecDrmDecrypt 三层调用链
 type: architecture_fact
 scope: [AVCodec, DRM, CENC, ContentProtection, SVP]
-status: draft
+status: approved
 confidence: high
+approved_at: 2026-04-23
 summary: >
   OpenHarmony AVCodec 模块中，DRM CENC 加密内容的解密通过 CodecDrmDecrypt 类实现，
   分为三层调用链：① Filter 层（DecoderSurfaceFilter）根据 DRM protected 标志和 svpFlag 决定

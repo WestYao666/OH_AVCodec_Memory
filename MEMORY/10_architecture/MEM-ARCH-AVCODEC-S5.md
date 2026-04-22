@@ -2,8 +2,9 @@
 id: MEM-ARCH-AVCODEC-S5
 title: 四层 Loader 插件热加载机制——dlopen/RTLD_LAZY 与引用计数 lifecycle
 scope: [AVCodec, Plugin, Loader, dlopen, Lifecycle]
-status: draft
+status: approved
 created_at: 2026-04-22
+approved_at: 2026-04-23
 evidence_sources:
   - local_repo: /home/west/av_codec_repo
   - https://gitcode.com/openharmony/multimedia_av_codec
