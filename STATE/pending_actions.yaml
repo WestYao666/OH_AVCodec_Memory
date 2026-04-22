@@ -6,4 +6,9 @@ queue:
     mem_id: MEM-ARCH-AVCODEC-S4
     timestamp: "2026-04-22T06:50:00+08:00"
     note: "Surface Mode 与 Buffer Mode 双模式切换机制，待耀耀审批"
-last_updated: "2026-04-22T06:51:00+08:00"
+  - type: approval_request
+    decision: pending
+    mem_id: MEM-ARCH-AVCODEC-S5
+    timestamp: "2026-04-22T08:52:00+08:00"
+    note: "四层 Loader 插件热加载机制——dlopen/RTLD_LAZY 与引用计数 lifecycle，待耀耀审批"
+last_updated: "2026-04-22T08:52:00+08:00"
