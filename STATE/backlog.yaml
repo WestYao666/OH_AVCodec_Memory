@@ -129,7 +129,7 @@
 
 ---
 
-| S8 | 音频编解码 FFmpeg 插件架构——AudioBaseCodec 抽象层与音频格式支持列表 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec | 新需求开发/问题定位/音频编解码接入 | **pending_approval** | MEM-ARCH-AVCODEC-S8 | ✅ 待审批（2026-04-23） |
+| S8 | 音频编解码 FFmpeg 插件架构——AudioBaseCodec 抽象层与音频格式支持列表 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec | 新需求开发/问题定位/音频编解码接入 | **approved** | MEM-ARCH-AVCODEC-S8 | ✅ 已入库（2026-04-23） |
 
 ---
 
