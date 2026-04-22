@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S6
 title: 内存复用（ZeroCopy）与 DMA-BUF 机制——SwapOut/SwapIn 与 BufferOwner 生命周期
 scope: [AVCodec, ZeroCopy, DMA-BUF, MemoryReclaim, BufferOwner, BackgroundSwap]
-status: draft
+status: approved
 created_at: "2026-04-22T10:10:00+08:00"
 approved_at: 2026-04-23
 author: builder-agent
