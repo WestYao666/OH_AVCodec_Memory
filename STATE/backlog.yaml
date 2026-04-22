@@ -123,6 +123,9 @@
 | S2 | interfaces/kits/c/ 视频编解码使用场景与 key 搭配 | AVCodec, API, Integration | 三方应用/新人入项 | **approved** | MEM-ARCH-AVCODEC-S2 | ✅ 已入库（2026-04-22） |
 | S3 | CodecServer Pipeline 数据流与状态机 | AVCodec, Core, Pipeline, StateMachine | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S3 | ✅ 已入库（2026-04-22） |
 | S4 | Surface Mode 与 Buffer Mode 双模式切换机制 | AVCodec, Core, SurfaceMode, BufferMode, ModeSwitch | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S4 | ✅ 草案已生成（2026-04-22） |
+| S5 | 四层 Loader 插件热加载机制——dlopen/RTLD_LAZY 与引用计数 lifecycle | AVCodec, Plugin, Loader, dlopen, Lifecycle | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S5 | ✅ 草案已生成（2026-04-22） |
+| S6 | 内存复用（ZeroCopy）与 DMA-BUF 机制——SwapOut/SwapIn 与 BufferOwner 生命周期 | AVCodec, ZeroCopy, DMA-BUF, MemoryReclaim, BufferOwner | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S6 | ✅ 草案已生成（2026-04-22） |
+| S7 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制 | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner | 新需求开发/问题定位 | **pending** | MEM-ARCH-AVCODEC-S7 | 🆕 草案已生成（2026-04-22） |
 
 ---
 
