@@ -1,9 +1,10 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S12
-status: draft
+status: pending_approval
 topic: VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册
-created_at: "2026-04-23T23:22:00+08:00"
+created_at: "2026-04-24T00:05:00+08:00"
+approved_by: null
 evidence: |
   - source: /home/west/av_codec_repo/interfaces/inner_api/native/video_resize_filter.h
     anchor: "AutoRegisterFilter g_registerVideoResizeFilter(\"builtin.transcoder.videoresize\", FilterType::FILTERTYPE_VIDRESIZE)"
