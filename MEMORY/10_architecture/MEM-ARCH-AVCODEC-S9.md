@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S9
 title: VideoResizeFilter 转码视频增强过滤器——VPE DetailEnhancer 与 FILTERTYPE_VIDRESIZE
 scope: [AVCodec, Transcoder, VideoResize, VideoProcessingEngine, VPE, Filter, DetailEnhancer]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-23T12:55:00+08:00"
 type: architecture_fact

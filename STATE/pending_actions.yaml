@@ -1,5 +1,5 @@
-# pending_actions.yaml — 记忆工厂审批队列
-# This file is auto-managed by the PM Agent.
-# DO NOT edit manually.
-queue: []
-last_updated: "2026-04-22T16:05:00+08:00"
+last_updated: '2026-04-23T13:36:00+08:00'
+queue:
+- mem_id: MEM-ARCH-AVCODEC-S9
+  submitted_at: '2026-04-23T13:36:00+08:00'
+  type: approval_request
