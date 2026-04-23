@@ -1,5 +1,8 @@
-last_updated: '2026-04-23T13:36:00+08:00'
+last_updated: '2026-04-23T14:50:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S9
   submitted_at: '2026-04-23T13:36:00+08:00'
+  type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S10
+  submitted_at: '2026-04-23T14:50:00+08:00'
   type: approval_request
