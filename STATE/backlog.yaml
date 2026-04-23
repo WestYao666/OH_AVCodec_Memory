@@ -163,6 +163,7 @@
 | S15 | SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制 | AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S15 | ✅ 草案已生成（2026-04-24T04:10） |
 | S16 | SurfaceCodec 与 Surface 的绑定机制——SetOutputSurface、PostProcessing 路由与 Surface/Buffer 双模式互斥 | AVCodec, SurfaceMode, SurfaceBinding, MediaEngine, Pipeline, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S16 | ✅ 草案已生成（2026-04-24T05:24） |
 | S17 | SmartFluencyDecoding 智能流畅解码——IRetentionStrategy 四策略+MV/Nalu 双分析器+AsyncDropDispatcher 异步丢帧 | AVCodec, SmartFluencyDecoding, RetentionStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, VideoPipeline, CodecServer | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S17 | ✅ 草案已生成（2026-04-24T05:55） |
+| S18 | AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期 | AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory, Lifecycle | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S18 | ✅ 草案已生成（2026-04-24T06:10） |
 
 ## 变更记录
 
@@ -171,3 +172,4 @@
 | 2026-04-24 | Builder | 新增 S15：SuperResolutionPostProcessor 超分辨率后处理器，基于 VPE DetailEnhancer，超分条件：≤1920×1080、非DRM、非HDR Vivid |
 | 2026-04-24 | Builder | 新增 S16：SurfaceCodec 与 Surface 的绑定机制，DecoderSurfaceFilter→CodecServer→CodecBase 三层 SetOutputSurface 链路，PostProcessing 介入时的双 Surface 转发，Surface/Buffer 模式互斥 |
 | 2026-04-24 | Builder | 新增 S17：SmartFluencyDecoding 智能流畅解码，四种 RetentionStrategy（FULL/ADAPTIVE/FIXED_RATIO/AUTO_RATIO），MV/Nalu 双分析器（dlopen 插件），AsyncDropDispatcher 异步丢帧，DropSyncCoordinator 成对丢帧保证 |
+| 2026-04-24 | Builder | 新增 S18：AudioCodecServer 音频编解码服务架构，AudioCodecFactory 单例工厂+InitByName/InitByMime 双初始化路径，七状态机（UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/END_OF_STREAM/ERROR），无 Surface 模式 |
