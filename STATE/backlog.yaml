@@ -138,6 +138,7 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S10 | SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发 | AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player | 三方应用/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S10 | ✅ 草案已生成（2026-04-23T14:50） |
+| S11 | HCodec CodecComponentManager 工厂与插件注册机制——ICodecComponentManager 双模式+GetCapList能力发现+HDecoder/HEncoder子类工厂 | AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager, Factory | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S11 | ✅ 草案已提交（2026-04-23T21:07） |
 
 ## 变更记录
 
