@@ -21,45 +21,106 @@ why_it_matters:
   - 后台管理：FreezeBuffers/ActiveBuffers 依赖 Owner 检查；开发者若自行管理 SurfaceBuffer 生命周期会破坏 DMA Swap 前提条件
   - 性能分析：ZeroCopy 路径省去 CPU 拷贝的关键是 SurfaceBuffer 始终在 OWNED_BY_SURFACE 状态直接传递给 GPU
 evidence:
+  # === OpenHarmony 官方源码（本地镜像 /home/west/av_codec_repo）===
+  # GitCode 在线浏览（需浏览器打开，web_fetch 因 JS 渲染无法获取内容）：
+  #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/common/include/fsurface_memory.h
+  #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/codec/video/decoderbase/render_surface.h
+  #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/codec/video/decoderbase/render_surface.cpp
+  #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/common/fsurface_memory.cpp
+  #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/common/dma_swap.cpp
+
+  # --- Owner 枚举（fsurface_memory.h）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/common/include/fsurface_memory.h
     anchor: Line 32-37: enum class Owner { OWNED_BY_US, OWNED_BY_CODEC, OWNED_BY_USER, OWNED_BY_SURFACE }
+    note: 四态所有权枚举，定义在 FSurfaceMemory 类中
+
+  # --- CodecBuffer 结构体（render_surface.h）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.h
     anchor: Line 59-72: struct CodecBuffer { owner_; hasSwapedOut_; sMemory_; avBuffer_; }
+    note: 每个 SurfaceBuffer 在 RenderSurface 中的元数据结构
+
+  # --- 三队列声明（render_surface.h）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.h
-    anchor: Line 79-81: three queues: renderAvailQue_, requestSurfaceBufferQue_, codecAvailQue_
+    anchor: Line 79-81: renderAvailQue_/requestSurfaceBufferQue_/codecAvailQue_ BlockQueue 声明
+    note: RenderSurface 双缓冲池 + 三队列核心数据结构
+
+  # --- FSCallback 注册（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 78-92: RegisterListenerToSurface + FSCallback lambda → BufferReleasedByConsumer
+    anchor: Line 78-92: RegisterListenerToSurface + SurfaceTools::RegisterReleaseListener lambda
+    note: FSCallback 注册入口，lambda 捕获 wp（weak_ptr）防析构，触发 BufferReleasedByConsumer
+
+  # --- BufferReleasedByConsumer + RequestBufferFromConsumer（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 327-374: BufferReleasedByConsumer → Attach → codecAvailQue_->Push
+    anchor: Line 327-374: BufferReleasedByConsumer → RequestBufferFromConsumer → owner_ = OWNED_BY_CODEC → codecAvailQue_->Push
+    note: FSCallback 完整回调链；关键行 L372：buffers_[INDEX_OUTPUT][curIndex]->owner_ = Owner::OWNED_BY_CODEC
+
+  # --- FlushSurfaceMemory（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 436-446: FreezeBuffers → SwapOutBuffers(INDEX_OUTPUT)
+    anchor: Line 195-244: FlushSurfaceMemory → Attach → surfaceMemory->owner = OWNED_BY_SURFACE → renderAvailQue_->Push
+    note: Codec 填充完成后将 owner 设为 OWNED_BY_SURFACE，标记 GPU 可消费
+
+  # --- Attach（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 460-473: CanSwapOut: owner != OWNED_BY_SURFACE && !hasSwapedOut
+    anchor: Line 244-250: Attach → sInfo_.surface->AttachBufferToQueue
+    note: 将 SurfaceBuffer 重新挂载到 Surface 消费队列
+
+  # --- FreezeBuffers / ActiveBuffers（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 476-505: SwapOutBuffers → DmaSwaper::SwapOutDma → ioctl DMA_BUF_RECLAIM_FD
+    anchor: Line 436-455: FreezeBuffers → ActiveBuffers 入口；INDEX_INPUT 直接跳过
+    note: Freeze 对 OUTPUT buffer 做 SwapOut，对 INPUT buffer 直接返回成功
+
+  # --- CanSwapOut 冻结条件判断（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 507-525: SwapInBuffers → DmaSwaper::SwapInDma → ioctl DMA_BUF_RESUME_FD
+    anchor: Line 460-473: CanSwapOut → owner != OWNED_BY_SURFACE && !hasSwapedOut
+    note: OWNED_BY_SURFACE 或已 SwapOut 的 buffer 不可冻结
+
+  # --- SwapOutBuffers（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 236: surfaceMemory->owner = Owner::OWNED_BY_SURFACE (after FlushSurfaceMemory)
+    anchor: Line 476-505: SwapOutBuffers → DmaSwaper::SwapOutDma(pid_, fd) → ioctl DMA_BUF_RECLAIM_FD → hasSwapedOut=true
+    note: 遍历 output buffers，对每个满足 CanSwapOut 的 buffer 执行 DMA SwapOut
+
+  # --- SwapInBuffers（render_surface.cpp）---
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/codec/video/decoderbase/render_surface.cpp
-    anchor: Line 244-250: Attach → surface->AttachBufferToQueue
+    anchor: Line 507-526: SwapInBuffers → DmaSwaper::SwapInDma(pid_, fd) → ioctl DMA_BUF_RESUME_FD → hasSwapedOut=false
+    note: 恢复时将 hasSwapedOut 标记清除
+
+  # --- DmaBufIoctlSwPara + ioctl 常量（dma_swap.h + dma_swap.cpp）---
   - kind: local_file
-    path: /home/west/av_codec_repo/services/engine/common/fsurface_memory.cpp
-    anchor: Line 81-91: SetSurfaceBuffer → owner = toChangeOwner (atomic Owner transition)
+    path: /home/west/av_codec_repo/services/engine/common/include/dma_swap.h
+    anchor: Line 24-28: struct DmaBufIoctlSwPara { pid_t pid; unsigned long ino; unsigned int fd; }
+    note: DMA Swap ioctl 参数结构体
+
   - kind: local_file
     path: /home/west/av_codec_repo/services/engine/common/dma_swap.cpp
-    anchor: Line 49-73: SwapOutDma/SwapInDma with ioctl DMA_BUF_RECLAIM_FD/DMA_BUF_RESUME_FD
+    anchor: Line 30-32: #define DMA_BUF_RECLAIM_FD _IOWR('d', 0x07, int) / DMA_BUF_RESUME_FD _IOWR('d', 0x08, int)
+    note: 内核驱动 ioctl 命令字常量定义
+
+  - kind: local_file
+    path: /home/west/av_codec_repo/services/engine/common/dma_swap.cpp
+    anchor: Line 49-60: DmaSwaper::SwapOutDma → ioctl(reclaimDriverFd_, DMA_BUF_RECLAIM_FD, &param)
+    note: SwapOut 实现：通知内核回收 DMA buffer 物理页
+
+  - kind: local_file
+    path: /home/west/av_codec_repo/services/engine/common/dma_swap.cpp
+    anchor: Line 63-74: DmaSwaper::SwapInDma → ioctl(reclaimDriverFd_, DMA_BUF_RESUME_FD, &param)
+    note: SwapIn 实现：通知内核恢复 DMA buffer 物理页
+
+  # --- SetSurfaceBuffer（fsurface_memory.cpp）---
+  - kind: local_file
+    path: /home/west/av_codec_repo/services/engine/common/fsurface_memory.cpp
+    anchor: Line 81-91: SetSurfaceBuffer → owner = toChangeOwner（原子 Owner 状态切换）
+    note: FSurfaceMemory 的 SetSurfaceBuffer 是所有权的转换入口
 related_mem_ids:
   - MEM-ARCH-AVCODEC-S7
   - MEM-ARCH-AVCODEC-S6
@@ -533,3 +594,4 @@ sInfo_.requestConfig.usage = finalUsage;
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-23 | 新建草案 | builder-agent 基于 S7 上下文，从 fsurface_memory.h/render_surface.h/cpp 提取行号级别证据 |
+| 2026-04-24 | 补充 evidence | builder-agent 验证本地源码行号，补充 GitCode URL 引用、dma_swap.h DmaBufIoctlSwPara 结构体、ioctl 常量定义（DMA_BUF_RECLAIM_FD/L30-32）、SwapOut/SwapIn 精确行范围、dma_swap.cpp L49-60/L63-74 |
