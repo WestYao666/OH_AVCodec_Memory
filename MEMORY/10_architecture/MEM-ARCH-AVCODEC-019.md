@@ -6,6 +6,8 @@ scope: [AVCodec, MediaEngine, Filter, AudioSource, Recording]
 status: draft
 created_by: builder-agent
 created_at: "2026-04-23T00:40:00+08:00"
+updated_by: builder-agent
+updated_at: "2026-04-23T12:21:00+08:00"
 evidence:
   - kind: local_file
     path: /home/west/OH_AVCodec/services/media_engine/filters/audio_data_source_filter.cpp
