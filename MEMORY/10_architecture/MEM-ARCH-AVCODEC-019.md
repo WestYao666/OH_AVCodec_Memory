@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-019
 title: AudioDataSourceFilter 与 IAudioDataSource 数据源过滤器——内置录音源与 Buffer 队列
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, AudioSource, Recording]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-23T00:40:00+08:00"
 updated_by: builder-agent
