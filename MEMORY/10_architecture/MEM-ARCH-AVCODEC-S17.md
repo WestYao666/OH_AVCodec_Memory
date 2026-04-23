@@ -10,7 +10,7 @@ evidence: |
   - source: /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding.cpp
     anchor: "SmartFluencyDecoding::Initialize / InitializeInternal / EnsureNaluAnalyzer / EnsureMvAnalyzer"
   - source: /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/interfaces/smart_fluency_decoding_types.h
-    anchor: "RetentionStrategyType::FULL / ADAPTIVE / FIXED_RATIO / AUTO_RATIO, SFDCodecType::AVC / HEVC / VVC"
+    anchor: "RetentionStrategyType::FULL / ADAPTIVE / FIXED_RATIO / AUTO_RATIO, SFDCodecType::AVC / HEVC / VVC, SFDConfig"
   - source: /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/strategies/retention_strategy.h
     anchor: "IRetentionStrategy::MakeRetentionDecision / UpdatePlaybackSpeed / GetCurrentRetentionRatio"
   - source: /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/strategies/adaptive_retention_strategy.h
@@ -19,6 +19,10 @@ evidence: |
     anchor: "IMvAnalyzer::ParseMVData"
   - source: /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/analyzers/nalu_analyzer.h
     anchor: "INaluAnalyzer::AnalyzeNalu"
+  - source: /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/async_drop_dispatcher.h
+    anchor: "AsyncDropDispatcher::SubmitTask / WorkerLoop — std::thread + std::mutex + std::condition_variable 异步线程模式"
+  - source: /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/drop_sync_coordinator.h
+    anchor: "DropSyncCoordinator::ptsRingBuffer_[128] — PTS环形缓冲 / currentEmaDropRatio_ EMA反馈 / GetTargetRetentionRatio"
 ---
 
 # MEM-ARCH-AVCODEC-S17: SmartFluencyDecoding 智能流畅解码
