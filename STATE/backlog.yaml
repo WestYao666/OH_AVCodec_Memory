@@ -153,3 +153,17 @@
 | 2026-04-22 | Builder | 新增 S8：音频 FFmpeg 插件架构，对比视频硬件 HDI 路径 |
 | 2026-04-23 | Builder | 新增 S10：SeiParserFilter SEI 解析过滤器，SeiParserListener 分发机制 |
 | 2026-04-24 | Builder | 新增 S14：MediaEngine Filter Chain 架构，AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联机制（fallback: 无pending主题） |
+
+---
+
+## 新增主题（Builder 2026-04-24）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S15 | SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制 | AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S15 | ✅ 草案已生成（2026-04-24T04:10） |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-24 | Builder | 新增 S15：SuperResolutionPostProcessor 超分辨率后处理器，基于 VPE DetailEnhancer，超分条件：≤1920×1080、非DRM、非HDR Vivid |
