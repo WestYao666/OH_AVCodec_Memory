@@ -1,5 +1,9 @@
-last_updated: '2026-04-25T06:21:00+08:00'
+last_updated: '2026-04-25T07:21:00+08:00'
 queue:
+- mem_id: MEM-ARCH-AVCODEC-S16
+  submitted_at: '2026-04-25T07:21:00+08:00'
+  type: approval_request
+  note: "SurfaceCodec与Surface绑定机制，DecoderSurfaceFilter→CodecServer→CodecBase三层SetOutputSurface链路，PostProcessing路由(SetOutputSurfaceForPostProcessing)，Surface/Buffer双模式互斥(isSurfaceMode_/isModeConfirmed_)，行号锚点已验证decoder_surface_filter.cpp:1368/1404、codec_server.cpp:551-577/1367-1371、surface_decoder_adapter.cpp:235-250"
 - mem_id: MEM-ARCH-AVCODEC-S27
   submitted_at: '2026-04-25T06:21:00+08:00'
   type: approval_request
