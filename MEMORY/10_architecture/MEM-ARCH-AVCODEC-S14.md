@@ -1,12 +1,37 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S14
-status: draft
+status: pending_approval
 topic: MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联数据流
 created_at: "2026-04-24T00:30:00+08:00"
+submitted_at: "2026-04-24T20:40:00+08:00"
 evidence: |
   - source: /home/west/av_codec_repo/services/media_engine/filters/sei_parser_filter.cpp
-    anchor: "Line 44-47: static AutoRegisterFilter<SeiParserFilter> g_registerSeiParserFilter('builtin.player.seiParser', FilterType::FILTERTYPE_SEI)"
+    anchor: "Line 36-40: static AutoRegisterFilter<SeiParserFilter> g_registerSeiParserFilter('builtin.player.seiParser', FilterType::FILType::FILTERTYPE_SEI)"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/sei_parser_filter.cpp
+    anchor: "Line 167-171: Status SeiParserFilter::DoProcessInputBuffer — DrainOutputBuffer drops frame or drains parsed SEI output"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/sei_parser_filter.cpp
+    anchor: "Line 173-189: OnLinked captures trackMeta + onLinkedResultCallback_; OnUnLinked teardown"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/sei_parser_filter.cpp
+    anchor: "Line 107-114: PrepareInputBufferQueue creates AVBufferQueue(1024*1024) + SetBufferAvailableListener"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/sei_parser_filter.cpp
+    anchor: "Line 85-93: PrepareState -> PrepareInputBufferQueue, requires seiMessageCbStatus_ == true"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/video_resize_filter.cpp
+    anchor: "Line 246-257: DoPrepare -> filterCallback_->OnCallback(NEXT_FILTER_NEEDED, STREAMTYPE_RAW_VIDEO) — requests next filter"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/surface_decoder_filter.cpp
+    anchor: "Line 38-75: class SurfaceDecoderFilterLinkCallback : public FilterLinkCallback — OnLinkedResult/OnUnlinkedResult/OnUpdatedResult delegation"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/surface_decoder_filter.cpp
+    anchor: "Line 351-353: nextFilter->OnLinked(outType, configureParameter_, filterLinkCallback) — upstream initiates link"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/surface_decoder_filter.cpp
+    anchor: "Line 407-414: OnLinkedResult -> onLinkedResultCallback_->OnLinkedResult(mediaCodec_->GetInputBufferQueue()) — returns producer"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/surface_decoder_filter.cpp
+    anchor: "Line 84-89: SurfaceDecoderAdapterCallback::OnError — CodecAdapter error propagates to Filter via OnError(type, errorCode)"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/surface_decoder_filter.cpp
+    anchor: "Line 120: void SurfaceDecoderFilter::OnError — logs and propagates to Pipeline event handler"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/demuxer_filter.cpp
+    anchor: "Line 79-83: DemuxerFilterLinkCallback::OnLinkedResult -> demuxerFilter->OnLinkedResult(queue, meta)"
+  - source: /home/west/av_codec_repo/services/media_engine/filters/demuxer_filter.cpp
+    anchor: "Line 964-975: void DemuxerFilter::OnLinkedResult -> demuxer_->SetOutputBufferQueue(trackId, outputBufferQueue)"
   - source: /home/west/av_codec_repo/services/media_engine/filters/demuxer_filter.cpp
     anchor: "Line 60-64: static AutoRegisterFilter<DemuxerFilter> g_registerAudioCaptureFilter('builtin.player.demuxer', FilterType::FILTERTYPE_DEMUXER)"
   - source: /home/west/av_codec_repo/services/media_engine/filters/video_resize_filter.cpp
@@ -206,7 +231,11 @@ Filter 可通过 `filterCallback_->OnCallback(NEXT_FILTER_NEEDED, streamType)` �
 
 ## 待补充
 
-- FilterFactory 的具体实现（如何根据注册名查找和创建 Filter 实例）
-- `DoProcessInputBuffer` 在不同 Filter 中的具体实现差异
-- Filter 链的错误传播机制（Filter 出错如何通知上下游）
+- FilterFactory 的具体实现（如何根据注册名查找和创建 Filter 实例）—— 已知 filter_factory.h 存在但本地 repo 无此文件，需完整 repo 确认
 - 动态 Filter 插入/替换的具体时机和实现（PipelineBuilder）
+
+**已补充（本轮更新）**：
+- `DoProcessInputBuffer` 在 SeiParserFilter 中实现为 DrainOutputBuffer（行 167-171）
+- VideoResizeFilter DoPrepare 通过 `NEXT_FILTER_NEEDED` 回调向 Pipeline 申请下一个 Filter（行 246-257）
+- DemuxerFilter OnLinkedResult 调用 demuxer_->SetOutputBufferQueue 建立输出队列（行 964-975）
+- SurfaceDecoderFilter 通过 SurfaceDecoderAdapterCallback::OnError 接收 CodecAdapter 错误并向上传播（行 84-89, 120）
