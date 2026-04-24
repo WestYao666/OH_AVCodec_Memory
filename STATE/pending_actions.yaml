@@ -1,5 +1,9 @@
-last_updated: '2026-04-25T07:21:00+08:00'
+last_updated: '2026-04-25T07:40:00+08:00'
 queue:
+- mem_id: MEM-ARCH-AVCODEC-S28
+  submitted_at: '2026-04-25T07:40:00+08:00'
+  type: approval_request
+  note: "VideoCaptureFilter视频采集过滤器，builtin.recorder.videocapture注册，SetInputSurface/GetInputSurface双模式Surface注入，ConsumerSurfaceBufferListener桥接Surface事件与Filter采集，OnBufferAvailable→AcquireInputBuffer→ProcessAndPushOutputBuffer→PushBuffer完整路径，SYNC_FRAME/CODEC_DATA首帧标志，totalPausedTime_暂停时间补偿，与AudioCaptureFilter(S26)并列构成录制管线双路采集入口"
 - mem_id: MEM-ARCH-AVCODEC-S16
   submitted_at: '2026-04-25T07:21:00+08:00'
   type: approval_request

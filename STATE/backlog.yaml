@@ -213,8 +213,15 @@
 |---|------|-------|---------|------|------|
 | S27 | CodecList 服务架构——CodecListCore + CodecAbilitySingleton + CodecListBuilder 三层能力查询体系 | AVCodec, CodecList, Capability, CodecAbilitySingleton, CodecListCore, AVCodecList, Factory, SA, SystemAbility | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S27 | ✅ 草案已生成（2026-04-25T06:21），已提交审批 |
 
+## 新增主题（Builder 2026-04-25 续 - S28注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S28 | VideoCaptureFilter 视频采集过滤器——Surface模式输入与录制管线数据源 | AVCodec, MediaEngine, Filter, VideoCapture, RecorderPipeline, SurfaceMode, Source | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S28 | ✅ 草案已生成（2026-04-25T07:40），已提交审批 |
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
-| 2026-04-25T06:30 | Builder | 注册 S27：CodecList 服务架构，CodecListCore七项Check校验（分辨率/帧率/码率/像素格式/声道/采样率），CodecAbilitySingleton单例聚合硬件HCodecLoader+软件FCodecLoader/AvcEncoderLoader/AudioCodeclistInfo，FindCodec按mime→codecType→isVendor三重过滤，SA层AVCodecServer分发AVCODEC_CODECLIST(4501)/AVCODEC_CODEC(4502)子系统 |
+| 2026-04-25T06:30 | Builder | 注册 S27：CodecList 服务架构，CodecListCore七项Check校验 |
+| 2026-04-25T07:40 | Builder | 注册 S28：VideoCaptureFilter 视频采集过滤器，builtin.recorder.videocapture注册，SetInputSurface/GetInputSurface双模式Surface注入，ConsumerSurfaceBufferListener桥接Surface事件与Filter采集，OnBufferAvailable→AcquireInputBuffer→ProcessAndPushOutputBuffer→PushBuffer完整路径，SYNC_FRAME/CODEC_DATA首帧标志，totalPausedTime_暂停时间补偿，与AudioCaptureFilter(S26)并列构成录制管线双路采集入口 |
