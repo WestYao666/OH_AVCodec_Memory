@@ -167,6 +167,7 @@
 | S19 | TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链 | AVCodec, VideoEncoder, TemporalScalability, SVC, LTR, CodecParamChecker, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S19 | ✅ 草案已生成（2026-04-24T08:51） |
 | S20 | PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载 | AVCodec, PostProcessing, VPE, DynamicController, DynamicInterface, LockFreeQueue, ColorSpace, dlopen | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S20 | ✅ 草案已生成（2026-04-24T10:50），2026-04-24T16:07 状态修正为pending_approval |
 | S21 | AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换 | AVCodec, IPC, CodecClient, CodecServiceProxy, CodecServiceStub, CodecListenerStub, CodecBufferCircular, Binder, SyncMode, AsyncMode | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S21 | ✅ 草案已生成（2026-04-24T10:56），2026-04-24T12:21 Builder提交审批 |
+| S22 | MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链 | AVCodec, MediaEngine, Sync, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, PTS, AVSync, Clock | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S22 | ✅ 草案已生成（2026-04-24T18:37） |
 
 ## 变更记录
 
@@ -179,3 +180,4 @@
 | 2026-04-24 | Builder | 新增 S19：TemporalScalability 时域可分级视频编码，SVC-TL/SVC-LTR 双模式判定（IsLTRSolution），temporalGopSize/tRefMode 双参数，CodecParamChecker 七步校验链（TemporalGopSizeChecker→TemporalGopReferenceModeChecker→LTRFrameCountChecker 等） |
 | 2026-04-24 | Builder | 新增 S20：PostProcessing 后处理框架，CRTP模板+DynamicController+DynamicInterface三组件，dlopen libvideoprocessingengine.z.so(RTLD_LAZY)，17个VPE函数符号，色域转换四元组（primaries/transFunc/matrix/range），六状态机（DISABLED→CONFIGURED→PREPARED→RUNNING），SetDecoderInputSurface三步级联链路 |
 | 2026-04-24 | Builder | 新增 S21：AVCodec IPC架构，CodecServiceProxy（客户端IRemoteProxy）↔CodecServiceStub（服务端IRemoteStub）双向代理，32个CodecServiceInterfaceCode函数指针分发，CodecListenerStub六路回调，CodecClient双模式（Sync/Async），CodecBufferCircular三段式BufferOwner与FLAG_SYNC_ASYNC_CONFIGURED不可切换约束，BufferConverter格式转换，CreateInputSurface/SetOutputSurface通过IBufferProducer序列化跨进程Surface传递 |
+| 2026-04-24 | Builder | 新增 S22：MediaSyncManager 音视频同步管理中心，IMediaSyncCenter时间锚点+IMediaSynchronizer优先级同步链（VIDEO_SINK=0/AUDIO_SINK=2优先级），UpdateTimeAnchor锚点建立+PTS换算+Seek+PlaybackRate |
