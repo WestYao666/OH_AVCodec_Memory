@@ -194,3 +194,15 @@
 | 2026-04-24 | Builder | 新增 S20：PostProcessing 后处理框架，CRTP模板+DynamicController+DynamicInterface三组件，dlopen libvideoprocessingengine.z.so(RTLD_LAZY)，17个VPE函数符号，色域转换四元组（primaries/transFunc/matrix/range），六状态机（DISABLED→CONFIGURED→PREPARED→RUNNING），SetDecoderInputSurface三步级联链路 |
 | 2026-04-24 | Builder | 新增 S21：AVCodec IPC架构，CodecServiceProxy（客户端IRemoteProxy）↔CodecServiceStub（服务端IRemoteStub）双向代理，32个CodecServiceInterfaceCode函数指针分发，CodecListenerStub六路回调，CodecClient双模式（Sync/Async），CodecBufferCircular三段式BufferOwner与FLAG_SYNC_ASYNC_CONFIGURED不可切换约束，BufferConverter格式转换，CreateInputSurface/SetOutputSurface通过IBufferProducer序列化跨进程Surface传递 |
 | 2026-04-24 | Builder | 新增 S22：MediaSyncManager 音视频同步管理中心，IMediaSyncCenter时间锚点+IMediaSynchronizer优先级同步链（VIDEO_SINK=0/AUDIO_SINK=2优先级），UpdateTimeAnchor锚点建立+PTS换算+Seek+PlaybackRate |
+
+## 新增主题（Builder 2026-04-25 第二批）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S26 | AudioCaptureFilter + AudioDataSourceFilter 录制采集过滤器——AudioCaptureModule、AudioCapturer 与 SubtitleSink 字幕渲染 | AVCodec, MediaEngine, Filter, AudioCapture, AudioDataSource, AudioCapturer, Subtitle, RecorderPipeline | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S26 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-25T04:55 | Builder 新增 | S26：AudioCaptureFilter 设备音频采集（AudioCaptureModule）+ AudioDataSourceFilter 数据源（无设备依赖）+ SubtitleSinkFilter 字幕渲染终点，三类 Filter 注册名与生命周期对比 |
