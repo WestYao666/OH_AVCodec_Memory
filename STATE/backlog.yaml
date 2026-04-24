@@ -199,7 +199,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S26 | AudioCaptureFilter + AudioDataSourceFilter 录制采集过滤器——AudioCaptureModule、AudioCapturer 与 SubtitleSink 字幕渲染 | AVCodec, MediaEngine, Filter, AudioCapture, AudioDataSource, AudioCapturer, Subtitle, RecorderPipeline | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S26 |
+| S26 | AudioCaptureFilter + AudioDataSourceFilter 录制采集过滤器——AudioCaptureModule、AudioCapturer 与 SubtitleSink 字幕渲染 | AVCodec, MediaEngine, Filter, AudioCapture, AudioDataSource, AudioCapturer, Subtitle, RecorderPipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S26 | ✅ 草案已生成（2026-04-25T04:55），已提交审批 |
 
 ## 变更记录
 

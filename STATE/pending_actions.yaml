@@ -1,5 +1,9 @@
-last_updated: '2026-04-25T04:55:00+08:00'
+last_updated: '2026-04-25T06:21:00+08:00'
 queue:
+- mem_id: MEM-ARCH-AVCODEC-S27
+  submitted_at: '2026-04-25T06:21:00+08:00'
+  type: approval_request
+  note: "CodecList服务架构，CodecListCore七项Check校验（分辨率/帧率/码率/像素格式/声道/采样率），CodecAbilitySingleton单例聚合硬件HCodecLoader+软件FCodecLoader/AvcEncoderLoader/AudioCodeclistInfo，FindCodec按mime→codecType→isVendor三重过滤，SA层AVCodecServer分发AVCODEC_CODECLIST(4501)/AVCODEC_CODEC(4502)子系统"
 - mem_id: MEM-ARCH-AVCODEC-S26
   submitted_at: '2026-04-25T04:55:00+08:00'
   type: approval_request
