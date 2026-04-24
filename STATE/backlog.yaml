@@ -175,7 +175,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S25 | AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成 | AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, AFC, DynamicFramerate | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S13 | ✅ 草案已生成（2026-04-25T01:51），S13为orphan draft增强注册 |
+| S25 | AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成 | AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, AFC, DynamicFramerate | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S25 | ✅ 草案已生成（2026-04-25T02:51），S13为orphan draft增强注册，S25为正式注册编号 |
 
 | 2026-04-25 | Builder 增强 | MEM-ARCH-AVCODEC-001 evidence 二次增强：新增 CodecBase/CodecServer/MediaCodec 类级证据（行号级），补充 7 个专用 Loader 插件清单，补充 8 个 Native C API 头文件 |
 | 2026-04-25T00:55 | Builder 新增 | S24：AudioEncoderFilter 音频编码过滤器，MediaCodec 封装与录音管线，SetTranscoderMode 转码模式支持 |

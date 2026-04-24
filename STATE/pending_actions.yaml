@@ -1,4 +1,4 @@
-last_updated: '2026-04-25T02:36:00+08:00'
+last_updated: '2026-04-25T02:51:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S9
   submitted_at: '2026-04-24T00:07:00+08:00'
@@ -55,3 +55,7 @@ queue:
   submitted_at: '2026-04-25T00:55:00+08:00'
   type: approval_request
   note: "AudioEncoderFilter音频编码过滤器，MediaCodec封装+录音管线，builtin.recorder.audioencoder，SetTranscoderMode转码模式，DFX SetFaultEvent上报"
+- mem_id: MEM-ARCH-AVCODEC-S25
+  submitted_at: '2026-04-25T02:51:00+08:00'
+  type: approval_request
+  note: "AdaptiveFramerateController自适应帧率控制器，AFC单例+FramerateCalculator按Codec实例，动态降帧算法（抖动过滤/升帧×2.5/降帧2次确认），CodecServer集成，DecodingBehaviorAnalyzer解码行为分析"
