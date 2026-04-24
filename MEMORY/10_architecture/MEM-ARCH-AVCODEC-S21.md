@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S21
-status: draft
+status: pending_approval
 topic: AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换
 created_at: "2026-04-24T10:51:00+08:00"
 evidence: |

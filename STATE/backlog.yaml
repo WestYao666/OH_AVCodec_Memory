@@ -166,7 +166,7 @@
 | S18 | AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期 | AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory, Lifecycle | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S18 | ✅ 草案已生成（2026-04-24T06:10），2026-04-24T07:37 提交审批 |
 | S19 | TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链 | AVCodec, VideoEncoder, TemporalScalability, SVC, LTR, CodecParamChecker, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S19 | ✅ 草案已生成（2026-04-24T08:51） |
 | S20 | PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载 | AVCodec, PostProcessing, VPE, DynamicController, DynamicInterface, LockFreeQueue, ColorSpace, dlopen | 新需求开发/问题定位 | **in_progress** | MEM-ARCH-AVCODEC-S20 | 🔄 Builder 处理中（2026-04-24T10:50） |
-| S21 | AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换 | AVCodec, IPC, CodecClient, CodecServiceProxy, CodecServiceStub, CodecListenerStub, CodecBufferCircular, Binder, SyncMode, AsyncMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S21 | ✅ 草案已生成（2026-04-24T10:56） |
+| S21 | AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换 | AVCodec, IPC, CodecClient, CodecServiceProxy, CodecServiceStub, CodecListenerStub, CodecBufferCircular, Binder, SyncMode, AsyncMode | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S21 | ✅ 草案已生成（2026-04-24T10:56），2026-04-24T12:21 Builder提交审批 |
 
 ## 变更记录
 
