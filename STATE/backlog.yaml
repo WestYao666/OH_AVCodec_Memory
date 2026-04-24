@@ -168,11 +168,13 @@
 | S20 | PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载 | AVCodec, PostProcessing, VPE, DynamicController, DynamicInterface, LockFreeQueue, ColorSpace, dlopen | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S20 | ✅ 草案已生成（2026-04-24T10:50），2026-04-24T16:07 状态修正为pending_approval |
 | S21 | AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换 | AVCodec, IPC, CodecClient, CodecServiceProxy, CodecServiceStub, CodecListenerStub, CodecBufferCircular, Binder, SyncMode, AsyncMode | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S21 | ✅ 草案已生成（2026-04-24T10:56），2026-04-24T12:21 Builder提交审批 |
 | S22 | MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链 | AVCodec, MediaEngine, Sync, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, PTS, AVSync, Clock | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S22 | ✅ 草案已生成（2026-04-24T18:37） |
+| S23 | SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程 | AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S23 | ✅ 草案已生成（2026-04-24T20:55） |
 
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
+| 2026-04-24 晚间 | Builder | 新增 S23：SurfaceEncoderAdapter 视频编码器适配器，Filter 层封装（"builtin.recorder.videoencoder", FILTERTYPE_VENC），SurfaceEncoderAdapter 桥接 MediaEngine 与 AVCodecVideoEncoder，VideoEncoderFactory::CreateByMime 创建底层编码器，七状态 ProcessStateCode（IDLE/RECORDING/PAUSED/STOPPED），四类回调体系，ReleaseBuffer 后台线程，TemporalScalability + B-Frame + TransCoderMode 支持 |
 | 2026-04-24 | Builder | 新增 S15：SuperResolutionPostProcessor 超分辨率后处理器，基于 VPE DetailEnhancer，超分条件：≤1920×1080、非DRM、非HDR Vivid |
 | 2026-04-24 | Builder | 新增 S16：SurfaceCodec 与 Surface 的绑定机制，DecoderSurfaceFilter→CodecServer→CodecBase 三层 SetOutputSurface 链路，PostProcessing 介入时的双 Surface 转发，Surface/Buffer 模式互斥 |
 | 2026-04-24 | Builder | 新增 S17：SmartFluencyDecoding 智能流畅解码，四种 RetentionStrategy（FULL/ADAPTIVE/FIXED_RATIO/AUTO_RATIO），MV/Nalu 双分析器（dlopen 插件），AsyncDropDispatcher 异步丢帧，DropSyncCoordinator 成对丢帧保证 |

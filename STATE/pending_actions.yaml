@@ -1,4 +1,4 @@
-last_updated: '2026-04-24T20:40:00+08:00'
+last_updated: '2026-04-24T20:55:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S9
   submitted_at: '2026-04-24T00:07:00+08:00'
@@ -46,3 +46,7 @@ queue:
 - mem_id: MEM-ARCH-AVCODEC-S22
   submitted_at: '2026-04-24T18:37:00+08:00'
   type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S23
+  submitted_at: '2026-04-24T20:55:00+08:00'
+  type: approval_request
+  note: "SurfaceEncoderAdapter视频编码器适配器，Filter层封装+Codec适配层双架构，Surface模式输入/编码输出，ProcessStateCode七状态，ReleaseBuffer后台线程，TemporalScalability+B-Frame+TransCoderMode支持"
