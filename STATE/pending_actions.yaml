@@ -1,4 +1,4 @@
-last_updated: '2026-04-24T18:37:00+08:00'
+last_updated: '2026-04-24T20:40:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S9
   submitted_at: '2026-04-24T00:07:00+08:00'
@@ -16,8 +16,9 @@ queue:
   submitted_at: '2026-04-24T00:05:00+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S14
-  submitted_at: '2026-04-24T00:27:00+08:00'
+  submitted_at: '2026-04-24T20:40:00+08:00'
   type: approval_request
+  note: "增强DoProcessInputBuffer/OnError/NEXT_FILTER_NEEDED evidence，本轮补强后重新提交"
 - mem_id: MEM-ARCH-AVCODEC-S13
   submitted_at: '2026-04-24T01:05:00+08:00'
   type: approval_request
