@@ -3,14 +3,29 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S13
 status: draft
 topic: AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧与CodecServer集成
-created_at: "2026-04-24T00:07:00+08:00"
+created_at: "2026-04-24T19:36:00+08:00"
 evidence: |
-  - source: /home/west/av_codec_repo/services/services/common/adaptive_framerate_controller/adaptive_framerate_controller.h
-    anchor: "AdaptiveFramerateController::Add / Remove / Loop, FramerateCalculator::OnFrameConsumed / CheckAndResetFramerate"
-  - source: /home/west/av_codec_repo/services/services/codec/server/video/codec_server.cpp
-    anchor: "framerateCalculator_->OnFrameConsumed / SetSpeedAndFpsCallback / SetConfiguredFramerate"
-  - source: /home/west/av_codec_repo/services/services/common/adaptive_framerate_controller/adaptive_framerate_controller.cpp
-    anchor: "AdaptiveFramerateController::GetInstance() singleton, Register2AFC / UnregisterFromAFC"
+  - source: services/services/common/adaptive_framerate_controller/adaptive_framerate_controller.h
+    lines: 35-54
+    anchor: "AdaptiveFramerateController::GetInstance() singleton, Add/Remove/Loop, FramerateCalculator"
+  - source: services/services/common/adaptive_framerate_controller/adaptive_framerate_controller.cpp
+    lines: 20-25
+    anchor: "CHECK_INTERVAL=1000ms, MIN_FRAMERATE=1.0, DEFAULT_FRAMERATE=60, MAX_INCREASE/DECREASE_CHECK_TIMES=1/2"
+  - source: services/services/common/adaptive_framerate_controller/adaptive_framerate_controller.cpp
+    lines: 81-95
+    anchor: "FramerateCalculator::OnFrameConsumed → Register2AFC → status_=RUNNING"
+  - source: services/services/codec/server/video/codec_server.cpp
+    lines: 861-877
+    anchor: "framerateCalculator_ = std::make_shared<FramerateCalculator>(instanceId_, isEnc, handler); SetSpeedAndFpsCallback 注册降帧回调"
+  - source: services/services/codec/server/video/codec_server.cpp
+    lines: 768-777
+    anchor: "每帧完成 OnFrameConsumed(pts)，触发 FramerateCalculator 帧计数"
+  - source: services/services/codec/server/video/codec_server.cpp
+    lines: 1680-1691
+    anchor: "停止时 SetFramerate2ConfiguredFramerate() 恢复原始帧率"
+  - source: services/services/common/adaptive_framerate_controller/decoding_behavior_analyzer.h
+    lines: 30-50
+    anchor: "DecodingBehaviorType: UNKNOWN/UNIFORM_SPEED/NON_UNIFORM_SPEED, SpeedStats, MatchAndUpdateSpeedStats"
 ---
 
 # MEM-ARCH-AVCODEC-S13: AdaptiveFramerateController 自适应帧率控制器
@@ -21,107 +36,156 @@ evidence: |
 |------|-----|
 | id | MEM-ARCH-AVCODEC-S13 |
 | title | AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧与CodecServer集成 |
-| scope | [AVCodec, DFX, AdaptiveFramerate, FramerateCalculator, Pipeline, CodecServer] |
+| scope | [AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, DFX] |
 | status | draft |
 | created_by | builder-agent |
 | created_at | 2026-04-24 |
 | type | architecture_fact |
 | confidence | high |
-| related_scenes | [新需求开发, 问题定位, 自适应帧率, 动态降帧, Pipeline调优] |
-| why_it_matters: |
-  - 问题定位：视频播放时帧率异常波动（卡顿/掉帧），需排查 AdaptiveFramerateController 是否触发动态降帧
-  - 新需求开发：自定义 Pipeline 接入时需决定是否启用帧率自适应、是否注册到 AFC
-  - 性能分析：AFC 通过检测帧消费速率动态调整帧率，影响用户感知流畅度
-  - CodecServer 集成：framerateCalculator_ 是 CodecServer 的成员变量，与编码器/解码器实例生命周期绑定
+| related_scenes | [新需求开发, 问题定位, 自适应帧率, 动态降帧, Pipeline调优, 播放流畅度] |
 
 ## 摘要
 
 AdaptiveFramerateController（AFC）是 AVCodec 的**全局帧率自适应控制器**，以单例模式运行。
-当检测到某些 Codec 实例帧消费（OnFrameConsumed）变慢时，自动触发降帧回调（speed/fps），以减少硬件负担、避免卡顿。
+当检测到 Codec 实例帧消费变慢时，自动触发降帧回调，以减少硬件负担、避免卡顿。
 CodecServer 持有 FramerateCalculator 实例，通过 SetSpeedAndFpsCallback 注册降速回调，实现编码器帧率的动态调节。
+
+## 关键常量（来源证据）
+
+```
+adaptive_framerate_controller.cpp:20-25
+  CHECK_INTERVAL = 1000ms        // AFC Loop 检测间隔
+  MIN_FRAMERATE = 1.0           // 最低帧率（不可继续降）
+  DEFAULT_FRAMERATE = 60        // 默认目标帧率
+  MAX_INCREASE_CHECK_TIMES = 1  // 升帧连续确认次数
+  MAX_DECREASE_CHECK_TIMES = 2  // 降帧连续确认次数
+  afcEnable = GetBoolParameter("persist.OHOS.MediaAVCodec.AFC.Enable", true)
+  allowLowFps = GetBoolParameter("persist.OHOS.MediaAVCodec.AFC.AllowLowFps.Enable", true)
+```
 
 ## 关键类与接口
 
 ### AdaptiveFramerateController（AFC 单例）
 - **文件**: `services/services/common/adaptive_framerate_controller/adaptive_framerate_controller.h`
-- **性质**: 单例（`GetInstance()`）
+- **性质**: 单例（`GetInstance()` 返回引用，后台线程运行）
 - **核心方法**:
-  - `Add(instanceId, calculator)` — 注册一个 Codec 实例的 FramerateCalculator
+  - `Add(instanceId, calculator)` — 注册 FramerateCalculator 实例
   - `Remove(instanceId)` — 注销
-  - `Loop()` — 后台线程，持续监测各 calculator 状态
+  - `Loop()` — 后台线程，每 `CHECK_INTERVAL`(1000ms) 轮询所有 calculator 的 `CheckAndResetFramerate()`
 
-### FramerateCalculator
-- **性质**: 非单例，每个 Codec 实例持有一个
-- **构造**: `FramerateCalculator(instanceId, isEnc, handler)` — isEnc 区分编码/解码，handler 是降帧回调
+### FramerateCalculator（按 Codec 实例）
+- **性质**: 非单例，每个 Codec 实例持有一个 `shared_ptr`
+- **构造**: `FramerateCalculator(instanceId, isEnc, handler)` — isEnc 区分编码/解码
 - **核心方法**:
-  - `OnFrameConsumed(pts)` — 每帧处理完成时调用，更新帧计数
-  - `CheckAndResetFramerate()` — 检查是否需要重置帧率
+  - `OnFrameConsumed(pts)` — 每帧处理完成时调用；首次调用时注册到 AFC 并置 status_=RUNNING
+  - `CheckAndResetFramerate()` — 检查是否需要动态调整帧率
   - `SetConfiguredFramerate(fps)` — 设置目标帧率（默认60fps）
-  - `SetSpeedAndFpsCallback(cb)` — 注册 speed/fps 回调，AFC 触发降帧时调用
+  - `SetSpeedAndFpsCallback(cb)` — 注册 (speed, decFps) 回调，AFC 触发降帧时调用
+  - `SetFramerate2ConfiguredFramerate()` — 停止时恢复原始帧率
   - `Register2AFC() / UnregisterFromAFC()` — 注册/注销到 AFC 单例
+- **内部状态**: `Status { INITIALIZED → RUNNING → STOPPED }`
 
-### CodecServer 中的 AFC 集成
-- **文件**: `services/services/codec/server/video/codec_server.cpp`
-- **成员**: `framerateCalculator_`（`std::shared_ptr<FramerateCalculator>`）
-- **初始化**: 在 CodecServer 构造或 Configure 阶段创建 calculator 并注册到 AFC
-- **回调分发**: `SetSpeedAndFpsCallback([](double speed, double fps) { ... })` — 降帧触发时自动调用
+### DecodingBehaviorAnalyzer（解码行为分析）
+- **文件**: `services/services/common/adaptive_framerate_controller/decoding_behavior_analyzer.h`
+- **行为类型**:
+  - `UNKNOWN` — 初始未确定
+  - `UNIFORM_SPEED` — 稳定倍速播放（如 0.75x, 1.0x, 1.25x, 1.5x, 2.0x, 3.0x, 4.0x）
+  - `NON_UNIFORM_SPEED` — 变速、超高速、切换中等场景
+- **标准速度等级**: 8级（`stdSpeedLevels=8`）
+  - `standardSpeeds = {0.0, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 4.0}`
+- **核心方法**:
+  - `OnFrameConsumed(pts)` — 帧消费事件
+  - `OnChecked(double decFps)` — FPS检测
+  - `SetCallback(cb)` — 设置 speed/fps 回调
+
+## CodecServer 集成链路（来源证据）
+
+```
+codec_server.cpp:861
+  framerateCalculator_ = std::make_shared<FramerateCalculator>(instanceId_, isEnc, handler);
+
+codec_server.cpp:873-877
+  framerateCalculator_->SetSpeedAndFpsCallback([weakThis](double speed, double decFps) {
+      // speed: 播放倍速
+      // decFps: 实际解码帧率
+  });
+
+codec_server.cpp:768-777
+  if (framerateCalculator_ && status_ == RUNNING) {
+      framerateCalculator_->OnFrameConsumed(pts);   // 每帧完成时调用
+  }
+
+codec_server.cpp:1680-1691
+  // 停止时恢复原始帧率
+  framerateCalculator_->OnStopped();
+  framerateCalculator_->SetFramerate2ConfiguredFramerate();
+```
 
 ## 数据流
 
 ```
-CodecServer 实例化
-  → 创建 FramerateCalculator(instanceId, isEnc,降帧回调)
+CodecServer 构造
+  → 创建 FramerateCalculator(instanceId, isEnc, resetHandler)
   → AdaptiveFramerateController::GetInstance().Add(instanceId, calculator)
-  → AFC 后台 Loop 线程启动
+  → AFC 后台 Loop 线程启动（每 1000ms 轮询）
 
-播放/编码运行时:
-  → 每帧完成 OnFrameConsumed(pts)
-  → FramerateCalculator 累加 frameCount_
-  → AFC Loop 定期调用 CheckAndResetFramerate()
-  → 检测到帧率下降 → 触发 SetSpeedAndFpsCallback(speed, fps)
-  → CodecServer 收到回调，调整编码器帧率参数
+运行时每帧完成:
+  → OnFrameConsumed(pts)
+  → behaviorAnalyzer_->OnFrameConsumed(pts)（解码器）
+  → frameCount_++
+  → AFC Loop 调用 CheckAndResetFramerate()
+  → 检测到帧率下降 → 触发 SetSpeedAndFpsCallback(speed, decFps)
+  → CodecServer 收到回调，调整编码器参数
   → 降帧生效，硬件负载降低
 
 停止时:
   → FramerateCalculator::OnStopped()
-  → UnregisterFromAFC() → AdaptiveFramerateController::Remove(instanceId)
+  → UnregisterFromAFC()
+  → SetFramerate2ConfiguredFramerate() 恢复原始帧率
 ```
 
 ## 状态机
 
 ### FramerateCalculator Status
 ```
-INITIALIZED → RUNNING → STOPPED
+INITIALIZED ──(首帧OnFrameConsumed)──► RUNNING ──(OnStopped)──► STOPPED
 ```
-- `INITIALIZED`: Calculator 创建完成，待 Register2AFC
-- `RUNNING`: 已注册，Loop 线程开始监测帧率
-- `STOPPED`: Codec 实例停止，Unregister 后进入 STOPPED
+- `INITIALIZED`: Calculator 创建完成，待首次帧消费
+- `RUNNING`: 已注册，AFC Loop 持续监测
+- `STOPPED`: 实例停止，Unregister 后进入 STOPPED
 
 ### AdaptiveFramerateController 线程状态
 ```
-!isRunning_ (初始) → isRunning_=true (Add 后) → 线程 Loop() 持续运行 → Remove 全部后退出
+!isRunning_(初始) → isRunning_=true(Add后) → Loop线程持续运行 → Remove全部后退出
 ```
+
+## 系统参数（运行时开关）
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `persist.OHOS.MediaAVCodec.AFC.Enable` | true | 全局 AFC 功能开关 |
+| `persist.OHOS.MediaAVCodec.AFC.AllowLowFps.Enable` | true | 是否允许降至 MIN_FRAMERATE(1fps) |
 
 ## 与其他组件的关系
 
 | 组件 | 关系 | 说明 |
 |------|------|------|
 | CodecServer | 持有者 | framerateCalculator_ 是 CodecServer 成员 |
-| CodecBase (Video) | 下游 | CodecServer 通过 framerateCalculator 动态调其帧率 |
+| VideoEncoderBase | 下游 | CodecServer 通过 framerateCalculator 动态调其帧率 |
 | MediaCodec (API层) | 上层 | 通过 MediaCodec → CodecServer → AFC 影响帧率 |
 | AdaptiveFramerateController | 单例全局 | 所有 Codec 实例共享一个 AFC 单例 |
-| FramerateCalculator | 按实例 | 每个 Codec 实例一个 Calculator |
-| DecodingBehaviorAnalyzer | 内部依赖 | FramerateCalculator 持有，用于分析解码行为 |
+| DecodingBehaviorAnalyzer | 内部依赖 | 仅解码器使用，分析播放速度行为并决定是否降帧 |
 
 ## 已有记忆关联
 
-- **MEM-ARCH-AVCODEC-S3**: CodecServer Pipeline 数据流与状态机（AFC 作为 CodecServer 成员，S3 中仅一笔带过 framerateCalculator_，本条目补全 AFC 机制）
+- **MEM-ARCH-AVCODEC-S3**: CodecServer Pipeline 数据流与状态机（AFC 作为 CodecServer 成员，S3 中仅一笔带过 framerateCalculator_）
 - **MEM-ARCH-AVCODEC-006**: media_codec 编解码数据流（CodecServer 是 Pipeline 核心，AFC 影响其运行时帧率表现）
 - **MEM-ARCH-AVCODEC-S1**: codec_server.cpp 所承载的能力（CodecServer 对 AFC 的委托关系）
+- **MEM-ARCH-AVCODEC-S17**: SmartFluencyDecoding 智能流畅解码（与 AFC 类似，同属帧率/流畅度调控，但 AFC 面向编码器，SmartFluency 面向解码器丢帧策略）
 
-## 待补充
+## 待补充（Builder 注）
 
-- DecodingBehaviorAnalyzer 完整实现（用于判断降帧触发条件）
-- AFC 降帧阈值配置（帧率低于多少触发，间隔多久重检）
-- speed 参数的具体含义（倍速 vs 降帧比例）
+- AFC 降帧触发阈值具体计算逻辑（frameCount 如何映射到 decFps）
+- speed 参数与 playbackRate 的换算关系
 - 是否支持动态升帧（降帧后的恢复机制）
+- 多 Codec 实例竞争时 AFC 的调度策略
