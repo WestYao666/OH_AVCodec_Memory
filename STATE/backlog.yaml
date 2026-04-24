@@ -170,6 +170,8 @@
 | S22 | MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链 | AVCodec, MediaEngine, Sync, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, PTS, AVSync, Clock | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S22 | ✅ 草案已生成（2026-04-24T18:37） |
 | S23 | SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程 | AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S23 | ✅ 草案已生成（2026-04-24T20:55） |
 
+| 2026-04-25 | Builder 增强 | MEM-ARCH-AVCODEC-001 evidence 二次增强：新增 CodecBase/CodecServer/MediaCodec 类级证据（行号级），补充 7 个专用 Loader 插件清单，补充 8 个 Native C API 头文件 |
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
