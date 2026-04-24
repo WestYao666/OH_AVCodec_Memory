@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S22
 title: MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链
-status: draft
+status: pending_approval
 created_at: "2026-04-24T10:37:00Z"
 scope: [AVCodec, MediaEngine, Sync, MediaSyncManager, IMediaSyncCenter, PTS, AVSync, Clock]
 ---

@@ -1,4 +1,4 @@
-last_updated: '2026-04-25T00:55:00+08:00'
+last_updated: '2026-04-25T02:36:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S9
   submitted_at: '2026-04-24T00:07:00+08:00'
@@ -44,8 +44,9 @@ queue:
   submitted_at: '2026-04-24T10:56:52+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S22
-  submitted_at: '2026-04-24T18:37:00+08:00'
+  submitted_at: '2026-04-25T02:36:00+08:00'
   type: approval_request
+  note: "MediaSyncManager音视频同步管理中心，IMediaSyncCenter时间锚点+IMediaSynchronizer优先级链（VIDEO_SINK=0/AUDIO_SINK=2），UpdateTimeAnchor+PTS换算+Seek+PlaybackRate，Preroll协调，WaitAllPrerolled/NotifyAllPrerolled
 - mem_id: MEM-ARCH-AVCODEC-S23
   submitted_at: '2026-04-24T20:55:00+08:00'
   type: approval_request
