@@ -1,7 +1,9 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S17
-status: draft
+status: pending_approval
+submitted_by: builder-agent
+submitted_at: "2026-04-25T17:36:00+08:00"
 topic: SmartFluencyDecoding 智能流畅解码——IRetentionStrategy四策略+MV/Nalu双分析器+AsyncDropDispatcher异步丢帧
 created_at: "2026-04-24T05:55:00+08:00"
 evidence: |

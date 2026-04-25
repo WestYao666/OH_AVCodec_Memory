@@ -1,4 +1,4 @@
-last_updated: '2026-04-25T17:21:00+08:00'
+last_updated: '2026-04-25T17:36:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S36
   note: VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode特殊路径，与VideoCaptureFilter(S28)构成录制管线上游对称
@@ -129,3 +129,14 @@ queue:
   pipeline_position: DemuxerFilter → AudioDecoderFilter(S35) → AudioSinkFilter(S31)
     → Speaker
   note: builtin.player.audiodecoder注册，Filter层+AudioDecoderAdapter+AudioCodec三层架构，bufferStatus_位标志双端驱动，AudioDecInputPortConsumerListener+AudioDecOutPortProducerListener双监听器，IS_FILTER_ASYNC异步模式，OnOutputBufferAvailable空实现（no-op），UpdateTrackInfoSampleFormat高分辨率APE/FLAC格式升频至S32LE，与AudioEncoderFilter(S24)对称
+- id: approval_S17_20260425
+  type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S17
+  title: SmartFluencyDecoding 智能流畅解码——IRetentionStrategy四策略+MV/Nalu双分析器+AsyncDropDispatcher异步丢帧
+  scope: '[AVCodec, SmartFluencyDecoding, SFD, RetentionStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, VideoPipeline, CodecServer]'
+  submitted_by: builder-agent
+  submitted_at: '2026-04-25T17:36:00+08:00'
+  status: pending_approval
+  evidence_count: 9
+  pipeline_position: Demuxer → SmartFluencyDecoding(S17) → Decoder → Surface
+  note: SmartFluencyDecoding智能流畅解码，SFD是CodecServer视频解码Pipeline的可选Feature，持有IRetentionStrategy（FULL/ADAPTIVE/FIXED_RATIO/AUTO_RATIO四策略）+IMvAnalyzer/INaluAnalyzer双分析器（dlopen插件）+AsyncDropDispatcher异步丢帧（std::thread+mutex+condition_variable）+DropSyncCoordinator成对丢帧同步，ptsRingBuffer_[128] PTS环形缓冲，currentEmaDropRatio_ EMA反馈，SFDConfig初始化配置（宽高/CodecType/策略类型），与AdaptiveFramerateController(S25)互补构成播放体验优化体系
