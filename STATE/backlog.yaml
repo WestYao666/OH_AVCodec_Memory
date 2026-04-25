@@ -315,6 +315,14 @@
 |------|------|------|
 | 2026-04-25T19:07 | Builder | 注册 S38：SourcePlugin 源插件体系，Filter Pipeline 最上游入口 |
 
+## 新增主题（Builder 2026-04-25 续 - S39注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S39 | AVCodecVideoDecoder 视频解码器核心实现——CodecBase/VideoDecoder/VideoDecoderAdapter 三层架构 | AVCodec, VideoDecoder, CodecBase, VideoDecoderAdapter, Filter, HardwareCodec, SoftwareCodec | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S39 | ✅ 草案已生成（2026-04-25T22:42），三层调用链（VideoDecoderAdapter→VideoDecoder基类→HDecoder/HEVCDecoder/VPXDecoder具体实现），State 枚举十一状态（UNINITIALIZED→FROZEN），Owner 枚举四态缓冲区所有权，BlockQueue 三队列（inputAvailQue/codecAvailQue/renderAvailQue），Surface/Buffer 双模式，VideoDecoderFactory CreateByMime/ByName 双工厂 |
+
+| 2026-04-25T22:42 | Builder | 注册 S39：AVCodecVideoDecoder 视频解码器核心架构，三层（Filter→Codec引擎→具体解码器），State 十一状态，Owner 缓冲区所有权，BlockQueue 三队列，Surface/Buffer 双模式 |
+
 ## 新增主题（Builder 2026-04-25 续 - S40注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
