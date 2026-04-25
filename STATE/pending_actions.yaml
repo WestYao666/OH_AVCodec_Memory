@@ -181,3 +181,75 @@ pending:
     created_by: builder-agent
     created_at: "2026-04-26T05:25:00+08:00"
     awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S26
+    title: "MemoryReference 引用计数与生命周期——shared_from_this/weak_from_this 双模式"
+    scope: [AVCodec, Memory, ReferenceCount, Lifecycle, shared_ptr, weak_ptr]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S30
+    title: "AVCodec DFX 模块——HiSysEvent/XCollie/AVCodecDumpControler/AVCodecDfxComponent 四组件"
+    scope: [AVCodec, DFX, HiSysEvent, XCollie, Dump, Monitor]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S32
+    title: "VideoRenderFilter 视频渲染输出过滤器——Surface 绑定、帧送达与渲染同步"
+    scope: [AVCodec, MediaEngine, Filter, VideoOutput, Pipeline, Surface, Render, VSync]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S34
+    title: "MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调"
+    scope: [AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S35
+    title: "AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链"
+    scope: [AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S37
+    title: "HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理"
+    scope: [AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S38
+    title: "SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构"
+    scope: [AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S40
+    title: "FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构"
+    scope: [AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T05:35:00+08:00"
+    awaiting: approve/revise/reject/hold
