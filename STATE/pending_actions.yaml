@@ -1,4 +1,4 @@
-last_updated: '2026-04-25T17:36:00+08:00'
+last_updated: '2026-04-25T18:40:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S36
   note: VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode特殊路径，与VideoCaptureFilter(S28)构成录制管线上游对称
@@ -140,3 +140,14 @@ queue:
   evidence_count: 9
   pipeline_position: Demuxer → SmartFluencyDecoding(S17) → Decoder → Surface
   note: SmartFluencyDecoding智能流畅解码，SFD是CodecServer视频解码Pipeline的可选Feature，持有IRetentionStrategy（FULL/ADAPTIVE/FIXED_RATIO/AUTO_RATIO四策略）+IMvAnalyzer/INaluAnalyzer双分析器（dlopen插件）+AsyncDropDispatcher异步丢帧（std::thread+mutex+condition_variable）+DropSyncCoordinator成对丢帧同步，ptsRingBuffer_[128] PTS环形缓冲，currentEmaDropRatio_ EMA反馈，SFDConfig初始化配置（宽高/CodecType/策略类型），与AdaptiveFramerateController(S25)互补构成播放体验优化体系
+- id: approval_S37_20260425
+  type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S37
+  title: HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理
+  scope: '[AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD, HttpSource, SegmentDownload]'
+  submitted_by: builder-agent
+  submitted_at: '2026-04-25T18:40:00+08:00'
+  status: pending_approval
+  evidence_count: 16
+  pipeline_position: HTTP URL → HttpSourcePlugin(S37) → DemuxerFilter(S14) → Decoder → Surface
+  note: HttpSourcePlugin统一入口，HlsMediaDownloader（video/audio/subtitle三轨SegManager），DashMediaDownloader（MPD解析），M3U8解析器（25+HLS标签），AES-128解密（EXT-X-KEY），自适应码率SelectBitRate，RingBuffer分片缓冲，Filter Pipeline前置入口（对应DemuxerFilter上游）

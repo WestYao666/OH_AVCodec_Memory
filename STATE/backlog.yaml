@@ -290,8 +290,15 @@
 |---|------|-------|---------|------|------|
 | S36 | VideoEncoderFilter 视频编码过滤器——Filter层封装与 SurfaceEncoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoEncoder, SurfaceEncoderFilter, FILTERTYPE_VENC, Pipeline, Recorder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S36 | ✅ 草案已生成（2026-04-25T17:21），builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs转换，与SurfaceDecoderFilter(S23对应Player侧)对称 |
 
+## 新增主题（Builder 2026-04-25 续 - S37注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S37 | HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理 | AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD, SegmentDownload | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S37 | ✅ 草案已生成（2026-04-25T18:40），HttpSourcePlugin统一入口，HlsMediaDownloader（HLS m3u8路由，video/audio/subtitle三轨SegManager），DashMediaDownloader（MPD解析，DashMpdDownloader+SegmentDownloader），M3U8解析器（25+HLS标签），AES-128解密（EXT-X-KEY），自适应码率SelectBitRate，RingBuffer分片缓冲 |
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-25T17:21 | Builder | 注册 S36：VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，Filter层（SurfaceEncoderFilter）+ 适配层（SurfaceEncoderAdapter）+ 引擎层（AVCodecVideoEncoder），FILTERTYPE_VENC，ReleaseBuffer Task 后台线程，ProcessStateCode 五状态机，PTS ns→μs 单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode 特殊路径，与 VideoCaptureFilter(S28) 构成录制管线上游对称 |
+| 2026-04-25T18:40 | Builder | 注册 S37：HTTP 流媒体源插件架构，HttpSourcePlugin 统一入口路由（m3u8→HlsMediaDownloader，mpd→DashMediaDownloader，other→DownloadMonitor），HlsSegmentManager 三轨分片下载（video/audio/subtitle），AES-128 解密，M3U8 解析器（25+ 标签），自适应码率切换，RingBuffer 缓冲，Filter Pipeline 前置入口 |
