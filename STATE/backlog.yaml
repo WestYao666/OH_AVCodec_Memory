@@ -334,3 +334,10 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S41 | DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流 | AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S41 | ✅ 草案已生成（2026-04-25T22:25），builtin.player.demuxer注册，MediaDemuxer核心引擎，多轨AVBufferQueue并发读循环，PTS管理(AVI/MPEGPS/WMV)，g_sampleFormatBeToLe大端音频转换，StreamType五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/VIDEO/SUBTITLE)，双模式切换(SetTranscoderMode/SetPlayerMode)，Seek策略三分支(MPEGTS/Start/通用)
+
+## 新增主题（Builder 2026-04-26）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S42 | AVCodecVideoEncoder 视频编码器核心实现——CodecBase/VideoEncoder/VideoEncoderAdapter 三层架构 | AVCodec, VideoEncoder, CodecBase, VideoEncoderAdapter, Filter, SurfaceEncoderAdapter, SoftwareCodec, HardwareCodec | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S42 | ✅ 草案已生成（2026-04-26T00:10），三层调用链（SurfaceEncoderAdapter→AVCodecVideoEncoder→VideoEncoder基类→H264/H265/VPX具体实现），Filter层五状态机（IDLE/RECORDING/PAUSED/STOPPED/ERROR），CodecServer七状态机（UNINITIALIZED→ERROR），CodecBase统一生命周期，BlockQueue三队列，Surface/Buffer双模式，与S39(VideoDecoder)对称 |
+

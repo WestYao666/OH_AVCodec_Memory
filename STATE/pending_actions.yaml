@@ -21,6 +21,15 @@ pending:
     awaiting: approve/revise/reject/hold
 
   - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S42
+    title: "AVCodecVideoEncoder 视频编码器核心实现——CodecBase/VideoEncoder/VideoEncoderAdapter 三层架构"
+    scope: [AVCodec, VideoEncoder, CodecBase, VideoEncoderAdapter, Filter, SurfaceEncoderAdapter, SoftwareCodec, HardwareCodec]
+    status: pending_approval
+    created_by: builder-agent-S42
+    created_at: "2026-04-26T00:10:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
     mem_id: MEM-ARCH-AVCODEC-S9
     title: "SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制"
     scope: [AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback]
@@ -130,6 +139,15 @@ pending:
     title: "AudioDataSourceFilter 音频数据源过滤器——IAudioDataSource 接口注入与 ReadLoop 主动拉取机制"
     scope: [AVCodec, MediaEngine, Filter, AudioSource, RecorderPipeline, Pipeline, ScreenCapture]
     status: pending_approval
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S23
+    title: "SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程"
+    scope: [AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC]
+    status: pending_approval
+    created_by: builder-agent
+    created_at: "2026-04-26T00:23:53+08:00"
     awaiting: approve/revise/reject/hold
 
   - type: subagent_completion

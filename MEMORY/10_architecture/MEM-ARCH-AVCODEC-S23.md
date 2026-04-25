@@ -3,11 +3,11 @@ id: MEM-ARCH-AVCODEC-S23
 title: SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-24T20:55:00+08:00"
 updated_by: builder-agent
-updated_at: "2026-04-24T20:55:00+08:00"
+updated_at: "2026-04-26T00:23:53+08:00"
 evidence_sources:
   - local_repo: /home/west/av_codec_repo
 owner: 耀耀
@@ -209,6 +209,12 @@ CodecServer CodecStatus（独立状态机）:
 | `services/media_engine/filters/surface_encoder_adapter.h` | Line 47-54 | `ProcessStateCode`: IDLE/RECORDING/PAUSED/STOPPED 枚举 |
 | `services/media_engine/filters/surface_encoder_adapter.h` | Line 59-66 | `EncoderAdapterCallback` / `EncoderAdapterKeyFramePtsCallback` 接口定义 |
 | `services/media_engine/filters/surface_encoder_adapter.h` | Line 68-158 | `SurfaceEncoderAdapter` 类完整声明 |
+| `services/media_engine/filters/surface_encoder_adapter.cpp` | Line 34 | `NS_PER_US = 1000`：PTS ns→μs 转换除数（`outputBuffer->pts_ = buffer->pts_ / NS_PER_US`，普通编码模式） |
+| `services/media_engine/filters/surface_encoder_adapter.cpp` | Line 44-59 | `SurfaceEncoderAdapterCallback`：继承 `MediaCodecCallback`，`OnOutputBufferAvailable` 转发至 adapter，`OnError` 支持 TransCoder 单次错误屏蔽 |
+| `services/media_engine/filters/surface_encoder_adapter.cpp` | Line 219-237 | `Configure` 根据 `isTransCoderMode` 分支：非转码设置 `enableBFrame_`，转码设置 `AV_TRANSCODER_ENABLE_B_FRAME` + `VIDEO_FRAME_RATE_ADAPTIVE_MODE` |
+| `services/media_engine/filters/surface_encoder_adapter.cpp` | Line 322-325 | `SetTransCoderMode`：`isTransCoderMode = true` 激活转码模式，禁用 `DroppedFramesCallback` |
+| `services/media_engine/filters/surface_encoder_adapter.cpp` | Line 554-598 | `TransCoderOnOutputBufferAvailable`：转码模式专用输出路径，pts **不**做 ns→μs 转换 |
+| `services/media_engine/filters/surface_encoder_adapter.cpp` | Line 648-680 | `ReleaseBuffer`：后台 `Task` 线程（"SurfaceEncoder"），`isThreadExit_` 退出条件，`codecServer_->ReleaseOutputBuffer(index)` 批量释放 |
 
 ### SurfaceEncoderFilter 文件
 
@@ -220,6 +226,22 @@ CodecServer CodecStatus（独立状态机）:
 | `services/media_engine/filters/surface_encoder_filter.cpp` | Line 250-258 | `SetInputSurface` / `GetInputSurface`: Surface 绑定 |
 | `services/media_engine/filters/surface_encoder_filter.cpp` | Line 265-276 | `DoPrepare`: TransCoder 模式返回 `NEXT_FILTER_NEEDED(STREAMTYPE_ENCODED_VIDEO)` |
 | `services/media_engine/filters/surface_encoder_filter.cpp` | Line 280-295 | `DoStart`: 调用 `mediaCodec_->Start()` |
+| `services/media_engine/filters/surface_encoder_filter.cpp` | Line 33-35 | `AutoRegisterFilter`：注册为 `"builtin.recorder.videoencoder"`，`FilterType::FILTERTYPE_VENC` |
+| `services/media_engine/filters/surface_encoder_filter.cpp` | Line 77-100 | `SurfaceEncoderAdapterCallback`：继承 `EncoderAdapterCallback`，弱引用持有 `SurfaceEncoderFilter`，转发 `OnError` |
+| `services/media_engine/filters/surface_encoder_filter.cpp` | Line 101-127 | `SurfaceEncoderAdapterKeyFramePtsCallback`：继承 `EncoderAdapterKeyFramePtsCallback`，`OnReportKeyFramePts` → `surfaceEncoderFilter->OnReportKeyFramePts` |
+| `services/media_engine/filters/surface_encoder_filter.cpp` | Line 241-246 | `SetTransCoderMode`：设置 `isTranscoderMode_ = true` 并透传至 `mediaCodec_->SetTransCoderMode()` |
+| `services/media_engine/filters/surface_encoder_filter.cpp` | Line 455-463 | `OnReportKeyFramePts`：构建 `userMeta`，key=`"com.openharmony.recorder.timestamp"`，调用 `muxerFilter->SetUserMeta(userMeta)` |
+| `services/media_engine/filters/surface_encoder_filter.h` | Line 37-80 | `SurfaceEncoderFilter` 类声明（`Filter` 子类，`mediaCodec_` 持有 `SurfaceEncoderAdapter`） |
+
+### 单元测试文件
+
+| 文件 | 说明 |
+|------|------|
+| `test/unittest/filter_test/surface_encoder_adapter_unit_test.cpp` Line 42 | `std::make_shared<SurfaceEncoderAdapter>()`：单元测试创建实例 |
+| `test/unittest/filter_test/surface_encoder_adapter_unit_test.cpp` Line 81-83 | `isTransCoderMode = false/true` 测试 Configure 分支 |
+| `test/unittest/filter_test/surface_encoder_adapter_unit_test.cpp` Line 146-155 | `isTransCoderMode = true/false` 测试 Stop 分支差异 |
+| `test/unittest/filter_test/surface_encoder_adapter_unit_test.cpp` Line 174 | `curState_ = ProcessStateCode::RECORDING` 测试 `HandleWaitforStop` 路径 |
+| `test/unittest/filter_test/surface_encoder_adapter_unit_test.cpp` Line 181 | `curState_ = ProcessStateCode::STOPPED` 测试直接停止路径 |
 
 ### 工厂与接口
 
