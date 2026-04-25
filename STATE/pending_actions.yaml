@@ -1,4 +1,4 @@
-last_updated: '2026-04-25T12:06:00+08:00'
+last_updated: '2026-04-25T12:21:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S15
   note: SurfaceCodec软件编解码器插件架构：CodecBase基类（Surface虚方法）+FCodec/HCodec双实现+FCodecLoader/HCodecLoader双Loader（dlopen
@@ -84,6 +84,10 @@ queue:
 - mem_id: MEM-ARCH-AVCODEC-S29
   note: AudioDataSourceFilter音频数据源过滤器，IAudioDataSource接口注入+ReadLoop主动拉取，FilterType矛盾（注册AUDIO_DATA_SOURCE/GetFilterType返回AUDIO_CAPTURE），RelativeSleep(CLOCK_MONOTONIC)精准睡眠，AudioDataSourceReadAtActionState三状态(OK/SKIP_WITHOUT_LOG/RETRY_IN_INTERVAL)，SendEos机制
   submitted_at: '2026-04-25T10:10:00+08:00'
+  type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S33
+  note: PreProcessing预处理器框架，FastKitsInterface硬件加速图像缩放/裁剪（dlopen libfast_image.so，引用计数生命周期，6个函数符号）+FrameDropFilter智能丢帧（RatioDropStrategy按帧比例/TimestampDropStrategy按时间戳间隔，首帧自动选择策略）
+  submitted_at: '2026-04-25T12:21:00+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S32
   note: VideoRenderFilter视频渲染输出过滤器，builtin.player.videorender注册，vsync驱动帧送达(OnVsync)，Surface/Buffer双模式切换(SetOutputSurface/SetOutputBufferQueue)，HDR→SDR色域转换，vsync同步机制，VideoRenderFilter↔VideoCaptureFilter(S28)镜像对称，VideoRenderFilter↔AudioSinkFilter(S31)双路输出终点对称
