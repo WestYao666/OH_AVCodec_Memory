@@ -1,5 +1,9 @@
-last_updated: '2026-04-25T16:51:00+08:00'
+last_updated: '2026-04-25T17:21:00+08:00'
 queue:
+- mem_id: MEM-ARCH-AVCODEC-S36
+  note: VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode特殊路径，与VideoCaptureFilter(S28)构成录制管线上游对称
+  submitted_at: '2026-04-25T17:21:00+08:00'
+  type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S15
   note: SurfaceCodec软件编解码器插件架构：CodecBase基类（Surface虚方法）+FCodec/HCodec双实现+FCodecLoader/HCodecLoader双Loader（dlopen
     libfcodec.z.so/libhcodec.z.so）+CodecFactory软硬分发+SurfaceDecoderAdapter按isVendor判断软硬+HDR场景硬解码优先+CreateByMime自动选择

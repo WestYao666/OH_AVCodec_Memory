@@ -283,3 +283,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-25T16:51 | Builder | 注册 S35：AudioDecoderFilter 音频解码过滤器，Filter层（AudioDecoderFilter）+ 适配层（AudioDecoderAdapter）+ 引擎层（AudioCodec）三层架构，双监听器事件驱动，异步编解码循环 |
+
+## 新增主题（Builder 2026-04-25 续 - S36注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S36 | VideoEncoderFilter 视频编码过滤器——Filter层封装与 SurfaceEncoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoEncoder, SurfaceEncoderFilter, FILTERTYPE_VENC, Pipeline, Recorder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S36 | ✅ 草案已生成（2026-04-25T17:21），builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs转换，与SurfaceDecoderFilter(S23对应Player侧)对称 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-25T17:21 | Builder | 注册 S36：VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，Filter层（SurfaceEncoderFilter）+ 适配层（SurfaceEncoderAdapter）+ 引擎层（AVCodecVideoEncoder），FILTERTYPE_VENC，ReleaseBuffer Task 后台线程，ProcessStateCode 五状态机，PTS ns→μs 单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode 特殊路径，与 VideoCaptureFilter(S28) 构成录制管线上游对称 |
