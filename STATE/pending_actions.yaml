@@ -1,4 +1,4 @@
-last_updated: '2026-04-25T14:36:00+08:00'
+last_updated: '2026-04-25T16:06:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S15
   note: SurfaceCodec软件编解码器插件架构：CodecBase基类（Surface虚方法）+FCodec/HCodec双实现+FCodecLoader/HCodecLoader双Loader（dlopen
@@ -96,4 +96,8 @@ queue:
 - mem_id: MEM-ARCH-AVCODEC-S32
   note: VideoRenderFilter视频渲染输出过滤器，builtin.player.videorender注册，vsync驱动帧送达(OnVsync)，Surface/Buffer双模式切换(SetOutputSurface/SetOutputBufferQueue)，HDR→SDR色域转换，vsync同步机制，VideoRenderFilter↔VideoCaptureFilter(S28)镜像对称，VideoRenderFilter↔AudioSinkFilter(S31)双路输出终点对称
   submitted_at: '2026-04-25T12:06:00+08:00'
+  type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S31
+  note: AudioSinkFilter音频播放输出过滤器，builtin.player.audiosink注册，AudioSink+MediaSynchronousSink+AudioSinkPlugin三层架构，PluginManagerV2创建audio/raw插件，IMediaSynchronizer优先级AUDIO_SINK=2，音量/速度/音效/循环/切轨播放控制，DriveBufferCircle缓冲圈流转，kMinAudioClockUpdatePeriodUs=20μs/kMaxAllowedAudioSinkDelayUs=1.5s常量
+  submitted_at: '2026-04-25T16:06:00+08:00'
   type: approval_request

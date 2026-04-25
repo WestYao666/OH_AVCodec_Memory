@@ -3,10 +3,11 @@ id: MEM-ARCH-AVCODEC-S31
 title: AudioSinkFilter 音频播放输出过滤器——AudioSink + MediaSynchronousSink + AudioSinkPlugin 三层架构
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, AudioOutput, Pipeline, MediaSync, Plugin]
-status: draft
+status: submitted
 author: builder-agent
 created: 2026-04-25
 updated: 2026-04-25
+submitted_at: 2026-04-25T16:06:00+08:00
 
 summary: AudioSinkFilter 是播放 Pipeline 的音频终点过滤器，注册为 "builtin.player.audiosink"，内部封装 AudioSink（实现 MediaSynchronousSink），通过 PluginManagerV2 创建 AudioSinkPlugin("audio/raw")，接入 IMediaSynchronizer 同步链（优先级 AUDIO_SINK=2），提供音量/速度/音效/循环/切轨等播放控制能力。
 
