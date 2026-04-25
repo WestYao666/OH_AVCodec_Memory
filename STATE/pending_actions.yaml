@@ -1,4 +1,4 @@
-last_updated: '2026-04-25T16:06:00+08:00'
+last_updated: '2026-04-25T16:51:00+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S15
   note: SurfaceCodec软件编解码器插件架构：CodecBase基类（Surface虚方法）+FCodec/HCodec双实现+FCodecLoader/HCodecLoader双Loader（dlopen
@@ -90,7 +90,8 @@ queue:
   submitted_at: '2026-04-25T12:21:00+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S30
-  note: AVCodec DFX模块，HiSysEvent四类事件（FAULT/BEHAVIOR/STATISTIC），XCollie看门狗（服务端超时_exit(-1)），AVCodecDumpControler分层dumpIdx编码，AVCodecDfxComponent LogTag生成（[instanceId][h.|s.][vdec|venc]），SOURCE_STATISTICS每4h上报+CERT脱敏SHA256
+  note: AVCodec DFX模块，HiSysEvent四类事件（FAULT/BEHAVIOR/STATISTIC），XCollie看门狗（服务端超时_exit(-1)），AVCodecDumpControler分层dumpIdx编码，AVCodecDfxComponent
+    LogTag生成（[instanceId][h.|s.][vdec|venc]），SOURCE_STATISTICS每4h上报+CERT脱敏SHA256
   submitted_at: '2026-04-25T14:36:00+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S32
@@ -101,14 +102,26 @@ queue:
   note: AudioSinkFilter音频播放输出过滤器，builtin.player.audiosink注册，AudioSink+MediaSynchronousSink+AudioSinkPlugin三层架构，PluginManagerV2创建audio/raw插件，IMediaSynchronizer优先级AUDIO_SINK=2，音量/速度/音效/循环/切轨播放控制，DriveBufferCircle缓冲圈流转，kMinAudioClockUpdatePeriodUs=20μs/kMaxAllowedAudioSinkDelayUs=1.5s常量
   submitted_at: '2026-04-25T16:06:00+08:00'
   type: approval_request
-
 - id: approval_S34_20260425
   type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S34
-  title: "MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调"
-  scope: "[AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack]"
+  title: MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调
+  scope: '[AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack]'
   submitted_by: builder-agent
-  submitted_at: "2026-04-25T16:40:00+08:00"
+  submitted_at: '2026-04-25T16:40:00+08:00'
   status: pending_approval
   evidence_count: 10
-  pipeline_position: "AudioCaptureFilter(S26)/VideoCaptureFilter(S28) → AudioEncoderFilter(S24)/SurfaceEncoderFilter(S23) → MuxerFilter(S34) → MediaMuxer(MEM-008)"
+  pipeline_position: AudioCaptureFilter(S26)/VideoCaptureFilter(S28) → AudioEncoderFilter(S24)/SurfaceEncoderFilter(S23)
+    → MuxerFilter(S34) → MediaMuxer(MEM-008)
+- id: approval_S35_20260425
+  type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S35
+  title: AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链
+  scope: '[AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode]'
+  submitted_by: builder-agent
+  submitted_at: '2026-04-25T16:51:00+08:00'
+  status: pending_approval
+  evidence_count: 17
+  pipeline_position: DemuxerFilter → AudioDecoderFilter(S35) → AudioSinkFilter(S31)
+    → Speaker
+  note: builtin.player.audiodecoder注册，Filter层+AudioDecoderAdapter+AudioCodec三层架构，bufferStatus_位标志双端驱动，AudioDecInputPortConsumerListener+AudioDecOutPortProducerListener双监听器，IS_FILTER_ASYNC异步模式，OnOutputBufferAvailable空实现（no-op），UpdateTrackInfoSampleFormat高分辨率APE/FLAC格式升频至S32LE，与AudioEncoderFilter(S24)对称

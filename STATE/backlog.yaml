@@ -271,3 +271,15 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S34 | MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调 | AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S34 | ✅ 草案已生成（2026-04-25T16:40），MuxerFilter录制管线终点，preFilterCount_多轨协调，maxDuration_异步停止，双模式Recorder/TransCoder，PTS Map音视频同步 |
+
+## 新增主题（Builder 2026-04-25 续 - S35注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S35 | AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S35 | ✅ 草案已生成（2026-04-25T16:51），builtin.player.audiodecoder注册，Filter层+AudioDecoderAdapter+AudioCodec三层架构，bufferStatus_位标志双端驱动，AudioDecInputPortConsumerListener+AudioDecOutPortProducerListener双监听器，IS_FILTER_ASYNC异步模式，OnOutputBufferAvailable空实现（no-op），UpdateTrackInfoSampleFormat高分辨率格式升频，与AudioEncoderFilter(S24)对称 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-25T16:51 | Builder | 注册 S35：AudioDecoderFilter 音频解码过滤器，Filter层（AudioDecoderFilter）+ 适配层（AudioDecoderAdapter）+ 引擎层（AudioCodec）三层架构，双监听器事件驱动，异步编解码循环 |
