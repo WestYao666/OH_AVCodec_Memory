@@ -3,11 +3,11 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S44
 topic: MetaDataFilter 元数据过滤器——Surface模式时元数据注入与录制管线时戳同步
 scope: [AVCodec, MediaEngine, Filter, MetaData, TimedMetadata, Surface, RecorderPipeline, PTS, SurfaceBuffer]
-status: draft
+status: pending_approval
 submitted_by: builder-agent
-submitted_at: "2026-04-26T06:35:00+08:00"
+submitted_at: "2026-04-26T07:51:00+08:00"
 created_at: "2026-04-26T06:35:00+08:00"
-updated_at: "2026-04-26T06:35:00+08:00"
+updated_at: "2026-04-26T07:51:00+08:00"
 evidence: |
   - source: services/media_engine/filters/metadata_filter.cpp
     lines: "33-36"
@@ -33,6 +33,15 @@ evidence: |
   - source: services/media_engine/filters/metadata_filter.cpp
     lines: "220-245"
     anchor: "DoStart()/DoPause()/DoResume()/DoStop() 生命周期：isStop_ 布尔控制采集启停；Pause 时补偿 latestPausedTime_；Resume 时启用 totalPausedTime_ 累加"
+  - source: services/media_engine/filters/metadata_filter.cpp
+    lines: "80-100"
+    anchor: "MetaDataSurfaceBufferListener::OnBufferAvailable() 调用 metaDataFilter->OnBufferAvailable()，弱引用安全"
+  - source: services/media_engine/filters/metadata_filter.cpp
+    lines: "355-370"
+    anchor: "AcquireInputBuffer: fence->Wait(waitForEver=-1) 同步等待；timestamp <= latestBufferTime_ 时丢弃并 ReleaseBuffer"
+  - source: services/media_engine/filters/metadata_filter.cpp
+    lines: "175-200"
+    anchor: "DoStop() 重置所有时间状态：startBufferTime_=TIME_NONE(-1)/latestBufferTime_=TIME_NONE/totalPausedTime_=0/refreshTotalPauseTime_=false"
 related_memories: |
   - MEM-ARCH-AVCODEC-S26 (AudioCaptureFilter)：同为录制管线采集 Filter，互补
   - MEM-ARCH-AVCODEC-S28 (VideoCaptureFilter)：同为录制管线视频采集 Filter
