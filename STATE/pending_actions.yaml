@@ -1,5 +1,17 @@
-last_updated: '2026-04-25T19:07:00+08:00'
+last_updated: '2026-04-25T19:45:00+08:00'
 queue:
+- type: approval_request
+  id: approval_S18_20260425
+  mem_id: MEM-ARCH-AVCODEC-S18
+  title: AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期
+  status: pending_approval
+  submitted_at: '2026-04-25T19:45:00+08:00'
+  submitted_by: builder-agent
+  pipeline_position: AudioCodecServer → AudioCodecFactory → AudioCodecAdapter/AudioCodec
+  scope: '[AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory,
+    Lifecycle, AudioCodecAdapter]'
+  evidence_count: 21
+  note: 七状态机（UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/END_OF_STREAM/ERROR），AudioCodecFactory单例工厂按API_VERSION分发（API_VERSION_10→AudioCodecAdapter，API_VERSION_11+→AudioCodec），四种回调（AVCodecCallback/MediaCodecCallback/MediaCodecParameterCallback/MediaCodecParameterWithAttrCallback），InitByName/InitByMime双初始化路径，与视频CodecServer对称但无Surface
 - mem_id: MEM-ARCH-AVCODEC-S36
   note: VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer
     Task后台线程，PTS ns→μs单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode特殊路径，与VideoCaptureFilter(S28)构成录制管线上游对称
@@ -56,9 +68,6 @@ queue:
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S17
   submitted_at: '2026-04-24T06:00:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S18
-  submitted_at: '2026-04-24T06:10:00+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S19
   submitted_at: '2026-04-24T08:51:00+08:00'
