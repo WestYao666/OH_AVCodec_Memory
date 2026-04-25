@@ -250,8 +250,15 @@
 |---|------|-------|---------|------|------|
 | S32 | VideoRenderFilter 视频渲染输出过滤器——Surface 绑定、帧送达与渲染同步 | AVCodec, MediaEngine, Filter, VideoOutput, Pipeline, Surface, Render, VSync | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S32 | ✅ 草案已生成（2026-04-25T12:06），OnVsync帧送达驱动，Surface/Buffer双模式，HDR→SDR色域转换，vsync同步机制，VideoRenderFilter与VideoCaptureFilter(S28)对称构成录制/播放双路管线入口，与AudioSinkFilter(S31)对称构成管线双路输出终点 |
 
+## 新增主题（Builder 2026-04-25 续 - S33注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S33 | PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略 | AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing | 新需求开发/问题定位 | **in_progress** | MEM-ARCH-AVCODEC-S33 | 🚧 Builder处理中（2026-04-25T12:21） |
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
+| 2026-04-25T12:21 | Builder | 注册 S33：PreProcessing预处理器框架，FastKitsInterface硬件加速图像缩放/裁剪（dlopen libfast_image.so）+ FrameDropFilter智能丢帧（RatioDropStrategy/TimestampDropStrategy） |
 | 2026-04-25T12:06 | Builder | 注册 S32：VideoRenderFilter 视频渲染输出过滤器，builtin.player.videorender注册，vsync驱动帧送达，HDR→SDR色域转换，VideoRenderFilter↔VideoCaptureFilter(S28)镜像对称，VideoRenderFilter↔AudioSinkFilter(S31)双路输出终点对称 |
