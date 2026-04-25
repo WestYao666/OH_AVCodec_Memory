@@ -1,215 +1,24 @@
-last_updated: '2026-04-25T22:25:00+08:00'
-queue:
-- type: approval_request
-  id: approval_S41_20260425
-  mem_id: MEM-ARCH-AVCODEC-S41
-  title: DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流
-  status: pending_approval
-  submitted_at: '2026-04-25T22:25:00+08:00'
-  submitted_by: builder-agent
-  pipeline_position: SourcePlugin(S38) → DemuxerFilter(S41) → VideoDecoderFilter(S23)/AudioDecoderFilter(S35)/SubtitleSinkFilter
-  scope: '[AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM]'
-  evidence_count: 20
-  note: builtin.player.demuxer注册，std::shared_ptr<MediaDemuxer> demuxer_核心引擎，g_sampleFormatBeToLe大端音频格式转换(17种)，STREAMTYPE五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/VIDEO/SUBTITLE)，HandleTrackInfos遍历轨道触发NEXT_FILTER_NEEDED链路，GetBufferQueueProducerMap返回各轨AVBufferQueueProducer，ptsManagedFileTypes={AVI,MPEGPS,WMV}需要PTS管理，SetTranscoderMode/SetPlayerMode双模式切换，SeekTo三分支(MPEGTS→SeekToKeyFrame/seekTime==0→SeekToStart/其他→SeekTo)，ResumeDemuxerReadLoop/PauseDemuxerReadLoop控制读循环，DemuxerFilterDrmCallback处理DRM事件
-- type: approval_request
-  id: approval_S40_20260425
-  mem_id: MEM-ARCH-AVCODEC-S40
-  title: FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构
-  status: pending_approval
-  submitted_at: '2026-04-25T21:51:00+08:00'
-  submitted_by: builder-agent
-  pipeline_position: AudioCaptureFilter(S26)/VideoCaptureFilter(S28) → AudioEncoderFilter(S24)/SurfaceEncoderFilter(S36) → MuxerFilter(S34) → FFmpegMuxerPlugin(S40) → DataSink(fd)
-  scope: '[AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer]'
-  evidence_count: 15
-  note: FFmpegMuxerPlugin底层封装：九种格式(mp4/ipod/amr/mp3/wav/adts/flac/ogg/flv)，AVFMT_FLAG_CUSTOM_IO自定义AVIOContext，IoRead/IoWrite/IoSeek桥接DataSink，Start→avformat_write_header→isWriteHeader_，WriteSample→cachePacket_→formatContext_->pb，Stop→av_interleaved_write_trailer；MediaMuxer持有MuxerPlugin代理AddTrack/Start/Stop；MuxerFilter多轨协调(preFilterCount_/stopCount_)，maxDuration_异步停止；与S34(MuxerFilter)互补：S34为Filter层入口，S40为FFmpeg底层封装
-  mem_id: MEM-ARCH-AVCODEC-S18
-  title: AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期
-  status: pending_approval
-  submitted_at: '2026-04-25T19:45:00+08:00'
-  submitted_by: builder-agent
-  pipeline_position: AudioCodecServer → AudioCodecFactory → AudioCodecAdapter/AudioCodec
-  scope: '[AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory,
-    Lifecycle, AudioCodecAdapter]'
-  evidence_count: 21
-  note: 七状态机（UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/END_OF_STREAM/ERROR），AudioCodecFactory单例工厂按API_VERSION分发（API_VERSION_10→AudioCodecAdapter，API_VERSION_11+→AudioCodec），四种回调（AVCodecCallback/MediaCodecCallback/MediaCodecParameterCallback/MediaCodecParameterWithAttrCallback），InitByName/InitByMime双初始化路径，与视频CodecServer对称但无Surface
-- mem_id: MEM-ARCH-AVCODEC-S36
-  note: VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer
-    Task后台线程，PTS ns→μs单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode特殊路径，与VideoCaptureFilter(S28)构成录制管线上游对称
-  submitted_at: '2026-04-25T17:21:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S15
-  note: SurfaceCodec软件编解码器插件架构：CodecBase基类（Surface虚方法）+FCodec/HCodec双实现+FCodecLoader/HCodecLoader双Loader（dlopen
-    libfcodec.z.so/libhcodec.z.so）+CodecFactory软硬分发+SurfaceDecoderAdapter按isVendor判断软硬+HDR场景硬解码优先+CreateByMime自动选择
-  submitted_at: '2026-04-25T09:12:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S28
-  note: VideoCaptureFilter视频采集过滤器，builtin.recorder.videocapture注册，SetInputSurface/GetInputSurface双模式Surface注入，ConsumerSurfaceBufferListener桥接Surface事件与Filter采集，OnBufferAvailable→AcquireInputBuffer→ProcessAndPushOutputBuffer→PushBuffer完整路径，SYNC_FRAME/CODEC_DATA首帧标志，totalPausedTime_暂停时间补偿，与AudioCaptureFilter(S26)并列构成录制管线双路采集入口
-  submitted_at: '2026-04-25T07:40:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S16
-  note: SurfaceCodec与Surface绑定机制，DecoderSurfaceFilter→CodecServer→CodecBase三层SetOutputSurface链路，PostProcessing路由(SetOutputSurfaceForPostProcessing)，Surface/Buffer双模式互斥(isSurfaceMode_/isModeConfirmed_)，行号锚点已验证decoder_surface_filter.cpp:1368/1404、codec_server.cpp:551-577/1367-1371、surface_decoder_adapter.cpp:235-250
-  submitted_at: '2026-04-25T07:21:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S27
-  note: CodecList服务架构，CodecListCore七项Check校验（分辨率/帧率/码率/像素格式/声道/采样率），CodecAbilitySingleton单例聚合硬件HCodecLoader+软件FCodecLoader/AvcEncoderLoader/AudioCodeclistInfo，FindCodec按mime→codecType→isVendor三重过滤，SA层AVCodecServer分发AVCODEC_CODECLIST(4501)/AVCODEC_CODEC(4502)子系统
-  submitted_at: '2026-04-25T06:21:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S26
-  note: AudioCaptureFilter设备音频采集+AudioDataSourceFilter数据源+SubtitleSinkFilter字幕渲染，三类Filter注册名与生命周期对比
-  submitted_at: '2026-04-25T04:55:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S9
-  submitted_at: '2026-04-24T00:07:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S10
-  submitted_at: '2026-04-23T14:50:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-020
-  submitted_at: '2026-04-23T21:06:48+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S11
-  submitted_at: '2026-04-23T21:07:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S12
-  submitted_at: '2026-04-24T00:05:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S14
-  note: 增强DoProcessInputBuffer/OnError/NEXT_FILTER_NEEDED evidence，本轮补强后重新提交
-  submitted_at: '2026-04-24T20:40:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S13
-  submitted_at: '2026-04-24T01:05:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S15
-  submitted_at: '2026-04-24T04:26:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S16
-  submitted_at: '2026-04-24T05:24:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S17
-  submitted_at: '2026-04-24T06:00:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S19
-  submitted_at: '2026-04-24T08:51:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S20
-  submitted_at: '2026-04-24T10:50:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S21
-  submitted_at: '2026-04-24T10:56:52+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S22
-  note: MediaSyncManager音视频同步管理中心，IMediaSyncCenter时间锚点+IMediaSynchronizer优先级链（VIDEO_SINK=0/AUDIO_SINK=2），UpdateTimeAnchor+PTS换算+Seek+PlaybackRate，Preroll协调，WaitAllPrerolled/NotifyAllPrerolled
-  submitted_at: '2026-04-25T02:36:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S23
-  note: SurfaceEncoderAdapter视频编码器适配器，Filter层封装+Codec适配层双架构，Surface模式输入/编码输出，ProcessStateCode七状态，ReleaseBuffer后台线程，TemporalScalability+B-Frame+TransCoderMode支持
-  submitted_at: '2026-04-24T20:55:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S24
-  note: AudioEncoderFilter音频编码过滤器，MediaCodec封装+录音管线，builtin.recorder.audioencoder，SetTranscoderMode转码模式，DFX
-    SetFaultEvent上报
-  submitted_at: '2026-04-25T00:55:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S25
-  note: AdaptiveFramerateController自适应帧率控制器，AFC单例+FramerateCalculator按Codec实例，动态降帧算法（抖动过滤/升帧×2.5/降帧2次确认），CodecServer集成，DecodingBehaviorAnalyzer解码行为分析
-  submitted_at: '2026-04-25T02:51:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S29
-  note: AudioDataSourceFilter音频数据源过滤器，IAudioDataSource接口注入+ReadLoop主动拉取，FilterType矛盾（注册AUDIO_DATA_SOURCE/GetFilterType返回AUDIO_CAPTURE），RelativeSleep(CLOCK_MONOTONIC)精准睡眠，AudioDataSourceReadAtActionState三状态(OK/SKIP_WITHOUT_LOG/RETRY_IN_INTERVAL)，SendEos机制
-  submitted_at: '2026-04-25T10:10:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S33
-  note: PreProcessing预处理器框架，FastKitsInterface硬件加速图像缩放/裁剪（dlopen libfast_image.so，引用计数生命周期，6个函数符号）+FrameDropFilter智能丢帧（RatioDropStrategy按帧比例/TimestampDropStrategy按时间戳间隔，首帧自动选择策略）
-  submitted_at: '2026-04-25T12:21:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S30
-  note: AVCodec DFX模块，HiSysEvent四类事件（FAULT/BEHAVIOR/STATISTIC），XCollie看门狗（服务端超时_exit(-1)），AVCodecDumpControler分层dumpIdx编码，AVCodecDfxComponent
-    LogTag生成（[instanceId][h.|s.][vdec|venc]），SOURCE_STATISTICS每4h上报+CERT脱敏SHA256
-  submitted_at: '2026-04-25T14:36:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S32
-  note: VideoRenderFilter视频渲染输出过滤器，builtin.player.videorender注册，vsync驱动帧送达(OnVsync)，Surface/Buffer双模式切换(SetOutputSurface/SetOutputBufferQueue)，HDR→SDR色域转换，vsync同步机制，VideoRenderFilter↔VideoCaptureFilter(S28)镜像对称，VideoRenderFilter↔AudioSinkFilter(S31)双路输出终点对称
-  submitted_at: '2026-04-25T12:06:00+08:00'
-  type: approval_request
-- mem_id: MEM-ARCH-AVCODEC-S31
-  note: AudioSinkFilter音频播放输出过滤器，builtin.player.audiosink注册，AudioSink+MediaSynchronousSink+AudioSinkPlugin三层架构，PluginManagerV2创建audio/raw插件，IMediaSynchronizer优先级AUDIO_SINK=2，音量/速度/音效/循环/切轨播放控制，DriveBufferCircle缓冲圈流转，kMinAudioClockUpdatePeriodUs=20μs/kMaxAllowedAudioSinkDelayUs=1.5s常量
-  submitted_at: '2026-04-25T16:06:00+08:00'
-  type: approval_request
-- evidence_count: 10
-  id: approval_S34_20260425
-  mem_id: MEM-ARCH-AVCODEC-S34
-  pipeline_position: AudioCaptureFilter(S26)/VideoCaptureFilter(S28) → AudioEncoderFilter(S24)/SurfaceEncoderFilter(S23)
-    → MuxerFilter(S34) → MediaMuxer(MEM-008)
-  scope: '[AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack]'
-  status: pending_approval
-  submitted_at: '2026-04-25T16:40:00+08:00'
-  submitted_by: builder-agent
-  title: MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调
-  type: approval_request
-- evidence_count: 17
-  id: approval_S35_20260425
-  mem_id: MEM-ARCH-AVCODEC-S35
-  note: builtin.player.audiodecoder注册，Filter层+AudioDecoderAdapter+AudioCodec三层架构，bufferStatus_位标志双端驱动，AudioDecInputPortConsumerListener+AudioDecOutPortProducerListener双监听器，IS_FILTER_ASYNC异步模式，OnOutputBufferAvailable空实现（no-op），UpdateTrackInfoSampleFormat高分辨率APE/FLAC格式升频至S32LE，与AudioEncoderFilter(S24)对称
-  pipeline_position: DemuxerFilter → AudioDecoderFilter(S35) → AudioSinkFilter(S31)
-    → Speaker
-  scope: '[AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode]'
-  status: pending_approval
-  submitted_at: '2026-04-25T16:51:00+08:00'
-  submitted_by: builder-agent
-  title: AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链
-  type: approval_request
-- evidence_count: 9
-  id: approval_S17_20260425
-  mem_id: MEM-ARCH-AVCODEC-S17
-  note: SmartFluencyDecoding智能流畅解码，SFD是CodecServer视频解码Pipeline的可选Feature，持有IRetentionStrategy（FULL/ADAPTIVE/FIXED_RATIO/AUTO_RATIO四策略）+IMvAnalyzer/INaluAnalyzer双分析器（dlopen插件）+AsyncDropDispatcher异步丢帧（std::thread+mutex+condition_variable）+DropSyncCoordinator成对丢帧同步，ptsRingBuffer_[128]
-    PTS环形缓冲，currentEmaDropRatio_ EMA反馈，SFDConfig初始化配置（宽高/CodecType/策略类型），与AdaptiveFramerateController(S25)互补构成播放体验优化体系
-  pipeline_position: Demuxer → SmartFluencyDecoding(S17) → Decoder → Surface
-  scope: '[AVCodec, SmartFluencyDecoding, SFD, RetentionStrategy, MVAnalyzer, NaluAnalyzer,
-    AsyncDrop, VideoPipeline, CodecServer]'
-  status: pending_approval
-  submitted_at: '2026-04-25T17:36:00+08:00'
-  submitted_by: builder-agent
-  title: SmartFluencyDecoding 智能流畅解码——IRetentionStrategy四策略+MV/Nalu双分析器+AsyncDropDispatcher异步丢帧
-  type: approval_request
-- evidence_count: 16
-  id: approval_S37_20260425
-  mem_id: MEM-ARCH-AVCODEC-S37
-  note: HttpSourcePlugin统一入口，HlsMediaDownloader（video/audio/subtitle三轨SegManager），DashMediaDownloader（MPD解析），M3U8解析器（25+HLS标签），AES-128解密（EXT-X-KEY），自适应码率SelectBitRate，RingBuffer分片缓冲，Filter
-    Pipeline前置入口（对应DemuxerFilter上游）
-  pipeline_position: HTTP URL → HttpSourcePlugin(S37) → DemuxerFilter(S14) → Decoder
-    → Surface
-  scope: '[AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate,
-    M3U8, MPD, HttpSource, SegmentDownload]'
-  status: pending_approval
-  submitted_at: '2026-04-25T18:40:00+08:00'
-  submitted_by: builder-agent
-  title: HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理
-  type: approval_request
-- evidence_count: 11
-  id: approval_S19_20260425
-  mem_id: MEM-ARCH-AVCODEC-S19
-  note: TemporalScalability时域可分级编码，双模式：SVC-TL（均匀分层，temporalGopSize<=4，tRefMode==UNIFORMLY_SCALED_REFERENCE）与SVC-LTR（跨GOP参考，fixed
-    LTR帧数2）；IsLTRSolution()三条件判定；CodecParamChecker七步校验链（TemporalScalabilityChecker→TemporalGopSizeChecker→TemporalGopReferenceModeChecker→UniformlyScaledReferenceChecker→LTRFrameCountChecker→ScalingModeChecker→PostProcessingChecker）；ValidateTemporalGopParam()三参数提取（gopSize/temporalGopSize/tRefMode）
-  pipeline_position: CodecServer Configure → TemporalScalability::ValidateTemporalGopParam()
-    → CodecParamChecker七步校验 → 编码流程
-  scope: '[AVCodec, VideoEncoder, TemporalScalability, SVC, LTR, CodecParamChecker,
-    CodecServer]'
-  status: pending_approval
-  submitted_at: '2026-04-25T18:53:36+08:00'
-  submitted_by: builder-agent
-  title: TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链
-  type: approval_request
-- evidence_count: 15
-  id: approval_S38_20260425
-  mem_id: MEM-ARCH-AVCODEC-S38
-  note: 四类源插件(FileSource/FILE、FileFdSource/FD、HttpSourcePlugin/HTTP、DataStreamSource/STREAM)，rank=100最高优先级，SourcePlugin统一接口(SetSource/Read/GetSize)，HttpSourcePlugin双层架构(MediaDownloader基类)，FileFdSource云端预读(ringBuffer_
-    40MB、ReadOnlineFile/ReadOfflineFile双路径、isReadBlocking_)，DataStreamSource内存池(AVSharedMemoryPool，10×10KB)，与S37(HTTP流媒体)互补，S38为四类总体架构，S37为HTTP内部实现
-  pipeline_position: Filter Pipeline 最上游（数据源入口）
-  scope: '[AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource,
-    DataStreamSource, FileFdSource, Plugin, Rank]'
-  status: pending_approval
-  submitted_at: '2026-04-25T19:07:00+08:00'
-  submitted_by: builder-agent
-  title: SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构
-  type: approval_request
+pending:
+  - type: subagent_completion
+    subagent_task: builder-agent-S42
+    session_id: 1a7522d0-f4ad-4f51-85aa-56a7226581f8
+    status: completed
+    summary:
+      filter: DemuxerFilter
+      filter_name: builtin.player.demuxer
+      stream_types:
+        - DOLBY
+        - ENCODED_AUDIO
+        - RAW_AUDIO
+        - ENCODED_VIDEO
+        - SUBTITLE
+      key_features:
+        - 多轨并发读循环
+        - PTS管理（AVI/MPEGPS/WMV）
+        - 双模式切换
+        - Seek三分支
+        - DRM回调
+      pipeline: SourcePlugin(S38) → DemuxerFilter(S41) → DecoderFilters
+      git_commit: 4ef8a8f
+      evidence_count: 20
+      awaiting: approve/revise/reject/hold
