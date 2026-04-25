@@ -1,7 +1,8 @@
-last_updated: '2026-04-25T18:40:00+08:00'
+last_updated: '2026-04-25T18:53:36+08:00'
 queue:
 - mem_id: MEM-ARCH-AVCODEC-S36
-  note: VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode特殊路径，与VideoCaptureFilter(S28)构成录制管线上游对称
+  note: VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer
+    Task后台线程，PTS ns→μs单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode特殊路径，与VideoCaptureFilter(S28)构成录制管线上游对称
   submitted_at: '2026-04-25T17:21:00+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S15
@@ -133,21 +134,40 @@ queue:
   type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S17
   title: SmartFluencyDecoding 智能流畅解码——IRetentionStrategy四策略+MV/Nalu双分析器+AsyncDropDispatcher异步丢帧
-  scope: '[AVCodec, SmartFluencyDecoding, SFD, RetentionStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, VideoPipeline, CodecServer]'
+  scope: '[AVCodec, SmartFluencyDecoding, SFD, RetentionStrategy, MVAnalyzer, NaluAnalyzer,
+    AsyncDrop, VideoPipeline, CodecServer]'
   submitted_by: builder-agent
   submitted_at: '2026-04-25T17:36:00+08:00'
   status: pending_approval
   evidence_count: 9
   pipeline_position: Demuxer → SmartFluencyDecoding(S17) → Decoder → Surface
-  note: SmartFluencyDecoding智能流畅解码，SFD是CodecServer视频解码Pipeline的可选Feature，持有IRetentionStrategy（FULL/ADAPTIVE/FIXED_RATIO/AUTO_RATIO四策略）+IMvAnalyzer/INaluAnalyzer双分析器（dlopen插件）+AsyncDropDispatcher异步丢帧（std::thread+mutex+condition_variable）+DropSyncCoordinator成对丢帧同步，ptsRingBuffer_[128] PTS环形缓冲，currentEmaDropRatio_ EMA反馈，SFDConfig初始化配置（宽高/CodecType/策略类型），与AdaptiveFramerateController(S25)互补构成播放体验优化体系
+  note: SmartFluencyDecoding智能流畅解码，SFD是CodecServer视频解码Pipeline的可选Feature，持有IRetentionStrategy（FULL/ADAPTIVE/FIXED_RATIO/AUTO_RATIO四策略）+IMvAnalyzer/INaluAnalyzer双分析器（dlopen插件）+AsyncDropDispatcher异步丢帧（std::thread+mutex+condition_variable）+DropSyncCoordinator成对丢帧同步，ptsRingBuffer_[128]
+    PTS环形缓冲，currentEmaDropRatio_ EMA反馈，SFDConfig初始化配置（宽高/CodecType/策略类型），与AdaptiveFramerateController(S25)互补构成播放体验优化体系
 - id: approval_S37_20260425
   type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S37
   title: HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理
-  scope: '[AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD, HttpSource, SegmentDownload]'
+  scope: '[AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate,
+    M3U8, MPD, HttpSource, SegmentDownload]'
   submitted_by: builder-agent
   submitted_at: '2026-04-25T18:40:00+08:00'
   status: pending_approval
   evidence_count: 16
-  pipeline_position: HTTP URL → HttpSourcePlugin(S37) → DemuxerFilter(S14) → Decoder → Surface
-  note: HttpSourcePlugin统一入口，HlsMediaDownloader（video/audio/subtitle三轨SegManager），DashMediaDownloader（MPD解析），M3U8解析器（25+HLS标签），AES-128解密（EXT-X-KEY），自适应码率SelectBitRate，RingBuffer分片缓冲，Filter Pipeline前置入口（对应DemuxerFilter上游）
+  pipeline_position: HTTP URL → HttpSourcePlugin(S37) → DemuxerFilter(S14) → Decoder
+    → Surface
+  note: HttpSourcePlugin统一入口，HlsMediaDownloader（video/audio/subtitle三轨SegManager），DashMediaDownloader（MPD解析），M3U8解析器（25+HLS标签），AES-128解密（EXT-X-KEY），自适应码率SelectBitRate，RingBuffer分片缓冲，Filter
+    Pipeline前置入口（对应DemuxerFilter上游）
+- id: approval_S19_20260425
+  type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S19
+  title: TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链
+  scope: '[AVCodec, VideoEncoder, TemporalScalability, SVC, LTR, CodecParamChecker,
+    CodecServer]'
+  submitted_by: builder-agent
+  submitted_at: '2026-04-25T18:53:36+08:00'
+  status: pending_approval
+  evidence_count: 11
+  pipeline_position: CodecServer Configure → TemporalScalability::ValidateTemporalGopParam()
+    → CodecParamChecker七步校验 → 编码流程
+  note: TemporalScalability时域可分级编码，双模式：SVC-TL（均匀分层，temporalGopSize<=4，tRefMode==UNIFORMLY_SCALED_REFERENCE）与SVC-LTR（跨GOP参考，fixed
+    LTR帧数2）；IsLTRSolution()三条件判定；CodecParamChecker七步校验链（TemporalScalabilityChecker→TemporalGopSizeChecker→TemporalGopReferenceModeChecker→UniformlyScaledReferenceChecker→LTRFrameCountChecker→ScalingModeChecker→PostProcessingChecker）；ValidateTemporalGopParam()三参数提取（gopSize/temporalGopSize/tRefMode）
