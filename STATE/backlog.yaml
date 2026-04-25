@@ -225,3 +225,15 @@
 |------|------|------|
 | 2026-04-25T06:30 | Builder | 注册 S27：CodecList 服务架构，CodecListCore七项Check校验 |
 | 2026-04-25T07:40 | Builder | 注册 S28：VideoCaptureFilter 视频采集过滤器，builtin.recorder.videocapture注册，SetInputSurface/GetInputSurface双模式Surface注入，ConsumerSurfaceBufferListener桥接Surface事件与Filter采集，OnBufferAvailable→AcquireInputBuffer→ProcessAndPushOutputBuffer→PushBuffer完整路径，SYNC_FRAME/CODEC_DATA首帧标志，totalPausedTime_暂停时间补偿，与AudioCaptureFilter(S26)并列构成录制管线双路采集入口 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-25T10:10 | Builder | 注册 S29：AudioDataSourceFilter 音频数据源过滤器，IAudioDataSource 接口注入与 ReadLoop 主动拉取机制，FilterType 矛盾（注册AUDIO_DATA_SOURCE/实际返回AUDIO_CAPTURE），RelativeSleep 精准睡眠，S26覆盖AudioDataSource但S29为独立深度分析 |
+
+## 新增主题（Builder 2026-04-25 续 - S29注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S29 | AudioDataSourceFilter 音频数据源过滤器——IAudioDataSource 接口注入与 ReadLoop 主动拉取机制 | AVCodec, MediaEngine, Filter, AudioSource, RecorderPipeline, Pipeline, ScreenCapture | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S29 | ✅ 草案已生成（2026-04-25T10:10），增强evidence：FilterType矛盾（注册AUDIO_DATA_SOURCE/GetFilterType返回AUDIO_CAPTURE），RelativeSleep精准睡眠，AudioDataSourceReadAtActionState三状态，SendEos机制 |

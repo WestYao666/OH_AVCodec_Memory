@@ -81,3 +81,7 @@ queue:
   note: AdaptiveFramerateController自适应帧率控制器，AFC单例+FramerateCalculator按Codec实例，动态降帧算法（抖动过滤/升帧×2.5/降帧2次确认），CodecServer集成，DecodingBehaviorAnalyzer解码行为分析
   submitted_at: '2026-04-25T02:51:00+08:00'
   type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S29
+  note: AudioDataSourceFilter音频数据源过滤器，IAudioDataSource接口注入+ReadLoop主动拉取，FilterType矛盾（注册AUDIO_DATA_SOURCE/GetFilterType返回AUDIO_CAPTURE），RelativeSleep(CLOCK_MONOTONIC)精准睡眠，AudioDataSourceReadAtActionState三状态(OK/SKIP_WITHOUT_LOG/RETRY_IN_INTERVAL)，SendEos机制
+  submitted_at: '2026-04-25T10:10:00+08:00'
+  type: approval_request
