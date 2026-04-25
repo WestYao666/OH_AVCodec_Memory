@@ -22,12 +22,13 @@ why_it_matters:
   - 性能分析：ZeroCopy 路径省去 CPU 拷贝的关键是 SurfaceBuffer 始终在 OWNED_BY_SURFACE 状态直接传递给 GPU
 evidence:
   # === OpenHarmony 官方源码（本地镜像 /home/west/av_codec_repo）===
-  # GitCode 在线浏览（需浏览器打开，web_fetch 因 JS 渲染无法获取内容）：
+  # GitCode 在线浏览（JS 渲染，web_fetch 无法获取内容；raw.gitcode.com 返回 404）：
   #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/common/include/fsurface_memory.h
   #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/codec/video/decoderbase/render_surface.h
   #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/codec/video/decoderbase/render_surface.cpp
   #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/common/fsurface_memory.cpp
   #   https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/common/dma_swap.cpp
+  # 本地源码验证：/home/west/av_codec_repo（与 GitCode master 分支同步）
 
   # --- Owner 枚举（fsurface_memory.h）---
   - kind: local_file
@@ -595,3 +596,4 @@ sInfo_.requestConfig.usage = finalUsage;
 |------|------|------|
 | 2026-04-23 | 新建草案 | builder-agent 基于 S7 上下文，从 fsurface_memory.h/render_surface.h/cpp 提取行号级别证据 |
 | 2026-04-24 | 补充 evidence | builder-agent 验证本地源码行号，补充 GitCode URL 引用、dma_swap.h DmaBufIoctlSwPara 结构体、ioctl 常量定义（DMA_BUF_RECLAIM_FD/L30-32）、SwapOut/SwapIn 精确行范围、dma_swap.cpp L49-60/L63-74 |
+| 2026-04-26T07:10 | 验证 evidence | builder-agent 重新验证本地源码：fsurface_memory.h L32-37 Owner枚举✓、render_surface.h L59-69 CodecBuffer✓、render_surface.cpp L78/327/436/448/476/507/30-32/49-74 全部✓；GitCode JS渲染无法fetch，标注 raw.gitcode.com 404 |
