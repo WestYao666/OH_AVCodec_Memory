@@ -242,7 +242,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S30 | AVCodec DFX 模块——HiSysEvent 上报、XCollie 超时监控与 Dump 工具链 | AVCodec, DFX, Monitoring, FaultInjection, SysEvent, XCollie, Dump, HiSysEvent, Watchdog | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S30 | ✅ 草案已生成（2026-04-25T03:30），HiSysEvent四类事件（FAULT/BEHAVIOR/STATISTIC），XCollie看门狗（服务端超时_exit(-1)），AVCodecDumpControler分层dumpIdx编码，AVCodecDfxComponent LogTag生成，SOURCE_STATISTICS每4h上报+CERT脱敏SHA256 |
+| S30 | AVCodec DFX 模块——HiSysEvent 上报、XCollie 超时监控与 Dump 工具链 | AVCodec, DFX, Monitoring, FaultInjection, SysEvent, XCollie, Dump, HiSysEvent, Watchdog | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S30 | ✅ 草案已生成（2026-04-25T03:30），HiSysEvent四类事件（FAULT/BEHAVIOR/STATISTIC），XCollie看门狗（服务端超时_exit(-1)），AVCodecDumpControler分层dumpIdx编码，AVCodecDfxComponent LogTag生成，SOURCE_STATISTICS每4h上报+CERT脱敏SHA256，2026-04-25T14:36提交审批 |
 
 ## 新增主题（Builder 2026-04-25 续 - S32注册）
 
@@ -260,5 +260,6 @@
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
+| 2026-04-25T14:36 | Builder | S30提交审批：AVCodec DFX模块，HiSysEvent/XCollie/AVCodecDumpControler/AVCodecDfxComponent四组件，S30漏提交补录 |
 | 2026-04-25T12:21 | Builder | 注册 S33：PreProcessing预处理器框架，FastKitsInterface硬件加速图像缩放/裁剪（dlopen libfast_image.so）+ FrameDropFilter智能丢帧（RatioDropStrategy/TimestampDropStrategy） |
 | 2026-04-25T12:06 | Builder | 注册 S32：VideoRenderFilter 视频渲染输出过滤器，builtin.player.videorender注册，vsync驱动帧送达，HDR→SDR色域转换，VideoRenderFilter↔VideoCaptureFilter(S28)镜像对称，VideoRenderFilter↔AudioSinkFilter(S31)双路输出终点对称 |
