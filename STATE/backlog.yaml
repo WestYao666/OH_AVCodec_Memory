@@ -341,3 +341,5 @@
 |---|------|-------|---------|------|------|
 | S42 | AVCodecVideoEncoder 视频编码器核心实现——CodecBase/VideoEncoder/VideoEncoderAdapter 三层架构 | AVCodec, VideoEncoder, CodecBase, VideoEncoderAdapter, Filter, SurfaceEncoderAdapter, SoftwareCodec, HardwareCodec | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S42 | ✅ 草案已生成（2026-04-26T00:10），三层调用链（SurfaceEncoderAdapter→AVCodecVideoEncoder→VideoEncoder基类→H264/H265/VPX具体实现），Filter层五状态机（IDLE/RECORDING/PAUSED/STOPPED/ERROR），CodecServer七状态机（UNINITIALIZED→ERROR），CodecBase统一生命周期，BlockQueue三队列，Surface/Buffer双模式，与S39(VideoDecoder)对称 |
 
+| S43 | AdaptiveFramerateController 自适应帧率控制器——AFC单例+FramerateCalculator实例+DecodingBehaviorAnalyzer三层联动 | AVCodec, AdaptiveFramerate, FramerateCalculator, AFC, DynamicFramerate, DecodeRateControl, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S43 | ✅ 草案已生成（2026-04-26T05:25），AFC单例全局管理所有Codec实例帧率，CHECK_INTERVAL=1000ms，抖动阈值>3fps且>10%，降帧需2次确认，升帧×2.5factor，DecodingBehaviorAnalyzer 8级速度等级，allowLowFps参数控制，与S17(SFD)互补：AFC管编码降帧，SFD管解码丢帧 |
+
