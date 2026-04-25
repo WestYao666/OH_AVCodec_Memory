@@ -92,6 +92,90 @@ evidence:
      #ifdef SUPPORT_DRM ... #else ... #endif
      不支持 DRM 时 SetAudioDecryptionConfig 直接返回 OK（空实现）
      SUPPORT_DRM 宏控制 DRM 功能编译
+ - kind: code
+   ref: services/media_engine/modules/media_codec/media_codec.cpp:705
+   anchor: MediaCodec::DrmAudioCencDecrypt 完整实现
+   note: |
+     行 705-744：音频解密五步流程
+     1. AttachDrmBufffer() 分配加解密双Buffer（行 711）
+     2. memcpy_s() 复制原始数据到 DRM 输入Buffer（行 722）
+     3. drmDecryptor_->DrmAudioCencDecrypt() 调用解密（行 729）
+     4. memcpy_s() 复制解密后数据回原始Buffer（行 733-734）
+     5. 失败时回调 OnError(CodecErrorType::CODEC_DRM_DECRYTION_FAILED)（行 746）
+     注意：函数名有拼写错误 AttachDrmBufffer（三个 f）
+ - kind: code
+   ref: services/media_engine/modules/media_codec/media_codec.cpp:846
+   anchor: HandleInputBufferInner DRM 调用入口
+   note: |
+     行 846-883：HandleInputBufferInner 中 DRM 解密调用路径
+     行 876: if (drmDecryptor_ != nullptr)
+     行 877: MediaAVCodec::AVCodecTrace trace("MediaCodec::HandleInputBufferInner-DrmAudioCencDecrypt")
+     行 878: ret = DrmAudioCencDecrypt(filledInputBuffer)
+     行 879-881: 失败时调用 HandleAudioCencDecryptError()
+     行 880: realPtr->OnError(CodecErrorType::CODEC_DRM_DECRYTION_FAILED, ...)  错误码拼写同头文件
+ - kind: code
+   ref: services/drm_decryptor/codec_drm_decrypt.cpp:661
+   anchor: CodecDrmDecrypt::SetDecryptionConfig 完整实现
+   note: |
+     行 661-680：解密配置设置
+     行 664-669: svpFlag (bool) → svpFlag_ (SvpMode: SVP_TRUE/SVP_FALSE)
+     行 670: mode_ = MetaDrmCencInfoMode::META_DRM_CENC_INFO_KEY_IV_SUBSAMPLES_SET
+     行 675: keySessionServiceProxy_->GetMediaDecryptModule(decryptModuleProxy_) 获取解密模块代理
+     行 676: CHECK_AND_RETURN_LOG 确认 decryptModuleProxy_ 非空
+     #ifdef SUPPORT_DRM 分支：不支持 DRM 时 keySession 被 (void)keySession 消声
+ - kind: code
+   ref: services/media_engine/filters/audio_decoder_filter.cpp:432
+   anchor: AudioDecoderFilter::isDrmProtected_ 配置路径
+   note: |
+     行 432-435: audio 路径 DRM 配置（对应 video 的 svpFlag_）
+     行 432: if (isDrmProtected_)  判断是否有 DRM 保护
+     行 433: MEDIA_LOG_D("AudioDecoderFilter::isDrmProtected_ true.")
+     行 435: decoder_->SetAudioDecryptionConfig(keySessionServiceProxy_, svpFlag_)
+     行 501-504: svpFlag_ 初始化（默认 false）
+ - kind: code
+   ref: services/drm_decryptor/codec_drm_decrypt.cpp:82
+   anchor: CodecDrmDecrypt::DrmGetSkipClearBytes 计算逻辑
+   note: |
+     行 82-120：DrmGetSkipClearBytes 根据 codec 类型计算 NAL header 不加密字节数
+     行 84-88: codingType_ 三分支（AVC/HEVC/AVS）设置 skipBytes
+     行 105-118: AVC: 35 = (32+3) | HEVC: 68 = (65+3) | AVS: 4 = (1+3)
+     行 156/218: DrmFindCeiNalUnit 内部调用 DrmGetSkipClearBytes
+ - kind: code
+   ref: services/drm_decryptor/codec_drm_decrypt.cpp:372
+   anchor: CodecDrmDecrypt::DrmFindCeiNalUnit SEI NAL 单元解析
+   note: |
+     行 372-401：SEI NAL 单元查找函数（处理 DRM metadata 在 SEI 中情况）
+     行 235-241: DrmFindCeiNalUnit 在 DecryptMediaData 入口被调用（codingType 三分支判断 NAL type）
+     行 401: DrmFindCeiNalUnit 返回 false 时跳过当前 NAL
+ - kind: code
+   ref: services/media_engine/filters/decoder_surface_filter.cpp:1411
+   anchor: DecoderSurfaceFilter::SetDecryptConfig 视频 DRM 配置入口
+   note: |
+     行 1411-1420：video DRM 配置入口（区别于 audio 的 AudioDecoderFilter）
+     行 1416: keySessionProxy 为 nullptr 时返回 ERROR
+     行 1419: isDrmProtected_ = true
+     行 1420: svpFlag_ = svp
+     video 路径：decoder_filter → videoDecoder_->SetDecryptConfig()（行 456）
+     audio 路径：audio_decoder_filter → decoder_->SetAudioDecryptionConfig()（行 435）
+ - kind: code
+   ref: services/drm_decryptor/codec_drm_decrypt.cpp:684
+   anchor: CodecDrmDecrypt::SetDrmBuffer NAL 解析与 Buffer 转换
+   note: |
+     行 684-730：SetDrmBuffer 实现（行 684 入口，行 730 调用 decryptModuleProxy_->DecryptMediaData）
+     行 687: AVCODEC_LOGD("CodecDrmDecrypt SetDrmBuffer")
+     行 693-708: 输入/输出 Buffer 容量校验（GetCapacity() 返回 -1 则失败）
+     行 719-720: cryptInfo.pattern 设置（encryptBlocks/skipBlocks from cencInfo）
+     行 727-728: decryptModuleProxy_ 非空检查
+     行 730: decryptModuleProxy_->DecryptMediaData(svpFlag_, cryptInfo, inDrmBuffer, outDrmBuffer)
+ - kind: code
+   ref: services/media_engine/modules/media_codec/media_codec.cpp:741
+   anchor: HandleAudioCencDecryptError 错误回调
+   note: |
+     行 741-746：音频解密失败时的错误回调
+     行 746: realPtr->OnError(CodecErrorType::CODEC_DRM_DECRYTION_FAILED,
+         static_cast<int32_t>(Status::ERROR_DRM_DECRYPT_FAILED))
+     错误码：CodecErrorType 枚举值（拼写 DECRYTION）映射到 Status 枚举值（拼写 DECRYPT）
+     两个枚举在不同头文件，拼写不一致但值应该对应
 related:
  - MEM-ARCH-AVCODEC-001  (5大层：interfaces/media_engine/services/dfx/drm)
  - MEM-ARCH-AVCODEC-009  (硬件Codec区分：IsSecure() 判断是否支持DRM)
@@ -106,7 +190,7 @@ review:
   change_policy: update_on_code_change
 update_trigger: code_change
 created_at: "2026-04-19T23:20:00+08:00"
-updated_at: "2026-04-20T03:05:00+08:00"
+updated_at: "2026-04-26T01:30:00+08:00"
 last_action: status updated to in_review, memory file aligned with pending_actions queue
 source_repo: https://gitcode.com/openharmony/multimedia_av_codec
 source_commit: local clone (OH_AVCodec)
