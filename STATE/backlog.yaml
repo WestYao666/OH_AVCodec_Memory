@@ -302,3 +302,9 @@
 |------|------|------|
 | 2026-04-25T17:21 | Builder | 注册 S36：VideoEncoderFilter（实际类名SurfaceEncoderFilter）视频编码过滤器，Filter层（SurfaceEncoderFilter）+ 适配层（SurfaceEncoderAdapter）+ 引擎层（AVCodecVideoEncoder），FILTERTYPE_VENC，ReleaseBuffer Task 后台线程，ProcessStateCode 五状态机，PTS ns→μs 单位转换，OnReportKeyFramePts→MuxerFilter.SetUserMeta，TransCoderMode 特殊路径，与 VideoCaptureFilter(S28) 构成录制管线上游对称 |
 | 2026-04-25T18:40 | Builder | 注册 S37：HTTP 流媒体源插件架构，HttpSourcePlugin 统一入口路由（m3u8→HlsMediaDownloader，mpd→DashMediaDownloader，other→DownloadMonitor），HlsSegmentManager 三轨分片下载（video/audio/subtitle），AES-128 解密，M3U8 解析器（25+ 标签），自适应码率切换，RingBuffer 缓冲，Filter Pipeline 前置入口 |
+
+## 新增主题（Builder 2026-04-25 续 - S38注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S38 | SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构 | AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, Rank | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S38 | ✅ 草案已生成（2026-04-25T19:07），四类源插件（FileSource/FILE、FileFdSource/FD、HttpSourcePlugin/HTTP、DataStreamSource/STREAM），rank=100最高优先级，SourcePlugin统一接口（SetSource/Read/GetSize），HttpSourcePlugin双层架构（MediaDownloader），FileFdSource云端预读（ringBuffer_ 40MB、isReadBlocking_），DataStreamSource内存池（AVSharedMemoryPool） |
