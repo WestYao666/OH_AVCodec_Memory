@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S24
 title: AudioEncoderFilter 音频编码过滤器——MediaCodec封装与录音管线
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, AudioEncoder, Recorder, FILTERTYPE_AENC]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-25T00:55:00+08:00"
 updated_by: builder-agent
