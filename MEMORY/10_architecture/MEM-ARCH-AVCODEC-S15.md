@@ -1,8 +1,9 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S15
-status: draft
+status: pending_approval
 topic: SurfaceCodec 软件编解码器插件架构——CodecBase 插件基类、软硬编解码器 Loader 与适配流程
+submitted_at: "2026-04-25T09:12:00+08:00"
 scope: [AVCodec, SoftwareCodec, Plugin, CodecBase, Adapter, FCodec, HCodec, SurfaceDecoderAdapter, SurfaceEncoderAdapter]
 created_at: "2026-04-24T03:50:00+08:00"
 author: builder-agent

@@ -1,21 +1,26 @@
-last_updated: '2026-04-25T07:40:00+08:00'
+last_updated: '2026-04-25T09:12:00+08:00'
 queue:
+- mem_id: MEM-ARCH-AVCODEC-S15
+  note: SurfaceCodec软件编解码器插件架构：CodecBase基类（Surface虚方法）+FCodec/HCodec双实现+FCodecLoader/HCodecLoader双Loader（dlopen
+    libfcodec.z.so/libhcodec.z.so）+CodecFactory软硬分发+SurfaceDecoderAdapter按isVendor判断软硬+HDR场景硬解码优先+CreateByMime自动选择
+  submitted_at: '2026-04-25T09:12:00+08:00'
+  type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S28
+  note: VideoCaptureFilter视频采集过滤器，builtin.recorder.videocapture注册，SetInputSurface/GetInputSurface双模式Surface注入，ConsumerSurfaceBufferListener桥接Surface事件与Filter采集，OnBufferAvailable→AcquireInputBuffer→ProcessAndPushOutputBuffer→PushBuffer完整路径，SYNC_FRAME/CODEC_DATA首帧标志，totalPausedTime_暂停时间补偿，与AudioCaptureFilter(S26)并列构成录制管线双路采集入口
   submitted_at: '2026-04-25T07:40:00+08:00'
   type: approval_request
-  note: "VideoCaptureFilter视频采集过滤器，builtin.recorder.videocapture注册，SetInputSurface/GetInputSurface双模式Surface注入，ConsumerSurfaceBufferListener桥接Surface事件与Filter采集，OnBufferAvailable→AcquireInputBuffer→ProcessAndPushOutputBuffer→PushBuffer完整路径，SYNC_FRAME/CODEC_DATA首帧标志，totalPausedTime_暂停时间补偿，与AudioCaptureFilter(S26)并列构成录制管线双路采集入口"
 - mem_id: MEM-ARCH-AVCODEC-S16
+  note: SurfaceCodec与Surface绑定机制，DecoderSurfaceFilter→CodecServer→CodecBase三层SetOutputSurface链路，PostProcessing路由(SetOutputSurfaceForPostProcessing)，Surface/Buffer双模式互斥(isSurfaceMode_/isModeConfirmed_)，行号锚点已验证decoder_surface_filter.cpp:1368/1404、codec_server.cpp:551-577/1367-1371、surface_decoder_adapter.cpp:235-250
   submitted_at: '2026-04-25T07:21:00+08:00'
   type: approval_request
-  note: "SurfaceCodec与Surface绑定机制，DecoderSurfaceFilter→CodecServer→CodecBase三层SetOutputSurface链路，PostProcessing路由(SetOutputSurfaceForPostProcessing)，Surface/Buffer双模式互斥(isSurfaceMode_/isModeConfirmed_)，行号锚点已验证decoder_surface_filter.cpp:1368/1404、codec_server.cpp:551-577/1367-1371、surface_decoder_adapter.cpp:235-250"
 - mem_id: MEM-ARCH-AVCODEC-S27
+  note: CodecList服务架构，CodecListCore七项Check校验（分辨率/帧率/码率/像素格式/声道/采样率），CodecAbilitySingleton单例聚合硬件HCodecLoader+软件FCodecLoader/AvcEncoderLoader/AudioCodeclistInfo，FindCodec按mime→codecType→isVendor三重过滤，SA层AVCodecServer分发AVCODEC_CODECLIST(4501)/AVCODEC_CODEC(4502)子系统
   submitted_at: '2026-04-25T06:21:00+08:00'
   type: approval_request
-  note: "CodecList服务架构，CodecListCore七项Check校验（分辨率/帧率/码率/像素格式/声道/采样率），CodecAbilitySingleton单例聚合硬件HCodecLoader+软件FCodecLoader/AvcEncoderLoader/AudioCodeclistInfo，FindCodec按mime→codecType→isVendor三重过滤，SA层AVCodecServer分发AVCODEC_CODECLIST(4501)/AVCODEC_CODEC(4502)子系统"
 - mem_id: MEM-ARCH-AVCODEC-S26
+  note: AudioCaptureFilter设备音频采集+AudioDataSourceFilter数据源+SubtitleSinkFilter字幕渲染，三类Filter注册名与生命周期对比
   submitted_at: '2026-04-25T04:55:00+08:00'
   type: approval_request
-  note: "AudioCaptureFilter设备音频采集+AudioDataSourceFilter数据源+SubtitleSinkFilter字幕渲染，三类Filter注册名与生命周期对比"
 - mem_id: MEM-ARCH-AVCODEC-S9
   submitted_at: '2026-04-24T00:07:00+08:00'
   type: approval_request
@@ -32,9 +37,9 @@ queue:
   submitted_at: '2026-04-24T00:05:00+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S14
+  note: 增强DoProcessInputBuffer/OnError/NEXT_FILTER_NEEDED evidence，本轮补强后重新提交
   submitted_at: '2026-04-24T20:40:00+08:00'
   type: approval_request
-  note: "增强DoProcessInputBuffer/OnError/NEXT_FILTER_NEEDED evidence，本轮补强后重新提交"
 - mem_id: MEM-ARCH-AVCODEC-S13
   submitted_at: '2026-04-24T01:05:00+08:00'
   type: approval_request
@@ -60,18 +65,19 @@ queue:
   submitted_at: '2026-04-24T10:56:52+08:00'
   type: approval_request
 - mem_id: MEM-ARCH-AVCODEC-S22
+  note: MediaSyncManager音视频同步管理中心，IMediaSyncCenter时间锚点+IMediaSynchronizer优先级链（VIDEO_SINK=0/AUDIO_SINK=2），UpdateTimeAnchor+PTS换算+Seek+PlaybackRate，Preroll协调，WaitAllPrerolled/NotifyAllPrerolled
   submitted_at: '2026-04-25T02:36:00+08:00'
   type: approval_request
-  note: "MediaSyncManager音视频同步管理中心，IMediaSyncCenter时间锚点+IMediaSynchronizer优先级链（VIDEO_SINK=0/AUDIO_SINK=2），UpdateTimeAnchor+PTS换算+Seek+PlaybackRate，Preroll协调，WaitAllPrerolled/NotifyAllPrerolled"
 - mem_id: MEM-ARCH-AVCODEC-S23
+  note: SurfaceEncoderAdapter视频编码器适配器，Filter层封装+Codec适配层双架构，Surface模式输入/编码输出，ProcessStateCode七状态，ReleaseBuffer后台线程，TemporalScalability+B-Frame+TransCoderMode支持
   submitted_at: '2026-04-24T20:55:00+08:00'
   type: approval_request
-  note: "SurfaceEncoderAdapter视频编码器适配器，Filter层封装+Codec适配层双架构，Surface模式输入/编码输出，ProcessStateCode七状态，ReleaseBuffer后台线程，TemporalScalability+B-Frame+TransCoderMode支持"
 - mem_id: MEM-ARCH-AVCODEC-S24
+  note: AudioEncoderFilter音频编码过滤器，MediaCodec封装+录音管线，builtin.recorder.audioencoder，SetTranscoderMode转码模式，DFX
+    SetFaultEvent上报
   submitted_at: '2026-04-25T00:55:00+08:00'
   type: approval_request
-  note: "AudioEncoderFilter音频编码过滤器，MediaCodec封装+录音管线，builtin.recorder.audioencoder，SetTranscoderMode转码模式，DFX SetFaultEvent上报"
 - mem_id: MEM-ARCH-AVCODEC-S25
+  note: AdaptiveFramerateController自适应帧率控制器，AFC单例+FramerateCalculator按Codec实例，动态降帧算法（抖动过滤/升帧×2.5/降帧2次确认），CodecServer集成，DecodingBehaviorAnalyzer解码行为分析
   submitted_at: '2026-04-25T02:51:00+08:00'
   type: approval_request
-  note: "AdaptiveFramerateController自适应帧率控制器，AFC单例+FramerateCalculator按Codec实例，动态降帧算法（抖动过滤/升帧×2.5/降帧2次确认），CodecServer集成，DecodingBehaviorAnalyzer解码行为分析"
