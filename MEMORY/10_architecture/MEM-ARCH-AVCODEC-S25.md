@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S25
-status: draft
+status: pending_approval
 topic: AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成
 submitted_at: "2026-04-25T02:51:00+08:00"
 evidence: |

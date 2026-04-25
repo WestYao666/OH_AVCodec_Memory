@@ -262,3 +262,21 @@ pending:
     created_by: builder-agent
     created_at: "2026-04-26T06:35:00+08:00"
     awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S25
+    title: "AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成"
+    scope: [AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, AFC, DynamicFramerate]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T07:05:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S27
+    title: "CodecList 服务架构——CodecListCore + CodecAbilitySingleton + CodecListBuilder 三层能力查询体系"
+    scope: [AVCodec, CodecList, Capability, CodecAbilitySingleton, CodecListCore, AVCodecList, Factory, SA, SystemAbility]
+    status: pending_approval
+    created_by: pm-loop
+    created_at: "2026-04-26T07:05:00+08:00"
+    awaiting: approve/revise/reject/hold
