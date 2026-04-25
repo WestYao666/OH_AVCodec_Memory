@@ -1,5 +1,16 @@
-last_updated: '2026-04-25T21:51:00+08:00'
+last_updated: '2026-04-25T22:25:00+08:00'
 queue:
+- type: approval_request
+  id: approval_S41_20260425
+  mem_id: MEM-ARCH-AVCODEC-S41
+  title: DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流
+  status: pending_approval
+  submitted_at: '2026-04-25T22:25:00+08:00'
+  submitted_by: builder-agent
+  pipeline_position: SourcePlugin(S38) → DemuxerFilter(S41) → VideoDecoderFilter(S23)/AudioDecoderFilter(S35)/SubtitleSinkFilter
+  scope: '[AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM]'
+  evidence_count: 20
+  note: builtin.player.demuxer注册，std::shared_ptr<MediaDemuxer> demuxer_核心引擎，g_sampleFormatBeToLe大端音频格式转换(17种)，STREAMTYPE五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/VIDEO/SUBTITLE)，HandleTrackInfos遍历轨道触发NEXT_FILTER_NEEDED链路，GetBufferQueueProducerMap返回各轨AVBufferQueueProducer，ptsManagedFileTypes={AVI,MPEGPS,WMV}需要PTS管理，SetTranscoderMode/SetPlayerMode双模式切换，SeekTo三分支(MPEGTS→SeekToKeyFrame/seekTime==0→SeekToStart/其他→SeekTo)，ResumeDemuxerReadLoop/PauseDemuxerReadLoop控制读循环，DemuxerFilterDrmCallback处理DRM事件
 - type: approval_request
   id: approval_S40_20260425
   mem_id: MEM-ARCH-AVCODEC-S40

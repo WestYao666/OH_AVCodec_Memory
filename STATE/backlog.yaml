@@ -319,4 +319,10 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S40 | FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构 | AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S40 | ✅ 草案已生成（2026-04-25T21:51），FFmpegMuxerPlugin底层封装：九种格式(mp4/ipod/amr/mp3/wav/adts/flac/ogg/flv)，AVFMT_FLAG_CUSTOM_IO自定义AVIOContext，IoRead/IoWrite/IoSeek桥接DataSink；MediaMuxer持有MuxerPlugin代理AddTrack/Start/Stop；MuxerFilter多轨协调(preFilterCount_/stopCount_)，maxDuration_异步停止；与S34(MuxerFilter)互补：S34为Filter层入口，S40为FFmpeg底层封装
+| S40 | FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构 | AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S40 | ✅ 草案已生成（2026-04-25T21:51），FFmpegMuxerPlugin底层封装：九种格式(mp4/ipod/amr/mp3/wav/adts/flac/ogg/flv)，AVFMT_FLAG_CUSTOM_IO自定义AVIOContext，IoRead/IoWrite/IoSeek桥接DataSink；MediaMuxer持有MuxerPlugin代理AddTrack/Start/Stop；MuxerFilter多轨协调(preFilterCount_/stopCount_)，maxDuration_异步停止；与S34(MuxerFilter)互补：S34为Filter层入口，S40为FFmpeg底层封装 |
+
+## 新增主题（Builder 2026-04-25 续 - S41注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S41 | DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流 | AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S41 | ✅ 草案已生成（2026-04-25T22:25），builtin.player.demuxer注册，MediaDemuxer核心引擎，多轨AVBufferQueue并发读循环，PTS管理(AVI/MPEGPS/WMV)，g_sampleFormatBeToLe大端音频转换，StreamType五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/VIDEO/SUBTITLE)，双模式切换(SetTranscoderMode/SetPlayerMode)，Seek策略三分支(MPEGTS/Start/通用)
