@@ -308,3 +308,15 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S38 | SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构 | AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, Rank | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S38 | ✅ 草案已生成（2026-04-25T19:07），四类源插件（FileSource/FILE、FileFdSource/FD、HttpSourcePlugin/HTTP、DataStreamSource/STREAM），rank=100最高优先级，SourcePlugin统一接口（SetSource/Read/GetSize），HttpSourcePlugin双层架构（MediaDownloader），FileFdSource云端预读（ringBuffer_ 40MB、isReadBlocking_），DataStreamSource内存池（AVSharedMemoryPool） |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-25T19:07 | Builder | 注册 S38：SourcePlugin 源插件体系，Filter Pipeline 最上游入口 |
+
+## 新增主题（Builder 2026-04-25 续 - S40注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S40 | FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构 | AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S40 | ✅ 草案已生成（2026-04-25T21:51），FFmpegMuxerPlugin底层封装：九种格式(mp4/ipod/amr/mp3/wav/adts/flac/ogg/flv)，AVFMT_FLAG_CUSTOM_IO自定义AVIOContext，IoRead/IoWrite/IoSeek桥接DataSink；MediaMuxer持有MuxerPlugin代理AddTrack/Start/Stop；MuxerFilter多轨协调(preFilterCount_/stopCount_)，maxDuration_异步停止；与S34(MuxerFilter)互补：S34为Filter层入口，S40为FFmpeg底层封装

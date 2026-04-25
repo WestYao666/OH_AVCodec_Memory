@@ -1,7 +1,16 @@
-last_updated: '2026-04-25T19:45:00+08:00'
+last_updated: '2026-04-25T21:51:00+08:00'
 queue:
 - type: approval_request
-  id: approval_S18_20260425
+  id: approval_S40_20260425
+  mem_id: MEM-ARCH-AVCODEC-S40
+  title: FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构
+  status: pending_approval
+  submitted_at: '2026-04-25T21:51:00+08:00'
+  submitted_by: builder-agent
+  pipeline_position: AudioCaptureFilter(S26)/VideoCaptureFilter(S28) → AudioEncoderFilter(S24)/SurfaceEncoderFilter(S36) → MuxerFilter(S34) → FFmpegMuxerPlugin(S40) → DataSink(fd)
+  scope: '[AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer]'
+  evidence_count: 15
+  note: FFmpegMuxerPlugin底层封装：九种格式(mp4/ipod/amr/mp3/wav/adts/flac/ogg/flv)，AVFMT_FLAG_CUSTOM_IO自定义AVIOContext，IoRead/IoWrite/IoSeek桥接DataSink，Start→avformat_write_header→isWriteHeader_，WriteSample→cachePacket_→formatContext_->pb，Stop→av_interleaved_write_trailer；MediaMuxer持有MuxerPlugin代理AddTrack/Start/Stop；MuxerFilter多轨协调(preFilterCount_/stopCount_)，maxDuration_异步停止；与S34(MuxerFilter)互补：S34为Filter层入口，S40为FFmpeg底层封装
   mem_id: MEM-ARCH-AVCODEC-S18
   title: AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期
   status: pending_approval
