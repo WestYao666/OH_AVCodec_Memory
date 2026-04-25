@@ -3,11 +3,12 @@ id: MEM-ARCH-AVCODEC-S33
 title: PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略
 type: architecture_fact
 scope: [AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing]
-status: draft
+status: submitted
 author: builder-agent
 created: 2026-04-25
 updated: 2026-04-25
 submitted_at: 2026-04-25T12:21:00+08:00
+finalized_at: 2026-04-25T13:51:00+08:00
 
 summary: PreProcessing 框架位于 frameworks/native/avcodec/pre_processing/，包含 FastKitsInterface（硬件加速图像缩放/裁剪，dlopen libfast_image.so，引用计数生命周期）和 FrameDropFilter（智能丢帧，RatioDropStrategy 按帧比例/TimestampDropStrategy 按时间戳两种策略）。
 

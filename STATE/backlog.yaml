@@ -254,7 +254,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S33 | PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略 | AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing | 新需求开发/问题定位 | **in_progress** | MEM-ARCH-AVCODEC-S33 | 🚧 Builder处理中（2026-04-25T12:21） |
+| S33 | PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略 | AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S33 | ✅ 已提交审批（2026-04-25T13:51） |
 
 ## 变更记录
 
