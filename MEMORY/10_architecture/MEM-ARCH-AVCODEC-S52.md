@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S52
 title: "TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射"
 scope: [AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-26T16:25:00+08:00"
 ---

@@ -409,7 +409,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S52 | TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射 | AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S52 | ✅ 草案已生成（2026-04-26T16:25），TimeAndIndexConversion 解析 MP4/MOV Box 结构（ftyp/moov/trak/stbl），STTS表(sampleCount+sampleDelta)和CTTS表(sampleCount+sampleOffset)双表联合遍历，MDHD读取timescale，HDLR判断vide/soun轨道类型，PTS↔Index双向转换算法（相对PTS+绝对时间零点），B帧PTS=DTS+offset，最大36000帧限制 |
+| S52 | TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射 | AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S52 | ✅ 草案已生成（2026-04-26T16:25），TimeAndIndexConversion 解析 MP4/MOV Box 结构（ftyp/moov/trak/stbl），STTS表(sampleCount+sampleDelta)和CTTS表(sampleCount+sampleOffset)双表联合遍历，MDHD读取timescale，HDLR判断vide/soun轨道类型，PTS↔Index双向转换算法（相对PTS+绝对时间零点），B帧PTS=DTS+offset，最大36000帧限制 |
 
 ## 新增主题（Builder 2026-04-26 续 - S53注册）
 
