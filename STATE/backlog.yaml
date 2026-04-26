@@ -380,3 +380,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-26T09:07 | Builder | 注册 S46：DecoderSurfaceFilter 视频解码过滤器，builtin.player.videodecoder/FILTERTYPE_VDEC，VideoDecoderAdapter+VideoSink+PostProcessor三层组件，RenderLoop后台线程，DRM解密集成，Camera PostProcessor，硬件→软件解码器自动回退 |
+
+## 新增主题（Builder 2026-04-26 第二批）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S49 | SubtitleSinkFilter 字幕渲染过滤器——SubtitleSink 引擎与 Filter 两层架构 | AVCodec, MediaEngine, Filter, Subtitle, SubtitleSink, SubtitleSinkFilter, FILTERTYPE_SSINK, PlayerPipeline, MediaSync | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S49 | ✅ 草案已生成（2026-04-26T12:45），SubtitleSinkFilter Filter层封装("builtin.player.subtitlesink")+SubtitleSink引擎层RenderLoop，SubtitleBufferState三状态(WAIT/SHOW/DROP)，RemoveTextTags HTML标签剥离，NotifyRender Tag::SUBTITLE_TEXT上报，MediaSyncManager同步集成，Seek时NotifySeek清空字幕队列，与AudioSinkFilter(S31)/VideoRenderFilter(S32)并列构成管线三大输出终点 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-26T12:45 | Builder 新增 | S49：SubtitleSinkFilter 字幕渲染过滤器，SubtitleSink 引擎 + Filter 两层架构，RenderLoop 字幕主循环，WAIT/SHOW/DROP 三状态，TextTag HTML 标签剥离，MediaSyncManager 同步，Seek 清空队列，与 S31/S32 三大管线输出终点对称 |
