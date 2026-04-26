@@ -404,3 +404,15 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S51 | Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线 | AVCodec, VideoDecoder, AV1, dav1d, SoftwareCodec, VideoCodecLoader, HDR, ColorSpace, Av1DecoderLoader, CodecMimeType | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S51 | ✅ 草案已生成（2026-04-26T15:21），Av1Decoder继承VideoDecoder，封装VideoLAN dav1d库(libdav1d.z.so)，CreateDecoder三步骤(dav1d_default_settings/open/allocate)，DecodeAv1FrameOnce三函数API(dav1d_data_wrap/send_data/get_picture)，DAV1D_AGAIN=-11正常状态，n_threads=2/max_frame_delay=1/apply_grain=1，HDR元数据FillHdrInfo，UpdateColorAspects色彩空间，ConvertAv1FmtToAVPixFmt四像素格式(I400/I420/I422/I444)，GetCodecCapability能力注册(1920x1080@300fps/MAIN+HIGH Profile/64实例)，extern "C"三函数API(dlsym)，编译开关SUPPORT_CODEC_AV1 |
+
+## 新增主题（Builder 2026-04-26 续 - S52注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S52 | TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射 | AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S52 | ✅ 草案已生成（2026-04-26T16:25），TimeAndIndexConversion 解析 MP4/MOV Box 结构（ftyp/moov/trak/stbl），STTS表(sampleCount+sampleDelta)和CTTS表(sampleCount+sampleOffset)双表联合遍历，MDHD读取timescale，HDLR判断vide/soun轨道类型，PTS↔Index双向转换算法（相对PTS+绝对时间零点），B帧PTS=DTS+offset，最大36000帧限制 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-26T16:25 | Builder 新增 | 注册 S52：TimeAndIndexConversion PTS与帧索引转换模块，MP4/MOV STTS/CTTS解析，PTS↔Index双向转换，B帧PTS=DTS+offset机制 |

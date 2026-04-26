@@ -1,374 +1,726 @@
-# pending_actions.yaml — 记忆工厂审批队列
-# 生成时间: 2026-04-25T23:35:00+08:00
-# 更新: 2026-04-26T15:21+08:00
-
 pending:
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S51
-    title: "Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线"
-    scope: [AVCodec, VideoDecoder, AV1, dav1d, SoftwareCodec, VideoCodecLoader, HDR, ColorSpace, Av1DecoderLoader, CodecMimeType]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T15:21:00+08:00"
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S51
+  title: Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线
+  scope:
+  - AVCodec
+  - VideoDecoder
+  - AV1
+  - dav1d
+  - SoftwareCodec
+  - VideoCodecLoader
+  - HDR
+  - ColorSpace
+  - Av1DecoderLoader
+  - CodecMimeType
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T15:21:00+08:00'
+  awaiting: approve/revise/reject/hold
+  key_findings:
+  - dav1d库(libdav1d.z.so)
+  - Dav1dContext三函数API(dav1d_open/send_data/get_picture)
+  - DAV1D_AGAIN=-11
+  - HDR元数据FillHdrInfo
+  - 色彩空间UpdateColorAspects
+  - n_threads=2
+  - max_frame_delay=1
+  - apply_grain=1
+  - 支持I400/I420/I422/I444
+  - 输出NV12/NV21/P010
+  - 最大1920x1080@300fps
+  - 64实例
+  - AV1Profile_MAIN/HIGH
+  - GetCodecCapability能力注册
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S45
+  title: SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - VideoDecoder
+  - SurfaceDecoderFilter
+  - FILTERTYPE_VIDEODEC
+  - SurfaceMode
+  - Pipeline
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T08:20:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S39
+  title: AVCodecVideoDecoder 视频解码器核心实现——CodecBase/VideoDecoder/VideoDecoderAdapter
+    三层架构
+  scope:
+  - AVCodec
+  - VideoDecoder
+  - CodecBase
+  - VideoDecoderAdapter
+  - Filter
+  - HardwareCodec
+  - SoftwareCodec
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-25T22:42:51+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S41
+  title: DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - Demuxer
+  - MediaDemuxer
+  - FilterPipeline
+  - StreamType
+  - TrackManagement
+  - AVBufferQueue
+  - DRM
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-25T22:25:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S42
+  title: AVCodecVideoEncoder 视频编码器核心实现——CodecBase/VideoEncoder/VideoEncoderAdapter
+    三层架构
+  scope:
+  - AVCodec
+  - VideoEncoder
+  - CodecBase
+  - VideoEncoderAdapter
+  - Filter
+  - SurfaceEncoderAdapter
+  - SoftwareCodec
+  - HardwareCodec
+  status: pending_approval
+  created_by: builder-agent-S42
+  created_at: '2026-04-26T00:10:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S9
+  title: SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制
+  scope:
+  - AVCodec
+  - SurfaceBuffer
+  - MemoryManagement
+  - RenderSurface
+  - Owner
+  - ZeroCopy
+  - DMA-BUF
+  - FSCallback
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S10
+  title: SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - SEI
+  - VideoProcessing
+  - Player
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S11
+  title: HCodec CodecComponentManager 工厂与插件注册机制——ICodecComponentManager 双模式+GetCapList能力发现
+  scope:
+  - AVCodec
+  - HardwareCodec
+  - HDI
+  - IPC
+  - Passthrough
+  - CodecComponentManager
+  - Factory
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S12
+  title: VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - Transcoder
+  - VideoProcessingEngine
+  - VPE
+  - Plugin
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S13
+  title: AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧与CodecServer集成
+  scope:
+  - AVCodec
+  - AdaptiveFramerate
+  - FramerateCalculator
+  - CodecServer
+  - AFC
+  - DynamicFramerate
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S14
+  title: MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue
+    三联数据流
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - FilterChain
+  - Pipeline
+  - AVBufferQueue
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S15
+  title: SurfaceCodec 软件编解码器插件架构——CodecBase 插件基类、软硬编解码器 Loader 与适配流程
+  scope:
+  - AVCodec
+  - SurfaceCodec
+  - CodecBase
+  - Plugin
+  - Loader
+  - SoftwareCodec
+  - HardwareCodec
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S16
+  title: SurfaceCodec 与 Surface 的绑定机制——SetOutputSurface、PostProcessing 路由与 Surface/Buffer
+    双模式互斥
+  scope:
+  - AVCodec
+  - SurfaceMode
+  - SurfaceBinding
+  - MediaEngine
+  - Pipeline
+  - CodecServer
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S17
+  title: SmartFluencyDecoding 智能流畅解码——IRetentionStrategy 四策略+MV/Nalu 双分析器+AsyncDropDispatcher
+    异步丢帧
+  scope:
+  - AVCodec
+  - SmartFluencyDecoding
+  - RetentionStrategy
+  - MVAnalyzer
+  - NaluAnalyzer
+  - AsyncDrop
+  - VideoPipeline
+  - CodecServer
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S18
+  title: AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期
+  scope:
+  - AVCodec
+  - AudioCodec
+  - AudioCodecServer
+  - CodecStatus
+  - StateMachine
+  - AudioCodecFactory
+  - Lifecycle
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S19
+  title: TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链
+  scope:
+  - AVCodec
+  - VideoEncoder
+  - TemporalScalability
+  - SVC
+  - LTR
+  - CodecParamChecker
+  - CodecServer
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S20
+  title: PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载
+  scope:
+  - AVCodec
+  - PostProcessing
+  - VPE
+  - DynamicController
+  - DynamicInterface
+  - LockFreeQueue
+  - ColorSpace
+  - dlopen
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S21
+  title: AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换
+  scope:
+  - AVCodec
+  - IPC
+  - CodecClient
+  - CodecServiceProxy
+  - CodecServiceStub
+  - CodecListenerStub
+  - CodecBufferCircular
+  - Binder
+  - SyncMode
+  - AsyncMode
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S22
+  title: MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Sync
+  - MediaSyncManager
+  - IMediaSyncCenter
+  - IMediaSynchronizer
+  - PTS
+  - AVSync
+  - Clock
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S28
+  title: VideoCaptureFilter 视频采集过滤器——Surface模式输入与录制管线数据源
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - VideoCapture
+  - RecorderPipeline
+  - SurfaceMode
+  - Source
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S29
+  title: AudioDataSourceFilter 音频数据源过滤器——IAudioDataSource 接口注入与 ReadLoop 主动拉取机制
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - AudioSource
+  - RecorderPipeline
+  - Pipeline
+  - ScreenCapture
+  status: pending_approval
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S23
+  title: SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - SurfaceEncoderAdapter
+  - SurfaceMode
+  - VideoEncoder
+  - FILTERTYPE_VENC
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T00:23:53+08:00'
+  awaiting: approve/revise/reject/hold
+- type: subagent_completion
+  subagent_task: builder-agent-S42
+  session_id: 1a7522d0-f4ad-4f51-85aa-56a7226581f8
+  status: completed
+  summary:
+    filter: DemuxerFilter
+    filter_name: builtin.player.demuxer
+    stream_types:
+    - DOLBY
+    - ENCODED_AUDIO
+    - RAW_AUDIO
+    - ENCODED_VIDEO
+    - SUBTITLE
+    key_features:
+    - 多轨并发读循环
+    - PTS管理（AVI/MPEGPS/WMV）
+    - 双模式切换
+    - Seek三分支
+    - DRM回调
+    pipeline: SourcePlugin(S38) → DemuxerFilter(S41) → DecoderFilters
+    git_commit: 4ef8a8f
+    evidence_count: 20
     awaiting: approve/revise/reject/hold
-    key_findings: [dav1d库(libdav1d.z.so), Dav1dContext三函数API(dav1d_open/send_data/get_picture), DAV1D_AGAIN=-11, HDR元数据FillHdrInfo, 色彩空间UpdateColorAspects, n_threads=2, max_frame_delay=1, apply_grain=1, 支持I400/I420/I422/I444, 输出NV12/NV21/P010, 最大1920x1080@300fps, 64实例, AV1Profile_MAIN/HIGH, GetCodecCapability能力注册]
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S45
-    title: "SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链"
-    scope: [AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T08:20:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S39
-    title: "AVCodecVideoDecoder 视频解码器核心实现——CodecBase/VideoDecoder/VideoDecoderAdapter 三层架构"
-    scope: [AVCodec, VideoDecoder, CodecBase, VideoDecoderAdapter, Filter, HardwareCodec, SoftwareCodec]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-25T22:42:51+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S41
-    title: "DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流"
-    scope: [AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-25T22:25:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S42
-    title: "AVCodecVideoEncoder 视频编码器核心实现——CodecBase/VideoEncoder/VideoEncoderAdapter 三层架构"
-    scope: [AVCodec, VideoEncoder, CodecBase, VideoEncoderAdapter, Filter, SurfaceEncoderAdapter, SoftwareCodec, HardwareCodec]
-    status: pending_approval
-    created_by: builder-agent-S42
-    created_at: "2026-04-26T00:10:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S9
-    title: "SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制"
-    scope: [AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S10
-    title: "SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发"
-    scope: [AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S11
-    title: "HCodec CodecComponentManager 工厂与插件注册机制——ICodecComponentManager 双模式+GetCapList能力发现"
-    scope: [AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager, Factory]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S12
-    title: "VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册"
-    scope: [AVCodec, MediaEngine, Filter, Transcoder, VideoProcessingEngine, VPE, Plugin]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S13
-    title: "AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧与CodecServer集成"
-    scope: [AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, AFC, DynamicFramerate]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S14
-    title: "MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联数据流"
-    scope: [AVCodec, MediaEngine, Filter, FilterChain, Pipeline, AVBufferQueue]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S15
-    title: "SurfaceCodec 软件编解码器插件架构——CodecBase 插件基类、软硬编解码器 Loader 与适配流程"
-    scope: [AVCodec, SurfaceCodec, CodecBase, Plugin, Loader, SoftwareCodec, HardwareCodec]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S16
-    title: "SurfaceCodec 与 Surface 的绑定机制——SetOutputSurface、PostProcessing 路由与 Surface/Buffer 双模式互斥"
-    scope: [AVCodec, SurfaceMode, SurfaceBinding, MediaEngine, Pipeline, CodecServer]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S17
-    title: "SmartFluencyDecoding 智能流畅解码——IRetentionStrategy 四策略+MV/Nalu 双分析器+AsyncDropDispatcher 异步丢帧"
-    scope: [AVCodec, SmartFluencyDecoding, RetentionStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, VideoPipeline, CodecServer]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S18
-    title: "AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期"
-    scope: [AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory, Lifecycle]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S19
-    title: "TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链"
-    scope: [AVCodec, VideoEncoder, TemporalScalability, SVC, LTR, CodecParamChecker, CodecServer]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S20
-    title: "PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载"
-    scope: [AVCodec, PostProcessing, VPE, DynamicController, DynamicInterface, LockFreeQueue, ColorSpace, dlopen]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S21
-    title: "AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换"
-    scope: [AVCodec, IPC, CodecClient, CodecServiceProxy, CodecServiceStub, CodecListenerStub, CodecBufferCircular, Binder, SyncMode, AsyncMode]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S22
-    title: "MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链"
-    scope: [AVCodec, MediaEngine, Sync, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, PTS, AVSync, Clock]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S28
-    title: "VideoCaptureFilter 视频采集过滤器——Surface模式输入与录制管线数据源"
-    scope: [AVCodec, MediaEngine, Filter, VideoCapture, RecorderPipeline, SurfaceMode, Source]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S29
-    title: "AudioDataSourceFilter 音频数据源过滤器——IAudioDataSource 接口注入与 ReadLoop 主动拉取机制"
-    scope: [AVCodec, MediaEngine, Filter, AudioSource, RecorderPipeline, Pipeline, ScreenCapture]
-    status: pending_approval
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S23
-    title: "SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程"
-    scope: [AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T00:23:53+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: subagent_completion
-    subagent_task: builder-agent-S42
-    session_id: 1a7522d0-f4ad-4f51-85aa-56a7226581f8
-    status: completed
-    summary:
-      filter: DemuxerFilter
-      filter_name: builtin.player.demuxer
-      stream_types: [DOLBY, ENCODED_AUDIO, RAW_AUDIO, ENCODED_VIDEO, SUBTITLE]
-      key_features: [多轨并发读循环, PTS管理（AVI/MPEGPS/WMV）, 双模式切换, Seek三分支, DRM回调]
-      pipeline: SourcePlugin(S38) → DemuxerFilter(S41) → DecoderFilters
-      git_commit: 4ef8a8f
-      evidence_count: 20
-      awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S24
-    title: "AudioEncoderFilter 音频编码过滤器——MediaCodec封装与录音管线"
-    scope: [AVCodec, MediaEngine, Filter, AudioEncoder, Recorder, FILTERTYPE_AENC, TranscoderMode]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T03:50:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S43
-    title: "AdaptiveFramerateController 自适应帧率控制器——AFC单例+FramerateCalculator实例+DecodingBehaviorAnalyzer三层联动"
-    scope: [AVCodec, AdaptiveFramerate, FramerateCalculator, AFC, DynamicFramerate, DecodeRateControl, CodecServer]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T05:25:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S26
-    title: "MemoryReference 引用计数与生命周期——shared_from_this/weak_from_this 双模式"
-    scope: [AVCodec, Memory, ReferenceCount, Lifecycle, shared_ptr, weak_ptr]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S30
-    title: "AVCodec DFX 模块——HiSysEvent/XCollie/AVCodecDumpControler/AVCodecDfxComponent 四组件"
-    scope: [AVCodec, DFX, HiSysEvent, XCollie, Dump, Monitor]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S32
-    title: "VideoRenderFilter 视频渲染输出过滤器——Surface 绑定、帧送达与渲染同步"
-    scope: [AVCodec, MediaEngine, Filter, VideoOutput, Pipeline, Surface, Render, VSync]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S34
-    title: "MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调"
-    scope: [AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S35
-    title: "AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链"
-    scope: [AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S37
-    title: "HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理"
-    scope: [AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S38
-    title: "SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构"
-    scope: [AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S40
-    title: "FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构"
-    scope: [AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T05:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S44
-    title: "MetaDataFilter 元数据过滤器——Surface模式时元数据注入与录制管线时戳同步"
-    scope: [AVCodec, MediaEngine, Filter, MetaData, TimedMetadata, Surface, RecorderPipeline, PTS, SurfaceBuffer]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T06:35:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S25
-    title: "AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成"
-    scope: [AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, AFC, DynamicFramerate]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T07:05:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S27
-    title: "CodecList 服务架构——CodecListCore + CodecAbilitySingleton + CodecListBuilder 三层能力查询体系"
-    scope: [AVCodec, CodecList, Capability, CodecAbilitySingleton, CodecListCore, AVCodecList, Factory, SA, SystemAbility]
-    status: pending_approval
-    created_by: pm-loop
-    created_at: "2026-04-26T07:05:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S46
-    title: "DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件与 DRM/PostProcessor 两扩展"
-    scope: [AVCodec, MediaEngine, Filter, VideoDecoder, DecoderSurfaceFilter, FILTERTYPE_VDEC, VideoSink, VideoDecoderAdapter, DRM, PostProcessor, CameraPostProcessor, PlayerPipeline]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T09:07:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S47
-    title: "CodecCapability 能力查询与匹配机制——CodecAbility/CodecProfile/Level/SupportedTypes 五层能力体系"
-    scope: [AVCodec, Capability, CodecProfile, CodecLevel, CodecMime, CodecList, CodecAbilitySingleton, CodecListCore, CapabilityData, VideoCaps, AudioCaps, FindEncoder, FindDecoder]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T10:36:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S48
-    title: "CodecServer 生命周期管理——CodecServer/CodecBase/AVCodecServerManager 三层架构与七状态机"
-    scope: [AVCodec, CodecServer, CodecBase, AVCodecServerManager, SystemAbility, SA, Lifecycle, StateMachine, ICodecService, CodecFactory, IPC, PostProcessing, TemporalScalability]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T11:55:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S49
-    title: "SubtitleSinkFilter 字幕渲染过滤器——SubtitleSink 引擎与 Filter 两层架构"
-    scope: [AVCodec, MediaEngine, Filter, Subtitle, SubtitleSink, SubtitleSinkFilter, FILTERTYPE_SSINK, PlayerPipeline, MediaSync, TextTag]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T12:45:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S31
-    title: "AudioSinkFilter 音频播放输出过滤器——AudioSink + MediaSynchronousSink + AudioSinkPlugin 三层架构"
-    scope: [AVCodec, MediaEngine, Filter, AudioOutput, Pipeline, MediaSync, Plugin]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-25T16:06:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S33
-    title: "PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略"
-    scope: [AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-25T12:21:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S36
-    title: "VideoEncoderFilter 视频编码过滤器——Filter层封装与 SurfaceEncoderAdapter 三层调用链"
-    scope: [AVCodec, MediaEngine, Filter, VideoEncoder, SurfaceEncoderFilter, FILTERTYPE_VENC, Pipeline, Recorder]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-25T17:21:00+08:00"
-    awaiting: approve/revise/reject/hold
-
-  - type: approval_request
-    mem_id: MEM-ARCH-AVCODEC-S50
-    title: "AudioResample 音频重采样框架——SwrContext/libswresample 与 AudioBuffersManager 双组件协作"
-    scope: [AVCodec, AudioCodec, AudioResample, SwrContext, libswresample, AudioBuffersManager, AudioBufferInfo, FFmpeg, SampleRate, ChannelLayout]
-    status: pending_approval
-    created_by: builder-agent
-    created_at: "2026-04-26T14:52:00+08:00"
-    awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S24
+  title: AudioEncoderFilter 音频编码过滤器——MediaCodec封装与录音管线
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - AudioEncoder
+  - Recorder
+  - FILTERTYPE_AENC
+  - TranscoderMode
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T03:50:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S43
+  title: AdaptiveFramerateController 自适应帧率控制器——AFC单例+FramerateCalculator实例+DecodingBehaviorAnalyzer三层联动
+  scope:
+  - AVCodec
+  - AdaptiveFramerate
+  - FramerateCalculator
+  - AFC
+  - DynamicFramerate
+  - DecodeRateControl
+  - CodecServer
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T05:25:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S26
+  title: MemoryReference 引用计数与生命周期——shared_from_this/weak_from_this 双模式
+  scope:
+  - AVCodec
+  - Memory
+  - ReferenceCount
+  - Lifecycle
+  - shared_ptr
+  - weak_ptr
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S30
+  title: AVCodec DFX 模块——HiSysEvent/XCollie/AVCodecDumpControler/AVCodecDfxComponent
+    四组件
+  scope:
+  - AVCodec
+  - DFX
+  - HiSysEvent
+  - XCollie
+  - Dump
+  - Monitor
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S32
+  title: VideoRenderFilter 视频渲染输出过滤器——Surface 绑定、帧送达与渲染同步
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - VideoOutput
+  - Pipeline
+  - Surface
+  - Render
+  - VSync
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S34
+  title: MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - Muxer
+  - RecorderPipeline
+  - AVBufferQueue
+  - MultiTrack
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S35
+  title: AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - AudioDecoder
+  - Pipeline
+  - AVBufferQueue
+  - AsyncMode
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S37
+  title: HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理
+  scope:
+  - AVCodec
+  - MediaEngine
+  - SourcePlugin
+  - HLS
+  - DASH
+  - Streaming
+  - AdaptiveBitrate
+  - M3U8
+  - MPD
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S38
+  title: SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构
+  scope:
+  - AVCodec
+  - MediaEngine
+  - SourcePlugin
+  - ProtocolType
+  - FileSource
+  - HttpSource
+  - DataStreamSource
+  - FileFdSource
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S40
+  title: FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Muxer
+  - FFmpeg
+  - Plugin
+  - FFmpegMuxerRegister
+  - FLV
+  - MP4
+  - Container
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T05:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S44
+  title: MetaDataFilter 元数据过滤器——Surface模式时元数据注入与录制管线时戳同步
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - MetaData
+  - TimedMetadata
+  - Surface
+  - RecorderPipeline
+  - PTS
+  - SurfaceBuffer
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T06:35:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S25
+  title: AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成
+  scope:
+  - AVCodec
+  - AdaptiveFramerate
+  - FramerateCalculator
+  - CodecServer
+  - AFC
+  - DynamicFramerate
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T07:05:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S27
+  title: CodecList 服务架构——CodecListCore + CodecAbilitySingleton + CodecListBuilder
+    三层能力查询体系
+  scope:
+  - AVCodec
+  - CodecList
+  - Capability
+  - CodecAbilitySingleton
+  - CodecListCore
+  - AVCodecList
+  - Factory
+  - SA
+  - SystemAbility
+  status: pending_approval
+  created_by: pm-loop
+  created_at: '2026-04-26T07:05:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S46
+  title: DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink
+    三组件与 DRM/PostProcessor 两扩展
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - VideoDecoder
+  - DecoderSurfaceFilter
+  - FILTERTYPE_VDEC
+  - VideoSink
+  - VideoDecoderAdapter
+  - DRM
+  - PostProcessor
+  - CameraPostProcessor
+  - PlayerPipeline
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T09:07:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S47
+  title: CodecCapability 能力查询与匹配机制——CodecAbility/CodecProfile/Level/SupportedTypes
+    五层能力体系
+  scope:
+  - AVCodec
+  - Capability
+  - CodecProfile
+  - CodecLevel
+  - CodecMime
+  - CodecList
+  - CodecAbilitySingleton
+  - CodecListCore
+  - CapabilityData
+  - VideoCaps
+  - AudioCaps
+  - FindEncoder
+  - FindDecoder
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T10:36:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S48
+  title: CodecServer 生命周期管理——CodecServer/CodecBase/AVCodecServerManager 三层架构与七状态机
+  scope:
+  - AVCodec
+  - CodecServer
+  - CodecBase
+  - AVCodecServerManager
+  - SystemAbility
+  - SA
+  - Lifecycle
+  - StateMachine
+  - ICodecService
+  - CodecFactory
+  - IPC
+  - PostProcessing
+  - TemporalScalability
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T11:55:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S49
+  title: SubtitleSinkFilter 字幕渲染过滤器——SubtitleSink 引擎与 Filter 两层架构
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - Subtitle
+  - SubtitleSink
+  - SubtitleSinkFilter
+  - FILTERTYPE_SSINK
+  - PlayerPipeline
+  - MediaSync
+  - TextTag
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T12:45:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S31
+  title: AudioSinkFilter 音频播放输出过滤器——AudioSink + MediaSynchronousSink + AudioSinkPlugin
+    三层架构
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - AudioOutput
+  - Pipeline
+  - MediaSync
+  - Plugin
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-25T16:06:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S33
+  title: PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略
+  scope:
+  - AVCodec
+  - Framework
+  - PreProcessing
+  - FastImage
+  - FrameDrop
+  - dlopen
+  - ImageProcessing
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-25T12:21:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S36
+  title: VideoEncoderFilter 视频编码过滤器——Filter层封装与 SurfaceEncoderAdapter 三层调用链
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - VideoEncoder
+  - SurfaceEncoderFilter
+  - FILTERTYPE_VENC
+  - Pipeline
+  - Recorder
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-25T17:21:00+08:00'
+  awaiting: approve/revise/reject/hold
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S50
+  title: AudioResample 音频重采样框架——SwrContext/libswresample 与 AudioBuffersManager 双组件协作
+  scope:
+  - AVCodec
+  - AudioCodec
+  - AudioResample
+  - SwrContext
+  - libswresample
+  - AudioBuffersManager
+  - AudioBufferInfo
+  - FFmpeg
+  - SampleRate
+  - ChannelLayout
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T14:52:00+08:00'
+  awaiting: approve/revise/reject/hold
+pending_actions:
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S52
+  title: TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射
+  scope:
+  - AVCodec
+  - MediaEngine
+  - PTS
+  - TimeStamp
+  - MP4
+  - MOV
+  - Demuxer
+  - STTS
+  - CTTS
+  - TimeAndIndexConversion
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T16:27:10+08:00'
+  summary: TimeAndIndexConversion模块负责MP4/MOV容器文件的PTS与帧索引双向转换，解析STTS(sampleDelta)和CTTS(sampleOffset)建立DTS→PTS映射，支持B帧场景。核心算法：PTS→Index通过absolutePTS零点+双表联合遍历，Index→PTS通过STTS累积计算。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S52.md
+  backlog_section: 新增主题（Builder 2026-04-26 续 - S52注册）
