@@ -326,3 +326,30 @@ pending:
     created_by: builder-agent
     created_at: "2026-04-26T12:45:00+08:00"
     awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S31
+    title: "AudioSinkFilter 音频播放输出过滤器——AudioSink + MediaSynchronousSink + AudioSinkPlugin 三层架构"
+    scope: [AVCodec, MediaEngine, Filter, AudioOutput, Pipeline, MediaSync, Plugin]
+    status: pending_approval
+    created_by: builder-agent
+    created_at: "2026-04-25T16:06:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S33
+    title: "PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略"
+    scope: [AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing]
+    status: pending_approval
+    created_by: builder-agent
+    created_at: "2026-04-25T12:21:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S36
+    title: "VideoEncoderFilter 视频编码过滤器——Filter层封装与 SurfaceEncoderAdapter 三层调用链"
+    scope: [AVCodec, MediaEngine, Filter, VideoEncoder, SurfaceEncoderFilter, FILTERTYPE_VENC, Pipeline, Recorder]
+    status: pending_approval
+    created_by: builder-agent
+    created_at: "2026-04-25T17:21:00+08:00"
+    awaiting: approve/revise/reject/hold
