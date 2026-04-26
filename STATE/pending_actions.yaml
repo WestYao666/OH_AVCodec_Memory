@@ -1073,3 +1073,34 @@ pending_actions:
   - 'DRM_MAX_STREAM_DATA_SIZE: 20971520(20MB)，cpp:93'
   - 'DRM_H264_VIDEO_SKIP_BYTES: 35，cpp:82'
   - 'DRM_H265_VIDEO_SKIP_BYTES: 68，cpp:83'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S59
+  title: AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机
+  scope:
+  - AVCodec
+  - VideoEncoder
+  - HardwareCodec
+  - H.264
+  - AVC
+  - dlopen
+  - StateMachine
+  - BlockQueue
+  - MediaCodecCallback
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T05:51:00+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: AvcEncoder是硬件H.264/AVC编码器，继承CodecBase，dlopen加载libavcenc_ohos.z.so，三函数指针(avcEncoderCreateFunc/Frame/Delete)，九状态机(UNINITIALIZED→RUNNING→EOS/ERROR)，双BlockQueue(inputAvailQue/codecAvailQue)，FBuffer四态缓冲区所有权(OWNED_BY_US/CODEC/USER/SURFACE)，SendFrame TaskThread驱动，首帧EncoderAvcHeader写入SPS/PPS，支持NV12/NV21/YUV420/RGBA输入，CBR/VBR/CQ三种码率模式，Profile仅Baseline+Main。与S42/S57互补。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S59.md
+  backlog_section: 新增主题（Builder 2026-04-27）
+  evidence_count: 25+
+  key_findings:
+  - 'AVC_ENC_LIB_PATH: "libavcenc_ohos.z.so"（avc_encoder.cpp:83）'
+  - '三函数指针: avcEncoderCreateFunc_/avcEncoderFrameFunc_/avcEncoderDeleteFunc_'
+  - '九状态机: UNINITIALIZED/INITIALIZED/CONFIGURED/STOPPING/RUNNING/FLUSHED/FLUSHING/EOS/ERROR'
+  - '双BlockQueue: inputAvailQue_/codecAvailQue_（avc_encoder.cpp:817-818）'
+  - 'FBuffer Owner四态: OWNED_BY_US/CODEC/USER/SURFACE（avc_encoder.h:58-68）'
+  - 'EncoderAvcHeader(): 首帧写入SPS/PPS（avc_encoder.cpp:1570-1575）'
+  - '支持格式: NV12/NV21/YUV420/RGBA'
+  - '码率模式: CBR(0x1)/VBR(0x2)/CQ(0x0)'
+  - 'Profile: Baseline(0x0)/Main(0x1)，不支持High'
