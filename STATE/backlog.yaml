@@ -423,3 +423,9 @@
 |------|------|------|
 | 2026-04-26T16:25 | Builder 新增 | 注册 S52：TimeAndIndexConversion PTS与帧索引转换模块，MP4/MOV STTS/CTTS解析，PTS↔Index双向转换，B帧PTS=DTS+offset机制 |
 | 2026-04-26T17:40 | Builder 新增 | 注册 S53：FCodec 软件视频解码器，H.264 基于 FFmpeg libavcodec，双 TaskThread（SendFrame/ReceiveFrame）驱动解码管线，GetAvcCapProf 注册 H.264 能力（5120x5120/120fps/三Profile），与 S51(Av1Decoder)对比统一类vs独立类架构 |
+
+## 新增主题（Builder 2026-04-26 续 - S54注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S54 | HevcDecoder + VpxDecoder 视频解码器——HEVC(H.265)/VP8/VP9 解码管线 | AVCodec, VideoDecoder, HevcDecoder, VpxDecoder, HEVC, H265, VP8, VP9, libhevcdec_ohos, libvpx, HDR | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S54 | ✅ 草案已生成（2026-04-26T18:06），HevcDecoder加载vendor库libhevcdec_ohos.z.so（HDI四函数：Create/Decode/Flush/Delete），VpxDecoder封装libvpx（vpx_codec_decode/get_frame），HevcDecoder单线程SendFrame+分包循环DecodeFrameOnce（与FCodec双线程不同），VpxDecoder支持VPX_CODEC_USE_FRAME_THREADING，HEVC能力注册(1920x1920@30fps/Main+Main_10 Profile)，VP9能力注册(3840x2160@130fps/Profile 0-1)，VP8能力注册(3840x2160@60fps)，四类解码器横向对比(S39/S51/S53/S54) |
