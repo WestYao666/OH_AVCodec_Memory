@@ -392,3 +392,9 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-26T12:45 | Builder 新增 | S49：SubtitleSinkFilter 字幕渲染过滤器，SubtitleSink 引擎 + Filter 两层架构，RenderLoop 字幕主循环，WAIT/SHOW/DROP 三状态，TextTag HTML 标签剥离，MediaSyncManager 同步，Seek 清空队列，与 S31/S32 三大管线输出终点对称 |
+
+## 新增主题（Builder 2026-04-26 续 - S50注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S50 | AudioResample 音频重采样框架——SwrContext/libswresample 与 AudioBuffersManager 双组件协作 | AVCodec, AudioCodec, AudioResample, SwrContext, libswresample, AudioBuffersManager, AudioBufferInfo, FFmpeg, SampleRate, ChannelLayout | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S50 | ✅ 草案已生成（2026-04-26T14:52），AudioResample 基于 FFmpeg libswresample 封装 SwrContext（InitSwrContext/swr_convert），ResamplePara 六参数结构体，CheckResample 格式匹配判定，AudioCodecWorker 双 AudioBuffersManager（inputBuffer/outputBuffer），AudioBufferInfo 单缓冲区元数据（isUsing/status/EOS/FirstFrame），延迟重采样初始化（解码器 ReceiveFrameSucc 中首次触发） |
