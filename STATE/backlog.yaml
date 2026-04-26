@@ -398,3 +398,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S50 | AudioResample 音频重采样框架——SwrContext/libswresample 与 AudioBuffersManager 双组件协作 | AVCodec, AudioCodec, AudioResample, SwrContext, libswresample, AudioBuffersManager, AudioBufferInfo, FFmpeg, SampleRate, ChannelLayout | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S50 | ✅ 草案已生成（2026-04-26T14:52），AudioResample 基于 FFmpeg libswresample 封装 SwrContext（InitSwrContext/swr_convert），ResamplePara 六参数结构体，CheckResample 格式匹配判定，AudioCodecWorker 双 AudioBuffersManager（inputBuffer/outputBuffer），AudioBufferInfo 单缓冲区元数据（isUsing/status/EOS/FirstFrame），延迟重采样初始化（解码器 ReceiveFrameSucc 中首次触发） |
+
+## 新增主题（Builder 2026-04-26 续 - S51注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S51 | Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线 | AVCodec, VideoDecoder, AV1, dav1d, SoftwareCodec, VideoCodecLoader, HDR, ColorSpace, Av1DecoderLoader, CodecMimeType | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S51 | ✅ 草案已生成（2026-04-26T15:21），Av1Decoder继承VideoDecoder，封装VideoLAN dav1d库(libdav1d.z.so)，CreateDecoder三步骤(dav1d_default_settings/open/allocate)，DecodeAv1FrameOnce三函数API(dav1d_data_wrap/send_data/get_picture)，DAV1D_AGAIN=-11正常状态，n_threads=2/max_frame_delay=1/apply_grain=1，HDR元数据FillHdrInfo，UpdateColorAspects色彩空间，ConvertAv1FmtToAVPixFmt四像素格式(I400/I420/I422/I444)，GetCodecCapability能力注册(1920x1080@300fps/MAIN+HIGH Profile/64实例)，extern "C"三函数API(dlsym)，编译开关SUPPORT_CODEC_AV1 |
