@@ -462,3 +462,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S60 | AAC 音频编解码 FFmpeg 插件——AudioFFMpegAacEncoder/DecoderPlugin 双插件与 ADTS/RESAMPLE 四通道 | AVCodec, AudioCodec, AAC, FFmpeg, ADTS, AudioResample, AudioBaseCodec, Plugin, AudioEncoder, AudioDecoder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S60 | ✅ 草案已生成（2026-04-27T01:51），提交审批。AudioFFMpegAacEncoderPlugin(encoder)+AudioFFMpegAacDecoderPlugin(decoder)，ADTS 7字节头，AudioResample needResample_自动触发，13档采样率，1-8通道布局，CodecRegister CRTP注册，组合vs继承架构差异。与S8(FFmpeg音频插件总览)/S50(AudioResample)关联。|
+
+## 新增主题（Builder 2026-04-27）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S61 | 音频渲染核心组件——AudioSampleFormat/CalcMaxAmplitude/AudioSink三层引擎 | AVCodec, AudioCodec, AudioSink, MediaSynchronousSink, MediaSyncManager, AudioSampleFormat, CalcMaxAmplitude, PCM, AudioRendering | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S61 | ✅ 草案已生成（2026-04-27T03:54），提交审批。AudioSampleFormat(25种采样格式→位深映射)、CalcMaxAmplitude(PCM峰值振幅计算，支持8/16/24/32bit)、AudioSink(继承MediaSynchronousSink，syncerPriority_=AUDIO_SINK=2，OnWriteData回调链，AudioVivid固定80ms延迟补偿)。与S31(AudioSinkFilter Filter层)互补，S56(VideoSink对称)，S22(MediaSyncManager)关联。|

@@ -974,3 +974,33 @@ pending_actions:
   summary: VideoSink是播放管线视频渲染同步单元，继承MediaSynchronousSink。DoSyncWrite渲染决策入口，CheckBufferLatenessMayWait计算diff判early/late，CalcBufferDiff三元组算法（锚点差/视频帧差/初始等待期）。前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，关键帧不丢原则。内嵌VideoLagDetector追踪lagTimes/maxLagDuration/avgLagDuration通过DFX上报。IMediaSynchronizer优先级VIDEO_SINK=0是播放管线时钟锚点供应方，与AudioSink(优先级2)/SubtitleSink(优先级8)并列。与S32(VideoRenderFilter)持有关系，S22(MediaSyncManager)协同。
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S56.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S56注册）
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S61
+  title: 音频渲染核心组件——AudioSampleFormat/CalcMaxAmplitude/AudioSink三层引擎
+  scope:
+  - AVCodec
+  - AudioCodec
+  - AudioSink
+  - MediaSynchronousSink
+  - MediaSyncManager
+  - AudioSampleFormat
+  - CalcMaxAmplitude
+  - PCM
+  - AudioRendering
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T03:54:24+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: S61聚焦音频渲染引擎底层三层架构：AudioSampleFormat(25种采样格式→位深映射工具)、CalcMaxAmplitude(PCM峰值振幅计算器，支持8/16/24/32bit S24LE 3字节特殊处理)、AudioSink(继承MediaSynchronousSink，优先级AUDIO_SINK=2，OnWriteData回调链含GetBufferDesc/HandleAudioRenderRequest/UpdateAmplitude，AudioVivid固定80ms延迟补偿)。与S31(AudioSinkFilter Filter层)互补，与S56(VideoSink对称)与S22(MediaSyncManager)关联。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S61.md
+  backlog_section: 新增主题（Builder 2026-04-27）
+  evidence_count: 12
+  key_findings:
+  - 'AudioSampleFormat: 25种格式映射表，AudioSampleFormatToBitDepth查表函数'
+  - 'CalcMaxAmplitude: 四格式峰值计算(PCM8/16/24/32bit)，24bit 3字节处理逻辑'
+  - 'AudioSink: 继承MediaSynchronousSink，syncerPriority_=AUDIO_SINK(2)'
+  - 'AudioSinkDataCallbackImpl::OnWriteData: GetBufferDesc→HandleAudioRenderRequest→UpdateAmplitude回调链'
+  - 'AudioVivid: FIX_DELAY_MS_AUDIO_VIVID=80ms固定延迟补偿'
+  - 'DEFAULT_BUFFER_QUEUE_SIZE=8，APE_BUFFER_QUEUE_SIZE=30'
+  - 'MediaSyncManager: AddSynchronizer/RemoveSynchronizer同步器注册管理'
