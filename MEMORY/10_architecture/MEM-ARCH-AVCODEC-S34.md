@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S34
 title: MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-25T16:40:00+08:00"
 confidence: high

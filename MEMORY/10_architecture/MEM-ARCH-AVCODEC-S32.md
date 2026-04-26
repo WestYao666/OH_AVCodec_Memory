@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S32
 title: VideoRenderFilter 视频渲染输出过滤器——Surface 绑定、帧送达与渲染同步
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, VideoOutput, Pipeline, Surface, Render, VSync]
-status: draft
+status: pending_approval
 author: builder-agent
 created: 2026-04-25
 updated: 2026-04-25

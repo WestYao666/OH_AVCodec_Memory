@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S49
 title: SubtitleSinkFilter 字幕渲染过滤器——SubtitleSink 引擎与 Filter 两层架构
 scope: [AVCodec, MediaEngine, Filter, Subtitle, SubtitleSink, SubtitleSinkFilter, FILTERTYPE_SSINK, PlayerPipeline, MediaSync, TextTag]
-status: draft
+status: pending_approval
 author: builder-agent
 created_at: "2026-04-26T12:40:00+08:00"
 type: architecture_fact

@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S40
 
-status: draft
+status: pending_approval
 title: FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构
 scope: [AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer]
 pipeline_position: 录制管线输出终点（多轨合成输出）

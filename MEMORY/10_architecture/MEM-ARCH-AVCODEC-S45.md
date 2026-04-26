@@ -4,7 +4,7 @@ id: MEM-ARCH-AVCODEC-S45
 title: "SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链"
 scope: [AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline]
 pipeline_position: "FilterPipeline 中游：DemuxerFilter(S41) → SurfaceDecoderFilter → VideoRenderFilter(S32)"
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-26T08:20:00+08:00"
 evidence_count: 20

@@ -4,7 +4,7 @@ id: MEM-ARCH-AVCODEC-S39
 title: "AVCodecVideoDecoder 视频解码器核心实现——CodecBase/VideoDecoder/VideoDecoderAdapter 三层架构"
 scope: [AVCodec, VideoDecoder, CodecBase, VideoDecoderAdapter, Filter, HardwareCodec, SoftwareCodec]
 pipeline_position: "FilterPipeline 中游：DemuxerFilter(S41) → VideoDecoderFilter → AudioDecoderFilter(S35)"
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-25T22:42:51+08:00"
 evidence_count: 20

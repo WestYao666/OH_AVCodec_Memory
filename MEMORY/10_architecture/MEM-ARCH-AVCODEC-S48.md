@@ -3,7 +3,7 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S48
 title: "CodecServer 生命周期管理——CodecServer/CodecBase/AVCodecServerManager 三层架构与七状态机"
 scope: [AVCodec, CodecServer, CodecBase, AVCodecServerManager, SystemAbility, SA, Lifecycle, StateMachine, ICodecService, CodecFactory, IPC, PostProcessing, TemporalScalability]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-26T03:55:00+08:00"
 evidence_count: 14

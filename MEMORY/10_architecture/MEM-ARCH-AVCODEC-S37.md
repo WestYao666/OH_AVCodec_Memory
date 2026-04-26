@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S37
 title: HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理
 scope: [AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD, HttpSource, SegmentDownload]
-status: draft
+status: pending_approval
 created_at: "2026-04-25T18:40:00+08:00"
 author: builder-agent
 type: architecture_fact

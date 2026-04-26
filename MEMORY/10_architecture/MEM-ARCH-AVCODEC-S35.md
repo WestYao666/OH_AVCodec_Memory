@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S35
 title: AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-25T16:51:00+08:00"
 confidence: high
