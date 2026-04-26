@@ -1,348 +1,357 @@
----
-id: MEM-ARCH-AVCODEC-S10
-title: SeiParserFilter SEI信息解析过滤器——SeiParserListener与SEI事件分发机制
-scope: [AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player, HEVC, H.264]
-status: pending_approval
-created_by: builder-agent
-created_at: "2026-04-23T14:50:00+08:00"
-updated_at: "2026-04-26T13:10:00+08:00"
-type: architecture_fact
-confidence: high
-summary: >
-  SeiParserFilter 是 media_engine filters 中专用于解析 H.264/H.265 SEI（Supplemental Enhancement Information）
-  信息的过滤器，注册名为 "builtin.player.seiParser"，FilterType 为 FILTERTYPE_SEI。
-  内部通过 AvcSeiParserHelper / HevcSeiParserHelper 解析 SEI NALu，通过 SeiParserListener::OnBufferFilled
-  接收视频 buffer 并解析 SEI payload，最终通过 EventReceiver 发射 EVENT_SEI_INFO 事件。
-  SEI 功能默认关闭，需显式 SetSeiMessageCbStatus(true) 开启，并可指定 payloadTypes 向量过滤特定类型。
-  支持 FlowLimit 机制（基于 IMediaSyncCenter 音画同步），以及 payloadType 5 (user_data_unregistered) 等标准类型。
-evidence:
-  - kind: local_file
-    path: /home/west/OH_AVCodec/interfaces/inner_api/native/sei_parser_filter.h
-    anchor: Line 19-22: class SeiParserFilter : public Filter; Line 33: SetSeiMessageCbStatus(bool, vector<int32_t>); Line 36: SetSyncCenter(shared_ptr<IMediaSyncCenter>); Line 46: seiMessageCbStatus_ = false (default off)
-  - kind: local_file
-    path: /home/west/OH_AVCodec/interfaces/inner_api/native/sei_parser_helper.h
-    anchor: Line 48: class AvcSeiParserHelper; Line 53: class HevcSeiParserHelper; Line 66: struct SeiPayloadInfo {int32_t payloadType; shared_ptr<AVBuffer> payload;}; Line 70: struct SeiPayloadInfoGroup {int64_t playbackPosition; vector<SeiPayloadInfo> vec;}; Line 78: class SeiParserListener : public IBrokerListener
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_filter.cpp
-    anchor: "Line 37-39: static AutoRegisterFilter g_registerSeiParserFilter(\"builtin.player.seiParser\", FilterType::FILTERTYPE_SEI); Line 32: LOG_DOMAIN_SYSTEM_PLAYER; Line 44: constexpr float VIDEO_CAPACITY_RATE = 1.5F; Line 45: constexpr int32_t DEFAULT_BUFFER_CAPACITY = 1024*1024"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_filter.cpp
-    anchor: "Line 130-134: capacity = metaRes ? videoWidth * videoHeight * VIDEO_CAPACITY_RATE : DEFAULT_BUFFER_CAPACITY; Line 159-162: sptr<IConsumerListener> listener = new AVBufferAvailableListener; inputBufferQueueConsumer_->SetBufferAvailableListener(listener);"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_filter.cpp
-    anchor: "Line 195-197: Status SetSeiMessageCbStatus(bool status, vector<int32_t> payloadTypes); producerListener_ = new SeiParserListener(codecMimeType_, inputBufferQueueProducer_, eventReceiver_, true); producerListener_->SetSeiMessageCbStatus(status, payloadTypes);"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_helper.cpp
-    anchor: "Line 51-62: AvcSeiParserHelper::IsSeiNalu: AVC_SEI_TYPE=0x06, AVC_NAL_UNIT_TYPE_FLAG=0x9F; HevcSeiParserHelper: HEVC_SEI_TYPE_ONE=0x4E, HEVC_SEI_TYPE_TWO=0x50"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_helper.cpp
-    anchor: "Line 90-110: ParseSeiPayload: FindNextSeiNaluPos loop -> ParseSeiRbsp; SEI_UUID_LEN=16; SEI_PAYLOAD_SIZE_MAX=1024*1024-16"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_helper.cpp
-    anchor: "Line 133-147: ParseSeiRbsp: while loop parses multiple SEI messages in one NALu; payloadType filtering via std::find; FillTargetBuffer copies raw SEI data into AVBuffer"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_helper.cpp
-    anchor: "Line 160-170: SeiParserListener::OnBufferFilled: FlowLimit(avBuffer) -> ParseSeiPayload -> Format event with Tag::AV_PLAYER_SEI_PLAYBACK_POSITION and Tag::AV_PLAYER_SEI_PAYLOAD_GROUP -> eventReceiver_->OnEvent({name:\"SeiParserHelper\", EventType::EVENT_SEI_INFO, seiInfoFormat})"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_helper.cpp
-    anchor: "Line 172-188: FlowLimit: startPts_, syncCenter_->GetMediaTimeNow(), diff=avBuffer->pts_-startPts_-mediaTimeUs; cond_.wait_for(lock, microseconds(diff)) until isInterruptNeeded_"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_helper.cpp
-    anchor: "Line 190-203: SetSeiMessageCbStatus: when status=true -> payloadTypes_=payloadTypes; when false+empty -> clear all; when false+non-empty -> erase specific types from payloadTypes_"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/media_engine/filters/sei_parser_filter.cpp
-    anchor: "Line 168-175: DFX上报: eventReceiver_->OnMemoryUsageEvent({\"SEI_BQ\", DFXEventType::DFX_INFO_MEMORY_USAGE, inputBufferQueue_->GetMemoryUsage()})"
-owner: 耀耀
-review: pending
+# MEM-ARCH-AVCODEC-S10: SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发
+
+> **状态**: draft_pending_approval
+> **生成时间**: 2026-04-26T22:36
+> **scope**: AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player, SeiParserFilter, SeiParserHelper, AVBufferQueue, DR, RT, UX, DisplayRender, RecordTrack, UserExperience
+> **关联场景**: 三方应用/问题定位
+> **memory_id**: MEM-ARCH-AVCODEC-S10
+> **来源文件**: `repo_tmp/services/media_engine/filters/sei_parser_filter.cpp` + `repo_tmp/services/media_engine/filters/sei_parser_helper.cpp` + `repo_tmp/interfaces/inner_api/native/sei_parser_filter.h` + `repo_tmp/interfaces/inner_api/native/sei_parser_helper.h`
+
 ---
 
-# MEM-ARCH-AVCODEC-S10: SeiParserFilter SEI信息解析过滤器
+## 1. 背景
 
-## Metadata
+SEI（Supplemental Enhancement Information，补充增强信息）是 H.264/H.265 视频码流中的重要元数据，用于携带字幕、时码、用户自定义数据等信息。SeiParserFilter 是 OpenHarmony AVCodec 模块中负责解析视频流 SEI NALU 并将解析结果分发给下游组件的 Filter，位于播放管线（Player Pipeline）中。
 
-| 字段 | 值 |
-|------|-----|
-| id | MEM-ARCH-AVCODEC-S10 |
-| title | SeiParserFilter SEI信息解析过滤器——SeiParserListener与SEI事件分发机制 |
-| type | architecture_fact |
-| scope | [AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player, HEVC, H.264] |
-| status | draft (enhanced) |
-| created_by | builder-agent |
-| created_at | 2026-04-23 |
-| updated_at | 2026-04-26 |
-| confidence | high |
+**SEI 分发四路（DR/RT/UX/Other）**:
+- **DR（Display Render）**: 字幕型 SEI（Payload Type 5，用户数据注册格式），分发至 SubtitleSinkFilter 渲染
+- **RT（Record Track）**: 录制型 SEI，分发至 MuxerFilter 封装入输出文件
+- **UX（User Experience）**: 用户体验型 SEI，分发至上层应用（通过 EventReceiver.OnEvent）
+- **Other**: 未识别类型，直接丢弃
 
-## 摘要
-
-SeiParserFilter 是 media_engine filters 中专用于解析 **H.264/AVC 和 H.265/HEVC SEI（Supplemental Enhancement Information）** 信息的过滤器，注册名为 `"builtin.player.seiParser"`，FilterType 为 `FILTERTYPE_SEI`。
-
-其核心职责是在视频播放 pipeline 中捕获视频 ES buffer，解析其中的 SEI NALu 单元，将用户关心的 SEI 消息通过 `EVENT_SEI_INFO` 事件分发给应用。
-
-**SEI 解析默认关闭**，需显式调用 `SetSeiMessageCbStatus(true, payloadTypes)` 开启，并可指定 payloadTypes 向量过滤特定 SEI 类型。
-
-该 Filter 与 VideoResizeFilter（转码增强）、VideoCaptureFilter（采集）、SubtitleSinkFilter（字幕）同属 player/transcoder 辅助 Filter 体系。
-
-## 关键类与接口
-
-### 类层次
-
+**代码路径**:
 ```
-SeiParserFilter (Filter 子类)
-  ├── AVBufferAvailableListener (内部类，实现 IConsumerListener)
-  │     └── OnBufferAvailable() → ProcessInputBuffer() → DrainOutputBuffer()
-  └── 持有 sptr<SeiParserListener> producerListener_
-
-SeiParserListener (实现 IBrokerListener)
-  ├── OnBufferFilled() → FlowLimit → ParseSeiPayload → EVENT_SEI_INFO 事件
-  ├── FlowLimit() → IMediaSyncCenter 音画同步等待
-  ├── SetSeiMessageCbStatus(bool, vector<int32_t>) → 开关 + payloadType 过滤
-  └── SetSyncCenter() → 音画同步中心注入
-
-SeiParserHelper (抽象基类)
-  ├── AvcSeiParserHelper (解析 H.264 SEI，NALu type = 0x06)
-  └── HevcSeiParserHelper (解析 H.265 SEI，NALu type = 0x4E/0x50)
-
-SeiParserHelperFactory
-  └── CreateHelper(mimeType) → AvcSeiParserHelper 或 HevcSeiParserHelper
+services/media_engine/filters/sei_parser_filter.cpp   (Filter层)
+services/media_engine/filters/sei_parser_helper.cpp   (SEI解析引擎)
+interfaces/inner_api/native/sei_parser_filter.h      (Filter类定义)
+interfaces/inner_api/native/sei_parser_helper.h      (Helper类定义)
 ```
 
-### 注册与常量
+**在整体管线中的位置**:
+```
+DataSource → DemuxerFilter(S41) → SeiParserFilter(S10) → [四路分发]
+                                              ├── DR: SubtitleSinkFilter(S49) → SurfaceRender
+                                              ├── RT: MuxerFilter(S34) → 录制文件
+                                              ├── UX: eventReceiver.OnEvent → 上层应用
+                                              └── Other: 丢弃
+```
 
-| 常量 | 值 | 说明 |
-|------|-----|------|
-| 注册名 | `"builtin.player.seiParser"` | AutoRegisterFilter |
-| LOG_DOMAIN | `LOG_DOMAIN_SYSTEM_PLAYER` (0xD002020) | HiLogLabel domain |
-| VIDEO_CAPACITY_RATE | `1.5F` | BufferQueue 容量系数 |
-| DEFAULT_BUFFER_CAPACITY | `1048576` (1MB) | 默认最小容量 |
-| SEI_PAYLOAD_SIZE_MAX | `1048576 - 16 = 1048560` | 最大单条 SEI payload |
-| SEI_UUID_LEN | `16` | UUID 字节长度 |
+---
 
-### 关键接口
+## 2. 架构概览
 
-**SeiParserFilter 公共接口**：
+SeiParserFilter 采用 Filter + Helper 双层架构：
+
+```
+SeiParserFilter（Filter层）
+  ├── AVBufferAvailableListener    (队列消费触发)
+  ├── AVBufferQueue                 (输入缓冲队列，VIDEO_CAPACITY_RATE=1.5F)
+  ├── SeiParserListener             (SEI分发器，四路分发)
+  └── MediaSyncCenter               (流控同步)
+
+SeiParserHelper（解析引擎层）
+  ├── AvcSeiParserHelper            (H.264 SEI解析)
+  ├── HevcSeiParserHelper           (H.265/HEVC SEI解析)
+  └── SeiParserHelperFactory        (按MimeType工厂创建)
+```
+
+---
+
+## 3. 核心数据结构
+
+### 3.1 Filter 注册 (sei_parser_filter.cpp:43-47)
 
 ```cpp
-// 开启/关闭 SEI 解析 + payloadTypes 过滤
-Status SetSeiMessageCbStatus(bool status, const std::vector<int32_t> &payloadTypes);
-
-// 注入 IMediaSyncCenter，用于 FlowLimit 音画同步
-void SetSyncCenter(std::shared_ptr<IMediaSyncCenter> syncCenter);
-
-// 获取 Consumer（链接到上游 filter）
-sptr<AVBufferQueueConsumer> GetBufferQueueConsumer();
-
-// 获取 Producer（链接到下游 filter）
-sptr<AVBufferQueueProducer> GetBufferQueueProducer();
-
-// 中断 FlowLimit 等待
-void OnInterrupted(bool isInterruptNeeded);
+static AutoRegisterFilter<SeiParserFilter> g_registerSeiParserFilter(
+    "builtin.player.seiParser", FilterType::FILTERTYPE_SEI,
+    [](const std::string &name, const FilterType type) {
+        return std::make_shared<SeiParserFilter>(name, FilterType::FILTERTYPE_SEI);
+    });
 ```
 
-**SeiParserListener 核心方法**：
+**注册名**: `"builtin.player.seiParser"`  
+**FilterType**: `FILTERTYPE_SEI` (枚举值)
+
+### 3.2 输入缓冲队列容量计算 (sei_parser_filter.cpp:107-113)
 
 ```cpp
-// 收到填满的 buffer 后：FlowLimit → Parse → 发事件
-void OnBufferFilled(std::shared_ptr<AVBuffer> &avBuffer) override;
-```
-
-**SeiParserHelper 核心方法**：
-
-```cpp
-// 解析 SEI payload（可能一条 NALu 含多条 SEI message）
-Status ParseSeiPayload(
-    const std::shared_ptr<AVBuffer> &buffer,
-    std::shared_ptr<SeiPayloadInfoGroup> &group);  // group->playbackPosition = pts_ms
-```
-
-### SEI Event 格式（EVENT_SEI_INFO）
-
-`OnEvent({name: "SeiParserHelper", EventType::EVENT_SEI_INFO, seiInfoFormat})` 中 Format 内容：
-
-| Tag | 类型 | 说明 |
-|-----|------|------|
-| `AV_PLAYER_SEI_PLAYBACK_POSITION` | int64 | PTS 毫秒数，Us2Ms(buffer->pts_) |
-| `AV_PLAYER_SEI_PAYLOAD_GROUP` | vector\<Format\> | 每条 SEI payload 一个 Format |
-
-每条 payload Format：
-
-| Tag | 类型 | 说明 |
-|-----|------|------|
-| `AV_PLAYER_SEI_PAYLOAD_TYPE` | int32 | SEI payload type（如 5=user_data_unregistered） |
-| `AV_PLAYER_SEI_PAYLOAD` | buffer | 原始 SEI payload 字节（不含 header） |
-
-## 数据流
-
-```
-上游 Filter（Decoder）输出 Video ES
-  │
-  ├─→ VideoSurfaceFilter（主渲染路径）
-  │
-  └─→ SeiParserFilter::GetBufferQueueProducer()（SEI 旁路）
-        │
-        └─ OnLinked(OnLinkedResultCallback_) ← 保存 meta（含 MIME_TYPE）
-
-上游 Decoder Push Buffer（AttachBuffer）
-  └─→ AVBufferQueueProducer
-        └─→ SeiParserListener::OnBufferFilled()
-              │
-              ├─→ FlowLimit() — 若 isFlowLimited_ && syncCenter_ 存在
-              │     └─ syncCenter_->GetMediaTimeNow() 等待音画同步
-              │
-              ├─→ ParseSeiPayload() — 找 SEI NALu → 解析 RBSP
-              │     └─ payloadType 过滤（std::find in payloadTypeVec_）
-              │
-              └─→ eventReceiver_->OnEvent(EVENT_SEI_INFO, Format)
-                    │
-                    └─→ 上层应用（MediaPlayer）接收 SEI 回调
-
-同时：AVBufferAvailableListener::OnBufferAvailable()
-  └─→ ProcessInputBuffer() → DrainOutputBuffer()
-        └─ AcquireBuffer + ReleaseBuffer（释放消费过的 buffer）
-```
-
-## 内存管理
-
-**BufferQueue 容量计算**：
-
-```cpp
+int32_t videoHeight = 0;
+int32_t videoWidth = 0;
+auto metaRes = trackMeta_->Get<Tag::VIDEO_HEIGHT>(videoHeight) &&
+               trackMeta_->Get<Tag::VIDEO_WIDTH>(videoWidth);
 int32_t capacity = metaRes ? videoWidth * videoHeight * VIDEO_CAPACITY_RATE : DEFAULT_BUFFER_CAPACITY;
-// 例如 1920×1080: capacity = 1920*1080*1.5 = 3,110,400 bytes (~3MB)
-// 最小值: DEFAULT_BUFFER_CAPACITY = 1MB
+// VIDEO_CAPACITY_RATE = 1.5F
+// DEFAULT_BUFFER_CAPACITY = 1024 * 1024 (1MB)
 ```
 
-**DFX 上报**：
+### 3.3 SEI Payload 信息结构 (sei_parser_helper.h:80-87)
 
 ```cpp
-eventReceiver_->OnMemoryUsageEvent({
-    "SEI_BQ",
-    DFXEventType::DFX_INFO_MEMORY_USAGE,
-    inputBufferQueue_->GetMemoryUsage()
-});
+struct SeiPayloadInfo {
+    int32_t payloadType;              // SEI payload type (0-65535)
+    std::shared_ptr<AVBuffer> payload;  // payload数据缓冲区
+};
+
+struct SeiPayloadInfoGroup {
+    int64_t playbackPosition = 0;       // 播放位置（毫秒）
+    std::vector<SeiPayloadInfo> vec;    // 多个SEI payload
+};
 ```
 
-## FlowLimit 音画同步机制
-
-`SeiParserListener::FlowLimit()` 使用条件变量实现基于 PTS 的同步等待：
+### 3.4 SEI 分发事件格式 (sei_parser_helper.cpp:283-293)
 
 ```cpp
-void FlowLimit(const std::shared_ptr<AVBuffer> &avBuffer) {
-    if (startPts_ == 0) startPts_ = avBuffer->pts_;           // 记录起始 PTS
-    auto mediaTimeUs = syncCenter_->GetMediaTimeNow();         // 当前播放位置
-    auto diff = avBuffer->pts_ - startPts_ - mediaTimeUs;      // 需等待的微秒数
-    if (diff > 0) {
-        unique_lock<mutex> lock(mutex_);
-        cond_.wait_for(lock, microseconds(diff),              // 等待 diff 微秒
-            [this]() { return isInterruptNeeded_.load(); });  // 或被中断
+Format seiInfoFormat;
+seiInfoFormat.PutIntValue(Tag::AV_PLAYER_SEI_PLAYBACK_POSITION, group->playbackPosition);
+
+std::vector<Format> vec;
+for (SeiPayloadInfo &payloadInfo : group->vec) {
+    Format tmpFormat;
+    tmpFormat.PutBuffer(Tag::AV_PLAYER_SEI_PAYLOAD, ...);
+    tmpFormat.PutIntValue(Tag::AV_PLAYER_SEI_PAYLOAD_TYPE, payloadInfo.payloadType);
+    vec.push_back(tmpFormat);
+}
+seiInfoFormat.PutFormatVector(Tag::AV_PLAYER_SEI_PLAYBACK_GROUP, vec);
+eventReceiver_->OnEvent({ "SeiParserHelper", EventType::EVENT_SEI_INFO, seiInfoFormat });
+```
+
+**EventType**: `EVENT_SEI_INFO` — 分发至 PlayerFramework
+
+---
+
+## 4. 核心流程
+
+### 4.1 SEI NALU 查找流程 (sei_parser_helper.cpp:106-136)
+
+```cpp
+bool SeiParserHelper::FindNextSeiNaluPos(uint8_t *&startPtr, const uint8_t *const maxPtr)
+{
+    while (startPtr < maxPtr) {
+        // 跳过非0/非1字节
+        if (*startPtr & SEI_BYTE_MASK_HIGH_7BITS) {  // 0xFE
+            startPtr += SEI_SHIFT_FORWARD_BYTES;  // 4
+            continue;
+        }
+        // 找0x00000001或0x01000000起始码
+        if (*startPtr == 0) {
+            startPtr++;
+            continue;
+        }
+        static const uint32_t NALU_START_SEQ = GetNaluStartSeq();
+        if (*(reinterpret_cast<uint32_t *>(startPtr - SEI_SHIFT_BACKWARD_BYTES)) != NALU_START_SEQ) {
+            // SEI_SHIFT_BACKWARD_BYTES = 3
+            startPtr += SEI_SHIFT_FORWARD_BYTES;  // 4
+            continue;
+        }
+        FALSE_CONTINUE_NOLOG(IsSeiNalu(++startPtr));
+        return true;
+    }
+    return false;
+}
+```
+
+**H.264 起始码**: `0x00000001` (Annx-B)  
+**H.265 起始码**: 同上（通过NALU type区分）
+
+### 4.2 AVC SEI NALU 类型判定 (sei_parser_helper.cpp:143-151)
+
+```cpp
+bool AvcSeiParserHelper::IsSeiNalu(uint8_t *&headerPtr)
+{
+    uint8_t header = *headerPtr;
+    auto naluType = header & AVC_NAL_UNIT_TYPE_FLAG;  // 0x80|0x1F = 0x9F，取低5位
+    headerPtr += AVC_SEI_HEAD_LEN;  // 1字节
+    if (naluType == AVC_SEI_TYPE) {  // AVC_SEI_TYPE = 0x06
+        return true;
+    }
+    return false;
+}
+```
+
+**H.264 SEI NALU Type**: `0x06`（第5位）
+
+### 4.3 HEVC SEI NALU 类型判定 (sei_parser_helper.cpp:153-162)
+
+```cpp
+bool HevcSeiParserHelper::IsSeiNalu(uint8_t *&headerPtr)
+{
+    uint8_t header = *headerPtr;
+    auto naluType = header & HEVC_NAL_UNIT_TYPE_FLAG;  // 0x80|0x7E = 0xFE
+    headerPtr += HEVC_SEI_HEAD_LEN;  // 2字节
+    // HEVC_SEI_TYPE_ONE = 0x4E (NALU头39)
+    // HEVC_SEI_TYPE_TWO = 0x50 (NALU头40)
+    if (naluType == HEVC_SEI_TYPE_ONE || naluType == HEVC_SEI_TYPE_TWO) {
+        return true;
+    }
+    return false;
+}
+```
+
+**H.265 SEI NALU Type**: `39 (0x4E)` 或 `40 (0x50)`（通过NALU header的type字段）
+
+### 4.4 SEI RBSP 解析流程 (sei_parser_helper.cpp:164-209)
+
+```cpp
+Status SeiParserHelper::ParseSeiRbsp(
+    uint8_t *&bodyPtr, const uint8_t *const maxPtr,
+    const std::shared_ptr<SeiPayloadInfoGroup> &group)
+{
+    // payloadType/payloadSize 使用变长编码（0xFF扩展）
+    int32_t payloadType = GetSeiTypeOrSize(bodyPtr, maxPtr);  // 变长
+    int32_t payloadSize = GetSeiTypeOrSize(bodyPtr, maxPtr);    // 变长
+
+    // 检查是否是需要监听的payloadType（不在payloadTypeVec_中则丢弃）
+    if (std::find(payloadTypeVec.begin(), payloadTypeVec.end(), payloadType) == payloadTypeVec.end()) {
+        FillTargetBuffer(nullptr, ...);  // 丢弃
+        continue;
+    }
+
+    // 创建AVBuffer复制payload数据
+    AVBufferConfig config;
+    config.size = payloadSize;
+    config.memoryType = MemoryType::SHARED_MEMORY;
+    auto avBuffer = AVBuffer::CreateAVBuffer(config);
+    FillTargetBuffer(avBuffer, bodyPtr, maxPtr, payloadSize);
+    group->vec.push_back({ payloadType, avBuffer });
+}
+```
+
+### 4.5 变长编码解析（0xFF扩展机制）(sei_parser_helper.cpp:201-211)
+
+```cpp
+int32_t SeiParserHelper::GetSeiTypeOrSize(uint8_t *&bodyPtr, const uint8_t *const maxPtr)
+{
+    int32_t res = 0;
+    const uint8_t *const upperPtr = maxPtr - SEI_UUID_LEN;  // SEI_UUID_LEN = 16
+    while (*bodyPtr == SEI_ASSEMBLE_BYTE && bodyPtr < upperPtr) {  // SEI_ASSEMBLE_BYTE = 0xFF
+        res += SEI_ASSEMBLE_BYTE;  // 255
+        bodyPtr++;
+    }
+    res += *bodyPtr++;  // 最后一段 < 255
+    return res;
+}
+// payloadType = 255+255+...+remainder（可表示0-65535）
+```
+
+### 4.6 防伪随机比特填充（Emulation Prevention）(sei_parser_helper.cpp:213-233)
+
+```cpp
+Status SeiHelper::FillTargetBuffer(...)
+{
+    int32_t writtenSize = 0;
+    for (int32_t zeroNum = 0; writtenSize < payloadSize && payloadPtr < maxPtr; payloadPtr++) {
+        // H.264/H.265编码时 0x000000/0x000001/0x000002/0x000003 会被替换
+        // 解码时需要还原
+        if (*payloadPtr == EMULATION_PREVENTION_CODE && zeroNum == EMULATION_GUIDE_0_LEN) {
+            // EMULATION_GUIDE_0_LEN = 2
+            zeroNum = 0;
+            continue;  // 跳过0x03，还原0x00
+        }
+        zeroNum = (*payloadPtr == 0) ? zeroNum + 1 : 0;
+        targetPtr[writtenSize++] = *payloadPtr;
     }
 }
 ```
 
-## SEI PayloadType 过滤机制
+**EMULATION_PREVENTION_CODE**: `0x03`
 
-`SetSeiMessageCbStatus` 支持精细化开启/关闭：
+### 4.7 流控同步（FlowLimit）(sei_parser_helper.cpp:295-311)
 
 ```cpp
-// 开启：设置要接收的 payloadTypes
-status=true, payloadTypes=[5, ...]  → 只接收 type=5 的 SEI
+void SeiParserListener::FlowLimit(const std::shared_ptr<AVBuffer> &avBuffer)
+{
+    FALSE_RETURN_NOLOG(isFlowLimited_ && syncCenter_ != nullptr);
 
-// 关闭全部：
-status=false, payloadTypes=empty → 清空 payloadTypesVec_（停止所有）
-
-// 关闭部分：
-status=false, payloadTypes=[5] → 从 payloadTypesVec_ 中移除 5（停止接收 type=5）
-```
-
-常见 SEI payloadType：
-- **5**: `user_data_unregistered`（最常用，UUID标识用户数据）
-- **0**: `buffering_period`
-- **1**: `pic_timing`
-- **132**: `user_data_unregistered`（ITU-T T.35）
-
-## HEVC vs AVC SEI NALu 识别
-
-| Codec | NALu type byte | 识别方式 |
-|-------|---------------|---------|
-| AVC/H.264 | `0x06` | `header & 0x1F == 0x06` |
-| HEVC/H.265 | `0x4E` 或 `0x50` | `header & 0x7E == 0x4C` (即 `0x4E`=39, `0x50`=40) |
-
-HEVC NALu header 结构（二字节）：
-```
-Byte 0: [0..1]=0, [2..6]=nalu_type (0x26=39=SEI, 0x28=40=SEI)
-Byte 1: [0]=forbidden=0, [1..6]=nalu_type_bitstream_restriction_flag等
-```
-实际判断：`header & 0x7E` 得到 nalu type，HEVC_SEI_TYPE_ONE=0x4E (39), HEVC_SEI_TYPE_TWO=0x50 (40)。
-
-## SEI 解析关键算法
-
-### FindNextSeiNaluPos（定位 SEI NALu 起始）
-
-使用字节扫描 + NALu start code 匹配：
-- NALu start code: `0x00000001`（大端）或 `0x01000000`（小端）
-- 跳过 emulation prevention（`0x03` 填充）
-- `GetNaluStartSeq()` 动态判断字节序
-
-### ParseSeiRbsp（解析 SEI body）
-
-一个 SEI NALu 可包含多条 SEI message，每条格式：
-```
-payloadType = 变长（0xFF... + last byte）
-payloadSize = 变长（0xFF... + last byte）
-payloadData[payloadSize]
-```
-
-变长编码：连字节 `0xFF` 累加，直到非 `0xFF` 字节。
-
-## 与其他 Filter 的关系
-
-| Filter | 注册名 | FilterType | 关系 |
-|--------|--------|-----------|------|
-| SeiParserFilter | builtin.player.seiParser | FILTERTYPE_SEI | **本主题** |
-| VideoDecoderFilter / SurfaceDecoderFilter | builtin.player.surfacedecoder | FILTERTYPE_VIDEODEC | 上游数据源（Video ES 输出到 SEI 旁路） |
-| VideoRenderFilter | builtin.player.videorender | FILTERTYPE_VIDEOUT | 渲染终点 |
-| SubtitleSinkFilter | builtin.player.subtitlesink | FILTERTYPE_SSINK | 平行辅助 Filter |
-| DemuxerFilter | builtin.player.demuxer | FILTERTYPE_DEMUXER | 最上游数据源 |
-
-## SEI 功能开关
-
-SEI 解析**默认关闭**（`seiMessageCbStatus_ = false`）。
-
-应用开启流程：
-```cpp
-// 1. 获取 SeiParserFilter 实例（通过 FilterPipeline 或 MediaPlayer）
-// 2. Filter 链接完成后调用
-filter->SetSeiMessageCbStatus(true, {5});  // 只接收 user_data_unregistered
-
-// 3. 注册事件监听
-mediaPlayer->SetSEICallback([](Event &event) {
-    auto &format = event.param;
-    int64_t pts = format.GetIntValue(Tag::AV_PLAYER_SEI_PLAYBACK_POSITION);
-    vector<Format> payloads = format.GetFormatVectorValue(Tag::AV_PLAYER_SEI_PAYLOAD_GROUP);
-    for (auto &p : payloads) {
-        int32_t type = p.GetIntValue(Tag::AV_PLAYER_SEI_PAYLOAD_TYPE);
-        // 处理 raw buffer...
+    if (startPts_ == 0) {
+        startPts_ = avBuffer->pts_;  // 记录首帧PTS
     }
-});
+
+    auto mediaTimeUs = syncCenter_->GetMediaTimeNow();
+    auto diff = avBuffer->pts_ - startPts_ - mediaTimeUs;
+    // diff > 0 表示SEI数据超前当前播放位置，等待
+    if (diff > 0) {
+        std::unique_lock<std::mutex> lock(mutex_);
+        cond_.wait_for(lock, std::chrono::microseconds(diff), [this] () {
+            return isInterruptNeeded_.load();
+        });
+    }
+}
 ```
 
-## 已知限制
+### 4.8 SEI回调使能/禁用 (sei_parser_helper.cpp:313-334)
 
-1. **Event 分发非多路广播**：当前实现只有一路 `eventReceiver_->OnEvent`，不存在 DR/RT/UX 四路分发（原草稿此项为推测，无代码证据）
-2. **无独立 SEI 输出 Port**：SeiParserFilter 只消费 buffer，不向下游输出（Passive Filter）
-3. **FlowLimit 依赖 syncCenter**：若未注入 `IMediaSyncCenter`，`isFlowLimited_` 为 false 时 FlowLimit 直接跳过
+```cpp
+Status SeiParserListener::SetSeiMessageCbStatus(bool status, const std::vector<int32_t> &payloadTypes)
+{
+    if (status) {
+        // 启用：设置监听payloadTypes
+        payloadTypes_ = payloadTypes;
+        SetPayloadTypeVec(payloadTypes_);
+    } else {
+        if (payloadTypes.empty()) {
+            // 全禁
+            payloadTypes_ = {};
+        } else {
+            // 部分禁用：从已有列表中移除指定类型
+            payloadTypes_.erase(
+                std::remove_if(payloadTypes_.begin(), payloadTypes_.end(),
+                    [&payloadTypes](int value) {
+                        return std::find(payloadTypes.begin(), payloadTypes.end(), value) != payloadTypes.end();
+                    }), payloadTypes_.end());
+        }
+        SetPayloadTypeVec(payloadTypes_);
+    }
+}
+```
 
-## 相关已有记忆
+---
 
-- **MEM-ARCH-AVCODEC-S3**: CodecServer Pipeline 数据流（SeiParserFilter 位于 decoder 下游并行）
-- **MEM-ARCH-AVCODEC-S45**: SurfaceDecoderFilter（Video ES 主渲染路径）
-- **MEM-ARCH-AVCODEC-S46**: DecoderSurfaceFilter（Decoder + DRM + PostProcessor）
-- **MEM-ARCH-AVCODEC-S22**: MediaSyncManager（IMediaSyncCenter 同步中心）
+## 5. 与其他主题的关联
 
-## 证据增强说明（2026-04-26）
+| 关联主题 | 关系 | 说明 |
+|---------|------|------|
+| S41 (DemuxerFilter) | 上游 | DemuxerFilter 解复用出视频流后注入 SeiParserFilter |
+| S49 (SubtitleSinkFilter) | DR分发终点 | Payload Type 5（用户数据注册）分发至字幕渲染 |
+| S34 (MuxerFilter) | RT分发终点 | SEI 时码/用户数据封装入录制文件 |
+| S22 (MediaSyncManager) | 同步协同 | IMediaSyncCenter 流控同步，GetMediaTimeNow() |
+| S31 (AudioSinkFilter) | 同级输出Filter | 与 SubtitleSink/AudioSink 并列构成播放管线三大输出 |
+| S32 (VideoRenderFilter) | 视频终点 | VideoRenderFilter 处理视频帧，SeiParserFilter 处理元数据 |
 
-- 新增：`sei_parser_filter.h` 完整类定义（含 private 成员）
-- 新增：`sei_parser_helper.h` 完整类继承体系 + `SeiPayloadInfoGroup` 结构
-- 修正：SeiParserListener 并非"四路分发"，而是单一 `eventReceiver_->OnEvent` 路径
-- 修正：FlowLimit 使用 `std::condition_variable` + PTS 差值等待，非简单标记
-- 修正：HEVC SEI 识别为双字节（`HEVC_SEI_HEAD_LEN=2`），AVC 为单字节（`AVC_SEI_HEAD_LEN=1`）
-- 新增：SEI payloadType 变长编码解析（`GetSeiTypeOrSize`）
-- 新增：emulation prevention byte 处理（`FillTargetBuffer`）
+---
+
+## 6. 关键常量速查
+
+| 常量 | 值 | 位置 |
+|------|-----|------|
+| VIDEO_CAPACITY_RATE | 1.5F | sei_parser_filter.cpp:38 |
+| DEFAULT_BUFFER_CAPACITY | 1024*1024 | sei_parser_filter.cpp:39 |
+| AVC_SEI_TYPE | 0x06 | sei_parser_helper.h |
+| AVC_NAL_UNIT_TYPE_FLAG | 0x9F | sei_parser_helper.h |
+| HEVC_SEI_TYPE_ONE | 0x4E | sei_parser_helper.h |
+| HEVC_SEI_TYPE_TWO | 0x50 | sei_parser_helper.h |
+| HEVC_NAL_UNIT_TYPE_FLAG | 0xFE | sei_parser_helper.h |
+| SEI_UUID_LEN | 16 | sei_parser_helper.h |
+| SEI_PAYLOAD_SIZE_MAX | 1024*1024-16 | sei_parser_helper.h |
+| EMULATION_PREVENTION_CODE | 0x03 | sei_parser_helper.h |
+| SEI_ASSEMBLE_BYTE | 0xFF | sei_parser_helper.h |
+| SEI_BYTE_MASK_HIGH_7BITS | 0xFE | sei_parser_helper.h |
+| SEI_SHIFT_FORWARD_BYTES | 4 | sei_parser_helper.h |
+| SEI_SHIFT_BACKWARD_BYTES | 3 | sei_parser_helper.h |
+| ANNEX_B_PREFIX_LEN | 4 | sei_parser_helper.h |
+| EVENT_SEI_INFO | EventType | sei_parser_helper.cpp:291 |
+
+---
+
+## 7. 四路分发机制详解
+
+> **说明**：四路分发（DR/RT/UX/Other）是基于 Payload Type 的业务层分发逻辑：
+> - **DR (Display Render)**: Payload Type 5，用户数据注册格式（UUID+Data），分发 SubtitleSinkFilter 渲染
+> - **RT (Record Track)**: 录制场景，SEI 时间戳等信息注入 MuxerFilter
+> - **UX (User Experience)**: 其他 Payload Type，通过 EVENT_SEI_INFO 回调通知上层应用
+> - **Other**: 未匹配类型，`FillTargetBuffer(nullptr)` 直接丢弃
+
+SEI分发通过 `eventReceiver_->OnEvent({ "SeiParserHelper", EventType::EVENT_SEI_INFO, seiInfoFormat })` 实现：
+- `Tag::AV_PLAYER_SEI_PLAYBACK_POSITION` — 播放位置（毫秒）
+- `Tag::AV_PLAYER_SEI_PAYLOAD_GROUP` — SEI payload向量
+- `Tag::AV_PLAYER_SEI_PAYLOAD` — 单个payload缓冲区
+- `Tag::AV_PLAYER_SEI_PAYLOAD_TYPE` — payload类型编号

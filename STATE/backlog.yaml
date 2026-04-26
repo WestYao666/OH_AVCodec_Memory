@@ -138,7 +138,7 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S9 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（推测自 S7 上下文） | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S9 | ✅ 草案已生成（2026-04-23T22:51） |
-| S10 | SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发 | AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player | 三方应用/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S10 | ✅ 草案已生成（2026-04-23T14:50） |
+| S10 | SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发 | AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player | 三方应用/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S10 | ✅ 草案已生成（2026-04-23T14:50）→草案文件已创建（2026-04-26T22:36），SEI NALU解析(Avc/HevcSeiParserHelper)，四路分发(DR/RT/UX/Other)，EVENT_SEI_INFO回调，FlowLimit流控同步， builtin.player.seiparser注册 |
 | S11 | HCodec CodecComponentManager 工厂与插件注册机制——ICodecComponentManager 双模式+GetCapList能力发现+HDecoder/HEncoder子类工厂 | AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager, Factory | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S11 | ✅ 草案已提交（2026-04-23T21:07） |
 | S12 | VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册 | AVCodec, MediaEngine, Filter, Transcoder, VideoProcessingEngine, VPE, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S12 | ✅ 草案已提交（2026-04-24T00:05） |
 | S14 | MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联数据流 | AVCodec, MediaEngine, Filter, FilterChain, Pipeline, AVBufferQueue | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S14 | ✅ pending_approval（2026-04-24T20:40 Builder提交审批） |
@@ -444,3 +444,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S57 | HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链 | AVCodec, HardwareCodec, HDI, OMX, HDecoder, HEncoder, CodecBase, StateMachine, MsgHandleLoop, DMA-BUF, SuspendResume | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S57 | ✅ 草案已生成（2026-04-26T20:51），HCodec基类(CodecBase+StateMachine)八状态机(Uninitialized/Initialized/Starting/Running/OutputPortChanged/Flushing/Stopping/Frozen)，MsgHandleLoop消息队列(SendAsyncMsg/SendSyncMsg)，HDI V4.0 ICodecComponent四函数(EmptyThisBuffer/FillThisBuffer/SendCommand/Configure)，HDecoder XperfConnector性能回调+DecoderInst实例追踪，HEncoder水印+BitrateMode，DMA-BUF SwapOut/SwapIn与FrozenState，HCodecList能力查询(VIDEO_FEATURE_LTR/PASS_THROUGH/B_FRAME)，TypeConverter HDI↔OMX类型转换，AvcEncoder独立硬件编码器(AVC_ENC_HANDLE)，与S39/S51/S53/S54软件解码器互补 |
+
+## 新增主题（Builder 2026-04-26 续 - S58注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S58 | MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析 | AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, Track, SampleTable, mse | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S58 | ✅ 草案已生成（2026-04-26T22:30），MPEG4AtomParser 4396行box解析引擎，47项ParseFunction路由表，Track链表结构(CodecParams+MPEG4SampleHelper+displayMatrix)，五级层级深度(MPEG4_ROOT_DEPTH→MPEG4_DEPTH_FOUR)，stts/stss/ctts/stsc/stsz/stco六表委托MPEG4SampleHelper，avcC/hvcC/vvcC三合一CodecConfig，ParseMoof分片解析(FragmentEntry+TFHD/TRUN)，HDR_VIVID检测(CUVA特征串)，EditList(elst)时间偏移机制，QUICKTIME_EPOCH_OFFSET=2082844800，FourCC→MimeType映射(30+条)，AAC/FLAC/PCM通道布局表，displayMatrix旋转/翻转映射(8类)，与S41(DemuxerFilter)上下游关系 |

@@ -1,5 +1,67 @@
 pending:
 - type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S10
+  title: "SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发"
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Filter
+  - SEI
+  - VideoProcessing
+  - Player
+  - SeiParserFilter
+  - SeiParserHelper
+  - AVBufferQueue
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T22:36:00+08:00'
+  awaiting: approve/revise/reject/hold
+  key_findings:
+  - Filter注册名builtin.player.seiParser，FilterType.FILTERTYPE_SEI
+  - AvcSeiParserHelper(H.264, NALU type=0x06) + HevcSeiParserHelper(H.265, NALU type=0x4E/0x50)
+  - FindNextSeiNaluPos起始码查找(Annx-B 0x00000001)，变长payloadType/payloadSize编码
+  - FillTargetBuffer防伪随机比特填充(EMULATION_PREVENTION_CODE=0x03)
+  - AVBufferQueue输入缓冲(capacity=videoWidth*videoHeight*1.5F)
+  - EVENT_SEI_INFO回调(OnEvent)，Tag::AV_PLAYER_SEI_PLAYBACK_GROUP分发
+  - FlowLimit流控同步(syncCenter->GetMediaTimeNow)
+  - 四路分发DR(字幕)/RT(录制)/UX(上层)/Other(丢弃)
+  - SEI_PAYLOAD_SIZE_MAX=1MB-16，SEI_UUID_LEN=16
+  - 与S41(上游DemuxerFilter)/S49(DR字幕)/S34(RT录制)/S22(MediaSync)关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S58
+  title: MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析
+  scope:
+  - AVCodec
+  - Demuxer
+  - MPEG4
+  - MOV
+  - Container
+  - BoxParser
+  - MP4
+  - FragmentedMP4
+  - Track
+  - SampleTable
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T22:30:00+08:00'
+  awaiting: approve/revise/reject/hold
+  key_findings:
+  - MPEG4AtomParser 4396行box解析引擎
+  - 47项ParseFunction路由表(InitParseTable)
+  - Track链表(firstTrack_/lastTrack_/currentTrack_)
+  - CodecParams: avcC/hvcC/vvcC extradata
+  - 五级层级深度(MPEG4_ROOT_DEPTH→MPEG4_DEPTH_FOUR)
+  - stts/stss/ctts/stsc/stsz/stco六表委托MPEG4SampleHelper
+  - ParseMoof分片解析(FragmentEntry+TFHD/TRUN)
+  - HDR_VIVID检测(CUVA HDR Video特征串offset=43)
+  - EditList(elst)segmentDuration+mediaTime
+  - QUICKTIME_EPOCH_OFFSET=2082844800
+  - FourCC→MimeType映射(30+条)
+  - AAC/FLAC/ALAC/PCM通道布局表
+  - displayMatrix旋转/翻转8类映射
+  - version 0/1 mvhd双时间戳支持
+  - 与S41(DemuxerFilter)上下游关系
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S57
   title: "HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链"
   scope:
