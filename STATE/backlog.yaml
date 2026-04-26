@@ -374,12 +374,14 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S46 | DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件与 DRM/PostProcessor 两扩展 | AVCodec, MediaEngine, Filter, VideoDecoder, DecoderSurfaceFilter, FILTERTYPE_VDEC, VideoSink, VideoDecoderAdapter, DRM, PostProcessor, CameraPostProcessor, PlayerPipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S46 | ✅ 草案已生成（2026-04-26T09:07），builtin.player.videodecoder注册，FILTERTYPE_VDEC，三组件架构(VideoDecoderAdapter+VideoSink+PostProcessor)，双回调链(FilterMediaCodecCallbackWithPostProcessor/FilterVideoPostProcessorCallback)，RenderLoop后台线程，SUPPORT_DRM解密，Camera PostProcessor(SCENE_INSERT_FRAME/MP_PWP)，硬件回退机制(EVENT_HW_DECODER_UNSUPPORT_CAP)，与S45(SurfaceDecoderFilter)对称 |
+| S47 | CodecCapability 能力查询与匹配机制——CodecAbility/CodecProfile/Level/SupportedTypes 五层能力体系 | AVCodec, Capability, CodecProfile, CodecLevel, CodecMime, CodecList, CodecAbilitySingleton, CodecListCore, CapabilityData, VideoCaps, AudioCaps, FindEncoder, FindDecoder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S47 | ✅ 草案已生成（2026-04-26T10:36），CodecCapability五层能力模型(L1 CodecMime/L2 AVCodecType/L3 CapabilityData/L4 CodecProfile+Level/L5 SupportedTypes)，FindEncoder/FindDecoder能力匹配算法，CodecAbility单例按需创建，CodecListCore七项Check校验，VideoCaps/AudioCaps子能力集，SUPPORT_HDR_VIVID判断，levelToInt/InRangeToInt范围转换 |
 
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-26T09:07 | Builder | 注册 S46：DecoderSurfaceFilter 视频解码过滤器，builtin.player.videodecoder/FILTERTYPE_VDEC，VideoDecoderAdapter+VideoSink+PostProcessor三层组件，RenderLoop后台线程，DRM解密集成，Camera PostProcessor，硬件→软件解码器自动回退 |
+| 2026-04-26T10:36 | Builder | 注册 S47：CodecCapability 能力查询与匹配机制，五层能力体系(L1-L5)，FindEncoder/FindDecoder能力匹配，CodecAbilitySingleton单例模式 |
 
 ## 新增主题（Builder 2026-04-26 第二批）
 
