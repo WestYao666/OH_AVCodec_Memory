@@ -143,6 +143,12 @@
 | S12 | VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册 | AVCodec, MediaEngine, Filter, Transcoder, VideoProcessingEngine, VPE, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S12 | ✅ 草案已提交（2026-04-24T00:05） |
 | S14 | MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联数据流 | AVCodec, MediaEngine, Filter, FilterChain, Pipeline, AVBufferQueue | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S14 | ✅ pending_approval（2026-04-24T20:40 Builder提交审批） |
 
+## 新增主题（Builder 2026-04-26）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S48 | CodecServer 生命周期管理——CodecServer/CodecBase/AVCodecServerManager 三层架构与七状态机 | AVCodec, CodecServer, CodecBase, AVCodecServerManager, SystemAbility, SA, Lifecycle, StateMachine, ICodecService, CodecFactory | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S48 | ✅ 草案已生成（2026-04-26T11:55），AVCodecServer SA三层架构(AVCodecServer→AVCodecServerManager→CodecServer)，七状态机(UNINITIALIZED→RUNNING)，LockFreeQueue无锁队列，InstanceInfo进程追踪，MEMORY_MANAGER_SA集成 |
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |

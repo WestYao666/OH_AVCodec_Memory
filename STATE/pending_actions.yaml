@@ -1,6 +1,6 @@
 # pending_actions.yaml — 记忆工厂审批队列
 # 生成时间: 2026-04-25T23:35:00+08:00
-# 更新: 2026-04-26T08:20+08:00
+# 更新: 2026-04-26T11:55+08:00
 
 pending:
   - type: approval_request
@@ -307,4 +307,13 @@ pending:
     status: pending_approval
     created_by: builder-agent
     created_at: "2026-04-26T10:36:00+08:00"
+    awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S48
+    title: "CodecServer 生命周期管理——CodecServer/CodecBase/AVCodecServerManager 三层架构与七状态机"
+    scope: [AVCodec, CodecServer, CodecBase, AVCodecServerManager, SystemAbility, SA, Lifecycle, StateMachine, ICodecService, CodecFactory, IPC, PostProcessing, TemporalScalability]
+    status: pending_approval
+    created_by: builder-agent
+    created_at: "2026-04-26T11:55:00+08:00"
     awaiting: approve/revise/reject/hold
