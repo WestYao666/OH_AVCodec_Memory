@@ -411,8 +411,15 @@
 |---|------|-------|---------|------|------|
 | S52 | TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射 | AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S52 | ✅ 草案已生成（2026-04-26T16:25），TimeAndIndexConversion 解析 MP4/MOV Box 结构（ftyp/moov/trak/stbl），STTS表(sampleCount+sampleDelta)和CTTS表(sampleCount+sampleOffset)双表联合遍历，MDHD读取timescale，HDLR判断vide/soun轨道类型，PTS↔Index双向转换算法（相对PTS+绝对时间零点），B帧PTS=DTS+offset，最大36000帧限制 |
 
+## 新增主题（Builder 2026-04-26 续 - S53注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S53 | FCodec 软件视频解码器——H.264/AVC FFmpeg 解码管线 | AVCodec, VideoDecoder, FCodec, FFmpeg, SoftwareCodec, libavcodec, avcodec_send_packet, avcodec_receive_frame, H264, AVC | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S53 | ✅ 草案已生成（2026-04-26T17:40），FCodec 统一软件解码类，FFmpeg libavcodec "h264" codec，支持14种格式（AVC/HEVC/MPEG2/MPEG4/H263/MJPEG/WMV3/VC1等），avcodec_send_packet/receive_frame 双线程解码，GetAvcCapProf 能力注册（5120x5120/120fps/Baseline+Main+High Profile），双 TaskThread 驱动（SendFrame/ReceiveFrame），SendFrame等待/EAGAIN/AVERROR_EOF 错误处理 |
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-26T16:25 | Builder 新增 | 注册 S52：TimeAndIndexConversion PTS与帧索引转换模块，MP4/MOV STTS/CTTS解析，PTS↔Index双向转换，B帧PTS=DTS+offset机制 |
+| 2026-04-26T17:40 | Builder 新增 | 注册 S53：FCodec 软件视频解码器，H.264 基于 FFmpeg libavcodec，双 TaskThread（SendFrame/ReceiveFrame）驱动解码管线，GetAvcCapProf 注册 H.264 能力（5120x5120/120fps/三Profile），与 S51(Av1Decoder)对比统一类vs独立类架构 |

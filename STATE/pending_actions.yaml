@@ -705,6 +705,26 @@ pending:
   awaiting: approve/revise/reject/hold
 pending_actions:
 - type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S53
+  title: FCodec 软件视频解码器——H.264/AVC FFmpeg 解码管线
+  scope:
+  - AVCodec
+  - VideoDecoder
+  - FCodec
+  - FFmpeg
+  - SoftwareCodec
+  - libavcodec
+  - avcodec_send_packet
+  - avcodec_receive_frame
+  - H264
+  - AVC
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T17:40:00+08:00'
+  summary: FCodec是统一软件视频解码器类，H.264基于FFmpeg libavcodec（avcodec_send_packet/receive_frame），支持14种格式（AVC/H263/MPEG2/MPEG4/MJPEG/WMV3/VC1等）。能力注册：5120x5120分辨率/120fps/Baseline+Main+High Profile/Level 0-62。双TaskThread驱动（SendFrame/ReceiveFrame），AVERROR_INVALIDDATA正常处理（帧缺失），AVERROR_EOF流结束。与S51(Av1Decoder)对比：FCodec统一类vs Av1Decoder独立类两种软件解码架构。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S53.md
+  backlog_section: 新增主题（Builder 2026-04-26 续 - S53注册）
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S52
   title: TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射
   scope:
