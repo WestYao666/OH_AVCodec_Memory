@@ -1,7 +1,15 @@
-# MEM-ARCH-AVCODEC-S57: HDecoder / HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链
+---
+status: pending_approval
+memory_id: MEM-ARCH-AVCODEC-S57
+title: "HDecoder / HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链"
+scope: AVCodec, HardwareCodec, HDI, OMX, HDecoder, HEncoder, CodecBase, StateMachine, MsgHandleLoop, DMA-BUF, SuspendResume
+scenario: 新需求开发/问题定位
+source: repo_tmp/services/engine/codec/video/hcodec/
+created: 2026-04-26T20:51
+submitted: 2026-04-26T23:25
+---
 
-> **状态**: draft
-> **生成时间**: 2026-04-26T20:51
+# MEM-ARCH-AVCODEC-S57: HDecoder / HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链
 > **scope**: AVCodec, HardwareCodec, HDI, OMX, HDecoder, HEncoder, CodecBase, StateMachine, MsgHandleLoop, DMA-BUF, SuspendResume
 > **关联场景**: 新需求开发/问题定位
 > **memory_id**: MEM-ARCH-AVCODEC-S57

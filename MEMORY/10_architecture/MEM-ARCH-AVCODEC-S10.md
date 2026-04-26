@@ -1,13 +1,15 @@
-# MEM-ARCH-AVCODEC-S10: SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发
-
-> **状态**: draft_pending_approval
-> **生成时间**: 2026-04-26T22:36
-> **scope**: AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player, SeiParserFilter, SeiParserHelper, AVBufferQueue, DR, RT, UX, DisplayRender, RecordTrack, UserExperience
-> **关联场景**: 三方应用/问题定位
-> **memory_id**: MEM-ARCH-AVCODEC-S10
-> **来源文件**: `repo_tmp/services/media_engine/filters/sei_parser_filter.cpp` + `repo_tmp/services/media_engine/filters/sei_parser_helper.cpp` + `repo_tmp/interfaces/inner_api/native/sei_parser_filter.h` + `repo_tmp/interfaces/inner_api/native/sei_parser_helper.h`
-
 ---
+status: pending_approval
+memory_id: MEM-ARCH-AVCODEC-S10
+title: "SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发"
+scope: AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player, SeiParserFilter, SeiParserHelper, AVBufferQueue, DR, RT, UX, DisplayRender, RecordTrack, UserExperience
+scenario: 三方应用/问题定位
+source: repo_tmp/services/media_engine/filters/sei_parser_filter.cpp
+created: 2026-04-26T22:36
+submitted: 2026-04-26T23:25
+---
+
+# MEM-ARCH-AVCODEC-S10: SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发
 
 ## 1. 背景
 

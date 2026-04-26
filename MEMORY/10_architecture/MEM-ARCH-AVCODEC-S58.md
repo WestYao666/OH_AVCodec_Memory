@@ -1,6 +1,15 @@
-# MEM-ARCH-AVCODEC-S58: MPEG4BoxParser MP4/MOV容器Box解析器
+---
+status: pending_approval
+memory_id: MEM-ARCH-AVCODEC-S58
+title: "MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析"
+scope: AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, MSE, Track, SampleTable
+scenario: 三方应用/新需求开发/问题定位
+source: repo_tmp/services/media_engine/plugins/demuxer/mpeg4_demuxer/mpeg4_box_parser.cpp
+created: 2026-04-26T22:30
+submitted: 2026-04-26T23:25
+---
 
-**主题**: MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析  
+# MEM-ARCH-AVCODEC-S58: MPEG4BoxParser MP4/MOV容器Box解析器  
 **scope**: AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, MSE, Track, SampleTable  
 **关联场景**: 三方应用/新需求开发/问题定位  
 **mem_id**: MEM-ARCH-AVCODEC-S58  
