@@ -1,5 +1,39 @@
 pending:
 - type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S57
+  title: "HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链"
+  scope:
+  - AVCodec
+  - HardwareCodec
+  - HDI
+  - OMX
+  - HDecoder
+  - HEncoder
+  - CodecBase
+  - StateMachine
+  - MsgHandleLoop
+  - DMA-BUF
+  - SuspendResume
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T20:51:00+08:00'
+  awaiting: approve/revise/reject/hold
+  key_findings:
+  - HCodec基类(CodecBase+StateMachine), hcodec.h:35
+  - 八状态机(Uninitialized/Initialized/Starting/Running/OutputPortChanged/Flushing/Stopping/Frozen)
+  - MsgHandleLoop消息队列(SendAsyncMsg/SendSyncMsg)
+  - HDI V4.0 ICodecComponent接口(codec_hdi.h)
+  - HDecoder XperfConnector(VideoStateCallbackStub, hdecoder.h:32)
+  - HEncoder WaterMarkInfo+BitrateMode(hencoder.h)
+  - DMA-BUF SwapOut/SwapIn(hcodec_bg.cpp:50)
+  - HCodecList能力查询+FindFeature(hcodec_list.cpp:162)
+  - TypeConverter HDI↔OMX类型转换(type_converter.h)
+  - AvcEncoder独立硬件编码器(avc_encoder.h)
+  - FrozenState冻结状态(hcodec_bg.cpp:337)
+  - HdiCallback OMX回调(EmptyBufferDone/FillBufferDone, hcodec.h:629)
+  - SCOPED_TRACE/FUNC_TRACKER DFX宏(hcodec_dfx.h:21)
+  - 与S39/S51/S53/S54软件解码器架构互补
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S51
   title: Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线
   scope:
