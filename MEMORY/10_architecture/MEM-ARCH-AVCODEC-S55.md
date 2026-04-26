@@ -3,7 +3,7 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S55
 title: "AVCodec 模块间回调链路——CodecCallback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback 四路回调架构"
 scope: [AVCodec, Callback, IPC, CodecClient, CodecServer, AudioCodecServer, CodecBase, MediaCodec, CodecListenerCallback, CodecListenerStub, CodecListenerProxy, ICodecComponentCallback, Binder]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-26T19:10:00+08:00"
 evidence_count: 28

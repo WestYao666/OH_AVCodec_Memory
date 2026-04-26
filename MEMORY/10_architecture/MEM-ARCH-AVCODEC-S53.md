@@ -3,7 +3,7 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S53
 title: "FCodec 软件视频解码器——H.264/AVC FFmpeg 解码管线"
 scope: [AVCodec, VideoDecoder, FCodec, FFmpeg, SoftwareCodec, libavcodec, avcodec_send_packet, avcodec_receive_frame, H264, AVC, DecoderPipeline, BlockQueue]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-04-26T17:40:00+08:00"
 evidence_count: 15
