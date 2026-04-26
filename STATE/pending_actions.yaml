@@ -1033,3 +1033,43 @@ pending_actions:
   - 'AudioCodecWorker: inputBuffer_/outputBuffer_双AudioBuffersManager，8个缓冲区/池'
   - 'OS_AuCodecIn/OS_AuCodecOut: TaskThread双线程驱动'
   - 'DEFAULT_BUFFER_COUNT=8，DEFAULT_SLEEP_TIME=500ms常量'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S63
+  title: CodecDrmDecrypt DRM CENC 解密核心——NAL单元解析与SVP安全视频路径
+  scope:
+  - AVCodec
+  - DRM
+  - CENC
+  - Decrypt
+  - SVP
+  - NALU
+  - Subsample
+  - CodecDrmDecrypt
+  - ContentProtection
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T05:37:00+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: S63聚焦CodecDrmDecrypt DRM CENC解密引擎。CodecDrmDecrypt类(764行codec_drm_decrypt.cpp)被CodecServer(codec_server.cpp:752)持有。DrmVideoCencDecrypt(codec_drm_decrypt.cpp:551)三步骤流程：①DrmGetCencInfo提取subsamples ②DrmModifyCencInfo去除防伪字节 ③DecryptMediaData通过decryptModuleProxy_->DecryptMediaData调用HDI DRM解密。NAL单元解析支持AVC(0x1f)&HEVC(0x3f)&AVS3，起始码0x00000001。SvpMode三种状态(SVP_CLEAR=-1/SVP_FALSE/SVP_TRUE)，CheckDrmSvpConsistency(codec_server.cpp:703)做安全路径一致性校验。与S46(DecoderSurfaceFilter DRM)/S57(HDecoder/HEncoder DRM)/S41(DemuxerFilter DRM回调)关联。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S63.md
+  backlog_section: 新增主题（Builder 2026-04-27 续）
+  evidence_count: 18
+  key_findings:
+  - 'CodecDrmDecrypt: codec_drm_decrypt.cpp 764行，CodecServer持有(codec_server.h:166)'
+  - 'DrmVideoCencDecrypt: codec_drm_decrypt.cpp:551，三步骤解密流程'
+  - 'DrmAudioCencDecrypt: codec_drm_decrypt.cpp:595，音频路径无NAL解析'
+  - 'DecryptMediaData: codec_drm_decrypt.cpp:737，HDI decryptModuleProxy_调用'
+  - 'SetDrmBuffer: codec_drm_decrypt.cpp:684，AVBuffer→DrmBuffer转换'
+  - 'DrmGetCencInfo: codec_drm_decrypt.cpp:534，subsamples提取'
+  - 'DrmModifyCencInfo: codec_drm_decrypt.cpp:221，防伪字节去除(DrmRemoveAmbiguityBytes)'
+  - 'DrmGetNalTypeAndIndex: codec_drm_decrypt.cpp:133，AVCNAL&HEVCNAL识别'
+  - 'DrmGetFinalNalTypeAndIndex: codec_drm_decrypt.cpp:152，起始码0x00000001定位'
+  - 'DrmFindCeiNalUnit: codec_drm_decrypt.cpp:372，SEI NALU检测(AVC/HEVC/AVS3)'
+  - 'SvpMode: SVP_CLEAR(-1)/SVP_FALSE(0)/SVP_TRUE(1)，codec_drm_decrypt.h:29-33'
+  - 'CheckDrmSvpConsistency: codec_server.cpp:703，安全路径一致性校验'
+  - 'SetDecryptionConfig: codec_drm_decrypt.cpp:661，IMediaKeySessionService注入'
+  - 'GetMediaDecryptModule: codec_drm_decrypt.cpp:675，获取decryptModuleProxy_'
+  - 'DRM_CodecType: DRM_VIDEO_AVC=0x1/DRM_VIDEO_HEVC/DRM_VIDEO_AVS，cpp:104-109'
+  - 'DRM_MAX_STREAM_DATA_SIZE: 20971520(20MB)，cpp:93'
+  - 'DRM_H264_VIDEO_SKIP_BYTES: 35，cpp:82'
+  - 'DRM_H265_VIDEO_SKIP_BYTES: 68，cpp:83'

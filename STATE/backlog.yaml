@@ -474,3 +474,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S62 | AudioBuffersManager 音频编解码双缓冲队列管理——AudioBufferInfo + AudioBuffersManager + AudioCodecWorker 三层架构 | AVCodec, AudioCodec, BufferManagement, AudioCodecWorker, AudioBuffersManager, AudioBufferInfo, AVSharedMemoryBase, PCM | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S62 | ✅ 草案已生成（2026-04-27T05:15），提交审批。AudioBuffersManager 管理 inputBuffer_/outputBuffer_ 双缓冲区池（各8个 AudioBufferInfo），RequestAvailableIndex 阻塞等待（500ms）+ condition_variable 机制，ReleaseBuffer 重置状态+notify_all，AudioBufferInfo 双 AVSharedMemoryBase（数据+元数据），BufferStatus 枚举（IDLE/OWEN_BY_CLIENT），ResetBuffer 清空 EOS/首帧/使用标志。AudioCodecWorker 双 TaskThread（OS_AuCodecIn/OS_AuCodecOut）驱动流水线。与S50(AudioResample)/S8(FFmpeg音频)/S35(AudioDecoderFilter)关联。|
+
+## 新增主题（Builder 2026-04-27 第四批）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S63 | CodecDrmDecrypt DRM CENC 解密核心——NAL单元解析与SVP安全视频路径 | AVCodec, DRM, CENC, Decrypt, SVP, NALU, Subsample, CodecDrmDecrypt, ContentProtection | 三方应用/新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S63 | ✅ 草案已生成（2026-04-27T05:37），提交审批。CodecDrmDecrypt(764行codec_drm_decrypt.cpp)被CodecServer(codec_server.cpp:752)持有，DrmVideoCencDecrypt(codec_drm_decrypt.cpp:551)三步骤解密流程(DrmGetCencInfo→DrmModifyCencInfo去除防伪字节→DecryptMediaData→HDI解密)，NAL单元解析支持AVC/HEVC/AVS，起始码0x00000001，subsamples结构(AES-CTR)，SvpMode三种状态(SVP_CLEAR=-1/SVP_FALSE/SVP_TRUE)，CheckDrmSvpConsistency(codec_server.cpp:703)一致性校验。与S46(DecoderSurfaceFilter DRM)/S57(HDecoder DRM)/S41(DemuxerFilter DRM)关联。|
