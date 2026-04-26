@@ -348,10 +348,17 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S44 | MetaDataFilter 元数据过滤器——Surface模式时元数据注入与录制管线时戳同步 | AVCodec, MediaEngine, Filter, MetaData, TimedMetadata, Surface, RecorderPipeline, PTS | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S44 | ✅ 草案已生成（2026-04-26T07:51），SetInputMetaSurface Surface绑定，OnBufferAvailable消费流程，PTS=timestamp-startBufferTime-totalPausedTime暂停补偿，MetaDataFilterLinkCallback三路回调，GetInputMetaSurface创建ConsumerSurface |
+| S45 | SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S45 | ✅ 草案已生成（2026-04-26T08:20），builtin.player.surfacedecoder注册，三层调用链(SurfaceDecoderFilter→SurfaceDecoderAdapter→AVCodecVideoDecoder)，双监听器回调链(SurfaceDecoderAdapterCallback/SurfaceDecoderFilterLinkCallback)，ReleaseBuffer Task后台线程，HDR颜色空间处理 |
 
+## 新增主题（Builder 2026-04-26 续）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S45 | SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S45 | ✅ 草案已生成（2026-04-26T08:20），builtin.player.surfacedecoder注册，Filter层+SurfaceDecoderAdapter+AVCodecVideoDecoder三层，ReleaseBuffer Task后台线程 |
 
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-04-26T07:51 | Builder | 注册 S44：MetaDataFilter 元数据过滤器，Surface模式PTS同步机制，暂停时间补偿，MetaDataFilterLinkCallback三路回调 |
+| 2026-04-26T08:20 | Builder | 注册 S45：SurfaceDecoderFilter 视频解码过滤器，Filter层+SurfaceDecoderAdapter+AVCodecVideoDecoder三层，builtin.player.surfacedecoder，ReleaseBuffer Task后台线程，HDR颜色空间处理 |
