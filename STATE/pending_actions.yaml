@@ -290,3 +290,12 @@ pending:
     created_by: pm-loop
     created_at: "2026-04-26T07:05:00+08:00"
     awaiting: approve/revise/reject/hold
+
+  - type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S46
+    title: "DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件与 DRM/PostProcessor 两扩展"
+    scope: [AVCodec, MediaEngine, Filter, VideoDecoder, DecoderSurfaceFilter, FILTERTYPE_VDEC, VideoSink, VideoDecoderAdapter, DRM, PostProcessor, CameraPostProcessor, PlayerPipeline]
+    status: pending_approval
+    created_by: builder-agent
+    created_at: "2026-04-26T09:07:00+08:00"
+    awaiting: approve/revise/reject/hold

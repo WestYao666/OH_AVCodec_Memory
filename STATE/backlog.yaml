@@ -362,3 +362,15 @@
 |------|------|------|
 | 2026-04-26T07:51 | Builder | 注册 S44：MetaDataFilter 元数据过滤器，Surface模式PTS同步机制，暂停时间补偿，MetaDataFilterLinkCallback三路回调 |
 | 2026-04-26T08:20 | Builder | 注册 S45：SurfaceDecoderFilter 视频解码过滤器，Filter层+SurfaceDecoderAdapter+AVCodecVideoDecoder三层，builtin.player.surfacedecoder，ReleaseBuffer Task后台线程，HDR颜色空间处理 |
+
+## 新增主题（Builder 2026-04-26 续）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S46 | DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件与 DRM/PostProcessor 两扩展 | AVCodec, MediaEngine, Filter, VideoDecoder, DecoderSurfaceFilter, FILTERTYPE_VDEC, VideoSink, VideoDecoderAdapter, DRM, PostProcessor, CameraPostProcessor, PlayerPipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S46 | ✅ 草案已生成（2026-04-26T09:07），builtin.player.videodecoder注册，FILTERTYPE_VDEC，三组件架构(VideoDecoderAdapter+VideoSink+PostProcessor)，双回调链(FilterMediaCodecCallbackWithPostProcessor/FilterVideoPostProcessorCallback)，RenderLoop后台线程，SUPPORT_DRM解密，Camera PostProcessor(SCENE_INSERT_FRAME/MP_PWP)，硬件回退机制(EVENT_HW_DECODER_UNSUPPORT_CAP)，与S45(SurfaceDecoderFilter)对称 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-04-26T09:07 | Builder | 注册 S46：DecoderSurfaceFilter 视频解码过滤器，builtin.player.videodecoder/FILTERTYPE_VDEC，VideoDecoderAdapter+VideoSink+PostProcessor三层组件，RenderLoop后台线程，DRM解密集成，Camera PostProcessor，硬件→软件解码器自动回退 |
