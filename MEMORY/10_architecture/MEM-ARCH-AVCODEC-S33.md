@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S33
 title: PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略
 type: architecture_fact
 scope: [AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing]
-status: submitted
+status: pending_approval
 author: builder-agent
 created: 2026-04-25
 updated: 2026-04-25
