@@ -450,3 +450,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S58 | MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析 | AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, Track, SampleTable, mse | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S58 | ✅ 草案已生成（2026-04-26T22:30），MPEG4AtomParser 4396行box解析引擎，47项ParseFunction路由表，Track链表结构(CodecParams+MPEG4SampleHelper+displayMatrix)，五级层级深度(MPEG4_ROOT_DEPTH→MPEG4_DEPTH_FOUR)，stts/stss/ctts/stsc/stsz/stco六表委托MPEG4SampleHelper，avcC/hvcC/vvcC三合一CodecConfig，ParseMoof分片解析(FragmentEntry+TFHD/TRUN)，HDR_VIVID检测(CUVA特征串)，EditList(elst)时间偏移机制，QUICKTIME_EPOCH_OFFSET=2082844800，FourCC→MimeType映射(30+条)，AAC/FLAC/PCM通道布局表，displayMatrix旋转/翻转映射(8类)，与S41(DemuxerFilter)上下游关系 |
+
+## 新增主题（Builder 2026-04-27）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S59 | AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机 | AVCodec, VideoEncoder, HardwareCodec, H.264, AVC, dlopen, StateMachine, BlockQueue, MediaCodecCallback | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S59 | ✅ 草案已生成（2026-04-27T01:10），AvcEncoder继承CodecBase，dlopen加载libavcenc_ohos.z.so，三函数指针(avcEncoderCreateFunc/Frame/Delete)，九状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/FLUSHING/EOS/ERROR)，双BlockQueue(inputAvailQue/codecAvailQue)，FBuffer四态缓冲区所有权(OWNED_BY_US/CODEC/USER/SURFACE)，SendFrame TaskThread驱动，首帧EncoderAvcHeader写入SPS/PPS，支持NV12/NV21/YUV420/RGBA输入，支持CBR/VBR/CQ三种码率模式，Profile仅Baseline+Main，与S42(VideoEncoder基类)/S57(HDecoder/HEncoder)互补 |

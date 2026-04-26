@@ -1,7 +1,28 @@
 pending:
 - type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S59
+  title: AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机
+  scope:
+  - AVCodec
+  - VideoEncoder
+  - HardwareCodec
+  - H.264
+  - AVC
+  - dlopen
+  - StateMachine
+  - BlockQueue
+  - MediaCodecCallback
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T01:10:00+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: AvcEncoder是硬件H.264/AVC编码器具体实现，继承CodecBase，dlopen加载libavcenc_ohos.z.so，三函数指针(avcEncoderCreateFunc/Frame/Delete)，九状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/FLUSHING/EOS/ERROR)，双BlockQueue缓冲(inputAvailQue/codecAvailQue)，FBuffer四态缓冲区所有权(OWNED_BY_US/CODEC/USER/SURFACE)，SendFrame
+    TaskThread驱动，首帧EncoderAvcHeader写入SPS/PPS，支持NV12/NV21/YUV420/RGBA输入，CBR/VBR/CQ码率模式，Profile仅Baseline+Main。与S42(VideoEncoder基类)/S57(HDecoder/HEncoder)/S36(VideoEncoderFilter)构成完整编码栈。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S59.md
+  backlog_section: 新增主题（Builder 2026-04-27）
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S10
-  title: "SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发"
+  title: SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发
   scope:
   - AVCodec
   - MediaEngine
@@ -63,7 +84,7 @@ pending:
   - 与S41(DemuxerFilter)上下游关系
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S57
-  title: "HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链"
+  title: HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链
   scope:
   - AVCodec
   - HardwareCodec
@@ -817,7 +838,9 @@ pending_actions:
   status: pending_approval
   created_by: builder-agent
   created_at: '2026-04-26T17:40:00+08:00'
-  summary: FCodec是统一软件视频解码器类，H.264基于FFmpeg libavcodec（avcodec_send_packet/receive_frame），支持14种格式（AVC/H263/MPEG2/MPEG4/MJPEG/WMV3/VC1等）。能力注册：5120x5120分辨率/120fps/Baseline+Main+High Profile/Level 0-62。双TaskThread驱动（SendFrame/ReceiveFrame），AVERROR_INVALIDDATA正常处理（帧缺失），AVERROR_EOF流结束。与S51(Av1Decoder)对比：FCodec统一类vs Av1Decoder独立类两种软件解码架构。
+  summary: FCodec是统一软件视频解码器类，H.264基于FFmpeg libavcodec（avcodec_send_packet/receive_frame），支持14种格式（AVC/H263/MPEG2/MPEG4/MJPEG/WMV3/VC1等）。能力注册：5120x5120分辨率/120fps/Baseline+Main+High
+    Profile/Level 0-62。双TaskThread驱动（SendFrame/ReceiveFrame），AVERROR_INVALIDDATA正常处理（帧缺失），AVERROR_EOF流结束。与S51(Av1Decoder)对比：FCodec统一类vs
+    Av1Decoder独立类两种软件解码架构。
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S53.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S53注册）
 - type: approval_request
@@ -840,7 +863,6 @@ pending_actions:
   summary: TimeAndIndexConversion模块负责MP4/MOV容器文件的PTS与帧索引双向转换，解析STTS(sampleDelta)和CTTS(sampleOffset)建立DTS→PTS映射，支持B帧场景。核心算法：PTS→Index通过absolutePTS零点+双表联合遍历，Index→PTS通过STTS累积计算。
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S52.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S52注册）
-
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S54
   title: HevcDecoder + VpxDecoder 视频解码器——HEVC(H.265)/VP8/VP9 解码管线
@@ -859,13 +881,14 @@ pending_actions:
   status: pending_approval
   created_by: builder-agent
   created_at: '2026-04-26T18:06:00+08:00'
-  summary: HevcDecoder加载vendor库libhevcdec_ohos.z.so（HDI四函数Create/Decode/Flush/Delete），SendFrame单线程+分包循环DecodeFrameOnce；VpxDecoder封装libvpx（vpx_codec_decode/get_frame），支持VPX_CODEC_USE_FRAME_THREADING帧线程。HEVC能力(1920x1920@30fps/Main+Main_10 Profile)，VP9能力(3840x2160@130fps/Profile 0-1)，VP8能力(3840x2160@60fps)。四类解码器横向对比：HevcDecoder(HDI)/VpxDecoder(libvpx)/FCodec(libavcodec双线程)/Av1Decoder(dav1d)。
+  summary: HevcDecoder加载vendor库libhevcdec_ohos.z.so（HDI四函数Create/Decode/Flush/Delete），SendFrame单线程+分包循环DecodeFrameOnce；VpxDecoder封装libvpx（vpx_codec_decode/get_frame），支持VPX_CODEC_USE_FRAME_THREADING帧线程。HEVC能力(1920x1920@30fps/Main+Main_10
+    Profile)，VP9能力(3840x2160@130fps/Profile 0-1)，VP8能力(3840x2160@60fps)。四类解码器横向对比：HevcDecoder(HDI)/VpxDecoder(libvpx)/FCodec(libavcodec双线程)/Av1Decoder(dav1d)。
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S54.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S54注册）
-
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S55
-  title: "AVCodec 模块间回调链路——CodecCallback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback 四路回调架构"
+  title: AVCodec 模块间回调链路——CodecCallback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback
+    四路回调架构
   scope:
   - AVCodec
   - Callback
@@ -883,13 +906,14 @@ pending_actions:
   status: pending_approval
   created_by: builder-agent
   created_at: '2026-04-26T19:10:00+08:00'
-  summary: "四路独立回调链路：①CodecCallback(HDI解码器→MediaCodec)，②MediaCodecCallback(引擎内部Buffer模式)，③CodecBaseCallback(CodecBase→CodecServer/AudioCodecServer)，④CodecListenerCallback(IPC跨进程 CodecServer→CodecClient)。CodecListenerStub→CodecServiceStub→CodecListenerCallback→videoCb_ IPC回调环，AudioCodecServer双回调(CodecBaseCallback+VCodecBaseCallback)，PostProcessingCallback特殊路径。"
+  summary: 四路独立回调链路：①CodecCallback(HDI解码器→MediaCodec)，②MediaCodecCallback(引擎内部Buffer模式)，③CodecBaseCallback(CodecBase→CodecServer/AudioCodecServer)，④CodecListenerCallback(IPC跨进程
+    CodecServer→CodecClient)。CodecListenerStub→CodecServiceStub→CodecListenerCallback→videoCb_
+    IPC回调环，AudioCodecServer双回调(CodecBaseCallback+VCodecBaseCallback)，PostProcessingCallback特殊路径。
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S55.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S55注册）
-
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S56
-  title: "VideoSink 视频渲染同步器——DoSyncWrite 渲染决策与 VideoLagDetector 卡顿追踪"
+  title: VideoSink 视频渲染同步器——DoSyncWrite 渲染决策与 VideoLagDetector 卡顿追踪
   scope:
   - AVCodec
   - MediaEngine
@@ -909,6 +933,6 @@ pending_actions:
   status: pending_approval
   created_by: builder-agent
   created_at: '2026-04-26T20:25:00+08:00'
-  summary: "VideoSink是播放管线视频渲染同步单元，继承MediaSynchronousSink。DoSyncWrite渲染决策入口，CheckBufferLatenessMayWait计算diff判early/late，CalcBufferDiff三元组算法（锚点差/视频帧差/初始等待期）。前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，关键帧不丢原则。内嵌VideoLagDetector追踪lagTimes/maxLagDuration/avgLagDuration通过DFX上报。IMediaSynchronizer优先级VIDEO_SINK=0是播放管线时钟锚点供应方，与AudioSink(优先级2)/SubtitleSink(优先级8)并列。与S32(VideoRenderFilter)持有关系，S22(MediaSyncManager)协同。"
+  summary: VideoSink是播放管线视频渲染同步单元，继承MediaSynchronousSink。DoSyncWrite渲染决策入口，CheckBufferLatenessMayWait计算diff判early/late，CalcBufferDiff三元组算法（锚点差/视频帧差/初始等待期）。前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，关键帧不丢原则。内嵌VideoLagDetector追踪lagTimes/maxLagDuration/avgLagDuration通过DFX上报。IMediaSynchronizer优先级VIDEO_SINK=0是播放管线时钟锚点供应方，与AudioSink(优先级2)/SubtitleSink(优先级8)并列。与S32(VideoRenderFilter)持有关系，S22(MediaSyncManager)协同。
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S56.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S56注册）
