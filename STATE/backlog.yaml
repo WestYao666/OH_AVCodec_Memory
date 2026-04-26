@@ -479,4 +479,6 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
+| S64 | AVBuffer Signal/Wait 异步驱动机制——AVBufferQueue 条件变量与 CodecBase 三队列信号链 | AVCodec, AVBuffer, Signal, AsyncMode, AVBufferQueue, Wait, Event-driven, Pipeline, CodecBase, Callback | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S64 | ✅ 草案已生成（2026-04-27T06:06），AVBuffer signal_/wait_ 双条件变量驱动，AVBufferQueue 生产-消费信号链，CodecBase 三队列(inputAvailQue/codecAvailQue/renderAvailQue)，双 TaskThread 异步编解码(SendFrame/ReceiveFrame)，AudioCodecWorker RequestAvailableIndex 500ms 等待，VideoSink DoSyncWrite 渲染决策，IS_FILTER_ASYNC 异步标志，与S35(S39/S53/S56/S62/S21)关联 |
+
 | S63 | CodecDrmDecrypt DRM CENC 解密核心——NAL单元解析与SVP安全视频路径 | AVCodec, DRM, CENC, Decrypt, SVP, NALU, Subsample, CodecDrmDecrypt, ContentProtection | 三方应用/新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S63 | ✅ 草案已生成（2026-04-27T05:37），提交审批。CodecDrmDecrypt(764行codec_drm_decrypt.cpp)被CodecServer(codec_server.cpp:752)持有，DrmVideoCencDecrypt(codec_drm_decrypt.cpp:551)三步骤解密流程(DrmGetCencInfo→DrmModifyCencInfo去除防伪字节→DecryptMediaData→HDI解密)，NAL单元解析支持AVC/HEVC/AVS，起始码0x00000001，subsamples结构(AES-CTR)，SvpMode三种状态(SVP_CLEAR=-1/SVP_FALSE/SVP_TRUE)，CheckDrmSvpConsistency(codec_server.cpp:703)一致性校验。与S46(DecoderSurfaceFilter DRM)/S57(HDecoder DRM)/S41(DemuxerFilter DRM)关联。|
