@@ -790,3 +790,29 @@ pending_actions:
   summary: "四路独立回调链路：①CodecCallback(HDI解码器→MediaCodec)，②MediaCodecCallback(引擎内部Buffer模式)，③CodecBaseCallback(CodecBase→CodecServer/AudioCodecServer)，④CodecListenerCallback(IPC跨进程 CodecServer→CodecClient)。CodecListenerStub→CodecServiceStub→CodecListenerCallback→videoCb_ IPC回调环，AudioCodecServer双回调(CodecBaseCallback+VCodecBaseCallback)，PostProcessingCallback特殊路径。"
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S55.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S55注册）
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S56
+  title: "VideoSink 视频渲染同步器——DoSyncWrite 渲染决策与 VideoLagDetector 卡顿追踪"
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Sink
+  - VideoSync
+  - VideoRender
+  - Sync
+  - DoSyncWrite
+  - VideoLagDetector
+  - MediaSynchronousSink
+  - IMediaSynchronizer
+  - CheckBufferLatenessMayWait
+  - CalcBufferDiff
+  - LagDetector
+  - IMediaSyncCenter
+  - VideoSink
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T20:25:00+08:00'
+  summary: "VideoSink是播放管线视频渲染同步单元，继承MediaSynchronousSink。DoSyncWrite渲染决策入口，CheckBufferLatenessMayWait计算diff判early/late，CalcBufferDiff三元组算法（锚点差/视频帧差/初始等待期）。前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，关键帧不丢原则。内嵌VideoLagDetector追踪lagTimes/maxLagDuration/avgLagDuration通过DFX上报。IMediaSynchronizer优先级VIDEO_SINK=0是播放管线时钟锚点供应方，与AudioSink(优先级2)/SubtitleSink(优先级8)并列。与S32(VideoRenderFilter)持有关系，S22(MediaSyncManager)协同。"
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S56.md
+  backlog_section: 新增主题（Builder 2026-04-26 续 - S56注册）
