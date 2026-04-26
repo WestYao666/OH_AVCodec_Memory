@@ -456,3 +456,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S59 | AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机 | AVCodec, VideoEncoder, HardwareCodec, H.264, AVC, dlopen, StateMachine, BlockQueue, MediaCodecCallback | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S59 | ✅ 草案已生成（2026-04-27T01:10），AvcEncoder继承CodecBase，dlopen加载libavcenc_ohos.z.so，三函数指针(avcEncoderCreateFunc/Frame/Delete)，九状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/FLUSHING/EOS/ERROR)，双BlockQueue(inputAvailQue/codecAvailQue)，FBuffer四态缓冲区所有权(OWNED_BY_US/CODEC/USER/SURFACE)，SendFrame TaskThread驱动，首帧EncoderAvcHeader写入SPS/PPS，支持NV12/NV21/YUV420/RGBA输入，支持CBR/VBR/CQ三种码率模式，Profile仅Baseline+Main，与S42(VideoEncoder基类)/S57(HDecoder/HEncoder)互补 |
+
+## 新增主题（Builder 2026-04-27 第二批）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S60 | AAC 音频编解码 FFmpeg 插件——AudioFFMpegAacEncoder/DecoderPlugin 双插件与 ADTS/RESAMPLE 四通道 | AVCodec, AudioCodec, AAC, FFmpeg, ADTS, AudioResample, AudioBaseCodec, Plugin, AudioEncoder, AudioDecoder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S60 | ✅ 草案已生成（2026-04-27T01:51），提交审批。AudioFFMpegAacEncoderPlugin(encoder)+AudioFFMpegAacDecoderPlugin(decoder)，ADTS 7字节头，AudioResample needResample_自动触发，13档采样率，1-8通道布局，CodecRegister CRTP注册，组合vs继承架构差异。与S8(FFmpeg音频插件总览)/S50(AudioResample)关联。|

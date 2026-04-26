@@ -1,5 +1,43 @@
 pending:
 - type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S60
+  title: AAC 音频编解码 FFmpeg 插件——AudioFFMpegAacEncoder/DecoderPlugin 双插件与 ADTS/RESAMPLE
+    四通道
+  scope:
+  - AVCodec
+  - AudioCodec
+  - AAC
+  - FFmpeg
+  - ADTS
+  - AudioResample
+  - AudioBaseCodec
+  - Plugin
+  - AudioEncoder
+  - AudioDecoder
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T01:51:00+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: AudioFFMpegAacEncoderPlugin(encoder)和AudioFFMpegAacDecoderPlugin(decoder)是基于FFmpeg
+    libavcodec的AAC编解码插件。ADTS 7字节头生成(audio_ffmpeg_aac_encoder_plugin.cpp:84-99)，AudioResample
+    needResample_自动触发，13档采样率(7350-96000)，1-8通道布局(AV_CH_LAYOUT_MONO-7POINT1)，CodecRegister
+    CRTP模板注册。decoder使用组合(组合AudioFfmpegDecoderPlugin)而非继承。Codec名：OH.Media.Codec.Encoder.Audio.AAC
+    / OH.Media.Codec.Decoder.AAC。与S8(FFmpeg音频插件总览)/S50(AudioResample)/S24(S35)(Filter层)关联。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S60.md
+  backlog_section: 新增主题（Builder 2026-04-27 第二批）
+  evidence_count: 20
+  key_findings:
+  - 'AudioFFMpegAacEncoderPlugin: CodecRegister<AudioFFMpegAacEncoderPlugin> CRTP注册'
+  - 'AudioFFMpegAacDecoderPlugin: std::unique_ptr<AudioFfmpegDecoderPlugin> 组合模式'
+  - 'ADTS 7字节头: 0xFFF1 + profile(2bit) + freqIdx(4bit) + chanCfg(4bit)'
+  - 'sampleFreqMap: 13档采样率 (7350-96000 Hz)'
+  - 'channelLayoutMap: 1-8通道 (AV_CH_LAYOUT_MONO → AV_CH_LAYOUT_7POINT1)'
+  - 'needResample_: 当输入格式与encoder期望格式不匹配时自动触发AudioResample'
+  - 'GetAdtsHeader(): audio_ffmpeg_aac_encoder_plugin.cpp:84-99'
+  - 'Codec名: OH.Media.Codec.Encoder.Audio.AAC / OH.Media.Codec.Decoder.Audio.AAC'
+  - 'MD_KEY_AAC_IS_ADTS: ADTS(1) vs LATM(0) 格式判断'
+  - 'AV_SAMPLE_FMT_NONE: 支持S16LE/F32LE输出'
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S59
   title: AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机
   scope:
