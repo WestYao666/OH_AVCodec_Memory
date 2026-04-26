@@ -429,3 +429,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S54 | HevcDecoder + VpxDecoder 视频解码器——HEVC(H.265)/VP8/VP9 解码管线 | AVCodec, VideoDecoder, HevcDecoder, VpxDecoder, HEVC, H265, VP8, VP9, libhevcdec_ohos, libvpx, HDR | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S54 | ✅ 草案已生成（2026-04-26T18:06），HevcDecoder加载vendor库libhevcdec_ohos.z.so（HDI四函数：Create/Decode/Flush/Delete），VpxDecoder封装libvpx（vpx_codec_decode/get_frame），HevcDecoder单线程SendFrame+分包循环DecodeFrameOnce（与FCodec双线程不同），VpxDecoder支持VPX_CODEC_USE_FRAME_THREADING，HEVC能力注册(1920x1920@30fps/Main+Main_10 Profile)，VP9能力注册(3840x2160@130fps/Profile 0-1)，VP8能力注册(3840x2160@60fps)，四类解码器横向对比(S39/S51/S53/S54) |
+
+## 新增主题（Builder 2026-04-26 续 - S55注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S55 | AVCodec 模块间回调链路——CodecCallback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback 四路回调架构 | AVCodec, Callback, IPC, CodecClient, CodecServer, AudioCodecServer, CodecBase, MediaCodec, CodecListenerCallback, CodecListenerStub, CodecListenerProxy, ICodecComponentCallback, Binder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S55 | ✅ 草案已生成（2026-04-26T19:10），四路回调链路：CodecCallback(HDI→MediaCodec) / MediaCodecCallback(引擎内部) / CodecBaseCallback(CodecBase→CodecServer) / CodecListenerCallback(IPC跨进程 CodecServer→CodecClient)，CodecListenerStub→CodecServiceStub→CodecListenerCallback→videoCb_ IPC回调环，AudioCodecServer双回调(CodecBaseCallback+VCodecBaseCallback)，PostProcessingCallback特殊路径 |

@@ -766,3 +766,27 @@ pending_actions:
   summary: HevcDecoder加载vendor库libhevcdec_ohos.z.so（HDI四函数Create/Decode/Flush/Delete），SendFrame单线程+分包循环DecodeFrameOnce；VpxDecoder封装libvpx（vpx_codec_decode/get_frame），支持VPX_CODEC_USE_FRAME_THREADING帧线程。HEVC能力(1920x1920@30fps/Main+Main_10 Profile)，VP9能力(3840x2160@130fps/Profile 0-1)，VP8能力(3840x2160@60fps)。四类解码器横向对比：HevcDecoder(HDI)/VpxDecoder(libvpx)/FCodec(libavcodec双线程)/Av1Decoder(dav1d)。
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S54.md
   backlog_section: 新增主题（Builder 2026-04-26 续 - S54注册）
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S55
+  title: "AVCodec 模块间回调链路——CodecCallback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback 四路回调架构"
+  scope:
+  - AVCodec
+  - Callback
+  - IPC
+  - CodecClient
+  - CodecServer
+  - AudioCodecServer
+  - CodecBase
+  - MediaCodec
+  - CodecListenerCallback
+  - CodecListenerStub
+  - CodecListenerProxy
+  - ICodecComponentCallback
+  - Binder
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-26T19:10:00+08:00'
+  summary: "四路独立回调链路：①CodecCallback(HDI解码器→MediaCodec)，②MediaCodecCallback(引擎内部Buffer模式)，③CodecBaseCallback(CodecBase→CodecServer/AudioCodecServer)，④CodecListenerCallback(IPC跨进程 CodecServer→CodecClient)。CodecListenerStub→CodecServiceStub→CodecListenerCallback→videoCb_ IPC回调环，AudioCodecServer双回调(CodecBaseCallback+VCodecBaseCallback)，PostProcessingCallback特殊路径。"
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S55.md
+  backlog_section: 新增主题（Builder 2026-04-26 续 - S55注册）
