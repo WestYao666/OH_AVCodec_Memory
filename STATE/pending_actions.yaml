@@ -1175,3 +1175,39 @@ pending_actions:
   - 'MuxerPluginDef: MUXER_API_VERSION 1.0.0，interfaces/plugin/muxer_plugin.h'
   - 'WriteSample: 双模式(AVBufferQueue/直接调用)，media_muxer.cpp:261-284'
   - 'SetParameter: 元数据透传muxer_->SetParameter(param)，media_muxer.cpp:171-185'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S66
+  title: TypeFinder 媒体类型探测框架——SnifferPlugin 路由与 BaseStreamDemuxer 集成
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Demuxer
+  - Sniff
+  - Plugin
+  - TypeFinder
+  - DataSource
+  - StreamDemuxer
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T07:52:00+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: S66聚焦TypeFinder媒体类型探测框架(226行cpp+84行h)。TypeFinder继承enable_shared_from_this+Plugins::DataSource双继承，FindMediaType()入口路由到SniffMediaType()，PluginManagerV2::SnifferPlugin(PluginType::DEMUXER)遍历所有Demuxer插件执行Sniffer函数做媒体类型匹配；DEFAULT_SNIFF_SIZE=16KB、MAX_SNIFF_TRY_TIMES=20、MAX_TRY_TIMES=5重试逻辑；ReadAt()带condition_variable等待+中断支持；BaseStreamDemuxer持有typeFinder_(base_stream_demuxer.h:134)，InitTypeFinder()初始化DataSource回调链。与S41(DemuxerFilter)/S38(SourcePlugin)上下游关系，与S58(MPEG4BoxParser)容器解析互补。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S66.md
+  backlog_section: 新增主题（Builder 2026-04-27 S66注册）
+  evidence_count: 15
+  key_findings:
+  - 'TypeFinder双继承: enable_shared_from_this+Plugins::DataSource，type_finder.h:20'
+  - 'FindMediaType: 同步入口+pluginName_缓存，type_finder.cpp:96-107'
+  - 'SniffMediaType: PluginManagerV2::SnifferPlugin路由，type_finder.cpp:161-214'
+  - 'DEFAULT_SNIFF_SIZE=16KB，MAX_SNIFF_TRY_TIMES=20，MAX_TRY_TIMES=5'
+  - 'ReadAt重试: checkRange_验证+condition_variable+isInterruptNeeded_中断，type_finder.cpp:110-130'
+  - 'BaseStreamDemuxer持有typeFinder_，base_stream_demuxer.h:134'
+  - 'InitTypeFinder: 初始化DataSource回调链，base_stream_demuxer.cpp:82'
+  - 'SnifferPlugin: 遍历所有Demuxer插件匹配媒体类型'
+  - 'IsSniffNeeded: URI变化触发重新探测'
+  - 'SetInterruptState: condition_variable notify_all唤醒等待线程'
+  - 'WAIT_TIME=5ms条件变量等待'
+  - 'EnableSharedFromThis: shared_from_this()创建shared_ptr，type_finder.h:20'
+  - 'StreamDemuxer: TypeFinder用于多轨流探测'
+  - 'TypeFinderInterrupt: 代理中断到typeFinder_，base_stream_demuxer.cpp:113-116'
+  - '与S41(DemuxerFilter)/S38(SourcePlugin)/S58(MPEG4BoxParser)关联'
