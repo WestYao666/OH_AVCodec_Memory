@@ -468,3 +468,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S61 | 音频渲染核心组件——AudioSampleFormat/CalcMaxAmplitude/AudioSink三层引擎 | AVCodec, AudioCodec, AudioSink, MediaSynchronousSink, MediaSyncManager, AudioSampleFormat, CalcMaxAmplitude, PCM, AudioRendering | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S61 | ✅ 草案已生成（2026-04-27T03:54），提交审批。AudioSampleFormat(25种采样格式→位深映射)、CalcMaxAmplitude(PCM峰值振幅计算，支持8/16/24/32bit)、AudioSink(继承MediaSynchronousSink，syncerPriority_=AUDIO_SINK=2，OnWriteData回调链，AudioVivid固定80ms延迟补偿)。与S31(AudioSinkFilter Filter层)互补，S56(VideoSink对称)，S22(MediaSyncManager)关联。|
+
+## 新增主题（Builder 2026-04-27 第三批）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S62 | AudioBuffersManager 音频编解码双缓冲队列管理——AudioBufferInfo + AudioBuffersManager + AudioCodecWorker 三层架构 | AVCodec, AudioCodec, BufferManagement, AudioCodecWorker, AudioBuffersManager, AudioBufferInfo, AVSharedMemoryBase, PCM | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S62 | ✅ 草案已生成（2026-04-27T05:15），提交审批。AudioBuffersManager 管理 inputBuffer_/outputBuffer_ 双缓冲区池（各8个 AudioBufferInfo），RequestAvailableIndex 阻塞等待（500ms）+ condition_variable 机制，ReleaseBuffer 重置状态+notify_all，AudioBufferInfo 双 AVSharedMemoryBase（数据+元数据），BufferStatus 枚举（IDLE/OWEN_BY_CLIENT），ResetBuffer 清空 EOS/首帧/使用标志。AudioCodecWorker 双 TaskThread（OS_AuCodecIn/OS_AuCodecOut）驱动流水线。与S50(AudioResample)/S8(FFmpeg音频)/S35(AudioDecoderFilter)关联。|

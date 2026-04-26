@@ -1004,3 +1004,32 @@ pending_actions:
   - 'AudioVivid: FIX_DELAY_MS_AUDIO_VIVID=80ms固定延迟补偿'
   - 'DEFAULT_BUFFER_QUEUE_SIZE=8，APE_BUFFER_QUEUE_SIZE=30'
   - 'MediaSyncManager: AddSynchronizer/RemoveSynchronizer同步器注册管理'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S62
+  title: AudioBuffersManager 音频编解码双缓冲队列管理——AudioBufferInfo + AudioBuffersManager + AudioCodecWorker 三层架构
+  scope:
+  - AVCodec
+  - AudioCodec
+  - BufferManagement
+  - AudioCodecWorker
+  - AudioBuffersManager
+  - AudioBufferInfo
+  - AVSharedMemoryBase
+  - PCM
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T05:15:00+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: S62聚焦音频编解码双缓冲区管理架构：AudioBuffersManager管理inputBuffer_/outputBuffer_双池（各8个AudioBufferInfo），RequestAvailableIndex阻塞等待(500ms)+condition_variable，ReleaseBuffer重置+notify_all；AudioBufferInfo含双AVSharedMemoryBase（数据+元数据FLAGS_READ_WRITE/FLAGS_READ_ONLY），BufferStatus枚举(IDLE/OWEN_BY_CLIENT)，ResetBuffer清空EOS/首帧/标志；AudioCodecWorker双TaskThread(OS_AuCodecIn/OS_AuCodecOut)驱动编解码流水线。与S50(AudioResample)/S8(FFmpeg音频)/S35(AudioDecoderFilter)关联。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S62.md
+  backlog_section: 新增主题（Builder 2026-04-27 第三批）
+  evidence_count: 12
+  key_findings:
+  - 'AudioBuffersManager: 四队列核心(inBufIndexQue_/inBufIndexExist/bufferInfo_/isRunning_)'
+  - 'AudioBufferInfo: 双AVSharedMemoryBase(buffer_/metadata_)，ResetBuffer清空状态'
+  - 'RequestAvailableIndex: 阻塞500ms等待，condition_variable配合'
+  - 'ReleaseBuffer: ResetBuffer+inBufIndexQue_.push(index)+notify_all'
+  - 'BufferStatus: IDLE(空闲)/OWEN_BY_CLIENT(占用)两状态'
+  - 'AudioCodecWorker: inputBuffer_/outputBuffer_双AudioBuffersManager，8个缓冲区/池'
+  - 'OS_AuCodecIn/OS_AuCodecOut: TaskThread双线程驱动'
+  - 'DEFAULT_BUFFER_COUNT=8，DEFAULT_SLEEP_TIME=500ms常量'
