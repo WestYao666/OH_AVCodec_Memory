@@ -500,3 +500,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S67 | SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构 | AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, HLS, DASH, Rank | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S67 | ✅ 草案已生成（2026-04-27T08:21），四类源插件(File/Http/DataStream/FileFd)，rank=100最高优先级，HlsMediaDownloader三轨SegManager，DashMediaDownloader，Filter Pipeline最上游入口 |
+
+## 新增主题（Builder 2026-04-27 续 - S68注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S68 | FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, DemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, FLV, MKV, MPEGTS, MPEGPS, BitstreamFilter, ReadAhead, AVPacketWrapper, FFmpegFormatHelper, MultiStreamParser | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S68 | ✅ 草案已生成（2026-04-27T09:06），FFmpegDemuxerPlugin(4129行cpp)，avformat_open_input+av_read_frame+av_seek_frame三函数管线，25+容器格式(FLV/MKV/MPEGTS/MPEGPS/RM/WMV/OGG/MP3等)，FFmpegFormatHelper(1367行)类型转换，FFmpegDemuxerThread(895行)AVReadPacket回调，BitstreamFilter注入(h264_mp4toannexb/hevc_mp4toannexb)，LIVE_FLV_PROBE_SIZE=100KB×2快速探测，SOFT_LIMIT/HARD_LIMIT ReadAhead缓冲，MultiStreamParserManager多轨解析，与MPEG4DemuxerPlugin(S58)并列 |

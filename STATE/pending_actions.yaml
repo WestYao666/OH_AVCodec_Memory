@@ -1257,3 +1257,59 @@ pending_actions:
   - "dash/: dash_media_downloader.cpp/h, dash_mpd_downloader.cpp/h, dash_segment_downloader.cpp/h"
   - "download/: downloader.cpp/h, media_source_loading_request.cpp/h, http_curl_client.cpp/h"
   - "与 S41(S38/S37) 主题重叠，建议合并或确认 S67 为独立主题"
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S68
+  title: FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线
+  scope:
+  - AVCodec
+  - MediaEngine
+  - Demuxer
+  - FFmpeg
+  - Plugin
+  - DemuxerPlugin
+  - libavformat
+  - avformat_open_input
+  - av_read_frame
+  - av_seek_frame
+  - FLV
+  - MKV
+  - MPEGTS
+  - MPEGPS
+  - BitstreamFilter
+  - ReadAhead
+  - AVPacketWrapper
+  - FFmpegFormatHelper
+  - MultiStreamParser
+  status: pending_approval
+  created_by: builder-agent
+  created_at: "2026-04-27T09:06:00+08:00"
+  awaiting: approve/revise/reject/hold
+  summary: |
+    S68 梳理 FFmpegDemuxerPlugin（4129 行），它是基于 FFmpeg libavformat 的通用解封装插件，
+    与 MPEG4DemuxerPlugin（S58）并列，共同为 DemuxerFilter(S41) 提供解封装能力。
+    FFmpegDemuxerPlugin 通过 avformat_open_input 打开容器，av_read_frame 读取压缩帧，
+    av_seek_frame 定位，支持 20+ 容器格式（FLV/MKV/MPEGTS/MPEGPS/RM/WMV/OGG/MP3/AMR/AAC/FLAC/WAV/AVI/VOB/DTS/AC3 等）。
+    FFmpegFormatHelper（1367 行）负责 FFmpeg 类型到内部类型的双向转换。
+    FFmpegDemuxerThread（895 行）实现 AVReadPacket 回调函数，实现自定义 IO 读取。
+    关键特性：BitstreamFilter 注入（h264_mp4toannexb/hevc_mp4toannexb），
+    ReadAhead 软/硬缓冲区限制，LIVE_FLV 快速探测（100KB×2），HEIF 格式检测。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S68.md
+  backlog_section: 新增主题（Builder 2026-04-27 续 - S68注册）
+  evidence_count: 18
+  key_findings:
+  - "FFmpegDemuxerPlugin 覆盖 25+ 容器格式：FLV/MKV/MPEGTS/MPEGPS/RM/WMV/OGG/MP3/AMR/AAC/FLAC/WAV/AVI/VOB/DTS/AC3/CAF/APE/SRT/VTT/AIFF/AU/LRC/SAMI"
+  - "FFmpegFormatHelper: FFmpeg AVPixelFormat→RawVideoPixelFormat / AVMediaType→MediaType / format name→FileType（25+映射）"
+  - "BitstreamFilter 注入: h264_mp4toannexb (H.264) / hevc_mp4toannexb (HEVC) / mpeg4_ipmp / mpeg4_als"
+  - "LIVE_FLV_PROBE_SIZE=100KB×2: Live FLV 场景快速探测，避免长探测延迟"
+  - "ReadAhead 缓冲: cacheQueue_ 按 trackId 缓存，SOFT_LIMIT/HARD_LIMIT 根据文件大小和轨道数动态调整"
+  - "Seek 校准: IsEnableSeekTimeCalib 针对 MPEGTS/FLV/RM/HEVC_MP4 启用精确 Seek"
+  - "MultiStreamParserManager: 多轨解析，支持 HEVC/H264/VPX/MPEG4/SVQ3 视频流"
+  - "ReferenceParserManager: GOP 参考帧解析（SVC-TL / LTR 场景）"
+  - "HEIF 格式检测: IsHeifFormat() (Line 100) 检测 heif/heic 图像格式"
+  - "AVPacketWrapper: RAII 封装 AVPacket*，防止 FFmpeg 资源泄漏"
+  - "AVReadPacket 回调: 自定义 IO 上下文，支持 DataSource ReadAt 重试和超时"
+  - "DRM: GetDrmInfo 从流的 side data 读取 AES_GCM DRM 信息"
+  - "ReadSampleZeroCopy: 零拷贝读路径"
+  - "XCollie 看门狗: GetMediaInfo / SeekTo / ReadSample 均使用 SetTimer 超时保护"
+  - "与 MPEG4DemuxerPlugin 分工: FFmpegDemuxerPlugin 不处理 MP4/FLV，IsMpeg4File 时跳过"
+  - "与 S41 DemuxerFilter: FFmpegDemuxerPlugin 是 DemuxerFilter 底层的解封装引擎之一"
