@@ -506,3 +506,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S68 | FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, DemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, FLV, MKV, MPEGTS, MPEGPS, BitstreamFilter, ReadAhead, AVPacketWrapper, FFmpegFormatHelper, MultiStreamParser | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S68 | ✅ 草案已生成（2026-04-27T09:06），FFmpegDemuxerPlugin(4129行cpp)，avformat_open_input+av_read_frame+av_seek_frame三函数管线，25+容器格式(FLV/MKV/MPEGTS/MPEGPS/RM/WMV/OGG/MP3等)，FFmpegFormatHelper(1367行)类型转换，FFmpegDemuxerThread(895行)AVReadPacket回调，BitstreamFilter注入(h264_mp4toannexb/hevc_mp4toannexb)，LIVE_FLV_PROBE_SIZE=100KB×2快速探测，SOFT_LIMIT/HARD_LIMIT ReadAhead缓冲，MultiStreamParserManager多轨解析，与MPEG4DemuxerPlugin(S58)并列 |
+
+## 新增主题（Builder 2026-04-27 S69注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S69 | MediaDemuxer 核心解封装引擎——SampleQueue 缓冲队列与流控机制 | AVCodec, MediaDemuxer, SampleQueue, SampleQueueController, StreamDemuxer, BufferManagement, Streaming, AdaptiveBitrate, Demuxer, AVBufferQueue | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **pending_approval** | MEM-ARCH-AVCODEC-S69 | ✅ 草案已生成（2026-04-27T09:55），MediaDemuxer 6012行引擎，ReadLoop/SampleConsumerLoop 双 TaskThread，SampleQueue AVBufferQueue 缓冲，PTS 三时间戳，SampleQueueController 双水位线(START@5s/STOP@10s)，SpeedCountInfo 速度统计，BitrateSwitch 三状态机，StreamDemuxer CacheData 分片缓存，与 S41(DemuxerFilter)/S64(AVBuffer Signal/Wait)关联 |

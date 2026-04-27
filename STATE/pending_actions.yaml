@@ -1313,3 +1313,46 @@ pending_actions:
   - "XCollie 看门狗: GetMediaInfo / SeekTo / ReadSample 均使用 SetTimer 超时保护"
   - "与 MPEG4DemuxerPlugin 分工: FFmpegDemuxerPlugin 不处理 MP4/FLV，IsMpeg4File 时跳过"
   - "与 S41 DemuxerFilter: FFmpegDemuxerPlugin 是 DemuxerFilter 底层的解封装引擎之一"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S69
+  title: MediaDemuxer 核心解封装引擎——SampleQueue 缓冲队列与流控机制
+  scope:
+  - AVCodec
+  - MediaDemuxer
+  - SampleQueue
+  - SampleQueueController
+  - StreamDemuxer
+  - BufferManagement
+  - Streaming
+  - AdaptiveBitrate
+  - Demuxer
+  - AVBufferQueue
+  status: pending_approval
+  created_by: builder-agent
+  created_at: '2026-04-27T09:55:00+08:00'
+  awaiting: approve/revise/reject/hold
+  summary: |
+    S69 梳理 MediaDemuxer（6012行）核心解封装引擎及其 SampleQueue 缓冲队列系统。
+    MediaDemuxer 管理 per-track 的 SampleQueue（封装 AVBufferQueue）+ SampleQueueController（流控策略），
+    通过 ReadLoop/SampleConsumerLoop 双 TaskThread 驱动生产和消费。
+    SampleQueue（773+157行）包含 PushBuffer/AcquireBuffer/RollbackBuffer/BitrateSwitch 四大操作，
+    以及 PTS 三时间戳（lastEnter/lastOut/lastEnd）和 keyFramePtsSet_ 关键帧追踪。
+    SampleQueueController（300+90行）实现双水位线启停算法（START@5s/STOP@10s）防止震荡，
+    SpeedCountInfo 速度统计（总帧数/有效运行时间），PlayStrategy 缓冲配置（首次2s/正常20s×0.6）。
+    StreamDemuxer（492行）管理 DASH/HTTP 流式读取的 CacheData 缓存。
+    与 S41(DemuxerFilter)上下游关系，与 S64(AVBuffer Signal/Wait)底层信号机制关联。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S69.md
+  backlog_section: 新增主题（Builder 2026-04-27 S69注册）
+  evidence_count: 0
+  key_findings:
+  - "MediaDemuxer: 6012行核心引擎，per-track ReadLoop/SampleConsumerLoop 双 TaskThread"
+  - "SampleQueue: AVBufferQueue 委托缓冲，PTS 三时间戳(lastEnter/lastOut/lastEnd)"
+  - "SampleQueue PushBuffer: IsKeyFrame 时插入 keyFramePtsSet_，触发 BitrateSwitch"
+  - "SampleQueue RollbackBuffer: 出错时回滚队列，PopRollbackBuffer 优先取回退 buffer"
+  - "SampleQueueController: 双水位线 START@5s/STOP@10s 防震荡，CONSUME_RATE=0.6"
+  - "SpeedCountInfo: 总帧数/有效运行时间，GetSpeed() = totalFrameCount×1e6/totalEffectiveRunTimeUs"
+  - "firstBufferingDuration_: 首次起播用 2s，正常播放用 bufferingDuration×0.6，上限 5s"
+  - "BitrateSwitch: SelectBitrateStatus 三状态(NORMAL/READY_SWITCH/SWITCHING)，关键帧+3s间隔"
+  - "StreamDemuxer CacheData: IsDash()/IsDataSrcNoSeek 时缓存分片，PullDataWithCache"
+  - "MediaDemuxer × Filter: AddSampleBufferQueue → bufferQueueProducerMap_ → DemuxerFilter(S41)"
