@@ -1211,3 +1211,49 @@ pending_actions:
   - 'StreamDemuxer: TypeFinder用于多轨流探测'
   - 'TypeFinderInterrupt: 代理中断到typeFinder_，base_stream_demuxer.cpp:113-116'
   - '与S41(DemuxerFilter)/S38(SourcePlugin)/S58(MPEG4BoxParser)关联'
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S67
+  title: SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构
+  scope:
+  - AVCodec
+  - MediaEngine
+  - SourcePlugin
+  - ProtocolType
+  - FileSource
+  - HttpSource
+  - DataStreamSource
+  - FileFdSource
+  - Plugin
+  - HLS
+  - DASH
+  - Rank
+  status: pending_approval
+  created_by: builder-agent
+  created_at: "2026-04-27T08:21:00+08:00"
+  awaiting: approve/revise/reject/hold
+  summary: |
+    S67 梳理 SourcePlugin 源插件体系，它是 Filter Pipeline 最上游的数据入口。
+    四类源插件（FileSource/FILE、FileFdSource/FD、HttpSourcePlugin/HTTP、DataStreamSource/STREAM），
+    均实现 Plugins::SourcePlugin 接口（SetSource/Read/GetSize）。
+    HTTP 源插件内部采用 MediaDownloader 分层架构：
+    HlsMediaDownloader（HLS m3u8 路由，video/audio/subtitle 三轨 SegManager）、
+    DashMediaDownloader（MPD 解析）。
+    rank=100 是最高优先级，FileFdSource 使用 RingBuffer 40MB 云端预读，DataStreamSource 使用 AVSharedMemoryPool 内存池。
+    与 DemuxerFilter(S41) 下游衔接，构成完整播放管线入口。
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S67.md
+  backlog_section: 新增主题（Builder 2026-04-27 续 - S67注册）
+  evidence_count: 12
+  key_findings:
+  - "PluginType::SOURCE: 所有源插件的共同类型"
+  - "FileFdSource rank=100: 最高优先级，isReadBlocking_ 云端预读阻塞"
+  - "HttpSourcePlugin: m3u8→HlsMediaDownloader / mpd→DashMediaDownloader / other→DownloadMonitor"
+  - "HlsMediaDownloader: 三轨 SegManager（video/audio/subtitle）"
+  - "SourcePlugin 统一接口: SetSource(source) / Read(buffer, offset, expectedLen) / GetSize()"
+  - "RingBuffer: FileFdSource 云端预读 40MB 环形缓冲（推测）"
+  - "AVSharedMemoryPool: DataStreamSource 内存池机制"
+  - "Filter Pipeline 上游: SourcePlugin → DemuxerFilter → DecoderFilter"
+  - "CheckIsM3U8Uri: 三种检测方式（suffix/uri contains/pairUri）"
+  - "dash/: dash_media_downloader.cpp/h, dash_mpd_downloader.cpp/h, dash_segment_downloader.cpp/h"
+  - "download/: downloader.cpp/h, media_source_loading_request.cpp/h, http_curl_client.cpp/h"
+  - "与 S41(S38/S37) 主题重叠，建议合并或确认 S67 为独立主题"
