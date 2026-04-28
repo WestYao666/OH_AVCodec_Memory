@@ -1,0 +1,10 @@
+# Orchestration Update - 2026-04-27T10:32 GMT+8
+source: feishu-minimax (subagent timeout event)
+session_key: agent:feishu-minimax:subagent:d2eba76d-7378-49c0-8cdd-864838dc58d2
+
+message: |
+  Builder agent (builder-agent) timed out after 9m49s while switching to a new topic.
+  Suggested next topic (already identified in agent's thinking before timeout):
+  - S70: VideoCodec 基类与工厂体系 — VideoDecoderFactory/VideoEncoderFactory 双工厂路由与四层 Loader 插件热加载
+    Covers: VideoDecoderFactory (CreateByMime/ByName), VideoEncoderFactory, VideoCodecLoader base (dlopen/dlsym), per-codec loaders (FCodecLoader, HevcDecoderLoader, etc.)
+  Action required: respawn builder-agent with above topic.
