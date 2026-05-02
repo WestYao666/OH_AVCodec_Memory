@@ -10,3 +10,11 @@
     backlog_status: pending_approval
     file: MEM-ARCH-AVCODEC-S70.md
     timestamp: "2026-05-02T16:39:00+08:00"
+- type: builder_completion
+    mem_id: MEM-ARCH-AVCODEC-S60
+    title: "AAC 音频编解码 FFmpeg 插件——AudioFFMpegAacEncoder/DecoderPlugin 双插件与 ADTS/RESAMPLE 四通道"
+    git_commits:
+        - ed6a8f9
+    backlog_status: pending_approval
+    file: MEM-ARCH-AVCODEC-S60.md
+    timestamp: "2026-05-02T18:17:00+08:00"
