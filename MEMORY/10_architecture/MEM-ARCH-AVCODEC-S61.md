@@ -2,7 +2,7 @@
 mem_id: MEM-ARCH-AVCODEC-S61
 title: 音频渲染核心组件——AudioSampleFormat/CalcMaxAmplitude/AudioSink三层引擎
 scope: [AVCodec, AudioCodec, AudioSink, MediaSynchronousSink, MediaSyncManager, AudioSampleFormat, CalcMaxAmplitude, PCM, AudioRendering]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: 2026-04-27T03:54:24+08:00
 ---
