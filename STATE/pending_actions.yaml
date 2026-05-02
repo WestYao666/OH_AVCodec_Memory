@@ -13,3 +13,25 @@ pending_approvals:
       主题：AudioCodec Worker Pipeline 整合视图
       证据来源：S50/S62/S60/S35/S8
       请审批（approve/revise/reject）
+  - mem_id: MEM-ARCH-AVCODEC-S67
+    type: approval_response
+    status: pending
+    submitted_at: "2026-05-03T03:33:00+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S67 草案已完成
+      主题：SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构
+      证据来源：file_fd_source_plugin.cpp / http_source_plugin.cpp / hls_media_downloader.h
+      请审批（approve/revise/reject）
+  - mem_id: MEM-ARCH-AVCODEC-S68
+    type: approval_response
+    status: pending
+    submitted_at: "2026-05-03T03:33:00+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S68 草案已完成
+      主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线
+      证据来源：ffmpeg_demuxer_plugin.cpp / ffmpeg_format_helper.cpp / ffmpeg_demuxer_thread.cpp
+      请审批（approve/revise/reject）
