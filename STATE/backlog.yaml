@@ -530,3 +530,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S73 | 三路 Sink 引擎同步架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 协作机制 | AVCodec, MediaEngine, Sink, MediaSync, VideoSink, AudioSink, SubtitleSink, IMediaSynchronizer, DoSyncWrite, MediaSyncManager, AVBufferQueue, Synchronizer, SyncCenter | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S73 | ✅ 草案已生成（2026-05-03T05:18），IMediaSynchronizer三路优先级(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)，VideoSink前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，CalcBufferDiff三元组算法(anchorDiff/videoDiff/thresholdAdjustedVideoDiff)，CheckBufferLatenessMayWait早迟判断，VideoLagDetector卡顿追踪，AudioSink双AVSharedMemoryBase，SubtitleSink RenderLoop独立线程(SUBTITME_LOOP_RUNNING)，SubtitleBufferState三状态(WAIT/SHOW/DROP)，RemoveTextTags HTML标签剥离，NotifyRender Tag::SUBTITLE_TEXT上报，NotifySeek清空字幕队列，与S31/S32/S49 Filter层封装互补，S22 MediaSyncManager关联 |
+
+## 新增主题（Builder 2026-05-03 S74注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S74 | FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构——libavformat 适配层与原生 MP4 Box 结构对比 | AVCodec, MuxerPlugin, FFmpeg, libavformat, MP4, BoxParser, Muxer, Plugin | 新需求开发/问题定位 | **pending** | MEM-ARCH-AVCODEC-S74 | ✅ 草案已生成（2026-05-03T06:33），FFmpegMuxerPlugin(1414行)基于libavformat九格式支持(MP4/M4A/MP3/WAV/AAC/FLAC/OGG/FLV/AMR)，AVFMT_FLAG_CUSTOM_IO自定义IO，WriteSample三分支(H264/HEVC/FLAC/普通)；Mpeg4MuxerPlugin(574行+917行box_parser+1256行basic_box)原生MP4 box手写实现，BasicBox五层级(ftyp/moov/trak/mdia/minf)，Track→BasicBox写入链，与S34(S65(S74)Filter层→Track管理→插件实现)互补 |

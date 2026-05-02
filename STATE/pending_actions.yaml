@@ -45,3 +45,14 @@ pending_approvals:
       主题：三路 Sink 引擎同步架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 协作机制
       证据来源：video_sink.cpp / audio_sink.cpp / subtitle_sink.cpp / i_media_sync_center.h / media_synchronous_sink.cpp
       请审批（approve/revise/reject）
+  - mem_id: MEM-ARCH-AVCODEC-S74
+    type: approval_response
+    status: pending
+    submitted_at: "2026-05-03T06:33:00+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S74 草案已完成
+      主题：FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构——libavformat 适配层与原生 MP4 Box 结构对比
+      证据来源：ffmpeg_muxer_plugin.cpp / mpeg4_muxer_plugin.cpp / basic_box.cpp / box_parser.cpp
+      请审批（approve/revise/reject）
