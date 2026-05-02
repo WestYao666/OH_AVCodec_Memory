@@ -34,4 +34,14 @@ pending_approvals:
       Builder 报告：S68 草案已完成
       主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线
       证据来源：ffmpeg_demuxer_plugin.cpp / ffmpeg_format_helper.cpp / ffmpeg_demuxer_thread.cpp
+      请审批（approve/revise/reject）  - mem_id: MEM-ARCH-AVCODEC-S73
+    type: approval_response
+    status: pending
+    submitted_at: "2026-05-03T05:18:00+08:00"
+    submitted_by: builder-agent
+    commit: 2f5f5a8
+    message: |
+      Builder 报告：S73 草案已完成
+      主题：三路 Sink 引擎同步架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 协作机制
+      证据来源：video_sink.cpp / audio_sink.cpp / subtitle_sink.cpp / i_media_sync_center.h / media_synchronous_sink.cpp
       请审批（approve/revise/reject）
