@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S70
 title: VideoCodec 工厂与 Loader 插件体系——CodecFactory 双工厂路由与四层 dlopen 热加载
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: 2026-05-02T16:45:00+08:00
 scope: [AVCodec, Factory, Loader, Plugin, dlopen, RTLD_LAZY, VideoDecoder, VideoEncoder, HardwareCodec, SoftwareCodec]
