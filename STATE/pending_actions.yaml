@@ -34,3 +34,24 @@
     backlog_status: pending_approval
     file: MEM-ARCH-AVCODEC-S61.md
     timestamp: "2026-05-02T18:33:00+08:00"
+# PM loop: draft found but no pending action - requesting approval
+- type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S67
+    title: "SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构"
+    backlog_status: pending_approval
+    file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S67.md
+    timestamp: "2026-05-02T21:02:00+08:00"
+- type: approval_request
+    mem_id: MEM-ARCH-AVCODEC-S68
+    title: "FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线"
+    backlog_status: pending_approval
+    file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S68.md
+    timestamp: "2026-05-02T21:02:00+08:00"
+
+- type: builder_completion
+    mem_id: MEM-ARCH-AVCODEC-S71
+    title: "CodecList 服务架构——三层能力查询体系（CodecListServer / CodecListCore / CodecAbilitySingleton）"
+    git_commits: []
+    backlog_status: pending_approval
+    file: MEM-ARCH-AVCODEC-S71.md
+    timestamp: "2026-05-02T21:03:00+08:00"

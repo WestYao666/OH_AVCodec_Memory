@@ -518,3 +518,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S70 | VideoCodec 工厂与 Loader 插件体系——CodecFactory 双工厂路由与四层 dlopen 热加载 | AVCodec, Factory, Loader, Plugin, dlopen, RTLD_LAZY, VideoDecoder, VideoEncoder, HardwareCodec, SoftwareCodec, FCodecLoader, HCodecLoader | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S70 | ✅ 草案已生成（2026-05-02T16:45），CodecFactory::CreateCodecByName 七路分发(CodecType)，VideoCodecLoader基类(RTLD_LAZY/dlsym)，七类专用Loader(FCodec/HCodec/Hevc/AvcEncoder/Av1/VP8/VP9)，引用计数CloseLibrary机制 |
+
+## 新增主题（Builder 2026-05-02 S71注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S71 | CodecList 服务架构——三层能力查询体系（CodecListServer / CodecListCore / CodecAbilitySingleton） | AVCodec, CodecList, Capability, SA, IPC, Singleton, FindDecoder, FindEncoder, GetCapability, CodecMimeType | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S71 | ✅ 草案已生成（2026-05-02T21:03），CodecListServer(SystemAbility)→CodecListCore(七项Check校验)→CodecAbilitySingleton(单例+倒排索引mimeCapIdxMap)，67种MIME类型，GetCapabilityList循环遍历最多200条目，自动重连IPC代理 |
