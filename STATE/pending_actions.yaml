@@ -1,5 +1,5 @@
-- type: approval_response
-  decision: approve
-  mem_id: MEM-ARCH-AVCODEC-S74
-  timestamp: "2026-05-03T06:50:00+08:00"
-  source: builder-agent subagent completion
+# pending_actions.yaml - 审批指令队列
+# 由审批监听器写入，主 PM Agent 消费
+
+queue: []
+last_updated: "2026-05-03T07:17:00+08:00"
