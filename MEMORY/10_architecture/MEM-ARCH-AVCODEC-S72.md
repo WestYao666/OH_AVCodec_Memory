@@ -4,7 +4,7 @@
 > **Title**: AudioCodec Worker Pipeline 整合视图——AudioResample + AudioBuffersManager + AudioCodecWorker 三层协作架构
 > **Type**: architecture
 > **Scope**: AVCodec, AudioCodec, WorkerThread, Pipeline, FFmpeg, BufferManagement, Resample, SwrContext
-> **Status**: draft
+> **Status**: pending_approval
 > **Created**: 2026-05-03T01:33:00+08:00
 > **Tags**: AudioCodec, AudioCodecWorker, AudioBuffersManager, AudioResample, SwrContext, TaskThread, Pipeline, FFmpeg, BufferManagement, libswresample
 
