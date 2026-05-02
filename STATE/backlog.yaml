@@ -512,3 +512,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S69 | MediaDemuxer 核心解封装引擎——SampleQueue 缓冲队列与流控机制 | AVCodec, MediaDemuxer, SampleQueue, SampleQueueController, StreamDemuxer, BufferManagement, Streaming, AdaptiveBitrate, Demuxer, AVBufferQueue | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **pending_approval** | MEM-ARCH-AVCODEC-S69 | ✅ 草案已生成（2026-04-27T09:55），MediaDemuxer 6012行引擎，ReadLoop/SampleConsumerLoop 双 TaskThread，SampleQueue AVBufferQueue 缓冲，PTS 三时间戳，SampleQueueController 双水位线(START@5s/STOP@10s)，SpeedCountInfo 速度统计，BitrateSwitch 三状态机，StreamDemuxer CacheData 分片缓存，与 S41(DemuxerFilter)/S64(AVBuffer Signal/Wait)关联 |
+
+## 新增主题（Builder 2026-05-02 S70注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S70 | VideoCodec 工厂与 Loader 插件体系——CodecFactory 双工厂路由与四层 dlopen 热加载 | AVCodec, Factory, Loader, Plugin, dlopen, RTLD_LAZY, VideoDecoder, VideoEncoder, HardwareCodec, SoftwareCodec, FCodecLoader, HCodecLoader | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S70 | ✅ 草案已生成（2026-05-02T16:45），CodecFactory::CreateCodecByName 七路分发(CodecType)，VideoCodecLoader基类(RTLD_LAZY/dlsym)，七类专用Loader(FCodec/HCodec/Hevc/AvcEncoder/Av1/VP8/VP9)，引用计数CloseLibrary机制 |

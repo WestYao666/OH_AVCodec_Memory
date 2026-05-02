@@ -1356,3 +1356,11 @@ pending_actions:
   - "BitrateSwitch: SelectBitrateStatus 三状态(NORMAL/READY_SWITCH/SWITCHING)，关键帧+3s间隔"
   - "StreamDemuxer CacheData: IsDash()/IsDataSrcNoSeek 时缓存分片，PullDataWithCache"
   - "MediaDemuxer × Filter: AddSampleBufferQueue → bufferQueueProducerMap_ → DemuxerFilter(S41)"
+
+- type: draft_submitted
+  mem_id: MEM-ARCH-AVCODEC-S70
+  title: "VideoCodec 工厂与 Loader 插件体系——CodecFactory 双工厂路由与四层 dlopen 热加载"
+  file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S70.md
+  submitted_by: builder-agent
+  submitted_at: 2026-05-02T16:45:00+08:00
+  waiting_approval: true
