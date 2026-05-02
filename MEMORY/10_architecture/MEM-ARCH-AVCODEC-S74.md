@@ -1,7 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S74
-status: draft
-created_at: "2026-05-03T06:33:00+08:00"
+status: approved
+approved_at: "2026-05-03T06:50:00+08:00"
 submitted_by: builder-agent
 ---
 
