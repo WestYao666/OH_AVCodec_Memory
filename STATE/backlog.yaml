@@ -535,4 +535,16 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S74 | FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构——libavformat 适配层与原生 MP4 Box 结构对比 | AVCodec, MuxerPlugin, FFmpeg, libavformat, MP4, BoxParser, Muxer, Plugin | 新需求开发/问题定位 | **pending** | MEM-ARCH-AVCODEC-S74 | ✅ 草案已生成（2026-05-03T06:33），FFmpegMuxerPlugin(1414行)基于libavformat九格式支持(MP4/M4A/MP3/WAV/AAC/FLAC/OGG/FLV/AMR)，AVFMT_FLAG_CUSTOM_IO自定义IO，WriteSample三分支(H264/HEVC/FLAC/普通)；Mpeg4MuxerPlugin(574行+917行box_parser+1256行basic_box)原生MP4 box手写实现，BasicBox五层级(ftyp/moov/trak/mdia/minf)，Track→BasicBox写入链，与S34(S65(S74)Filter层→Track管理→插件实现)互补 |
+| S74 | FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构——libavformat 适配层与原生 MP4 Box 结构对比 | AVCodec, MuxerPlugin, FFmpeg, libavformat, MP4, BoxParser, Muxer, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S74 | ✅ 草案已生成（2026-05-03T06:33）→草案确认（2026-05-03T06:48），FFmpegMuxerPlugin(1414行)基于libavformat九格式支持(MP4/M4A/MP3/WAV/AAC/FLAC/OGG/FLV/AMR)，AVFMT_FLAG_CUSTOM_IO自定义IO，WriteSample三分支(H264/HEVC/FLAC/普通)；Mpeg4MuxerPlugin(574行+917行box_parser+1256行basic_box)原生MP4 box手写实现，BasicBox五层级(ftyp/moov/trak/mdia/minf)，Track→BasicBox写入链，与S34(S65(S74)Filter层→Track管理→插件实现)互补 |
+
+## 新增主题（Builder 2026-05-03 S75注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S75 | MediaDemuxer 核心解封装引擎——六组件协作架构（MediaDemuxer + DemuxerPluginManager + StreamDemuxer + SampleQueue + SampleQueueController + TypeFinder） | AVCodec, Demuxer, MediaDemuxer, StreamDemuxer, SampleQueue, SampleQueueController, TypeFinder, DemuxerPluginManager, ReadLoop, FlowControl, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S75 | ✅ 草案已生成（2026-05-03T07:05），六组件架构(6012行主引擎MediaDemuxer+1159行插件管理DemuxerPluginManager+492行流式读取StreamDemuxer+773行缓冲队列SampleQueue+300行流控SampleQueueController+226行类型探测TypeFinder)，ReadLoop/SampleConsumerLoop双TaskThread驱动，SampleQueueController双水位线(START@5s/STOP@10s)，StreamDemuxer分片缓存(DASH/HLS/HTTP直播流)，与S41(S69)互补：S41为Filter层封装，S75为引擎层深度分析 |
+
+## 新增主题（Builder 2026-05-03 S76注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S76 | FFmpegDemuxerPlugin 音视频解封装插件——libavformat 封装与 av_read_frame 管线 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, FFmpegDemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, BitstreamFilter, AVPacketWrapper | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S76 | ✅ 草案已生成（2026-05-03T07:19），FFmpegDemuxerPlugin(4129行cpp)封装libavformat三函数(avformat_open_input/av_read_frame/av_seek_frame)，FFmpegDemuxerThread(895行)异步读线程AVReadPacket回调，FFmpegFormatHelper(1367行)25+容器格式支持，MultiStreamParserManager多轨Parser，BitstreamFilter注入(h264_mp4toannexb/hevc_mp4toannexb)，ReadAhead缓冲(SOFT_LIMIT/HARD_LIMIT)，LIVE_FLV_PROBE_SIZE=100KB×2快速探测，与S68(draft)/S41(DemuxerFilter)/S75(MediaDemuxer六组件)互补 |
