@@ -1,5 +1,27 @@
-# pending_actions.yaml - 审批指令队列
-# 由审批监听器写入，主 PM Agent 消费
+# pending_actions.yaml — 审批待处理队列
+# 自动生成，请勿手动编辑
 
-queue: []
-last_updated: "2026-05-03T07:17:00+08:00"
+pending_approvals:
+  - mem_id: MEM-ARCH-AVCODEC-S78
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T11:40:00+08:00"
+    submitted_by: builder-agent
+    commit: 1155ff5
+    message: |
+      Builder 报告：S78 草案已完成
+      主题：AudioServerSinkPlugin 音频渲染插件——AudioRenderer 集成、音频焦点中断与设备切换
+      证据来源：audio_server_sink_plugin.cpp (1495行)
+      请审批（approve/revise/reject）
+
+  - mem_id: MEM-ARCH-AVCODEC-S79
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T11:50:00+08:00"
+    submitted_by: builder-agent
+    commit: 1155ff5
+    message: |
+      Builder 报告：S79 草案已完成
+      主题：MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件——MPEG4AtomParser 五级原子层级与 FFmpegDemuxerPlugin 双轨并行
+      证据来源：mpeg4_demuxer_plugin.cpp (1625行)
+      请审批（approve/revise/reject）
