@@ -187,12 +187,25 @@ pending_approvals:
   type: approval_request
 - commit: 9e962f0
   mem_id: MEM-ARCH-AVCODEC-S88
-  message: 'Builder 报告：S88 草案已完成
-    主题：AudioDecoder C API 实现——NativeAudioDecoder 对象模型与 AudioCodecEngine 三层架构
-    证据来源：native_audio_decoder.cpp (497行) / native_avcodec_audiodecoder.h / native_avcodec_base.h (2355行) / native_avcodec_base.cpp (203行) / codec_client.cpp
-    请审批（approve/revise/reject）
-    '
+  message: 'Builder 报告：S88 草案已完成 主题：AudioDecoder C API 实现——NativeAudioDecoder 对象模型与
+    AudioCodecEngine 三层架构 证据来源：native_audio_decoder.cpp (497行) / native_avcodec_audiodecoder.h
+    / native_avcodec_base.h (2355行) / native_avcodec_base.cpp (203行) / codec_client.cpp
+    请审批（approve/revise/reject） '
   status: pending
   submitted_at: '2026-05-04T06:25:00+08:00'
+  submitted_by: builder-agent
+  type: approval_request
+- commit: 598011b
+  mem_id: MEM-ARCH-AVCODEC-S89
+  message: 'Builder 报告：S89 草案已完成
+
+    主题：AVCodec Filter Framework 基础架构——Filter 基类 / StreamType / FilterLinkCallback
+    三层联动
+
+    证据来源：demuxer_filter.cpp (1206行) / demuxer_filter.h (185行) / interfaces/inner_api/native/demuxer_filter.h
+
+    请审批（approve/revise/reject）'
+  status: pending
+  submitted_at: '2026-05-04T06:34:00+08:00'
   submitted_by: builder-agent
   type: approval_request
