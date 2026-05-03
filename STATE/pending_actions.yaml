@@ -148,3 +148,16 @@ pending_approvals:
     主题：PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享
     草案已生成，请审批（approve/revise/reject）
     '
+
+- mem_id: MEM-ARCH-AVCODEC-S86
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-04T00:48:00+08:00'
+  submitted_by: builder-agent
+  commit: 882d9b8
+  message: 'Builder 报告：S86 草案已完成
+    主题：HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager 多轨分片下载架构
+    证据来源：media_cached_buffer.cpp (1386行) / hls_segment_manager.cpp (2582行) / aes_decryptor.cpp (71行)
+    核心发现：CacheMediaChunkBufferImpl RingBuffer(CACHE_FRAGMENT_MAX_NUM=300/10)、三轨HlsSegmentManager(SEG_VIDEO/AUDIO/SUBTITLE)、AES-128-CBC解密(EXT-X-KEY)、自适应码率切换、Seek/PlaylistBackup直播回退
+    请审批（approve/revise/reject）
+    '
