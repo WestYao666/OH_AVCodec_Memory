@@ -31,11 +31,23 @@ pending_approvals:
     status: pending
     submitted_at: "2026-05-03T15:51:20+08:00"
     submitted_by: builder-agent
-    commit: ""
+    commit: "3c46edf"
     message: |
       Builder 报告：S76 草案已完成
       主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 封装与 av_read_frame 管线（深度分析版）
       证据来源：ffmpeg_demuxer_plugin.cpp (4129行) / ffmpeg_demuxer_thread.cpp (895行) / ffmpeg_format_helper.cpp (1367行)
+      请审批（approve/revise/reject）
+
+  - mem_id: MEM-ARCH-AVCODEC-S77
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T15:51:30+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S77 草案已完成
+      主题：AVCodec DFX 子系统——HiSysEvent/XCollie 超时看门狗/Trace 追踪/Dump 工具 四大支柱
+      证据来源：avcodec_sysevent.cpp / avcodec_xcollie.cpp / avcodec_dfx_component.cpp / avcodec_dump_utils.cpp
       请审批（approve/revise/reject）
 
 

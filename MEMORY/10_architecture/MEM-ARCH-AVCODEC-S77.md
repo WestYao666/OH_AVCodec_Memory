@@ -1,6 +1,6 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S77
-status: draft
+status: pending_approval
 submitted_by: builder-agent
 submitted_at: "2026-05-03T10:19:00+08:00"
 scope: AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent, HiSysEvent_Domain_MULTI_MEDIA, HiSysEvent_Domain_AVCODEC, ServiceStartEventWrite, CodecStartEventWrite, FaultEventWrite
