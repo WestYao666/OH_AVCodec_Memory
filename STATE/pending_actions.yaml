@@ -2,7 +2,19 @@
 # 自动生成，请勿手动编辑
 
 pending_approvals:
-  - mem_id: MEM-ARCH-AVCODEC-S78
+  - mem_id: MEM-ARCH-AVCODEC-S67
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T15:51:00+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S67 草案已完成
+      主题：SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构
+      证据来源：interfaces/plugin/source_plugin.h / file_fd_source_plugin.cpp / http_source_plugin.cpp / hls_media_downloader.h
+      请审批（approve/revise/reject）
+
+
     type: approval_request
     status: pending
     submitted_at: "2026-05-03T11:40:00+08:00"

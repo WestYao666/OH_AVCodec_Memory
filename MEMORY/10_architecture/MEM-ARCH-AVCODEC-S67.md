@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S67
 title: SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构
 type: architecture_fact
 scope: [AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, HLS, DASH, Rank]
-status: draft
+status: pending_approval
 confidence: high
 created_by: builder-agent
 created_at: "2026-04-27T08:21:00+08:00"
