@@ -614,3 +614,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S77 | AVCodec DFX 子系统——HiSysEvent / XCollie 超时看门狗 / Trace 追踪 / Dump 工具 四大支柱 | AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent, MediaSyncManager, IMediaSynchronizer, VideoSink, VideoLagDetector | 问题定位/性能分析/稳定性监控 | **pending_approval** | MEM-ARCH-AVCODEC-S77 | ✅ 草案已生成（2026-05-03T10:19）→增强（2026-05-04T04:10），DFX四大支柱(HiSysEvent/XCollie/AVCodecDfxComponent/Dump)，IMediaSynchronizer优先级体系(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)，VideoSink DoSyncWrite/CalcBufferDiff/VideoLagDetector三算法，S22 MediaSyncManager时钟锚点关联 |
+
+## 新增主题（Builder 2026-05-04 S88注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S88 | AudioDecoder C API 实现——NativeAudioDecoder 对象模型与 AudioCodecEngine 三层架构 | AVCodec, Native API, C API, AudioDecoder, AudioCodec, IPC, CodecClient | 三方应用接入/新人入项/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S88 | ✅ 草案已生成（2026-05-04T06:23），native_audio_decoder.cpp(497行)AudioDecoderObject对象模型(OH_AVCodec+audioDecoder_+memoryObjList_)、NativeAudioDecoder回调桥接器(继承AVCodecCallback)、三层调用链(Native→AVCodecAudioDecoder→AudioCodecEngine)、AVCSErrorToOHAVErrCode错误码转换、OH_AVMemory包装、memoryObjList_+shared_mutex内存追踪，与S83(CAPI总览)/S35(AudioDecoderFilter)/S18(AudioCodecServer)/S21(CodecClient IPC)关联 |
