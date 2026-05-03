@@ -138,3 +138,13 @@ pending_approvals:
     核心发现：GetSurface(Surface模式)/PushInputBuffer(Buffer模式)双路径、RegisterParameterCallback(Encoder独有)、isInputSurfaceMode_标志
     请审批（approve/revise/reject）
     '
+- mem_id: MEM-ARCH-AVCODEC-S85
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T22:45:00+08:00'
+  submitted_by: pm-agent
+  commit: ''
+  message: 'PM 检测：S85 草案已完成待审批
+    主题：PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享
+    草案已生成，请审批（approve/revise/reject）
+    '
