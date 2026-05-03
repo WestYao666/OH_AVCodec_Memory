@@ -4,175 +4,72 @@ id: MEM-ARCH-AVCODEC-S12
 status: pending_approval
 topic: VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册
 created_at: "2026-04-24T00:05:00+08:00"
-approved_by: null
-evidence: |
-  - source: /home/west/av_codec_repo/interfaces/inner_api/native/video_resize_filter.h
-    anchor: "AutoRegisterFilter g_registerVideoResizeFilter(\"builtin.transcoder.videoresize\", FilterType::FILTERTYPE_VIDRESIZE)"
-  - source: /home/west/av_codec_repo/services/media_engine/filters/video_resize_filter.cpp
-    anchor: "DetailEnhancerVideo::Create(), videoEnhancer_->GetInputSurface()/SetOutputSurface()"
-  - source: /home/west/av_codec_repo/services/media_engine/filters/sei_parser_filter.cpp
-    anchor: "AutoRegisterFilter g_registerSeiParserFilter(\"builtin.player.seiParser\", FilterType::FILTERTYPE_SEI)"
+updated_at: "2026-05-04T01:20:00+08:00"
 ---
 
-# MEM-ARCH-AVCODEC-S12: VideoResizeFilter 转码增强过滤器
+# MEM-ARCH-AVCODEC-S12
 
-## Metadata
+## 主题
+VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo 视频处理引擎与 FILTERTYPE_VIDRESIZE 插件注册
 
-| 字段 | 值 |
-|------|-----|
-| id | MEM-ARCH-AVCODEC-S12 |
-| title | VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册 |
-| scope | [AVCodec, MediaEngine, Filter, Transcoder, VideoProcessingEngine, VPE, Plugin] |
-| status | draft |
-| created_by | builder-agent |
-| created_at | 2026-04-23 |
-| type | architecture_fact |
-| confidence | medium |
+## 状态
+status: draft
 
-## 摘要
+## 源码证据
 
-VideoResizeFilter 是 media_engine filters 中专用于**视频转码（Transcoder）场景**的 Filter，注册名为 `"builtin.transcoder.videoresize"`，FilterType 为 `FILTERTYPE_VIDRESIZE`。
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:36-40`
+  - AutoRegisterFilter 注册：`"builtin.transcoder.videoresize"`, `FilterType::FILTERTYPE_VIDRESIZE`
+  - Lambda 工厂：`[](const std::string& name, const FilterType type)` 创建 VideoResizeFilter 实例
 
-其核心职责是在转码 Pipeline 中接收上一个 Filter 输出的 Video Surface，通过 **VideoProcessingEngine（VPE）DetailEnhancerVideo** 模块对视频进行分辨率变换（resize）和细节增强（detail enhance），输出到下一个 Filter 的 Surface。
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:131-149`
+  - Init() 流程：DetailEnhancerVideo::Create() 创建 VPE 引擎；ResizeDetailEnhancerVideoCallback 注册回调
+  - USE_VIDEO_PROCESSING_ENGINE 编译开关：无 VPE 模块时上报 MSERR_UNKNOWN 错误
 
-该 Filter 与 SeiParserFilter（SEI 解析）、VideoCaptureFilter（采集）同属 player/transcoder 辅助 Filter 体系。与播放 Pipeline 不同，转码 Pipeline 依赖 VideoResizeFilter 实现视频增强而非依赖硬件解码器直接输出 Surface。
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:166-192`
+  - Configure()：DetailEnhancerParameters = {"", DETAIL_ENH_LEVEL_MEDIUM}；videoEnhancer_->SetParameter(parameter_, SourceType::VIDEO)
+  - 无 VPE 模块时返回 ERROR_NULL_POINTER / ERROR_UNKNOWN
 
-## 关键类与接口
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:194-214`
+  - GetInputSurface()：videoEnhancer_->GetInputSurface() 获取输入 Surface
+  - SetOutputSurface()：videoEnhancer_->SetOutputSurface(surface) 设置输出 Surface
 
-### VideoResizeFilter
-- **文件**: `services/media_engine/filters/video_resize_filter.cpp`
-- **头文件**: `interfaces/inner_api/native/video_resize_filter.h`
-- **注册名**: `"builtin.transcoder.videoresize"`
-- **FilterType**: `FILTERTYPE_VIDRESIZE`
-- **LOG_DOMAIN**: `LOG_DOMAIN_SYSTEM_PLAYER`（"VideoResizeFilter"）
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:270-289`
+  - DoStart()：videoEnhancer_->Start() 启动 VPE；releaseBufferTask_ 后台线程释放缓冲区
+  - DoStop()：videoEnhancer_->Stop() 停止 VPE；notify_all() 唤醒 releaseBufferCondition_
 
-#### 核心方法
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:466-550`
+  - OnOutputBufferAvailable(index, flag)：indexs_ 队列收集；flag==DETAIL_ENH_BUFFER_FLAG_EOS 时标记 eosBufferIndex_
+  - ReleaseBuffer()：releaseBufferTask_ 后台线程 Loop；std::unique_lock + condition_variable 等待
+  - ReleaseOutputBuffer(indexs)：videoEnhancer_->ReleaseOutputBuffer(index, isEos)；eos 时 NotifyNextFilterEos()
 
-| 方法 | 职责 |
-|------|------|
-| `GetInputSurface()` | 获取 VPE DetailEnhancerVideo 的输入 Surface，供上游 Filter 写入 |
-| `SetOutputSurface(surface, width, height)` | 设置输出 Surface 及目标分辨率 |
-| `Configure(parameter)` | 配置转码参数，内部调用 VPE 配置接口 |
-| `SetCodecFormat(format)` | 设置 Codec 格式元数据 |
-| `LinkNext / UpdateNext / UnLinkNext` | 链式连接下游 Filter |
-| `OnOutputBufferAvailable(index, flag)` | 处理 VPE 输出 buffer，完成后回调通知下游 |
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:100-130`
+  - ResizeDetailEnhancerVideoCallback：实现 DetailEnhancerVideoCallback（OnError/OnOutputBufferAvailable）；OnError → OnVPEError(errorCode)
 
-### DetailEnhancerVideo（VPE 模块）
-- **来源**: `VideoProcessingEngine`（`USE_VIDEO_PROCESSING_ENGINE` 宏控制）
-- **创建**: `DetailEnhancerVideo::Create()`
-- **职责**: 视频细节增强与分辨率变换的硬件/软件协同处理
-- **回调**: `ResizeDetailEnhancerVideoCallback : DetailEnhancerVideoCallback`
+- 来源：`interfaces/inner_api/native/video_resize_filter.h:50-85`
+  - 私有成员：videoEnhancer_(DetailEnhancerVideo)、releaseBufferTask_(Task)、indexs_/eosBufferIndex_ 缓冲队列、currentFrameNum_ 原子计数器、releaseBufferMutex_/releaseBufferCondition_
 
-### VideoResizeFilterLinkCallback（内部类）
-- **职责**: 实现 `FilterLinkCallback`，将链式链接结果（AVBufferQueueProducer）转发给 VideoResizeFilter
+- 来源：`services/media_engine/filters/video_resize_filter.cpp:352-383`
+  - LinkNext()：VideoResizeFilterLinkCallback（FilterLinkCallback 实现）；nextFilter_->OnLinked() 级联链路建立
+  - SetParameter(EOS)：videoEnhancer_->NotifyEos() + eosPts_ 传播到下游 Filter
 
-## 数据流
+## 核心发现
 
-```
-转码 Pipeline（典型场景）:
-  DemuxerFilter（解封装）
-    → VideoDecoderFilter（解码）
-      → VideoResizeFilter（并行处理 Surface）
-          → DetailEnhancerVideo（VPE 视频增强）
-            → GetInputSurface() / SetOutputSurface()
-      → AudioEncoderFilter（编码）
-    → MuxerFilter（封装）
-```
+1. **FILTERTYPE_VIDRESIZE 注册**：注册名 "builtin.transcoder.videoresize"，AutoRegisterFilter 工厂模式，与 "builtin.player.seiParser"（S10）并列转码辅助 Filter
 
-关键流程：
-1. **DoPrepare()** → `videoEnhancer_ = DetailEnhancerVideo::Create()`
-2. **Configure(parameter)** → `videoEnhancer_->SetOutputSurface()` + 元数据配置
-3. **GetInputSurface()** → 将 VPE 输入 Surface 返回给上游 Filter（Decoder）作为渲染目标
-4. **OnOutputBufferAvailable(index, flag)** → VPE 回调，标记 buffer 完成，增强后推送给下游
+2. **DetailEnhancerVideo 双 Surface 模式**：GetInputSurface() 获取上游 Surface，SetOutputSurface() 注入下游 Surface，形成双 Surface 桥接；Configure() 设置 DETAIL_ENH_LEVEL_MEDIUM 增强级别
 
-## VPE（VideoProcessingEngine）集成
+3. **VPE 编译开关 USE_VIDEO_PROCESSING_ENGINE**：整个 VPE 调用受编译开关保护，无 VPE 模块时 Filter 降级为直接报错（MSERR_UNKNOWN），不提供无 VPE fallback
 
-VPE 是独立视频处理引擎模块，通过 `USE_VIDEO_PROCESSING_ENGINE` 宏控制编译：
+4. **ReleaseBuffer 后台线程**：releaseBufferTask_（"VideoResize" 命名线程）驱动 ReleaseBuffer Loop；OnOutputBufferAvailable 回调收集 index 到 indexs_ 队列，condition_variable 同步生产-消费
 
-```cpp
-#ifdef USE_VIDEO_PROCESSING_ENGINE
-#include "detail_enhancer_video.h"
-#include "detail_enhancer_video_common.h"
-std::shared_ptr<VideoProcessingEngine::DetailEnhancerVideo> videoEnhancer_;
-videoEnhancer_ = DetailEnhancerVideo::Create();
-std::shared_ptr<DetailEnhancerVideoCallback> detailEnhancerVideoCallback =
-    std::make_shared<ResizeDetailEnhancerVideoCallback>(shared_from_this());
-videoEnhancer_->SetCallback(detailEnhancerVideoCallback);
-#endif
-```
+5. **EOS 级联传播**：DETAIL_ENH_BUFFER_FLAG_EOS 标记最后一帧；ReleaseOutputBuffer(false) 不释放 EOS buffer → NotifyNextFilterEos() 通过 nextFilter_->SetParameter(EOS Meta) 传播到下游 Filter
 
-**ResizeDetailEnhancerVideoCallback** 处理来自 VPE 的两类回调：
-- `OnError(VPEAlgoErrCode)` → 调用 `VideoResizeFilter::OnVPEError(errorCode)` 上报错误
-- `OnState(VPEAlgoState)` → 预留状态通知（当前为空实现）
+## 依赖关系
+- S10（SeiParserFilter）—— 同为转码/播放辅助 Filter，并列关系
+- S15（SuperResolutionPostProcessor）—— 同为 VPE DetailEnhancer 系列后处理器
+- S33（PreProcessing FrameDropFilter）—— 预处理丢帧，与 VideoResizeFilter 构成转码 Pipeline 前后处理
 
-## Buffer 管理
-
-- VPE 处理完成后通过 `OnOutputBufferAvailable` 回调通知
-- `ReleaseBufferTask` 异步任务处理 buffer 释放，避免同步阻塞
-- 释放 mutex + condition_variable 控制并发释放
-
-```cpp
-std::mutex releaseBufferMutex_;
-std::condition_variable releaseBufferCondition_;
-std::shared_ptr<Task> releaseBufferTask_{nullptr};
-std::vector<uint32_t> indexs_;  // 待释放 buffer 索引
-```
-
-## 与其他 Filter 的关系
-
-| Filter | 注册名 | FilterType | 关系 |
-|--------|--------|-----------|------|
-| VideoResizeFilter | builtin.transcoder.videoresize | FILTERTYPE_VIDRESIZE | **本主题** |
-| VideoCaptureFilter | builtin.transcoder.videocapture | FILTERTYPE_VIDCAP | 同属 transcoder 辅助体系 |
-| VideoDecoderFilter | builtin.player.videodecoder | FILTERTYPE_VDEC | 上游数据源（写入 Surface） |
-| MuxerFilter | builtin.muxer | FILTERTYPE_MUXER | 下游数据汇（接收编码后数据） |
-| SeiParserFilter | builtin.player.seiParser | FILTERTYPE_SEI | 同属辅助 Filter（SEI 解析） |
-| AudioEncoderFilter | builtin.audioencoder | FILTERTYPE_AENC | 同级（音频编码） |
-
-## 调用者信息追踪
-
-VideoResizeFilter 实现了 `SetCallingInfo` 以支持按调用方（AppUid/AppPid/BundleName/InstanceId）上报错误：
-
-```cpp
-void SetCallingInfo(int32_t appUid, int32_t appPid, const std::string &bundleName, uint64_t instanceId);
-void SetFaultEvent(const std::string &errMsg);
-void SetFaultEvent(const std::string &errMsg, int32_t ret);
-```
-
-## Filter 注册机制（与 S5/S10 对比）
-
-VideoResizeFilter 与 SeiParserFilter 均通过 `AutoRegisterFilter` 模板注册到 Filter 工厂：
-
-```cpp
-// VideoResizeFilter
-static AutoRegisterFilter<VideoResizeFilter> g_registerVideoResizeFilter(
-    "builtin.transcoder.videoresize",
-    FilterType::FILTERTYPE_VIDRESIZE,
-    [](const std::string& name, const FilterType type) {
-        return std::make_shared<VideoResizeFilter>(name, type);
-    });
-
-// SeiParserFilter（S10）
-static AutoRegisterFilter<SeiParserFilter> g_registerSeiParserFilter(
-    "builtin.player.seiParser",
-    FilterType::FILTERTYPE_SEI,
-    [](const std::string &name, const FilterType type) {
-        return std::make_shared<SeiParserFilter>(name, type);
-    });
-```
-
-两者模式完全一致，差异仅在 FilterType 枚举值和具体 Filter 实现类。
-
-## 相关已有记忆
-
-- **MEM-ARCH-AVCODEC-S10**: SeiParserFilter SEI 解析过滤器（同属 transcoder/player 辅助 Filter）
-- **MEM-ARCH-AVCODEC-S5**: 四层 Loader 插件热加载机制（AutoRegisterFilter 注册机制同出一源）
-- **MEM-ARCH-AVCODEC-S3**: CodecServer Pipeline 数据流与状态机（VideoResizeFilter 位于 decoder 下游、muxer 上游）
-
-## 待补充
-
-- FILTERTYPE_VIDRESIZE 在 filter_type.h 中的枚举定义
-- DetailEnhancerVideo 完整 API（需查 VPE 模块头文件）
-- VideoResizeFilter 与 VideoCaptureFilter 的并用场景
-- VPE 错误码与 MediaAVCodec 错误码的映射关系
-- Transcoder 场景下 VideoResizeFilter 与 SurfaceCodec 的协作流程
+## 备注
+- 当前草案（2026-04-24）证据较简略，本次重新分析源码，行号级证据已更新（566行 cpp + 113行 h）
+- VideoResizeFilter 与 SuperResolutionPostProcessor（S15）均使用 DetailEnhancerVideo，但场景不同：VideoResizeFilter 用于转码分辨率变换，SuperResolutionPostProcessor 用于播放后处理超分
+- DETAIL_ENH_LEVEL_MEDIUM 为固定增强级别，无动态调整接口
