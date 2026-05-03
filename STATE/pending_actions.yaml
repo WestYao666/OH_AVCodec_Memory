@@ -49,3 +49,15 @@ pending_approvals:
       主题：AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式与 AVCodecMonitor 活性查询
       证据来源：avcodec_suspend.cpp (45行) / avcodec_monitor.cpp (32行)
       请审批（approve/revise/reject）
+
+  - mem_id: MEM-ARCH-AVCODEC-S82
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T14:48:00+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S82 草案已完成
+      主题：AVCodec Event Manager 事件管理框架——EventManager + StatisticsEventHandler + InstanceMemoryUpdateEventHandler + BackgroundEventHandler 四组件协作
+      证据来源：services/services/common/event_manager/ (2275行源码)
+      请审批（approve/revise/reject）
