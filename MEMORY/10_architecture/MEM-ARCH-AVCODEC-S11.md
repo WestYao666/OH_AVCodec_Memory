@@ -11,41 +11,46 @@ summary: |
   HCodec::Create(name)通过GetCapList()查到的能力列表匹配codec名称，返回HDecoder(解码)或HEncoder(编码)实例；
   OnAllocateComponent()中compMgr_->CreateComponent()向HDI服务创建OMX组件。
 evidence:
+  # 源码路径（本地镜像 /home/west/av_codec_repo，对应 GitCode master 分支）
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hcodec_list.cpp
-    anchor: "82-97"
-    desc: "GetManager()双模式工厂函数"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec_list.cpp
+    anchor: "Line 35-48: g_compMgrIpc/g_compMgrPassthru 双单例 + Listener 服务死亡监听"
+    desc: "静态 Manager 单例 + 服务死亡重置逻辑"
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hcodec_list.cpp
-    anchor: "56-79"
-    desc: "DecideMode()决定IPC还是Passthrough"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec_list.cpp
+    anchor: "Line 56-79: DecideMode() 决定 IPC 还是 Passthrough"
+    desc: "GetManager()双模式工厂函数（eng build 三段式强制/轮询决策）"
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hcodec_list.cpp
-    anchor: "142-149"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec_list.cpp
+    anchor: "Line 82-101: GetManager(bool, bool, bool) 工厂函数"
     desc: "GetCapList()从HDI获取硬件Codec能力列表"
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hcodec_list.cpp
-    anchor: "35-48"
-    desc: "g_compMgrIpc/g_compMgrPassthru单例+服务死亡监听"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec_list.cpp
+    anchor: "Line 112: GetManager(true) 用于能力查询"
+    desc: "GetCapList()从HDI获取硬件Codec能力列表（能力查询走Passthrough路径）"
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hcodec.cpp
-    anchor: "55-80"
-    desc: "HCodec::Create(name)工厂方法"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec_list.cpp
+    anchor: "Line 142-149: GetCapList() 带缓存的硬件能力查询"
+    desc: "GetCapList()从HDI获取硬件Codec能力列表"
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hcodec.cpp
-    anchor: "1503-1516"
-    desc: "OnAllocateComponent()调用CreateComponent"
-  - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hcodec_list.cpp
-    anchor: "159-171"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec_list.cpp
+    anchor: "Line 162-200: HCodecList::GetCapabilityList() + HdiCapToUserCap 能力转换"
     desc: "HCodecList::GetCapabilityList()能力转换"
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hdecoder.h
-    anchor: "29"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec.cpp
+    anchor: "Line 55-80: HCodec::Create(name) 工厂方法"
+    desc: "HCodec::Create(name)工厂方法"
+  - kind: local_file
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hcodec.cpp
+    anchor: "Line 1500-1520: OnAllocateComponent() + CreateComponent"
+    desc: "OnAllocateComponent()调用CreateComponent"
+  - kind: local_file
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hdecoder.h
+    anchor: "Line 29: class HDecoder"
     desc: "HDecoder类声明"
   - kind: local_file
-    path: /home/west/OH_AVCodec/services/engine/codec/video/hcodec/hencoder.h
-    anchor: "38"
+    path: /home/west/av_codec_repo/services/engine/codec/video/hcodec/hencoder.h
+    anchor: "Line 38: class HEncoder"
     desc: "HEncoder类声明"
 ---
 
@@ -78,11 +83,12 @@ HDecoder / HEncoder                     ▼                 ▼
 
 ## 2. 双模式工厂：GetManager()
 
-**文件**: `hcodec_list.cpp:82-97`
+**文件**: `hcodec_list.cpp:82-101`
 
 ```cpp
 sptr<ICodecComponentManager> GetManager(bool getCap, bool supportPassthrough, bool isSecure)
 {
+    lock_guard<mutex> lk(g_mtx);
     bool isPassthrough = getCap ? true : DecideMode(supportPassthrough, isSecure);
     sptr<ICodecComponentManager>& mng = (isPassthrough ? g_compMgrPassthru : g_compMgrIpc);
     if (mng) return mng;
@@ -156,11 +162,12 @@ std::shared_ptr<HCodec> HCodec::Create(const std::string &name)
 
 ## 6. OMX组件创建：OnAllocateComponent()
 
-**文件**: `hcodec.cpp:1503-1516`
+**文件**: `hcodec.cpp:1500-1520`
 
 ```cpp
 int32_t HCodec::OnAllocateComponent()
 {
+    HitraceMeterFmtScoped trace(HITRACE_TAG_ZMEDIA, "hcodec %s %s", __func__, caps_.compName.c_str());
     compMgr_ = GetManager(false,
         HCodecList::FindFeature(caps_.port.video.features, VIDEO_FEATURE_PASS_THROUGH).support,
         isSecure_);
@@ -178,9 +185,13 @@ int32_t HCodec::OnAllocateComponent()
 
 ## 7. 服务死亡监听
 
-**文件**: `hcodec_list.cpp:35-48`
+**文件**: `hcodec_list.cpp:35-52`
 
 ```cpp
+static mutex g_mtx;
+static sptr<ICodecComponentManager> g_compMgrIpc;
+static sptr<ICodecComponentManager> g_compMgrPassthru;
+
 class Listener : public ServStatListenerStub {
     void OnReceive(const ServiceStatus &status) override {
         if (status.serviceName == "codec_component_manager_service" &&
