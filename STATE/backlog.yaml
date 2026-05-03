@@ -596,3 +596,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S85 | PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享 | AVCodec, CAPI, Preprocessor, PreprocessorManager, PreprocessorEncoder, VideoEncoder, Surface, Crop, Downsample, FrameDrop, FastKitsInterface, SharedSurfaceManager, DualEncoder, PrimaryEncoder, SecondaryEncoder, SurfaceMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S85 | ✅ 草案已生成（2026-05-03T22:45），三层架构(Preprocessor+PreprocessorManager+PreprocessorEncoder)，Preprocessor三步校验(ValidateCrop→ValidateDownsampling→ValidateDropFrame)，Process三模式(Crop/Downsample/Copy)，EncoderThreadLoop(OS_Preproc_{id}_Loop)驱动预处理，ConsumerListener广播SharedSurface事件，Primary/Secondary双编码器共享PreprocessorManager，PixelFormat一致性校验，FastKitsInterface(CropRect/BICUBIC)+FrameDropFilter集成，与S33(S84)关联
+
+## 新增主题（Builder 2026-05-03 S86注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S86 | HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager 多轨分片下载架构 | AVCodec, MediaEngine, SourcePlugin, HLS, Streaming, Cache, RingBuffer, SegmentDownload, AES128, AdaptiveBitrate, M3U8, HttpSource | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S86 | ✅ 草案已生成（2026-05-03T23:34），MediaCachedBuffer RingBuffer(1386行)未在任何现有S-series记忆中记录；HlsSegmentManager(2582行)三轨分片管理(SEG_VIDEO/AUDIO/SUBTITLE)；AesDecryptor AES-128-CBC解密(71行)；自适应码率切换；Seek/PlaylistBackup直播回退；与S37(HttpSourcePlugin)/S38(SourcePlugin)关联，MediaCachedBuffer层首次深度分析
