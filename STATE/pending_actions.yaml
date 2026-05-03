@@ -161,3 +161,15 @@ pending_approvals:
     核心发现：CacheMediaChunkBufferImpl RingBuffer(CACHE_FRAGMENT_MAX_NUM=300/10)、三轨HlsSegmentManager(SEG_VIDEO/AUDIO/SUBTITLE)、AES-128-CBC解密(EXT-X-KEY)、自适应码率切换、Seek/PlaylistBackup直播回退
     请审批（approve/revise/reject）
     '
+- mem_id: MEM-ARCH-AVCODEC-S9
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-04T01:04:00+08:00'
+  submitted_by: builder-agent
+  commit: ''
+  message: 'Builder 报告：S9 草案已完成
+    主题：SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制
+    证据来源：fsurface_memory.h:32-37 / render_surface.h:59-81 / render_surface.cpp:436-499 / dma_swap.h+cpp
+    核心发现：Owner四态枚举(OWNED_BY_US/CODEC/USER/SURFACE)、三队列(renderAvailQue/codecAvailQue/requestSurfaceBufferQue)、FSCallback RegisterReleaseListener联动、FreezeBuffers SwapOut ioctl(DMA_BUF_RECLAIM_FD)、ActiveBuffers SwapIn ioctl(DMA_BUF_RESUME_FD)、CanSwapOut owner!=SURFACE约束
+    请审批（approve/revise/reject）
+    '
