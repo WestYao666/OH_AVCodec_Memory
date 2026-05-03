@@ -1,6 +1,6 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S76
-status: draft
+status: pending_approval
 submitted_by: builder-agent
 submitted_at: "2026-05-03T07:19:00+08:00"
 scope: AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, FFmpegDemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, BitstreamFilter, ReadAhead, AVPacketWrapper, FFmpegFormatHelper, MultiStreamParser

@@ -19,11 +19,23 @@ pending_approvals:
     status: pending
     submitted_at: "2026-05-03T15:51:10+08:00"
     submitted_by: builder-agent
-    commit: ""
+    commit: "ed20763"
     message: |
       Builder 报告：S68 草案已完成
       主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线
       证据来源：ffmpeg_demuxer_plugin.cpp (4129行) / ffmpeg_format_helper.cpp (1367行) / ffmpeg_demuxer_thread.cpp (895行)
+      请审批（approve/revise/reject）
+
+  - mem_id: MEM-ARCH-AVCODEC-S76
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T15:51:20+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S76 草案已完成
+      主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 封装与 av_read_frame 管线（深度分析版）
+      证据来源：ffmpeg_demuxer_plugin.cpp (4129行) / ffmpeg_demuxer_thread.cpp (895行) / ffmpeg_format_helper.cpp (1367行)
       请审批（approve/revise/reject）
 
 
