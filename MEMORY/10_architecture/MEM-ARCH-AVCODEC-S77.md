@@ -3,6 +3,7 @@ mem_id: MEM-ARCH-AVCODEC-S77
 status: pending_approval
 submitted_by: builder-agent
 submitted_at: "2026-05-03T10:19:00+08:00"
+last_enhanced_at: "2026-05-04T04:10:00+08:00"
 scope: AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent, HiSysEvent_Domain_MULTI_MEDIA, HiSysEvent_Domain_AVCODEC, ServiceStartEventWrite, CodecStartEventWrite, FaultEventWrite
 tags: [dfx, hisysevent, xcollie, trace, dump, fault, watchdog]
 associations:
@@ -10,14 +11,18 @@ associations:
   - S10 (SeiParserFilter - Filter layer with eventReceiver.OnEvent)
   - S76 (FFmpegDemuxerPlugin - uses av_read_frame with error logging)
   - S11 (HCodec - hardware codec with OnAllocateComponent)
+  - S22 (MediaSyncManager - IMediaSynchronizer priority system, approved)
+  - S56 (VideoSink - DoSyncWrite + CalcBufferDiff + VideoLagDetector, pending_approval)
+  - S73 (Three-way Sink sync architecture - VideoSink/AudioSink/SubtitleSink, pending_approval)
 related_frontmatter:
   - MEM-ARCH-AVCODEC-003 (Plugin architecture overview, approved)
 ---
 
 # S77：AVCodec DFX 子系统——HiSysEvent / XCollie 超时看门狗 / Trace 追踪 / Dump 工具 四大支柱
 
-> **草案状态**: draft
+> **草案状态**: draft → pending_approval
 > **生成时间**: 2026-05-03T10:19+08:00
+> **最后增强时间**: 2026-05-04T04:10+08:00（源码行号校正 + 优先级体系补充 + VideoLagDetector + CalcBufferDiff 三算法）
 > **scope**: AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent
 > **关联场景**: 问题定位 / 性能分析 / 稳定性监控
 
@@ -278,7 +283,22 @@ MediaAVCodec::AVCodecTrace trace("ParseSeiPayload " + std::to_string(buffer->pts
 
 ---
 
-## 9. 总结
+## 9. 关键文件源码路径（本地镜像 /home/west/av_codec_repo）
+
+| 文件 | 路径 |
+|------|------|
+| `media_sync_manager.cpp` | `/home/west/av_codec_repo/services/media_engine/modules/sink/media_sync_manager.cpp` (491行) |
+| `i_media_sync_center.h` | `/home/west/av_codec_repo/services/media_engine/modules/sink/i_media_sync_center.h` (121行) |
+| `media_synchronous_sink.cpp` | `/home/west/av_codec_repo/services/media_engine/modules/sink/media_synchronous_sink.cpp` (123行) |
+| `video_sink.cpp` | `/home/west/av_codec_repo/services/media_engine/modules/sink/video_sink.cpp` (462行) |
+| `avcodec_sysevent.cpp` | `/home/west/av_codec_repo/services/dfx/` 目录 |
+| `avcodec_xcollie.cpp` | `/home/west/av_codec_repo/services/dfx/` 目录 |
+| `avcodec_dfx_component.cpp` | `/home/west/av_codec_repo/services/dfx/` 目录 |
+| `avcodec_dump_utils.cpp` | `/home/west/av_codec_repo/services/dfx/` 目录 |
+
+---
+
+## 10. 总结
 
 **AVCodec DFX 子系统**是 OpenHarmony 可观测性体系在 AVCodec 模块的落地，包含：
 
@@ -289,6 +309,8 @@ MediaAVCodec::AVCodecTrace trace("ParseSeiPayload " + std::to_string(buffer->pts
 5. **AVCodecTrace**：RAII 追踪封装，自动记录函数执行耗时
 
 **与其他 S 系列记忆的关系**：
+- S56（VideoSink）→ `DoSyncWrite` / `CalcBufferDiff` / `VideoLagDetector` 协同工作，构成视频渲染同步完整链路
+- S22（MediaSyncManager）→ 音视频同步管理中心，通过 `IMediaSynchronizer` 优先级体系（VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8）实现时钟锚点选择
 - S76（FFmpegDemuxerPlugin）使用 AVCodecTrace 和 HiSysEvent 上报解封装错误
 - S11（HCodec）使用 SetTimer 设置组件分配超时，CreateVideoLogTag 生成日志标签
 - S12（VideoResizeFilter）使用 SetFaultEvent 上报 VPE 错误

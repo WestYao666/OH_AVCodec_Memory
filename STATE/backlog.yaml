@@ -608,3 +608,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S87 | MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系 | AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, Protocol, PluginManagerV2, FilterPipeline, Read, Seekable | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S87 | ✅ 草案已生成（2026-05-04T02:15），Source(715行)媒体源顶层封装，ParseProtocol三协议路由(http/https/file/fd/stream)，FindPlugin→PluginManagerV2::CreatePluginByMime(SOURCE)插件创建，SourcePlugin基接口20+纯虚函数(Read/Seek/GetSize/SelectBitRate/Pause/Resume)，StreamInfo多轨元数据结构，与S38(SourcePlugin体系)/S37(HttpSourcePlugin)/S41(DemuxerFilter)上下游关联 |
+
+## 新增主题（Builder 2026-05-04 S77注册——DFX子系统增强版）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S77 | AVCodec DFX 子系统——HiSysEvent / XCollie 超时看门狗 / Trace 追踪 / Dump 工具 四大支柱 | AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent, MediaSyncManager, IMediaSynchronizer, VideoSink, VideoLagDetector | 问题定位/性能分析/稳定性监控 | **pending_approval** | MEM-ARCH-AVCODEC-S77 | ✅ 草案已生成（2026-05-03T10:19）→增强（2026-05-04T04:10），DFX四大支柱(HiSysEvent/XCollie/AVCodecDfxComponent/Dump)，IMediaSynchronizer优先级体系(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)，VideoSink DoSyncWrite/CalcBufferDiff/VideoLagDetector三算法，S22 MediaSyncManager时钟锚点关联 |
