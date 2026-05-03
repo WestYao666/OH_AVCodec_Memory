@@ -590,3 +590,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S84 | VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式 | AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, CodecClient, OH_AVCodec, OH_VideoEncoder | 三方应用接入/新人入项/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S84 | ✅ 草案已生成（2026-05-03T21:49），native_video_encoder.cpp(715行)CreateByMime/GetSurface/SetParameter/RegisterCallback；video_encoder_object.h(92行)VideoEncoderObject/NativeVideoEncoderCallback三层回调；GetSurface(Surface模式)/PushInputBuffer(Buffer模式)双路径；isInputSurfaceMode_标志；RegisterParameterCallback(Encoder独有)；VideoEncoderFactory工厂创建；与S83(CAPI总览)/S42(VideoEncoder核心)互补 |
+
+## 新增主题（Builder 2026-05-03 S85注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S85 | PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享 | AVCodec, CAPI, Preprocessor, PreprocessorManager, PreprocessorEncoder, VideoEncoder, Surface, Crop, Downsample, FrameDrop, FastKitsInterface, SharedSurfaceManager, DualEncoder, PrimaryEncoder, SecondaryEncoder, SurfaceMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S85 | ✅ 草案已生成（2026-05-03T22:45），三层架构(Preprocessor+PreprocessorManager+PreprocessorEncoder)，Preprocessor三步校验(ValidateCrop→ValidateDownsampling→ValidateDropFrame)，Process三模式(Crop/Downsample/Copy)，EncoderThreadLoop(OS_Preproc_{id}_Loop)驱动预处理，ConsumerListener广播SharedSurface事件，Primary/Secondary双编码器共享PreprocessorManager，PixelFormat一致性校验，FastKitsInterface(CropRect/BICUBIC)+FrameDropFilter集成，与S33(S84)关联
