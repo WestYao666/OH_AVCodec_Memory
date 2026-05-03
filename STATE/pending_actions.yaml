@@ -37,3 +37,15 @@ pending_approvals:
       主题：SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版）
       证据来源：fsurface_memory.h:32-37 / render_surface.h:59-81 / render_surface.cpp:436-499 / dma_swap.h+cpp
       请审批（approve/revise/reject）
+
+  - mem_id: MEM-ARCH-AVCODEC-S81
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T05:49:28+08:00"
+    submitted_by: builder-agent
+    commit: ""
+    message: |
+      Builder 报告：S81 草案已完成
+      主题：AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式与 AVCodecMonitor 活性查询
+      证据来源：avcodec_suspend.cpp (45行) / avcodec_monitor.cpp (32行)
+      请审批（approve/revise/reject）
