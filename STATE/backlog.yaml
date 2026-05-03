@@ -572,3 +572,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S81 | AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式（SuspendFreeze/SuspendActive/SuspendActiveAll）与 AVCodecMonitor 安全解码器活性查询 | AVCodec, Suspend, Freeze, PowerManagement, Monitor, AVCodecSuspend, AVCodecMonitor, AVCodecServiceFactory, CodecServer, CodecBase, Frozen, DMA-BUF | 系统休眠/恢复/功耗控制/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S81 | ✅ 草案已生成（2026-05-03T13:18），AVCodecSuspend三模式：SuspendFreeze冻结指定PID Codec实例（→CodecBase::State::FROZEN），SuspendActive恢复指定PID，SuspendActiveAll全局恢复；AVCodecMonitor::GetActiveSecureDecoderPids查询活跃安全解码器进程；均委托AVCodecServiceFactory→CodecServer→CodecBase三层实现；与CodecBase FROZEN态（S57）+DMA-BUF Freeze/SwapOut（S80）联动；CreateVideoLogTag DFX日志标记 |
+
+## 新增主题（Builder 2026-05-03 S82注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S82 | AVCodec Event Manager 事件管理框架——EventManager + StatisticsEventHandler + InstanceMemoryUpdateEventHandler + BackgroundEventHandler 四组件协作 | AVCodec, DFX, EventManager, BackgroundProcessing, MemoryManagement, Event, Statistics, Suspend, Freeze, HiSysEvent | 问题定位/系统运维/性能分析 | **in_progress** | MEM-ARCH-AVCODEC-S82 | ✅ 草案已生成（2026-05-03T14:10），EventManager(151行)7种EventType位域分发，StatisticsEventHandler(845行)cJSON HiSysEvent上报，InstanceMemoryCalculator(572行)15+预置内存参数，BackgroundEventHandler(284行)后台600s阈值Freeze/Resume，InstanceOperationEventHandler(104行)编码起止上报ResSchedClient |
