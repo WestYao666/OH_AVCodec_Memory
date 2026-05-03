@@ -560,3 +560,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S79 | MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件——MPEG4AtomParser 五级原子层级与 FFmpegDemuxerPlugin 双轨并行 | AVCodec, Demuxer, MPEG4, MP4, MOV, Container, BoxParser, DemuxerPlugin, AtomParser, Track, Sniff, Rank | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S79 | ✅ 草案已生成（2026-05-03T11:50），MPEG4DemuxerPlugin(1625行)自研原生MP4/MOV解析，rank=100最高优先级，调用MPEG4AtomParser(S58)五级Box层级解析，Track链表(CodecParams+MPEG4SampleHelper+displayMatrix)，Sniff置信度探测(5MB probe)，FIRST_LEVEL_RANK=100/RANK_MAX=101自研优先；与S68/S76(FFmpegDemuxerPlugin rank=50)构成双轨并行，S41 Filter层/S75 引擎层关联 |
+
+## 新增主题（Builder 2026-05-03 S80注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S80 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版） | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback, FreezeBuffers, SwapOut, SwapIn | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S80 | ✅ 草案已生成（2026-05-03T12:10），S9源码增强版（本地镜像 /home/west/av_codec_repo），Owner四态枚举(OWNED_BY_US/CODEC/USER/SURFACE)，buffers_[2]双缓冲池，renderAvailQue_/requestSurfaceBufferQue_/codecAvailQue_三队列，CanSwapOut完整条件(owner!=SURFACE && !hasSwapedOut)，FreezeBuffers INPUT直接跳过/OUTPUT执行SwapOut，ActiveBuffers INPUT/OUTPUT均执行SwapIn，DMA ioctl(DMA_BUF_RECLAIM_FD/RESUME_FD)，与S9主题相同但行号级证据更完整 |

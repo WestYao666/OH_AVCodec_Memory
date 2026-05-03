@@ -25,3 +25,15 @@ pending_approvals:
       主题：MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件——MPEG4AtomParser 五级原子层级与 FFmpegDemuxerPlugin 双轨并行
       证据来源：mpeg4_demuxer_plugin.cpp (1625行)
       请审批（approve/revise/reject）
+
+  - mem_id: MEM-ARCH-AVCODEC-S80
+    type: approval_request
+    status: pending
+    submitted_at: "2026-05-03T12:10:00+08:00"
+    submitted_by: builder-agent
+    commit: 1155ff5
+    message: |
+      Builder 报告：S80 草案已完成
+      主题：SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版）
+      证据来源：fsurface_memory.h:32-37 / render_surface.h:59-81 / render_surface.cpp:436-499 / dma_swap.h+cpp
+      请审批（approve/revise/reject）
