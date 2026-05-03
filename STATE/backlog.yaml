@@ -166,7 +166,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S15 | SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制 | AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S15 | ✅ 草案已生成（2026-04-24T04:10） |
+| S15 | SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制 | AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S15 | ✅ 草案已生成（2026-04-24T04:10）→重新生成（2026-05-03T13:33） |
 | S16 | SurfaceCodec 与 Surface 的绑定机制——SetOutputSurface、PostProcessing 路由与 Surface/Buffer 双模式互斥 | AVCodec, SurfaceMode, SurfaceBinding, MediaEngine, Pipeline, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S16 | ✅ 草案已生成（2026-04-24T05:24） |
 | S17 | SmartFluencyDecoding 智能流畅解码——IRetentionStrategy 四策略+MV/Nalu 双分析器+AsyncDropDispatcher 异步丢帧 | AVCodec, SmartFluencyDecoding, RetentionStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, VideoPipeline, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S17 | ✅ 草案已生成（2026-04-24T05:55），2026-04-24T07:21 Builder处理，2026-04-24T16:07 状态修正为pending_approval |
 | S18 | AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期 | AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory, Lifecycle | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S18 | ✅ 草案已生成（2026-04-24T06:10），2026-04-24T07:37 提交审批 |
@@ -566,3 +566,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S80 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版） | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback, FreezeBuffers, SwapOut, SwapIn | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S80 | ✅ 草案已生成（2026-05-03T12:10），S9源码增强版（本地镜像 /home/west/av_codec_repo），Owner四态枚举(OWNED_BY_US/CODEC/USER/SURFACE)，buffers_[2]双缓冲池，renderAvailQue_/requestSurfaceBufferQue_/codecAvailQue_三队列，CanSwapOut完整条件(owner!=SURFACE && !hasSwapedOut)，FreezeBuffers INPUT直接跳过/OUTPUT执行SwapOut，ActiveBuffers INPUT/OUTPUT均执行SwapIn，DMA ioctl(DMA_BUF_RECLAIM_FD/RESUME_FD)，与S9主题相同但行号级证据更完整 |
+
+## 新增主题（Builder 2026-05-03 S81注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S81 | AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式（SuspendFreeze/SuspendActive/SuspendActiveAll）与 AVCodecMonitor 安全解码器活性查询 | AVCodec, Suspend, Freeze, PowerManagement, Monitor, AVCodecSuspend, AVCodecMonitor, AVCodecServiceFactory, CodecServer, CodecBase, Frozen, DMA-BUF | 系统休眠/恢复/功耗控制/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S81 | ✅ 草案已生成（2026-05-03T13:18），AVCodecSuspend三模式：SuspendFreeze冻结指定PID Codec实例（→CodecBase::State::FROZEN），SuspendActive恢复指定PID，SuspendActiveAll全局恢复；AVCodecMonitor::GetActiveSecureDecoderPids查询活跃安全解码器进程；均委托AVCodecServiceFactory→CodecServer→CodecBase三层实现；与CodecBase FROZEN态（S57）+DMA-BUF Freeze/SwapOut（S80）联动；CreateVideoLogTag DFX日志标记 |

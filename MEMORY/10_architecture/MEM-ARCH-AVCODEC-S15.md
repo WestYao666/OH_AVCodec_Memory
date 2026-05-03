@@ -2,44 +2,74 @@
 type: architecture
 id: MEM-ARCH-AVCODEC-S15
 status: pending_approval
-topic: SurfaceCodec 软件编解码器插件架构——CodecBase 插件基类、软硬编解码器 Loader 与适配流程
-submitted_at: "2026-04-25T09:12:00+08:00"
-scope: [AVCodec, SoftwareCodec, Plugin, CodecBase, Adapter, FCodec, HCodec, SurfaceDecoderAdapter, SurfaceEncoderAdapter]
-created_at: "2026-04-24T03:50:00+08:00"
+topic: SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制
+submitted_at: "2026-05-03T13:33:00+08:00"
+scope: [AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin]
+created_at: "2026-05-03T13:33:00+08:00"
 author: builder-agent
 evidence: |
-  - source: services/engine/base/include/codecbase.h
-    anchor: "CreateInputSurface()/SetInputSurface()/SetOutputSurface() virtual 方法"
-    note: CodecBase 基类定义了 Surface 相关的三个虚方法
-  - source: services/engine/codec/video/fcodec/include/fcodec.h line 48
-    anchor: "class FCodec : public CodecBase, public RefBase"
-    note: FCodec 继承 CodecBase，实现软件编解码
-  - source: services/engine/codec/video/fcodec_loader.cpp line 25-26
-    anchor: "const char *FCODEC_LIB_PATH = \"libfcodec.z.so\""
-    note: FCodecLoader 动态加载 libfcodec.z.so
-  - source: services/engine/codec/video/hcodec_loader.cpp line 22-23
-    anchor: "const char *HCODEC_LIB_PATH = \"libhcodec.z.so\""
-    note: HCodecLoader 动态加载 libhcodec.z.so
-  - source: services/media_engine/filters/surface_decoder_adapter.cpp line 147-166
-    anchor: "avCodecList->GetCapability(mime, false, AVCodecCategory::AVCODEC_HARDWARE)"
-    note: SurfaceDecoderAdapter 通过 capability.isVendor 判断软/硬解码路径
-  - source: services/services/codec/server/video/codec_factory.cpp line 52-75
-    anchor: "CodecListCore::FindCodecType → FCodecLoader::CreateByName / HCodecLoader::CreateByName"
-    note: CodecFactory 根据 codec type 分发到 FCodecLoader 或 HCodecLoader
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 35-53
+    anchor: "isSuperResolutionSupported() — 超分条件判断"
+    note: 非DRM(AV_PLAYER_IS_DRM_PROTECTED=false)、非HDR Vivid(isHdrVivid=false)、分辨率≤1920×1080(width>0&&width<=MAX_WIDTH&&height>0&&height<=MAX_HEIGHT)
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 55-64
+    anchor: "AutoRegisterPostProcessor<SuperResolutionPostProcessor> g_registerSuperResolutionPostProcessor"
+    note: 静态注册到 VideoPostProcessorFactory，type=SUPER_RESOLUTION，generator创建shared_ptr，checker=isSuperResolutionSupported
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 125-128
+    anchor: "SuperResolutionPostProcessor::SuperResolutionPostProcessor()"
+    note: 构造函数调用 VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER) 创建 VPE DetailEnhancer 实例
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 40-52
+    anchor: "constexpr int32_t MAX_WIDTH = 1920; constexpr int32_t MAX_HEIGHT = 1080;"
+    note: 超分仅支持≤1920×1080分辨率，超出条件则不创建PostProcessor
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 279-288
+    anchor: "SetQualityLevel(DEFAULT_QUALITY_LEVEL)"
+    note: 默认质量级别 DETAIL_ENHANCER_LEVEL_HIGH，AutoDownshift=0禁用自动降级
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 67-122
+    anchor: "class VPECallback : public VpeVideoCallback"
+    note: VPECallback桥接VPE回调与PostProcessor：OnOutputBufferAvailable驱动buffer传递，OnSuperResolutionChanged触发EVENT_SUPER_RESOLUTION_CHANGED事件
+  - source: services/media_engine/modules/post_processor/base_video_post_processor.h line 20-25
+    anchor: "enum VideoPostProcessorType { NONE, SUPER_RESOLUTION, CAMERA_INSERT_FRAME, CAMERA_MP_PWP }"
+    note: VideoPostProcessorType枚举三种后处理器类型，SUPER_RESOLUTION=1
+  - source: services/media_engine/modules/post_processor/base_video_post_processor.h line 35-68
+    anchor: "class BaseVideoPostProcessor — 虚基类接口"
+    note: 基类定义Init/Start/Stop/Flush/Release/GetInputSurface/SetOutputSurface/SetParameter/SetPostProcessorOn/SetVideoWindowSize等虚方法
+  - source: services/media_engine/modules/post_processor/video_post_processor_factory.h line 78-97
+    anchor: "template <typename T> class AutoRegisterPostProcessor"
+    note: CRTP模板静态注册三参数构造(VideoPostProcessorType+Generator+Checker)，于main()前执行
+  - source: services/media_engine/modules/post_processor/video_post_processor_factory.h line 30-45
+    anchor: "VideoPostProcessorFactory::CreateVideoPostProcessor<T>()"
+    note: 工厂模板方法：ReinterpretPointerCast<T>(CreateVideoPostProcessorPriv(type))
+  - source: services/media_engine/filters/decoder_surface_filter.cpp line 1694-1707
+    anchor: "DecoderSurfaceFilter::CreatePostProcessor()"
+    note: DecoderSurfaceFilter创建PostProcessor：decoderOutputSurface_=postProcessor->GetInputSurface()→videoDecoder_->SetOutputSurface()→postProcessor_->SetOutputSurface(videoSurface_)
+  - source: services/media_engine/filters/decoder_surface_filter.cpp line 927-929
+    anchor: "DecoderSurfaceFilter::IsPostProcessorSupported()"
+    note: 调用 VideoPostProcessorFactory::Instance().IsPostProcessorSupported(postProcessorType_, meta_) 判断是否支持
+  - source: services/media_engine/filters/decoder_surface_filter.cpp line 977-989
+    anchor: "DecoderSurfaceFilter::OnLinked() — PostProcessor初始化流程"
+    note: OnLinked中InitPostProcessorType→IsPostProcessorSupported→CreatePostProcessor→设置FilterVideoPostProcessorCallback
+  - source: services/media_engine/filters/decoder_surface_filter.cpp line 115-136
+    anchor: "class FilterVideoPostProcessorCallback : public PostProcessorCallback"
+    note: Filter层回调桥接：OnOutputBufferAvailable→filter端处理，OnOutputFormatChanged→更新Filter元数据
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 298-317
+    anchor: "SuperResolutionPostProcessor::SetVideoWindowSize()"
+    note: SetVideoWindowSize通过DETAIL_ENHANCER_TARGET_SIZE参数设置输出尺寸，控制超分后输出分辨率
+  - source: services/media_engine/modules/post_processor/super_resolution_post_processor.cpp line 324-333
+    anchor: "SuperResolutionPostProcessor::OnSuperResolutionChanged(bool enable)"
+    note: VPE回调OnSuperResolutionChanged触发EVENT_SUPER_RESOLUTION_CHANGED事件，isPostProcessorOn_标志更新
 ---
 
-# MEM-ARCH-AVCODEC-S15: SurfaceCodec 软件编解码器插件架构
+# MEM-ARCH-AVCODEC-S15: SuperResolutionPostProcessor 超分辨率后处理器
 
 ## Metadata
 
 | 字段 | 值 |
 |------|-----|
 | id | MEM-ARCH-AVCODEC-S15 |
-| title | SurfaceCodec 软件编解码器插件架构——CodecBase 插件基类、软硬编解码器 Loader 与适配流程 |
-| scope | [AVCodec, SoftwareCodec, Plugin, CodecBase, Adapter, FCodec, HCodec] |
+| title | SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制 |
+| scope | [AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin] |
 | status | draft |
 | created_by | builder-agent |
-| created_at | 2026-04-24 |
+| created_at | 2026-05-03 |
 | type | architecture_fact |
 | confidence | high |
 
@@ -47,320 +77,256 @@ evidence: |
 
 ## 摘要
 
-SurfaceCodec 软件编解码器插件体系包含三层结构：
-
-1. **CodecBase 基类**（`services/engine/base/include/codecbase.h`）—— 所有编解码器的统一抽象，定义了 Surface 相关虚方法
-2. **FCodec / HCodec** —— 软件/硬件编解码器实现类，前者位于 `services/engine/codec/video/fcodec/`，后者封装为 `libhcodec.z.so`
-3. **FCodecLoader / HCodecLoader** —— 分别通过 `dlopen` 动态加载 `libfcodec.z.so`（软件）和 `libhcodec.z.so`（硬件）插件
-4. **SurfaceDecoderAdapter / SurfaceEncoderAdapter** —— Filter 层适配器，通过 `CodecListCore` + `isVendor` 字段判断走硬件还是软件路径，再通过 `CodecFactory` 分发到对应 Loader
+SuperResolutionPostProcessor 是 MediaEngine 视频管线中的超分辨率后处理器插件，基于 VPE（Video Processing Engine）DetailEnhancer 实现。DecoderSurfaceFilter 解码过滤器在 Surface 模式下通过 VideoPostProcessorFactory 工厂按需创建该 PostProcessor，实现≤1920×1080 视频的 AI 超分辨率增强。
 
 ---
 
-## 1. CodecBase 基类（插件统一接口）
+## 1. 类层次结构
 
-**文件**: `services/engine/base/include/codecbase.h`
-
-CodecBase 是所有编解码器插件的基类，定义了编解码器生命周期方法 + Surface 相关方法：
-
-```cpp
-// services/engine/base/include/codecbase.h line 50-52
-virtual sptr<Surface> CreateInputSurface();
-virtual int32_t SetInputSurface(sptr<Surface> surface);
-virtual int32_t SetOutputSurface(sptr<Surface> surface);
+```
+BaseVideoPostProcessor（抽象基类，post_processor/base_video_post_processor.h:35-68）
+  └── SuperResolutionPostProcessor（super_resolution_post_processor.cpp:28-29）
+        ├── enable_shared_from_this<SuperResolutionPostProcessor>
+        └── 持有 std::shared_ptr<VpeVideo> postProcessor_（VPE DetailEnhancer 实例）
 ```
 
-| 方法 | 作用 |
+### 1.1 BaseVideoPostProcessor 虚基类接口
+
+定义于 `base_video_post_processor.h:35-68`，包含：
+
+| 方法 | 说明 |
 |------|------|
-| `Init(format)` | 初始化编解码器 |
-| `Start()/Stop()` | 启动/停止 |
-| `Configure(format)` | 配置编码参数 |
-| `Flush()/Release()` | 刷新/释放资源 |
-| `QueueInputBuffer()/ReleaseOutputBuffer()` | buffer 管理 |
-| `SetOutputSurface(surface)` | 设置输出 Surface（Surface 路径专用） |
-| `SetCallback(callback)` | 设置异步回调 |
+| `Init()` / `Start()` / `Stop()` / `Flush()` / `Release()` | 生命周期管理 |
+| `GetInputSurface()` / `SetOutputSurface()` | Surface 绑定 |
+| `SetParameter()` / `SetQualityLevel()` | 参数配置 |
+| `SetPostProcessorOn(bool)` | 使能/禁用超分 |
+| `SetVideoWindowSize(w, h)` | 输出分辨率设置 |
+| `SetCallback(PostProcessorCallback)` | 回调设置 |
+| `NotifyEos(int64_t)` | 结束信号 |
 
-> **关键设计**：CodecBase 只定义了 Surface 虚方法，不区分软/硬实现。子类通过 override 实现自己的 Surface 策略。
+### 1.2 VideoPostProcessorType 枚举
 
----
-
-## 2. 软件编解码器：FCodec（libfcodec.z.so）
-
-**文件**: `services/engine/codec/video/fcodec/include/fcodec.h`
+定义于 `base_video_post_processor.h:20-25`：
 
 ```cpp
-// line 48
-class FCodec : public CodecBase, public RefBase {
-public:
-    explicit FCodec(const std::string &name);
-    ~FCodec() override;
-    int32_t Init(Media::Meta &callerInfo) override;
-    int32_t Configure(const Format &format) override;
-    int32_t Start() override;
-    int32_t Stop() override;
-    int32_t Flush() override;
-    int32_t Reset() override;
-    int32_t Release() override;
-    int32_t SetParameter(const Format &format) override;
-    int32_t GetOutputFormat(Format &format) override;
-    int32_t QueueInputBuffer(uint32_t index) override;
-    int32_t ReleaseOutputBuffer(uint32_t index) override;
-    int32_t SetCallback(const std::shared_ptr<MediaCodecCallback> &callback) override;
-    int32_t SetOutputSurface(sptr<Surface> surface) override;  // line 65
-    int32_t RenderOutputBuffer(uint32_t index) override;
-    int32_t NotifyMemoryRecycle() override;
-    int32_t NotifyMemoryWriteBack() override;
-    static int32_t GetCodecCapability(std::vector<CapabilityData> &capaArray);
+enum VideoPostProcessorType {
+    NONE,              // 0: 无后处理
+    SUPER_RESOLUTION,   // 1: 超分辨率（本文档主题）
+    CAMERA_INSERT_FRAME, // 2: 相机插入帧
+    CAMERA_MP_PWP,       // 3: 相机 MP PWP
 };
 ```
 
-**FCodec 的职责**：
-- 软件编解码实现，基于 FFmpeg（`g_convertFfmpegPixFmt` 等）
-- 通过 `SetOutputSurface()` 支持 Surface 模式输出
-- 支持内存回收（`NotifyMemoryRecycle()/NotifyMemoryWriteBack()`）
-
 ---
 
-## 3. 插件加载器：FCodecLoader vs HCodecLoader
+## 2. 超分条件判断（isSuperResolutionSupported）
 
-### 3.1 FCodecLoader（软件 Codec 加载器）
-
-**文件**: `services/engine/codec/video/fcodec_loader.cpp`
+定义于 `super_resolution_post_processor.cpp:35-53`，静态函数作为 AutoRegister 的 Checker：
 
 ```cpp
-// line 25-26
-const char *FCODEC_LIB_PATH = "libfcodec.z.so";
-const char *FCODEC_CREATE_FUNC_NAME = "CreateFCodecByName";
-const char *FCODEC_GETCAPS_FUNC_NAME = "GetFCodecCapabilityList";
-
-std::shared_ptr<CodecBase> FCodecLoader::CreateByName(const std::string &name)
+static bool isSuperResolutionSupported(const std::shared_ptr<Meta>& meta)
 {
-    FCodecLoader &loader = GetInstance();
-    CHECK_AND_RETURN_RET_LOG(loader.Init() == AVCS_ERR_OK, nullptr, ...);
-    return loader.Create(name);  // dlopen + dlsym
+    // 条件1：分辨率 ≤ 1920×1080
+    bool isVideoSizeValid = (width > 0 && width <= MAX_WIDTH) &&
+                            (height > 0 && height <= MAX_HEIGHT);
+    // 条件2：非 DRM 保护内容
+    bool canCreatePostProcessor = !isDrmProtected && !isHdrVivid && isVideoSizeValid;
+    return canCreatePostProcessor;
 }
 ```
 
-- 通过 `dlopen("libfcodec.z.so", RTLD_LAZY)` 加载
-- 导出符号：`CreateFCodecByName`（创建）、`GetFCodecCapabilityList`（能力查询）
-- 引用计数管理（`fcodecCount_`），最后引用释放时 CloseLibrary
+| 条件 | Tag | 通过条件 |
+|------|-----|---------|
+| 视频分辨率 | Tag::VIDEO_WIDTH/HEIGHT | 0 < w ≤ 1920 且 0 < h ≤ 1080 |
+| DRM 保护 | Tag::AV_PLAYER_IS_DRM_PROTECTED | `false` |
+| HDR Vivid | Tag::VIDEO_IS_HDR_VIVID | `false` |
 
-### 3.2 HCodecLoader（硬件 Codec 加载器）
-
-**文件**: `services/engine/codec/video/hcodec_loader.cpp`
-
-```cpp
-// line 22-23
-const char *HCODEC_LIB_PATH = "libhcodec.z.so";
-const char *HCODEC_CREATE_FUNC_NAME = "CreateHCodecByName";
-const char *HCODEC_GETCAPS_FUNC_NAME = "GetHCodecCapabilityList";
-
-std::shared_ptr<CodecBase> HCodecLoader::CreateByName(const std::string &name)
-{
-    HCodecLoader &loader = GetInstance();
-    CHECK_AND_RETURN_RET_LOG(loader.Init() == AVCS_ERR_OK, nullptr, ...);
-    return loader.Create(name);  // dlopen + dlsym
-}
-```
-
-- 通过 `dlopen("libhcodec.z.so", RTLD_LAZY)` 加载
-- 导出符号：`CreateHCodecByName`、`GetHCodecCapabilityList`
-- 硬件编解码器由芯片厂商提供 so 库实现
+超出以上任一条件时，VideoPostProcessorFactory.IsPostProcessorSupported() 返回 `false`，DecoderSurfaceFilter 不创建 PostProcessor 实例。
 
 ---
 
-## 4. CodecFactory 分发逻辑（软/硬分流核心）
+## 3. 插件注册机制（AutoRegisterPostProcessor）
 
-**文件**: `services/services/codec/server/video/codec_factory.cpp`
+### 3.1 静态注册
+
+定义于 `super_resolution_post_processor.cpp:55-64`：
 
 ```cpp
-// line 52-75
-std::shared_ptr<CodecBase> CodecFactory::CreateCodecByName(const std::string &name)
+static AutoRegisterPostProcessor<SuperResolutionPostProcessor> g_registerSuperResolutionPostProcessor(
+    VideoPostProcessorType::SUPER_RESOLUTION, []() -> std::shared_ptr<BaseVideoPostProcessor> {
+        auto postProcessor = std::make_shared<SuperResolutionPostProcessor>();
+        if (postProcessor == nullptr || !postProcessor->IsValid()) {
+            return nullptr;
+        } else {
+            return postProcessor;
+        }
+    }, &isSuperResolutionSupported);  // ← 第三参数：条件检查器
+```
+
+### 3.2 AutoRegisterPostProcessor CRTP 模板
+
+定义于 `video_post_processor_factory.h:78-97`，三参数构造：
+
+```cpp
+AutoRegisterPostProcessor(
+    const VideoPostProcessorType type,
+    const VideoPostProcessorInstanceGenerator& generator,  // 创建函数
+    const VideoPostProcessorSupportChecker& checker         // 支持条件检查
+);
+```
+
+在 `main()` 之前执行，将 Generator 和 Checker 分别存入工厂的 `generators_` 和 `checkers_` 两个 `unordered_map`。
+
+### 3.3 工厂创建流程
+
+定义于 `video_post_processor_factory.h:30-45` 和 `.cpp`：
+
+```cpp
+// DecoderSurfaceFilter::CreatePostProcessor() — decoder_surface_filter.cpp:1694-1707
+postProcessor_ = VideoPostProcessorFactory::Instance()
+    .CreateVideoPostProcessor<BaseVideoPostProcessor>(postProcessorType_);
+
+// 1. GetInputSurface → videoDecoder_->SetOutputSurface（解码器输出到 VPE）
+// 2. SetOutputSurface(videoSurface_)（VPE 输出到渲染 Surface）
+```
+
+---
+
+## 4. VPE DetailEnhancer 核心
+
+### 4.1 VpeVideo 创建
+
+定义于 `super_resolution_post_processor.cpp:125-128`：
+
+```cpp
+SuperResolutionPostProcessor::SuperResolutionPostProcessor()
 {
-    auto codecListCore = std::make_shared<CodecListCore>();
-    CodecType codecType = codecListCore->FindCodecType(name);  // 由 codec name 识别类型
-    std::shared_ptr<CodecBase> codec = nullptr;
-    switch (codecType) {
-        case CodecType::AVCODEC_HCODEC:
-            codec = HCodecLoader::CreateByName(name);   // → 硬件
-            break;
-        case CodecType::AVCODEC_VIDEO_CODEC:
-            codec = FCodecLoader::CreateByName(name);   // → 软件
-            break;
-        case CodecType::AVCODEC_VIDEO_HEVC_DECODER:
-            codec = HevcDecoderLoader::CreateByName(name);
-            break;
-        case CodecType::AVCODEC_VIDEO_AVC_ENCODER:
-            codec = AvcEncoderLoader::CreateByName(name);
-            break;
-        // ... VP8/VP9/AV1 等
-        default:
-            AVCODEC_LOGE("Create codec %{public}s failed", name.c_str());
-            break;
+    postProcessor_ = VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER); // ← VPE 创建 DetailEnhancer
+    isPostProcessorOn_ = true;
+}
+```
+
+`VpeVideo` 是 VPE（Video Processing Engine）库的封装类，通过 `VIDEO_TYPE_DETAIL_ENHANCER` 类型创建超分引擎实例。`VpeVideo::Create` 内部加载 `libvideoprocessingengine.z.so`。
+
+### 4.2 VPECallback 回调桥接
+
+定义于 `super_resolution_post_processor.cpp:67-122`，实现 `VpeVideoCallback` 接口：
+
+```cpp
+class VPECallback : public VpeVideoCallback {
+    void OnOutputBufferAvailable(uint32_t index, const VpeBufferInfo& info)
+    {
+        // 转发到 Filter 层回调 filterCallback_->OnOutputBufferAvailable(index, buffer)
     }
-    return codec;
-}
-```
-
-**分发决策树**：
-```
-codec name → FindCodecType(name)
-  ├── AVCODEC_HCODEC          → HCodecLoader::CreateByName (硬件 so)
-  ├── AVCODEC_VIDEO_CODEC    → FCodecLoader::CreateByName (软件 so)
-  ├── AVCODEC_VIDEO_HEVC_DECODER → HevcDecoderLoader (HEVC 专用硬件)
-  └── AVCODEC_VIDEO_AVC_ENCODER  → AvcEncoderLoader (AVC 硬件编码器)
-```
-
----
-
-## 5. SurfaceDecoderAdapter 的软硬判断逻辑
-
-**文件**: `services/media_engine/filters/surface_decoder_adapter.cpp`
-
-### 5.1 HDR 场景（硬解码优先）
-
-```cpp
-// line 147-166
-Status SurfaceDecoderAdapter::Init(const std::string &mime, bool isHdr)
-{
-    FALSE_RETURN_V_NOLOG(isHdr, Init(mime));  // 非 HDR 走普通路径
-
-    std::shared_ptr<MediaAVCodec::AVCodecList> avCodecList =
-        MediaAVCodec::AVCodecListFactory::CreateAVCodecList();
-    FALSE_RETURN_V_MSG(avCodecList != nullptr, Status::ERROR_UNKNOWN, "get codec list failed");
-
-    // 查询硬件解码器能力
-    MediaAVCodec::CapabilityData *capabilityData = avCodecList->GetCapability(
-        mime, false, MediaAVCodec::AVCodecCategory::AVCODEC_HARDWARE);
-
-    FALSE_RETURN_V_MSG(capabilityData->isVendor, Status::ERROR_UNKNOWN, "not hw decoder");
-    FALSE_RETURN_V_MSG(
-        capabilityData->codecType == static_cast<int32_t>(MediaAVCodec::AVCodecType::AVCODEC_TYPE_VIDEO_DECODER),
-        Status::ERROR_UNKNOWN, "not video decoder");
-    FALSE_RETURN_V_MSG(capabilityData->mimeType == mime, Status::ERROR_UNKNOWN, "not correct mime");
-    FALSE_RETURN_V_MSG(capabilityData->codecName != "", Status::ERROR_UNKNOWN, "empty codec name");
-
-    // 使用硬件解码器名称创建
-    int ret = MediaAVCodec::VideoDecoderFactory::CreateByName(
-        capabilityData->codecName, format, codecServer_);
-    ...
-}
-```
-
-**关键逻辑**：
-- 查询 `AVCodecList::GetCapability(mime, false, AVCODEC_HARDWARE)` 获取硬件 decoder
-- 判断 `capabilityData->isVendor == true`（厂商提供=硬件）
-- 使用 `VideoDecoderFactory::CreateByName(codecName)` 创建硬件 Codec 实例
-
-### 5.2 普通场景（软/硬自动选择）
-
-```cpp
-// line 125-128
-Status SurfaceDecoderAdapter::Init(const std::string &mime)
-{
-    int ret = MediaAVCodec::VideoDecoderFactory::CreateByMime(mime, format, codecServer_);
-    // CreateByMime 内部通过 MIME 类型自动选择 codec（可能软可能硬）
-}
-```
-
-- `VideoDecoderFactory::CreateByMime` 根据 MIME 类型自动选择合适的 codec
-- 由工厂内部根据系统能力决定走软件还是硬件
-
----
-
-## 6. SurfaceEncoderAdapter 的编码路径
-
-**文件**: `services/media_engine/filters/surface_encoder_adapter.cpp`
-
-```cpp
-// line 131-134
-Status SurfaceEncoderAdapter::Init(const std::string &mime, bool isEncoder)
-{
-    // 不区分软硬，统一走 CreateByMime
-    int32_t ret = MediaAVCodec::VideoEncoderFactory::CreateByMime(mime, format, codecServer_);
-    if (!codecServer_) {
-        MEDIA_LOG_I("Create codecServer failed");
-        return Status::ERROR_UNKNOWN;
+    void OnSuperResolutionChanged(bool enable)
+    {
+        // 触发 EVENT_SUPER_RESOLUTION_CHANGED 事件
+        eventReceiver_->OnEvent({"SuperResolutionPostProcessor",
+            EventType::EVENT_SUPER_RESOLUTION_CHANGED, enable});
     }
-    ...
-}
+    void OnError(VPEAlgoErrCode errorCode) { ... }
+};
 ```
 
-**特点**：
-- 编码器统一通过 `VideoEncoderFactory::CreateByMime` 创建
-- 不做显式的软/硬判断（由工厂层自动选择）
-- Surface 编码场景走 `SurfaceEncoderAdapter` → `VideoEncoderFactory::CreateByMime`
+### 4.3 质量级别配置
 
----
-
-## 7. 软件编解码插件注册机制
-
-### 7.1 能力注册（GetCodecCapability）
-
-FCodec 通过 `fcodec_capability_register.cpp` 注册自己的能力到系统 CodecList：
+定义于 `super_resolution_post_processor.cpp:279-288`：
 
 ```cpp
-// services/engine/codec/video/fcodec/fcodec_capability_register.cpp
-int32_t FCodec::GetCodecCapability(std::vector<CapabilityData> &capaArray)
+Status SuperResolutionPostProcessor::SetQualityLevel(DetailEnhancerQualityLevel level)
 {
-    // 填充支持的 MIME 类型、分辨率、profile 等能力
+    Format parameter;
+    parameter.PutIntValue(ParameterKey::DETAIL_ENHANCER_QUALITY_LEVEL, level); // HIGH
+    parameter.PutIntValue(ParameterKey::DETAIL_ENHANCER_AUTO_DOWNSHIFT, 0);     // 禁用自动降级
+    return postProcessor_->SetParameter(parameter);
 }
 ```
 
-### 7.2 创建函数导出
+默认级别为 `DETAIL_ENHANCER_LEVEL_HIGH`（定义于 `super_resolution_post_processor.h:40-41`）。
+
+---
+
+## 5. DecoderSurfaceFilter 中的集成
+
+### 5.1 OnLinked 初始化流程
+
+定义于 `decoder_surface_filter.cpp:977-989`：
+
+```
+OnLinked(meta)
+  → InitPostProcessorType()      // 设置 postProcessorType_ = SUPER_RESOLUTION（如满足条件）
+  → IsPostProcessorSupported()   // 调用 VideoPostProcessorFactory::IsPostProcessorSupported
+  → CreatePostProcessor()         // 工厂创建 SuperResolutionPostProcessor
+  → SetCallback(FilterVideoPostProcessorCallback)
+```
+
+### 5.2 FilterVideoPostProcessorCallback
+
+定义于 `decoder_surface_filter.cpp:115-136`，桥接 VPE 回调到 Filter 层：
 
 ```cpp
-// libfcodec.z.so 导出的两个标准符号
-extern "C" __attribute__((visibility("default")))
-std::shared_ptr<OHOS::MediaAVCodec::CodecBase> CreateFCodecByName(const std::string &name)
-{
-    return std::make_shared<FCodec>(name);
-}
+class FilterVideoPostProcessorCallback : public PostProcessorCallback {
+    void OnOutputBufferAvailable(uint32_t index, std::shared_ptr<AVBuffer> buffer)
+    {
+        // 驱动 DecoderSurfaceFilter 的输出buffer处理
+    }
+    void OnOutputFormatChanged(const Format& format)
+    {
+        // 更新 Filter 元数据
+    }
+};
+```
 
-extern "C" __attribute__((visibility("default")))
-int32_t GetFCodecCapabilityList(std::vector<OHOS::MediaAVCodec::CapabilityData> &caps)
+### 5.3 SetVideoWindowSize 级联
+
+定义于 `decoder_surface_filter.cpp:1721-1731`：
+
+```cpp
+Status DecoderSurfaceFilter::SetVideoWindowSize(int32_t width, int32_t height)
 {
-    return FCodec::GetCodecCapability(caps);
+    postProcessorTargetWidth_ = width;
+    postProcessorTargetHeight_ = height;
+    return postProcessor_->SetVideoWindowSize(width, height);
+    // → SuperResolutionPostProcessor::SetVideoWindowSize
+    // → VPE DETAIL_ENHANCER_TARGET_SIZE 参数
 }
 ```
 
-**每个 Codec 插件必须导出两个符号**：
-- `Create<FCodec/HCodec>ByName` — 按名称创建实例
-- `Get<FCodec/HCodec>CapabilityList` — 查询能力列表
+---
+
+## 6. 生命周期时序
+
+```
+DecoderSurfaceFilter 创建
+  ↓
+OnLinked() → InitPostProcessorType() → IsPostProcessorSupported(SUPER_RESOLUTION, meta)
+  ↓ 支持条件满足
+CreatePostProcessor() → VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER)
+  ↓
+Init() → SetQualityLevel(HIGH) → RegisterCallback(VPECallback)
+  ↓
+Start() → VPE Start
+  ↓
+运行中：OnOutputBufferAvailable 循环
+  ↓
+Stop() → Flush() → Release() → postProcessor_ = nullptr
+```
 
 ---
 
-## 8. 关键文件索引
+## 7. 与 S20（PostProcessing 框架）的关系
 
-| 文件 | 职责 |
-|------|------|
-| `services/engine/base/include/codecbase.h` | CodecBase 基类（虚方法定义） |
-| `services/engine/codec/video/fcodec/include/fcodec.h` | FCodec 软件编解码实现类 |
-| `services/engine/codec/video/fcodec_loader.cpp` | FCodecLoader（dlopen 加载 libfcodec.z.so） |
-| `services/engine/codec/video/hcodec_loader.cpp` | HCodecLoader（dlopen 加载 libhcodec.z.so） |
-| `services/services/codec/server/video/codec_factory.cpp` | CodecFactory（软/硬分发决策） |
-| `services/media_engine/filters/surface_decoder_adapter.cpp` | SurfaceDecoderAdapter（软硬判断 + 适配） |
-| `services/media_engine/filters/surface_encoder_adapter.cpp` | SurfaceEncoderAdapter（编码适配） |
-| `services/media_engine/filters/surface_encoder_filter.cpp` | SurfaceEncoderFilter（Filter 层编码 Filter） |
-| `interfaces/inner_api/native/surface_decoder_filter.h` | SurfaceDecoderFilter 头文件 |
+- **S20** 描述的是 PostProcessing 框架的 DynamicController + DynamicInterface 三组件架构，以及 `libvideoprocessingengine.z.so` 的 dlopen 热加载机制（17个VPE函数符号）
+- **S15** 描述的是 PostProcessing 框架的具体实例——SuperResolutionPostProcessor 超分辨率后处理器
+- S15 继承自 BaseVideoPostProcessor（虚基类），通过 AutoRegisterPostProcessor CRTP 模板注册到 VideoPostProcessorFactory
 
 ---
 
-## 9. 关联已入库条目
+## 关联主题
 
-| 关联 | 说明 |
-|------|------|
-| **MEM-ARCH-AVCODEC-003** | Plugin 架构（demuxer/muxer/source/sink 四类插件） |
-| **MEM-ARCH-AVCODEC-009** | 硬件 vs 软件 Codec 区分（isVendor / IsSoftwareOnly） |
-| **MEM-ARCH-AVCODEC-014** | Codec Engine 架构（CodecBase + Loader + Factory 三层） |
-| **MEM-ARCH-AVCODEC-015** | Codec 实例生命周期（Create→Configure→Start→Stop→Release） |
-| **MEM-ARCH-AVCODEC-016** | AVBufferQueue 异步编解码（输入/输出队列与 TaskThread） |
-
----
-
-## 10. 场景关联
-
-| 场景 | 说明 |
-|------|------|
-| **新人入项** | 理解 CodecBase 基类 → FCodec/HCodec 分工 → Loader 加载逻辑 → 分发决策 |
-| **软硬切换问题定位** | SurfaceDecoderAdapter Init 中 isVendor 判断 → CodecFactory 分发 → FCodecLoader vs HCodecLoader |
-| **新需求开发** | 新增软件 Codec → 实现 FCodec 子类 + 注册 FCodecLoader 路径 + 导出两个标准符号 |
+| 主题 | 关联说明 |
+|------|---------|
+| S12 | VideoResizeFilter 转码增强过滤器，使用 DetailEnhancerVideo 视频处理引擎 |
+| S16 | SurfaceCodec 与 Surface 的绑定机制，PostProcessor 介入时的双 Surface 转发 |
+| S20 | PostProcessing 后处理框架，DynamicController + DynamicInterface + VPE dlopen |
+| S46 | DecoderSurfaceFilter 三组件架构（VideoDecoderAdapter + VideoSink + PostProcessor） |
