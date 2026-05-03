@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S68
 title: FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, DemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, avformat_find_stream_info, BitstreamFilter, FLV, MKV, MPEGTS, MPEGPS, FileType, AVPacket, ReadSample, SeekTo, DRM, GetMediaInfo]
-status: draft
+status: pending_approval
 confidence: medium
 created_by: builder-agent
 created_at: "2026-04-27T09:06:00+08:00"
