@@ -173,3 +173,16 @@ pending_approvals:
     核心发现：Owner四态枚举(OWNED_BY_US/CODEC/USER/SURFACE)、三队列(renderAvailQue/codecAvailQue/requestSurfaceBufferQue)、FSCallback RegisterReleaseListener联动、FreezeBuffers SwapOut ioctl(DMA_BUF_RECLAIM_FD)、ActiveBuffers SwapIn ioctl(DMA_BUF_RESUME_FD)、CanSwapOut owner!=SURFACE约束
     请审批（approve/revise/reject）
     '
+- mem_id: MEM-ARCH-AVCODEC-S87
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-04T02:20:00+08:00'
+  submitted_by: builder-agent
+  commit: 9e52461
+  message: 'Builder 报告：S87 草案已完成
+    主题：MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系
+    证据来源：services/media_engine/modules/source/source.cpp (715行) / source.h (184行) / interfaces/plugin/source_plugin.h (231行)
+    核心发现：Source(715行)媒体源顶层封装、ParseProtocol三协议路由(http/https/file/fd/stream)、FindPlugin→PluginManagerV2::CreatePluginByMime(SOURCE)插件创建、SourcePlugin基接口20+纯虚函数(Read/Seek/GetSize/SelectBitRate/Pause/Resume)、StreamInfo多轨元数据结构
+    与S38(SourcePlugin体系)/S37(HttpSourcePlugin)/S41(DemuxerFilter)上下游关联
+    请审批（approve/revise/reject）
+    '
