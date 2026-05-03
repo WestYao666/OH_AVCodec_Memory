@@ -1,111 +1,127 @@
-# pending_actions.yaml — 审批待处理队列
-# 自动生成，请勿手动编辑
-
 pending_approvals:
-  - mem_id: MEM-ARCH-AVCODEC-S67
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T15:51:00+08:00"
-    submitted_by: builder-agent
-    commit: "c0ba394"
-    message: |
-      Builder 报告：S67 草案已完成
-      主题：SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构
-      证据来源：interfaces/plugin/source_plugin.h / file_fd_source_plugin.cpp / http_source_plugin.cpp / hls_media_downloader.h
-      请审批（approve/revise/reject）
+- mem_id: MEM-ARCH-AVCODEC-S67
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T15:51:00+08:00'
+  submitted_by: builder-agent
+  commit: c0ba394
+  message: 'Builder 报告：S67 草案已完成
 
-  - mem_id: MEM-ARCH-AVCODEC-S68
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T15:51:10+08:00"
-    submitted_by: builder-agent
-    commit: "ed20763"
-    message: |
-      Builder 报告：S68 草案已完成
-      主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线
-      证据来源：ffmpeg_demuxer_plugin.cpp (4129行) / ffmpeg_format_helper.cpp (1367行) / ffmpeg_demuxer_thread.cpp (895行)
-      请审批（approve/revise/reject）
+    主题：SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构
 
-  - mem_id: MEM-ARCH-AVCODEC-S76
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T15:51:20+08:00"
-    submitted_by: builder-agent
-    commit: "3c46edf"
-    message: |
-      Builder 报告：S76 草案已完成
-      主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 封装与 av_read_frame 管线（深度分析版）
-      证据来源：ffmpeg_demuxer_plugin.cpp (4129行) / ffmpeg_demuxer_thread.cpp (895行) / ffmpeg_format_helper.cpp (1367行)
-      请审批（approve/revise/reject）
+    证据来源：interfaces/plugin/source_plugin.h / file_fd_source_plugin.cpp / http_source_plugin.cpp
+    / hls_media_downloader.h
 
-  - mem_id: MEM-ARCH-AVCODEC-S77
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T15:51:30+08:00"
-    submitted_by: builder-agent
-    commit: ""
-    message: |
-      Builder 报告：S77 草案已完成
-      主题：AVCodec DFX 子系统——HiSysEvent/XCollie 超时看门狗/Trace 追踪/Dump 工具 四大支柱
-      证据来源：avcodec_sysevent.cpp / avcodec_xcollie.cpp / avcodec_dfx_component.cpp / avcodec_dump_utils.cpp
-      请审批（approve/revise/reject）
+    请审批（approve/revise/reject）
 
+    '
+- mem_id: MEM-ARCH-AVCODEC-S68
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T15:51:10+08:00'
+  submitted_by: builder-agent
+  commit: ed20763
+  message: 'Builder 报告：S68 草案已完成
 
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T11:40:00+08:00"
-    submitted_by: builder-agent
-    commit: 1155ff5
-    message: |
-      Builder 报告：S78 草案已完成
-      主题：AudioServerSinkPlugin 音频渲染插件——AudioRenderer 集成、音频焦点中断与设备切换
-      证据来源：audio_server_sink_plugin.cpp (1495行)
-      请审批（approve/revise/reject）
+    主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线
 
-  - mem_id: MEM-ARCH-AVCODEC-S79
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T11:50:00+08:00"
-    submitted_by: builder-agent
-    commit: 1155ff5
-    message: |
-      Builder 报告：S79 草案已完成
-      主题：MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件——MPEG4AtomParser 五级原子层级与 FFmpegDemuxerPlugin 双轨并行
-      证据来源：mpeg4_demuxer_plugin.cpp (1625行)
-      请审批（approve/revise/reject）
+    证据来源：ffmpeg_demuxer_plugin.cpp (4129行) / ffmpeg_format_helper.cpp (1367行) / ffmpeg_demuxer_thread.cpp
+    (895行)
 
-  - mem_id: MEM-ARCH-AVCODEC-S80
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T12:10:00+08:00"
-    submitted_by: builder-agent
-    commit: 1155ff5
-    message: |
-      Builder 报告：S80 草案已完成
-      主题：SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版）
-      证据来源：fsurface_memory.h:32-37 / render_surface.h:59-81 / render_surface.cpp:436-499 / dma_swap.h+cpp
-      请审批（approve/revise/reject）
+    请审批（approve/revise/reject）
 
-  - mem_id: MEM-ARCH-AVCODEC-S81
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T05:49:28+08:00"
-    submitted_by: builder-agent
-    commit: ""
-    message: |
-      Builder 报告：S81 草案已完成
-      主题：AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式与 AVCodecMonitor 活性查询
-      证据来源：avcodec_suspend.cpp (45行) / avcodec_monitor.cpp (32行)
-      请审批（approve/revise/reject）
+    '
+- mem_id: MEM-ARCH-AVCODEC-S76
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T15:51:20+08:00'
+  submitted_by: builder-agent
+  commit: 3c46edf
+  message: 'Builder 报告：S76 草案已完成
 
-  - mem_id: MEM-ARCH-AVCODEC-S82
-    type: approval_request
-    status: pending
-    submitted_at: "2026-05-03T14:48:00+08:00"
-    submitted_by: builder-agent
-    commit: ""
-    message: |
-      Builder 报告：S82 草案已完成
-      主题：AVCodec Event Manager 事件管理框架——EventManager + StatisticsEventHandler + InstanceMemoryUpdateEventHandler + BackgroundEventHandler 四组件协作
-      证据来源：services/services/common/event_manager/ (2275行源码)
-      请审批（approve/revise/reject）
+    主题：FFmpegDemuxerPlugin 音视频解封装插件——libavformat 封装与 av_read_frame 管线（深度分析版）
+
+    证据来源：ffmpeg_demuxer_plugin.cpp (4129行) / ffmpeg_demuxer_thread.cpp (895行) / ffmpeg_format_helper.cpp
+    (1367行)
+
+    请审批（approve/revise/reject）
+
+    '
+- mem_id: MEM-ARCH-AVCODEC-S77
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T11:40:00+08:00'
+  submitted_by: builder-agent
+  commit: 1155ff5
+  message: 'Builder 报告：S78 草案已完成
+
+    主题：AudioServerSinkPlugin 音频渲染插件——AudioRenderer 集成、音频焦点中断与设备切换
+
+    证据来源：audio_server_sink_plugin.cpp (1495行)
+
+    请审批（approve/revise/reject）
+
+    '
+- mem_id: MEM-ARCH-AVCODEC-S79
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T11:50:00+08:00'
+  submitted_by: builder-agent
+  commit: 1155ff5
+  message: 'Builder 报告：S79 草案已完成
+
+    主题：MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件——MPEG4AtomParser 五级原子层级与 FFmpegDemuxerPlugin
+    双轨并行
+
+    证据来源：mpeg4_demuxer_plugin.cpp (1625行)
+
+    请审批（approve/revise/reject）
+
+    '
+- mem_id: MEM-ARCH-AVCODEC-S80
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T12:10:00+08:00'
+  submitted_by: builder-agent
+  commit: 1155ff5
+  message: 'Builder 报告：S80 草案已完成
+
+    主题：SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版）
+
+    证据来源：fsurface_memory.h:32-37 / render_surface.h:59-81 / render_surface.cpp:436-499
+    / dma_swap.h+cpp
+
+    请审批（approve/revise/reject）
+
+    '
+- mem_id: MEM-ARCH-AVCODEC-S81
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T05:49:28+08:00'
+  submitted_by: builder-agent
+  commit: ''
+  message: 'Builder 报告：S81 草案已完成
+
+    主题：AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式与 AVCodecMonitor 活性查询
+
+    证据来源：avcodec_suspend.cpp (45行) / avcodec_monitor.cpp (32行)
+
+    请审批（approve/revise/reject）
+
+    '
+- mem_id: MEM-ARCH-AVCODEC-S82
+  type: approval_request
+  status: pending
+  submitted_at: '2026-05-03T14:48:00+08:00'
+  submitted_by: builder-agent
+  commit: ''
+  message: 'Builder 报告：S82 草案已完成
+
+    主题：AVCodec Event Manager 事件管理框架——EventManager + StatisticsEventHandler + InstanceMemoryUpdateEventHandler
+    + BackgroundEventHandler 四组件协作
+
+    证据来源：services/services/common/event_manager/ (2275行源码)
+
+    请审批（approve/revise/reject）
+
+    '
