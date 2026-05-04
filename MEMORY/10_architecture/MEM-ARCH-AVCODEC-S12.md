@@ -1,7 +1,9 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S12
-status: draft
+status: approved
+approved_at: '2026-05-04T16:15:36.119260'
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 topic: VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册
 created_at: "2026-04-24T00:05:00+08:00"
 updated_at: "2026-05-04T06:05:00+08:00"

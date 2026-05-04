@@ -9,7 +9,9 @@
 | **mem_id** | MEM-ARCH-AVCODEC-S82 |
 | **scope** | AVCodec, DFX, EventManager, BackgroundProcessing, MemoryManagement |
 | **关联场景** | 问题定位/系统运维/性能分析 |
-| **status** | pending_approval |
+| **status** | approved |
+| **approved_at** | 2026-05-04T16:15:36.119246 |
+| **approved_by** | feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7 |
 | **created** | 2026-05-03T14:10 |
 | **来源文件** | `services/services/common/event_manager/` (2275行源码) |
 

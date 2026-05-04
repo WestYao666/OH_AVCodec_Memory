@@ -1,6 +1,8 @@
 ---
-status: draft
+status: approved
 mem_id: MEM-ARCH-AVCODEC-S84
+approved_at: '2026-05-04T16:15:36.119249'
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7'
 title: VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式
 scope: [AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, CodecClient, OH_AVCodec, OH_VideoEncoder]
 topic: VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式
@@ -8,7 +10,7 @@ confidence: high
 type: architecture_fact
 created_by: builder-agent
 created_at: "2026-05-03T21:49:00+08:00"
-approved_by: null
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 ---
 
 # MEM-ARCH-AVCODEC-S84

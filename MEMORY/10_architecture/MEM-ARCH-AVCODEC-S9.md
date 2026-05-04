@@ -2,10 +2,11 @@
 id: MEM-ARCH-AVCODEC-S9
 title: SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制
 scope: [AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback]
-status: pending_approval
+status: approved
+approved_at: '2026-05-04T16:15:36.119256'
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 created_by: builder-agent
 created_at: "2026-04-23T22:51:00+08:00"
-approved_by: null
 type: architecture_fact
 confidence: high
 related_scenes: [新需求开发, 问题定位, Surface Mode, 后台切换, ZeroCopy]

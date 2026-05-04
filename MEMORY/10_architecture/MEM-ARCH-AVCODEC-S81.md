@@ -1,6 +1,8 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S81
-status: pending_approval
+status: approved
+approved_at: '2026-05-04T16:15:36.119244'
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 submitted_by: builder-agent
 submitted_at: "2026-05-03T05:49:28+08:00"
 scope: [AVCodec, DFX, Suspend, Freeze, PowerManagement, Monitor, AVCodecMonitor, AVCodecSuspend, AVCodecServiceFactory, CodecServer, SuspendFreeze, SuspendActive, SuspendActiveAll]

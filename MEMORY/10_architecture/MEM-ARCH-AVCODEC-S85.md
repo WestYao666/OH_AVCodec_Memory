@@ -2,10 +2,12 @@
 mem_id: MEM-ARCH-AVCODEC-S85
 title: "PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享"
 scope: [AVCodec, CAPI, Preprocessor, PreprocessorManager, PreprocessorEncoder, VideoEncoder, Surface, Crop, Downsample, FrameDrop, FastKitsInterface, FrameDropFilter, SharedSurfaceManager, DualEncoder, PrimaryEncoder, SecondaryEncoder, SurfaceMode]
-status: draft
+status: approved
+approved_at: '2026-05-04T16:15:36.119251'
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 created_by: builder-agent
 created_at: "2026-05-03T22:45:00+08:00"
-approved_by: null
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 type: architecture_fact
 confidence: high
 summary: >
