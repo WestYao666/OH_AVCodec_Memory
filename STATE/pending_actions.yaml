@@ -209,3 +209,13 @@ pending_approvals:
   submitted_at: '2026-05-04T06:34:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+- commit: dummy-pending
+  mem_id: MEM-ARCH-AVCODEC-S90
+  message: 'Builder 报告：S90 草案已完成
+    主题：Demuxer共享解析工具链——DemuxerDataReader + AvcParserImpl + DemuxerBitReader 三组件
+    证据来源：demuxer_data_reader.cpp (~165行) / demuxer_data_reader.h / avc_parser_impl.cpp (180行) / avc_parser_impl.h (83行) / rbsp_context.cpp
+    请审批（approve/revise/reject）'
+  status: pending
+  submitted_at: '2026-05-04T08:49:00+08:00'
+  submitted_by: builder-agent
+  type: approval_request
