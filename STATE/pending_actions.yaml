@@ -1,5 +1,16 @@
+approval_responses:
+- decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S90
+  timestamp: '2026-05-04T16:13:00+08:00'
+  type: approval_response
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
 pending_approvals:
-- commit: c0ba394
+- approved_at: '2026-05-04T16:15:36.115104'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: c0ba394
+  decided_at: '2026-05-04T16:13:00+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S67
   message: 'Builder 报告：S67 草案已完成
 
@@ -11,11 +22,13 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T15:51:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: ed20763
+- approved_at: '2026-05-04T16:15:36.119231'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: ed20763
   mem_id: MEM-ARCH-AVCODEC-S68
   message: 'Builder 报告：S68 草案已完成
 
@@ -27,11 +40,13 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T15:51:10+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: 3c46edf
+- approved_at: '2026-05-04T16:15:36.119235'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 3c46edf
   mem_id: MEM-ARCH-AVCODEC-S76
   message: 'Builder 报告：S76 草案已完成
 
@@ -43,11 +58,13 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T15:51:20+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: 1155ff5
+- approved_at: '2026-05-04T16:15:36.119237'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 1155ff5
   mem_id: MEM-ARCH-AVCODEC-S77
   message: 'Builder 报告：S78 草案已完成
 
@@ -58,11 +75,13 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T11:40:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: 1155ff5
+- approved_at: '2026-05-04T16:15:36.119240'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 1155ff5
   mem_id: MEM-ARCH-AVCODEC-S79
   message: 'Builder 报告：S79 草案已完成
 
@@ -74,11 +93,13 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T11:50:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: 1155ff5
+- approved_at: '2026-05-04T16:15:36.119242'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 1155ff5
   mem_id: MEM-ARCH-AVCODEC-S80
   message: 'Builder 报告：S80 草案已完成
 
@@ -90,11 +111,13 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T12:10:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: ''
+- approved_at: '2026-05-04T16:15:36.119244'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: ''
   mem_id: MEM-ARCH-AVCODEC-S81
   message: 'Builder 报告：S81 草案已完成
 
@@ -105,11 +128,13 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T05:49:28+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: ''
+- approved_at: '2026-05-04T16:15:36.119246'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: ''
   mem_id: MEM-ARCH-AVCODEC-S82
   message: 'Builder 报告：S82 草案已完成
 
@@ -121,81 +146,97 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T14:48:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: ''
+- approved_at: '2026-05-04T16:15:36.119249'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: ''
   mem_id: MEM-ARCH-AVCODEC-S84
   message: 'Builder 报告：S84 草案已完成 主题：VideoEncoder C API 实现——NativeVideoEncoder 对象模型与
     Surface/Buffer 双模式 证据来源：native_video_encoder.cpp (715行) / video_encoder_object.h
     (92行) / video_encoder_object.cpp (364行) 核心发现：GetSurface(Surface模式)/PushInputBuffer(Buffer模式)双路径、RegisterParameterCallback(Encoder独有)、isInputSurfaceMode_标志
     请审批（approve/revise/reject） '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T21:49:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: ''
+- approved_at: '2026-05-04T16:15:36.119251'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: ''
   mem_id: MEM-ARCH-AVCODEC-S85
   message: 'PM 检测：S85 草案已完成待审批 主题：PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享
     草案已生成，请审批（approve/revise/reject） '
-  status: pending
+  status: approved
   submitted_at: '2026-05-03T22:45:00+08:00'
   submitted_by: pm-agent
   type: approval_request
-- commit: 882d9b8
+- approved_at: '2026-05-04T16:15:36.119253'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 882d9b8
   mem_id: MEM-ARCH-AVCODEC-S86
   message: 'Builder 报告：S86 草案已完成 主题：HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager
     多轨分片下载架构 证据来源：media_cached_buffer.cpp (1386行) / hls_segment_manager.cpp (2582行)
     / aes_decryptor.cpp (71行) 核心发现：CacheMediaChunkBufferImpl RingBuffer(CACHE_FRAGMENT_MAX_NUM=300/10)、三轨HlsSegmentManager(SEG_VIDEO/AUDIO/SUBTITLE)、AES-128-CBC解密(EXT-X-KEY)、自适应码率切换、Seek/PlaylistBackup直播回退
     请审批（approve/revise/reject） '
-  status: pending
+  status: approved
   submitted_at: '2026-05-04T00:48:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: ''
+- approved_at: '2026-05-04T16:15:36.119256'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: ''
   mem_id: MEM-ARCH-AVCODEC-S9
   message: 'Builder 报告：S9 草案已完成 主题：SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback
     与三队列机制 证据来源：fsurface_memory.h:32-37 / render_surface.h:59-81 / render_surface.cpp:436-499
     / dma_swap.h+cpp 核心发现：Owner四态枚举(OWNED_BY_US/CODEC/USER/SURFACE)、三队列(renderAvailQue/codecAvailQue/requestSurfaceBufferQue)、FSCallback
     RegisterReleaseListener联动、FreezeBuffers SwapOut ioctl(DMA_BUF_RECLAIM_FD)、ActiveBuffers
     SwapIn ioctl(DMA_BUF_RESUME_FD)、CanSwapOut owner!=SURFACE约束 请审批（approve/revise/reject） '
-  status: pending
+  status: approved
   submitted_at: '2026-05-04T01:04:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: 9e52461
+- approved_at: '2026-05-04T16:15:36.119258'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 9e52461
   mem_id: MEM-ARCH-AVCODEC-S87
   message: 'Builder 报告：S87 草案已完成 主题：MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系
     证据来源：services/media_engine/modules/source/source.cpp (715行) / source.h (184行)
     / interfaces/plugin/source_plugin.h (231行) 核心发现：Source(715行)媒体源顶层封装、ParseProtocol三协议路由(http/https/file/fd/stream)、FindPlugin→PluginManagerV2::CreatePluginByMime(SOURCE)插件创建、SourcePlugin基接口20+纯虚函数(Read/Seek/GetSize/SelectBitRate/Pause/Resume)、StreamInfo多轨元数据结构
     与S38(SourcePlugin体系)/S37(HttpSourcePlugin)/S41(DemuxerFilter)上下游关联 请审批（approve/revise/reject） '
-  status: pending
+  status: approved
   submitted_at: '2026-05-04T02:20:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: ''
+- approved_at: '2026-05-04T16:15:36.119260'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: ''
   mem_id: MEM-ARCH-AVCODEC-S12
   message: "Builder 报告：S12 草案已完成（源码增强版）\n  主题：VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo\
     \ 视频处理引擎与 FILTERTYPE_VIDRESIZE 插件注册\n  证据来源：video_resize_filter.cpp (566行) / video_resize_filter.h\
     \ (113行)\n  核心发现：AutoRegisterFilter(\"builtin.transcoder.videoresize\")、DetailEnhancerVideo\
     \ 双 Surface 桥接、USE_VIDEO_PROCESSING_ENGINE 编译开关、ReleaseBuffer Task 后台线程、eosBufferIndex_\
     \ EOS 级联传播\n  请审批（approve/revise/reject）\n"
-  status: pending
+  status: approved
   submitted_at: '2026-05-04T06:08:48+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: 9e962f0
+- approved_at: '2026-05-04T16:15:36.119262'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 9e962f0
   mem_id: MEM-ARCH-AVCODEC-S88
   message: 'Builder 报告：S88 草案已完成 主题：AudioDecoder C API 实现——NativeAudioDecoder 对象模型与
     AudioCodecEngine 三层架构 证据来源：native_audio_decoder.cpp (497行) / native_avcodec_audiodecoder.h
     / native_avcodec_base.h (2355行) / native_avcodec_base.cpp (203行) / codec_client.cpp
     请审批（approve/revise/reject） '
-  status: pending
+  status: approved
   submitted_at: '2026-05-04T06:25:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: 598011b
+- approved_at: '2026-05-04T16:15:36.119264'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: 598011b
   mem_id: MEM-ARCH-AVCODEC-S89
   message: 'Builder 报告：S89 草案已完成
 
@@ -205,17 +246,18 @@ pending_approvals:
     证据来源：demuxer_filter.cpp (1206行) / demuxer_filter.h (185行) / interfaces/inner_api/native/demuxer_filter.h
 
     请审批（approve/revise/reject）'
-  status: pending
+  status: approved
   submitted_at: '2026-05-04T06:34:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- commit: dummy-pending
+- approved_at: '2026-05-04T16:15:36.119267'
+  approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  commit: dummy-pending
   mem_id: MEM-ARCH-AVCODEC-S90
-  message: 'Builder 报告：S90 草案已完成
-    主题：Demuxer共享解析工具链——DemuxerDataReader + AvcParserImpl + DemuxerBitReader 三组件
-    证据来源：demuxer_data_reader.cpp (~165行) / demuxer_data_reader.h / avc_parser_impl.cpp (180行) / avc_parser_impl.h (83行) / rbsp_context.cpp
-    请审批（approve/revise/reject）'
-  status: pending
+  message: Builder 报告：S90 草案已完成 主题：Demuxer共享解析工具链——DemuxerDataReader + AvcParserImpl
+    + DemuxerBitReader 三组件 证据来源：demuxer_data_reader.cpp (~165行) / demuxer_data_reader.h
+    / avc_parser_impl.cpp (180行) / avc_parser_impl.h (83行) / rbsp_context.cpp 请审批（approve/revise/reject）
+  status: approved
   submitted_at: '2026-05-04T08:49:00+08:00'
   submitted_by: builder-agent
   type: approval_request

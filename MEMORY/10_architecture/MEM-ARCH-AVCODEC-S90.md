@@ -2,7 +2,9 @@
 id: MEM-ARCH-AVCODEC-S90
 title: "Demuxer共享解析工具链——DemuxerDataReader + AvcParserImpl + DemuxerBitReader 三组件"
 scope: [AVCodec, MediaEngine, Demuxer, Common, BitReader, NALU, Parser, StreamParser, AVC, HEVC, DataSource]
-status: draft
+status: approved
+approved_at: '2026-05-04T16:13:00+08:00'
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 created_by: builder-agent
 created_at: "2026-05-04T08:49:00+08:00"
 ---
