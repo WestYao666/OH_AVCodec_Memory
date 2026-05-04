@@ -2,9 +2,11 @@
 id: MEM-ARCH-AVCODEC-S89
 title: "AVCodec Filter Framework 基础架构——Filter 基类 / StreamType / FilterLinkCallback 三层联动"
 scope: [AVCodec, MediaEngine, Filter, FilterBase, StreamType, FilterLinkCallback, FilterCallback, FilterCallBackCommand, LinkNext, OnLinked, DemuxerFilter, AutoRegisterFilter, Pipeline]
-status: draft
+status: approved
 created_by: builder-agent
 created_at: "2026-05-04T06:34:00+08:00"
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+approved_at: "2026-05-04T16:15:36+08:00"
 evidence_count: 24
 ---
 

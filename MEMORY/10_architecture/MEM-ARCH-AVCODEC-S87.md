@@ -2,9 +2,11 @@
 id: MEM-ARCH-AVCODEC-S87
 title: "MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系"
 scope: [AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, Protocol, PluginManagerV2, FilterPipeline, Read, Seekable]
-status: draft
+status: approved
 created_by: builder-agent
 created_at: "2026-05-04T02:15:00+08:00"
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+approved_at: "2026-05-04T16:15:36+08:00"
 ---
 
 # MEM-ARCH-AVCODEC-S87: MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系

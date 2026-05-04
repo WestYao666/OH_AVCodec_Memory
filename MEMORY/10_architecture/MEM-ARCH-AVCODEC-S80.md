@@ -2,10 +2,11 @@
 mem_id: MEM-ARCH-AVCODEC-S80
 title: SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版）
 scope: [AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback, FreezeBuffers, SwapOut, SwapIn]
-status: draft
+status: approved
 created_by: builder-agent
 created_at: "2026-05-03T12:10:00+08:00"
-approved_by: null
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+approved_at: "2026-05-04T16:15:36+08:00"
 type: architecture_fact
 confidence: high
 summary: >

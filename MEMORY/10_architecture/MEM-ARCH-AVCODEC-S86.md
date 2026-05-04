@@ -2,9 +2,11 @@
 id: MEM-ARCH-AVCODEC-S86
 title: "HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager 多轨分片下载架构"
 scope: [AVCodec, MediaEngine, SourcePlugin, HLS, Streaming, Cache, RingBuffer, SegmentDownload, AES128, AdaptiveBitrate, M3U8, HttpSource]
-status: draft
+status: approved
 created_by: builder-agent
 created_at: "2026-05-03T23:34:00+08:00"
+approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+approved_at: "2026-05-04T16:15:36+08:00"
 ---
 
 # MEM-ARCH-AVCODEC-S86: HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager 多轨分片下载架构

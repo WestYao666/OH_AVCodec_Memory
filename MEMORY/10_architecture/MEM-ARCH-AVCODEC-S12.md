@@ -17,7 +17,7 @@ scope: [AVCodec, MediaEngine, Filter, Transcoder, VideoProcessingEngine, VPE, Pl
 VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo 视频处理引擎与 FILTERTYPE_VIDRESIZE 插件注册
 
 ## 状态
-status: draft（待审批）
+status: approved（已批准）
 
 ## 摘要
 
