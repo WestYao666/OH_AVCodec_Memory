@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-06"
+---
+
 # MEM-ARCH-AVCODEC-S79: MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件
 
 > **ID**: MEM-ARCH-AVCODEC-S79

@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S13
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧与CodecServer集成
 created_at: "2026-04-24T19:36:00+08:00"
 evidence: |

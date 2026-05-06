@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-06"
+---
+
 # MEM-ARCH-AVCODEC-S78: AudioServerSinkPlugin 音频渲染插件
 
 > **ID**: MEM-ARCH-AVCODEC-S78

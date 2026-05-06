@@ -3,7 +3,8 @@ id: MEM-ARCH-AVCODEC-020
 title: AudioDecoderAdapter 音频解码适配器——AudioCodec 封装与 Filter 集成
 type: architecture_fact
 scope: [AVCodec, AudioCodec, Adapter, FilterPipeline, Decoding]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-23T20:25:00+08:00"
 updated_by: builder-agent

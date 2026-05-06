@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # MEM-ARCH-AVCODEC-S72: AudioCodec Worker Pipeline 整合视图
 
 > **ID**: MEM-ARCH-AVCODEC-S72

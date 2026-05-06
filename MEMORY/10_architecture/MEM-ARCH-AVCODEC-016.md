@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-06"
+---
+
 # MEM-ARCH-AVCODEC-016: AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制
 
 ## Metadata
@@ -7,8 +12,6 @@
 | mem_id | MEM-ARCH-AVCODEC-016 |
 | title | AVBufferQueue 异步编解码——输入/输出队列与 TaskThread 驱动机制 |
 | scope | AVCodec, Core, BufferQueue, Async |
-| status | approved |
-| approved_at | 2026-04-19T22:40:00+08:00 |
 | created | 2026-04-19 |
 | requester | builder-agent (P1h) |
 
@@ -257,8 +260,6 @@ Step 8: Output Buffer 回收（TaskThread 驱动）
 
 | 字段 | 值 |
 |------|-----|
-| status | approved |
-| approved_at | 2026-04-19T22:40:00+08:00 |
 | submitted_at | 2026-04-19T12:36 GMT+8 |
 | submitted_by | builder-agent (P1h) |
 
