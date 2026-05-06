@@ -1,0 +1,562 @@
+# WORKFLOWS/synthesize_high_level_knowledge.yaml
+# 高层次知识综合工作流 — 每周六 10:00 Asia/Shanghai 自动执行
+#
+# 职责：从已有的 S 系列记忆中，主动提取和综合：
+#   1. 00_domain_map/ — AVCodec 术语表与领域总览
+#   2. 40_scenarios/ — 四类场景矩阵
+#   3. 90_decisions/ — 架构决策记录
+#
+# 原则：
+#   - 基于已有记忆，不重复发明
+#   - 增量更新，不覆盖已有内容（除非发现冲突）
+#   - 产出必须经过审批才能入库
+
+name: synthesize_high_level_knowledge
+description: >
+  周期性主动思考工作流：从 10_architecture 的 S 系列记忆中，
+  提取关键术语填充 00_domain_map，
+  建立四类场景索引到 40_scenarios，
+  识别架构决策记录到 90_decisions。
+  产出的综合文档需要审批入库。
+
+trigger:
+  type: schedule
+  cron: "0 10 * * 6"  # 每周六 10:00 Asia/Shanghai
+  timezone: Asia/Shanghai
+
+input:
+  - name: memory_dir
+    type: string
+    default: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY
+  - name: target_domains
+    type: list
+    default:
+      - domain_map
+      - scenarios
+      - decisions
+
+steps:
+  - name: check_preconditions
+    type: shell
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      
+      # 检查是否有足够的 S 系列记忆（至少 50 个才开始综合）
+      S_COUNT=$(ls MEMORY/10_architecture/MEM-ARCH-AVCODEC-S*.md 2>/dev/null | wc -l)
+      echo "S_SERIES_COUNT=$S_COUNT"
+      
+      if [ "$S_COUNT" -lt 30 ]; then
+        echo "PRECONDITION_MET=false"
+        echo "Reason: S系列记忆不足 30 个，当前仅 $S_COUNT 个"
+      else
+        echo "PRECONDITION_MET=true"
+      fi
+    output: PRECONDITION
+
+  - name: skip_if_not_ready
+    type: condition
+    condition: "{{ PRECONDITION }}" == "false"
+    on_true:
+      - name: log_skip
+        type: log
+        message: |
+          synthesize_high_level_knowledge 跳过：
+          S 系列记忆不足 30 个，等待积累更多记忆后再执行。
+          
+          当前状态：{{ S_SERIES_COUNT }} / 30
+
+  - name: update_work_state
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      
+      # 写入当前工作状态
+      python3 -c "
+import yaml
+from datetime import datetime
+
+state = {
+    'workflow': 'synthesize_high_level_knowledge',
+    'started_at': datetime.now().isoformat() + '+08:00',
+    'phase': 'EXTRACTING_TERMS',
+    's_series_count': {{ S_SERIES_COUNT }}
+}
+
+with open('STATE/synthesize_state.yaml', 'w') as f:
+    yaml.dump(state, f, allow_unicode=True, default_flow_style=False)
+print('Synthesize state written')
+      "
+    output: WORK_STATE
+
+  # ============================================================
+  # 阶段 1：从 S 系列记忆中提取术语填充 00_domain_map
+  # ============================================================
+  - name: extract_terms
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    timeout: 300
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      
+      # 从所有 S 系列记忆提取类名、术语、缩略语
+      python3 << 'PYEOF'
+import os
+import re
+from collections import defaultdict
+from datetime import datetime
+
+memory_dir = 'MEMORY/10_architecture'
+terms = defaultdict(list)  # term -> list of (source_file, context)
+
+# 扫描所有 S 系列记忆
+for fname in sorted(os.listdir(memory_dir)):
+    if not fname.startswith('MEM-ARCH-AVCODEC-S') or not fname.endswith('.md'):
+        continue
+    
+    fpath = os.path.join(memory_dir, fname)
+    with open(fpath) as f:
+        content = f.read()
+    
+    # 提取 scope 中的术语
+    scope_match = re.search(r'\*\*Scope\*\*:\s*(.+?)(?:\n|$)', content)
+    if scope_match:
+        scopes = [s.strip() for s in scope_match.group(1).split(',')]
+        for scope in scopes:
+            if len(scope) > 2 and not scope.startswith('AVCodec'):
+                terms[scope].append({
+                    'source': fname,
+                    'type': 'scope',
+                    'context': content[:200]
+                })
+    
+    # 提取代码中的类名（PascalCase）
+    class_pattern = re.findall(r'(?:class|struct|enum)\s+([A-Z][a-zA-Z0-9]+)', content)
+    for cls in class_pattern[:10]:  # 最多 10 个
+        if cls not in terms:
+            terms[cls] = []
+        terms[cls].append({
+            'source': fname,
+            'type': 'class',
+            'context': content[:200]
+        })
+    
+    # 提取缩略语（大写字母组成）
+    abbrev_pattern = re.findall(r'\b([A-Z]{2,10})\b', content)
+    for abbrev in set(abbrev_pattern):
+        if abbrev not in ['AV', 'OS', 'HDI', 'DFX', 'IPC', 'DRM', 'SVP', 'EPA', 'FPS', 'PTS', 'DTS', 'NAL', 'GOP']:
+            terms[abbrev].append({
+                'source': fname,
+                'type': 'abbreviation',
+                'context': content[:200]
+            })
+
+# 生成 domain_map 文件
+output = '''# 00_domain_map/AVCODEC_TERMINOLOGY.yaml
+# AVCodec 术语表 — 从 S 系列记忆自动提取生成
+# 生成时间: {timestamp}
+# 来源: {s_count} 个 S 系列记忆
+# 状态: pending_approval
+
+---
+terminology_version: "{timestamp}"
+source_memories: "{s_count} S-series entries"
+status: pending_approval
+generated_by: synthesize_high_level_knowledge
+---
+
+## 术语表
+
+'''.format(timestamp=datetime.now().strftime('%Y-%m-%d'), s_count=len([f for f in os.listdir(memory_dir) if f.startswith('MEM-ARCH-AVCODEC-S')]))
+
+# 按字母排序输出
+for term in sorted(terms.keys()):
+    sources = list(set([t['source'] for t in terms[term]]))
+    output += f'### {term}\n'
+    output += f'- **类型**: {terms[term][0]["type"]}\n'
+    output += f'- **来源记忆**: {", ".join(sources[:5])}'
+    if len(sources) > 5:
+        output += f' ... (+{len(sources)-5} more)'
+    output += '\n\n'
+
+with open('MEMORY/00_domain_map/AVCODEC_TERMINOLOGY.yaml', 'w') as f:
+    f.write(output)
+
+print(f'Extracted {len(terms)} terms from S-series memories')
+print('Written: MEMORY/00_domain_map/AVCODEC_TERMINOLOGY.yaml')
+PYEOF
+    output: TERMS_EXTRACTED
+
+  - name: update_phase_scenarios
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+with open('STATE/synthesize_state.yaml') as f:
+    state = yaml.safe_load(f)
+state['phase'] = 'EXTRACTING_SCENARIOS'
+state['terms_extracted'] = {{ TERMS_EXTRACTED }}
+with open('STATE/synthesize_state.yaml', 'w') as f:
+    yaml.dump(state, f, allow_unicode=True, default_flow_style=False)
+print('Phase updated to EXTRACTING_SCENARIOS')
+      "
+    output: WORK_STATE
+
+  # ============================================================
+  # 阶段 2：从 S 系列记忆建立四类场景矩阵到 40_scenarios
+  # ============================================================
+  - name: extract_scenarios
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    timeout: 300
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      
+      python3 << 'PYEOF'
+import os
+import re
+from collections import defaultdict
+from datetime import datetime
+
+memory_dir = 'MEMORY/10_architecture'
+
+# 四类场景定义
+SCENARIOS = {
+    '新人入项': ['入项', '新人', '单测', '构建', '编译', '环境'],
+    '三方应用': ['三方', '应用', 'API', 'C API', 'Native', '接入', 'OH_AVCodec'],
+    '新需求开发': ['新需求', '开发', '扩展', '插件', '工厂', 'Loader'],
+    '问题定位': ['问题', '定位', '故障', 'DFX', 'HiSysEvent', 'Dump', '日志', '回调']
+}
+
+# 扫描所有 S 系列记忆，分类到场景
+scenario_map = defaultdict(list)
+
+for fname in sorted(os.listdir(memory_dir)):
+    if not fname.startswith('MEM-ARCH-AVCODEC-S') or not fname.endswith('.md'):
+        continue
+    
+    fpath = os.path.join(memory_dir, fname)
+    with open(fpath) as f:
+        content = f.read()
+    
+    # 提取标题
+    title_match = re.search(r'^#\s+.+?[-—–]\s*(.+?)(?:\n|$)', content, re.MULTILINE)
+    title = title_match.group(1).strip() if title_match else fname
+    
+    # 提取 scope
+    scope_match = re.search(r'\*\*Scope\*\*:\s*(.+?)(?:\n|$)', content)
+    scope = scope_match.group(1) if scope_match else ''
+    
+    # 提取关联场景
+    related_match = re.search(r'\*\*关联场景\*\*:\s*(.+?)(?:\n|$)', content)
+    related = related_match.group(1) if related_match else ''
+    
+    # 检查每个场景关键词
+    matched_scenarios = []
+    for scenario, keywords in SCENARIOS.items():
+        for kw in keywords:
+            if kw in content or kw in scope or kw in related:
+                matched_scenarios.append(scenario)
+                break
+    
+    if matched_scenarios:
+        entry = {
+            'id': fname.replace('.md', ''),
+            'title': title,
+            'scopes': [s.strip() for s in scope.split(',')][:5],
+            'scenarios': list(set(matched_scenarios))
+        }
+        for scenario in matched_scenarios:
+            scenario_map[scenario].append(entry)
+
+# 生成场景矩阵文件
+output = '''# 40_scenarios/SCENARIO_MATRIX.yaml
+# AVCodec 四类场景矩阵 — 从 S 系列记忆自动提取生成
+# 生成时间: {timestamp}
+# 来源: {s_count} 个 S 系列记忆
+# 状态: pending_approval
+
+---
+matrix_version: "{timestamp}"
+source_memories: "{s_count} S-series entries"
+status: pending_approval
+generated_by: synthesize_high_level_knowledge
+---
+
+## 场景矩阵说明
+
+- **新人入项**: 开发环境搭建、单测运行、构建命令、模块地图
+- **三方应用**: Native C API 接入、能力查询、格式支持
+- **新需求开发**: 插件扩展、工厂模式、新增Codec支持
+- **问题定位**: 日志路径、HiSysEvent、Dump工具、回调链路
+
+---
+
+'''.format(timestamp=datetime.now().strftime('%Y-%m-%d'), s_count=len([f for f in os.listdir(memory_dir) if f.startswith('MEM-ARCH-AVCODEC-S')]))
+
+for scenario in ['新人入项', '三方应用', '新需求开发', '问题定位']:
+    entries = scenario_map.get(scenario, [])
+    output += f'## {scenario} ({len(entries)} 个记忆)\n\n'
+    
+    if entries:
+        output += '| ID | 标题 | 关键 Scope |\n'
+        output += '|----|------|----------|\n'
+        for entry in sorted(entries, key=lambda x: x['id'])[:20]:  # 最多 20 个
+            output += f"| {entry['id']} | {entry['title'][:40]} | {', '.join(entry['scopes'][:3])} |\n"
+        if len(entries) > 20:
+            output += f"\n_... 还有 {len(entries)-20} 个记忆，请查看完整索引_\n"
+    else:
+        output += '_暂无匹配记忆_\n'
+    output += '\n'
+
+with open('MEMORY/40_scenarios/SCENARIO_MATRIX.yaml', 'w') as f:
+    f.write(output)
+
+print(f'Extracted scenarios from {sum(len(v) for v in scenario_map.values())} memories')
+print('Written: MEMORY/40_scenarios/SCENARIO_MATRIX.yaml')
+PYEOF
+    output: SCENARIOS_EXTRACTED
+
+  - name: update_phase_decisions
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+with open('STATE/synthesize_state.yaml') as f:
+    state = yaml.safe_load(f)
+state['phase'] = 'EXTRACTING_DECISIONS'
+with open('STATE/synthesize_state.yaml', 'w') as f:
+    yaml.dump(state, f, allow_unicode=True, default_flow_style=False)
+print('Phase updated to EXTRACTING_DECISIONS')
+      "
+    output: WORK_STATE
+
+  # ============================================================
+  # 阶段 3：识别架构决策记录到 90_decisions
+  # ============================================================
+  - name: extract_decisions
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    timeout: 300
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      
+      python3 << 'PYEOF'
+import os
+import re
+from datetime import datetime
+
+memory_dir = 'MEMORY/10_architecture'
+
+# 架构决策关键词模式
+DECISION_PATTERNS = [
+    (r'为什么.*?选择.*?(插件|工厂|单例|策略)', 'WHY_CHOICE'),
+    (r'设计.*?目的.*?(解耦|扩展|模块化)', 'DESIGN_PURPOSE'),
+    (r'(工厂|Factory).*?注册.*?机制', 'FACTORY_REGISTRATION'),
+    (r'(插件|Plugin).*?热加载', 'PLUGIN_HOTLOAD'),
+    (r'(状态机|StateMachine).*?状态流转', 'STATE_MACHINE'),
+    (r'(信号|Signal).*?(等待|Wait).*?异步', 'SIGNAL_WAIT_ASYNC'),
+    (r'(IPC|Binder).*?跨进程', 'IPC_CROSS_PROCESS'),
+    (r'(DL|open|dlopen).*?动态加载', 'DYNAMIC_LOADING'),
+]
+
+decisions = []
+
+for fname in sorted(os.listdir(memory_dir)):
+    if not fname.startswith('MEM-ARCH-AVCODEC-S') or not fname.endswith('.md'):
+        continue
+    
+    fpath = os.path.join(memory_dir, fname)
+    with open(fpath) as f:
+        content = f.read()
+    
+    # 提取标题
+    title_match = re.search(r'^#\s+.+?[-—–]\s*(.+?)(?:\n|$)', content, re.MULTILINE)
+    title = title_match.group(1).strip() if title_match else fname.replace('.md', '')
+    
+    # 提取 scope
+    scope_match = re.search(r'\*\*Scope\*\*:\s*(.+?)(?:\n|$)', content)
+    scope = scope_match.group(1) if scope_match else ''
+    
+    # 检查是否包含决策相关内容
+    for pattern, pattern_type in DECISION_PATTERNS:
+        if re.search(pattern, content, re.IGNORECASE):
+            # 提取包含关键词的段落
+            matches = re.findall(r'.{0,100}' + pattern + r'.{0,100}', content, re.IGNORECASE | re.DOTALL)
+            for match in matches[:2]:  # 最多 2 段
+                decisions.append({
+                    'id': fname.replace('MEM-ARCH-AVCODEC-', 'ADR-'),
+                    'title': title[:60],
+                    'pattern_type': pattern_type,
+                    'snippet': match.strip()[:200],
+                    'source': fname
+                })
+            break
+
+# 生成 ADR 文件
+output = '''# 90_decisions/ARCHITECTURE_DECISIONS.yaml
+# AVCodec 架构决策记录 — 从 S 系列记忆自动提取生成
+# 生成时间: {timestamp}
+# 来源: {s_count} 个 S 系列记忆
+# 状态: pending_approval
+
+---
+adr_version: "{timestamp}"
+source_memories: "{s_count} S-series entries"
+status: pending_approval
+generated_by: synthesize_high_level_knowledge
+decision_count: {dec_count}
+---
+
+## 架构决策说明
+
+以下是从现有记忆中识别的架构决策记录（ADR）。每条记录包含：
+- **决策类型**: 为什么这样设计 / 选择了什么方案 / 替代方案考虑
+- **上下文**: 来自哪个记忆
+- **证据**: 相关代码片段
+
+---
+
+'''.format(
+    timestamp=datetime.now().strftime('%Y-%m-%d'),
+    s_count=len([f for f in os.listdir(memory_dir) if f.startswith('MEM-ARCH-AVCODEC-S')]),
+    dec_count=len(decisions)
+)
+
+# 按决策类型分组
+by_type = {}
+for d in decisions:
+    t = d['pattern_type']
+    if t not in by_type:
+        by_type[t] = []
+    by_type[t].append(d)
+
+TYPE_NAMES = {
+    'WHY_CHOICE': '为什么选择此方案',
+    'DESIGN_PURPOSE': '设计目的',
+    'FACTORY_REGISTRATION': '工厂注册机制',
+    'PLUGIN_HOTLOAD': '插件热加载',
+    'STATE_MACHINE': '状态机设计',
+    'SIGNAL_WAIT_ASYNC': 'Signal/Wait 异步',
+    'IPC_CROSS_PROCESS': 'IPC 跨进程通信',
+    'DYNAMIC_LOADING': '动态加载',
+}
+
+for ptype in ['WHY_CHOICE', 'DESIGN_PURPOSE', 'FACTORY_REGISTRATION', 'PLUGIN_HOTLOAD', 'STATE_MACHINE', 'SIGNAL_WAIT_ASYNC', 'IPC_CROSS_PROCESS', 'DYNAMIC_LOADING']:
+    entries = by_type.get(ptype, [])
+    if not entries:
+        continue
+    
+    output += f'## {TYPE_NAMES.get(ptype, ptype)} ({len(entries)} 条)\n\n'
+    
+    for entry in sorted(entries, key=lambda x: x['id'])[:10]:
+        output += f"### {entry['id']}: {entry['title']}\n"
+        output += f"- **来源**: {entry['source']}\n"
+        output += f"- **证据片段**: ...{entry['snippet']}...\n\n"
+    
+    if len(entries) > 10:
+        output += f"_... 还有 {len(entries)-10} 条，请查看源记忆_\n\n"
+
+with open('MEMORY/90_decisions/ARCHITECTURE_DECISIONS.yaml', 'w') as f:
+    f.write(output)
+
+print(f'Extracted {len(decisions)} architecture decisions')
+print('Written: MEMORY/90_decisions/ARCHITECTURE_DECISIONS.yaml')
+PYEOF
+    output: DECISIONS_EXTRACTED
+
+  - name: submit_for_approval
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      
+      # 提交到 pending_actions.yaml 等待审批
+      python3 << 'PYEOF'
+import yaml
+from datetime import datetime
+
+now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S+08:00')
+
+new_entries = [
+    {
+        'type': 'approval_request',
+        'mem_id': 'AVCODEC_TERMINOLOGY',
+        'status': 'pending_approval',
+        'submitted_at': now,
+        'submitted_by': 'synthesize-agent',
+        'message': 'synthesize_high_level_knowledge 报告：00_domain_map/AVCODEC_TERMINOLOGY.yaml 已生成\n\n从 {{ S_SERIES_COUNT }} 个 S 系列记忆中提取术语填充术语表，请审批（approve/revise/reject）'
+    },
+    {
+        'type': 'approval_request',
+        'mem_id': 'SCENARIO_MATRIX',
+        'status': 'pending_approval',
+        'submitted_at': now,
+        'submitted_by': 'synthesize-agent',
+        'message': 'synthesize_high_level_knowledge 报告：40_scenarios/SCENARIO_MATRIX.yaml 已生成\n\n建立四类场景矩阵，请审批（approve/revise/reject）'
+    },
+    {
+        'type': 'approval_request',
+        'mem_id': 'ARCHITECTURE_DECISIONS',
+        'status': 'pending_approval',
+        'submitted_at': now,
+        'submitted_by': 'synthesize-agent',
+        'message': 'synthesize_high_level_knowledge 报告：90_decisions/ARCHITECTURE_DECISIONS.yaml 已生成\n\n从 S 系列记忆识别架构决策记录 {{ DECISIONS_EXTRACTED }} 条，请审批（approve/revise/reject）'
+    }
+]
+
+with open('STATE/pending_actions.yaml') as f:
+    pending_data = yaml.safe_load(f)
+
+for entry in new_entries:
+    exists = any(pa.get('mem_id') == entry['mem_id'] for pa in pending_data.get('pending_approvals', []))
+    if not exists:
+        pending_data['pending_approvals'].append(entry)
+        print(f"Added to pending: {entry['mem_id']}")
+
+with open('STATE/pending_actions.yaml', 'w') as f:
+    yaml.dump(pending_data, f, allow_unicode=True, default_flow_style=False, sort_keys=False)
+
+print(f"\nAdded {len(new_entries)} entries to pending_actions.yaml")
+PYEOF
+    output: APPROVAL_SUBMITTED
+
+  - name: update_work_state_done
+    type: shell
+    condition: "{{ PRECONDITION }}" == "true"
+    command: |
+      cd /home/west/.openclaw/workspace-main/avcodec-dfx-memory
+      python3 -c "
+import yaml
+from datetime import datetime
+with open('STATE/synthesize_state.yaml') as f:
+    state = yaml.safe_load(f)
+state['phase'] = 'COMPLETED'
+state['completed_at'] = datetime.now().isoformat() + '+08:00'
+with open('STATE/synthesize_state.yaml', 'w') as f:
+    yaml.dump(state, f, allow_unicode=True, default_flow_style=False)
+print('Synthesize state updated to COMPLETED')
+      "
+    output: WORK_STATE
+
+  - name: notify_done
+    type: log
+    condition: "{{ PRECONDITION }}" == "true"
+    message: |
+      synthesize_high_level_knowledge 完成！
+
+      生成内容：
+      - 00_domain_map/AVCODEC_TERMINOLOGY.yaml ({{ TERMS_EXTRACTED }} 个术语)
+      - 40_scenarios/SCENARIO_MATRIX.yaml ({{ SCENARIOS_EXTRACTED }})
+      - 90_decisions/ARCHITECTURE_DECISIONS.yaml ({{ DECISIONS_EXTRACTED }} 条决策)
+
+      已提交审批，等待耀耀确认。
+
+error_handler:
+  - name: on_error
+    type: log
+    message: "synthesize_high_level_knowledge 失败，请检查日志"
