@@ -8,8 +8,12 @@
 | created_by | builder-agent |
 | created_at | 2026-04-27T07:52:00+08:00 |
 | backlog_section | 新增主题（Builder 2026-04-27 S66注册） |
-| status | pending_approval |
-| summary | S66聚焦TypeFinder媒体类型探测框架（226行cpp+84行h）。TypeFinder继承std::enable_shared_from_this+Plugins::DataSource双继承，FindMediaType()入口路由到SniffMediaType()，PluginManagerV2::SnifferPlugin(PluginType::DEMUXER)遍历所有Demuxer插件执行Sniffer函数做媒体类型匹配；DEFAULT_SNIFF_SIZE=16KB、MAX_SNIFF_TRY_TIMES=20、MAX_TRY_TIMES=5重试逻辑；ReadAt()带condition_variable等待+中断支持；BaseStreamDemuxer持有typeFinder_（base_stream_demuxer.h:134），InitTypeFinder()初始化DataSource回调链。与S41(DemuxerFilter)/S38(SourcePlugin)上下游关系，与S58(MPEG4BoxParser)容器解析互补。 |
+---
+status: draft
+approved_at: "2026-05-06"
+---
+
+
 | draft_path | MEMORY/10_architecture/MEM-ARCH-AVCODEC-S66.md |
 
 ---

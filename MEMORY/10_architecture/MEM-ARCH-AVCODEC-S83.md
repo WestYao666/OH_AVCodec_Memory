@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # MEM-ARCH-AVCODEC-S83
 
 > **主题**：AVCodec Native C API 架构——OH_AVCodec 对象模型、四类 API 家族与 CodecClient IPC 代理

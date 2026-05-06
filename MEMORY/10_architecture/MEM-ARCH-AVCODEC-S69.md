@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # S69: MediaDemuxer 核心解封装引擎 — SampleQueue 缓冲队列与流控机制
 
 > **草案状态**: pending_approval

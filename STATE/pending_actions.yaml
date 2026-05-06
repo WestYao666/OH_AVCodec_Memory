@@ -859,3 +859,57 @@ pending_approvals:
   submitted_at: '2026-05-04T08:49:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S83
+  status: pending_approval
+  submitted_at: '2026-05-06'
+  submitted_by: pm-agent
+  message: 'PM 检测：MEM-ARCH-AVCODEC-S83 草案已完成待审批
+
+
+    草案已生成，请审批（approve/revise/reject）'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S63
+  status: pending_approval
+  submitted_at: '2026-05-06'
+  submitted_by: pm-agent
+  message: 'PM 检测：MEM-ARCH-AVCODEC-S63 草案已完成待审批
+
+
+    草案已生成，请审批（approve/revise/reject）'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S66
+  status: pending_approval
+  submitted_at: '2026-05-06'
+  submitted_by: pm-agent
+  message: 'PM 检测：MEM-ARCH-AVCODEC-S66 — TypeFinder 媒体类型探测框架 草案已完成待审批
+
+
+    草案已生成，请审批（approve/revise/reject）'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S69
+  status: pending_approval
+  submitted_at: '2026-05-06'
+  submitted_by: pm-agent
+  message: 'PM 检测：S69: MediaDemuxer 核心解封装引擎 — SampleQueue 缓冲队列与流控机制 草案已完成待审批
+
+
+    草案已生成，请审批（approve/revise/reject）'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S64
+  status: pending_approval
+  submitted_at: '2026-05-06'
+  submitted_by: pm-agent
+  message: 'PM 检测：MEM-ARCH-AVCODEC-S64 草案已完成待审批
+
+
+    草案已生成，请审批（approve/revise/reject）'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S71
+  status: pending_approval
+  submitted_at: '2026-05-06'
+  submitted_by: pm-agent
+  message: 'PM 检测：MEM-ARCH-AVCODEC-S71: CodecList 服务架构 草案已完成待审批
+
+
+    草案已生成，请审批（approve/revise/reject）'

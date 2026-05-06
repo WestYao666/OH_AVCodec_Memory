@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # MEM-ARCH-AVCODEC-S63
 
 > **状态**: draft  

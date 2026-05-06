@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # MEM-ARCH-AVCODEC-S88 · AudioDecoder C API 实现——NativeAudioDecoder 对象模型与 AudioCodecEngine 三层架构
 
 > **记忆 ID**：MEM-ARCH-AVCODEC-S88  

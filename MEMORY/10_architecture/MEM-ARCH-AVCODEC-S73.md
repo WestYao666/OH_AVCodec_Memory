@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # MEM-ARCH-AVCODEC-S73: 三路 Sink 引擎同步架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 协作机制
 
 > **ID**: MEM-ARCH-AVCODEC-S73

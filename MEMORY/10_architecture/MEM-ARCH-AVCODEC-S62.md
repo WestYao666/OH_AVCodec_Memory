@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # MEM-ARCH-AVCODEC-S62: AudioBuffersManager 音频编解码双缓冲队列管理
 
 ## 概述

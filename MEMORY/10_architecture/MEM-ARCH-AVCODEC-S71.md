@@ -1,3 +1,7 @@
+---
+status: pending_approval
+---
+
 # MEM-ARCH-AVCODEC-S71: CodecList 服务架构
 
 > **ID**: MEM-ARCH-AVCODEC-S71
