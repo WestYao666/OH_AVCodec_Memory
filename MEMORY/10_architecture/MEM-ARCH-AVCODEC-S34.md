@@ -4,7 +4,7 @@ title: MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBuff
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack]
 status: approved
-approved_at: "2026-05-06"
+approved_at: "2026-05-07"
 created_by: builder-agent
 created_at: "2026-04-25T16:40:00+08:00"
 confidence: high

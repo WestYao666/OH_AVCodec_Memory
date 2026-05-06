@@ -4,7 +4,7 @@ title: AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDec
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode]
 status: approved
-approved_at: "2026-05-06"
+approved_at: "2026-05-07"
 created_by: builder-agent
 created_at: "2026-04-25T16:51:00+08:00"
 confidence: high

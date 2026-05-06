@@ -622,6 +622,31 @@ approval_responses:
   decision: approved
   timestamp: '2026-05-06T19:55:19+08:00'
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: AVCODEC_TERMINOLOGY
+  decision: approved
+  timestamp: '2026-05-07T02:42:12+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: SCENARIO_MATRIX
+  decision: approved
+  timestamp: '2026-05-07T02:42:12+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: ARCHITECTURE_DECISIONS
+  decision: approved
+  timestamp: '2026-05-07T02:42:12+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S34
+  decision: approved
+  timestamp: '2026-05-07T02:42:36+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S35
+  decision: approved
+  timestamp: '2026-05-07T02:42:36+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
 pending_approvals:
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
@@ -1021,7 +1046,7 @@ pending_approvals:
   approved_at: '2026-05-06T19:55:19+08:00'
 - type: approval_request
   mem_id: AVCODEC_TERMINOLOGY
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-07T02:35:13+08:00'
   submitted_by: synthesize-agent
   message: 'synthesize_high_level_knowledge 报告：00_domain_map/AVCODEC_TERMINOLOGY.yaml
@@ -1029,18 +1054,26 @@ pending_approvals:
 
 
     从 90 个 S 系列记忆中提取 525 个术语填充术语表，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-07T02:42:12+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-07T02:42:12+08:00'
 - type: approval_request
   mem_id: SCENARIO_MATRIX
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-07T02:35:13+08:00'
   submitted_by: synthesize-agent
   message: 'synthesize_high_level_knowledge 报告：40_scenarios/SCENARIO_MATRIX.yaml 已生成
 
 
     建立四类场景矩阵（新人入项/三方应用/新需求开发/问题定位），235 个记忆条目已归类，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-07T02:42:12+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-07T02:42:12+08:00'
 - type: approval_request
   mem_id: ARCHITECTURE_DECISIONS
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-07T02:35:13+08:00'
   submitted_by: synthesize-agent
   message: 'synthesize_high_level_knowledge 报告：90_decisions/ARCHITECTURE_DECISIONS.yaml
@@ -1048,3 +1081,7 @@ pending_approvals:
 
 
     从 S 系列记忆识别 26 条架构决策记录（ADR），涵盖工厂注册/插件热加载/状态机等模式，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-07T02:42:12+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-07T02:42:12+08:00'
