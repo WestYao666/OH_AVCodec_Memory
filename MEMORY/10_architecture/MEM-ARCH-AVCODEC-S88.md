@@ -1,5 +1,6 @@
 ---
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 ---
 
 # MEM-ARCH-AVCODEC-S88 · AudioDecoder C API 实现——NativeAudioDecoder 对象模型与 AudioCodecEngine 三层架构

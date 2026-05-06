@@ -1,5 +1,6 @@
 ---
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 ---
 
 # MEM-ARCH-AVCODEC-S71: CodecList 服务架构

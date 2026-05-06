@@ -557,6 +557,51 @@ approval_responses:
   decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S83
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S63
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S66
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S88
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S69
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S64
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S71
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S73
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S62
+  decision: approved
+  timestamp: '2026-05-06T16:24:59+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
 pending_approvals:
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
@@ -814,7 +859,7 @@ pending_approvals:
   decision: approved
   decided_at: '2026-05-06T15:49:01+08:00'
   decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-- approved_at: '2026-05-06T15:49:01+08:00'
+- approved_at: '2026-05-06T16:24:59+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 9e962f0
   mem_id: MEM-ARCH-AVCODEC-S88
@@ -827,7 +872,7 @@ pending_approvals:
   submitted_by: builder-agent
   type: approval_request
   decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_at: '2026-05-06T16:24:59+08:00'
   decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
@@ -861,55 +906,79 @@ pending_approvals:
   type: approval_request
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S83
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
   message: 'PM 检测：MEM-ARCH-AVCODEC-S83 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-06T16:24:59+08:00'
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S63
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
   message: 'PM 检测：MEM-ARCH-AVCODEC-S63 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-06T16:24:59+08:00'
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S66
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
   message: 'PM 检测：MEM-ARCH-AVCODEC-S66 — TypeFinder 媒体类型探测框架 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-06T16:24:59+08:00'
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S69
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
   message: 'PM 检测：S69: MediaDemuxer 核心解封装引擎 — SampleQueue 缓冲队列与流控机制 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-06T16:24:59+08:00'
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S64
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
   message: 'PM 检测：MEM-ARCH-AVCODEC-S64 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-06T16:24:59+08:00'
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S71
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
   message: 'PM 检测：MEM-ARCH-AVCODEC-S71: CodecList 服务架构 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-06T16:24:59+08:00'

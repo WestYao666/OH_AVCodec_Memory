@@ -1,5 +1,6 @@
 ---
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 ---
 
 # S69: MediaDemuxer 核心解封装引擎 — SampleQueue 缓冲队列与流控机制

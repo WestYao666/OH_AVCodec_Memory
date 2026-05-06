@@ -9,7 +9,7 @@
 | created_at | 2026-04-27T07:52:00+08:00 |
 | backlog_section | 新增主题（Builder 2026-04-27 S66注册） |
 ---
-status: draft
+status: approved
 approved_at: "2026-05-06"
 ---
 
