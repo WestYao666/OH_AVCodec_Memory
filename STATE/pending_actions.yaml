@@ -617,6 +617,11 @@ approval_responses:
   decision: approved
   timestamp: '2026-05-06T17:41:50+08:00'
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S72
+  decision: approved
+  timestamp: '2026-05-06T19:55:19+08:00'
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
 pending_approvals:
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
@@ -999,7 +1004,7 @@ pending_approvals:
   approved_at: '2026-05-06T16:24:59+08:00'
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S72
-  status: pending_approval
+  status: approved
   submitted_at: '2026-05-06T17:42:55+08:00'
   submitted_by: pm-agent
   message: 'PM 检测：MEM-ARCH-AVCODEC-S72 草案已完成待审批
@@ -1010,3 +1015,7 @@ pending_approvals:
 
 
     草案已生成，请审批（approve/revise/reject）'
+  decision: approved
+  decided_at: '2026-05-06T19:55:19+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  approved_at: '2026-05-06T19:55:19+08:00'
