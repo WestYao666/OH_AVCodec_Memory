@@ -1,0 +1,130 @@
+# 40_scenarios/SCENARIO_MATRIX.yaml
+# AVCodec 四类场景矩阵 — 从 S 系列记忆自动提取生成
+# 生成时间: 2026-05-07
+# 来源: 90 个 S 系列记忆
+# 状态: pending_approval
+
+---
+matrix_version: "2026-05-07"
+source_memories: "90 S-series entries"
+status: pending_approval
+generated_by: synthesize_high_level_knowledge
+---
+
+## 场景矩阵说明
+
+- **新人入项**: 开发环境搭建、单测运行、构建命令、模块地图
+- **三方应用**: Native C API 接入、能力查询、格式支持
+- **新需求开发**: 插件扩展、工厂模式、新增Codec支持
+- **问题定位**: 日志路径、HiSysEvent、Dump工具、回调链路
+
+---
+
+## 新人入项 (21 个记忆)
+
+| ID | 标题 | 关键 Scope |
+|----|------|----------|
+| MEM-ARCH-AVCODEC-S1 | ARCH-AVCODEC-S1 |  |
+| MEM-ARCH-AVCODEC-S12 | ARCH-AVCODEC-S12: VideoResizeFilter 转码增强 |  |
+| MEM-ARCH-AVCODEC-S14 | ARCH-AVCODEC-S14: MediaEngine Filter Cha |  |
+| MEM-ARCH-AVCODEC-S2 | MEM-ARCH-AVCODEC-S2.md |  |
+| MEM-ARCH-AVCODEC-S20 | ARCH-AVCODEC-S20: PostProcessing 后处理框架—— |  |
+| MEM-ARCH-AVCODEC-S23 | ARCH-AVCODEC-S23: SurfaceEncoderAdapter  |  |
+| MEM-ARCH-AVCODEC-S30 | ARCH-AVCODEC-S30: AVCodec DFX 模块——HiSysE |  |
+| MEM-ARCH-AVCODEC-S46 | ARCH-AVCODEC-S46: DecoderSurfaceFilter 视 |  |
+| MEM-ARCH-AVCODEC-S5 | —dlopen/RTLD_LAZY 与引用计数 lifecycle |  |
+| MEM-ARCH-AVCODEC-S51 | ARCH-AVCODEC-S51: Av1Decoder 视频解码器——dav1 |  |
+| MEM-ARCH-AVCODEC-S63 | ARCH-AVCODEC-S63 |  |
+| MEM-ARCH-AVCODEC-S65 | MEM-ARCH-AVCODEC-S65.md |  |
+| MEM-ARCH-AVCODEC-S70 | MEM-ARCH-AVCODEC-S70.md |  |
+| MEM-ARCH-AVCODEC-S77 | —HiSysEvent / XCollie 超时看门狗 / Trace 追踪 / |  |
+| MEM-ARCH-AVCODEC-S78 | ARCH-AVCODEC-S78: AudioServerSinkPlugin  | AVCodec, AudioCodec, AudioSink |
+| MEM-ARCH-AVCODEC-S79 | ARCH-AVCODEC-S79: MPEG4DemuxerPlugin 原生  | AVCodec, Demuxer, MPEG4 |
+| MEM-ARCH-AVCODEC-S8 | —AudioBaseCodec 抽象层与音频格式支持列表 |  |
+| MEM-ARCH-AVCODEC-S82 | ARCH-AVCODEC-S82 |  |
+| MEM-ARCH-AVCODEC-S83 | ARCH-AVCODEC-S83 |  |
+| MEM-ARCH-AVCODEC-S84 | ARCH-AVCODEC-S84 |  |
+
+_... 还有 1 个记忆，请查看完整索引_
+
+## 三方应用 (62 个记忆)
+
+| ID | 标题 | 关键 Scope |
+|----|------|----------|
+| MEM-ARCH-AVCODEC-S1 | ARCH-AVCODEC-S1 |  |
+| MEM-ARCH-AVCODEC-S10 | ARCH-AVCODEC-S10: SeiParserFilter SEI信息解 |  |
+| MEM-ARCH-AVCODEC-S13 | ARCH-AVCODEC-S13: AdaptiveFramerateContr |  |
+| MEM-ARCH-AVCODEC-S14 | ARCH-AVCODEC-S14: MediaEngine Filter Cha |  |
+| MEM-ARCH-AVCODEC-S16 | MEM-ARCH-AVCODEC-S16.md |  |
+| MEM-ARCH-AVCODEC-S17 | ARCH-AVCODEC-S17: SmartFluencyDecoding 智 |  |
+| MEM-ARCH-AVCODEC-S18 | MEM-ARCH-AVCODEC-S18.md |  |
+| MEM-ARCH-AVCODEC-S2 | MEM-ARCH-AVCODEC-S2.md |  |
+| MEM-ARCH-AVCODEC-S21 | ARCH-AVCODEC-S21: AVCodec IPC架构与CodecCli |  |
+| MEM-ARCH-AVCODEC-S23 | ARCH-AVCODEC-S23: SurfaceEncoderAdapter  |  |
+| MEM-ARCH-AVCODEC-S24 | MEM-ARCH-AVCODEC-S24.md |  |
+| MEM-ARCH-AVCODEC-S25 | ARCH-AVCODEC-S25: AdaptiveFramerateContr |  |
+| MEM-ARCH-AVCODEC-S26 | ARCH-AVCODEC-S26: AudioCaptureFilter + A |  |
+| MEM-ARCH-AVCODEC-S27 | ARCH-AVCODEC-S27: CodecList 服务架构——CodecL |  |
+| MEM-ARCH-AVCODEC-S28 | ARCH-AVCODEC-S28: VideoCaptureFilter 视频采 |  |
+| MEM-ARCH-AVCODEC-S29 | ARCH-AVCODEC-S29: AudioDataSourceFilter  |  |
+| MEM-ARCH-AVCODEC-S3 | MEM-ARCH-AVCODEC-S3.md |  |
+| MEM-ARCH-AVCODEC-S31 | MEM-ARCH-AVCODEC-S31.md |  |
+| MEM-ARCH-AVCODEC-S33 | MEM-ARCH-AVCODEC-S33.md |  |
+| MEM-ARCH-AVCODEC-S39 | ARCH-AVCODEC-S39: AVCodecVideoDecoder 视频 |  |
+
+_... 还有 42 个记忆，请查看完整索引_
+
+## 新需求开发 (70 个记忆)
+
+| ID | 标题 | 关键 Scope |
+|----|------|----------|
+| MEM-ARCH-AVCODEC-S1 | ARCH-AVCODEC-S1 |  |
+| MEM-ARCH-AVCODEC-S10 | ARCH-AVCODEC-S10: SeiParserFilter SEI信息解 |  |
+| MEM-ARCH-AVCODEC-S11 | MEM-ARCH-AVCODEC-S11.md |  |
+| MEM-ARCH-AVCODEC-S12 | ARCH-AVCODEC-S12: VideoResizeFilter 转码增强 |  |
+| MEM-ARCH-AVCODEC-S13 | ARCH-AVCODEC-S13: AdaptiveFramerateContr |  |
+| MEM-ARCH-AVCODEC-S14 | ARCH-AVCODEC-S14: MediaEngine Filter Cha |  |
+| MEM-ARCH-AVCODEC-S15 | ARCH-AVCODEC-S15: SuperResolutionPostPro |  |
+| MEM-ARCH-AVCODEC-S17 | ARCH-AVCODEC-S17: SmartFluencyDecoding 智 |  |
+| MEM-ARCH-AVCODEC-S18 | MEM-ARCH-AVCODEC-S18.md |  |
+| MEM-ARCH-AVCODEC-S20 | ARCH-AVCODEC-S20: PostProcessing 后处理框架—— |  |
+| MEM-ARCH-AVCODEC-S21 | ARCH-AVCODEC-S21: AVCodec IPC架构与CodecCli |  |
+| MEM-ARCH-AVCODEC-S23 | ARCH-AVCODEC-S23: SurfaceEncoderAdapter  |  |
+| MEM-ARCH-AVCODEC-S24 | MEM-ARCH-AVCODEC-S24.md |  |
+| MEM-ARCH-AVCODEC-S25 | ARCH-AVCODEC-S25: AdaptiveFramerateContr |  |
+| MEM-ARCH-AVCODEC-S27 | ARCH-AVCODEC-S27: CodecList 服务架构——CodecL |  |
+| MEM-ARCH-AVCODEC-S28 | ARCH-AVCODEC-S28: VideoCaptureFilter 视频采 |  |
+| MEM-ARCH-AVCODEC-S3 | MEM-ARCH-AVCODEC-S3.md |  |
+| MEM-ARCH-AVCODEC-S31 | MEM-ARCH-AVCODEC-S31.md |  |
+| MEM-ARCH-AVCODEC-S33 | MEM-ARCH-AVCODEC-S33.md |  |
+| MEM-ARCH-AVCODEC-S34 | MEM-ARCH-AVCODEC-S34.md |  |
+
+_... 还有 50 个记忆，请查看完整索引_
+
+## 问题定位 (82 个记忆)
+
+| ID | 标题 | 关键 Scope |
+|----|------|----------|
+| MEM-ARCH-AVCODEC-S1 | ARCH-AVCODEC-S1 |  |
+| MEM-ARCH-AVCODEC-S10 | ARCH-AVCODEC-S10: SeiParserFilter SEI信息解 |  |
+| MEM-ARCH-AVCODEC-S12 | ARCH-AVCODEC-S12: VideoResizeFilter 转码增强 |  |
+| MEM-ARCH-AVCODEC-S13 | ARCH-AVCODEC-S13: AdaptiveFramerateContr |  |
+| MEM-ARCH-AVCODEC-S14 | ARCH-AVCODEC-S14: MediaEngine Filter Cha |  |
+| MEM-ARCH-AVCODEC-S15 | ARCH-AVCODEC-S15: SuperResolutionPostPro |  |
+| MEM-ARCH-AVCODEC-S17 | ARCH-AVCODEC-S17: SmartFluencyDecoding 智 |  |
+| MEM-ARCH-AVCODEC-S18 | MEM-ARCH-AVCODEC-S18.md |  |
+| MEM-ARCH-AVCODEC-S19 | MEM-ARCH-AVCODEC-S19.md |  |
+| MEM-ARCH-AVCODEC-S2 | MEM-ARCH-AVCODEC-S2.md |  |
+| MEM-ARCH-AVCODEC-S20 | ARCH-AVCODEC-S20: PostProcessing 后处理框架—— |  |
+| MEM-ARCH-AVCODEC-S21 | ARCH-AVCODEC-S21: AVCodec IPC架构与CodecCli |  |
+| MEM-ARCH-AVCODEC-S22 | MEM-ARCH-AVCODEC-S22.md |  |
+| MEM-ARCH-AVCODEC-S23 | ARCH-AVCODEC-S23: SurfaceEncoderAdapter  |  |
+| MEM-ARCH-AVCODEC-S24 | MEM-ARCH-AVCODEC-S24.md |  |
+| MEM-ARCH-AVCODEC-S25 | ARCH-AVCODEC-S25: AdaptiveFramerateContr |  |
+| MEM-ARCH-AVCODEC-S26 | ARCH-AVCODEC-S26: AudioCaptureFilter + A |  |
+| MEM-ARCH-AVCODEC-S29 | ARCH-AVCODEC-S29: AudioDataSourceFilter  |  |
+| MEM-ARCH-AVCODEC-S3 | MEM-ARCH-AVCODEC-S3.md |  |
+| MEM-ARCH-AVCODEC-S30 | ARCH-AVCODEC-S30: AVCodec DFX 模块——HiSysE |  |
+
+_... 还有 62 个记忆，请查看完整索引_
+

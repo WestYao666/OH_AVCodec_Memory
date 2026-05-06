@@ -1,0 +1,2115 @@
+# 00_domain_map/AVCODEC_TERMINOLOGY.yaml
+# AVCodec 术语表 — 从 S 系列记忆自动提取生成
+# 生成时间: 2026-05-07
+# 来源: 90 个 S 系列记忆
+# 状态: pending_approval
+
+---
+terminology_version: "2026-05-07"
+source_memories: "90 S-series entries"
+status: pending_approval
+generated_by: synthesize_high_level_knowledge
+---
+
+## 术语表
+
+### AAC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S24.md
+
+### ABR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### ADAPTIVE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### ADTS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### AES
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### AFC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S13.md
+
+### AGAIN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S51.md
+
+### AI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### AIFF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### ALAC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### AMR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S40.md
+
+### ANY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S18.md
+
+### APE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+
+### API
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### APP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+
+### ARCH
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### ASC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### AU
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### AUDIO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S3.md
+
+### AUDIOBOOK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### AVAILABLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S75.md
+
+### AVBufferQueue
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### AVC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### AVCC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S90.md
+
+### AVCODEC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### AVCodecCategory
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### AVCodecList
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### AVCodecListFactory
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### AVCodecListServiceInterfaceCode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### AVCodecType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### AVCodecVideoDecoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### AVCodecVideoEncoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
+### AVERROR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+
+### AVI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+
+### AVS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S63.md
+
+### AdaptiveFramerateController
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S43.md
+
+### AesDecryptor
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### AtomParser
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### AudioBaseCodec
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### AudioBaseCodecCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### AudioBufferInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+
+### AudioBuffersManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+
+### AudioCaps
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### AudioCaptureModule
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S26.md
+
+### AudioCodec
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md, MEM-ARCH-AVCODEC-S72.md
+
+### AudioCodecFaultInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+
+### AudioCodecWorker
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### AudioCodeclistInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### AudioDecInputPortConsumerListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+
+### AudioDecOutPortProducerListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+
+### AudioDecoderObject
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S88.md
+
+### AudioFFMpegAacDecoderPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### AudioFFMpegAacEncoderPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### AudioG711muDecoderPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### AudioRenderer
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### AudioRendererCallbackImpl
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### AudioResample
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+
+### AudioServer
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### AudioServerSinkPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### AudioSink
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md, MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S31.md
+
+### AudioSinkPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S31.md
+
+### AudioVivid
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### AutoRegisterPostProcessor
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### Av1Decoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S51.md
+
+### AvcNalType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S90.md
+
+### BASELINE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### BEHAVIOR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### BICUBIC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### BILINEAR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### BITRATE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### BOTTOM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### BT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### BUF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### BaseStreamDemuxer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+
+### BaseVideoPostProcessor
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### BoxHeader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### BoxParser
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### BufferConverter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S21.md
+
+### BufferManagement
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### BufferOwner
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### BufferStatus
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S64.md
+
+### CA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### CAF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### CAPI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### CBC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### CBR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### CENC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### CERT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### CMAF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### CODEC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+
+### CODECLIST
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+
+### CONFIGURE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### CONFIGURED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### CONSUMER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### CONVERTING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### CPU
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### CQ
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### CRC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### CREATE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### CREATED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### CRF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### CRITICAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### CRTP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### CTR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S63.md
+
+### CTTS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### CTTSEntry
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### CUVA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### CV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### CacheChunk
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### CacheData
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+
+### CacheMediaChunkBufferImpl
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### CalculatorParameter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S82.md
+
+### Capability
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S71.md
+
+### CapabilityData
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### CodecAbilitySingleton
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### CodecBase
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### CodecBaseCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### CodecBuffer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+
+### CodecCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### CodecClient
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S88.md
+
+### CodecDrmDecrypt
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S63.md
+
+### CodecList
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S71.md
+
+### CodecListCore
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### CodecListServer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### CodecListenerCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### CodecListenerStub
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S21.md
+
+### CodecParams
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### CodecScenario
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S19.md
+
+### CodecStatus
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### CodecType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S70.md
+
+### Config
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+
+### Configuration
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### ConsumerListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### Container
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### DASH
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### DECODER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### DEFAULT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+
+### DEMUXER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+
+### DESTROY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### DEVFLOW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### DISABLED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### DMA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### DMABUF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### DOUBLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### DR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### DROP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+
+### DV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### DecodingBehaviorType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S43.md
+
+### Demuxer
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### DemuxerBitReader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S90.md
+
+### DemuxerFilter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### DemuxerFilterLinkCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### DemuxerPlugin
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### DeviceChange
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### DmaBufIoctlSwPara
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### DmaSwaper
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### DoSyncWrite
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### EAGAIN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S51.md
+
+### EGL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S84.md
+
+### EMPTY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### ENABLED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### ENCODER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### END
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S82.md
+
+### ENDLIST
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### EOS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### ERROR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### ES
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### ESDS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### EVENTS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+
+### EXT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### EXTINF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### EXTXKEY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### EXTXMEDIA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### EncoderInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### EventType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S82.md
+
+### FALSE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### FAQ
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### FAULT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### FAULTTYPE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### FBuffer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+
+### FD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S38.md
+
+### FFmpeg
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### FIFO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+
+### FILE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S34.md
+
+### FLAC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+
+### FLAG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+
+### FLOAT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### FLUSH
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### FLUSHED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### FLUSHING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### FLV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S34.md
+
+### FREEZING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### FROZEN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S26.md
+
+### FSurfaceMemory
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+
+### FULL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### FastResizeAlgoType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### FilterCallBackCommand
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### FilterCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### FilterType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### FilterVideoPostProcessorCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### FragmentEntry
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### FrameRetentionContext
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### GBM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+
+### GBR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md
+
+### GCM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### GMT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S62.md
+
+### GPU
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S16.md
+
+### GSM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### HAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+
+### HARD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### HARDWARE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### HCodec
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+
+### HDF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+
+### HDLR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### HDR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### HDecoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+
+### HE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### HEIF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### HEIGHT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### HEVC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### HEncoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+
+### HIGH
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### HIVIEWDFX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### HL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### HLG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### HLS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### HTML
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+
+### HTTP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### HTTPS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### HVCC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### HdiCodec
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### HdrMetadata
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
+### HevcDecoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
+### HevcDecoderLoader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S70.md
+
+### HlsSegmentManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### IAudioDataSource
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S29.md
+
+### ID
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### IDLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S23.md
+
+### IDR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S63.md
+
+### IDropStrategy
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### IGNORE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### III
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### IL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+
+### ILBC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### IMediaSynchronizer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S22.md, MEM-ARCH-AVCODEC-S73.md
+
+### INACTIVE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### INDEX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S80.md
+
+### INF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### INIT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S21.md
+
+### INPUT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+
+### INVALID
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### IO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### IPC
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S71.md
+
+### IRetentionStrategy
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### ISMV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### ISO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### IV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### IndexAndPTSConvertMode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### InputFrame
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S59.md
+
+### InstanceInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+
+### Interrupt
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### JPEG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S83.md
+
+### JS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md
+
+### JSON
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+
+### KEY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### LABEL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+
+### LANCZOS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### LATM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### LEFT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### LGPL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S40.md
+
+### LL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### LOGW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+
+### LPCM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### LRC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### LRU
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### LTR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S19.md
+
+### LagDetector
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S56.md
+
+### Listener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+
+### LockFreeQueue
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### M3U8Fragment
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### MAIN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### MAP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### MASK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S82.md
+
+### MAX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### MB
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### MDHD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### MEDIA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### MEM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### MEMORY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+
+### METHOD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### MIC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S26.md
+
+### MIME
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### MIN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### MINOR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### MIXED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S87.md
+
+### MJPEG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+
+### MKV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S28.md
+
+### ML
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### MODULE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### MONO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### MOV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S22.md, MEM-ARCH-AVCODEC-S79.md
+
+### MP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### MP4
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### MPD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### MPEG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+
+### MPEG4
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### MPEG4Atom
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### MPEG4DemuxerPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### MPEGPS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+
+### MPEGTS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+
+### MS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### MSE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### MSG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### MUSIC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### MUXER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+
+### MV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### MVC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### MVStats
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### MediaCodec
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### MediaDemuxer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+
+### MediaEngine
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### MediaMuxer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+
+### MediaSync
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### MediaSyncManager
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### MockAudioDataSource
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S29.md
+
+### MsgWhat
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+
+### NALU
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### NB
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### NEXT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### NONE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### NORMAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+
+### NULL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md
+
+### NativeAudioDecoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S88.md
+
+### NativeVideoEncoderCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S84.md
+
+### OGG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+
+### OH
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### OHOS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+
+### OK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+
+### OMX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### OOM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### OPUS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### OSAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S46.md
+
+### OUTPUT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S80.md
+
+### Offload
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### Owner
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### PAT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### PAUSED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### PAUSING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### PCM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### PID
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### PLANAR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+
+### PMT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### PP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S83.md
+
+### PPS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+
+### PQ
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### PREPARE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### PREPARED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### PREPARING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### PREROLLING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### PREVIOUS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### PWP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### ParseContext
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### Pipeline
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### Plugin
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### PostProcessing
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### ProcessStateCode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S36.md
+
+### QP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### QUAD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### RAII
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### RBSP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### READY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+
+### RECORDING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S23.md
+
+### RELEASE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### RELEASED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### RESAMPLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### RESET
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### RESUME
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+
+### RESUMED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S22.md
+
+### RESUMING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S82.md
+
+### RGBA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### RIGHT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### RM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### RPC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+
+### RT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### RTC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### RUNNING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### RV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S70.md
+
+### Range
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### Resample
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### ResamplePara
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+
+### ResizeDetailEnhancerVideoCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+
+### SA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### SAMI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### SDR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S32.md
+
+### SEEKABLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S38.md
+
+### SEQUENCE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### SFD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### SFDConfig
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### SHOW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+
+### SIMPLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### SL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md
+
+### SLOGI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### SMOOTH
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### SNR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S83.md
+
+### SO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### SOFT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### SOURCE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S67.md
+
+### SP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S83.md
+
+### SPS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+
+### SQR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### SRT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### START
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### STARTED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+
+### STARTING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### STATISTIC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### STEREO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+
+### STOP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+
+### STOPPED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S13.md
+
+### STOPPING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### STREAM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### STRING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### STTS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### STTSEntry
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### SUBTITLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### SURFACE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### SURROUND
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### SUSPEND
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+
+### SVC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+
+### SWITCHING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+
+### SYSCAP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+
+### SampleBufferConsumerListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S75.md
+
+### SampleBufferProducerListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S75.md
+
+### SeiParserFilter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### SeiPayloadInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### SeiPayloadInfoGroup
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### SelectBitrateStatus
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+
+### Singleton
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S71.md
+
+### Sink
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### SourcePlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S67.md
+
+### SpeedCountInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+
+### State
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### StateMachine
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+
+### StreamInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S87.md
+
+### StreamType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### StubType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+
+### SubtitleBufferState
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+
+### SubtitleInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+
+### SubtitleSink
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### SurfaceDecoderAdapter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S16.md
+
+### SurfaceDecoderAdapterCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S45.md
+
+### SurfaceDecoderFilter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S45.md
+
+### SurfaceDecoderFilterLinkCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+
+### SurfaceEncoderAdapter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
+### SurfaceEncoderFilter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S36.md
+
+### SwrContext
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### SyncCenter]
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### Synchronizer
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+
+### TFHD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### TIME
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+
+### TIMEDMETA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### TL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S19.md
+
+### TOP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### TRUE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### TS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### TagHevcDecInArgs
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md
+
+### TagHevcDecInitParam
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md
+
+### TagHevcDecOutArgs
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md
+
+### TimeAndIndexConversion
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### TimerInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### Track
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S58.md
+
+### TrakInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+
+### TypeFinder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+
+### UBR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### UID
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S21.md
+
+### UNINIT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S18.md
+
+### UNKNOWN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S13.md
+
+### UNSEEKABLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S38.md
+
+### URI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### URL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### US
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+
+### USB
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### USER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+
+### UUID
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### UV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+
+### UX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+
+### VBR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### VC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+
+### VCodecBaseCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### VIDEO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+
+### VIVID
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### VOB
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### VOD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+
+### VPE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+
+### VPECallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### VPS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+
+### VPX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
+### VRR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### VSINK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S56.md
+
+### VTT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### VVC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### VideoCaps
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### VideoCodecLoader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S5.md
+
+### VideoDecoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### VideoDecoderCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+
+### VideoEncoderFactory
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
+### VideoEncoderObject
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S84.md
+
+### VideoLagDetector
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S46.md
+
+### VideoPostProcessorType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+
+### VideoResizeFilter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+
+### VideoSink
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S46.md, MEM-ARCH-AVCODEC-S73.md
+
+### VpxDecoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
+### WAIT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+
+### WAV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S40.md
+
+### WB
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### WIDTH
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### WMA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+
+### WMV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+
+### WW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### WorkerThread
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+
+### XML
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+
+### XX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### YUV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+
+### YY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### ZZ
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### [AVCodec
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+

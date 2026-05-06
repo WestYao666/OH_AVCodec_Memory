@@ -1,0 +1,291 @@
+# 90_decisions/ARCHITECTURE_DECISIONS.yaml
+# AVCodec 架构决策记录 — 从 S 系列记忆自动提取生成
+# 生成时间: 2026-05-07
+# 来源: 90 个 S 系列记忆
+# 状态: pending_approval
+
+---
+adr_version: "2026-05-07"
+source_memories: "90 S-series entries"
+status: pending_approval
+generated_by: synthesize_high_level_knowledge
+decision_count: 26
+---
+
+## 架构决策说明
+
+以下是从现有记忆中识别的架构决策记录（ADR）。每条记录包含：
+- **决策类型**: 为什么这样设计 / 选择了什么方案 / 替代方案考虑
+- **上下文**: 来自哪个记忆
+- **证据**: 相关代码片段
+
+---
+
+## 工厂注册机制 (2 条)
+
+### ADR-S11.md: MEM-ARCH-AVCODEC-S11
+- **来源**: MEM-ARCH-AVCODEC-S11.md
+- **证据片段**: ...pe: architecture_fact
+scope: [AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager, Factory]
+status: approved
+approved_at: "2026-05-06"
+created_by: builder-agent
+created_at: 2026-04-23...
+
+### ADR-S83.md: ARCH-AVCODEC-S83
+- **来源**: MEM-ARCH-AVCODEC-S83.md
+- **证据片段**: ...interfaces/kits/c/ API 使用场景与 key 搭配（已入库） |
+| `MEM-ARCH-AVCODEC-S11` | HCodec CodecComponentManager 工厂与插件注册机制（pending_approval） |
+| `MEM-ARCH-AVCODEC-S21` | AVCodec IPC 架构，CodecServiceProxy ↔ CodecServ...
+
+## 插件热加载 (9 条)
+
+### ADR-S17.md: ARCH-AVCODEC-S17: SmartFluencyDecoding 智能流畅解码
+- **来源**: MEM-ARCH-AVCODEC-S17.md
+- **证据片段**: ...平衡画面流畅与硬件负担
+  - 新需求开发：CodecServer 视频解码接入 SFD 时需理解四策略与双分析器的关系
+  - 问题定位：播放卡顿、花屏时需排查 SFD 丢帧策略是否误触发
+  - 插件热加载：MVAnalyzer 和 NaluAnalyzer 均以 dlopen 插件形式加载，架构与四层 Loader 一致
+
+## 摘要
+
+SmartFluencyDecoding（SFD）是 ...
+
+### ADR-S17.md: ARCH-AVCODEC-S17: SmartFluencyDecoding 智能流畅解码
+- **来源**: MEM-ARCH-AVCODEC-S17.md
+- **证据片段**: ...strategy_;           // 四策略之一
+std::unique_ptr<IMvAnalyzer> mvAnalyzer_;                  // dlopen 插件
+std::unique_ptr<INaluAnalyzer> naluAnalyzer_;             // dlopen 插件
+std::unordered_map<uint32_t...
+
+### ADR-S20.md: ARCH-AVCODEC-S20: PostProcessing 后处理框架——DynamicController+Dy
+- **来源**: MEM-ARCH-AVCODEC-S20.md
+- **证据片段**: ...t: "2026-05-06"
+topic: PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载
+created_at: "2026-04-24T10:50:00+08:00"
+evidence: |
+  - source: /home/west/av_codec_repo/servi...
+
+### ADR-S20.md: ARCH-AVCODEC-S20: PostProcessing 后处理框架——DynamicController+Dy
+- **来源**: MEM-ARCH-AVCODEC-S20.md
+- **证据片段**: ...MEM-ARCH-AVCODEC-S20: PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载
+
+## Metadata
+
+| 字段 | 值 |
+|------|-----|
+| id | MEM-ARCH-AVCODEC-S20 |
+| title | PostProcessing ...
+
+### ADR-S33.md: MEM-ARCH-AVCODEC-S33
+- **来源**: MEM-ARCH-AVCODEC-S33.md
+- **证据片段**: ...|
+
+---
+
+## 三、相关记忆引用
+
+| 记忆ID | 标题 | 关联 |
+|--------|------|------|
+| MEM-ARCH-AVCODEC-S5 | 四层 Loader 插件热加载机制 | dlopen/RTLD_LAZY 与 FastKits dlopen/RTLD_NOW 对比 |
+| MEM-ARCH-AVCODEC-S20 | PostProcessing 后处...
+
+### ADR-S5.md: —dlopen/RTLD_LAZY 与引用计数 lifecycle
+- **来源**: MEM-ARCH-AVCODEC-S5.md
+- **证据片段**: ...---
+id: MEM-ARCH-AVCODEC-S5
+title: 四层 Loader 插件热加载机制——dlopen/RTLD_LAZY 与引用计数 lifecycle
+scope: [AVCodec, Plugin, Loader, dlopen, Lifecycle]
+status: app...
+
+### ADR-S5.md: —dlopen/RTLD_LAZY 与引用计数 lifecycle
+- **来源**: MEM-ARCH-AVCODEC-S5.md
+- **证据片段**: ...: /home/west/av_codec_repo
+  - https://gitcode.com/openharmony/multimedia_av_codec
+---
+
+# 四层 Loader 插件热加载机制——dlopen/RTLD_LAZY 与引用计数 lifecycle
+
+> **Builder 验证记录（2026-04-22）**：基于本地仓库 `/home/west/av_code...
+
+### ADR-S70.md: MEM-ARCH-AVCODEC-S70
+- **来源**: MEM-ARCH-AVCODEC-S70.md
+- **证据片段**: ...---
+id: MEM-ARCH-AVCODEC-S70
+title: VideoCodec 工厂与 Loader 插件体系——CodecFactory 双工厂路由与四层 dlopen 热加载
+status: approved
+approved_at: "2026-05-06"
+created_by: builder-agent
+created_at: 2026-05-02T16:45:0...
+
+### ADR-S8.md: —AudioBaseCodec 抽象层与音频格式支持列表
+- **来源**: MEM-ARCH-AVCODEC-S8.md
+- **证据片段**: ...---
+id: MEM-ARCH-AVCODEC-S8
+title: 音频编解码 FFmpeg 插件架构——AudioBaseCodec 抽象层与音频格式支持列表
+scope: [AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec]
+status: approved
+created_at: "2026-04-22T23:10:00+08:00"
+a...
+
+## 状态机设计 (6 条)
+
+### ADR-S39.md: ARCH-AVCODEC-S39: AVCodecVideoDecoder 视频解码器核心实现——CodecBase/V
+- **来源**: MEM-ARCH-AVCODEC-S39.md
+- **证据片段**: ...35(AudioDecoderFilter三层架构), S41(DemuxerFilter输出), S16(SurfaceCodec Surface绑定), S18(AudioCodecServer七状态机) |
+
+---
+
+## 架构正文
+
+### 1. 三层调用链总览
+
+AVCodecVideoDecoder 视频解码器在 AVCodec 架构中呈现**三层调用链**：
+
+```
+┌─────...
+
+### ADR-S39.md: ARCH-AVCODEC-S39: AVCodecVideoDecoder 视频解码器核心实现——CodecBase/V
+- **来源**: MEM-ARCH-AVCODEC-S39.md
+- **证据片段**: ...C-S16 | SurfaceCodec 与 Surface 的绑定机制（SetOutputSurface） |
+| MEM-ARCH-AVCODEC-S18 | AudioCodecServer 七状态机（对照 VideoDecoder 十一状态） |
+
+## 技术栈索引
+
+- `interfaces/inner_api/native/avcodec_video_decoder.h` — AVC...
+
+### ADR-S57.md: ARCH-AVCODEC-S57: HDecoder / HEncoder 硬件视频编解码器——OMX组件架构与HDI四
+- **来源**: MEM-ARCH-AVCODEC-S57.md
+- **证据片段**: ...硬件视频编解码器——OMX组件架构与HDI四层调用链"
+scope: AVCodec, HardwareCodec, HDI, OMX, HDecoder, HEncoder, CodecBase, StateMachine, MsgHandleLoop, DMA-BUF, SuspendResume
+scenario: 新需求开发/问题定位
+source: repo_tmp/services/e...
+
+### ADR-S57.md: ARCH-AVCODEC-S57: HDecoder / HEncoder 硬件视频编解码器——OMX组件架构与HDI四
+- **来源**: MEM-ARCH-AVCODEC-S57.md
+- **证据片段**: ...# 2. 架构概览
+
+### 2.1 类继承层次
+
+```
+CodecBase (codecbase.h)
+    └── HCodec (hcodec.h, line 35)  [核心基类, 继承 StateMachine]
+            ├── HDecoder (hdecoder.h)  [硬件视频解码器]
+            └── HEncoder (hencoder.h)...
+
+### ADR-S6.md: MEM-ARCH-AVCODEC-S6
+- **来源**: MEM-ARCH-AVCODEC-S6.md
+- **证据片段**: ...ortIndex**（`hcodec_bg.cpp:177-190`）：遍历 `hasSwapedOut==true` 的 buffer，逐个调用 `SwapInDma`。
+
+---
+
+## 7. 与状态机的集成：FrozenState
+
+**证据**：`hcodec_bg.cpp:317-336`
+
+```cpp
+void HCodec::RunningState::OnBufferRecycl...
+
+### ADR-S73.md: ARCH-AVCODEC-S73: 三路 Sink 引擎同步架构——VideoSink / AudioSink / Su
+- **来源**: MEM-ARCH-AVCODEC-S73.md
+- **证据片段**: ...Loop"） |
+| HTML 标签剥离 | N/A | N/A | ✓ RemoveTextTags |
+| 卡顿检测 | VideoLagDetector 内嵌类 | N/A | N/A |
+| 状态机 | FilterState（继承） | FilterState（继承） | FilterState（继承） |
+
+---
+
+## 8. 关联关系
+
+- **S31**（AudioSinkFil...
+
+## IPC 跨进程通信 (9 条)
+
+### ADR-S27.md: ARCH-AVCODEC-S27: CodecList 服务架构——CodecListCore + CodecAbili
+- **来源**: MEM-ARCH-AVCODEC-S27.md
+- **证据片段**: ...DEC_CODECLIST → CodecListServer，AVCODEC_CODEC → CodecServer
+  - source: services/services/codeclist/ipc/codeclist_service_stub.cpp line 30-39
+    anchor: "enum AVCodecListServiceInterfaceCode { FIND_D...
+
+### ADR-S27.md: ARCH-AVCODEC-S27: CodecList 服务架构——CodecListCore + CodecAbili
+- **来源**: MEM-ARCH-AVCODEC-S27.md
+- **证据片段**: ...vate:
+    bool Init();
+    std::shared_ptr<CodecListCore> codecListCore_;  // 持有核心层
+};
+```
+
+### 3.2 IPC 接口分发
+
+**文件**: `services/services/codeclist/ipc/codeclist_service_stub.cpp`
+
+```cpp
+// line 30-39...
+
+### ADR-S55.md: ARCH-AVCODEC-S55: AVCodec 模块间回调链路——CodecCallback、MediaCodecC
+- **来源**: MEM-ARCH-AVCODEC-S55.md
+- **证据片段**: ...lback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback 四路回调架构"
+scope: [AVCodec, Callback, IPC, CodecClient, CodecServer, AudioCodecServer, CodecBase, MediaCodec, CodecListenerCallback, Codec...
+
+### ADR-S55.md: ARCH-AVCODEC-S55: AVCodec 模块间回调链路——CodecCallback、MediaCodecC
+- **来源**: MEM-ARCH-AVCODEC-S55.md
+- **证据片段**: ...│                                                                │
+  │  CreateListenerObject()  ─── IPCBinder ──►  CodecServiceStub   │
+  │  (CodecListenerStub)                                   │    ...
+
+### ADR-S71.md: ARCH-AVCODEC-S71: CodecList 服务架构
+- **来源**: MEM-ARCH-AVCODEC-S71.md
+- **证据片段**: .../ CodecAbilitySingleton）
+> **Type**: architecture
+> **Scope**: AVCodec, CodecList, Capability, SA, IPC, Singleton
+> **Status**: draft
+> **Created**: 2026-05-02T21:03:00+08:00
+> **Tags**: AVCodec, Code...
+
+### ADR-S71.md: ARCH-AVCODEC-S71: CodecList 服务架构
+- **来源**: MEM-ARCH-AVCODEC-S71.md
+- **证据片段**: ...──────┘
+```
+
+### 关键调用链
+
+**FindDecoder / FindEncoder**:
+```
+CodecListClient::FindDecoder(format)
+  → IPC CodecListServiceProxy
+    → CodecListServer::FindDecoder(format)
+      → CodecListCore::FindCode...
+
+### ADR-S78.md: ARCH-AVCODEC-S78: AudioServerSinkPlugin 音频渲染插件
+- **来源**: MEM-ARCH-AVCODEC-S78.md
+- **证据片段**: ...lugin::Write(inputBuffer)
+    → AudioRenderer::Write(inputBuffer->buffer_)
+      → AudioServer (跨进程 IPC)
+        → AudioRender HAL
+          → 硬件音频输出
+```
+
+### Write 函数签名
+
+```cpp
+// audio_server_sink_p...
+
+### ADR-S88.md: ARCH-AVCODEC-S88 · AudioDecoder C API 实现——NativeAudioDecoder
+- **来源**: MEM-ARCH-AVCODEC-S88.md
+- **证据片段**: ...**生成时间**：2026-05-04 06:25 GMT+8  
+> **scope**：AVCodec, Native API, C API, AudioDecoder, AudioCodec, IPC, CodecClient  
+> **关联场景**：三方应用接入/新人入项/问题定位  
+> **关联记忆**：S83（C API 总览）、S35（AudioDecoderFilter）、S1...
+
+### ADR-S88.md: ARCH-AVCODEC-S88 · AudioDecoder C API 实现——NativeAudioDecoder
+- **来源**: MEM-ARCH-AVCODEC-S88.md
+- **证据片段**: ...回调应用层
+  └─ AVCodecAudioDecoder（AVCodecAudioDecoder 引擎层）
+        ↓ 持有 AudioCodecEngine / CodecClient IPC 代理
+        └─ ICodecComponent（HDI 跨进程调用）
+              ↓
+        CodecServer（服务端进程）
+```
+
+**三层职责*...
+
