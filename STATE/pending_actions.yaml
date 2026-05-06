@@ -4,648 +4,648 @@ approval_responses:
   timestamp: '2026-05-04T16:13:00+08:00'
   type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S9
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S10
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S11
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S12
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S14
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S15
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S16
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S17
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S18
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S19
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S20
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S21
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S22
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S23
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S24
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S25
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S26
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S27
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S28
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S29
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S30
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S31
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S32
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S33
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S34
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S35
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S36
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S37
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S38
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S39
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S40
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S41
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S42
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S43
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S44
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S45
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S46
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S47
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S48
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S49
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S50
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S51
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S52
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S53
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S54
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S55
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S56
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S57
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S58
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S59
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S60
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S61
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S62
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S63
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S64
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S65
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S66
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S67
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S68
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S69
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S70
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S71
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S73
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S74
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S75
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S76
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S77
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S78
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S79
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S80
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S81
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S82
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S83
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S84
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S85
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S86
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S87
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S88
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S89
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   timestamp: '2026-05-06T15:49:01+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S83
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S63
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S66
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S88
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S69
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S64
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S71
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S73
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S62
-  decision: approved
   timestamp: '2026-05-06T16:24:59+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-019
-  decision: approved
   timestamp: '2026-05-06T17:41:50+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-020
-  decision: approved
   timestamp: '2026-05-06T17:41:50+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S13
-  decision: approved
   timestamp: '2026-05-06T17:41:50+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S72
-  decision: approved
   timestamp: '2026-05-06T19:55:19+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: AVCODEC_TERMINOLOGY
-  decision: approved
   timestamp: '2026-05-07T02:42:12+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: SCENARIO_MATRIX
-  decision: approved
   timestamp: '2026-05-07T02:42:12+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: ARCHITECTURE_DECISIONS
-  decision: approved
   timestamp: '2026-05-07T02:42:12+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S34
-  decision: approved
   timestamp: '2026-05-07T02:42:36+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
-- type: approval_response
+- decision: approved
   mem_id: MEM-ARCH-AVCODEC-S35
-  decision: approved
   timestamp: '2026-05-07T02:42:36+08:00'
+  type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
 pending_approvals:
 - approved_at: '2026-05-06T15:49:01+08:00'
@@ -672,6 +672,9 @@ pending_approvals:
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: ed20763
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S68
   message: 'Builder 报告：S68 草案已完成
 
@@ -687,12 +690,12 @@ pending_approvals:
   submitted_at: '2026-05-03T15:51:10+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 3c46edf
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S76
   message: 'Builder 报告：S76 草案已完成
 
@@ -708,12 +711,12 @@ pending_approvals:
   submitted_at: '2026-05-03T15:51:20+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 1155ff5
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S77
   message: 'Builder 报告：S78 草案已完成
 
@@ -728,12 +731,12 @@ pending_approvals:
   submitted_at: '2026-05-03T11:40:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 1155ff5
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S79
   message: 'Builder 报告：S79 草案已完成
 
@@ -749,12 +752,12 @@ pending_approvals:
   submitted_at: '2026-05-03T11:50:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 1155ff5
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S80
   message: 'Builder 报告：S80 草案已完成
 
@@ -770,12 +773,12 @@ pending_approvals:
   submitted_at: '2026-05-03T12:10:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: ''
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S81
   message: 'Builder 报告：S81 草案已完成
 
@@ -790,12 +793,12 @@ pending_approvals:
   submitted_at: '2026-05-03T05:49:28+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: ''
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S82
   message: 'Builder 报告：S82 草案已完成
 
@@ -811,12 +814,12 @@ pending_approvals:
   submitted_at: '2026-05-03T14:48:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: ''
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S84
   message: 'Builder 报告：S84 草案已完成 主题：VideoEncoder C API 实现——NativeVideoEncoder 对象模型与
     Surface/Buffer 双模式 证据来源：native_video_encoder.cpp (715行) / video_encoder_object.h
@@ -826,12 +829,12 @@ pending_approvals:
   submitted_at: '2026-05-03T21:49:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: ''
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S85
   message: 'PM 检测：S85 草案已完成待审批 主题：PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享
     草案已生成，请审批（approve/revise/reject） '
@@ -839,12 +842,12 @@ pending_approvals:
   submitted_at: '2026-05-03T22:45:00+08:00'
   submitted_by: pm-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 882d9b8
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S86
   message: 'Builder 报告：S86 草案已完成 主题：HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager
     多轨分片下载架构 证据来源：media_cached_buffer.cpp (1386行) / hls_segment_manager.cpp (2582行)
@@ -854,12 +857,12 @@ pending_approvals:
   submitted_at: '2026-05-04T00:48:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: ''
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S9
   message: 'Builder 报告：S9 草案已完成 主题：SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback
     与三队列机制 证据来源：fsurface_memory.h:32-37 / render_surface.h:59-81 / render_surface.cpp:436-499
@@ -870,12 +873,12 @@ pending_approvals:
   submitted_at: '2026-05-04T01:04:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 9e52461
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S87
   message: 'Builder 报告：S87 草案已完成 主题：MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系
     证据来源：services/media_engine/modules/source/source.cpp (715行) / source.h (184行)
@@ -885,12 +888,12 @@ pending_approvals:
   submitted_at: '2026-05-04T02:20:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: ''
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S12
   message: "Builder 报告：S12 草案已完成（源码增强版）\n  主题：VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo\
     \ 视频处理引擎与 FILTERTYPE_VIDRESIZE 插件注册\n  证据来源：video_resize_filter.cpp (566行) / video_resize_filter.h\
@@ -901,12 +904,12 @@ pending_approvals:
   submitted_at: '2026-05-04T06:08:48+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T16:24:59+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 9e962f0
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S88
   message: 'Builder 报告：S88 草案已完成 主题：AudioDecoder C API 实现——NativeAudioDecoder 对象模型与
     AudioCodecEngine 三层架构 证据来源：native_audio_decoder.cpp (497行) / native_avcodec_audiodecoder.h
@@ -916,12 +919,12 @@ pending_approvals:
   submitted_at: '2026-05-04T06:25:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T16:24:59+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: 598011b
+  decided_at: '2026-05-06T15:49:01+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S89
   message: 'Builder 报告：S89 草案已完成
 
@@ -935,9 +938,6 @@ pending_approvals:
   submitted_at: '2026-05-04T06:34:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-  decision: approved
-  decided_at: '2026-05-06T15:49:01+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
 - approved_at: '2026-05-04T16:15:36.119267'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
   commit: dummy-pending
@@ -949,89 +949,89 @@ pending_approvals:
   submitted_at: '2026-05-04T08:49:00+08:00'
   submitted_by: builder-agent
   type: approval_request
-- type: approval_request
+- approved_at: '2026-05-06T16:24:59+08:00'
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S83
-  status: approved
-  submitted_at: '2026-05-06'
-  submitted_by: pm-agent
   message: 'PM 检测：MEM-ARCH-AVCODEC-S83 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-06T16:24:59+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-06T16:24:59+08:00'
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S63
   status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
+  type: approval_request
+- approved_at: '2026-05-06T16:24:59+08:00'
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S63
   message: 'PM 检测：MEM-ARCH-AVCODEC-S63 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-06T16:24:59+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-06T16:24:59+08:00'
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S66
   status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
+  type: approval_request
+- approved_at: '2026-05-06T16:24:59+08:00'
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S66
   message: 'PM 检测：MEM-ARCH-AVCODEC-S66 — TypeFinder 媒体类型探测框架 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-06T16:24:59+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-06T16:24:59+08:00'
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S69
   status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
+  type: approval_request
+- approved_at: '2026-05-06T16:24:59+08:00'
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S69
   message: 'PM 检测：S69: MediaDemuxer 核心解封装引擎 — SampleQueue 缓冲队列与流控机制 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-06T16:24:59+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-06T16:24:59+08:00'
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S64
   status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
+  type: approval_request
+- approved_at: '2026-05-06T16:24:59+08:00'
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S64
   message: 'PM 检测：MEM-ARCH-AVCODEC-S64 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-06T16:24:59+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-06T16:24:59+08:00'
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S71
   status: approved
   submitted_at: '2026-05-06'
   submitted_by: pm-agent
+  type: approval_request
+- approved_at: '2026-05-06T16:24:59+08:00'
+  decided_at: '2026-05-06T16:24:59+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S71
   message: 'PM 检测：MEM-ARCH-AVCODEC-S71: CodecList 服务架构 草案已完成待审批
 
 
     草案已生成，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-06T16:24:59+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-06T16:24:59+08:00'
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S72
   status: approved
-  submitted_at: '2026-05-06T17:42:55+08:00'
+  submitted_at: '2026-05-06'
   submitted_by: pm-agent
+  type: approval_request
+- approved_at: '2026-05-06T19:55:19+08:00'
+  decided_at: '2026-05-06T19:55:19+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S72
   message: 'PM 检测：MEM-ARCH-AVCODEC-S72 草案已完成待审批
 
 
@@ -1040,48 +1040,66 @@ pending_approvals:
 
 
     草案已生成，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-06T19:55:19+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-06T19:55:19+08:00'
-- type: approval_request
-  mem_id: AVCODEC_TERMINOLOGY
   status: approved
-  submitted_at: '2026-05-07T02:35:13+08:00'
-  submitted_by: synthesize-agent
+  submitted_at: '2026-05-06T17:42:55+08:00'
+  submitted_by: pm-agent
+  type: approval_request
+- approved_at: '2026-05-07T02:42:12+08:00'
+  decided_at: '2026-05-07T02:42:12+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: AVCODEC_TERMINOLOGY
   message: 'synthesize_high_level_knowledge 报告：00_domain_map/AVCODEC_TERMINOLOGY.yaml
     已生成
 
 
     从 90 个 S 系列记忆中提取 525 个术语填充术语表，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-07T02:42:12+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-07T02:42:12+08:00'
-- type: approval_request
-  mem_id: SCENARIO_MATRIX
   status: approved
   submitted_at: '2026-05-07T02:35:13+08:00'
   submitted_by: synthesize-agent
+  type: approval_request
+- approved_at: '2026-05-07T02:42:12+08:00'
+  decided_at: '2026-05-07T02:42:12+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: SCENARIO_MATRIX
   message: 'synthesize_high_level_knowledge 报告：40_scenarios/SCENARIO_MATRIX.yaml 已生成
 
 
     建立四类场景矩阵（新人入项/三方应用/新需求开发/问题定位），235 个记忆条目已归类，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-07T02:42:12+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-07T02:42:12+08:00'
-- type: approval_request
-  mem_id: ARCHITECTURE_DECISIONS
   status: approved
   submitted_at: '2026-05-07T02:35:13+08:00'
   submitted_by: synthesize-agent
+  type: approval_request
+- approved_at: '2026-05-07T02:42:12+08:00'
+  decided_at: '2026-05-07T02:42:12+08:00'
+  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
+  decision: approved
+  mem_id: ARCHITECTURE_DECISIONS
   message: 'synthesize_high_level_knowledge 报告：90_decisions/ARCHITECTURE_DECISIONS.yaml
     已生成
 
 
     从 S 系列记忆识别 26 条架构决策记录（ADR），涵盖工厂注册/插件热加载/状态机等模式，请审批（approve/revise/reject）'
-  decision: approved
-  decided_at: '2026-05-07T02:42:12+08:00'
-  decided_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-  approved_at: '2026-05-07T02:42:12+08:00'
+  status: approved
+  submitted_at: '2026-05-07T02:35:13+08:00'
+  submitted_by: synthesize-agent
+  type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S91
+  message: 'Builder 报告：S91 草案已完成
+
+    主题：MPEG4 MuxerPlugin 写时构建架构——BasicBox树 / BoxParser / Mpeg4MuxerPlugin 三层封装
+
+    证据来源：services/media_engine/plugins/ffmpeg_adapter/muxer/mpeg4_muxer/mpeg4_muxer_plugin.h
+    / basic_box.h / box_parser.h
+
+    核心发现：写时构建策略（Write-Time Construction）、BasicBox树形ISOBMFF节点、BoxParser MoovBoxGenerate完整树构建、video(AvccBox/HvccBox/ColrBox)与audio(EsdsBox)
+    track、支持GLTF/AIGC地理标记
+
+    关联记忆：S40（FFmpeg Muxer Plugin）/S58（MPEG4BoxParser解析）/S65（MediaMuxer封装核心）
+
+    请审批（approve/revise/reject）'
+  status: pending
+  submitted_at: '2026-05-07T03:00:00+08:00'
+  submitted_by: builder-agent
+  type: approval_request
