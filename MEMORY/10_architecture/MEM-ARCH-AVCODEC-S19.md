@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S19
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链
 created_at: "2026-04-24T08:51:00+08:00"
 evidence: |

@@ -1,6 +1,7 @@
 # MEM-ARCH-AVCODEC-S38
 
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 title: SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构
 scope: [AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, Rank]
 pipeline_position: Filter Pipeline 最上游（数据源入口）

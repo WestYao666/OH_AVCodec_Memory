@@ -3,7 +3,8 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S54
 title: "HevcDecoder + VpxDecoder 视频解码器——HEVC(H.265)/VP8/VP9 解码管线"
 scope: [AVCodec, VideoDecoder, HevcDecoder, VpxDecoder, HEVC, H265, VP8, VP9, libhevcdec_ohos, libvpx, HardwareCodec, SoftwareCodec, HDR, VideoCodecLoader]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-26T18:06:00+08:00"
 evidence_count: 25

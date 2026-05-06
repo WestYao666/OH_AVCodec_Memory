@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S27
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: CodecList 服务架构——CodecListCore + CodecAbilitySingleton + CodecListBuilder 三层能力查询体系
 scope: [AVCodec, CodecList, Capability, CodecAbilitySingleton, CodecListCore, AVCodecList, Factory, SA, SystemAbility]
 submitted_at: "2026-04-25T06:21:00+08:00"

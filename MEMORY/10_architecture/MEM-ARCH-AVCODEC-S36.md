@@ -1,6 +1,7 @@
 # MEM-ARCH-AVCODEC-S36 - VideoEncoderFilter 视频编码过滤器
 
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 **submitted_by**: builder-agent
 **submitted_at**: "2026-04-25T17:21:00+08:00"
 **版本**: 2026-04-25  

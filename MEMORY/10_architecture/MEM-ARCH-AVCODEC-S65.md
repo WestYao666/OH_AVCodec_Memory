@@ -1,7 +1,8 @@
 ---
 id: MEM-ARCH-AVCODEC-S65
 title: MediaMuxer 封装核心实现——Track 管理器与 AVBufferQueue 异步写入架构
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 scope: [AVCodec, MediaMuxer, MuxerPlugin, Track, AVBufferQueue, DataSink, OutputFormat, ThreadProcessor, PTS, AsyncMode]
 created_by: builder-agent
 created_at: 2026-04-27T07:10:00+08:00

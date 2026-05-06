@@ -4,7 +4,8 @@ id: MEM-ARCH-AVCODEC-S41
 title: DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流
 scope: [AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM]
 pipeline_position: Filter Pipeline 第二层（SourceFilter→DemuxerFilter→DecoderFilter）
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-25T22:25:00+08:00"
 evidence_count: 20

@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S14
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联数据流
 created_at: "2026-04-24T00:30:00+08:00"
 submitted_at: "2026-04-24T20:40:00+08:00"

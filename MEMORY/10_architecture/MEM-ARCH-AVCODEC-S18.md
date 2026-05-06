@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S18
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期
 created_at: "2026-04-24T06:10:00+08:00"
 updated_at: "2026-04-25T19:45:00+08:00"

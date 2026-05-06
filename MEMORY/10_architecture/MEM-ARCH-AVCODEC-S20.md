@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S20
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载
 created_at: "2026-04-24T10:50:00+08:00"
 evidence: |

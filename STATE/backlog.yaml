@@ -137,17 +137,17 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S9 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（推测自 S7 上下文） | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S9 | ✅ 草案已生成（2026-04-23T22:51） |
-| S10 | SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发 | AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player | 三方应用/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S10 | ✅ 草案已生成（2026-04-23T14:50）→草案文件已创建（2026-04-26T22:36），SEI NALU解析(Avc/HevcSeiParserHelper)，四路分发(DR/RT/UX/Other)，EVENT_SEI_INFO回调，FlowLimit流控同步， builtin.player.seiparser注册 |
-| S11 | HCodec CodecComponentManager 工厂与插件注册机制——ICodecComponentManager 双模式+GetCapList能力发现+HDecoder/HEncoder子类工厂 | AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager, Factory | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S11 | ✅ 草案已提交（2026-04-23T21:07）→证据行号增强（2026-05-03T20:52），行号校正(hcodec_list.cpp:82→82-101/1503→1500-1520)、本地镜像路径(/home/west/av_codec_repo)、lock_guard<mutex>补充、Listener类定义完整化
-| S12 | VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册 | AVCodec, MediaEngine, Filter, Transcoder, VideoProcessingEngine, VPE, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S12 | ✅ 草案已提交（2026-04-24T00:05） |
-| S14 | MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联数据流 | AVCodec, MediaEngine, Filter, FilterChain, Pipeline, AVBufferQueue | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S14 | ✅ pending_approval（2026-04-24T20:40 Builder提交审批） |
+| S9 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（推测自 S7 上下文） | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S9 | ✅ 草案已生成（2026-04-23T22:51） |
+| S10 | SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发 | AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player | 三方应用/问题定位 | **approved** | MEM-ARCH-AVCODEC-S10 | ✅ 草案已生成（2026-04-23T14:50）→草案文件已创建（2026-04-26T22:36），SEI NALU解析(Avc/HevcSeiParserHelper)，四路分发(DR/RT/UX/Other)，EVENT_SEI_INFO回调，FlowLimit流控同步， builtin.player.seiparser注册 |
+| S11 | HCodec CodecComponentManager 工厂与插件注册机制——ICodecComponentManager 双模式+GetCapList能力发现+HDecoder/HEncoder子类工厂 | AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager, Factory | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S11 | ✅ 草案已提交（2026-04-23T21:07）→证据行号增强（2026-05-03T20:52），行号校正(hcodec_list.cpp:82→82-101/1503→1500-1520)、本地镜像路径(/home/west/av_codec_repo)、lock_guard<mutex>补充、Listener类定义完整化
+| S12 | VideoResizeFilter 转码增强过滤器——DetailEnhancerVideo视频处理引擎与FILTERTYPE_VIDRESIZE插件注册 | AVCodec, MediaEngine, Filter, Transcoder, VideoProcessingEngine, VPE, Plugin | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S12 | ✅ 草案已提交（2026-04-24T00:05） |
+| S14 | MediaEngine Filter Chain 架构——AutoRegisterFilter + FilterLinkCallback + AVBufferQueue 三联数据流 | AVCodec, MediaEngine, Filter, FilterChain, Pipeline, AVBufferQueue | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S14 | ✅ pending_approval（2026-04-24T20:40 Builder提交审批） |
 
 ## 新增主题（Builder 2026-04-26）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S48 | CodecServer 生命周期管理——CodecServer/CodecBase/AVCodecServerManager 三层架构与七状态机 | AVCodec, CodecServer, CodecBase, AVCodecServerManager, SystemAbility, SA, Lifecycle, StateMachine, ICodecService, CodecFactory | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S48 | ✅ 草案已生成（2026-04-26T11:55），AVCodecServer SA三层架构(AVCodecServer→AVCodecServerManager→CodecServer)，七状态机(UNINITIALIZED→RUNNING)，LockFreeQueue无锁队列，InstanceInfo进程追踪，MEMORY_MANAGER_SA集成 |
+| S48 | CodecServer 生命周期管理——CodecServer/CodecBase/AVCodecServerManager 三层架构与七状态机 | AVCodec, CodecServer, CodecBase, AVCodecServerManager, SystemAbility, SA, Lifecycle, StateMachine, ICodecService, CodecFactory | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S48 | ✅ 草案已生成（2026-04-26T11:55），AVCodecServer SA三层架构(AVCodecServer→AVCodecServerManager→CodecServer)，七状态机(UNINITIALIZED→RUNNING)，LockFreeQueue无锁队列，InstanceInfo进程追踪，MEMORY_MANAGER_SA集成 |
 
 ## 变更记录
 
@@ -166,22 +166,22 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S15 | SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制 | AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S15 | ✅ 草案已生成（2026-04-24T04:10）→重新生成（2026-05-03T13:33） |
-| S16 | SurfaceCodec 与 Surface 的绑定机制——SetOutputSurface、PostProcessing 路由与 Surface/Buffer 双模式互斥 | AVCodec, SurfaceMode, SurfaceBinding, MediaEngine, Pipeline, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S16 | ✅ 草案已生成（2026-04-24T05:24） |
-| S17 | SmartFluencyDecoding 智能流畅解码——IRetentionStrategy 四策略+MV/Nalu 双分析器+AsyncDropDispatcher 异步丢帧 | AVCodec, SmartFluencyDecoding, RetentionStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, VideoPipeline, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S17 | ✅ 草案已生成（2026-04-24T05:55），2026-04-24T07:21 Builder处理，2026-04-24T16:07 状态修正为pending_approval |
-| S18 | AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期 | AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory, Lifecycle | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S18 | ✅ 草案已生成（2026-04-24T06:10），2026-04-24T07:37 提交审批 |
-| S19 | TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链 | AVCodec, VideoEncoder, TemporalScalability, SVC, LTR, CodecParamChecker, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S19 | ✅ 草案已生成（2026-04-24T08:51），2026-04-25T18:53 Builder更新为pending_approval | MEM-ARCH-AVCODEC-S19 | ✅ 草案已生成（2026-04-24T08:51） |
-| S20 | PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载 | AVCodec, PostProcessing, VPE, DynamicController, DynamicInterface, LockFreeQueue, ColorSpace, dlopen | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S20 | ✅ 草案已生成（2026-04-24T10:50），2026-04-24T16:07 状态修正为pending_approval |
-| S21 | AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换 | AVCodec, IPC, CodecClient, CodecServiceProxy, CodecServiceStub, CodecListenerStub, CodecBufferCircular, Binder, SyncMode, AsyncMode | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S21 | ✅ 草案已生成（2026-04-24T10:56），2026-04-24T12:21 Builder提交审批 |
-| S22 | MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链 | AVCodec, MediaEngine, Sync, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, PTS, AVSync, Clock | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S22 | ✅ 草案已生成（2026-04-24T18:37）→提交审批（2026-04-25T02:36） |
-| S23 | SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程 | AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S23 | ✅ 草案已生成（2026-04-24T20:55） |
-| S24 | AudioEncoderFilter 音频编码过滤器——MediaCodec 封装与录音管线 FILTERTYPE_AENC 双模式 | AVCodec, MediaEngine, Filter, AudioEncoder, Recorder, FILTERTYPE_AENC, TranscoderMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S24 | ✅ 草案已生成（2026-04-25T00:55） |
+| S15 | SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制 | AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S15 | ✅ 草案已生成（2026-04-24T04:10）→重新生成（2026-05-03T13:33） |
+| S16 | SurfaceCodec 与 Surface 的绑定机制——SetOutputSurface、PostProcessing 路由与 Surface/Buffer 双模式互斥 | AVCodec, SurfaceMode, SurfaceBinding, MediaEngine, Pipeline, CodecServer | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S16 | ✅ 草案已生成（2026-04-24T05:24） |
+| S17 | SmartFluencyDecoding 智能流畅解码——IRetentionStrategy 四策略+MV/Nalu 双分析器+AsyncDropDispatcher 异步丢帧 | AVCodec, SmartFluencyDecoding, RetentionStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, VideoPipeline, CodecServer | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S17 | ✅ 草案已生成（2026-04-24T05:55），2026-04-24T07:21 Builder处理，2026-04-24T16:07 状态修正为pending_approval |
+| S18 | AudioCodecServer 音频编解码服务架构——AudioCodecFactory+CodecStatus七状态机与AudioCodec生命周期 | AVCodec, AudioCodec, AudioCodecServer, CodecStatus, StateMachine, AudioCodecFactory, Lifecycle | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S18 | ✅ 草案已生成（2026-04-24T06:10），2026-04-24T07:37 提交审批 |
+| S19 | TemporalScalability 时域可分级视频编码——SVC-TL/SVC-LTR双模式与CodecParamChecker七步校验链 | AVCodec, VideoEncoder, TemporalScalability, SVC, LTR, CodecParamChecker, CodecServer | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S19 | ✅ 草案已生成（2026-04-24T08:51），2026-04-25T18:53 Builder更新为pending_approval | MEM-ARCH-AVCODEC-S19 | ✅ 草案已生成（2026-04-24T08:51） |
+| S20 | PostProcessing 后处理框架——DynamicController+DynamicInterface+LockFreeQueue三组件与VPE插件热加载 | AVCodec, PostProcessing, VPE, DynamicController, DynamicInterface, LockFreeQueue, ColorSpace, dlopen | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S20 | ✅ 草案已生成（2026-04-24T10:50），2026-04-24T16:07 状态修正为pending_approval |
+| S21 | AVCodec IPC架构与CodecClient双模式——CodecServiceProxy+CodecServiceStub双向代理与CodecBufferCircular同步/异步模式切换 | AVCodec, IPC, CodecClient, CodecServiceProxy, CodecServiceStub, CodecListenerStub, CodecBufferCircular, Binder, SyncMode, AsyncMode | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S21 | ✅ 草案已生成（2026-04-24T10:56），2026-04-24T12:21 Builder提交审批 |
+| S22 | MediaSyncManager 音视频同步管理中心——IMediaSyncCenter时间锚点与IMediaSynchronizer优先级同步链 | AVCodec, MediaEngine, Sync, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, PTS, AVSync, Clock | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S22 | ✅ 草案已生成（2026-04-24T18:37）→提交审批（2026-04-25T02:36） |
+| S23 | SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程 | AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S23 | ✅ 草案已生成（2026-04-24T20:55） |
+| S24 | AudioEncoderFilter 音频编码过滤器——MediaCodec 封装与录音管线 FILTERTYPE_AENC 双模式 | AVCodec, MediaEngine, Filter, AudioEncoder, Recorder, FILTERTYPE_AENC, TranscoderMode | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S24 | ✅ 草案已生成（2026-04-25T00:55） |
 
 ## 新增主题（Builder 2026-04-25）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S25 | AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成 | AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, AFC, DynamicFramerate | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S25 | ✅ 草案已生成（2026-04-25T02:51），S13为orphan draft增强注册，S25为正式注册编号 |
+| S25 | AdaptiveFramerateController 自适应帧率控制器——FramerateCalculator 动态降帧算法与CodecServer集成 | AVCodec, AdaptiveFramerate, FramerateCalculator, CodecServer, AFC, DynamicFramerate | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S25 | ✅ 草案已生成（2026-04-25T02:51），S13为orphan draft增强注册，S25为正式注册编号 |
 
 | 2026-04-25 | Builder 增强 | MEM-ARCH-AVCODEC-001 evidence 二次增强：新增 CodecBase/CodecServer/MediaCodec 类级证据（行号级），补充 7 个专用 Loader 插件清单，补充 8 个 Native C API 头文件 |
 | 2026-04-25T00:55 | Builder 新增 | S24：AudioEncoderFilter 音频编码过滤器，MediaCodec 封装与录音管线，SetTranscoderMode 转码模式支持 |
@@ -205,7 +205,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S26 | AudioCaptureFilter + AudioDataSourceFilter 录制采集过滤器——AudioCaptureModule、AudioCapturer 与 SubtitleSink 字幕渲染 | AVCodec, MediaEngine, Filter, AudioCapture, AudioDataSource, AudioCapturer, Subtitle, RecorderPipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S26 | ✅ 草案已生成（2026-04-25T04:55），已提交审批 |
+| S26 | AudioCaptureFilter + AudioDataSourceFilter 录制采集过滤器——AudioCaptureModule、AudioCapturer 与 SubtitleSink 字幕渲染 | AVCodec, MediaEngine, Filter, AudioCapture, AudioDataSource, AudioCapturer, Subtitle, RecorderPipeline | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S26 | ✅ 草案已生成（2026-04-25T04:55），已提交审批 |
 
 ## 变更记录
 
@@ -217,13 +217,13 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S27 | CodecList 服务架构——CodecListCore + CodecAbilitySingleton + CodecListBuilder 三层能力查询体系 | AVCodec, CodecList, Capability, CodecAbilitySingleton, CodecListCore, AVCodecList, Factory, SA, SystemAbility | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S27 | ✅ 草案已生成（2026-04-25T06:21），已提交审批 |
+| S27 | CodecList 服务架构——CodecListCore + CodecAbilitySingleton + CodecListBuilder 三层能力查询体系 | AVCodec, CodecList, Capability, CodecAbilitySingleton, CodecListCore, AVCodecList, Factory, SA, SystemAbility | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S27 | ✅ 草案已生成（2026-04-25T06:21），已提交审批 |
 
 ## 新增主题（Builder 2026-04-25 续 - S28注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S28 | VideoCaptureFilter 视频采集过滤器——Surface模式输入与录制管线数据源 | AVCodec, MediaEngine, Filter, VideoCapture, RecorderPipeline, SurfaceMode, Source | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S28 | ✅ 草案已生成（2026-04-25T07:40），已提交审批 |
+| S28 | VideoCaptureFilter 视频采集过滤器——Surface模式输入与录制管线数据源 | AVCodec, MediaEngine, Filter, VideoCapture, RecorderPipeline, SurfaceMode, Source | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S28 | ✅ 草案已生成（2026-04-25T07:40），已提交审批 |
 
 ## 变更记录
 
@@ -242,26 +242,26 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S29 | AudioDataSourceFilter 音频数据源过滤器——IAudioDataSource 接口注入与 ReadLoop 主动拉取机制 | AVCodec, MediaEngine, Filter, AudioSource, RecorderPipeline, Pipeline, ScreenCapture | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S29 | ✅ 草案已生成（2026-04-25T10:10），增强evidence：FilterType矛盾（注册AUDIO_DATA_SOURCE/GetFilterType返回AUDIO_CAPTURE），RelativeSleep精准睡眠，AudioDataSourceReadAtActionState三状态，SendEos机制 |
+| S29 | AudioDataSourceFilter 音频数据源过滤器——IAudioDataSource 接口注入与 ReadLoop 主动拉取机制 | AVCodec, MediaEngine, Filter, AudioSource, RecorderPipeline, Pipeline, ScreenCapture | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S29 | ✅ 草案已生成（2026-04-25T10:10），增强evidence：FilterType矛盾（注册AUDIO_DATA_SOURCE/GetFilterType返回AUDIO_CAPTURE），RelativeSleep精准睡眠，AudioDataSourceReadAtActionState三状态，SendEos机制 |
 
 ## 新增主题（Builder 2026-04-25 续 - S30注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S30 | AVCodec DFX 模块——HiSysEvent 上报、XCollie 超时监控与 Dump 工具链 | AVCodec, DFX, Monitoring, FaultInjection, SysEvent, XCollie, Dump, HiSysEvent, Watchdog | 新需求开发/问题定位 | **in_approval** | MEM-ARCH-AVCODEC-S30 | ✅ 草案已生成（2026-04-25T03:30），HiSysEvent四类事件（FAULT/BEHAVIOR/STATISTIC），XCollie看门狗（服务端超时_exit(-1)），AVCodecDumpControler分层dumpIdx编码，AVCodecDfxComponent LogTag生成，SOURCE_STATISTICS每4h上报+CERT脱敏SHA256，2026-04-25T14:36提交审批 |
+| S30 | AVCodec DFX 模块——HiSysEvent 上报、XCollie 超时监控与 Dump 工具链 | AVCodec, DFX, Monitoring, FaultInjection, SysEvent, XCollie, Dump, HiSysEvent, Watchdog | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S30 | ✅ 草案已生成（2026-04-25T03:30），HiSysEvent四类事件（FAULT/BEHAVIOR/STATISTIC），XCollie看门狗（服务端超时_exit(-1)），AVCodecDumpControler分层dumpIdx编码，AVCodecDfxComponent LogTag生成，SOURCE_STATISTICS每4h上报+CERT脱敏SHA256，2026-04-25T14:36提交审批 |
 
 ## 新增主题（Builder 2026-04-25 续 - S32注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S32 | VideoRenderFilter 视频渲染输出过滤器——Surface 绑定、帧送达与渲染同步 | AVCodec, MediaEngine, Filter, VideoOutput, Pipeline, Surface, Render, VSync | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S32 | ✅ 草案已生成（2026-04-25T12:06），OnVsync帧送达驱动，Surface/Buffer双模式，HDR→SDR色域转换，vsync同步机制，VideoRenderFilter与VideoCaptureFilter(S28)对称构成录制/播放双路管线入口，与AudioSinkFilter(S31)对称构成管线双路输出终点 |
+| S32 | VideoRenderFilter 视频渲染输出过滤器——Surface 绑定、帧送达与渲染同步 | AVCodec, MediaEngine, Filter, VideoOutput, Pipeline, Surface, Render, VSync | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S32 | ✅ 草案已生成（2026-04-25T12:06），OnVsync帧送达驱动，Surface/Buffer双模式，HDR→SDR色域转换，vsync同步机制，VideoRenderFilter与VideoCaptureFilter(S28)对称构成录制/播放双路管线入口，与AudioSinkFilter(S31)对称构成管线双路输出终点 |
 
 ## 新增主题（Builder 2026-04-25 续 - S33注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S31 | AudioSinkFilter 音频播放输出过滤器——AudioSink + MediaSynchronousSink + AudioSinkPlugin 三层架构 | AVCodec, MediaEngine, Filter, AudioOutput, Pipeline, MediaSync, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S31 | ✅ 草案已生成（2026-04-25），S31漏注册，2026-04-25T16:06 Builder补提交审批 |
-| S33 | PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略 | AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S33 | ✅ 已提交审批（2026-04-25T13:51） |
+| S31 | AudioSinkFilter 音频播放输出过滤器——AudioSink + MediaSynchronousSink + AudioSinkPlugin 三层架构 | AVCodec, MediaEngine, Filter, AudioOutput, Pipeline, MediaSync, Plugin | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S31 | ✅ 草案已生成（2026-04-25），S31漏注册，2026-04-25T16:06 Builder补提交审批 |
+| S33 | PreProcessing 预处理器框架——FastKitsInterface 快速图像处理 + FrameDropFilter 智能丢帧策略 | AVCodec, Framework, PreProcessing, FastImage, FrameDrop, dlopen, ImageProcessing | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S33 | ✅ 已提交审批（2026-04-25T13:51） |
 
 ## 变更记录
 
@@ -276,13 +276,13 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S34 | MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调 | AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S34 | ✅ 草案已生成（2026-04-25T16:40），MuxerFilter录制管线终点，preFilterCount_多轨协调，maxDuration_异步停止，双模式Recorder/TransCoder，PTS Map音视频同步 |
+| S34 | MuxerFilter 封装过滤器——录制管线输出终点与多轨 AVBufferQueue 协调 | AVCodec, MediaEngine, Filter, Muxer, RecorderPipeline, AVBufferQueue, MultiTrack | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S34 | ✅ 草案已生成（2026-04-25T16:40），MuxerFilter录制管线终点，preFilterCount_多轨协调，maxDuration_异步停止，双模式Recorder/TransCoder，PTS Map音视频同步 |
 
 ## 新增主题（Builder 2026-04-25 续 - S35注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S35 | AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S35 | ✅ 草案已生成（2026-04-25T16:51），builtin.player.audiodecoder注册，Filter层+AudioDecoderAdapter+AudioCodec三层架构，bufferStatus_位标志双端驱动，AudioDecInputPortConsumerListener+AudioDecOutPortProducerListener双监听器，IS_FILTER_ASYNC异步模式，OnOutputBufferAvailable空实现（no-op），UpdateTrackInfoSampleFormat高分辨率格式升频，与AudioEncoderFilter(S24)对称 |
+| S35 | AudioDecoderFilter 音频解码过滤器——Filter层封装与 AudioDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, AudioDecoder, Pipeline, AVBufferQueue, AsyncMode | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S35 | ✅ 草案已生成（2026-04-25T16:51），builtin.player.audiodecoder注册，Filter层+AudioDecoderAdapter+AudioCodec三层架构，bufferStatus_位标志双端驱动，AudioDecInputPortConsumerListener+AudioDecOutPortProducerListener双监听器，IS_FILTER_ASYNC异步模式，OnOutputBufferAvailable空实现（no-op），UpdateTrackInfoSampleFormat高分辨率格式升频，与AudioEncoderFilter(S24)对称 |
 
 ## 变更记录
 
@@ -294,13 +294,13 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S36 | VideoEncoderFilter 视频编码过滤器——Filter层封装与 SurfaceEncoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoEncoder, SurfaceEncoderFilter, FILTERTYPE_VENC, Pipeline, Recorder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S36 | ✅ 草案已生成（2026-04-25T17:21），builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs转换，与SurfaceDecoderFilter(S23对应Player侧)对称 |
+| S36 | VideoEncoderFilter 视频编码过滤器——Filter层封装与 SurfaceEncoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoEncoder, SurfaceEncoderFilter, FILTERTYPE_VENC, Pipeline, Recorder | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S36 | ✅ 草案已生成（2026-04-25T17:21），builtin.recorder.videoencoder注册，Filter层+SurfaceEncoderAdapter+AVCodecVideoEncoder三层架构，ProcessStateCode五状态机，ReleaseBuffer Task后台线程，PTS ns→μs转换，与SurfaceDecoderFilter(S23对应Player侧)对称 |
 
 ## 新增主题（Builder 2026-04-25 续 - S37注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S37 | HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理 | AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD, SegmentDownload | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S37 | ✅ 草案已生成（2026-04-25T18:40），HttpSourcePlugin统一入口，HlsMediaDownloader（HLS m3u8路由，video/audio/subtitle三轨SegManager），DashMediaDownloader（MPD解析，DashMpdDownloader+SegmentDownloader），M3U8解析器（25+HLS标签），AES-128解密（EXT-X-KEY），自适应码率SelectBitRate，RingBuffer分片缓冲 |
+| S37 | HTTP 流媒体源插件架构——HttpSourcePlugin 统一入口与 HLS/DASH 自适应流处理 | AVCodec, MediaEngine, SourcePlugin, HLS, DASH, Streaming, AdaptiveBitrate, M3U8, MPD, SegmentDownload | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S37 | ✅ 草案已生成（2026-04-25T18:40），HttpSourcePlugin统一入口，HlsMediaDownloader（HLS m3u8路由，video/audio/subtitle三轨SegManager），DashMediaDownloader（MPD解析，DashMpdDownloader+SegmentDownloader），M3U8解析器（25+HLS标签），AES-128解密（EXT-X-KEY），自适应码率SelectBitRate，RingBuffer分片缓冲 |
 
 ## 变更记录
 
@@ -313,7 +313,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S38 | SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构 | AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, Rank | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S38 | ✅ 草案已生成（2026-04-25T19:07），四类源插件（FileSource/FILE、FileFdSource/FD、HttpSourcePlugin/HTTP、DataStreamSource/STREAM），rank=100最高优先级，SourcePlugin统一接口（SetSource/Read/GetSize），HttpSourcePlugin双层架构（MediaDownloader），FileFdSource云端预读（ringBuffer_ 40MB、isReadBlocking_），DataStreamSource内存池（AVSharedMemoryPool） |
+| S38 | SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 架构 | AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, Rank | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S38 | ✅ 草案已生成（2026-04-25T19:07），四类源插件（FileSource/FILE、FileFdSource/FD、HttpSourcePlugin/HTTP、DataStreamSource/STREAM），rank=100最高优先级，SourcePlugin统一接口（SetSource/Read/GetSize），HttpSourcePlugin双层架构（MediaDownloader），FileFdSource云端预读（ringBuffer_ 40MB、isReadBlocking_），DataStreamSource内存池（AVSharedMemoryPool） |
 
 ## 变更记录
 
@@ -325,7 +325,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S39 | AVCodecVideoDecoder 视频解码器核心实现——CodecBase/VideoDecoder/VideoDecoderAdapter 三层架构 | AVCodec, VideoDecoder, CodecBase, VideoDecoderAdapter, Filter, HardwareCodec, SoftwareCodec | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S39 | ✅ 草案已生成（2026-04-25T22:42），三层调用链（VideoDecoderAdapter→VideoDecoder基类→HDecoder/HEVCDecoder/VPXDecoder具体实现），State 枚举十一状态（UNINITIALIZED→FROZEN），Owner 枚举四态缓冲区所有权，BlockQueue 三队列（inputAvailQue/codecAvailQue/renderAvailQue），Surface/Buffer 双模式，VideoDecoderFactory CreateByMime/ByName 双工厂 |
+| S39 | AVCodecVideoDecoder 视频解码器核心实现——CodecBase/VideoDecoder/VideoDecoderAdapter 三层架构 | AVCodec, VideoDecoder, CodecBase, VideoDecoderAdapter, Filter, HardwareCodec, SoftwareCodec | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S39 | ✅ 草案已生成（2026-04-25T22:42），三层调用链（VideoDecoderAdapter→VideoDecoder基类→HDecoder/HEVCDecoder/VPXDecoder具体实现），State 枚举十一状态（UNINITIALIZED→FROZEN），Owner 枚举四态缓冲区所有权，BlockQueue 三队列（inputAvailQue/codecAvailQue/renderAvailQue），Surface/Buffer 双模式，VideoDecoderFactory CreateByMime/ByName 双工厂 |
 
 | 2026-04-25T22:42 | Builder | 注册 S39：AVCodecVideoDecoder 视频解码器核心架构，三层（Filter→Codec引擎→具体解码器），State 十一状态，Owner 缓冲区所有权，BlockQueue 三队列，Surface/Buffer 双模式 |
 
@@ -333,34 +333,34 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S40 | FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构 | AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S40 | ✅ 草案已生成（2026-04-25T21:51），FFmpegMuxerPlugin底层封装：九种格式(mp4/ipod/amr/mp3/wav/adts/flac/ogg/flv)，AVFMT_FLAG_CUSTOM_IO自定义AVIOContext，IoRead/IoWrite/IoSeek桥接DataSink；MediaMuxer持有MuxerPlugin代理AddTrack/Start/Stop；MuxerFilter多轨协调(preFilterCount_/stopCount_)，maxDuration_异步停止；与S34(MuxerFilter)互补：S34为Filter层入口，S40为FFmpeg底层封装 |
+| S40 | FFmpeg Muxer Plugin 体系——FFmpegMuxerPlugin + MediaMuxer + MuxerFilter 三层封装架构 | AVCodec, MediaEngine, Muxer, FFmpeg, Plugin, FFmpegMuxerRegister, FLV, MP4, Container, MuxerFilter, MediaMuxer | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S40 | ✅ 草案已生成（2026-04-25T21:51），FFmpegMuxerPlugin底层封装：九种格式(mp4/ipod/amr/mp3/wav/adts/flac/ogg/flv)，AVFMT_FLAG_CUSTOM_IO自定义AVIOContext，IoRead/IoWrite/IoSeek桥接DataSink；MediaMuxer持有MuxerPlugin代理AddTrack/Start/Stop；MuxerFilter多轨协调(preFilterCount_/stopCount_)，maxDuration_异步停止；与S34(MuxerFilter)互补：S34为Filter层入口，S40为FFmpeg底层封装 |
 
 ## 新增主题（Builder 2026-04-25 续 - S41注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S41 | DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流 | AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S41 | ✅ 草案已生成（2026-04-25T22:25），builtin.player.demuxer注册，MediaDemuxer核心引擎，多轨AVBufferQueue并发读循环，PTS管理(AVI/MPEGPS/WMV)，g_sampleFormatBeToLe大端音频转换，StreamType五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/VIDEO/SUBTITLE)，双模式切换(SetTranscoderMode/SetPlayerMode)，Seek策略三分支(MPEGTS/Start/通用)
+| S41 | DemuxerFilter 解封装过滤器——Filter层封装与MediaDemuxer多轨数据流 | AVCodec, MediaEngine, Filter, Demuxer, MediaDemuxer, FilterPipeline, StreamType, TrackManagement, AVBufferQueue, DRM | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S41 | ✅ 草案已生成（2026-04-25T22:25），builtin.player.demuxer注册，MediaDemuxer核心引擎，多轨AVBufferQueue并发读循环，PTS管理(AVI/MPEGPS/WMV)，g_sampleFormatBeToLe大端音频转换，StreamType五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/VIDEO/SUBTITLE)，双模式切换(SetTranscoderMode/SetPlayerMode)，Seek策略三分支(MPEGTS/Start/通用)
 
 ## 新增主题（Builder 2026-04-26）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S42 | AVCodecVideoEncoder 视频编码器核心实现——CodecBase/VideoEncoder/VideoEncoderAdapter 三层架构 | AVCodec, VideoEncoder, CodecBase, VideoEncoderAdapter, Filter, SurfaceEncoderAdapter, SoftwareCodec, HardwareCodec | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S42 | ✅ 草案已生成（2026-04-26T00:10），三层调用链（SurfaceEncoderAdapter→AVCodecVideoEncoder→VideoEncoder基类→H264/H265/VPX具体实现），Filter层五状态机（IDLE/RECORDING/PAUSED/STOPPED/ERROR），CodecServer七状态机（UNINITIALIZED→ERROR），CodecBase统一生命周期，BlockQueue三队列，Surface/Buffer双模式，与S39(VideoDecoder)对称 |
+| S42 | AVCodecVideoEncoder 视频编码器核心实现——CodecBase/VideoEncoder/VideoEncoderAdapter 三层架构 | AVCodec, VideoEncoder, CodecBase, VideoEncoderAdapter, Filter, SurfaceEncoderAdapter, SoftwareCodec, HardwareCodec | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S42 | ✅ 草案已生成（2026-04-26T00:10），三层调用链（SurfaceEncoderAdapter→AVCodecVideoEncoder→VideoEncoder基类→H264/H265/VPX具体实现），Filter层五状态机（IDLE/RECORDING/PAUSED/STOPPED/ERROR），CodecServer七状态机（UNINITIALIZED→ERROR），CodecBase统一生命周期，BlockQueue三队列，Surface/Buffer双模式，与S39(VideoDecoder)对称 |
 
-| S43 | AdaptiveFramerateController 自适应帧率控制器——AFC单例+FramerateCalculator实例+DecodingBehaviorAnalyzer三层联动 | AVCodec, AdaptiveFramerate, FramerateCalculator, AFC, DynamicFramerate, DecodeRateControl, CodecServer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S43 | ✅ 草案已生成（2026-04-26T05:25），AFC单例全局管理所有Codec实例帧率，CHECK_INTERVAL=1000ms，抖动阈值>3fps且>10%，降帧需2次确认，升帧×2.5factor，DecodingBehaviorAnalyzer 8级速度等级，allowLowFps参数控制，与S17(SFD)互补：AFC管编码降帧，SFD管解码丢帧 |
+| S43 | AdaptiveFramerateController 自适应帧率控制器——AFC单例+FramerateCalculator实例+DecodingBehaviorAnalyzer三层联动 | AVCodec, AdaptiveFramerate, FramerateCalculator, AFC, DynamicFramerate, DecodeRateControl, CodecServer | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S43 | ✅ 草案已生成（2026-04-26T05:25），AFC单例全局管理所有Codec实例帧率，CHECK_INTERVAL=1000ms，抖动阈值>3fps且>10%，降帧需2次确认，升帧×2.5factor，DecodingBehaviorAnalyzer 8级速度等级，allowLowFps参数控制，与S17(SFD)互补：AFC管编码降帧，SFD管解码丢帧 |
 
 ## 新增主题（Builder 2026-04-26）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S44 | MetaDataFilter 元数据过滤器——Surface模式时元数据注入与录制管线时戳同步 | AVCodec, MediaEngine, Filter, MetaData, TimedMetadata, Surface, RecorderPipeline, PTS | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S44 | ✅ 草案已生成（2026-04-26T07:51），SetInputMetaSurface Surface绑定，OnBufferAvailable消费流程，PTS=timestamp-startBufferTime-totalPausedTime暂停补偿，MetaDataFilterLinkCallback三路回调，GetInputMetaSurface创建ConsumerSurface |
-| S45 | SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S45 | ✅ 草案已生成（2026-04-26T08:20），builtin.player.surfacedecoder注册，三层调用链(SurfaceDecoderFilter→SurfaceDecoderAdapter→AVCodecVideoDecoder)，双监听器回调链(SurfaceDecoderAdapterCallback/SurfaceDecoderFilterLinkCallback)，ReleaseBuffer Task后台线程，HDR颜色空间处理 |
+| S44 | MetaDataFilter 元数据过滤器——Surface模式时元数据注入与录制管线时戳同步 | AVCodec, MediaEngine, Filter, MetaData, TimedMetadata, Surface, RecorderPipeline, PTS | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S44 | ✅ 草案已生成（2026-04-26T07:51），SetInputMetaSurface Surface绑定，OnBufferAvailable消费流程，PTS=timestamp-startBufferTime-totalPausedTime暂停补偿，MetaDataFilterLinkCallback三路回调，GetInputMetaSurface创建ConsumerSurface |
+| S45 | SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S45 | ✅ 草案已生成（2026-04-26T08:20），builtin.player.surfacedecoder注册，三层调用链(SurfaceDecoderFilter→SurfaceDecoderAdapter→AVCodecVideoDecoder)，双监听器回调链(SurfaceDecoderAdapterCallback/SurfaceDecoderFilterLinkCallback)，ReleaseBuffer Task后台线程，HDR颜色空间处理 |
 
 ## 新增主题（Builder 2026-04-26 续）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S45 | SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S45 | ✅ 草案已生成（2026-04-26T08:20），builtin.player.surfacedecoder注册，Filter层+SurfaceDecoderAdapter+AVCodecVideoDecoder三层，ReleaseBuffer Task后台线程 |
+| S45 | SurfaceDecoderFilter 视频解码过滤器——Filter层封装与 SurfaceDecoderAdapter 三层调用链 | AVCodec, MediaEngine, Filter, VideoDecoder, SurfaceDecoderFilter, FILTERTYPE_VIDEODEC, SurfaceMode, Pipeline | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S45 | ✅ 草案已生成（2026-04-26T08:20），builtin.player.surfacedecoder注册，Filter层+SurfaceDecoderAdapter+AVCodecVideoDecoder三层，ReleaseBuffer Task后台线程 |
 
 ## 变更记录
 
@@ -373,8 +373,8 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S46 | DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件与 DRM/PostProcessor 两扩展 | AVCodec, MediaEngine, Filter, VideoDecoder, DecoderSurfaceFilter, FILTERTYPE_VDEC, VideoSink, VideoDecoderAdapter, DRM, PostProcessor, CameraPostProcessor, PlayerPipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S46 | ✅ 草案已生成（2026-04-26T09:07），builtin.player.videodecoder注册，FILTERTYPE_VDEC，三组件架构(VideoDecoderAdapter+VideoSink+PostProcessor)，双回调链(FilterMediaCodecCallbackWithPostProcessor/FilterVideoPostProcessorCallback)，RenderLoop后台线程，SUPPORT_DRM解密，Camera PostProcessor(SCENE_INSERT_FRAME/MP_PWP)，硬件回退机制(EVENT_HW_DECODER_UNSUPPORT_CAP)，与S45(SurfaceDecoderFilter)对称 |
-| S47 | CodecCapability 能力查询与匹配机制——CodecAbility/CodecProfile/Level/SupportedTypes 五层能力体系 | AVCodec, Capability, CodecProfile, CodecLevel, CodecMime, CodecList, CodecAbilitySingleton, CodecListCore, CapabilityData, VideoCaps, AudioCaps, FindEncoder, FindDecoder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S47 | ✅ 草案已生成（2026-04-26T10:36），CodecCapability五层能力模型(L1 CodecMime/L2 AVCodecType/L3 CapabilityData/L4 CodecProfile+Level/L5 SupportedTypes)，FindEncoder/FindDecoder能力匹配算法，CodecAbility单例按需创建，CodecListCore七项Check校验，VideoCaps/AudioCaps子能力集，SUPPORT_HDR_VIVID判断，levelToInt/InRangeToInt范围转换 |
+| S46 | DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件与 DRM/PostProcessor 两扩展 | AVCodec, MediaEngine, Filter, VideoDecoder, DecoderSurfaceFilter, FILTERTYPE_VDEC, VideoSink, VideoDecoderAdapter, DRM, PostProcessor, CameraPostProcessor, PlayerPipeline | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S46 | ✅ 草案已生成（2026-04-26T09:07），builtin.player.videodecoder注册，FILTERTYPE_VDEC，三组件架构(VideoDecoderAdapter+VideoSink+PostProcessor)，双回调链(FilterMediaCodecCallbackWithPostProcessor/FilterVideoPostProcessorCallback)，RenderLoop后台线程，SUPPORT_DRM解密，Camera PostProcessor(SCENE_INSERT_FRAME/MP_PWP)，硬件回退机制(EVENT_HW_DECODER_UNSUPPORT_CAP)，与S45(SurfaceDecoderFilter)对称 |
+| S47 | CodecCapability 能力查询与匹配机制——CodecAbility/CodecProfile/Level/SupportedTypes 五层能力体系 | AVCodec, Capability, CodecProfile, CodecLevel, CodecMime, CodecList, CodecAbilitySingleton, CodecListCore, CapabilityData, VideoCaps, AudioCaps, FindEncoder, FindDecoder | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S47 | ✅ 草案已生成（2026-04-26T10:36），CodecCapability五层能力模型(L1 CodecMime/L2 AVCodecType/L3 CapabilityData/L4 CodecProfile+Level/L5 SupportedTypes)，FindEncoder/FindDecoder能力匹配算法，CodecAbility单例按需创建，CodecListCore七项Check校验，VideoCaps/AudioCaps子能力集，SUPPORT_HDR_VIVID判断，levelToInt/InRangeToInt范围转换 |
 
 ## 变更记录
 
@@ -387,7 +387,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S49 | SubtitleSinkFilter 字幕渲染过滤器——SubtitleSink 引擎与 Filter 两层架构 | AVCodec, MediaEngine, Filter, Subtitle, SubtitleSink, SubtitleSinkFilter, FILTERTYPE_SSINK, PlayerPipeline, MediaSync | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S49 | ✅ 草案已生成（2026-04-26T12:45），SubtitleSinkFilter Filter层封装("builtin.player.subtitlesink")+SubtitleSink引擎层RenderLoop，SubtitleBufferState三状态(WAIT/SHOW/DROP)，RemoveTextTags HTML标签剥离，NotifyRender Tag::SUBTITLE_TEXT上报，MediaSyncManager同步集成，Seek时NotifySeek清空字幕队列，与AudioSinkFilter(S31)/VideoRenderFilter(S32)并列构成管线三大输出终点 |
+| S49 | SubtitleSinkFilter 字幕渲染过滤器——SubtitleSink 引擎与 Filter 两层架构 | AVCodec, MediaEngine, Filter, Subtitle, SubtitleSink, SubtitleSinkFilter, FILTERTYPE_SSINK, PlayerPipeline, MediaSync | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S49 | ✅ 草案已生成（2026-04-26T12:45），SubtitleSinkFilter Filter层封装("builtin.player.subtitlesink")+SubtitleSink引擎层RenderLoop，SubtitleBufferState三状态(WAIT/SHOW/DROP)，RemoveTextTags HTML标签剥离，NotifyRender Tag::SUBTITLE_TEXT上报，MediaSyncManager同步集成，Seek时NotifySeek清空字幕队列，与AudioSinkFilter(S31)/VideoRenderFilter(S32)并列构成管线三大输出终点 |
 
 ## 变更记录
 
@@ -399,25 +399,25 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S50 | AudioResample 音频重采样框架——SwrContext/libswresample 与 AudioBuffersManager 双组件协作 | AVCodec, AudioCodec, AudioResample, SwrContext, libswresample, AudioBuffersManager, AudioBufferInfo, FFmpeg, SampleRate, ChannelLayout | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S50 | ✅ 草案已生成（2026-04-26T14:52），AudioResample 基于 FFmpeg libswresample 封装 SwrContext（InitSwrContext/swr_convert），ResamplePara 六参数结构体，CheckResample 格式匹配判定，AudioCodecWorker 双 AudioBuffersManager（inputBuffer/outputBuffer），AudioBufferInfo 单缓冲区元数据（isUsing/status/EOS/FirstFrame），延迟重采样初始化（解码器 ReceiveFrameSucc 中首次触发） |
+| S50 | AudioResample 音频重采样框架——SwrContext/libswresample 与 AudioBuffersManager 双组件协作 | AVCodec, AudioCodec, AudioResample, SwrContext, libswresample, AudioBuffersManager, AudioBufferInfo, FFmpeg, SampleRate, ChannelLayout | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S50 | ✅ 草案已生成（2026-04-26T14:52），AudioResample 基于 FFmpeg libswresample 封装 SwrContext（InitSwrContext/swr_convert），ResamplePara 六参数结构体，CheckResample 格式匹配判定，AudioCodecWorker 双 AudioBuffersManager（inputBuffer/outputBuffer），AudioBufferInfo 单缓冲区元数据（isUsing/status/EOS/FirstFrame），延迟重采样初始化（解码器 ReceiveFrameSucc 中首次触发） |
 
 ## 新增主题（Builder 2026-04-26 续 - S51注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S51 | Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线 | AVCodec, VideoDecoder, AV1, dav1d, SoftwareCodec, VideoCodecLoader, HDR, ColorSpace, Av1DecoderLoader, CodecMimeType | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S51 | ✅ 草案已生成（2026-04-26T15:21），Av1Decoder继承VideoDecoder，封装VideoLAN dav1d库(libdav1d.z.so)，CreateDecoder三步骤(dav1d_default_settings/open/allocate)，DecodeAv1FrameOnce三函数API(dav1d_data_wrap/send_data/get_picture)，DAV1D_AGAIN=-11正常状态，n_threads=2/max_frame_delay=1/apply_grain=1，HDR元数据FillHdrInfo，UpdateColorAspects色彩空间，ConvertAv1FmtToAVPixFmt四像素格式(I400/I420/I422/I444)，GetCodecCapability能力注册(1920x1080@300fps/MAIN+HIGH Profile/64实例)，extern "C"三函数API(dlsym)，编译开关SUPPORT_CODEC_AV1 |
+| S51 | Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线 | AVCodec, VideoDecoder, AV1, dav1d, SoftwareCodec, VideoCodecLoader, HDR, ColorSpace, Av1DecoderLoader, CodecMimeType | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S51 | ✅ 草案已生成（2026-04-26T15:21），Av1Decoder继承VideoDecoder，封装VideoLAN dav1d库(libdav1d.z.so)，CreateDecoder三步骤(dav1d_default_settings/open/allocate)，DecodeAv1FrameOnce三函数API(dav1d_data_wrap/send_data/get_picture)，DAV1D_AGAIN=-11正常状态，n_threads=2/max_frame_delay=1/apply_grain=1，HDR元数据FillHdrInfo，UpdateColorAspects色彩空间，ConvertAv1FmtToAVPixFmt四像素格式(I400/I420/I422/I444)，GetCodecCapability能力注册(1920x1080@300fps/MAIN+HIGH Profile/64实例)，extern "C"三函数API(dlsym)，编译开关SUPPORT_CODEC_AV1 |
 
 ## 新增主题（Builder 2026-04-26 续 - S52注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S52 | TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射 | AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S52 | ✅ 草案已生成（2026-04-26T16:25），TimeAndIndexConversion 解析 MP4/MOV Box 结构（ftyp/moov/trak/stbl），STTS表(sampleCount+sampleDelta)和CTTS表(sampleCount+sampleOffset)双表联合遍历，MDHD读取timescale，HDLR判断vide/soun轨道类型，PTS↔Index双向转换算法（相对PTS+绝对时间零点），B帧PTS=DTS+offset，最大36000帧限制 |
+| S52 | TimeAndIndexConversion PTS与帧索引转换——MP4/MOV容器STTS/CTTS解析与时域映射 | AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S52 | ✅ 草案已生成（2026-04-26T16:25），TimeAndIndexConversion 解析 MP4/MOV Box 结构（ftyp/moov/trak/stbl），STTS表(sampleCount+sampleDelta)和CTTS表(sampleCount+sampleOffset)双表联合遍历，MDHD读取timescale，HDLR判断vide/soun轨道类型，PTS↔Index双向转换算法（相对PTS+绝对时间零点），B帧PTS=DTS+offset，最大36000帧限制 |
 
 ## 新增主题（Builder 2026-04-26 续 - S53注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S53 | FCodec 软件视频解码器——H.264/AVC FFmpeg 解码管线 | AVCodec, VideoDecoder, FCodec, FFmpeg, SoftwareCodec, libavcodec, avcodec_send_packet, avcodec_receive_frame, H264, AVC | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S53 | ✅ 草案已生成（2026-04-26T17:40），FCodec 统一软件解码类，FFmpeg libavcodec "h264" codec，支持14种格式（AVC/HEVC/MPEG2/MPEG4/H263/MJPEG/WMV3/VC1等），avcodec_send_packet/receive_frame 双线程解码，GetAvcCapProf 能力注册（5120x5120/120fps/Baseline+Main+High Profile），双 TaskThread 驱动（SendFrame/ReceiveFrame），SendFrame等待/EAGAIN/AVERROR_EOF 错误处理 |
+| S53 | FCodec 软件视频解码器——H.264/AVC FFmpeg 解码管线 | AVCodec, VideoDecoder, FCodec, FFmpeg, SoftwareCodec, libavcodec, avcodec_send_packet, avcodec_receive_frame, H264, AVC | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S53 | ✅ 草案已生成（2026-04-26T17:40），FCodec 统一软件解码类，FFmpeg libavcodec "h264" codec，支持14种格式（AVC/HEVC/MPEG2/MPEG4/H263/MJPEG/WMV3/VC1等），avcodec_send_packet/receive_frame 双线程解码，GetAvcCapProf 能力注册（5120x5120/120fps/Baseline+Main+High Profile），双 TaskThread 驱动（SendFrame/ReceiveFrame），SendFrame等待/EAGAIN/AVERROR_EOF 错误处理 |
 
 ## 变更记录
 
@@ -430,199 +430,199 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S54 | HevcDecoder + VpxDecoder 视频解码器——HEVC(H.265)/VP8/VP9 解码管线 | AVCodec, VideoDecoder, HevcDecoder, VpxDecoder, HEVC, H265, VP8, VP9, libhevcdec_ohos, libvpx, HDR | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S54 | ✅ 草案已生成（2026-04-26T18:06），HevcDecoder加载vendor库libhevcdec_ohos.z.so（HDI四函数：Create/Decode/Flush/Delete），VpxDecoder封装libvpx（vpx_codec_decode/get_frame），HevcDecoder单线程SendFrame+分包循环DecodeFrameOnce（与FCodec双线程不同），VpxDecoder支持VPX_CODEC_USE_FRAME_THREADING，HEVC能力注册(1920x1920@30fps/Main+Main_10 Profile)，VP9能力注册(3840x2160@130fps/Profile 0-1)，VP8能力注册(3840x2160@60fps)，四类解码器横向对比(S39/S51/S53/S54) |
+| S54 | HevcDecoder + VpxDecoder 视频解码器——HEVC(H.265)/VP8/VP9 解码管线 | AVCodec, VideoDecoder, HevcDecoder, VpxDecoder, HEVC, H265, VP8, VP9, libhevcdec_ohos, libvpx, HDR | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S54 | ✅ 草案已生成（2026-04-26T18:06），HevcDecoder加载vendor库libhevcdec_ohos.z.so（HDI四函数：Create/Decode/Flush/Delete），VpxDecoder封装libvpx（vpx_codec_decode/get_frame），HevcDecoder单线程SendFrame+分包循环DecodeFrameOnce（与FCodec双线程不同），VpxDecoder支持VPX_CODEC_USE_FRAME_THREADING，HEVC能力注册(1920x1920@30fps/Main+Main_10 Profile)，VP9能力注册(3840x2160@130fps/Profile 0-1)，VP8能力注册(3840x2160@60fps)，四类解码器横向对比(S39/S51/S53/S54) |
 
 ## 新增主题（Builder 2026-04-26 续 - S55注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S55 | AVCodec 模块间回调链路——CodecCallback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback 四路回调架构 | AVCodec, Callback, IPC, CodecClient, CodecServer, AudioCodecServer, CodecBase, MediaCodec, CodecListenerCallback, CodecListenerStub, CodecListenerProxy, ICodecComponentCallback, Binder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S55 | ✅ 草案已生成（2026-04-26T19:10），四路回调链路：CodecCallback(HDI→MediaCodec) / MediaCodecCallback(引擎内部) / CodecBaseCallback(CodecBase→CodecServer) / CodecListenerCallback(IPC跨进程 CodecServer→CodecClient)，CodecListenerStub→CodecServiceStub→CodecListenerCallback→videoCb_ IPC回调环，AudioCodecServer双回调(CodecBaseCallback+VCodecBaseCallback)，PostProcessingCallback特殊路径 |
-| S56 | VideoSink 视频渲染同步器——DoSyncWrite 渲染决策与 VideoLagDetector 卡顿追踪 | AVCodec, MediaEngine, Sink, VideoSync, VideoRender, Sync, DoSyncWrite, VideoLagDetector, MediaSynchronousSink, IMediaSynchronizer, CheckBufferLatenessMayWait, CalcBufferDiff | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S56 | ✅ 草案已生成（2026-04-26T20:25），VideoSink继承MediaSynchronousSink（与AudioSink/SubtitleSink同级），DoSyncWrite渲染决策（CheckBufferLatenessMayWait计算early/late），CalcBufferDiff三元组算法（锚点差/视频帧差/初始等待期），前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，VideoLagDetector内嵌类追踪lag，IMediaSynchronizer优先级VIDEO_SINK=0是播放管线时钟锚点供应方 |
+| S55 | AVCodec 模块间回调链路——CodecCallback、MediaCodecCallback、CodecBaseCallback、CodecListenerCallback 四路回调架构 | AVCodec, Callback, IPC, CodecClient, CodecServer, AudioCodecServer, CodecBase, MediaCodec, CodecListenerCallback, CodecListenerStub, CodecListenerProxy, ICodecComponentCallback, Binder | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S55 | ✅ 草案已生成（2026-04-26T19:10），四路回调链路：CodecCallback(HDI→MediaCodec) / MediaCodecCallback(引擎内部) / CodecBaseCallback(CodecBase→CodecServer) / CodecListenerCallback(IPC跨进程 CodecServer→CodecClient)，CodecListenerStub→CodecServiceStub→CodecListenerCallback→videoCb_ IPC回调环，AudioCodecServer双回调(CodecBaseCallback+VCodecBaseCallback)，PostProcessingCallback特殊路径 |
+| S56 | VideoSink 视频渲染同步器——DoSyncWrite 渲染决策与 VideoLagDetector 卡顿追踪 | AVCodec, MediaEngine, Sink, VideoSync, VideoRender, Sync, DoSyncWrite, VideoLagDetector, MediaSynchronousSink, IMediaSynchronizer, CheckBufferLatenessMayWait, CalcBufferDiff | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S56 | ✅ 草案已生成（2026-04-26T20:25），VideoSink继承MediaSynchronousSink（与AudioSink/SubtitleSink同级），DoSyncWrite渲染决策（CheckBufferLatenessMayWait计算early/late），CalcBufferDiff三元组算法（锚点差/视频帧差/初始等待期），前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，VideoLagDetector内嵌类追踪lag，IMediaSynchronizer优先级VIDEO_SINK=0是播放管线时钟锚点供应方 |
 
 ## 新增主题（Builder 2026-04-26 续 - S57注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S57 | HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链 | AVCodec, HardwareCodec, HDI, OMX, HDecoder, HEncoder, CodecBase, StateMachine, MsgHandleLoop, DMA-BUF, SuspendResume | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S57 | ✅ 草案已生成（2026-04-26T20:51），HCodec基类(CodecBase+StateMachine)八状态机(Uninitialized/Initialized/Starting/Running/OutputPortChanged/Flushing/Stopping/Frozen)，MsgHandleLoop消息队列(SendAsyncMsg/SendSyncMsg)，HDI V4.0 ICodecComponent四函数(EmptyThisBuffer/FillThisBuffer/SendCommand/Configure)，HDecoder XperfConnector性能回调+DecoderInst实例追踪，HEncoder水印+BitrateMode，DMA-BUF SwapOut/SwapIn与FrozenState，HCodecList能力查询(VIDEO_FEATURE_LTR/PASS_THROUGH/B_FRAME)，TypeConverter HDI↔OMX类型转换，AvcEncoder独立硬件编码器(AVC_ENC_HANDLE)，与S39/S51/S53/S54软件解码器互补 |
+| S57 | HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链 | AVCodec, HardwareCodec, HDI, OMX, HDecoder, HEncoder, CodecBase, StateMachine, MsgHandleLoop, DMA-BUF, SuspendResume | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S57 | ✅ 草案已生成（2026-04-26T20:51），HCodec基类(CodecBase+StateMachine)八状态机(Uninitialized/Initialized/Starting/Running/OutputPortChanged/Flushing/Stopping/Frozen)，MsgHandleLoop消息队列(SendAsyncMsg/SendSyncMsg)，HDI V4.0 ICodecComponent四函数(EmptyThisBuffer/FillThisBuffer/SendCommand/Configure)，HDecoder XperfConnector性能回调+DecoderInst实例追踪，HEncoder水印+BitrateMode，DMA-BUF SwapOut/SwapIn与FrozenState，HCodecList能力查询(VIDEO_FEATURE_LTR/PASS_THROUGH/B_FRAME)，TypeConverter HDI↔OMX类型转换，AvcEncoder独立硬件编码器(AVC_ENC_HANDLE)，与S39/S51/S53/S54软件解码器互补 |
 
 ## 新增主题（Builder 2026-04-26 续 - S58注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S58 | MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析 | AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, Track, SampleTable, mse | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S58 | ✅ 草案已生成（2026-04-26T22:30），MPEG4AtomParser 4396行box解析引擎，47项ParseFunction路由表，Track链表结构(CodecParams+MPEG4SampleHelper+displayMatrix)，五级层级深度(MPEG4_ROOT_DEPTH→MPEG4_DEPTH_FOUR)，stts/stss/ctts/stsc/stsz/stco六表委托MPEG4SampleHelper，avcC/hvcC/vvcC三合一CodecConfig，ParseMoof分片解析(FragmentEntry+TFHD/TRUN)，HDR_VIVID检测(CUVA特征串)，EditList(elst)时间偏移机制，QUICKTIME_EPOCH_OFFSET=2082844800，FourCC→MimeType映射(30+条)，AAC/FLAC/PCM通道布局表，displayMatrix旋转/翻转映射(8类)，与S41(DemuxerFilter)上下游关系 |
+| S58 | MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析 | AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, Track, SampleTable, mse | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S58 | ✅ 草案已生成（2026-04-26T22:30），MPEG4AtomParser 4396行box解析引擎，47项ParseFunction路由表，Track链表结构(CodecParams+MPEG4SampleHelper+displayMatrix)，五级层级深度(MPEG4_ROOT_DEPTH→MPEG4_DEPTH_FOUR)，stts/stss/ctts/stsc/stsz/stco六表委托MPEG4SampleHelper，avcC/hvcC/vvcC三合一CodecConfig，ParseMoof分片解析(FragmentEntry+TFHD/TRUN)，HDR_VIVID检测(CUVA特征串)，EditList(elst)时间偏移机制，QUICKTIME_EPOCH_OFFSET=2082844800，FourCC→MimeType映射(30+条)，AAC/FLAC/PCM通道布局表，displayMatrix旋转/翻转映射(8类)，与S41(DemuxerFilter)上下游关系 |
 
 ## 新增主题（Builder 2026-04-27）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S59 | AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机 | AVCodec, VideoEncoder, HardwareCodec, H.264, AVC, dlopen, StateMachine, BlockQueue, MediaCodecCallback | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S59 | ✅ 草案已生成（2026-04-27T01:10），AvcEncoder继承CodecBase，dlopen加载libavcenc_ohos.z.so，三函数指针(avcEncoderCreateFunc/Frame/Delete)，九状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/FLUSHING/EOS/ERROR)，双BlockQueue(inputAvailQue/codecAvailQue)，FBuffer四态缓冲区所有权(OWNED_BY_US/CODEC/USER/SURFACE)，SendFrame TaskThread驱动，首帧EncoderAvcHeader写入SPS/PPS，支持NV12/NV21/YUV420/RGBA输入，支持CBR/VBR/CQ三种码率模式，Profile仅Baseline+Main，与S42(VideoEncoder基类)/S57(HDecoder/HEncoder)互补 |
+| S59 | AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机 | AVCodec, VideoEncoder, HardwareCodec, H.264, AVC, dlopen, StateMachine, BlockQueue, MediaCodecCallback | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S59 | ✅ 草案已生成（2026-04-27T01:10），AvcEncoder继承CodecBase，dlopen加载libavcenc_ohos.z.so，三函数指针(avcEncoderCreateFunc/Frame/Delete)，九状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED/FLUSHING/EOS/ERROR)，双BlockQueue(inputAvailQue/codecAvailQue)，FBuffer四态缓冲区所有权(OWNED_BY_US/CODEC/USER/SURFACE)，SendFrame TaskThread驱动，首帧EncoderAvcHeader写入SPS/PPS，支持NV12/NV21/YUV420/RGBA输入，支持CBR/VBR/CQ三种码率模式，Profile仅Baseline+Main，与S42(VideoEncoder基类)/S57(HDecoder/HEncoder)互补 |
 
 ## 新增主题（Builder 2026-04-27 第二批）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S60 | AAC 音频编解码 FFmpeg 插件——AudioFFMpegAacEncoder/DecoderPlugin 双插件与 ADTS/RESAMPLE 四通道 | AVCodec, AudioCodec, AAC, FFmpeg, ADTS, AudioResample, AudioBaseCodec, Plugin, AudioEncoder, AudioDecoder | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S60 | ✅ 草案已生成（2026-04-27T01:51），提交审批。AudioFFMpegAacEncoderPlugin(encoder)+AudioFFMpegAacDecoderPlugin(decoder)，ADTS 7字节头，AudioResample needResample_自动触发，13档采样率，1-8通道布局，CodecRegister CRTP注册，组合vs继承架构差异。与S8(FFmpeg音频插件总览)/S50(AudioResample)关联。|
+| S60 | AAC 音频编解码 FFmpeg 插件——AudioFFMpegAacEncoder/DecoderPlugin 双插件与 ADTS/RESAMPLE 四通道 | AVCodec, AudioCodec, AAC, FFmpeg, ADTS, AudioResample, AudioBaseCodec, Plugin, AudioEncoder, AudioDecoder | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S60 | ✅ 草案已生成（2026-04-27T01:51），提交审批。AudioFFMpegAacEncoderPlugin(encoder)+AudioFFMpegAacDecoderPlugin(decoder)，ADTS 7字节头，AudioResample needResample_自动触发，13档采样率，1-8通道布局，CodecRegister CRTP注册，组合vs继承架构差异。与S8(FFmpeg音频插件总览)/S50(AudioResample)关联。|
 
 ## 新增主题（Builder 2026-04-27）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S61 | 音频渲染核心组件——AudioSampleFormat/CalcMaxAmplitude/AudioSink三层引擎 | AVCodec, AudioCodec, AudioSink, MediaSynchronousSink, MediaSyncManager, AudioSampleFormat, CalcMaxAmplitude, PCM, AudioRendering | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S61 | ✅ 草案已生成（2026-04-27T03:54），提交审批。AudioSampleFormat(25种采样格式→位深映射)、CalcMaxAmplitude(PCM峰值振幅计算，支持8/16/24/32bit)、AudioSink(继承MediaSynchronousSink，syncerPriority_=AUDIO_SINK=2，OnWriteData回调链，AudioVivid固定80ms延迟补偿)。与S31(AudioSinkFilter Filter层)互补，S56(VideoSink对称)，S22(MediaSyncManager)关联。|
+| S61 | 音频渲染核心组件——AudioSampleFormat/CalcMaxAmplitude/AudioSink三层引擎 | AVCodec, AudioCodec, AudioSink, MediaSynchronousSink, MediaSyncManager, AudioSampleFormat, CalcMaxAmplitude, PCM, AudioRendering | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S61 | ✅ 草案已生成（2026-04-27T03:54），提交审批。AudioSampleFormat(25种采样格式→位深映射)、CalcMaxAmplitude(PCM峰值振幅计算，支持8/16/24/32bit)、AudioSink(继承MediaSynchronousSink，syncerPriority_=AUDIO_SINK=2，OnWriteData回调链，AudioVivid固定80ms延迟补偿)。与S31(AudioSinkFilter Filter层)互补，S56(VideoSink对称)，S22(MediaSyncManager)关联。|
 
 ## 新增主题（Builder 2026-04-27 第三批）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S62 | AudioBuffersManager 音频编解码双缓冲队列管理——AudioBufferInfo + AudioBuffersManager + AudioCodecWorker 三层架构 | AVCodec, AudioCodec, BufferManagement, AudioCodecWorker, AudioBuffersManager, AudioBufferInfo, AVSharedMemoryBase, PCM | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S62 | ✅ 草案已生成（2026-04-27T05:15），提交审批。AudioBuffersManager 管理 inputBuffer_/outputBuffer_ 双缓冲区池（各8个 AudioBufferInfo），RequestAvailableIndex 阻塞等待（500ms）+ condition_variable 机制，ReleaseBuffer 重置状态+notify_all，AudioBufferInfo 双 AVSharedMemoryBase（数据+元数据），BufferStatus 枚举（IDLE/OWEN_BY_CLIENT），ResetBuffer 清空 EOS/首帧/使用标志。AudioCodecWorker 双 TaskThread（OS_AuCodecIn/OS_AuCodecOut）驱动流水线。与S50(AudioResample)/S8(FFmpeg音频)/S35(AudioDecoderFilter)关联。|
+| S62 | AudioBuffersManager 音频编解码双缓冲队列管理——AudioBufferInfo + AudioBuffersManager + AudioCodecWorker 三层架构 | AVCodec, AudioCodec, BufferManagement, AudioCodecWorker, AudioBuffersManager, AudioBufferInfo, AVSharedMemoryBase, PCM | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S62 | ✅ 草案已生成（2026-04-27T05:15），提交审批。AudioBuffersManager 管理 inputBuffer_/outputBuffer_ 双缓冲区池（各8个 AudioBufferInfo），RequestAvailableIndex 阻塞等待（500ms）+ condition_variable 机制，ReleaseBuffer 重置状态+notify_all，AudioBufferInfo 双 AVSharedMemoryBase（数据+元数据），BufferStatus 枚举（IDLE/OWEN_BY_CLIENT），ResetBuffer 清空 EOS/首帧/使用标志。AudioCodecWorker 双 TaskThread（OS_AuCodecIn/OS_AuCodecOut）驱动流水线。与S50(AudioResample)/S8(FFmpeg音频)/S35(AudioDecoderFilter)关联。|
 
 ## 新增主题（Builder 2026-04-27 第四批）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S64 | AVBuffer Signal/Wait 异步驱动机制——AVBufferQueue 条件变量与 CodecBase 三队列信号链 | AVCodec, AVBuffer, Signal, AsyncMode, AVBufferQueue, Wait, Event-driven, Pipeline, CodecBase, Callback | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S64 | ✅ 草案已生成（2026-04-27T06:06），AVBuffer signal_/wait_ 双条件变量驱动，AVBufferQueue 生产-消费信号链，CodecBase 三队列(inputAvailQue/codecAvailQue/renderAvailQue)，双 TaskThread 异步编解码(SendFrame/ReceiveFrame)，AudioCodecWorker RequestAvailableIndex 500ms 等待，VideoSink DoSyncWrite 渲染决策，IS_FILTER_ASYNC 异步标志，与S35(S39/S53/S56/S62/S21)关联 |
+| S64 | AVBuffer Signal/Wait 异步驱动机制——AVBufferQueue 条件变量与 CodecBase 三队列信号链 | AVCodec, AVBuffer, Signal, AsyncMode, AVBufferQueue, Wait, Event-driven, Pipeline, CodecBase, Callback | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S64 | ✅ 草案已生成（2026-04-27T06:06），AVBuffer signal_/wait_ 双条件变量驱动，AVBufferQueue 生产-消费信号链，CodecBase 三队列(inputAvailQue/codecAvailQue/renderAvailQue)，双 TaskThread 异步编解码(SendFrame/ReceiveFrame)，AudioCodecWorker RequestAvailableIndex 500ms 等待，VideoSink DoSyncWrite 渲染决策，IS_FILTER_ASYNC 异步标志，与S35(S39/S53/S56/S62/S21)关联 |
 
-| S63 | CodecDrmDecrypt DRM CENC 解密核心——NAL单元解析与SVP安全视频路径 | AVCodec, DRM, CENC, Decrypt, SVP, NALU, Subsample, CodecDrmDecrypt, ContentProtection | 三方应用/新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S63 | ✅ 草案已生成（2026-04-27T05:37），提交审批。CodecDrmDecrypt(764行codec_drm_decrypt.cpp)被CodecServer(codec_server.cpp:752)持有，DrmVideoCencDecrypt(codec_drm_decrypt.cpp:551)三步骤解密流程(DrmGetCencInfo→DrmModifyCencInfo去除防伪字节→DecryptMediaData→HDI解密)，NAL单元解析支持AVC/HEVC/AVS，起始码0x00000001，subsamples结构(AES-CTR)，SvpMode三种状态(SVP_CLEAR=-1/SVP_FALSE/SVP_TRUE)，CheckDrmSvpConsistency(codec_server.cpp:703)一致性校验。与S46(DecoderSurfaceFilter DRM)/S57(HDecoder DRM)/S41(DemuxerFilter DRM)关联。|
+| S63 | CodecDrmDecrypt DRM CENC 解密核心——NAL单元解析与SVP安全视频路径 | AVCodec, DRM, CENC, Decrypt, SVP, NALU, Subsample, CodecDrmDecrypt, ContentProtection | 三方应用/新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S63 | ✅ 草案已生成（2026-04-27T05:37），提交审批。CodecDrmDecrypt(764行codec_drm_decrypt.cpp)被CodecServer(codec_server.cpp:752)持有，DrmVideoCencDecrypt(codec_drm_decrypt.cpp:551)三步骤解密流程(DrmGetCencInfo→DrmModifyCencInfo去除防伪字节→DecryptMediaData→HDI解密)，NAL单元解析支持AVC/HEVC/AVS，起始码0x00000001，subsamples结构(AES-CTR)，SvpMode三种状态(SVP_CLEAR=-1/SVP_FALSE/SVP_TRUE)，CheckDrmSvpConsistency(codec_server.cpp:703)一致性校验。与S46(DecoderSurfaceFilter DRM)/S57(HDecoder DRM)/S41(DemuxerFilter DRM)关联。|
 
 ## 新增主题（Builder 2026-04-27 第五批 - S65注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S65 | MediaMuxer 封装核心实现——Track 管理器与 AVBufferQueue 异步写入架构 | AVCodec, MediaMuxer, MuxerPlugin, Track, AVBufferQueue, DataSink, OutputFormat, ThreadProcessor, PTS, AsyncMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S65 | ✅ 草案已生成（2026-04-27T07:10），MediaMuxer(571行cpp+106行h)Track管理+AVBufferQueue异步写入，CreatePlugin按OutputFormat→MimeType路由到具体MuxerPlugin，十种格式(MP4/M4A/AMR/MP3/WAV/AAC/FLAC/OGG/FLV)，OS_MUXER_WRITE线程PTS排序写入，Track::IConsumerListener消费驱动，CanAddTrack白名单校验，双模式数据输入(AVBufferQueue/WriteSample)。与S40(FFmpegMuxerPlugin)/S34(MuxerFilter)关联。|
+| S65 | MediaMuxer 封装核心实现——Track 管理器与 AVBufferQueue 异步写入架构 | AVCodec, MediaMuxer, MuxerPlugin, Track, AVBufferQueue, DataSink, OutputFormat, ThreadProcessor, PTS, AsyncMode | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S65 | ✅ 草案已生成（2026-04-27T07:10），MediaMuxer(571行cpp+106行h)Track管理+AVBufferQueue异步写入，CreatePlugin按OutputFormat→MimeType路由到具体MuxerPlugin，十种格式(MP4/M4A/AMR/MP3/WAV/AAC/FLAC/OGG/FLV)，OS_MUXER_WRITE线程PTS排序写入，Track::IConsumerListener消费驱动，CanAddTrack白名单校验，双模式数据输入(AVBufferQueue/WriteSample)。与S40(FFmpegMuxerPlugin)/S34(MuxerFilter)关联。|
 
 ## 新增主题（Builder 2026-04-27 S66注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S66 | TypeFinder 媒体类型探测框架——SnifferPlugin 路由与 BaseStreamDemuxer 集成 | AVCodec, MediaEngine, Demuxer, Sniff, Plugin, TypeFinder, DataSource, StreamDemuxer | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S66 | ✅ 草案已生成（2026-04-27T07:52），提交审批。TypeFinder(226行cpp+84行h)继承enable_shared_from_this+Plugins::DataSource双继承，FindMediaType()入口路由到SniffMediaType()，PluginManagerV2::SnifferPlugin(PluginType::DEMUXER)遍历所有Demuxer插件执行Sniffer函数匹配媒体类型；DEFAULT_SNIFF_SIZE=16KB、MAX_SNIFF_TRY_TIMES=20、MAX_TRY_TIMES=5重试逻辑；ReadAt()带condition_variable等待+中断支持；BaseStreamDemuxer持有typeFinder_(base_stream_demuxer.h:134)，InitTypeFinder()初始化DataSource回调链。与S41(DemuxerFilter)/S38(SourcePlugin)上下游关系，与S58(MPEG4BoxParser)容器解析互补。|
+| S66 | TypeFinder 媒体类型探测框架——SnifferPlugin 路由与 BaseStreamDemuxer 集成 | AVCodec, MediaEngine, Demuxer, Sniff, Plugin, TypeFinder, DataSource, StreamDemuxer | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S66 | ✅ 草案已生成（2026-04-27T07:52），提交审批。TypeFinder(226行cpp+84行h)继承enable_shared_from_this+Plugins::DataSource双继承，FindMediaType()入口路由到SniffMediaType()，PluginManagerV2::SnifferPlugin(PluginType::DEMUXER)遍历所有Demuxer插件执行Sniffer函数匹配媒体类型；DEFAULT_SNIFF_SIZE=16KB、MAX_SNIFF_TRY_TIMES=20、MAX_TRY_TIMES=5重试逻辑；ReadAt()带condition_variable等待+中断支持；BaseStreamDemuxer持有typeFinder_(base_stream_demuxer.h:134)，InitTypeFinder()初始化DataSource回调链。与S41(DemuxerFilter)/S38(SourcePlugin)上下游关系，与S58(MPEG4BoxParser)容器解析互补。|
 
 ## 新增主题（Builder 2026-04-27 续 - S67注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S67 | SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构 | AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, HLS, DASH, Rank | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S67 | ✅ 草案已生成（2026-04-27T08:21），四类源插件(File/Http/DataStream/FileFd)，rank=100最高优先级，HlsMediaDownloader三轨SegManager，DashMediaDownloader，Filter Pipeline最上游入口 |
+| S67 | SourcePlugin 源插件体系——File/HTTP/DataStream/Fd 四类协议与 MediaDownloader 分层架构 | AVCodec, MediaEngine, SourcePlugin, ProtocolType, FileSource, HttpSource, DataStreamSource, FileFdSource, Plugin, HLS, DASH, Rank | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S67 | ✅ 草案已生成（2026-04-27T08:21），四类源插件(File/Http/DataStream/FileFd)，rank=100最高优先级，HlsMediaDownloader三轨SegManager，DashMediaDownloader，Filter Pipeline最上游入口 |
 
 ## 新增主题（Builder 2026-04-27 续 - S68注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S68 | FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, DemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, FLV, MKV, MPEGTS, MPEGPS, BitstreamFilter, ReadAhead, AVPacketWrapper, FFmpegFormatHelper, MultiStreamParser | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S68 | ✅ 草案已生成（2026-04-27T09:06），FFmpegDemuxerPlugin(4129行cpp)，avformat_open_input+av_read_frame+av_seek_frame三函数管线，25+容器格式(FLV/MKV/MPEGTS/MPEGPS/RM/WMV/OGG/MP3等)，FFmpegFormatHelper(1367行)类型转换，FFmpegDemuxerThread(895行)AVReadPacket回调，BitstreamFilter注入(h264_mp4toannexb/hevc_mp4toannexb)，LIVE_FLV_PROBE_SIZE=100KB×2快速探测，SOFT_LIMIT/HARD_LIMIT ReadAhead缓冲，MultiStreamParserManager多轨解析，与MPEG4DemuxerPlugin(S58)并列 |
+| S68 | FFmpegDemuxerPlugin 音视频解封装插件——libavformat 全格式支持与 av_read_frame 管线 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, DemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, FLV, MKV, MPEGTS, MPEGPS, BitstreamFilter, ReadAhead, AVPacketWrapper, FFmpegFormatHelper, MultiStreamParser | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S68 | ✅ 草案已生成（2026-04-27T09:06），FFmpegDemuxerPlugin(4129行cpp)，avformat_open_input+av_read_frame+av_seek_frame三函数管线，25+容器格式(FLV/MKV/MPEGTS/MPEGPS/RM/WMV/OGG/MP3等)，FFmpegFormatHelper(1367行)类型转换，FFmpegDemuxerThread(895行)AVReadPacket回调，BitstreamFilter注入(h264_mp4toannexb/hevc_mp4toannexb)，LIVE_FLV_PROBE_SIZE=100KB×2快速探测，SOFT_LIMIT/HARD_LIMIT ReadAhead缓冲，MultiStreamParserManager多轨解析，与MPEG4DemuxerPlugin(S58)并列 |
 
 ## 新增主题（Builder 2026-04-27 S69注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S69 | MediaDemuxer 核心解封装引擎——SampleQueue 缓冲队列与流控机制 | AVCodec, MediaDemuxer, SampleQueue, SampleQueueController, StreamDemuxer, BufferManagement, Streaming, AdaptiveBitrate, Demuxer, AVBufferQueue | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **pending_approval** | MEM-ARCH-AVCODEC-S69 | ✅ 草案已生成（2026-04-27T09:55），MediaDemuxer 6012行引擎，ReadLoop/SampleConsumerLoop 双 TaskThread，SampleQueue AVBufferQueue 缓冲，PTS 三时间戳，SampleQueueController 双水位线(START@5s/STOP@10s)，SpeedCountInfo 速度统计，BitrateSwitch 三状态机，StreamDemuxer CacheData 分片缓存，与 S41(DemuxerFilter)/S64(AVBuffer Signal/Wait)关联 |
+| S69 | MediaDemuxer 核心解封装引擎——SampleQueue 缓冲队列与流控机制 | AVCodec, MediaDemuxer, SampleQueue, SampleQueueController, StreamDemuxer, BufferManagement, Streaming, AdaptiveBitrate, Demuxer, AVBufferQueue | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **approved** | MEM-ARCH-AVCODEC-S69 | ✅ 草案已生成（2026-04-27T09:55），MediaDemuxer 6012行引擎，ReadLoop/SampleConsumerLoop 双 TaskThread，SampleQueue AVBufferQueue 缓冲，PTS 三时间戳，SampleQueueController 双水位线(START@5s/STOP@10s)，SpeedCountInfo 速度统计，BitrateSwitch 三状态机，StreamDemuxer CacheData 分片缓存，与 S41(DemuxerFilter)/S64(AVBuffer Signal/Wait)关联 |
 
 ## 新增主题（Builder 2026-05-02 S70注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S70 | VideoCodec 工厂与 Loader 插件体系——CodecFactory 双工厂路由与四层 dlopen 热加载 | AVCodec, Factory, Loader, Plugin, dlopen, RTLD_LAZY, VideoDecoder, VideoEncoder, HardwareCodec, SoftwareCodec, FCodecLoader, HCodecLoader | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S70 | ✅ 草案已生成（2026-05-02T16:45），CodecFactory::CreateCodecByName 七路分发(CodecType)，VideoCodecLoader基类(RTLD_LAZY/dlsym)，七类专用Loader(FCodec/HCodec/Hevc/AvcEncoder/Av1/VP8/VP9)，引用计数CloseLibrary机制 |
+| S70 | VideoCodec 工厂与 Loader 插件体系——CodecFactory 双工厂路由与四层 dlopen 热加载 | AVCodec, Factory, Loader, Plugin, dlopen, RTLD_LAZY, VideoDecoder, VideoEncoder, HardwareCodec, SoftwareCodec, FCodecLoader, HCodecLoader | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S70 | ✅ 草案已生成（2026-05-02T16:45），CodecFactory::CreateCodecByName 七路分发(CodecType)，VideoCodecLoader基类(RTLD_LAZY/dlsym)，七类专用Loader(FCodec/HCodec/Hevc/AvcEncoder/Av1/VP8/VP9)，引用计数CloseLibrary机制 |
 
 ## 新增主题（Builder 2026-05-02 S71注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S71 | CodecList 服务架构——三层能力查询体系（CodecListServer / CodecListCore / CodecAbilitySingleton） | AVCodec, CodecList, Capability, SA, IPC, Singleton, FindDecoder, FindEncoder, GetCapability, CodecMimeType | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S71 | ✅ 草案已生成（2026-05-02T21:03），CodecListServer(SystemAbility)→CodecListCore(七项Check校验)→CodecAbilitySingleton(单例+倒排索引mimeCapIdxMap)，67种MIME类型，GetCapabilityList循环遍历最多200条目，自动重连IPC代理 |
+| S71 | CodecList 服务架构——三层能力查询体系（CodecListServer / CodecListCore / CodecAbilitySingleton） | AVCodec, CodecList, Capability, SA, IPC, Singleton, FindDecoder, FindEncoder, GetCapability, CodecMimeType | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S71 | ✅ 草案已生成（2026-05-02T21:03），CodecListServer(SystemAbility)→CodecListCore(七项Check校验)→CodecAbilitySingleton(单例+倒排索引mimeCapIdxMap)，67种MIME类型，GetCapabilityList循环遍历最多200条目，自动重连IPC代理 |
 
 ## 新增主题（Builder 2026-05-03 S73注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S73 | 三路 Sink 引擎同步架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 协作机制 | AVCodec, MediaEngine, Sink, MediaSync, VideoSink, AudioSink, SubtitleSink, IMediaSynchronizer, DoSyncWrite, MediaSyncManager, AVBufferQueue, Synchronizer, SyncCenter | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S73 | ✅ 草案已生成（2026-05-03T05:18），IMediaSynchronizer三路优先级(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)，VideoSink前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，CalcBufferDiff三元组算法(anchorDiff/videoDiff/thresholdAdjustedVideoDiff)，CheckBufferLatenessMayWait早迟判断，VideoLagDetector卡顿追踪，AudioSink双AVSharedMemoryBase，SubtitleSink RenderLoop独立线程(SUBTITME_LOOP_RUNNING)，SubtitleBufferState三状态(WAIT/SHOW/DROP)，RemoveTextTags HTML标签剥离，NotifyRender Tag::SUBTITLE_TEXT上报，NotifySeek清空字幕队列，与S31/S32/S49 Filter层封装互补，S22 MediaSyncManager关联 |
+| S73 | 三路 Sink 引擎同步架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 协作机制 | AVCodec, MediaEngine, Sink, MediaSync, VideoSink, AudioSink, SubtitleSink, IMediaSynchronizer, DoSyncWrite, MediaSyncManager, AVBufferQueue, Synchronizer, SyncCenter | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S73 | ✅ 草案已生成（2026-05-03T05:18），IMediaSynchronizer三路优先级(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)，VideoSink前4帧强制渲染(VIDEO_SINK_START_FRAME=4)，CalcBufferDiff三元组算法(anchorDiff/videoDiff/thresholdAdjustedVideoDiff)，CheckBufferLatenessMayWait早迟判断，VideoLagDetector卡顿追踪，AudioSink双AVSharedMemoryBase，SubtitleSink RenderLoop独立线程(SUBTITME_LOOP_RUNNING)，SubtitleBufferState三状态(WAIT/SHOW/DROP)，RemoveTextTags HTML标签剥离，NotifyRender Tag::SUBTITLE_TEXT上报，NotifySeek清空字幕队列，与S31/S32/S49 Filter层封装互补，S22 MediaSyncManager关联 |
 
 ## 新增主题（Builder 2026-05-03 S74注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S74 | FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构——libavformat 适配层与原生 MP4 Box 结构对比 | AVCodec, MuxerPlugin, FFmpeg, libavformat, MP4, BoxParser, Muxer, Plugin | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S74 | ✅ 草案已生成（2026-05-03T06:33）→草案确认（2026-05-03T06:48），FFmpegMuxerPlugin(1414行)基于libavformat九格式支持(MP4/M4A/MP3/WAV/AAC/FLAC/OGG/FLV/AMR)，AVFMT_FLAG_CUSTOM_IO自定义IO，WriteSample三分支(H264/HEVC/FLAC/普通)；Mpeg4MuxerPlugin(574行+917行box_parser+1256行basic_box)原生MP4 box手写实现，BasicBox五层级(ftyp/moov/trak/mdia/minf)，Track→BasicBox写入链，与S34(S65(S74)Filter层→Track管理→插件实现)互补 |
+| S74 | FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构——libavformat 适配层与原生 MP4 Box 结构对比 | AVCodec, MuxerPlugin, FFmpeg, libavformat, MP4, BoxParser, Muxer, Plugin | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S74 | ✅ 草案已生成（2026-05-03T06:33）→草案确认（2026-05-03T06:48），FFmpegMuxerPlugin(1414行)基于libavformat九格式支持(MP4/M4A/MP3/WAV/AAC/FLAC/OGG/FLV/AMR)，AVFMT_FLAG_CUSTOM_IO自定义IO，WriteSample三分支(H264/HEVC/FLAC/普通)；Mpeg4MuxerPlugin(574行+917行box_parser+1256行basic_box)原生MP4 box手写实现，BasicBox五层级(ftyp/moov/trak/mdia/minf)，Track→BasicBox写入链，与S34(S65(S74)Filter层→Track管理→插件实现)互补 |
 
 ## 新增主题（Builder 2026-05-03 S75注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S75 | MediaDemuxer 核心解封装引擎——六组件协作架构（MediaDemuxer + DemuxerPluginManager + StreamDemuxer + SampleQueue + SampleQueueController + TypeFinder） | AVCodec, Demuxer, MediaDemuxer, StreamDemuxer, SampleQueue, SampleQueueController, TypeFinder, DemuxerPluginManager, ReadLoop, FlowControl, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S75 | ✅ 草案已生成（2026-05-03T07:05），六组件架构(6012行主引擎MediaDemuxer+1159行插件管理DemuxerPluginManager+492行流式读取StreamDemuxer+773行缓冲队列SampleQueue+300行流控SampleQueueController+226行类型探测TypeFinder)，ReadLoop/SampleConsumerLoop双TaskThread驱动，SampleQueueController双水位线(START@5s/STOP@10s)，StreamDemuxer分片缓存(DASH/HLS/HTTP直播流)，与S41(S69)互补：S41为Filter层封装，S75为引擎层深度分析 |
+| S75 | MediaDemuxer 核心解封装引擎——六组件协作架构（MediaDemuxer + DemuxerPluginManager + StreamDemuxer + SampleQueue + SampleQueueController + TypeFinder） | AVCodec, Demuxer, MediaDemuxer, StreamDemuxer, SampleQueue, SampleQueueController, TypeFinder, DemuxerPluginManager, ReadLoop, FlowControl, Pipeline | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S75 | ✅ 草案已生成（2026-05-03T07:05），六组件架构(6012行主引擎MediaDemuxer+1159行插件管理DemuxerPluginManager+492行流式读取StreamDemuxer+773行缓冲队列SampleQueue+300行流控SampleQueueController+226行类型探测TypeFinder)，ReadLoop/SampleConsumerLoop双TaskThread驱动，SampleQueueController双水位线(START@5s/STOP@10s)，StreamDemuxer分片缓存(DASH/HLS/HTTP直播流)，与S41(S69)互补：S41为Filter层封装，S75为引擎层深度分析 |
 
 ## 新增主题（Builder 2026-05-03 S76注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S76 | FFmpegDemuxerPlugin 音视频解封装插件——libavformat 封装与 av_read_frame 管线 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, FFmpegDemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, BitstreamFilter, AVPacketWrapper | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S76 | ✅ 草案已生成（2026-05-03T07:19），FFmpegDemuxerPlugin(4129行cpp)封装libavformat三函数(avformat_open_input/av_read_frame/av_seek_frame)，FFmpegDemuxerThread(895行)异步读线程AVReadPacket回调，FFmpegFormatHelper(1367行)25+容器格式支持，MultiStreamParserManager多轨Parser，BitstreamFilter注入(h264_mp4toannexb/hevc_mp4toannexb)，ReadAhead缓冲(SOFT_LIMIT/HARD_LIMIT)，LIVE_FLV_PROBE_SIZE=100KB×2快速探测，与S68(draft)/S41(DemuxerFilter)/S75(MediaDemuxer六组件)互补 |
+| S76 | FFmpegDemuxerPlugin 音视频解封装插件——libavformat 封装与 av_read_frame 管线 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, FFmpegDemuxerPlugin, libavformat, avformat_open_input, av_read_frame, av_seek_frame, BitstreamFilter, AVPacketWrapper | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S76 | ✅ 草案已生成（2026-05-03T07:19），FFmpegDemuxerPlugin(4129行cpp)封装libavformat三函数(avformat_open_input/av_read_frame/av_seek_frame)，FFmpegDemuxerThread(895行)异步读线程AVReadPacket回调，FFmpegFormatHelper(1367行)25+容器格式支持，MultiStreamParserManager多轨Parser，BitstreamFilter注入(h264_mp4toannexb/hevc_mp4toannexb)，ReadAhead缓冲(SOFT_LIMIT/HARD_LIMIT)，LIVE_FLV_PROBE_SIZE=100KB×2快速探测，与S68(draft)/S41(DemuxerFilter)/S75(MediaDemuxer六组件)互补 |
 
 ## 新增主题（Builder 2026-05-03 S78注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S78 | AudioServerSinkPlugin 音频渲染插件——AudioRenderer 集成、音频焦点中断与设备切换 | AVCodec, AudioCodec, AudioSink, AudioRenderer, AudioServer, Plugin, Interrupt, Offload, DeviceChange, AudioVivid | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S78 | ✅ 草案已生成（2026-05-03T11:40），AudioServerSinkPlugin(1495行)Plugin层，AudioStandard::AudioRenderer创建与管理，OnInterrupt音频焦点中断回调(FORCE_PAUSE/RESUME)，OnOutputDeviceChange设备切换(耳机/蓝牙/扬声器)，SetOffloadAllowed Offload硬件直通(MUSIC/AUDIOBOOK)，WriteAudioVivid AudioVivid格式写入，Write()→AudioRenderer→AudioServer IPC，与S31(AudioSinkFilter Filter层)/S61(AudioRendering核心)互补 |
+| S78 | AudioServerSinkPlugin 音频渲染插件——AudioRenderer 集成、音频焦点中断与设备切换 | AVCodec, AudioCodec, AudioSink, AudioRenderer, AudioServer, Plugin, Interrupt, Offload, DeviceChange, AudioVivid | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S78 | ✅ 草案已生成（2026-05-03T11:40），AudioServerSinkPlugin(1495行)Plugin层，AudioStandard::AudioRenderer创建与管理，OnInterrupt音频焦点中断回调(FORCE_PAUSE/RESUME)，OnOutputDeviceChange设备切换(耳机/蓝牙/扬声器)，SetOffloadAllowed Offload硬件直通(MUSIC/AUDIOBOOK)，WriteAudioVivid AudioVivid格式写入，Write()→AudioRenderer→AudioServer IPC，与S31(AudioSinkFilter Filter层)/S61(AudioRendering核心)互补 |
 
 ## 新增主题（Builder 2026-05-03 S79注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S79 | MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件——MPEG4AtomParser 五级原子层级与 FFmpegDemuxerPlugin 双轨并行 | AVCodec, Demuxer, MPEG4, MP4, MOV, Container, BoxParser, DemuxerPlugin, AtomParser, Track, Sniff, Rank | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S79 | ✅ 草案已生成（2026-05-03T11:50），MPEG4DemuxerPlugin(1625行)自研原生MP4/MOV解析，rank=100最高优先级，调用MPEG4AtomParser(S58)五级Box层级解析，Track链表(CodecParams+MPEG4SampleHelper+displayMatrix)，Sniff置信度探测(5MB probe)，FIRST_LEVEL_RANK=100/RANK_MAX=101自研优先；与S68/S76(FFmpegDemuxerPlugin rank=50)构成双轨并行，S41 Filter层/S75 引擎层关联 |
+| S79 | MPEG4DemuxerPlugin 原生 MP4/MOV 解封装插件——MPEG4AtomParser 五级原子层级与 FFmpegDemuxerPlugin 双轨并行 | AVCodec, Demuxer, MPEG4, MP4, MOV, Container, BoxParser, DemuxerPlugin, AtomParser, Track, Sniff, Rank | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S79 | ✅ 草案已生成（2026-05-03T11:50），MPEG4DemuxerPlugin(1625行)自研原生MP4/MOV解析，rank=100最高优先级，调用MPEG4AtomParser(S58)五级Box层级解析，Track链表(CodecParams+MPEG4SampleHelper+displayMatrix)，Sniff置信度探测(5MB probe)，FIRST_LEVEL_RANK=100/RANK_MAX=101自研优先；与S68/S76(FFmpegDemuxerPlugin rank=50)构成双轨并行，S41 Filter层/S75 引擎层关联 |
 
 ## 新增主题（Builder 2026-05-03 S80注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S80 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版） | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback, FreezeBuffers, SwapOut, SwapIn | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S80 | ✅ 草案已生成（2026-05-03T12:10），S9源码增强版（本地镜像 /home/west/av_codec_repo），Owner四态枚举(OWNED_BY_US/CODEC/USER/SURFACE)，buffers_[2]双缓冲池，renderAvailQue_/requestSurfaceBufferQue_/codecAvailQue_三队列，CanSwapOut完整条件(owner!=SURFACE && !hasSwapedOut)，FreezeBuffers INPUT直接跳过/OUTPUT执行SwapOut，ActiveBuffers INPUT/OUTPUT均执行SwapIn，DMA ioctl(DMA_BUF_RECLAIM_FD/RESUME_FD)，与S9主题相同但行号级证据更完整 |
+| S80 | SurfaceBuffer 与 RenderSurface 内存管理——Owner 枚举、FSCallback 与三队列机制（源码增强版） | AVCodec, SurfaceBuffer, MemoryManagement, RenderSurface, Owner, ZeroCopy, DMA-BUF, FSCallback, FreezeBuffers, SwapOut, SwapIn | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S80 | ✅ 草案已生成（2026-05-03T12:10），S9源码增强版（本地镜像 /home/west/av_codec_repo），Owner四态枚举(OWNED_BY_US/CODEC/USER/SURFACE)，buffers_[2]双缓冲池，renderAvailQue_/requestSurfaceBufferQue_/codecAvailQue_三队列，CanSwapOut完整条件(owner!=SURFACE && !hasSwapedOut)，FreezeBuffers INPUT直接跳过/OUTPUT执行SwapOut，ActiveBuffers INPUT/OUTPUT均执行SwapIn，DMA ioctl(DMA_BUF_RECLAIM_FD/RESUME_FD)，与S9主题相同但行号级证据更完整 |
 
 ## 新增主题（Builder 2026-05-03 S81注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S81 | AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式（SuspendFreeze/SuspendActive/SuspendActiveAll）与 AVCodecMonitor 安全解码器活性查询 | AVCodec, Suspend, Freeze, PowerManagement, Monitor, AVCodecSuspend, AVCodecMonitor, AVCodecServiceFactory, CodecServer, CodecBase, Frozen, DMA-BUF | 系统休眠/恢复/功耗控制/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S81 | ✅ 草案已生成（2026-05-03T13:18），AVCodecSuspend三模式：SuspendFreeze冻结指定PID Codec实例（→CodecBase::State::FROZEN），SuspendActive恢复指定PID，SuspendActiveAll全局恢复；AVCodecMonitor::GetActiveSecureDecoderPids查询活跃安全解码器进程；均委托AVCodecServiceFactory→CodecServer→CodecBase三层实现；与CodecBase FROZEN态（S57）+DMA-BUF Freeze/SwapOut（S80）联动；CreateVideoLogTag DFX日志标记 |
+| S81 | AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式（SuspendFreeze/SuspendActive/SuspendActiveAll）与 AVCodecMonitor 安全解码器活性查询 | AVCodec, Suspend, Freeze, PowerManagement, Monitor, AVCodecSuspend, AVCodecMonitor, AVCodecServiceFactory, CodecServer, CodecBase, Frozen, DMA-BUF | 系统休眠/恢复/功耗控制/问题定位 | **approved** | MEM-ARCH-AVCODEC-S81 | ✅ 草案已生成（2026-05-03T13:18），AVCodecSuspend三模式：SuspendFreeze冻结指定PID Codec实例（→CodecBase::State::FROZEN），SuspendActive恢复指定PID，SuspendActiveAll全局恢复；AVCodecMonitor::GetActiveSecureDecoderPids查询活跃安全解码器进程；均委托AVCodecServiceFactory→CodecServer→CodecBase三层实现；与CodecBase FROZEN态（S57）+DMA-BUF Freeze/SwapOut（S80）联动；CreateVideoLogTag DFX日志标记 |
 
 ## 新增主题（Builder 2026-05-03 S82注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S82 | AVCodec Event Manager 事件管理框架——EventManager + StatisticsEventHandler + InstanceMemoryUpdateEventHandler + BackgroundEventHandler 四组件协作 | AVCodec, DFX, EventManager, BackgroundProcessing, MemoryManagement, Event, Statistics, Suspend, Freeze, HiSysEvent | 问题定位/系统运维/性能分析 | **pending_approval** | MEM-ARCH-AVCODEC-S82 | ✅ 草案已生成（2026-05-03T14:10）→pending_approval（2026-05-03T16:05），EventManager(151行)7种EventType位域分发，StatisticsEventHandler(845行)cJSON HiSysEvent上报，InstanceMemoryCalculator(572行)15+预置内存参数，BackgroundEventHandler(284行)后台600s阈值Freeze/Resume，InstanceOperationEventHandler(104行)编码起止上报ResSchedClient |
+| S82 | AVCodec Event Manager 事件管理框架——EventManager + StatisticsEventHandler + InstanceMemoryUpdateEventHandler + BackgroundEventHandler 四组件协作 | AVCodec, DFX, EventManager, BackgroundProcessing, MemoryManagement, Event, Statistics, Suspend, Freeze, HiSysEvent | 问题定位/系统运维/性能分析 | **approved** | MEM-ARCH-AVCODEC-S82 | ✅ 草案已生成（2026-05-03T14:10）→pending_approval（2026-05-03T16:05），EventManager(151行)7种EventType位域分发，StatisticsEventHandler(845行)cJSON HiSysEvent上报，InstanceMemoryCalculator(572行)15+预置内存参数，BackgroundEventHandler(284行)后台600s阈值Freeze/Resume，InstanceOperationEventHandler(104行)编码起止上报ResSchedClient |
 
 ## 新增主题（Builder 2026-05-03 S83注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S83 | AVCodec Native C API 架构——OH_AVCodec 对象模型、四类 API 家族与 CodecClient IPC 代理 | AVCodec, Native API, C API, IPC, CodecClient, interfaces/kits, OH_AVCodec, OH_AVFormat, OH_AVBuffer, OH_AVDemuxer, OH_AVMuxer, MIME, Profile, Level | 三方应用接入/新人入项/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S83 | ✅ 草案已生成（2026-05-03T16:33），interfaces/kits/c/ C API 总览（4675行头文件），native_avcodec_base.h(2355行)核心类型(OH_AVCodec/O_H_AVFormat/O_H_AVBuffer)、67+ MIME常量、Profile/Level枚举；四类API(VideoDecoder/VideoEncoder/AudioDecoder/AudioEncoder)CreateByMime/CreateByName生命周期七步曲；OH_AVCodecCallback vs OH_AVCodecAsyncCallback双回调模式；Demuxer/Muxer API(OH_AVDemuxer_CreateWithSource/OH_AVMuxer_Create+fd)；OH_AVCapability能力查询(572行)；CodecClient IPC代理(codec_client.cpp:704行)CodecServiceProxy跨进程Binder调用；AV_ERR_*错误码体系；与S2(S11)互补（API契约深度 vs 使用场景/工厂注册） |
+| S83 | AVCodec Native C API 架构——OH_AVCodec 对象模型、四类 API 家族与 CodecClient IPC 代理 | AVCodec, Native API, C API, IPC, CodecClient, interfaces/kits, OH_AVCodec, OH_AVFormat, OH_AVBuffer, OH_AVDemuxer, OH_AVMuxer, MIME, Profile, Level | 三方应用接入/新人入项/问题定位 | **approved** | MEM-ARCH-AVCODEC-S83 | ✅ 草案已生成（2026-05-03T16:33），interfaces/kits/c/ C API 总览（4675行头文件），native_avcodec_base.h(2355行)核心类型(OH_AVCodec/O_H_AVFormat/O_H_AVBuffer)、67+ MIME常量、Profile/Level枚举；四类API(VideoDecoder/VideoEncoder/AudioDecoder/AudioEncoder)CreateByMime/CreateByName生命周期七步曲；OH_AVCodecCallback vs OH_AVCodecAsyncCallback双回调模式；Demuxer/Muxer API(OH_AVDemuxer_CreateWithSource/OH_AVMuxer_Create+fd)；OH_AVCapability能力查询(572行)；CodecClient IPC代理(codec_client.cpp:704行)CodecServiceProxy跨进程Binder调用；AV_ERR_*错误码体系；与S2(S11)互补（API契约深度 vs 使用场景/工厂注册） |
 
 ## 新增主题（Builder 2026-05-03 S84注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S84 | VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式 | AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, CodecClient, OH_AVCodec, OH_VideoEncoder | 三方应用接入/新人入项/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S84 | ✅ 草案已生成（2026-05-03T21:49），native_video_encoder.cpp(715行)CreateByMime/GetSurface/SetParameter/RegisterCallback；video_encoder_object.h(92行)VideoEncoderObject/NativeVideoEncoderCallback三层回调；GetSurface(Surface模式)/PushInputBuffer(Buffer模式)双路径；isInputSurfaceMode_标志；RegisterParameterCallback(Encoder独有)；VideoEncoderFactory工厂创建；与S83(CAPI总览)/S42(VideoEncoder核心)互补 |
+| S84 | VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式 | AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, CodecClient, OH_AVCodec, OH_VideoEncoder | 三方应用接入/新人入项/问题定位 | **approved** | MEM-ARCH-AVCODEC-S84 | ✅ 草案已生成（2026-05-03T21:49），native_video_encoder.cpp(715行)CreateByMime/GetSurface/SetParameter/RegisterCallback；video_encoder_object.h(92行)VideoEncoderObject/NativeVideoEncoderCallback三层回调；GetSurface(Surface模式)/PushInputBuffer(Buffer模式)双路径；isInputSurfaceMode_标志；RegisterParameterCallback(Encoder独有)；VideoEncoderFactory工厂创建；与S83(CAPI总览)/S42(VideoEncoder核心)互补 |
 
 ## 新增主题（Builder 2026-05-03 S85注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S85 | PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享 | AVCodec, CAPI, Preprocessor, PreprocessorManager, PreprocessorEncoder, VideoEncoder, Surface, Crop, Downsample, FrameDrop, FastKitsInterface, SharedSurfaceManager, DualEncoder, PrimaryEncoder, SecondaryEncoder, SurfaceMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S85 | ✅ 草案已生成（2026-05-03T22:45），三层架构(Preprocessor+PreprocessorManager+PreprocessorEncoder)，Preprocessor三步校验(ValidateCrop→ValidateDownsampling→ValidateDropFrame)，Process三模式(Crop/Downsample/Copy)，EncoderThreadLoop(OS_Preproc_{id}_Loop)驱动预处理，ConsumerListener广播SharedSurface事件，Primary/Secondary双编码器共享PreprocessorManager，PixelFormat一致性校验，FastKitsInterface(CropRect/BICUBIC)+FrameDropFilter集成，与S33(S84)关联
+| S85 | PreprocessorManager 视频编码预处理器管理器——CAPI层Crop/Downsample/DropFrame三功能编排与多编码器Surface共享 | AVCodec, CAPI, Preprocessor, PreprocessorManager, PreprocessorEncoder, VideoEncoder, Surface, Crop, Downsample, FrameDrop, FastKitsInterface, SharedSurfaceManager, DualEncoder, PrimaryEncoder, SecondaryEncoder, SurfaceMode | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S85 | ✅ 草案已生成（2026-05-03T22:45），三层架构(Preprocessor+PreprocessorManager+PreprocessorEncoder)，Preprocessor三步校验(ValidateCrop→ValidateDownsampling→ValidateDropFrame)，Process三模式(Crop/Downsample/Copy)，EncoderThreadLoop(OS_Preproc_{id}_Loop)驱动预处理，ConsumerListener广播SharedSurface事件，Primary/Secondary双编码器共享PreprocessorManager，PixelFormat一致性校验，FastKitsInterface(CropRect/BICUBIC)+FrameDropFilter集成，与S33(S84)关联
 
 ## 新增主题（Builder 2026-05-03 S86注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S86 | HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager 多轨分片下载架构 | AVCodec, MediaEngine, SourcePlugin, HLS, Streaming, Cache, RingBuffer, SegmentDownload, AES128, AdaptiveBitrate, M3U8, HttpSource | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S86 | ✅ 草案已生成（2026-05-03T23:34），MediaCachedBuffer RingBuffer(1386行)未在任何现有S-series记忆中记录；HlsSegmentManager(2582行)三轨分片管理(SEG_VIDEO/AUDIO/SUBTITLE)；AesDecryptor AES-128-CBC解密(71行)；自适应码率切换；Seek/PlaylistBackup直播回退；与S37(HttpSourcePlugin)/S38(SourcePlugin)关联，MediaCachedBuffer层首次深度分析（2026-05-04T00:48 Builder提交审批）
+| S86 | HLS 流媒体缓存引擎——MediaCachedBuffer RingBuffer 与 HlsSegmentManager 多轨分片下载架构 | AVCodec, MediaEngine, SourcePlugin, HLS, Streaming, Cache, RingBuffer, SegmentDownload, AES128, AdaptiveBitrate, M3U8, HttpSource | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S86 | ✅ 草案已生成（2026-05-03T23:34），MediaCachedBuffer RingBuffer(1386行)未在任何现有S-series记忆中记录；HlsSegmentManager(2582行)三轨分片管理(SEG_VIDEO/AUDIO/SUBTITLE)；AesDecryptor AES-128-CBC解密(71行)；自适应码率切换；Seek/PlaylistBackup直播回退；与S37(HttpSourcePlugin)/S38(SourcePlugin)关联，MediaCachedBuffer层首次深度分析（2026-05-04T00:48 Builder提交审批）
 
 ## 新增主题（Builder 2026-05-04 S87注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S87 | MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系 | AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, Protocol, PluginManagerV2, FilterPipeline, Read, Seekable | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S87 | ✅ 草案已生成（2026-05-04T02:15），Source(715行)媒体源顶层封装，ParseProtocol三协议路由(http/https/file/fd/stream)，FindPlugin→PluginManagerV2::CreatePluginByMime(SOURCE)插件创建，SourcePlugin基接口20+纯虚函数(Read/Seek/GetSize/SelectBitRate/Pause/Resume)，StreamInfo多轨元数据结构，与S38(SourcePlugin体系)/S37(HttpSourcePlugin)/S41(DemuxerFilter)上下游关联 |
+| S87 | MediaSource 核心架构——Source 封装层与 SourcePlugin 插件体系 | AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, Protocol, PluginManagerV2, FilterPipeline, Read, Seekable | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S87 | ✅ 草案已生成（2026-05-04T02:15），Source(715行)媒体源顶层封装，ParseProtocol三协议路由(http/https/file/fd/stream)，FindPlugin→PluginManagerV2::CreatePluginByMime(SOURCE)插件创建，SourcePlugin基接口20+纯虚函数(Read/Seek/GetSize/SelectBitRate/Pause/Resume)，StreamInfo多轨元数据结构，与S38(SourcePlugin体系)/S37(HttpSourcePlugin)/S41(DemuxerFilter)上下游关联 |
 
 ## 新增主题（Builder 2026-05-04 S77注册——DFX子系统增强版）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S77 | AVCodec DFX 子系统——HiSysEvent / XCollie 超时看门狗 / Trace 追踪 / Dump 工具 四大支柱 | AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent, MediaSyncManager, IMediaSynchronizer, VideoSink, VideoLagDetector | 问题定位/性能分析/稳定性监控 | **pending_approval** | MEM-ARCH-AVCODEC-S77 | ✅ 草案已生成（2026-05-03T10:19）→增强（2026-05-04T04:10），DFX四大支柱(HiSysEvent/XCollie/AVCodecDfxComponent/Dump)，IMediaSynchronizer优先级体系(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)，VideoSink DoSyncWrite/CalcBufferDiff/VideoLagDetector三算法，S22 MediaSyncManager时钟锚点关联 |
+| S77 | AVCodec DFX 子系统——HiSysEvent / XCollie 超时看门狗 / Trace 追踪 / Dump 工具 四大支柱 | AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent, MediaSyncManager, IMediaSynchronizer, VideoSink, VideoLagDetector | 问题定位/性能分析/稳定性监控 | **approved** | MEM-ARCH-AVCODEC-S77 | ✅ 草案已生成（2026-05-03T10:19）→增强（2026-05-04T04:10），DFX四大支柱(HiSysEvent/XCollie/AVCodecDfxComponent/Dump)，IMediaSynchronizer优先级体系(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)，VideoSink DoSyncWrite/CalcBufferDiff/VideoLagDetector三算法，S22 MediaSyncManager时钟锚点关联 |
 
 ## 新增主题（Builder 2026-05-04 S88注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S88 | AudioDecoder C API 实现——NativeAudioDecoder 对象模型与 AudioCodecEngine 三层架构 | AVCodec, Native API, C API, AudioDecoder, AudioCodec, IPC, CodecClient | 三方应用接入/新人入项/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S88 | ✅ 草案已生成（2026-05-04T06:23），native_audio_decoder.cpp(497行)AudioDecoderObject对象模型(OH_AVCodec+audioDecoder_+memoryObjList_)、NativeAudioDecoder回调桥接器(继承AVCodecCallback)、三层调用链(Native→AVCodecAudioDecoder→AudioCodecEngine)、AVCSErrorToOHAVErrCode错误码转换、OH_AVMemory包装、memoryObjList_+shared_mutex内存追踪，与S83(CAPI总览)/S35(AudioDecoderFilter)/S18(AudioCodecServer)/S21(CodecClient IPC)关联 |
+| S88 | AudioDecoder C API 实现——NativeAudioDecoder 对象模型与 AudioCodecEngine 三层架构 | AVCodec, Native API, C API, AudioDecoder, AudioCodec, IPC, CodecClient | 三方应用接入/新人入项/问题定位 | **approved** | MEM-ARCH-AVCODEC-S88 | ✅ 草案已生成（2026-05-04T06:23），native_audio_decoder.cpp(497行)AudioDecoderObject对象模型(OH_AVCodec+audioDecoder_+memoryObjList_)、NativeAudioDecoder回调桥接器(继承AVCodecCallback)、三层调用链(Native→AVCodecAudioDecoder→AudioCodecEngine)、AVCSErrorToOHAVErrCode错误码转换、OH_AVMemory包装、memoryObjList_+shared_mutex内存追踪，与S83(CAPI总览)/S35(AudioDecoderFilter)/S18(AudioCodecServer)/S21(CodecClient IPC)关联 |
 
 ## 新增主题（Builder 2026-05-04 S89注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S89 | AVCodec Filter Framework 基础架构——Filter 基类 / StreamType / FilterLinkCallback 三层联动 | AVCodec, MediaEngine, Filter, FilterBase, StreamType, FilterLinkCallback, FilterCallback, FilterCallBackCommand, LinkNext, OnLinked, DemuxerFilter, AutoRegisterFilter, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S89 | ✅ 草案已生成（2026-05-04T06:34），Filter基类七生命周期(DoPrepare/DoStart/DoStop/DoPause/DoFreeze/DoUnFreeze/DoResume)、StreamType五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/ENCODED_VIDEO/SUBTITLE)、FilterLinkCallback三步链接(LinkNext→OnLinked→OnLinkedResult)、AutoRegisterFilter静态注册、track_id_map_多轨路由表，与S41(S14)互补 |
+| S89 | AVCodec Filter Framework 基础架构——Filter 基类 / StreamType / FilterLinkCallback 三层联动 | AVCodec, MediaEngine, Filter, FilterBase, StreamType, FilterLinkCallback, FilterCallback, FilterCallBackCommand, LinkNext, OnLinked, DemuxerFilter, AutoRegisterFilter, Pipeline | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S89 | ✅ 草案已生成（2026-05-04T06:34），Filter基类七生命周期(DoPrepare/DoStart/DoStop/DoPause/DoFreeze/DoUnFreeze/DoResume)、StreamType五类分型(DOLBY/ENCODED_AUDIO/RAW_AUDIO/ENCODED_VIDEO/SUBTITLE)、FilterLinkCallback三步链接(LinkNext→OnLinked→OnLinkedResult)、AutoRegisterFilter静态注册、track_id_map_多轨路由表，与S41(S14)互补 |

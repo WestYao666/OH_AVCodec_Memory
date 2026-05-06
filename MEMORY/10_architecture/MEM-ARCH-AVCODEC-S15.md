@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S15
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: SuperResolutionPostProcessor 超分辨率后处理器——VPE DetailEnhancer 与 VideoPostProcessor 插件注册机制
 submitted_at: "2026-05-03T13:33:00+08:00"
 scope: [AVCodec, MediaEngine, PostProcessor, SuperResolution, VPE, DetailEnhancer, VideoProcessingEngine, Plugin]

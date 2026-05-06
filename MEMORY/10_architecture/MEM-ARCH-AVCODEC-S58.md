@@ -1,5 +1,6 @@
 ---
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 memory_id: MEM-ARCH-AVCODEC-S58
 title: "MPEG4BoxParser MP4/MOV容器Box解析器——原子层级五级深度递归+Track元数据提取+Fragmented MP4解析"
 scope: AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, MSE, Track, SampleTable

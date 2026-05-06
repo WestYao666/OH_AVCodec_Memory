@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S50
 title: "AudioResample 音频重采样框架——SwrContext/libswresample 与 AudioBuffersManager 双组件协作"
 scope: [AVCodec, AudioCodec, AudioResample, SwrContext, libswresample, AudioBuffersManager, AudioBufferInfo, FFmpeg, SampleRate, ChannelLayout]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-26T14:52:00+08:00"
 ---

@@ -1,7 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S74
 status: approved
-approved_at: "2026-05-03T06:50:00+08:00"
+approved_at: "2026-05-06"
 submitted_by: builder-agent
 ---
 

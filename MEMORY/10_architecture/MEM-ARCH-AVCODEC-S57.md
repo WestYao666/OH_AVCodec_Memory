@@ -1,5 +1,6 @@
 ---
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 memory_id: MEM-ARCH-AVCODEC-S57
 title: "HDecoder / HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链"
 scope: AVCodec, HardwareCodec, HDI, OMX, HDecoder, HEncoder, CodecBase, StateMachine, MsgHandleLoop, DMA-BUF, SuspendResume

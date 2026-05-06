@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S28
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: VideoCaptureFilter 视频采集过滤器——Surface模式输入与录制管线数据源
 created_at: "2026-04-25T07:40:00+08:00"
 evidence:

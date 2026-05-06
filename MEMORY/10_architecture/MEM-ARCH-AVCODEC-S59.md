@@ -1,5 +1,6 @@
 ---
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 mem_id: MEM-ARCH-AVCODEC-S59
 title: "AvcEncoder 硬件 H.264 编码器——libavcenc_ohos.z.so 封装与九状态机"
 scope:

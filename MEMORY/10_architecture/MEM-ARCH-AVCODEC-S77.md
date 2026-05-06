@@ -1,6 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S77
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 submitted_by: builder-agent
 submitted_at: "2026-05-03T10:19:00+08:00"
 last_enhanced_at: "2026-05-04T04:10:00+08:00"

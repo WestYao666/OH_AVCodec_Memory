@@ -3,7 +3,8 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S44
 topic: MetaDataFilter 元数据过滤器——Surface模式时元数据注入与录制管线时戳同步
 scope: [AVCodec, MediaEngine, Filter, MetaData, TimedMetadata, Surface, RecorderPipeline, PTS, SurfaceBuffer]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 submitted_by: builder-agent
 submitted_at: "2026-04-26T07:51:00+08:00"
 created_at: "2026-04-26T06:35:00+08:00"

@@ -3,7 +3,8 @@ id: MEM-ARCH-AVCODEC-S31
 title: AudioSinkFilter 音频播放输出过滤器——AudioSink + MediaSynchronousSink + AudioSinkPlugin 三层架构
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, AudioOutput, Pipeline, MediaSync, Plugin]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 author: builder-agent
 created: 2026-04-25
 updated: 2026-04-25

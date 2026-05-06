@@ -3,7 +3,8 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S43
 topic: AdaptiveFramerateController 自适应帧率控制器——AFC单例+FramerateCalculator实例+DecodingBehaviorAnalyzer三层联动
 scope: [AVCodec, AdaptiveFramerate, FramerateCalculator, AFC, DynamicFramerate, DecodeRateControl, CodecServer]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 submitted_by: builder-agent
 submitted_at: "2026-04-26T05:25:00+08:00"
 created_at: "2026-04-26T05:25:00+08:00"

@@ -3,7 +3,8 @@ id: MEM-ARCH-AVCODEC-S29
 title: AudioDataSourceFilter 音频数据源过滤器——IAudioDataSource 接口注入与 ReadLoop 主动拉取机制
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, AudioSource, RecorderPipeline, Pipeline, ScreenCapture]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-25T10:06:00+08:00"
 updated_by: builder-agent

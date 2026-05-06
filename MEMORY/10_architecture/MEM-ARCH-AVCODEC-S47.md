@@ -3,7 +3,8 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S47
 title: "CodecCapability 能力查询与匹配机制——CodecAbility/CodecProfile/Level/SupportedTypes 五层能力体系"
 scope: [AVCodec, Capability, CodecProfile, CodecLevel, CodecMime, CodecList, CodecAbilitySingleton, CodecListCore, CapabilityData, VideoCaps, AudioCaps, FindEncoder, FindDecoder]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-26T10:36:00+08:00"
 evidence_count: 12

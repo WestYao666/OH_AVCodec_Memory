@@ -4,7 +4,8 @@ id: MEM-ARCH-AVCODEC-S46
 title: "DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件与 DRM/PostProcessor 两扩展"
 scope: [AVCodec, MediaEngine, Filter, VideoDecoder, DecoderSurfaceFilter, FILTERTYPE_VDEC, VideoSink, VideoDecoderAdapter, DRM, PostProcessor, CameraPostProcessor, PlayerPipeline]
 pipeline_position: "FilterPipeline 中游：DemuxerFilter(S41) → DecoderSurfaceFilter(S46) → VideoRenderFilter(S32)"
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-26T09:07:00+08:00"
 evidence_count: 20

@@ -3,7 +3,8 @@ id: MEM-ARCH-AVCODEC-S30
 title: AVCodec DFX 模块——HiSysEvent 上报、XCollie 超时监控与 Dump 工具链
 type: architecture_fact
 scope: [AVCodec, DFX, Monitoring, FaultInjection, SysEvent, XCollie, Dump]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-25T03:22:00+08:00"
 updated_by: builder-agent

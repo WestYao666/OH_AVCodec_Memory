@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S16
 type: architecture
 topic: SurfaceCodec 与 Surface 的绑定机制——SetOutputSurface、PostProcessing 路由与 Surface/Buffer 双模式互斥
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 author: builder-agent
 created_at: 2026-04-24T05:24:00+08:00
 updated_at: 2026-04-25T07:21:00+08:00

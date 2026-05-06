@@ -3,7 +3,8 @@ id: MEM-ARCH-AVCODEC-S23
 title: SurfaceEncoderAdapter 视频编码器适配器——Surface模式输入与编码流程
 type: architecture_fact
 scope: [AVCodec, MediaEngine, Filter, SurfaceEncoderAdapter, SurfaceMode, VideoEncoder, FILTERTYPE_VENC]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-24T20:55:00+08:00"
 updated_by: builder-agent

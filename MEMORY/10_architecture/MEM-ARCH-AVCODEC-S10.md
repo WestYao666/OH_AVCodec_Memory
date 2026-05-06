@@ -1,5 +1,6 @@
 ---
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 memory_id: MEM-ARCH-AVCODEC-S10
 title: "SeiParserFilter SEI信息解析过滤器——SeiParserListener与DR,RT,UX四路分发"
 scope: AVCodec, MediaEngine, Filter, SEI, VideoProcessing, Player, SeiParserFilter, SeiParserHelper, AVBufferQueue, DR, RT, UX, DisplayRender, RecordTrack, UserExperience

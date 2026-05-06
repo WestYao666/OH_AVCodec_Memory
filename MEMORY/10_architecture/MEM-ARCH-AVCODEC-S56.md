@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S56
 title: VideoSink 视频渲染同步器——DoSyncWrite 渲染决策与 VideoLagDetector 卡顿追踪
 scope: [AVCodec, MediaEngine, Sink, VideoSync, VideoRender, Sync, DoSyncWrite, VideoLagDetector, LagDetector, MediaSynchronousSink, IMediaSynchronizer, IMediaSyncCenter, CheckBufferLatenessMayWait, CalcBufferDiff, LagReport]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 author: builder-agent
 created_at: "2026-04-26T20:25:00+08:00"
 type: architecture_fact

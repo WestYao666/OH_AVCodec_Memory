@@ -1,7 +1,8 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S26
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 topic: AudioCaptureFilter + AudioDataSourceFilter 录制采集过滤器——AudioCaptureModule、AudioCapturer 与 SubtitleSink 字幕渲染
 scope: [AVCodec, MediaEngine, Filter, AudioCapture, AudioDataSource, AudioCapturer, Subtitle, RecorderPipeline, Pipeline]
 submitted_at: "2026-04-25T04:55:00+08:00"

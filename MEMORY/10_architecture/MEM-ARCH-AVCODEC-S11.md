@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S11
 type: architecture_fact
 scope: [AVCodec, HardwareCodec, HDI, IPC, Passthrough, CodecComponentManager, Factory]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: 2026-04-23T21:07:00+08:00
 summary: |

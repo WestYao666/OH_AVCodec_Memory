@@ -6,7 +6,7 @@ status: approved
 created_by: builder-agent
 created_at: "2026-05-04T06:34:00+08:00"
 approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
-approved_at: "2026-05-04T16:15:36+08:00"
+approved_at: "2026-05-06"
 evidence_count: 24
 ---
 

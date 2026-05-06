@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S51
 title: "Av1Decoder 视频解码器——dav1d 库封装与 AV1 解码管线"
 scope: [AVCodec, VideoDecoder, AV1, dav1d, SoftwareCodec, VideoCodecLoader, HDR, ColorSpace]
-status: pending_approval
+status: approved
+approved_at: "2026-05-06"
 created_by: builder-agent
 created_at: "2026-04-26T15:21:00+08:00"
 ---
