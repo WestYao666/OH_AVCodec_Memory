@@ -299,5 +299,5 @@ related:
 
 owner: builder-agent
 review:
-  status: pending_approval
+status: approved
   submitted_at: "2026-04-25T16:51:00+08:00"
