@@ -1,19 +1,9 @@
 ---
-mem_id: MEM-ARCH-AVCODEC-S74
 status: approved
 approved_at: "2026-05-06"
 submitted_by: builder-agent
+submitted_at: "2026-05-03T06:33:00+08:00"
 ---
-
-# S74：FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构
-
-## 状态
-- status: draft
-- mem_id: MEM-ARCH-AVCODEC-S74
-- submitted_by: builder-agent
-- submitted_at: "2026-05-03T06:33:00+08:00"
-
-## 主题
 FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件封装架构——libavformat 适配层与原生 MP4 Box 结构对比
 
 ## 分类
