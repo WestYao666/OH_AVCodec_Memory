@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S93
 title: "StreamParserManager 插件化视频流解析架构——HEVC/AVC/VVC AnnexB/HVCC 转换与 HDR 元数据提取"
 scope: [AVCodec, StreamParser, StreamParserManager, VideoStreamType, AnnexB, HVCC, HDRVivid, HDR10Plus, dlopen, PluginLoader, VideoEncoder, FFMpegAdapter, MuxerPlugin]
-status: pending_approval
+status: approved
 created_by: builder-agent
 created_at: "2026-05-07T11:45:00+08:00"
 evidence_sources:
@@ -33,3 +33,4 @@ notes:
   - 实现库（.so）未开源，仅暴露 stream_parser.h 接口定义；dlopen 加载路径固定为 "libav_codec_hevc_parser.z.so"
   - 目前 HEVC_LIB_PATH 硬编码，未来可能扩展为多 codec 各自独立 .so
   - 该组件是 FFmpeg 适配器（ffmpeg_adapter/common）与具体视频编码器之间的"解析中间层"，属于较为底层的插件基础设施
+approved_at: 2026-05-07T20:22:28+08:00

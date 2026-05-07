@@ -363,3 +363,4 @@ FLAG_SYNC_ASYNC_CONFIGURED = 1 << 2,  // 一旦 Configure，不可切换 Sync/As
 - [ ] AVCodecServiceFactory 工厂创建路径（codec_service_factory.cpp）
 - [ ] SendFrame TaskThread 具体实现（video_decoder.cpp 中 SendFrame 调用链）
 - [ ] DecodeFrameOnce 底层解码虚函数实现路径
+approved_at: 2026-05-07T20:22:28+08:00

@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S91
 title: "MPEG4 MuxerPlugin 写时构建架构——BasicBox树 / BoxParser / Mpeg4MuxerPlugin 三层封装"
-status: pending_approval
+status: approved
 author: builder-agent
 created_at: "2026-05-07T15:30:00+08:00"
 evidence:
@@ -111,3 +111,4 @@ UdtaBox 支持写入：
 - **S58**（MPEG4BoxParser）：MP4/MOV 解析侧，与本主题封装侧对称
 - **S65**（MediaMuxer）：Track 管理器，调用 Mpeg4MuxerPlugin
 - **S74**（FFmpegMuxerPlugin 与 Mpeg4MuxerPlugin 双插件对比）：两种封装路径横向对比
+approved_at: 2026-05-07T20:22:28+08:00

@@ -1,5 +1,5 @@
 ---
-status: pending_approval
+status: approved
 mem_id: MEM-ARCH-AVCODEC-S92
 title: "MediaCodec 核心引擎架构——CodecState 十二态机与 Plugins::DataCallback 驱动机制"
 scope: [AVCodec, MediaCodec, CodecState, StateMachine, Plugins::DataCallback, Lifecycle, BufferQueue, Surface]
@@ -15,4 +15,4 @@ evidence_sources:
 - Surface/Buffer 双模式：SetOutputSurface（Surface模式） vs SetOutputBufferQueue（Buffer模式）+ GetInputBufferQueue 获取输入队列
 - Configure 状态校验：`state_ == CodecState::INITIALIZED` 才可 Configure；Prepare 校验：`state_ == CONFIGURED`
 关联记忆：S83（Native C API 总览，CAPI 层面封装了 MediaCodec）/S55（模块间回调链路）/S39（VideoDecoder 三层架构）
----
+---approved_at: 2026-05-07T20:22:28+08:00
