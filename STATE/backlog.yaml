@@ -637,7 +637,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S95 | AudioCodec C API 实现——AudioCodecObject + AVCodecAudioCodecImpl 三层架构 | AVCodec, Native API, C API, AudioCodec, AudioEncoder, AudioDecoder, BufferMode, OH_AVBuffer, OH_AVCodec, IPC, CodecClient | 三方应用接入/新人入项/问题定位 | **approved** | MEM-ARCH-AVCODEC-S95 | 🚧 草案已生成（2026-05-07T14:45）→in_progress（2026-05-07T14:50 Builder提交审批），native_audio_codec.cpp(573行)AudioCodecObject(OH_AVCodec+AVCodecAudioCodecImpl+bufferObjList_)、OH_AudioCodec_CreateByMime(mime,isEncoder)统一API、Buffer模式(OH_AVBuffer)vs Memory模式(OH_AVMemory)、双TaskThread(OS_ACodecIn/OS_ACodecOut)、NativeAudioCodec回调桥接器(onNeedInputBuffer/onNewOutputBuffer)、AudioCodecProducerListener(IRemoteStub)、DRM_SetDecryptionConfig，与S83(CAPI总览)/S88(AudioDecoder)/S84(VideoEncoder)关联 |
+| S95 | AudioCodec C API 实现——AudioCodecObject + AVCodecAudioCodecImpl 三层架构 | AVCodec, Native API, C API, AudioCodec, AudioEncoder, AudioDecoder, BufferMode, OH_AVBuffer, OH_AVCodec, IPC, CodecClient | 三方应用接入/新人入项/问题定位 | **approved** | MEM-ARCH-AVCODEC-S95 | 🚧 草案已生成（2026-05-07T14:45）→pending_approval（2026-05-07T17:16 Builder提交审批），native_audio_codec.cpp(573行)AudioCodecObject(OH_AVCodec+AVCodecAudioCodecImpl+bufferObjList_)、OH_AudioCodec_CreateByMime(mime,isEncoder)统一API、Buffer模式(OH_AVBuffer)vs Memory模式(OH_AVMemory)、双TaskThread(OS_ACodecIn/OS_ACodecOut)、NativeAudioCodec回调桥接器(onNeedInputBuffer/onNewOutputBuffer)、AudioCodecProducerListener(IRemoteStub)、DRM_SetDecryptionConfig，与S83(CAPI总览)/S88(AudioDecoder)/S84(VideoEncoder)关联 |
 
 ## 新增主题（Builder 2026-05-07 S94注册）
 
