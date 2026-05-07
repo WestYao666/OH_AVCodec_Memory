@@ -1175,3 +1175,12 @@ pending_approvals:
     关联记忆：S39(VideoDecoder核心)/S21(CodecClient IPC)/S83(CAPI总览)/S55(模块间回调)
 
     请审批（approve/revise/reject）'
+- type: approval_request
+  status: pending
+  mem_id: MEM-ARCH-AVCODEC-S95
+  submitted_at: '2026-05-07T14:45:00+08:00'
+  submitted_by: builder-agent
+  message: "Builder 报告：S95 草案已完成\n\n    主题：AudioCodec C API 实现——AudioCodecObject +\
+    \ AVCodecAudioCodecImpl 三层架构\n\n    证据来源：native_audio_codec.cpp(573行) / avcodec_audio_codec_impl.cpp\
+    \ / native_audio_encoder.cpp(495行)\n\n    核心发现：OH_AudioCodec_*统一API(AudioCodecObject/AVCodecAudioCodecImpl/Buffer模式)、OH_AudioEncoder_*专用API(AudioEncoderObject/AVCodecAudioEncoder/Memory模式)、两套API对比、DRM_SetDecryptionConfig支持\n\
+    \n    请审批（approve/revise/reject）"
