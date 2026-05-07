@@ -1,12 +1,15 @@
 ---
 id: MEM-ARCH-AVCODEC-S96
-status: draft
 title: "PTS与索引转换模块——TimeAndIndexConversion 跨 MP4/MOV/AVI/MPEGPS 容器的帧级时间映射"
+scope: [AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion, B-Frame]
+status: pending_approval
+created_by: builder-agent
+created_at: "2026-05-07T16:50:00+08:00"
 evidence_sources:
   - "services/media_engine/modules/pts_index_conversion/pts_and_index_conversion.cpp (640行)"
   - "services/media_engine/modules/pts_index_conversion/pts_and_index_conversion.h"
-created_at: 2026-05-07T16:50:00+08:00
 ---
+
 # S96: PTS与索引转换模块——TimeAndIndexConversion 跨 MP4/MOV/AVI/MPEGPS 容器的帧级时间映射
 
 ## 一句话总结
