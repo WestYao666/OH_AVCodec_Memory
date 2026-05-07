@@ -1110,7 +1110,9 @@ pending_approvals:
 
     证据来源：services/media_engine/modules/media_codec/media_codec.h(35-75,90-260) / media_codec.cpp(1266行)
 
-    核心发现：CodecState 十二态机（UNINITIALIZED/INITIALIZED/CONFIGURED/PREPARED/RUNNING/FLUSHED/END_OF_STREAM + 过渡态），std::atomic线程安全，生命周期七步曲(Init→Configure→Prepare→Start→Stop→Release)，Plugins::DataCallback 驱动缓冲区消费，双回调体系(CodecCallback/AudioBaseCodecCallback)，Surface/Buffer双模式
+    核心发现：CodecState 十二态机（UNINITIALIZED/INITIALIZED/CONFIGURED/PREPARED/RUNNING/FLUSHED/END_OF_STREAM
+    + 过渡态），std::atomic线程安全，生命周期七步曲(Init→Configure→Prepare→Start→Stop→Release)，Plugins::DataCallback
+    驱动缓冲区消费，双回调体系(CodecCallback/AudioBaseCodecCallback)，Surface/Buffer双模式
 
     关联记忆：S83(CAPI总览)/S55(模块间回调)/S39(VideoDecoder三层架构)
 
@@ -1124,8 +1126,8 @@ pending_approvals:
 
     主题：StreamParserManager 插件化视频流解析架构——HEVC/AVC/VVC AnnexB/HVCC 转换与 HDR 元数据提取
 
-    证据来源：plugins/common/stream_parser.h (120行) / ffmpeg_adapter/common/stream_parser_manager.h (73行) /
-    ffmpeg_adapter/common/stream_parser_manager.cpp (227行)
+    证据来源：plugins/common/stream_parser.h (120行) / ffmpeg_adapter/common/stream_parser_manager.h
+    (73行) / ffmpeg_adapter/common/stream_parser_manager.cpp (227行)
 
     核心发现：dlopen 动态加载 HEVC/AVC/VVC 解析器 .so 插件、StreamParser 抽象基类 18 个虚方法、AnnexB↔HVCC
     转换、HDR Vivid/HDR10+/HDR 元数据提取
@@ -1140,11 +1142,14 @@ pending_approvals:
 - mem_id: MEM-ARCH-AVCODEC-S94
   message: 'Builder 报告：S94 草案已完成
 
-    主题：AVCodec Muxer/Demuxer/Source C API 三件套——OH_AVSource + OH_AVDemuxer + OH_AVMuxer 完整视图
+    主题：AVCodec Muxer/Demuxer/Source C API 三件套——OH_AVSource + OH_AVDemuxer + OH_AVMuxer
+    完整视图
 
-    证据来源：interfaces/kits/c/native_avsource.h / native_avdemuxer.h / native_avmuxer.h / native_avcodec_base.h
+    证据来源：interfaces/kits/c/native_avsource.h / native_avdemuxer.h / native_avmuxer.h
+    / native_avcodec_base.h
 
-    核心发现：OH_AVSource三种创建(URI/FD/DataSource)、OH_AVDemuxer ReadSampleBuffer/SelectTrack/SeekToTime、OH_AVMuxer AddTrack/WriteSample/SetRotation、OH_AVCodecBufferAttr PTS/DTS/flags、DRM密钥信息回调机制、三组件协作流程、OH_AVBuffer替代OH_AVMemory演进
+    核心发现：OH_AVSource三种创建(URI/FD/DataSource)、OH_AVDemuxer ReadSampleBuffer/SelectTrack/SeekToTime、OH_AVMuxer
+    AddTrack/WriteSample/SetRotation、OH_AVCodecBufferAttr PTS/DTS/flags、DRM密钥信息回调机制、三组件协作流程、OH_AVBuffer替代OH_AVMemory演进
 
     关联记忆：S83(CAPI总览)/S84(VideoEncoder C API)/S88(AudioDecoder C API)/S65(MediaMuxer核心)/S74(FFmpegMuxerPlugin)/S91(MPEG4MuxerPlugin)/S41(DemuxerFilter)/S87(MediaSource)
 
@@ -1153,3 +1158,20 @@ pending_approvals:
   submitted_at: '2026-05-07T12:45:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+- type: approval_request
+  status: pending
+  mem_id: MEM-ARCH-AVCODEC-P1A
+  submitted_at: '2026-05-07T15:20:00+08:00'
+  submitted_by: builder-agent
+  message: 'Builder 报告：P1A 草案已完成
+
+    主题：MediaCodec 编解码数据流——五层架构完整数据流路径
+
+    证据来源：native_video_decoder.cpp(852行) / avcodec_video_decoder_impl.cpp / codec_client.cpp(704行)
+    / codec_buffer_circular.h / codecbase.h(170行) / video_decoder.h / coderstate.h
+
+    核心发现：五层架构(Native C API→AVCodecVideoDecoderImpl→CodecClient→CodecServer→CodecBase)、CodecBufferCircular三态缓冲(OWNED_BY_SERVER/CLIENT/USER)、VideoDecoder三队列BlockQueue(inputAvailQue/codecAvailQue/renderAvailQue)、十一状态机(UNINITIALIZED→FROZEN)、Surface/Buffer双模式互斥、双TaskThread驱动
+
+    关联记忆：S39(VideoDecoder核心)/S21(CodecClient IPC)/S83(CAPI总览)/S55(模块间回调)
+
+    请审批（approve/revise/reject）'
