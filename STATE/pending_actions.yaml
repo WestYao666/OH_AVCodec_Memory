@@ -1119,3 +1119,21 @@ pending_approvals:
   submitted_at: '2026-05-07T06:14:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S93
+  message: 'Builder 报告：S93 草案已完成
+
+    主题：StreamParserManager 插件化视频流解析架构——HEVC/AVC/VVC AnnexB/HVCC 转换与 HDR 元数据提取
+
+    证据来源：plugins/common/stream_parser.h (120行) / ffmpeg_adapter/common/stream_parser_manager.h (73行) /
+    ffmpeg_adapter/common/stream_parser_manager.cpp (227行)
+
+    核心发现：dlopen 动态加载 HEVC/AVC/VVC 解析器 .so 插件、StreamParser 抽象基类 18 个虚方法、AnnexB↔HVCC
+    转换、HDR Vivid/HDR10+/HDR 元数据提取
+
+    关联记忆：S40（FFmpegMuxerPlugin）/S74（MPEG4MuxerPlugin）/S42（VideoEncoder）/S39（VideoDecoder）
+
+    请审批（approve/revise/reject）'
+  status: pending
+  submitted_at: '2026-05-07T11:45:00+08:00'
+  submitted_by: builder-agent
+  type: approval_request
