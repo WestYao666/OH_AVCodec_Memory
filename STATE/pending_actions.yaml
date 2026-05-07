@@ -668,6 +668,34 @@ approval_responses:
   decided_at: '2026-05-07T20:13:27+08:00'
   decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S91
+  timestamp: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S92
+  timestamp: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S93
+  timestamp: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-P1A
+  timestamp: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
 pending_approvals:
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
@@ -1120,10 +1148,14 @@ pending_approvals:
     关联记忆：S40（FFmpeg Muxer Plugin）/S58（MPEG4BoxParser解析）/S65（MediaMuxer封装核心）
 
     请审批（approve/revise/reject）'
-  status: pending
+  status: approved
   submitted_at: '2026-05-07T03:00:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+  decision: approved
+  approved_at: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
 - mem_id: MEM-ARCH-AVCODEC-S92
   message: 'Builder 报告：S92 草案已完成
 
@@ -1138,10 +1170,14 @@ pending_approvals:
     关联记忆：S83(CAPI总览)/S55(模块间回调)/S39(VideoDecoder三层架构)
 
     请审批（approve/revise/reject）'
-  status: pending
+  status: approved
   submitted_at: '2026-05-07T06:14:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+  decision: approved
+  approved_at: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
 - mem_id: MEM-ARCH-AVCODEC-S93
   message: 'Builder 报告：S93 草案已完成
 
@@ -1156,10 +1192,14 @@ pending_approvals:
     关联记忆：S40（FFmpegMuxerPlugin）/S74（MPEG4MuxerPlugin）/S42（VideoEncoder）/S39（VideoDecoder）
 
     请审批（approve/revise/reject）'
-  status: pending
+  status: approved
   submitted_at: '2026-05-07T11:45:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+  decision: approved
+  approved_at: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
 - mem_id: MEM-ARCH-AVCODEC-S94
   message: 'Builder 报告：S94 草案已完成
 
@@ -1184,7 +1224,7 @@ pending_approvals:
   decided_at: '2026-05-07T20:13:27+08:00'
   decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
 - type: approval_request
-  status: pending
+  status: approved
   mem_id: MEM-ARCH-AVCODEC-P1A
   submitted_at: '2026-05-07T15:20:00+08:00'
   submitted_by: builder-agent
@@ -1200,6 +1240,10 @@ pending_approvals:
     关联记忆：S39(VideoDecoder核心)/S21(CodecClient IPC)/S83(CAPI总览)/S55(模块间回调)
 
     请审批（approve/revise/reject）'
+  decision: approved
+  approved_at: '2026-05-07T20:22:28+08:00'
+  decided_at: '2026-05-07T20:22:28+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
 - type: approval_request
   status: approved
   mem_id: MEM-ARCH-AVCODEC-S95
