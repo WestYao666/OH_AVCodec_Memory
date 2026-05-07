@@ -632,3 +632,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S92 | MediaCodec 核心引擎架构——CodecState 十二态机与 Plugins::DataCallback 驱动机制 | AVCodec, MediaCodec, CodecState, StateMachine, Plugins::DataCallback, Lifecycle, BufferQueue, Surface | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S92 | ✅ 草案已生成（2026-05-07T06:14），MediaCodec(1266行)核心引擎类，CodecState十二态机(UNINITIALIZED/INITIALIZED/CONFIGURED/PREPARED/RUNNING/FLUSHED/END_OF_STREAM+过渡态)，std::atomic线程安全，生命周期七步曲(Init→Configure→Prepare→Start→Stop→Release)，Plugins::DataCallback驱动缓冲区消费，双回调体系(CodecCallback/AudioBaseCodecCallback)，Surface/Buffer双模式，与S83(CAPI总览)/S55(模块间回调)/S39(VideoDecoder三层架构)关联 |
+
+## 新增主题（Builder 2026-05-07 S94注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S94 | AVCodec Muxer/Demuxer/Source C API 三件套——OH_AVSource + OH_AVDemuxer + OH_AVMuxer 完整视图 | AVCodec, Native API, C API, OH_AVSource, OH_AVDemuxer, OH_AVMuxer, OH_AVFormat, OH_AVBuffer, Muxer, Demuxer, Source, DRM, Spliter, Muxer | 三方应用接入/新人入项/问题定位 | **approved** | MEM-ARCH-AVCODEC-S94 | 草案生成中（2026-05-07T12:45），三组件协作(创建/轨道选择/样本读写/Seek)，OH_AVSource三种创建(URI/FD/DataSource)，OH_AVDemuxer ReadSampleBuffer/SelectTrack/SeekToTime，OH_AVMuxer AddTrack/WriteSample/SetRotation，OH_AVCodecBufferAttr PTS/DTS/flags，DRM密钥信息回调，与S83(CAPI总览)/S84(S88)/S65(S74,S91)互补 |

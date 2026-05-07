@@ -1137,3 +1137,19 @@ pending_approvals:
   submitted_at: '2026-05-07T11:45:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S94
+  message: 'Builder 报告：S94 草案已完成
+
+    主题：AVCodec Muxer/Demuxer/Source C API 三件套——OH_AVSource + OH_AVDemuxer + OH_AVMuxer 完整视图
+
+    证据来源：interfaces/kits/c/native_avsource.h / native_avdemuxer.h / native_avmuxer.h / native_avcodec_base.h
+
+    核心发现：OH_AVSource三种创建(URI/FD/DataSource)、OH_AVDemuxer ReadSampleBuffer/SelectTrack/SeekToTime、OH_AVMuxer AddTrack/WriteSample/SetRotation、OH_AVCodecBufferAttr PTS/DTS/flags、DRM密钥信息回调机制、三组件协作流程、OH_AVBuffer替代OH_AVMemory演进
+
+    关联记忆：S83(CAPI总览)/S84(VideoEncoder C API)/S88(AudioDecoder C API)/S65(MediaMuxer核心)/S74(FFmpegMuxerPlugin)/S91(MPEG4MuxerPlugin)/S41(DemuxerFilter)/S87(MediaSource)
+
+    请审批（approve/revise/reject）'
+  status: pending
+  submitted_at: '2026-05-07T12:45:00+08:00'
+  submitted_by: builder-agent
+  type: approval_request
