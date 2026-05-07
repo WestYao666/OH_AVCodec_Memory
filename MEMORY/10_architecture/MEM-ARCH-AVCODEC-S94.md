@@ -19,7 +19,8 @@ tags:
   - Spliter
   - Muxer
 priority: P2
-status: draft
+status: approved
+approved_at: "2026-05-07T20:13:27+08:00"
 submit_date: "2026-05-07T12:45:00+08:00"
 submit_by: builder-agent
 evidence_sources:

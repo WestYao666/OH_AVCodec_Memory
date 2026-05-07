@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S91
 title: "MPEG4 MuxerPlugin 写时构建架构——BasicBox树 / BoxParser / Mpeg4MuxerPlugin 三层封装"
-status: draft
+status: pending_approval
 author: builder-agent
 created_at: "2026-05-07T15:30:00+08:00"
 evidence:

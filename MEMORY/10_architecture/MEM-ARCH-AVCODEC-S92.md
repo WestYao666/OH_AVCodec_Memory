@@ -1,5 +1,5 @@
 ---
-status: draft
+status: pending_approval
 mem_id: MEM-ARCH-AVCODEC-S92
 title: "MediaCodec 核心引擎架构——CodecState 十二态机与 Plugins::DataCallback 驱动机制"
 scope: [AVCodec, MediaCodec, CodecState, StateMachine, Plugins::DataCallback, Lifecycle, BufferQueue, Surface]

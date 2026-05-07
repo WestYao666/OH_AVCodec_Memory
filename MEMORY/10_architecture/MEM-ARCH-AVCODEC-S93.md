@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S93
 title: "StreamParserManager 插件化视频流解析架构——HEVC/AVC/VVC AnnexB/HVCC 转换与 HDR 元数据提取"
 scope: [AVCodec, StreamParser, StreamParserManager, VideoStreamType, AnnexB, HVCC, HDRVivid, HDR10Plus, dlopen, PluginLoader, VideoEncoder, FFMpegAdapter, MuxerPlugin]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-05-07T11:45:00+08:00"
 evidence_sources:

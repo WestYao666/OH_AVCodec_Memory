@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S95
 title: "AudioCodec C API 实现——AudioCodecObject + AVCodecAudioCodecImpl 三层架构"
 scope: [AVCodec, Native API, C API, AudioCodec, AudioEncoder, AudioDecoder, BufferMode, OH_AVBuffer, OH_AVCodec, IPC, CodecClient]
-status: draft
+status: approved
+approved_at: "2026-05-07T20:13:27+08:00"
 created_by: builder-agent
 created_at: "2026-05-07T14:45:00+08:00"
 evidence_source: /home/west/av_codec_repo/frameworks/native/capi/avcodec/native_audio_codec.cpp (573行)
