@@ -647,6 +647,27 @@ approval_responses:
   timestamp: '2026-05-07T02:42:36+08:00'
   type: approval_response
   user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S94
+  timestamp: '2026-05-07T20:13:27+08:00'
+  decided_at: '2026-05-07T20:13:27+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S95
+  timestamp: '2026-05-07T20:13:27+08:00'
+  decided_at: '2026-05-07T20:13:27+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
+- type: approval_response
+  decision: approved
+  mem_id: MEM-ARCH-AVCODEC-S96
+  timestamp: '2026-05-07T20:13:27+08:00'
+  decided_at: '2026-05-07T20:13:27+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  user_id: ou_60d8641be684f82e8d9cb84c3015dde7
 pending_approvals:
 - approved_at: '2026-05-06T15:49:01+08:00'
   approved_by: feishu-user:ou_60d8641be684f82e8d9cb84c3015dde7
@@ -1154,10 +1175,14 @@ pending_approvals:
     关联记忆：S83(CAPI总览)/S84(VideoEncoder C API)/S88(AudioDecoder C API)/S65(MediaMuxer核心)/S74(FFmpegMuxerPlugin)/S91(MPEG4MuxerPlugin)/S41(DemuxerFilter)/S87(MediaSource)
 
     请审批（approve/revise/reject）'
-  status: pending
+  status: approved
   submitted_at: '2026-05-07T12:45:00+08:00'
   submitted_by: builder-agent
   type: approval_request
+  decision: approved
+  approved_at: '2026-05-07T20:13:27+08:00'
+  decided_at: '2026-05-07T20:13:27+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
 - type: approval_request
   status: pending
   mem_id: MEM-ARCH-AVCODEC-P1A
@@ -1176,7 +1201,7 @@ pending_approvals:
 
     请审批（approve/revise/reject）'
 - type: approval_request
-  status: pending
+  status: approved
   mem_id: MEM-ARCH-AVCODEC-S95
   submitted_at: '2026-05-07T14:45:00+08:00'
   submitted_by: builder-agent
@@ -1184,3 +1209,7 @@ pending_approvals:
     \ AVCodecAudioCodecImpl 三层架构\n\n    证据来源：native_audio_codec.cpp(573行) / avcodec_audio_codec_impl.cpp\
     \ / native_audio_encoder.cpp(495行)\n\n    核心发现：OH_AudioCodec_*统一API(AudioCodecObject/AVCodecAudioCodecImpl/Buffer模式)、OH_AudioEncoder_*专用API(AudioEncoderObject/AVCodecAudioEncoder/Memory模式)、两套API对比、DRM_SetDecryptionConfig支持\n\
     \n    请审批（approve/revise/reject）"
+  decision: approved
+  approved_at: '2026-05-07T20:13:27+08:00'
+  decided_at: '2026-05-07T20:13:27+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
