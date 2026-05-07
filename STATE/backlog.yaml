@@ -656,3 +656,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S96 | PTS与索引转换模块——TimeAndIndexConversion 跨 MP4/MOV/AVI/MPEGPS 容器的帧级时间映射 | AVCodec, MediaEngine, PTS, TimeStamp, MP4, MOV, Demuxer, STTS, CTTS, TimeAndIndexConversion, B-Frame | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S96 | 🚧 草案已生成（orphan draft补录 2026-05-07T16:50）→pending_approval（2026-05-07T19:30 Builder提交审批）→approved（2026-05-07T20:12 耀耀 approve all），TimeAndIndexConversion(640行cpp)封装MP4/MOV/AVI/MPEGPS四类容器的PTS↔Index双向转换，STTS(sampleDelta增量累加)/CTTS(compositionTimeOffset B帧补偿)双表查表，MAX_FRAMES=36000帧限制，timescale转换公式，DemuxerFilter Seek时调用PtsToFrameIndex定位目标帧，与S52(MPEG4BoxParser Box解析)互补，与S41(DemuxerFilter)上下游关联 |
+
+## 新增主题（Builder 2026-05-08 S97注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S97 | DemuxerPluginManager 轨道路由管理器——StreamID/TrackID/InnerTrackIndex 三层映射表与 Seek/Reboot 策略 | AVCodec, MediaEngine, Demuxer, DemuxerPluginManager, Track, StreamDemuxer, Seek, SnifferMediaType, TrackType, RebootPlugin, StreamInfo | 新需求开发/问题定位 | **draft** | MEM-ARCH-AVCODEC-S97 | 🚧 草案已生成（2026-05-08T02:45），demuxer_plugin_manager.cpp(1159行)轨道路由与插件加载中枢，StreamID/TrackID/InnerTrackIndex三层映射表(streamInfoMap_/trackInfoMap_/temp2TrackInfoMap_)，SnifferMediaType容器格式识别(200ms超时监控)，Seek五策略(SeekTo/SeekToKeyFrame/SeekToFrameByDts/SeekToStart/SingleStreamSeekTo)，RebootPlugin插件重启，AddExternalSubtitle外挂字幕独立StreamID，与S69(MediaDemuxer容器)/S79(MPEG4DemuxerPlugin)/S76(FFmpegDemuxerPlugin)关联 |
