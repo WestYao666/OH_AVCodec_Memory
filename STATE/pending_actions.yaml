@@ -1257,3 +1257,19 @@ pending_approvals:
   approved_at: '2026-05-07T20:13:27+08:00'
   decided_at: '2026-05-07T20:13:27+08:00'
   decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
+
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S97
+  submitted_at: '2026-05-08T04:05:00+08:00'
+  submitted_by: builder-agent
+  message: |
+    Builder 报告：S97 草案已完成
+
+    主题：DemuxerPluginManager 轨道路由管理器——StreamID/TrackID/InnerTrackIndex 三层映射表与 Seek/Reboot 策略
+
+    证据来源：demuxer_plugin_manager.cpp(1159行) / demuxer_plugin_manager.h(196行)
+
+    核心发现：三层ID映射表(streamInfoMap_/trackInfoMap_/temp2TrackInfoMap_)、SnifferMediaType 200ms超时监控、Seek五策略、RebootPlugin重启机制、AddExternalSubtitle外挂字幕独立StreamID
+
+    请审批（approve/revise/reject）
