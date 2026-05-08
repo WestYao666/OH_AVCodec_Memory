@@ -1511,3 +1511,32 @@ pending_approvals:
     关联记忆：S39(VideoDecoder三层架构)/S14(FilterChain)/S70(VideoCodec工厂)/S57(HDecoder硬件解码器)
 
     请审批（approve/revise/reject）
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S106
+  timestamp: '2026-05-09T06:16:00+08:00'
+  user_id: memory-factory-builder
+  subject: S106: MediaEngine Source 模块流媒体基础设施——Protocol 路由 / Plugin 管理 / HLS+Bitrate 双调度 / Buffering 策略
+  scope: AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, Buffering
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S106.md
+  description: |
+    MediaEngine Source 模块流媒体基础设施：位于 Pipeline 最上游，Protocol 路由五类协议(HTTP/HTTPS/FILE/STREAM/FD)，PluginManagerV2 CreatePluginByMime 动态加载四类 SourcePlugin(FileSourcePlugin/FileFdSourcePlugin/HttpSourcePlugin/DataStreamSourcePlugin)，HLS M3U8+DASH MPD 自适应流处理，SelectBitRate/AutoSelectBitRate 双调度，SetExtraCache/WaitForBufferingEnd/IsNeedPreDownload 缓冲策略，FLV 直播 IsFlvLiveStream_ 判断
+
+    证据来源：
+    - services/media_engine/modules/source/source.cpp (715行): Source 主体实现
+    - source.cpp:38-43: g_protocolStringToType 五类协议映射
+    - source.cpp:564-585: FindPlugin() → PluginManagerV2::CreatePluginByMime(SOURCE, protocol_)
+    - services/media_engine/plugins/source/file_source_plugin.cpp: FileSourcePlugin Read/Seek/GetSize
+    - services/media_engine/plugins/source/http_source/http_source_plugin.cpp: HttpSourcePlugin HLS/DASH 路由
+    - services/media_engine/plugins/source/data_stream_source_plugin.cpp: DataStreamSourcePlugin
+    - services/media_engine/plugins/source/file_fd_source_plugin.cpp: FileFdSourcePlugin 云端预读
+
+    核心发现：
+    - ProtocolType 五类: HTTP/HTTPS/FILE/STREAM/FD
+    - FindPlugin: PluginManagerV2::CreatePluginByMime(SOURCE, protocol_) 路由到具体插件
+    - HttpSourcePlugin 内嵌 HlsMediaDownloader (M3U8)+ DashMediaDownloader (MPD)
+    - FLV 直播判断: isFlvLiveStream_ = source->GetMediaStreamList().size() > 0
+    - SetExtraCache/IsNeedPreDownload/WaitForBufferingEnd 缓冲策略三件套
+
+    关联记忆：S87(MediaSource Filter层)/S37-S38(SourcePlugin体系)/S41(DemuxerFilter)/S69-S75(MediaDemuxer)/S86(HLS Cache)
+
+    请审批（approve/revise/reject）
