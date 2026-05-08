@@ -1277,3 +1277,21 @@ pending_approvals:
     核心发现：三层ID映射表(streamInfoMap_/trackInfoMap_/temp2TrackInfoMap_)、SnifferMediaType 200ms超时监控、Seek五策略、RebootPlugin重启机制、AddExternalSubtitle外挂字幕独立StreamID
 
     请审批（approve/revise/reject）
+
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S98
+  submitted_at: '2026-05-08T14:15:00+08:00'
+  submitted_by: builder-agent
+  message: |
+    Builder 报告：S98 草案已完成
+
+    主题：三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动
+
+    证据来源：video_sink.cpp(462行) / audio_sink.cpp(1793行) / subtitle_sink.cpp(517行) / media_synchronous_sink.h(31) / time_range_manager.h/cpp(77+74行) / reference_parser_manager.cpp/h(138+54行)
+
+    核心发现：VideoSink前4帧强制渲染(VIDEO_SINK_START_FRAME=4)、CalcBufferDiff三元组算法、VideoLagDetector卡顿追踪(LAG_LIMIT_TIME=100ms)；AudioSink双AVSharedMemoryBase；SubtitleSink三状态(WAIT/SHOW/DROP)、独立RenderLoop；MediaSyncManager三路优先级(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)；ReferenceParserManager dlopen插件(CreatRefParser/DestroyRefParser)；TimeRangeManager Seek范围管理(MAX_INDEX_CACHE_SIZE=70KB)
+
+    关联记忆：S22(MediaSyncManager)/S31(AudioSinkFilter)/S32(VideoRenderFilter)/S49(SubtitleSinkFilter)/S56(VideoSink)/S73(三路Sink同步架构)
+
+    请审批（approve/revise/reject）
