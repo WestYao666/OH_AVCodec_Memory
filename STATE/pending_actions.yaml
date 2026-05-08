@@ -1485,3 +1485,29 @@ pending_approvals:
     请审批（approve/revise/reject）
 
     '
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S104
+  timestamp: '2026-05-09T03:47:00+08:00'
+  user_id: memory-factory-builder
+  subject: S104: CodecAdapter 编解码适配层框架——CodecBase/CodecAdapter/CodecEngine 三层桥接与插件热插拔
+  scope: AVCodec, Adapter, CodecBase, CodecEngine, Plugin, Factory, LayeredArchitecture
+  draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S104.md
+  description: |
+    CodecAdapter 编解码适配层框架：CodecBase(抽象基类40+接口) / AudioCodecAdapter+VideoDecoderAdapter(Filter适配层) / AudioBaseCodec+AVCodecVideoDecoder(引擎实现) 三层桥接，Surface/Buffer双模式互斥，VideoDecoderFactory双路由，插件热插拔ChangePlugin扩展点
+
+    证据来源：
+    - codecbase.h(31-145): CodecBase 完整接口定义
+    - audio_codec_adapter.h/cpp: AudioCodecAdapter 三层调用链(AudioCodecAdapter→AudioBaseCodec→AudioCodecWorker)
+    - video_decoder_adapter.h/cpp: VideoDecoderAdapter 双回调桥接(MediaCodecCallback)与VideoDecoderFactory路由
+    - surface_encoder_adapter.h: SurfaceEncoderAdapter ProcessStateCode五状态机
+
+    核心发现：
+    - CodecBase Layer 2抽象40+接口支撑Surface/Buffer双模式
+    - AudioCodecAdapter=Layer2+Layer3融合，VideoDecoderAdapter=Layer1适配
+    - VideoDecoderFactory CreateByMime/CreateByName 双路由选择硬件/软件解码器
+    - ChangePlugin默认返回AVCODEC_ERROR_EXTEND_START（插件热切换扩展点）
+
+    关联记忆：S39(VideoDecoder三层架构)/S14(FilterChain)/S70(VideoCodec工厂)/S57(HDecoder硬件解码器)
+
+    请审批（approve/revise/reject）
