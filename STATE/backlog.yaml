@@ -694,3 +694,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S104 | CodecAdapter 编解码适配层框架——CodecBase/CodecAdapter/CodecEngine 三层桥接与插件热插拔 | AVCodec, Adapter, CodecBase, CodecEngine, Plugin, Factory, LayeredArchitecture, SurfaceMode, BufferMode | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S104 | 🚧 草案已生成（2026-05-09T03:47），CodecBase(40+接口Layer2抽象基类)/AudioCodecAdapter+VideoDecoderAdapter(Filter适配Layer1)/AudioBaseCodec+AVCodecVideoDecoder(引擎Layer3)三层桥接，Surface/Buffer双模式互斥，VideoDecoderFactory CreateByMime/CreateByName双路由，ChangePlugin插件热插拔扩展点(默认AVCODEC_ERROR_EXTEND_START)，ProcessStateCode五状态机；与S39/S70/S57关联 |
+
+## 新增主题（Builder 2026-05-09 S105注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S105 | BlockQueuePool 内存池化框架与 Demuxer 公共组件——SamplePacket/MPEG4Sample 双容器体系与格式转换 | AVCodec, Demuxer, MemoryPool, BlockQueue, RBSP, AVC, Converter, MultiStream, LogCompressor | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S105 | 🚧 草案已生成（2026-05-09T04:20），block_queue_pool.h(552行)模板化内存池+BlockTraits特化(FFmpeg SamplePacket/MPEG4 Sample双容器)，avc_parser_impl.h/cpp(156/330行)AVC NAL单元解析(SPS/PPS/VPS/IDR/non-IDR)，rbsp_context.h/cpp(71/82行)EBSP→RBSP防伪字节转义(0x000003→0x0000)，converter.h/cpp(88/176行)BitReader+ByteStreamConverter(AVCC→AnnexB)，demuxer_data_reader.h(63行)数据源+BitReader，demuxer_log_compressor.h/cpp(31/219行)FormatTagSerialize元数据序列化，与S68/S76(FFmpegDemuxerPlugin)/S58(MPEG4BoxParser)/S75(MediaDemuxer六组件)关联 |
