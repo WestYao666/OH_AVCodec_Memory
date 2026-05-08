@@ -1341,3 +1341,42 @@ pending_approvals:
 
 
     请审批（approve/revise/reject）'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S100
+  title: PostProcessor Framework — BaseVideoPostProcessor + SuperResolutionPostProcessor
+    + VPE 三层架构
+  status: pending_approval
+  submitted_at: '2026-05-08T22:25:00+08:00'
+  submitted_by: builder-agent
+  message: 'Builder 报告：S100 草案已完成
+
+
+    主题：PostProcessor Framework——BaseVideoPostProcessor + SuperResolutionPostProcessor
+    + VPE 三层架构
+
+
+    证据来源：services/media_engine/modules/post_processor/{base_video_post_processor.h(112行),
+    super_resolution_post_processor.cpp(357行), super_resolution_post_processor.h(77行),
+    video_post_processor_factory.cpp(47行)}
+
+
+    核心发现：
+
+    - BaseVideoPostProcessor 抽象基类，七生命周期(Init/Start/Flush/Stop/Release/Pause/NotifyEos)
+    + 双Surface接口(GetInputSurface/SetOutputSurface)
+
+    - VideoPostProcessorType 枚举：SUPER_RESOLUTION / CAMERA_INSERT_FRAME / CAMERA_MP_PWP
+
+    - SuperResolutionPostProcessor AutoRegisterPostProcessor 自动注册，过滤条件(width<=1920
+    && height<=1080 && !DRM && !HDRVivid)
+
+    - VPECallback 三状态回调：OnError/OnState/OnOutputBufferAvailable
+
+    - VideoPostProcessorFactory 工厂模式路由创建
+
+    - AudioSampleFormat 位深映射表(8/16/24/32/64bit PLANAR变体)
+
+    - 与S85(PreprocessorManager编码前处理)/S20(PostProcessing)互补
+
+
+    请审批（approve/revise/reject）'

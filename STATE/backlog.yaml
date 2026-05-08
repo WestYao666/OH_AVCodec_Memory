@@ -669,6 +669,8 @@
 |---|------|-------|---------|------|------|
 | S98 | 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动 | AVCodec, MediaEngine, Sink, MediaSync, VideoSink, AudioSink, SubtitleSink, IMediaSynchronizer, DoSyncWrite, MediaSyncManager, ReferenceParserManager, TimeRangeManager, VideoLagDetector | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S98 | 🚧 草案已生成（orphan draft补录 2026-05-08T14:15），三路Sink协作架构，VideoSink前4帧强制渲染(VIDEO_SINK_START_FRAME=4)、CalcBufferDiff三元组算法、VideoLagDetector卡顿追踪；AudioSink双AVSharedMemoryBase；SubtitleSink三状态(WAIT/SHOW/DROP)、独立RenderLoop；MediaSyncManager三路优先级(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)；ReferenceParserManager dlopen插件；TimeRangeManager Seek范围管理，与S22/S31/S32/S49/S56/S73关联 |
 
+| S100 | PostProcessor Framework——BaseVideoPostProcessor + SuperResolutionPostProcessor + VPE 三层架构 | AVCodec, PostProcessor, VPE, SuperResolution, VideoPostProcessorType, AutoRegisterPostProcessor, Surface, CameraPostProcessing | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S100 | 🚧 草案已生成（2026-05-08T22:25），BaseVideoPostProcessor(112行h)七生命周期+双Surface接口；VideoPostProcessorType(NONE/SUPER_RESOLUTION/CAMERA_INSERT_FRAME/CAMERA_MP_PWP)；SuperResolutionPostProcessor(357行cpp)AutoRegisterPostProcessor自动注册+过滤条件(宽<=1920/高<=1080/非DRM/非HDRVivid)；VPECallback三状态回调(OnError/OnState/OnOutputBuffer)；VideoPostProcessorFactory工厂路由；AudioSampleFormat位深映射表(8/16/24/32/64bit)；与S85(PreprocessorManager编码前处理)/S20(PostProcessing)互补 |
+
 ## 新增主题（Builder 2026-05-08 S99注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
