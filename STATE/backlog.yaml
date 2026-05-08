@@ -671,6 +671,12 @@
 
 | S100 | PostProcessor Framework——BaseVideoPostProcessor + SuperResolutionPostProcessor + VPE 三层架构 | AVCodec, PostProcessor, VPE, SuperResolution, VideoPostProcessorType, AutoRegisterPostProcessor, Surface, CameraPostProcessing | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S100 | 🚧 草案已生成（2026-05-08T22:25），BaseVideoPostProcessor(112行h)七生命周期+双Surface接口；VideoPostProcessorType(NONE/SUPER_RESOLUTION/CAMERA_INSERT_FRAME/CAMERA_MP_PWP)；SuperResolutionPostProcessor(357行cpp)AutoRegisterPostProcessor自动注册+过滤条件(宽<=1920/高<=1080/非DRM/非HDRVivid)；VPECallback三状态回调(OnError/OnState/OnOutputBuffer)；VideoPostProcessorFactory工厂路由；AudioSampleFormat位深映射表(8/16/24/32/64bit)；与S85(PreprocessorManager编码前处理)/S20(PostProcessing)互补 |
 
+## 新增主题（Builder 2026-05-08 S101注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S101 | StreamDemuxer 流式解封装器——DASH/HLS分片缓存读取与PullData三路分发机制 | AVCodec, MediaEngine, Demuxer, StreamDemuxer, DASH, HLS, Cache, PullData, ReadRetry, AdaptiveBitrate, TrackSwitch | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S101 | 🚧 草案已生成（2026-05-08T23:20），stream_demuxer.h(492行)类定义；stream_demuxer.cpp(~600行)PullData/ReadRetry/CallbackReadAt核心实现；PullData双缓存模式(ReadFrameData带缓存/ReadHeaderData无缓存)；PullDataWithCache缓存合并算法(分段读取+合并Buffer)；ReadRetry重试(TRY_READ_TIMES=10/SLEEP_TIME=10ms/SOURCE_READ_WARNING_MS=100)；PullData双路径(UNSEEKABLE直接读/SEEKABLE先Seek再读)；CallbackReadAt状态机(DEMUXER_STATE_PARSE_HEADER/PARSE_FRAME)；DASH Track切换(CheckChangeStreamID)；ProcInnerDash分片合并，与S69/S75(MediaDemuxer)/S97(DemuxerPluginManager)/S37/S38(SourcePlugin)关联 |
+
 ## 新增主题（Builder 2026-05-08 S99注册）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |

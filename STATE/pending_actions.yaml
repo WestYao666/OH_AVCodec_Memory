@@ -1380,3 +1380,29 @@ pending_approvals:
 
 
     请审批（approve/revise/reject）'
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S101
+  title: StreamDemuxer 流式解封装器——DASH/HLS分片缓存读取与PullData三路分发机制
+  status: pending_approval
+  submitted_at: '2026-05-08T23:20:00+08:00'
+  submitted_by: builder-agent
+  message: |
+    Builder 报告：S101 草案已完成
+
+    主题：StreamDemuxer 流式解封装器——DASH/HLS分片缓存读取与PullData三路分发机制
+
+    证据来源：https://raw.gitcode.com/openharmony/multimedia_av_codec/raw/master/services/media_engine/modules/demuxer/stream_demuxer.h (492行) / stream_demuxer.cpp (~600行)
+
+    核心发现：
+    - stream_demuxer.h 类定义(492行)，继承BaseStreamDemuxer，核心方法：Init/Pause/Resume/Start/Stop/Flush/CallbackReadAt/ResetCache
+    - PullData双缓存模式：ReadFrameData(带缓存，支持DASH分片合并) vs ReadHeaderData(无缓存，Header解析专用)
+    - PullDataWithCache缓存合并算法：分段读取(缓存命中部分+Source拉取剩余部分)→合并为完整Buffer
+    - ReadRetry重试机制：TRY_READ_TIMES=10 / TRY_READ_SLEEP_TIME=10ms / SOURCE_READ_WARNING_MS=100
+    - PullData双路径：UNSEEKABLE(HLS/直播)直接读 vs SEEKABLE(本地文件)先SeekTo再ReadRetry
+    - CallbackReadAt状态机：DEMUXER_STATE_PARSE_HEADER / PARSE_FIRST_FRAME / PARSE_FRAME 三状态路由
+    - DASH Track切换：CheckChangeStreamID检测streamID变化，更新Video/Audio/Subtitle三路Track映射，返回EOS触发切换
+    - ProcInnerDash：DASH分片缓存合并（cacheMemory+bufferMemory→mergedBuffer）
+
+    关联记忆：S69/S75(MediaDemuxer核心引擎)/S97(DemuxerPluginManager轨道路由)/S37/S38(SourcePlugin源插件)
+
+    请审批（approve/revise/reject）
