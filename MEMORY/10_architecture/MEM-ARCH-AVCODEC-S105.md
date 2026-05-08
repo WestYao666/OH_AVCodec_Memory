@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S105
 title: "BlockQueuePool 内存池化框架与 Demuxer 公共组件——SamplePacket/MPEG4Sample 双容器体系与格式转换"
 scope: [AVCodec, Demuxer, MemoryPool, BlockQueue, RBSP, AVC, Converter, MultiStream, LogCompressor]
-status: draft
+status: pending_approval
+approval_submitted_at: "2026-05-09T04:50:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-09T04:20:00+08:00"
 evidence_sources:
