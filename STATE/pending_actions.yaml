@@ -1259,10 +1259,14 @@ pending_approvals:
   decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
 
 - type: approval_request
-  status: pending_approval
+  status: approved
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S97
   submitted_at: '2026-05-08T04:05:00+08:00'
   submitted_by: builder-agent
+  approved_at: '2026-05-08T04:15:07+08:00'
+  decided_at: '2026-05-08T04:15:07+08:00'
+  decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
   message: |
     Builder 报告：S97 草案已完成
 
