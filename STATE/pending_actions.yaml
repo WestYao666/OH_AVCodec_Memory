@@ -1386,48 +1386,102 @@ pending_approvals:
   status: pending_approval
   submitted_at: '2026-05-08T23:20:00+08:00'
   submitted_by: builder-agent
-  message: |
-    Builder 报告：S101 草案已完成
+  message: 'Builder 报告：S101 草案已完成
+
 
     主题：StreamDemuxer 流式解封装器——DASH/HLS分片缓存读取与PullData三路分发机制
 
-    证据来源：https://raw.gitcode.com/openharmony/multimedia_av_codec/raw/master/services/media_engine/modules/demuxer/stream_demuxer.h (492行) / stream_demuxer.cpp (~600行)
+
+    证据来源：https://raw.gitcode.com/openharmony/multimedia_av_codec/raw/master/services/media_engine/modules/demuxer/stream_demuxer.h
+    (492行) / stream_demuxer.cpp (~600行)
+
 
     核心发现：
+
     - stream_demuxer.h 类定义(492行)，继承BaseStreamDemuxer，核心方法：Init/Pause/Resume/Start/Stop/Flush/CallbackReadAt/ResetCache
+
     - PullData双缓存模式：ReadFrameData(带缓存，支持DASH分片合并) vs ReadHeaderData(无缓存，Header解析专用)
+
     - PullDataWithCache缓存合并算法：分段读取(缓存命中部分+Source拉取剩余部分)→合并为完整Buffer
+
     - ReadRetry重试机制：TRY_READ_TIMES=10 / TRY_READ_SLEEP_TIME=10ms / SOURCE_READ_WARNING_MS=100
+
     - PullData双路径：UNSEEKABLE(HLS/直播)直接读 vs SEEKABLE(本地文件)先SeekTo再ReadRetry
-    - CallbackReadAt状态机：DEMUXER_STATE_PARSE_HEADER / PARSE_FIRST_FRAME / PARSE_FRAME 三状态路由
+
+    - CallbackReadAt状态机：DEMUXER_STATE_PARSE_HEADER / PARSE_FIRST_FRAME / PARSE_FRAME
+    三状态路由
+
     - DASH Track切换：CheckChangeStreamID检测streamID变化，更新Video/Audio/Subtitle三路Track映射，返回EOS触发切换
+
     - ProcInnerDash：DASH分片缓存合并（cacheMemory+bufferMemory→mergedBuffer）
+
 
     关联记忆：S69/S75(MediaDemuxer核心引擎)/S97(DemuxerPluginManager轨道路由)/S37/S38(SourcePlugin源插件)
 
+
     请审批（approve/revise/reject）
 
+    '
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S102
   title: SampleQueueController 流控引擎——SpeedCountInfo双路统计与WaterLine双水位线机制
   status: pending_approval
   submitted_at: '2026-05-08T23:47:00+08:00'
   submitted_by: builder-agent
-  message: |
-    Builder 报告：S102 草案已完成
+  message: 'Builder 报告：S102 草案已完成
+
 
     主题：SampleQueueController 流控引擎——SpeedCountInfo双路统计与WaterLine双水位线机制
 
-    证据来源：/home/west/av_codec_repo/services/media_engine/modules/demuxer/sample_queue_controller.h (90行) / sample_queue_controller.cpp (300行)
+
+    证据来源：/home/west/av_codec_repo/services/media_engine/modules/demuxer/sample_queue_controller.h
+    (90行) / sample_queue_controller.cpp (300行)
+
 
     核心发现：
+
     - sample_queue_controller.h:29-40: SpeedCountInfo结构体(totalFrameCount/totalEffectiveRunTimeUs/lastEventTimeUs原子变量)，GetSpeed()=帧数/微秒
+
     - sample_queue_controller.h:42+: SampleQueueController流控主类，ShouldStartConsume/ShouldStopConsume/ShouldStartProduce/ShouldStopProduce四路流控决策
+
     - WaterLine四阈值：START_CONSUME=5μs / STOP_CONSUME=0 / START_PRODUCE=5μs / STOP_PRODUCE=10μs
+
     - FIRST_START_CONSUME_WATER_LOOP=2μs（首次预缓冲更快启动）
+
     - produce/consume双路SpeedCountInfo map（per trackId）
+
     - SetSpeed(float speed) 快放/慢放倍速控制
+
 
     关联记忆：S69/S75(MediaDemuxer核心引擎)/S101(StreamDemuxer流式解封装)/S97(DemuxerPluginManager)
 
+
     请审批（approve/revise/reject）
+
+    '
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S103
+  submitted_at: '2026-05-09T02:49:53.607673+08:00'
+  submitted_by: builder-agent
+  message: 'Builder 报告：S103 草案已完成
+
+
+    主题：AV1 Decoder 架构——dav1d 解码器集成与 Av1DecoderLoader 动态加载
+
+
+    证据来源：services/engine/codec/video/av1decoder/av1decoder.h (65行) / av1decoder.cpp
+    (596行) / av1_decoder_api.cpp (38行) / av1_decoder_loader.cpp (88行)
+
+
+    核心发现：dav1d send_data/get_picture 双阶段解码流水线；Av1DecoderLoader dlopen(libav1_decoder.z.so)
+    动态加载；最多64实例/1920x1080 HD分辨率；8bit/10bit位深+NV12/NV21/P010格式；HDR VIVID完整链路(seq_hdr→content_light→mastering_display→itut_t35→SurfaceBuffer)；dav1d
+    2线程+max_frame_delay=1低延迟配置；DAV1D_AGAIN(-11)返回值处理
+
+
+    关联记忆：S39(VideoDecoder三层架构)/S93(StreamParserManager VVC/HEVC/AVC)/S42(VideoEncoder)/S81(AVCodecSuspend)
+
+
+    请审批（approve/revise/reject）
+
+    '
