@@ -6,7 +6,7 @@
 
 ## 状态
 
-draft → pending_approval
+pending_approval
 
 ## 标签
 
