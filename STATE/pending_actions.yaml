@@ -1257,7 +1257,6 @@ pending_approvals:
   approved_at: '2026-05-07T20:13:27+08:00'
   decided_at: '2026-05-07T20:13:27+08:00'
   decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
-
 - type: approval_request
   status: approved
   decision: approved
@@ -1267,31 +1266,78 @@ pending_approvals:
   approved_at: '2026-05-08T04:15:07+08:00'
   decided_at: '2026-05-08T04:15:07+08:00'
   decided_by: ou_60d8641be684f82e8d9cb84c3015dde7
-  message: |
-    Builder 报告：S97 草案已完成
+  message: 'Builder 报告：S97 草案已完成
 
-    主题：DemuxerPluginManager 轨道路由管理器——StreamID/TrackID/InnerTrackIndex 三层映射表与 Seek/Reboot 策略
+
+    主题：DemuxerPluginManager 轨道路由管理器——StreamID/TrackID/InnerTrackIndex 三层映射表与 Seek/Reboot
+    策略
+
 
     证据来源：demuxer_plugin_manager.cpp(1159行) / demuxer_plugin_manager.h(196行)
 
-    核心发现：三层ID映射表(streamInfoMap_/trackInfoMap_/temp2TrackInfoMap_)、SnifferMediaType 200ms超时监控、Seek五策略、RebootPlugin重启机制、AddExternalSubtitle外挂字幕独立StreamID
+
+    核心发现：三层ID映射表(streamInfoMap_/trackInfoMap_/temp2TrackInfoMap_)、SnifferMediaType
+    200ms超时监控、Seek五策略、RebootPlugin重启机制、AddExternalSubtitle外挂字幕独立StreamID
+
 
     请审批（approve/revise/reject）
 
+    '
 - type: approval_request
   status: pending_approval
   mem_id: MEM-ARCH-AVCODEC-S98
   submitted_at: '2026-05-08T14:15:00+08:00'
   submitted_by: builder-agent
-  message: |
-    Builder 报告：S98 草案已完成
+  message: 'Builder 报告：S98 草案已完成
+
 
     主题：三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动
 
-    证据来源：video_sink.cpp(462行) / audio_sink.cpp(1793行) / subtitle_sink.cpp(517行) / media_synchronous_sink.h(31) / time_range_manager.h/cpp(77+74行) / reference_parser_manager.cpp/h(138+54行)
 
-    核心发现：VideoSink前4帧强制渲染(VIDEO_SINK_START_FRAME=4)、CalcBufferDiff三元组算法、VideoLagDetector卡顿追踪(LAG_LIMIT_TIME=100ms)；AudioSink双AVSharedMemoryBase；SubtitleSink三状态(WAIT/SHOW/DROP)、独立RenderLoop；MediaSyncManager三路优先级(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)；ReferenceParserManager dlopen插件(CreatRefParser/DestroyRefParser)；TimeRangeManager Seek范围管理(MAX_INDEX_CACHE_SIZE=70KB)
+    证据来源：video_sink.cpp(462行) / audio_sink.cpp(1793行) / subtitle_sink.cpp(517行) /
+    media_synchronous_sink.h(31) / time_range_manager.h/cpp(77+74行) / reference_parser_manager.cpp/h(138+54行)
+
+
+    核心发现：VideoSink前4帧强制渲染(VIDEO_SINK_START_FRAME=4)、CalcBufferDiff三元组算法、VideoLagDetector卡顿追踪(LAG_LIMIT_TIME=100ms)；AudioSink双AVSharedMemoryBase；SubtitleSink三状态(WAIT/SHOW/DROP)、独立RenderLoop；MediaSyncManager三路优先级(VIDEO_SINK=0/AUDIO_SINK=2/SUBTITLE_SINK=8)；ReferenceParserManager
+    dlopen插件(CreatRefParser/DestroyRefParser)；TimeRangeManager Seek范围管理(MAX_INDEX_CACHE_SIZE=70KB)
+
 
     关联记忆：S22(MediaSyncManager)/S31(AudioSinkFilter)/S32(VideoRenderFilter)/S49(SubtitleSinkFilter)/S56(VideoSink)/S73(三路Sink同步架构)
 
+
     请审批（approve/revise/reject）
+
+    '
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S99
+  submitted_at: '2026-05-08T18:15:00+08:00'
+  submitted_by: builder-agent
+  message: 'Builder 报告：S99 草案已完成
+
+
+    主题：MediaMuxer Track Management and AVBufferQueue Architecture——Track类+双模式输入+ThreadProcessor多轨PTS排序调度
+
+
+    证据来源：services/media_engine/modules/muxer/media_muxer.{h,cpp} (571行)
+
+
+    核心发现：
+
+    - MediaMuxer 模块层 Track 管理（内部 Track 类 IConsumerListener 实现）
+
+    - State 状态机：UNINITIALIZED→INITIALIZED→STARTED→STOPPED 四状态
+
+    - GetInputBufferQueue(AVBufferQueue 异步模式) vs WriteSample(同步模式) 双输入
+
+    - MUX_FORMAT_INFO 九格式路由表（含 TIMED_METADATA/IMAGE 轨）
+
+    - ThreadProcessor 多轨 PTS 最小优先排序写入算法（line 393-399）
+
+    - Track::OnBufferAvailable→MediaMuxer::OnBufferAvailable→condBufferAvailable_.notify_all()
+    信号链
+
+    - 与 S34/S65(Filter层)/S40/S91(Plugin层) 互补
+
+
+    请审批（approve/revise/reject）'
