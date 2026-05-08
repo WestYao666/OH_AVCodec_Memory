@@ -1406,3 +1406,28 @@ pending_approvals:
     关联记忆：S69/S75(MediaDemuxer核心引擎)/S97(DemuxerPluginManager轨道路由)/S37/S38(SourcePlugin源插件)
 
     请审批（approve/revise/reject）
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S102
+  title: SampleQueueController 流控引擎——SpeedCountInfo双路统计与WaterLine双水位线机制
+  status: pending_approval
+  submitted_at: '2026-05-08T23:47:00+08:00'
+  submitted_by: builder-agent
+  message: |
+    Builder 报告：S102 草案已完成
+
+    主题：SampleQueueController 流控引擎——SpeedCountInfo双路统计与WaterLine双水位线机制
+
+    证据来源：/home/west/av_codec_repo/services/media_engine/modules/demuxer/sample_queue_controller.h (90行) / sample_queue_controller.cpp (300行)
+
+    核心发现：
+    - sample_queue_controller.h:29-40: SpeedCountInfo结构体(totalFrameCount/totalEffectiveRunTimeUs/lastEventTimeUs原子变量)，GetSpeed()=帧数/微秒
+    - sample_queue_controller.h:42+: SampleQueueController流控主类，ShouldStartConsume/ShouldStopConsume/ShouldStartProduce/ShouldStopProduce四路流控决策
+    - WaterLine四阈值：START_CONSUME=5μs / STOP_CONSUME=0 / START_PRODUCE=5μs / STOP_PRODUCE=10μs
+    - FIRST_START_CONSUME_WATER_LOOP=2μs（首次预缓冲更快启动）
+    - produce/consume双路SpeedCountInfo map（per trackId）
+    - SetSpeed(float speed) 快放/慢放倍速控制
+
+    关联记忆：S69/S75(MediaDemuxer核心引擎)/S101(StreamDemuxer流式解封装)/S97(DemuxerPluginManager)
+
+    请审批（approve/revise/reject）

@@ -682,3 +682,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S99 | MediaMuxer Track Management and AVBufferQueue Architecture——Track类+双模式输入+ThreadProcessor多轨PTS排序调度 | AVCodec, MediaMuxer, Track, AVBufferQueue, AsyncMode, MultiTrack, ThreadProcessor, PTS | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S99 | 🚧 草案已生成（2026-05-08），MediaMuxer模块层(media_muxer.cpp:571行)Track管理、AVBufferQueue集成、ThreadProcessor异步写入调度；Track内部类(IConsumerListener)；UNINITIALIZED→INITIALIZED→STARTED→STOPPED四状态机；GetInputBufferQueue(AVBufferQueue模式)/WriteSample(同步模式)双输入；MUX_FORMAT_INFO九格式路由表(TIMED_METADATA/IMAGE轨)；ThreadProcessor多轨PTS最小优先写入算法(line 393-399)；与S34/S65(S40/S91)互补 |
+
+## 新增主题（Builder 2026-05-08 S102注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S102 | SampleQueueController 流控引擎——SpeedCountInfo双路统计与WaterLine双水位线机制 | AVCodec, MediaEngine, Demuxer, SampleQueueController, FlowControl, SpeedCountInfo, WaterLine, SampleQueue, TaskThread, BitrateSwitch, BufferingDuration | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S102 | 🚧 草案已生成（2026-05-08T23:47），sample_queue_controller.h(90行)SpeedCountInfo结构体(totalFrameCount/totalEffectiveRunTimeUs/lastEventTimeUs)+SampleQueueController流控主类；sample_queue_controller.cpp(300行)双路Produce/Consume统计、WaterLine四阈值(START_CONSUME=5μs/STOP_CONSUME=0/START_PRODUCE=5μs/STOP_PRODUCE=10μs)、ShouldStartConsume/ShouldStopConsume/ShouldStartProduce/ShouldStopProduce流控决策；与S69/S75(MediaDemuxer)/S101(StreamDemuxer)关联 |
