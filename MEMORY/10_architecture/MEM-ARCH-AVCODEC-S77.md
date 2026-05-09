@@ -13,15 +13,15 @@ associations:
   - S76 (FFmpegDemuxerPlugin - uses av_read_frame with error logging)
   - S11 (HCodec - hardware codec with OnAllocateComponent)
   - S22 (MediaSyncManager - IMediaSynchronizer priority system, approved)
-  - S56 (VideoSink - DoSyncWrite + CalcBufferDiff + VideoLagDetector, pending_approval)
-  - S73 (Three-way Sink sync architecture - VideoSink/AudioSink/SubtitleSink, pending_approval)
+  - S56 (VideoSink - DoSyncWrite + CalcBufferDiff + VideoLagDetector, (approved)
+  - S73 (Three-way Sink sync architecture - VideoSink/AudioSink/SubtitleSink, (approved)
 related_frontmatter:
   - MEM-ARCH-AVCODEC-003 (Plugin architecture overview, approved)
 ---
 
 # S77：AVCodec DFX 子系统——HiSysEvent / XCollie 超时看门狗 / Trace 追踪 / Dump 工具 四大支柱
 
-> **草案状态**: draft → pending_approval
+> **草案状态**: draft → approved
 > **生成时间**: 2026-05-03T10:19+08:00
 > **最后增强时间**: 2026-05-04T04:10+08:00（源码行号校正 + 优先级体系补充 + VideoLagDetector + CalcBufferDiff 三算法）
 > **scope**: AVCodec, DFX, HiSysEvent, XCollie, Trace, Dump, FaultType, HiSysEventWrite, AVCodecXCollie, AVCodecDfxComponent

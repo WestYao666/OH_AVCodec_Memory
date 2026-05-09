@@ -14,7 +14,7 @@ associations:
   - S57 (HDecoder/HEncoder硬件编解码器 - Frozen态与Suspend联动)
 related_frontmatter:
   - MEM-ARCH-AVCODEC-001 (AVCodec模块总览, approved)
-  - MEM-ARCH-AVCODEC-S48 (CodecServer七状态机, pending_approval)
+  - MEM-ARCH-AVCODEC-S48 (CodecServer七状态机, approved)
 ---
 
 # S81：AVCodec 暂停/冻结与运行监控——AVCodecSuspend 三模式与 AVCodecMonitor 活性查询

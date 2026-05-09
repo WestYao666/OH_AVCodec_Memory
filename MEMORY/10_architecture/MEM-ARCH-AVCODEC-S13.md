@@ -324,4 +324,4 @@ void AdaptiveFramerateController::Remove(int32_t instanceId) {
 ## Builder 注（2026-04-25T01:51）
 
 - 本草案已在 S13 draft 基础上增强 evidence：新增 cpp 降帧算法完整代码片段、AFC Loop 线程实现、Add/Remove 生命周期
-- S13 是 backlog 中唯一的 unregistered draft（orphan entry），现已注册为正式 pending_approval 草案
+- S13 是 backlog 中唯一的 unregistered draft（orphan entry），现已注册为正式 approved 草案

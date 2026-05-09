@@ -5,7 +5,7 @@ approved_at: "2026-05-06"
 
 # S69: MediaDemuxer 核心解封装引擎 — SampleQueue 缓冲队列与流控机制
 
-> **草案状态**: pending_approval
+> **草案状态**: approved
 > **生成时间**: 2026-04-27T09:55
 > **scope**: AVCodec, MediaDemuxer, SampleQueue, SampleQueueController, StreamDemuxer, BufferManagement, Streaming, AdaptiveBitrate
 > **关联场景**: 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率

@@ -5,7 +5,7 @@
 | 主题ID | S104 |
 | 分类 | AVCodec 架构 |
 | 标签 | AVCodec, Adapter, CodecBase, CodecEngine, Plugin, Factory, LayeredArchitecture |
-| 状态 | pending_approval |
+| 状态: approved |
 | 关联场景 | 新需求开发 / 问题定位 / 插件热插拔 |
 | 草案日期 | 2026-05-09 |
 | Builder | memory-factory-builder |

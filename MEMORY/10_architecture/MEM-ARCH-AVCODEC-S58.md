@@ -14,7 +14,7 @@ submitted: 2026-04-26T23:25
 **scope**: AVCodec, Demuxer, MPEG4, MOV, Container, BoxParser, MP4, FragmentedMP4, MSE, Track, SampleTable  
 **关联场景**: 三方应用/新需求开发/问题定位  
 **mem_id**: MEM-ARCH-AVCODEC-S58  
-**状态**: draft_pending_approval  
+**状态**: approved  
 **草案版本**: v1.0 (Builder 2026-04-26)  
 **来源文件**: `repo_tmp/services/media_engine/plugins/demuxer/mpeg4_demuxer/mpeg4_box_parser.cpp` (4396行) + `mpeg4_box_parser.h`
 

@@ -6,7 +6,7 @@
 
 ## 状态
 
-pending_approval
+approved
 
 ## 标签
 

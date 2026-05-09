@@ -8,7 +8,7 @@ approved_at: "2026-05-06"
 > **主题**：AVCodec Native C API 架构——OH_AVCodec 对象模型、四类 API 家族与 CodecClient IPC 代理
 > **scope**：AVCodec, Native API, C API, IPC, CodecClient, interfaces/kits
 > **关联场景**：三方应用接入/新人入项/问题定位
-> **状态**：`pending_approval`
+> **状态**：`approved`
 > **证据来源**：`interfaces/kits/c/native_avcodec_*.h` / `services/services/codec/client/codec_client.cpp` / `interfaces/inner_api/native/avcodec_errors.h`
 > **创建时间**：2026-05-03T16:33
 
@@ -468,10 +468,10 @@ AV_ERR_VIDEO_UNSUPPORTED_COLOR_SPACE_CONVERSION;  // 不支持的色彩空间转
 | 关联 | 说明 |
 |------|------|
 | `MEM-ARCH-AVCODEC-S2` | interfaces/kits/c/ API 使用场景与 key 搭配（已入库） |
-| `MEM-ARCH-AVCODEC-S11` | HCodec CodecComponentManager 工厂与插件注册机制（pending_approval） |
+| `MEM-ARCH-AVCODEC-S11` | HCodec CodecComponentManager 工厂与插件注册机制（approved） |
 | `MEM-ARCH-AVCODEC-S21` | AVCodec IPC 架构，CodecServiceProxy ↔ CodecServiceStub 双向代理（in_approval） |
-| `MEM-ARCH-AVCODEC-S47` | CodecCapability 能力查询与匹配机制（pending_approval） |
-| `MEM-ARCH-AVCODEC-S71` | CodecList 服务架构——三层能力查询体系（pending_approval） |
+| `MEM-ARCH-AVCODEC-S47` | CodecCapability 能力查询与匹配机制（approved） |
+| `MEM-ARCH-AVCODEC-S71` | CodecList 服务架构——三层能力查询体系（approved） |
 
 ---
 

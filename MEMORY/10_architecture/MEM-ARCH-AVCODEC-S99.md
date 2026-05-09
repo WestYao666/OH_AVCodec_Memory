@@ -3,7 +3,7 @@
 **Topic**: MediaMuxer Module Track Management and AVBufferQueue Async Write Architecture  
 **Scope**: AVCodec, MediaMuxer, Track Management, AVBufferQueue, AsyncMode, MultiTrack  
 **Associated Scenes**: 新需求开发 / 问题定位  
-**Status**: pending_approval  
+**Status**: approved  
 **Created**: 2026-05-08  
 **Source**: /home/west/av_codec_repo/services/media_engine/modules/muxer/media_muxer.{h,cpp}
 

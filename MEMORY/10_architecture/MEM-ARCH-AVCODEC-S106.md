@@ -36,7 +36,7 @@ AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, B
 
 ## 状态
 
-`pending_approval`（2026-05-09 提交审批，2026-05-09 Builder 增强行号级证据）
+`approved`（2026-05-09 PM批量批准，commit 3af0bcd）
 
 ---
 

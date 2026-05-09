@@ -27,7 +27,7 @@ associations:
   - S57 (HDecoder/HEncoder 硬件视频编解码器——OMX组件架构与HDI四层调用链)
   - S46 (DecoderSurfaceFilter 视频解码过滤器——FILTERTYPE_VDEC + VideoDecoderAdapter + VideoSink 三组件)
 related_frontmatter:
-  - MEM-ARCH-AVCODEC-S9 (相同主题，已 pending_approval，S80 为源码增强版)
+  - MEM-ARCH-AVCODEC-S9 (相同主题，已 approved，S80 为源码增强版)
 evidence:
   # === OpenHarmony 官方源码（本地镜像）===
   # GitCode 主仓库：https://gitcode.com/openharmony/multimedia_av_codec
@@ -296,7 +296,7 @@ App 从后台恢复
 
 | 对比项 | S9（已有草案） | S80（源码增强版） |
 |--------|---------------|------------------|
-| 状态 | pending_approval | draft（本次新建） |
+| 状态 | approved | draft（本次新建） |
 | 源码路径 | GitCode URL（web_fetch 失效） | 本地镜像 /home/west/av_codec_repo |
 | 行号证据 | 未提供 | 所有证据均含具体行号 |
 | SwapOut 条件 | 提到但未展开 | CanSwapOut 完整源码（含 owner 检查） |

@@ -1,5 +1,5 @@
 # MEM-ARCH-AVCODEC-S97: DemuxerPluginManager 轨道路由管理器
-**状态**: approved
+**审批状态**: approved
 **生成时间**: 2026-05-08T04:05
 **scope**: AVCodec, MediaEngine, Demuxer, DemuxerPluginManager, Track, StreamDemuxer, Seek, SnifferMediaType, TrackType, RebootPlugin, StreamInfo
 **关联场景**: 新需求开发/问题定位
@@ -203,5 +203,5 @@ MediaDemuxer (主引擎)
 
 ---
 
-**审批状态**: pending_approval
+**审批状态**: approved
 **提交时间**: 2026-05-08T04:05

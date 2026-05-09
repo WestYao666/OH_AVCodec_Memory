@@ -6,7 +6,7 @@ approved_at: "2026-05-06"
 # MEM-ARCH-AVCODEC-S88 · AudioDecoder C API 实现——NativeAudioDecoder 对象模型与 AudioCodecEngine 三层架构
 
 > **记忆 ID**：MEM-ARCH-AVCODEC-S88  
-> **状态**：pending_approval（Builder 草案）  
+> **状态**：approved（Builder 草案）  
 > **生成时间**：2026-05-04 06:25 GMT+8  
 > **scope**：AVCodec, Native API, C API, AudioDecoder, AudioCodec, IPC, CodecClient  
 > **关联场景**：三方应用接入/新人入项/问题定位  
