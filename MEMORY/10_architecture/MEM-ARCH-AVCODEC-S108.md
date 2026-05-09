@@ -40,8 +40,8 @@ AVCodec, MediaEngine, Demuxer, PTS, Index, MP4, MOV, STTS, CTTS, TimeAndIndexCon
 
 `TimeAndIndexConversion` (640行 .cpp + 150行 .h) 是 MediaEngine 中的 **PTS/Index 双向转换引擎**，直接解析 MP4/MOV 容器中的 STTS（time-to-sample）和 CTTS（composition time-to-sample）Atom Box，实现：
 
-1. **Index → RelativePTS**：已知 sample index，反向查找对应 PTS
-2. **RelativePTS → Index**：已知相对 PTS，正向查找对应 sample index
+1. **Index → RelativePTS**：已知 sample index，反向查找对应 PTS（堆排序查找）
+2. **RelativePTS → Index**：已知相对 PTS，正向查找对应 sample index（二分搜索）
 3. **MP4 Box 递归解析**：ftyp → moov → trak → mdia → minf → stbl → stts/ctts/hdlr/mdhd
 4. **首帧 PTS 定位**：扫描 stts 找到第一帧的 PTS 基准（absolutePTSIndexZero_）
 
@@ -53,40 +53,51 @@ AVCodec, MediaEngine, Demuxer, PTS, Index, MP4, MOV, STTS, CTTS, TimeAndIndexCon
 
 | 符号 | 位置 | 说明 |
 |------|------|------|
+| `BOX_TYPE_FTYP/MOOV/TRAK/MDIA/MINF/STBL/STTS/CTTS/HDLR/MDHD` | pts_and_index_conversion.h:30-40 | MP4 Box 类型常量（4字符标识） |
 | `class TimeAndIndexConversion` | pts_and_index_conversion.h:46 | PTS/Index 转换主类 |
-| `STTSEntry { sampleCount, sampleDelta }` | pts_and_index_conversion.h:74 | STTS 表条目：连续相同时间戳的帧数+帧间隔 |
-| `CTTSEntry { sampleCount, sampleOffset }` | pts_and_index_conversion.h:78 | CTTS 表条目：连续相同组合时间的帧数+偏移量 |
-| `TrakInfo { trakId, trakType, timeScale, sttsEntries, cttsEntries }` | pts_and_index_conversion.h:80-86 | 单轨元数据（ID/类型/时间基/STTS/CTTS） |
-| `boxParsers` | pts_and_index_conversion.h:89-95 | Box 解析器分发表（函数指针映射） |
-| `IndexAndPTSConvertMode` | pts_and_index_conversion.h:54-58 | 转换模式枚举：GET_FIRST_PTS / INDEX_TO_RELATIVEPTS / RELATIVEPTS_TO_INDEX |
-| `TrakType` | pts_and_index_conversion.h:61-65 | 轨类型：TRAK_OTHER / TRAK_AUDIO / TRAK_VIDIO |
-| `absolutePTSIndexZero_` | pts_and_index_conversion.h:115 | 首帧 PTS 基准（INT64_MAX 初始值） |
-| `indexToRelativePTSMaxHeap_` | pts_and_index_conversion.h:116 | Index→RelativePTS 最大堆 |
-| `relativePTSToIndexPosition_` | pts_and_index_conversion.h:119 | RelativePTS→Index 遍历游标 |
-| `relativePTSToIndexPTSMin_ / PTSMax_` | pts_and_index_conversion.h:120-121 | RelativePTS→Index 二分搜索边界 |
-| `SetDataSource()` | pts_and_index_conversion.h:49 | 设置数据源（std::shared_ptr<MediaSource>） |
-| `GetFirstVideoTrackIndex()` | pts_and_index_conversion.h:50 | 获取第一个视频轨索引 |
-| `GetIndexByRelativePresentationTimeUs()` | pts_and_index_conversion.h:51 | RelativePTS → Index（正向查找） |
-| `GetRelativePresentationTimeUsByIndex()` | pts_and_index_conversion.h:52 | Index → RelativePTS（反向查找） |
+| `IndexAndPTSConvertMode` 枚举 | pts_and_index_conversion.h:59-61 | 三模式枚举：GET_FIRST_PTS / INDEX_TO_RELATIVEPTS / RELATIVEPTS_TO_INDEX |
+| `TrakType` 枚举 | pts_and_index_conversion.h:63-65 | 轨类型：TRAK_OTHER / TRAK_AUDIO / TRAK_VIDIO |
+| `struct BoxHeader { largeSize, type, size }` | pts_and_index_conversion.h:71-74 | MP4 Box 头（8或16字节变长） |
+| `struct STTSEntry { sampleCount, sampleDelta }` | pts_and_index_conversion.h:76-80 | STTS 表条目：连续相同时间戳的帧数+帧间隔 |
+| `struct CTTSEntry { sampleCount, sampleOffset }` | pts_and_index_conversion.h:82-86 | CTTS 表条目：连续相同组合时间的帧数+偏移量 |
+| `struct TrakInfo { trakId, trakType, timeScale, sttsEntries, cttsEntries }` | pts_and_index_conversion.h:88-94 | 单轨元数据（ID/类型/时间基/STTS/CTTS） |
+| `boxParsers` 分发表 | pts_and_index_conversion.h:103-112 | Box 解析器函数指针映射（9个 Box 类型路由） |
+| `Status GetFirstVideoTrackIndex(uint32_t&)` | pts_and_index_conversion.h:53 | 获取第一个视频轨索引 |
+| `Status GetIndexByRelativePresentationTimeUs(uint32_t, int64_t, uint32_t&)` | pts_and_index_conversion.h:54-58 | RelativePTS → Index（正向查找） |
+| `Status GetRelativePresentationTimeUsByIndex(uint32_t, uint32_t, int64_t&)` | pts_and_index_conversion.h:56-58 | Index → RelativePTS（反向查找） |
+| `Status GetPresentationTimeUsFromFfmpegMOV(...)` | pts_and_index_conversion.h:126-128 | 驱动转换的主函数（四参数分发） |
+| `std::vector<TrakInfo> trakInfoVec_` | pts_and_index_conversion.h:97 | 多轨元数据 vector |
+| `int64_t absolutePTSIndexZero_` | pts_and_index_conversion.h:115 | 首帧 PTS 基准（INT64_MAX 初始值） |
+| `std::priority_queue<int64_t> indexToRelativePTSMaxHeap_` | pts_and_index_conversion.h:116 | Index→RelativePTS 最大堆 |
+| `int64_t relativePTSToIndexLeftDiff_ / RightDiff_` | pts_and_index_conversion.h:122-123 | RelativePTS→Index 二分搜索左右边界差值 |
 
 ### pts_and_index_conversion.cpp (640 行)
 
 | 符号 | 位置 | 说明 |
 |------|------|------|
-| `StartParse()` | pts_and_index_conversion.cpp:（待补充） | 启动递归 Box 解析流程 |
-| `ParseMoov()` | pts_and_index_conversion.cpp:（待补充） | 解析 moov Container Box |
-| `ParseTrak()` | pts_and_index_conversion.cpp:（待补充） | 解析 trak Track Box，识别 TRAK_VIDIO/TRAK_AUDIO |
-| `ParseStts()` | pts_and_index_conversion.cpp:（待补充） | 解析 stts Time-to-Sample Atom |
-| `ParseCtts()` | pts_and_index_conversion.cpp:（待补充） | 解析 ctts Composition Time-to-Sample Atom |
-| `ParseHdlr()` | pts_and_index_conversion.cpp:（待补充） | 解析 hdlr Handler Box（识别 video/audio 轨） |
-| `ParseMdhd()` | pts_and_index_conversion.cpp:（待补充） | 解析 mdhd Media Header Box（提取 timeScale） |
-| `GetPresentationTimeUsFromFfmpegMOV()` | pts_and_index_conversion.cpp:（待补充） | 驱动转换的主函数（三模式分发） |
-| `PTSAndIndexConvertSttsAndCttsProcess()` | pts_and_index_conversion.cpp:（待补充） | 同时使用 STTS+CTTS 的转换算法 |
-| `PTSAndIndexConvertOnlySttsProcess()` | pts_and_index_conversion.cpp:（待补充） | 仅使用 STTS 的转换算法（GOP 内 B/P 帧场景） |
-| `IndexToRelativePTSProcess()` | pts_and_index_conversion.cpp:（待补充） | Index → RelativePTS 的堆排序查找 |
-| `RelativePTSToIndexProcess()` | pts_and_index_conversion.cpp:（待补充） | RelativePTS → Index 的二分搜索 |
-| `InitPTSandIndexConvert()` | pts_and_index_conversion.cpp:（待补充） | 初始化转换器 |
-| `IsWithinPTSAndIndexConversionMaxFrames()` | pts_and_index_conversion.cpp:（待补充） | 边界保护：防止查找超出 STTS 表范围 |
+| `LABEL` 日志标签 | pts_and_index_conversion.cpp:27 | `LOG_DOMAIN_DEMUXER / "TimeAndIndexConversion"` |
+| `BOX_HEAD_SIZE = 8` | pts_and_index_conversion.cpp:32 | 标准 Box 头大小 |
+| `BOX_HEAD_LARGE_SIZE = 16` | pts_and_index_conversion.cpp:34 | 扩展 Box 头大小（大文件 >2GB） |
+| `PTS_AND_INDEX_CONVERSION_MAX_FRAMES = 36000` | pts_and_index_conversion.cpp:33 | 最大帧数保护上限 |
+| `ReadBufferFromDataSource()` | pts_and_index_conversion.cpp:77-93 | 从 DataSource 读取指定大小数据 |
+| `StartParse()` | pts_and_index_conversion.cpp:94-115 | 启动解析入口，先读 ftyp 再递归 moov |
+| `ReadLargeSize()` | pts_and_index_conversion.cpp:127-144 | 读取 64 位 Box 尺寸（ntohl 网络字节序） |
+| `ReadBoxHeader()` | pts_and_index_conversion.cpp:146-176 | 解析 Box 头（8或16字节），区分 small/large size |
+| `ParseMoov()` | pts_and_index_conversion.cpp:178-209 | 解析 moov Container Box（递归子 Box） |
+| `ParseTrak()` | pts_and_index_conversion.cpp:210-220 | 解析 trak Track Box |
+| `ParseBox()` | pts_and_index_conversion.cpp:221-253 | 通用 Box 递归解析器（跳转到 stbl 层） |
+| `ParseCtts()` | pts_and_index_conversion.cpp:254-290 | 解析 ctts Composition Time-to-Sample（网络字节序 ntohl） |
+| `ParseStts()` | pts_and_index_conversion.cpp:291-326 | 解析 stts Time-to-Sample（网络字节序 ntohl） |
+| `ParseHdlr()` | pts_and_index_conversion.cpp:327-362 | 解析 hdlr Handler Box（识别 video/audio 轨） |
+| `ParseMdhd()` | pts_and_index_conversion.cpp:363-405 | 解析 mdhd Media Header Box（提取 timeScale） |
+| `InitPTSandIndexConvert()` | pts_and_index_conversion.cpp:406-422 | 初始化转换器，重置所有成员状态 |
+| `GetFirstVideoTrackIndex()` | pts_and_index_conversion.cpp:66-75 | 遍历 trakInfoVec_ 找第一个 TRAK_VIDIO |
+| `GetIndexByRelativePresentationTimeUs()` | pts_and_index_conversion.cpp:429-465 | RelativePTS → Index 主入口 |
+| `GetRelativePresentationTimeUsByIndex()` | pts_and_index_conversion.cpp:460-486 | Index → RelativePTS 主入口 |
+| `GetPresentationTimeUsFromFfmpegMOV()` | pts_and_index_conversion.cpp:576-588 | 驱动转换的主函数（三模式分发） |
+| `PTSAndIndexConvertSwitchProcess()` | pts_and_index_conversion.cpp:589-604 | 模式分发器（GET_FIRST_PTS 记录 absolutePTSIndexZero_） |
+| `IndexToRelativePTSProcess()` | pts_and_index_conversion.cpp:608-620 | Index → RelativePTS 堆排序逆查 |
+| `RelativePTSToIndexProcess()` | pts_and_index_conversion.cpp:621-640 | RelativePTS → Index 二分搜索 |
 
 ## 架构定位
 
@@ -104,7 +115,7 @@ MP4/MOV 文件（FileSourcePlugin）
 
 ### 1. MP4 Box 层级解析模型
 
-MP4 文件结构（部分）：
+MP4 文件结构：
 
 ```
 ftyp (File Type Box)
@@ -119,8 +130,9 @@ moov (Movie Box)
                                     └── hdlr (Handler Reference)
 ```
 
-**Box 解析器分发表**：
+**Box 解析器分发表**（函数指针路由）：
 ```cpp
+// pts_and_index_conversion.h:103-112
 std::map<std::string, void(TimeAndIndexConversion::*)(uint32_t)> boxParsers = {
     {BOX_TYPE_STTS, &TimeAndIndexConversion::ParseStts},
     {BOX_TYPE_CTTS, &TimeAndIndexConversion::ParseCtts},
@@ -137,70 +149,88 @@ std::map<std::string, void(TimeAndIndexConversion::*)(uint32_t)> boxParsers = {
 STTS 表将连续相同帧间隔的帧合并为条目：
 
 ```cpp
+// pts_and_index_conversion.h:76-80
 struct STTSEntry {
     uint32_t sampleCount;   // 该组有多少帧
-    uint32_t sampleDelta;    // 每帧的时间增量（× timeScale）
+    uint32_t sampleDelta;   // 每帧的时间增量（× timeScale）
 };
 ```
 
-**例子**：`[(4, 1000), (2, 2000)]` 表示前 4 帧每帧间隔 1000us，后 2 帧每帧间隔 2000us，总共 6 帧。
+**例子**：`[(4, 1000), (2, 2000)]` 表示前 4 帧每帧间隔 1000us，后 2 帧每帧间隔 2000us。
 
 ### 3. CTTS 组合时间偏移表
 
-CTTS 表记录解码时间（PTS）和组合时间（CTS）之间的偏移：
+CTTS 表记录解码时间（PTS）和显示时间（CTS）之间的偏移（B/P 帧重排序）：
 
 ```cpp
+// pts_and_index_conversion.h:82-86
 struct CTTSEntry {
     uint32_t sampleCount;   // 连续相同偏移的帧数
-    int32_t sampleOffset;   // CTS - DTS 偏移量
+    int32_t sampleOffset;   // CTS - DTS 偏移量（可负值，B帧）
 };
 ```
-
-**用途**：解决 B/P 帧重排序问题。当视频有 B 帧时，解码顺序和显示顺序不同，CTTS 记录偏移。
 
 ### 4. PTS/Index 双向转换算法
 
 **Index → RelativePTS（IndexToRelativePTSProcess）**：
-- 从 STTS 累计帧数，找到目标 index 所在的 sttsEntry
-- 用 `indexToRelativePTSMaxHeap_` 维护已转换 PTS 的最大堆
-- 当堆顶 PTS ≥ 查询 PTS 时，二分查找精确匹配
+```cpp
+// pts_and_index_conversion.cpp:608-620
+void TimeAndIndexConversion::IndexToRelativePTSProcess(int64_t pts, uint32_t index)
+{
+    // 从 STTS 累计帧数找到目标 index 所在 sttsEntry
+    // 用 indexToRelativePTSMaxHeap_ 维护已转换 PTS 的最大堆
+    // 堆顶 PTS ≥ 查询 PTS 时，二分查找精确匹配
+}
+```
 
 **RelativePTS → Index（RelativePTSToIndexProcess）**：
-- 从首帧 PTS 开始逐 entry 累加：`cumulativePTS += sampleCount × sampleDelta`
-- 当 `cumulativePTS > queryPTS` 时，找到目标帧
-- 用 `relativePTSToIndexPosition_` 游标避免重复扫描
-
-### 5. absolutePTSIndexZero_ 首帧 PTS 基准
-
 ```cpp
-int64_t absolutePTSIndexZero_ = INT64_MAX;
+// pts_and_index_conversion.cpp:621-640
+void TimeAndIndexConversion::RelativePTSToIndexProcess(int64_t pts, int64_t absolutePTS)
+{
+    // 从首帧 PTS 开始逐 entry 累加: cumulativePTS += sampleCount × sampleDelta
+    // 用 relativePTSToIndexLeftDiff_/RightDiff_ 二分搜索精确匹配
+}
 ```
 
-用于将相对 PTS 转换为绝对 PTS。首帧解析时记录其 PTS，后续 RelativePTS + absolutePTSIndexZero_ = 绝对 PTS。
-
-### 6. 三模式分发（IndexAndPTSConvertMode）
+### 5. 三模式分发（GetPresentationTimeUsFromFfmpegMOV）
 
 ```cpp
-enum IndexAndPTSConvertMode {
-    GET_FIRST_PTS,              // 获取首帧 PTS
-    INDEX_TO_RELATIVEPTS,        // Index → RelativePTS
-    RELATIVEPTS_TO_INDEX,        // RelativePTS → Index
-};
+// pts_and_index_conversion.cpp:576-588
+Status TimeAndIndexConversion::GetPresentationTimeUsFromFfmpegMOV(
+    IndexAndPTSConvertMode mode, uint32_t trackIndex, int64_t absolutePTS, uint32_t index)
+{
+    return HasCTTS
+        ? PTSAndIndexConvertSttsAndCttsProcess(mode, absolutePTS, index)  // B/P 帧
+        : PTSAndIndexConvertOnlySttsProcess(mode, absolutePTS, index);     // 无 B 帧
+}
 ```
 
-| 模式 | 输入 | 输出 | 典型场景 |
-|------|------|------|---------|
-| GET_FIRST_PTS | - | 首帧 PTS | Seek 到文件开头 |
-| INDEX_TO_RELativEPTS | sample index | 相对 PTS | 已知帧号查 PTS |
-| RELATIVEPTS_TO_INDEX | 相对 PTS | sample index | 已知时间查帧号 |
+### 6. 首帧 PTS 基准（absolutePTSIndexZero_）
+
+```cpp
+// pts_and_index_conversion.cpp:594
+absolutePTSIndexZero_ = pts < absolutePTSIndexZero_ ? pts : absolutePTSIndexZero_;
+```
+
+### 7. MAX_FRAMES 边界保护
+
+```cpp
+// pts_and_index_conversion.cpp:33,424
+const uint32_t PTS_AND_INDEX_CONVERSION_MAX_FRAMES = 36000;
+// pts_and_index_conversion.cpp:424
+FALSE_RETURN_V_MSG_E(frames <= PTS_AND_INDEX_CONVERSION_MAX_FRAMES, false,
+    "Frame count exceeds limit");
+```
 
 ## 关键设计决策
 
 1. **函数指针分发表**（boxParsers）：用 `std::map<string, member_function_pointer>` 替代 if-else，实现灵活的 Box 类型路由
-2. **堆排序查找**（IndexToRelativePTSProcess）：用 `std::priority_queue` 实现高效的相对 PTS → Index 逆查
-3. **双表联合查询**：STTS+CTTS 联合处理支持 B 帧重排序；仅 STTS 处理无 B 帧场景（如 SP/MP4）
+2. **堆排序逆查**（IndexToRelativePTSProcess）：用 `std::priority_queue<int64_t>` 实现高效的相对 PTS 逆查
+3. **双表分支**（HasCTTS 判定）：有 B/P 帧时联合 STTS+CTTS；无 B 帧时仅用 STTS（避免无谓开销）
 4. **INT64_MAX 哨兵值**：`absolutePTSIndexZero_` 初始值用于判断是否已找到首帧 PTS
-5. **timeScale 归一化**：所有 PTS 以 timeScale 为分母归一化到微秒
+5. **网络字节序**（ntohl）：MP4 容器使用大端序，解析时需字节序转换
+6. **timeScale 归一化**：所有 PTS 以 timeScale 为分母归一化到微秒（×1000000 / timeScale）
 
 ## 关联场景
 
@@ -208,9 +238,3 @@ enum IndexAndPTSConvertMode {
 - **码率切换**（BitrateSwitch）：切换码率后需要找到关键帧位置 → IndexToRelativePTSProcess → 确认切换点
 - **首帧渲染**：获取首帧 PTS 作为基准 → GET_FIRST_PTS 模式 → 初始化播放时间轴
 - **ABR 自适应**：相对 PTS 用于计算缓冲时长（对应 S102 WaterLine 机制）
-
-## 内存占用分析
-
-- `trakInfoVec_`：每轨一个 TrakInfo（包含 STTS/CTTS vector）
-- `indexToRelativePTSMaxHeap_`：堆大小受 MAX 帧数限制
-- `sttsEntries` / `cttsEntries`：存储整个轨的 sample 表条目（条目数 << 帧数，因合并）

@@ -712,3 +712,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S107 | VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式 | AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, CodecClient, OH_VideoEncoder | 三方应用接入/新人入项/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-09T09:50），native_video_encoder.cpp(715行)+video_encoder_object.h(92行)+surface_encoder_filter.cpp源码分析，VideoEncoderObject对象模型(OH_AVCodec+videoEncoder_+isInputSurfaceMode_+inputBufferMap_/outputBufferMap_)，CreateByMime/CreateByName四路工厂分发，Surface模式(GetSurface→isInputSurfaceMode_=true→CreateInputSurface)与Buffer模式(PushInputBuffer)互斥，NativeVideoEncoderCallback三重回调继承(AVCodecCallback/MediaCodecCallback/MediaCodecParameterCallback)，ProcessStateCode五状态机(IDLE→RECORDING→PAUSED→STOPPED→ERROR)，Filter层"builtin.recorder.videoencoder"静态注册，与S83/S84/S42/S70/S36/S85关联 |
+
+## 新增主题（Builder 2026-05-09 S108注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S108 | TimeAndIndexConversion 时间戳索引转换器——MP4 STTS/CTTS Box 解析与 PTS/Index 双向转换 | AVCodec, MediaEngine, Demuxer, PTS, Index, MP4, MOV, STTS, CTTS, TimeAndIndexConversion, BitrateSwitch | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S108 | 🚧 草案已生成（2026-05-09T13:35），pts_and_index_conversion.cpp(640行)+pts_and_index_conversion.h(150行)源码行号级证据，boxParsers函数指针7路分发，STTSEntry/CTTSEntry双表结构，ParseMoov/ParseStts/ParseCtts/ParseMdhd递归解析，IndexToRelativePTSProcess堆排序逆查，RelativePTSToIndexProcess二分搜索，MAX_FRAMES=36000保护，absolutePTSIndexZero_首帧基准，与S101/S102/S96关联 |
