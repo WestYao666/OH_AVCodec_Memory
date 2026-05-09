@@ -3,7 +3,7 @@
 ## Status
 
 ```yaml
-status: draft
+status: pending_approval
 created: 2026-05-08T23:20
 builder: builder-agent
 source: https://gitcode.com/openharmony/multimedia_av_codec

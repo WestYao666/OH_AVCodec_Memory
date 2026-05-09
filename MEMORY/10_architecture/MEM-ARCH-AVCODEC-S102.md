@@ -3,7 +3,7 @@
 ## Status
 
 ```yaml
-status: draft
+status: pending_approval
 created: 2026-05-08T23:47
 builder: builder-agent
 source: /home/west/av_codec_repo/services/media_engine/modules/demuxer/sample_queue_controller.{h,cpp}
