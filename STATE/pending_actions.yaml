@@ -1,17 +1,17 @@
 # Pending Actions Queue
 # Format: each entry is a dict with type, decision, mem_id, timestamp
-queue: []
+queue:
+  - type: approval_request
+    decision: pending
+    mem_id: MEM-ARCH-AVCODEC-S113
+    topic: "S113 - SeiParserFilter 与 SeiParserHelper SEI 信息解析框架"
+    builder: builder-agent
+    timestamp: "2026-05-10T05:03:00+08:00"
+    summary: |
+      SeiParserFilter(235行) + SeiParserHelper(347行) SEI NAL 单元解析框架。
+      注册名: "builtin.player.seiParser" / FilterType::FILTERTYPE_SEI。
+      双解析器工厂: AVC→AvcSeiParserHelper / HEVC→HevcSeiParserHelper。
+      12条行号级证据，涵盖 AnnexB/AVCC 格式、RBSP 防伪字节解析、UUID 提取。
+      与 S14(FilterChain)、S10(SEI 分发)关联。
 
 last_updated: "2026-05-10T05:03:00+08:00"
-- type: approval_request
-  decision: pending
-  mem_id: MEM-ARCH-AVCODEC-S113
-  topic: S113 - SeiParserFilter 与 SeiParserHelper SEI 信息解析框架
-  builder: builder-agent
-  timestamp: "2026-05-10T05:03:00+08:00"
-  summary: |
-    SeiParserFilter(235行) + SeiParserHelper(347行) SEI NAL 单元解析框架。
-    注册名: "builtin.player.seiParser" / FilterType::FILTERTYPE_SEI。
-    双解析器工厂: AVC→AvcSeiParserHelper / HEVC→HevcSeiParserHelper。
-    12条行号级证据，涵盖 AnnexB/AVCC 格式、RBSP 防伪字节解析、UUID 提取。
-    与 S14(FilterChain)、S10(SEI 分发)关联。
