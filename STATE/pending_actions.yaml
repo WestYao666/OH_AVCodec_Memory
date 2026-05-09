@@ -1540,3 +1540,29 @@ pending_approvals:
     关联记忆：S87(MediaSource Filter层)/S37-S38(SourcePlugin体系)/S41(DemuxerFilter)/S69-S75(MediaDemuxer)/S86(HLS Cache)
 
     请审批（approve/revise/reject）
+
+- type: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S107
+  title: VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式
+  scope: AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, OH_VideoEncoder
+  builder: subagent-builder
+  timestamp: '2026-05-09T09:50:00+08:00'
+  summary: |
+    基于 native_video_encoder.cpp(715行)+video_encoder_object.h(92行)+surface_encoder_filter.cpp 源码，
+    分析 VideoEncoderObject 对象模型(OH_AVCodec+videoEncoder_+isInputSurfaceMode_标志+六类buffer队列)，
+    CreateByMime/CreateByName 四路工厂分发重载，Surface模式(GetSurface→isInputSurfaceMode_=true→
+    CreateInputSurface)与Buffer模式(PushInputBuffer)互斥机制，NativeVideoEncoderCallback 三重回调继承
+    (AVCodecCallback/MediaCodecCallback/MediaCodecParameterCallback)，ProcessStateCode 五状态机
+    (IDLE/RECORDING/PAUSED/STOPPED/ERROR)，Filter层"builtin.recorder.videoencoder"静态注册。
+    与S83(CAPI总览)/S84(草案)/S42(引擎)/S70(Factory)/S36(Filter)/S85(Preprocessor)关联。
+
+    核心发现：
+    - VideoEncoderObject 持有 videoEncoder_(shared_ptr<AVCodecVideoEncoder>) + isInputSurfaceMode_ 互斥标志
+    - GetSurface()调用后 isInputSurfaceMode_=true，Surface模式与Buffer模式二选一
+    - NativeVideoEncoderCallback 三重继承回调链：AVCodecCallback + MediaCodecCallback + MediaCodecParameterCallback
+    - ProcessStateCode 五状态：IDLE→RECORDING→PAUSED→STOPPED→ERROR
+    - VideoEncoderFactory 四路重载：无format参数(CAPI层) vs 带format参数(Filter层)
+    - Filter注册名"builtin.recorder.videoencoder"，FILTERTYPE_VENC
+    - PreprocessorEncoder通过magic识别，与Surface模式交叉
+
+    请审批（approve/revise/reject）

@@ -706,3 +706,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S106 | MediaEngine Source 模块流媒体基础设施——Protocol 路由 / Plugin 管理 / HLS+Bitrate 双调度 / Buffering 策略 | AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, Buffering | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **pending_approval** | 🚧 草案已生成（2026-05-09T06:16） |
+
+## 新增主题（Builder 2026-05-09 S107注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S107 | VideoEncoder C API 实现——NativeVideoEncoder 对象模型与 Surface/Buffer 双模式 | AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, CodecClient, OH_VideoEncoder | 三方应用接入/新人入项/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-09T09:50），native_video_encoder.cpp(715行)+video_encoder_object.h(92行)+surface_encoder_filter.cpp源码分析，VideoEncoderObject对象模型(OH_AVCodec+videoEncoder_+isInputSurfaceMode_+inputBufferMap_/outputBufferMap_)，CreateByMime/CreateByName四路工厂分发，Surface模式(GetSurface→isInputSurfaceMode_=true→CreateInputSurface)与Buffer模式(PushInputBuffer)互斥，NativeVideoEncoderCallback三重回调继承(AVCodecCallback/MediaCodecCallback/MediaCodecParameterCallback)，ProcessStateCode五状态机(IDLE→RECORDING→PAUSED→STOPPED→ERROR)，Filter层"builtin.recorder.videoencoder"静态注册，与S83/S84/S42/S70/S36/S85关联 |
