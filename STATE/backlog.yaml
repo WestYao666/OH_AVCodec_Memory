@@ -730,3 +730,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S112 | Pipeline Controller 整体架构——FilterGraph / Port / TaskDispatch 三者联动 | AVCodec, MediaEngine, Filter, FilterGraph, Port, AVBufferQueue, TaskDispatch, TaskThread, LinkNext, OnLinked, Pipeline, MediaSyncManager | 新需求开发/问题定位 | **approved** | MEM-ARCH-AVCODEC-S112 | 🚧 草案已生成（2026-05-09T16:50），FilterGraph:LinkNext单向串联+nextFilter_/nextFiltersMap_多轨拓扑；Port:AVBufferQueueProducer/Consumer端口对+OnLinkedResult握手+MuxerBrokerListener多轨独立端口；TaskDispatch:RenderLoop/ReadLoop/DoProcessInputBuffer三类TaskThread+MediaDemuxer Task统一抽象(SAM_CON/SAM_PRO)；三者联动：Graph建立拓扑→Port绑定端口→Task驱动数据流 |
+
+## 新增主题（Builder 2026-05-10 S113注册——orphan draft补录）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S113 | SeiParserFilter 与 SeiParserHelper SEI信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链 | AVCodec, MediaEngine, Filter, SEI, Parser, AnnexB, AVC, HEVC, Nalu, EventCallback | 三方应用/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-10T05:03），sei_parser_filter.cpp(235行)+sei_parser_helper.cpp(347行)+sei_parser_filter.h(104行)，"builtin.player.seiParser"注册，FilterType::FILTERTYPE_SEI，HELPER_CONSTRUCTOR_MAP工厂(AVC→AvcSeiParserHelper/HEVC→HevcSeiParserHelper)，EVENT_SEI_INFO回调，AVBufferQueue双端，DoProcessInputBuffer+DrainOutputBuffer数据流，与S14(FilterChain)关联 |
