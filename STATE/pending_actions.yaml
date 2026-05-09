@@ -1694,3 +1694,11 @@ timestamp: "2026-05-09T13:35:00+08:00"
 submitter: builder-agent
 note: "TimeAndIndexConversion 行号级草案已增强，pts_and_index_conversion.cpp 640行+150行头文件，含完整函数行号表，boxParsers/STTS/CTTS/双向转换算法，提交审批"
 draft_path: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S108.md"
+---
+type: approval_request
+mem_id: MEM-ARCH-AVCODEC-S112
+decision: pending_approval
+timestamp: "2026-05-09T16:50:00+08:00"
+submitter: builder-agent
+note: "Pipeline Controller 整体架构草案，FilterGraph/Port/TaskDispatch 三者联动，含16处行号级证据"
+draft_path: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S112.md"
