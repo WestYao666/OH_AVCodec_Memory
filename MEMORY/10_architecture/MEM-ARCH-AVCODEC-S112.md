@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S112
 title: "Pipeline Controller 整体架构——FilterGraph / Port / TaskDispatch 三者联动"
 scope: [AVCodec, MediaEngine, Filter, FilterGraph, Port, AVBufferQueue, TaskDispatch, TaskThread, LinkNext, OnLinked, Pipeline, MediaSyncManager, DoProcessInputBuffer]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-05-09T16:50:00+08:00"
 evidence_count: 16
