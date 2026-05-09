@@ -1586,3 +1586,70 @@ pending_approvals:
     关联记忆：S39(VideoDecoder)/S93(StreamParserManager)/S42(VideoEncoder)/S81(AVCodecSuspend)
 
     请审批（approve/revise/reject）
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S108
+  submitted_at: '2026-05-09T12:48:00+08:00'
+  submitted_by: builder-agent
+  commit: 55eb6de
+  message: |
+    Builder 报告：S108 草案已完成
+
+    主题：TimeAndIndexConversion 时间戳索引转换器——MP4 STTS/CTTS Box 解析与 PTS/Index 双向转换
+
+    证据来源：pts_and_index_conversion.cpp(640行) / pts_and_index_conversion.h(150行)
+    源码行号已验证：StartParse:94 / ParseMoov:178 / ParseTrak:210 / ParseCtts:254 / ParseStts:291 / ParseHdlr:327 / ParseMdhd:363
+
+    核心发现：
+    - STTSEntry { sampleCount, sampleDelta } 时间戳映射表 + CTTSEntry { sampleCount, sampleOffset } B帧重排序
+    - Index→RelativePTS（堆排序） / RelativePTS→Index（二分搜索）双向转换
+    - absolutePTSIndexZero_ 首帧 PTS 哨兵值（INT64_MAX）
+    - IndexAndPTSConvertMode 三模式：GET_FIRST_PTS / INDEX_TO_RELATIVEPTS / RELATIVEPTS_TO_INDEX
+    - boxParsers 函数指针分发表（std::map<string, member_func_ptr>）
+    - 与 S101(StreamDemuxer)/S102(SampleQueueController)/S97(DemuxerPluginManager)/S69(MediaDemuxer) 关联
+
+    请审批（approve/revise/reject）
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S109
+  submitted_at: '2026-05-09T12:48:00+08:00'
+  submitted_by: builder-agent
+  commit: 4b6e6ba
+  message: |
+    Builder 报告：S109 草案已完成
+
+    主题：MediaMuxer 媒体封装器——四态机 + Track AVBufferQueue + PTS 时序多路复用写
+
+    证据来源：media_muxer.cpp(571行) / media_muxer.h(106行)
+    源码行号已验证：Start():274 / ThreadProcessor:365 / OnBufferAvailable:402 / Track::OnBufferAvailable:446 / CanAddTrack:478
+
+    核心发现：
+    - 四态机 UNINITIALIZED→INITIALIZED→STARTED→STOPPED（std::atomic<State>）
+    - Track 分轨缓冲：AVBufferQueue + Producer/Cosumer pair，GetInputBufferQueue 暴露 producer_ 给上游
+    - ThreadProcessor PTS 最小优先排序写入算法（line 365-394）
+    - MuxerPlugin 插件化：OutputFormat → Mpeg4MuxerPlugin/TsMuxerPlugin/MkvMuxerPlugin
+    - 与 S101(StreamDemuxer)/S106(Source)/S34(MuxerFilter) 互补（封装 vs 解封）
+
+    请审批（approve/revise/reject）
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S110
+  submitted_at: '2026-05-09T12:48:00+08:00'
+  submitted_by: builder-agent
+  commit: f22790f
+  message: |
+    Builder 报告：S110 草案已完成
+
+    主题：MediaSyncManager 时钟同步管理器——IMediaSyncCenter 时钟锚点与音视频同步机制
+
+    证据来源：media_sync_manager.cpp(491行) / i_media_sync_center.h(121行)
+    源码行号已验证：ReportPrerolled:412 / ReportEos:460 / GetAnchoredClockTime:392 / IsPlayRateValid:376
+
+    核心发现：
+    - 时钟锚点机制：mediaTime ↔ clockTime 映射（UpdateTimeAnchor / GetMediaTimeNow / GetAnchoredClockTime）
+    - IMediaSynchronizer 优先级体系：VIDEO_SINK(0) / AUDIO_SINK(2) / SUBTITLE_SINK(8)（音频为主时钟）
+    - Preroll 协调机制：WaitAllPrerolled 阻塞直到所有 Sink 报告 prerolled
+    - 播放控制：Pause/Seek/SetPlaybackRate(0.5x-4x) / firstMediaTimeAfterSeek_
+    - 与 S102(SampleQueueController)/S100(PostProcessor)/S109(MediaMuxer)/S41(DemuxerFilter) 关联
+
+    请审批（approve/revise/reject）
