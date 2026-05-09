@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S106
 title: "MediaEngine Source 模块流媒体基础设施——Protocol 路由 / Plugin 管理 / HLS+Bitrate 双调度 / Buffering 策略"
 tags: [AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, Buffering]
 scope: "新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率"
-status: pending_approval
+status: approved
 created: "2026-05-09T23:49"
 source-ref: https://gitcode.com/openharmony/multimedia_av_codec
 evidence-tags: [Source, HLS, Protocol, AdaptiveBitrate, M3U8, SegmentManager]
