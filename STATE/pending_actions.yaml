@@ -1632,6 +1632,39 @@ pending_approvals:
 
     请审批（approve/revise/reject）
 - type: approval_request
+
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S111
+  submitted_at: '2026-05-09T16:35:00+08:00'
+  submitted_by: builder-agent
+  commit: ca5aa0c
+  title: "Demuxer共享解析工具链——BlockQueue/BlockQueuePool/ReferenceParser/MultiStreamParserManager 四组件"
+  message: |
+    Builder 报告：S111 草案已完成
+
+    主题：Demuxer 共享解析工具链——BlockQueue/BlockQueuePool/ReferenceParser/MultiStreamParserManager 四组件
+
+    证据来源：services/media_engine/plugins/demuxer/common/
+      block_queue.h(191行) / block_queue_pool.h(552行) /
+      reference_parser.h(77行) / reference_parser_manager.cpp(138行) /
+      multi_stream_parser_manager.h/cpp(100+293行) /
+      time_range_manager.h/cpp(74+77行) /
+      converter.cpp(595行) / demuxer_data_reader.cpp(162行)
+
+    核心发现：
+    - BlockQueue 模板化有界阻塞队列（Push/Pop/Wait 语义，condPush_/condPop_ 双条件变量）
+    - BlockQueuePool 模板特化内存池（FFmpeg SamplePacket / MPEG4 Sample 双容器，500ms 超时）
+    - ReferenceParser dlopen .so 插件接口（RefParser 抽象基类 + extern C 工厂函数）
+    - ReferenceParserManager dlopen 热加载（librefparser_{codecType}.so，CodecType→so 映射）
+    - MultiStreamParserManager 多轨流解析器（IsHdrVivid/IsHdr10Plus 检测，AnnexB↔HVCC 转换）
+    - TimeRangeManager Seek 范围管理（MAX_INDEX_CACHE_SIZE=70KB，std::set<TimeRange> 自动去重）
+    - Converter AVCC↔AnnexB 双向转换（4字节长度前缀 ↔ start code）
+
+    关联记忆：S97(DemuxerPluginManager)/S69-S75(MediaDemuxer)/S68-S76(FFmpegDemuxerPlugin)/S79(MPEG4DemuxerPlugin)/S90(DemuxerDataReader+AvcParserImpl+DemuxerBitReader)
+
+    请审批（approve/revise/reject）
+
   status: pending_approval
   mem_id: MEM-ARCH-AVCODEC-S110
   submitted_at: '2026-05-09T12:48:00+08:00'
