@@ -14,7 +14,6 @@ created_at: "2026-05-09T16:35:00+08:00"
 ## Status
 
 ```yaml
-status: draft
 created: 2026-05-09T16:35
 builder: builder-agent
 source: |

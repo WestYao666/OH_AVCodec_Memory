@@ -1,4 +1,5 @@
-- type: approval_response
-  decision: approve
-  mem_id: all
-  timestamp: "2026-05-09T20:48:00+08:00"
+# Pending Actions Queue
+# Format: each entry is a dict with type, decision, mem_id, timestamp
+queue: []
+
+last_updated: "2026-05-09T21:02:00+08:00"

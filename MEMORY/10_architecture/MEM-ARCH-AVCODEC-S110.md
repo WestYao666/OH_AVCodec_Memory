@@ -14,7 +14,6 @@ created_at: "2026-05-09T12:55:00+08:00"
 ## Status
 
 ```yaml
-status: draft
 created: 2026-05-09T12:55
 builder: builder-agent
 source: /home/west/av_codec_repo/services/media_engine/modules/sink/media_sync_manager.cpp (491行)
