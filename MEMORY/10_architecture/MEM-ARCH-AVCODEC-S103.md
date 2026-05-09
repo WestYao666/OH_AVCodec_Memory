@@ -2,7 +2,10 @@
 id: MEM-ARCH-AVCODEC-S103
 title: "AV1 Decoder 架构——dav1d 解码器集成与 Av1DecoderLoader 动态加载"
 scope: [AVCodec, VideoDecoder, AV1, dav1d, Av1DecoderLoader, dlopen, HDR_VIVID, VideoCodecLoader]
-status: draft
+status: pending_approval
+approved_at: ~pending~
+approved_by: ~pending~
+approval_submitted_at: "2026-05-09T11:48:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-09T02:50:00+08:00"
 evidence_sources:

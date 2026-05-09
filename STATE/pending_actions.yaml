@@ -1566,3 +1566,23 @@ pending_approvals:
     - PreprocessorEncoder通过magic识别，与Surface模式交叉
 
     请审批（approve/revise/reject）
+
+- type: approval_request
+  status: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S103
+  title: "AV1 Decoder 架构——dav1d 解码器集成与 Av1DecoderLoader 动态加载"
+  submitted_at: '2026-05-09T11:48:00+08:00'
+  submitted_by: builder-agent
+  timestamp: '2026-05-09T11:48:00+08:00'
+  message: |
+    Builder 接续报告：S103 草案已完成（接续上次 Builder run）
+
+    主题：AV1 Decoder 架构——dav1d 解码器集成与 Av1DecoderLoader 动态加载
+
+    证据来源：av1decoder.cpp(596行) / av1decoder.h(65行) / av1_decoder_loader.cpp(88行)
+
+    核心发现：dav1d send_data/get_picture 双阶段解码流水线；Av1DecoderLoader dlopen(libav1_decoder.z.so)动态加载；最多64实例/1920x1080 HD；8bit/10bit位深+HDR VIVID；DAV1D_AGAIN(-11)返回值处理；dlopen/dlsym热加载模式
+
+    关联记忆：S39(VideoDecoder)/S93(StreamParserManager)/S42(VideoEncoder)/S81(AVCodecSuspend)
+
+    请审批（approve/revise/reject）
