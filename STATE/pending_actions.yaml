@@ -1495,19 +1495,19 @@ pending_approvals:
   draft_path: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S104.md
   description: |
     CodecAdapter 编解码适配层框架：CodecBase(抽象基类40+接口) / AudioCodecAdapter+VideoDecoderAdapter(Filter适配层) / AudioBaseCodec+AVCodecVideoDecoder(引擎实现) 三层桥接，Surface/Buffer双模式互斥，VideoDecoderFactory双路由，插件热插拔ChangePlugin扩展点
-
+    
     证据来源：
     - codecbase.h(31-145): CodecBase 完整接口定义
     - audio_codec_adapter.h/cpp: AudioCodecAdapter 三层调用链(AudioCodecAdapter→AudioBaseCodec→AudioCodecWorker)
     - video_decoder_adapter.h/cpp: VideoDecoderAdapter 双回调桥接(MediaCodecCallback)与VideoDecoderFactory路由
     - surface_encoder_adapter.h: SurfaceEncoderAdapter ProcessStateCode五状态机
-
+    
     核心发现：
     - CodecBase Layer 2抽象40+接口支撑Surface/Buffer双模式
     - AudioCodecAdapter=Layer2+Layer3融合，VideoDecoderAdapter=Layer1适配
     - VideoDecoderFactory CreateByMime/CreateByName 双路由选择硬件/软件解码器
     - ChangePlugin默认返回AVCODEC_ERROR_EXTEND_START（插件热切换扩展点）
-
+    
     关联记忆：S39(VideoDecoder三层架构)/S14(FilterChain)/S70(VideoCodec工厂)/S57(HDecoder硬件解码器)
 
     请审批（approve/revise/reject）
@@ -1530,6 +1530,9 @@ pending_approvals:
     - services/media_engine/plugins/source/data_stream_source_plugin.cpp: DataStreamSourcePlugin
     - services/media_engine/plugins/source/file_fd_source_plugin.cpp: FileFdSourcePlugin 云端预读
 
+    - services/media_engine/plugins/source/http_source/hls/m3u8.cpp (1435行) ← M3U8播放列表解析器（M3U8MediaType三轨分类/UriJoin/EXT-X-DEFINE）
+    - services/media_engine/plugins/source/http_source/hls/hls_media_downloader.cpp (704行) ← HLS分片下载调度（AES-128-CBC解密/IsHlsFmp4判断）
+    - services/media_engine/plugins/source/http_source/hls/hls_segment_manager.cpp (2582行) ← 三轨SegManager（VIDEO/AUDIO/SUBTITLE/BandWidthLimit 3MB）
     核心发现：
     - ProtocolType 五类: HTTP/HTTPS/FILE/STREAM/FD
     - FindPlugin: PluginManagerV2::CreatePluginByMime(SOURCE, protocol_) 路由到具体插件

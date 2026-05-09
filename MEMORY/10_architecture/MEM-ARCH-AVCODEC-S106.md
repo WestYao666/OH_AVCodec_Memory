@@ -1,3 +1,24 @@
+---
+id: MEM-ARCH-AVCODEC-S106
+title: "MediaEngine Source 模块流媒体基础设施——Protocol 路由 / Plugin 管理 / HLS+Bitrate 双调度 / Buffering 策略"
+scope: [AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, Buffering]
+status: pending_approval
+submitted_by: builder-agent
+submitted_at: "2026-05-09T14:48:00+08:00"
+created_by: builder-agent
+created_at: "2026-05-09T06:16:00+08:00"
+evidence_sources:
+  - "services/media_engine/modules/source/source.cpp (715行)"
+  - "services/media_engine/modules/source/source.h (~180行)"
+  - "services/media_engine/plugins/source/file_source_plugin.cpp (~400行)"
+  - "services/media_engine/plugins/source/http_source/http_source_plugin.cpp (~500行)"
+  - "services/media_engine/plugins/source/http_source/hls/m3u8.cpp (1435行)"
+  - "services/media_engine/plugins/source/http_source/hls/hls_media_downloader.cpp (704行)"
+  - "services/media_engine/plugins/source/http_source/hls/hls_segment_manager.cpp (2582行)"
+  - "services/media_engine/plugins/source/data_stream_source_plugin.cpp (~200行)"
+  - "services/media_engine/plugins/source/file_fd_source_plugin.cpp (~300行)"
+---
+
 # MEM-ARCH-AVCODEC-S106: MediaEngine Source 模块流媒体基础设施
 
 ## 主题

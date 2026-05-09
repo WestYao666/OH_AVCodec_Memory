@@ -705,7 +705,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S106 | MediaEngine Source 模块流媒体基础设施——Protocol 路由 / Plugin 管理 / HLS+Bitrate 双调度 / Buffering 策略 | AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, Buffering | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **pending_approval** | 🚧 草案已生成（2026-05-09T06:16） |
+| S106 | MediaEngine Source 模块流媒体基础设施——Protocol 路由 / Plugin 管理 / HLS+Bitrate 双调度 / Buffering 策略 | AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, Buffering | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **pending_approval** | 🚧 草案已生成（2026-05-09T06:16）→pending_approval（2026-05-09T14:48增强行号级evidence），source.cpp(715行)+m3u8.cpp(1435行)+hls_media_downloader.cpp(704行)+hls_segment_manager.cpp(2582行)行号级证据，M3U8MediaType三轨分类/UriJoin/HlsMediaDownloader分片下载/HlsSegmentManager三轨SegManager，与S87/S37-S38/S41/S69-S75/S86关联 |
 
 ## 新增主题（Builder 2026-05-09 S107注册）
 
