@@ -3,7 +3,8 @@
 ## Status
 
 ```
-status: pending_approval
+status: approved
+approved_at: "2026-05-09T21:02:00+08:00"
 builder: subagent-builder
 generated: 2026-05-09T09:50
 scope: AVCodec, Native API, C API, VideoEncoder, SurfaceMode, BufferMode, CodecClient, OH_VideoEncoder

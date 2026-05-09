@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S106
 title: "MediaEngine Source 模块流媒体基础设施——Protocol 路由 / Plugin 管理 / HLS+Bitrate 双调度 / Buffering 策略"
 scope: [AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, Buffering]
-status: pending_approval
+status: approved
+approved_at: "2026-05-09T21:02:00+08:00"
 submitted_by: builder-agent
 submitted_at: "2026-05-09T14:48:00+08:00"
 created_by: builder-agent

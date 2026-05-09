@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S97
 title: "DemuxerPluginManager 轨道路由管理器——StreamID/TrackID/InnerTrackIndex 三层映射表与 Seek/Reboot 策略"
 scope: [AVCodec, MediaEngine, Demuxer, DemuxerPluginManager, Track, StreamDemuxer, Seek, SnifferMediaType, TrackType, RebootPlugin, StreamInfo]
-status: pending_approval
+status: approved
+approved_at: "2026-05-09T21:02:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-08T02:45:00+08:00"
 evidence_sources:

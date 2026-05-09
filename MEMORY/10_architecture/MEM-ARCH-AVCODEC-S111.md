@@ -2,8 +2,8 @@
 id: MEM-ARCH-AVCODEC-S111
 title: "Demuxer 共享解析工具链——BlockQueue/BlockQueuePool/ReferenceParser/MultiStreamParserManager 四组件"
 scope: [AVCodec, MediaEngine, Demuxer, BlockQueue, BlockQueuePool, ReferenceParser, MultiStreamParserManager, TimeRangeManager, Converter, EBSP, RBSP, dlopen]
-status: pending_approval
-approved_at: ~pending~
+status: approved
+approved_at: "2026-05-09T21:02:00+08:00"
 approved_by: ~pending~
 approval_submitted_at: ~pending~
 created_by: builder-agent

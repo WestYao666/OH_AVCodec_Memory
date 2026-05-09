@@ -3,7 +3,8 @@
 ## Status
 
 ```yaml
-status: pending_approval
+status: approved
+approved_at: "2026-05-09T21:02:00+08:00"
 created: 2026-05-08T22:25
 builder: builder-agent
 source: /home/west/av_codec_repo/services/media_engine/modules/post_processor/
