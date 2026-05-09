@@ -2,10 +2,10 @@
 id: MEM-ARCH-AVCODEC-S110
 title: "MediaSyncManager 时钟同步管理器——IMediaSyncCenter 时钟锚点与音视频同步机制"
 scope: [AVCodec, MediaEngine, Sink, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, TimeAnchor, ClockSync, PlaybackControl]
-status: draft
+status: pending_approval
 approved_at: ~pending~
 approved_by: ~pending~
-approval_submitted_at: ~pending~
+approval_submitted_at: "2026-05-09T12:48:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-09T12:55:00+08:00"
 关联主题: [S100(PostProcessor), S109(MediaMuxer), S102(SampleQueueController), S41(DemuxerFilter)]

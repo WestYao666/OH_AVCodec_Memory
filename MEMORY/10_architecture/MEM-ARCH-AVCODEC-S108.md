@@ -2,10 +2,10 @@
 id: MEM-ARCH-AVCODEC-S108
 title: "TimeAndIndexConversion 时间戳索引转换器——MP4 STTS/CTTS Box 解析与 PTS/Index 双向转换"
 scope: [AVCodec, MediaEngine, Demuxer, PTS, Index, MP4, MOV, STTS, CTTS, TimeAndIndexConversion, BitrateSwitch]
-status: draft
+status: pending_approval
 approved_at: ~pending~
 approved_by: ~pending~
-approval_submitted_at: ~pending~
+approval_submitted_at: "2026-05-09T12:48:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-09T12:30:00+08:00"
 关联主题: [S101(StreamDemuxer), S102(SampleQueueController), S97(DemuxerPluginManager), S69(MediaDemuxer)]

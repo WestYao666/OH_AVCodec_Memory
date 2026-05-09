@@ -2,10 +2,10 @@
 id: MEM-ARCH-AVCODEC-S109
 title: "MediaMuxer 媒体封装器——四态机 + Track AVBufferQueue + PTS 时序多路复用写"
 scope: [AVCodec, MediaEngine, Muxer, MediaMuxer, MuxerPlugin, AVBufferQueue, Track, OutputFormat, WriteSample, AddTrack]
-status: draft
+status: pending_approval
 approved_at: ~pending~
 approved_by: ~pending~
-approval_submitted_at: ~pending~
+approval_submitted_at: "2026-05-09T12:48:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-09T12:40:00+08:00"
 关联主题: [S101(StreamDemuxer), S106(Source), S34(MuxerFilter)]
