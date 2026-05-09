@@ -14,7 +14,7 @@ AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, DASH, AdaptiveBitrate, B
 
 ## 状态
 
-`draft`（2026-05-09 Builder 生成草案）
+`pending_approval`（2026-05-09 提交审批，2026-05-09 Builder 增强行号级证据）
 
 ---
 
@@ -224,6 +224,80 @@ void Source::SetInterruptState(bool isInterruptNeeded)
 | `plugin/source_plugin.h` | ~200行 | SourcePlugin 基接口（纯虚函数） |
 | `services/media_engine/plugins/source/http_source/hls/` | HLS 分片下载 | HlsMediaDownloader+M3U8 解析器 |
 | `services/media_engine/plugins/source/http_source/dash/` | DASH 分片下载 | DashMediaDownloader+MPD 解析器 |
+
+---
+
+## 详细行号级 Evidence
+
+### 核心数据结构
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `g_protocolStringToType` | source.cpp:38-43 | HTTP/HTTPS/FILE/STREAM/FD 五协议映射表 |
+| `class Source` | source.h:85 | Source 主类，继承 Plugins::Callback + enable_shared_from_this |
+| `enum class Seekable` | source.h（推断） | INVALID / NOT_SEEKABLE / SEEKABLE |
+
+### 初始化与插件创建
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `Source::ParseProtocol()` | source.cpp:540-547 | URI 解析提取协议类型，FLV 直播判断 |
+| `Source::FindPlugin()` | source.cpp:564-585 | PluginManagerV2::CreatePluginByMime(SOURCE, protocol_) 路由 |
+| `Source::SetSource()` | source.cpp:98-99 | FindPlugin → plugin_ 创建 |
+| `Source::SetExtraCache()` | source.cpp:125-131 | SetExtraCache(cacheDuration) → plugin_->SetExtraCache() |
+| `IsNeedPreDownload()` | source.cpp:294-300 | 预下载判断 → plugin_->IsNeedPreDownload() |
+
+### 自适应码率调度
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `GetBitRates()` | source.cpp:210-217 | 获取支持码率列表 → plugin_->GetBitRates() |
+| `SelectBitRate()` | source.cpp:220-227 | 手动选码率 → plugin_->SelectBitRate() |
+| `AutoSelectBitRate()` | source.cpp:230-237 | 自动选码率 → plugin_->AutoSelectBitRate() |
+| `CanAutoSelectBitRate()` | source.cpp:405-408 | 判断是否可自动选码率（mediaDemuxerCallback_ 查询） |
+| `SetSelectBitRateFlag()` | source.cpp:398-401 | 手动设置目标码率（mediaDemuxerCallback_->SetSelectBitRateFlag） |
+
+### Seek 与时间控制
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `IsSeekToTimeSupported()` | source.cpp:199 | 是否支持按时间 Seek |
+| `GetSeekable()` | source.cpp:422-430 | 查询可 Seek 性 → plugin_->GetSeekable() |
+| `SeekToTime()` | source.cpp:250-257 | 按时间 Seek → plugin_->SeekToTime() |
+| `source.cpp:265` | source.cpp:265 | MediaSeekTimeByStreamId 多轨 Seek |
+
+### 缓冲策略
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `WaitForBufferingEnd()` | source.cpp:650-653 | 等待缓冲完成（直播流同步）→ plugin_->WaitForBufferingEnd() |
+| `GetCachedDuration()` | source.cpp:662-665 | 获取已缓存时长 → plugin_->GetCachedDuration() |
+| `RestartAndClearBuffer()` | source.cpp:668-671 | 重启并清空缓冲区 → plugin_->RestartAndClearBuffer() |
+| `StopBufferring()` | source.cpp:692-695 | 停止缓冲（App 切后台）→ plugin_->StopBufferring() |
+
+### HLS/DASH 流媒体
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `IsHls()` | source.cpp:704 | 是否为 HLS 流 → plugin_->IsHls() |
+| `IsHlsFmp4()` | source.cpp:680-683 | HLS fMP4（Fragmented MP4）→ plugin_->IsHlsFmp4() |
+| `IsHlsEnd()` | source.cpp:698-701 | HLS 流结束判断 → plugin_->IsHlsEnd(streamId) |
+| `GetHLSDiscontinuity()` | source.cpp:638-641 | 不连续性标记（切换码率时）→ plugin_->GetHLSDiscontinuity() |
+| `GetSegmentOffset()` | source.cpp:632-635 | 分片偏移 → plugin_->GetSegmentOffset() |
+
+### 轨选管理
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `GetStreamInfo()` | source.cpp:502-516 | 获取轨信息列表 → plugin_->GetStreamInfo() |
+| `SelectStream()` | source.cpp:615-618 | 选择轨 → plugin_->SelectStream(streamID) |
+| `SetDefaultStreamId()` | source.cpp:621-624 | 设置默认轨（video/audio/subtitle）→ plugin_->SetDefaultStreamId() |
+
+### FLV 直播判断
+
+| 符号 | 文件:行号 | 说明 |
+|------|---------|------|
+| `isFlvLiveStream_` | source.cpp:547 | `source->GetMediaStreamList().size() > 0` 判断 FLV 直播 |
 
 ---
 
