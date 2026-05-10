@@ -736,3 +736,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S113 | SeiParserFilter 与 SeiParserHelper SEI信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链 | AVCodec, MediaEngine, Filter, SEI, Parser, AnnexB, AVC, HEVC, Nalu, EventCallback | 三方应用/问题定位 | **in_review** | 🚧 草案已生成（2026-05-10T05:03），sei_parser_filter.cpp(235行)+sei_parser_helper.cpp(347行)+sei_parser_filter.h(104行)，"builtin.player.seiParser"注册，FilterType::FILTERTYPE_SEI，HELPER_CONSTRUCTOR_MAP工厂(AVC→AvcSeiParserHelper/HEVC→HevcSeiParserHelper)，EVENT_SEI_INFO回调，AVBufferQueue双端，DoProcessInputBuffer+DrainOutputBuffer数据流，与S14(FilterChain)关联 |
+
+## 新增主题（Builder 2026-05-10 S114注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S114 | MediaCodec 核心引擎架构——CodecState 十二态机与 Plugins::CodecPlugin 驱动机制 | AVCodec, MediaCodec, CodecState, StateMachine, CodecPlugin, Plugins::CodecPlugin, Lifecycle, BufferQueue, Surface | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-10T09:33），media_codec.h(1266行)CodecState十二态枚举/关键成员，media_codec.cpp(1266行)状态转换逻辑/插件调用/Buffer管理，UNINITIALIZED→INITIALIZING→INITIALIZED→CONFIGURED→PREPARED→STARTING→RUNNING→FLUSHED/FLUSHING→STOPPING→INITIALIZED，std::atomic线程安全，codecPlugin_插件代理，inputBufferQueue_输入队列，drmDecryptor_ DRM解密器，与S83(CAPI)/S92(MediaCodec Filter封装)/S39(S55回调)关联 |

@@ -15,3 +15,19 @@ queue:
       与 S14(FilterChain)、S10(SEI 分发)关联。
 
 last_updated: "2026-05-10T05:03:00+08:00"
+  - type: approval_request
+    decision: pending
+    mem_id: MEM-ARCH-AVCODEC-S114
+    topic: "S114 - MediaCodec 核心引擎架构——CodecState 十二态机与 Plugins::CodecPlugin 驱动机制"
+    builder: builder-agent
+    timestamp: "2026-05-10T09:33:00+08:00"
+    summary: |
+      MediaCodec 核心引擎（media_codec.cpp:1266行）CodecState 十二态机详解。
+      6稳定态(UNINITIALIZED/INITIALIZED/CONFIGURED/PREPARED/RUNNING/FLUSHED/END_OF_STREAM)
+      + 6过渡态(INITIALIZING/STARTING/STOPPING/FLUSHING/RESUMING/RELEASING)。
+      std::atomic<CodecState> 线程安全（media_codec.h:218）。
+      关键成员: codecPlugin_(line:196) / inputBufferQueue_(line:197) / drmDecryptor_(line:219)。
+      生命周期七步曲(Init/Configure/Prepare/Start/Stop/Flush/Release)状态转换证据。
+      与 S83(CAPI总览)/S92(Filter封装)/S39(S55回调链路)关联。
+
+last_updated: "2026-05-10T09:33:00+08:00"
