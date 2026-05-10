@@ -44,3 +44,22 @@ last_updated: "2026-05-10T05:03:00+08:00"
       与 S114(MediaCodec引擎)/S109(MediaMuxer)/S83(CAPI总览)关联。
 
 last_updated: "2026-05-10T10:03:00+08:00"
+  - type: approval_request
+    decision: pending
+    mem_id: MEM-ARCH-AVCODEC-S116
+    topic: "S116 - 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动"
+    builder: builder-agent
+    timestamp: "2026-05-10T23:10:00+08:00"
+    summary: |
+      三路 Sink 引擎协作架构源码增强版（video_sink.cpp:462行 / audio_sink.cpp:1793行 / subtitle_sink.cpp:517行）。
+      14条行号级证据：
+      VIDEO_SINK_START_FRAME=4 前4帧跳过同步检查；
+      LAG_LIMIT_TIME=100ms 卡顿检测阈值；
+      VideoLagDetector 内嵌类 CalcLag 追踪卡顿；
+      三路优先级 VIDEO_SINK(0)/AUDIO_SINK(2)/SUBTITLE_SINK(8)；
+      DoSyncWrite 三元组算法 CalcBufferDiff+CheckBufferLatenessMayWait；
+      syncCenter->SetLastVideoBufferPts PTS回写；
+      AudioSink OnWriteData 回调含 AudioVivid 特殊路径。
+      与 S56/S73/S22/S31/S32/S49 关联。
+
+last_updated: "2026-05-10T23:10:00+08:00"
