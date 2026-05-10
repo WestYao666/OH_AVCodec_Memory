@@ -2,9 +2,9 @@
 id: MEM-ARCH-AVCODEC-S119
 title: AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid延迟补偿 + SubtitleSink三状态渲染环
 scope: [AVCodec, MediaEngine, Sink, AudioSampleFormat, CalcMaxAmplitude, AudioVivid, SubtitleSink, RenderLoop, AudioSink, MediaSync, FIX_DELAY_MS_AUDIO_VIVID, 80ms, AudioSampleFormatToBitDepth, UpdateMaxAmplitude, SAMPLE_S24, PCM, SubtitleBufferState, WAIT, SHOW, DROP, RemoveTextTags, NotifyRender, SUBTITLE_LOOP, SUBTITME_LOOP_RUNNING, Tag::SUBTITLE_TEXT, Tag::SUBTITLE_PTS, Tag::SUBTITLE_DURATION]
-status: draft
+status: pending_approval
 created_at: "2026-05-11T07:10:00+08:00"
-submitted_at: null
+submitted_at: "2026-05-11T07:18:00+08:00"
 evidence_count: 22
 source_repo: /home/west/av_codec_repo
 关联主题: [S31(AudioSinkFilter), S32(VideoRenderFilter), S49(SubtitleSink), S56(VideoSink同步器), S61(AudioRendering), S73(三路Sink总览), S78(AudioServerSinkPlugin)]
