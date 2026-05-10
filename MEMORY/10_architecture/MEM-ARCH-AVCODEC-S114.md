@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S114
 title: "MediaCodec 核心引擎架构——CodecState 十二态机与 Plugins::CodecPlugin 驱动机制"
 scope: [AVCodec, MediaCodec, CodecState, StateMachine, CodecPlugin, Plugins::CodecPlugin, Lifecycle, BufferQueue, Surface]
-status: pending_approval
+status: approved
+approved_at: "2026-05-11T00:47:00+08:00"
 approval_submitted_at: "2026-05-10T09:33:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-10T09:33:00+08:00"

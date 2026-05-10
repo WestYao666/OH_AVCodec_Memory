@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S113
 title: SeiParserFilter 与 SeiParserHelper SEI 信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链
 scope: [AVCodec, MediaEngine, Filter, SEI, Parser, AnnexB, AVC, HEVC, Nalu, AnyncMode, EventCallback]
-status: pending_approval
+status: approved
+approved_at: "2026-05-11T00:47:00+08:00"
 submitted_at: "2026-05-10T05:48:00+08:00"
 created_at: "2026-05-10T04:32:00+08:00"
 evidence_count: 12
