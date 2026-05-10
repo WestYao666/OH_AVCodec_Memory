@@ -30,4 +30,17 @@ last_updated: "2026-05-10T05:03:00+08:00"
       生命周期七步曲(Init/Configure/Prepare/Start/Stop/Flush/Release)状态转换证据。
       与 S83(CAPI总览)/S92(Filter封装)/S39(S55回调链路)关联。
 
-last_updated: "2026-05-10T09:33:00+08:00"
+  - type: approval_request
+    decision: pending
+    mem_id: MEM-ARCH-AVCODEC-S115
+    topic: "S115 - AVCodec DFX 模块——HiSysEvent / HiTrace / XCollie / Dump 四工具链"
+    builder: builder-agent
+    timestamp: "2026-05-10T10:03:00+08:00"
+    summary: |
+      AVCodec DFX 模块（services/dfx/）五组件详解：
+      AVCodecDfxComponent(LogTag管理)/AVCodecSysEvent(HiSysEvent三类)/AVCodecTrace(HiTrace链
+      路)/AVCodecXCollie(看门狗)/AVCodecDumpControler(Dump聚合)。
+      7条行号级证据，涵盖 FaultType 枚举、CodecDfxInfo 结构体、XCollie INDEX=0x01'00'00'00。
+      与 S114(MediaCodec引擎)/S109(MediaMuxer)/S83(CAPI总览)关联。
+
+last_updated: "2026-05-10T10:03:00+08:00"
