@@ -16,3 +16,9 @@
   status: pending_approval
   submitted_at: '2026-05-11T02:50:00+08:00'
   submitter: builder
+- mem_id: MEM-ARCH-AVCODEC-S119
+  topic: AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid固定80ms延迟 + SubtitleSink三状态渲染环
+  status: pending_approval
+  submitted_at: '2026-05-11T07:15:00+08:00'
+  submitter: builder
+  type: approval_request
