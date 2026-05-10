@@ -742,3 +742,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S114 | MediaCodec 核心引擎架构——CodecState 十二态机与 Plugins::CodecPlugin 驱动机制 | AVCodec, MediaCodec, CodecState, StateMachine, CodecPlugin, Plugins::CodecPlugin, Lifecycle, BufferQueue, Surface | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-10T09:33），media_codec.h(1266行)CodecState十二态枚举/关键成员，media_codec.cpp(1266行)状态转换逻辑/插件调用/Buffer管理，UNINITIALIZED→INITIALIZING→INITIALIZED→CONFIGURED→PREPARED→STARTING→RUNNING→FLUSHED/FLUSHING→STOPPING→INITIALIZED，std::atomic线程安全，codecPlugin_插件代理，inputBufferQueue_输入队列，drmDecryptor_ DRM解密器，与S83(CAPI)/S92(MediaCodec Filter封装)/S39(S55回调)关联 |
+
+## 新增主题（Builder 2026-05-10 S115注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S115 | AVCodec DFX 模块——HiSysEvent / HiTrace / XCollie / Dump 四工具链 | AVCodec, DFX, HiSysEvent, HiTrace, XCollie, Dump, Trace, SysEvent, FaultType, CodecDfxInfo, AVCodecTrace, AVCodecDumpControler, AVCodecXCollie, avcodec_dfx_component, avcodec_sysevent, avcodec_dump_utils, avcodec_xcollie | 问题定位/系统运维/性能分析 | **pending_approval** | 🚧 草案已生成（2026-05-10T10:03），services/dfx/七文件行号级证据，AVCodecDfxComponent(LogTag管理)/AVCodecSysEvent(三类HiSysEvent)/AVCodecTrace(HiTrace链路)/AVCodecXCollie(看门狗)/AVCodecDumpControler(Dump聚合)，FaultType枚举/CodecDfxInfo结构体/DUMP_XCOLLIE_INDEX=0x01'00'00'00，与S83(CAPI总览)/S114(MediaCodec核心引擎)/S109(MediaMuxer)关联 |
