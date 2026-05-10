@@ -4,3 +4,9 @@
   submitter: builder
   topic: 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动
   type: approval_request
+- mem_id: MEM-ARCH-AVCODEC-S117
+  status: pending_approval
+  submitted_at: '2026-05-11T02:10:00+08:00'
+  submitter: builder
+  topic: TypeFinder 媒体类型探测与 DemuxerPluginManager 轨道路由——SnifferPlugin 探测与三层映射表
+  type: approval_request
