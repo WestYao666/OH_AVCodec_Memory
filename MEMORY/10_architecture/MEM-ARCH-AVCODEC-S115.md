@@ -3,8 +3,7 @@ id: MEM-ARCH-AVCODEC-S115
 title: "AVCodec DFX 模块——HiSysEvent / HiTrace / XCollie / Dump 四工具链"
 scope: [AVCodec, DFX, HiSysEvent, HiTrace, XCollie, Dump, Trace, SysEvent, FaultType, CodecDfxInfo, AVCodecTrace, AVCodecDumpControler, AVCodecXCollie, avcodec_dfx_component, avcodec_sysevent, avcodec_dump_utils, avcodec_xcollie]
 status: approved
-approved_at: "2026-05-11T00:47:00+08:00"
-approval_submitted_at: "2026-05-10T10:03:00+08:00"
+approved_at: "2026-05-11T08:25:00+08:00"
 created_by: builder-agent
 created_at: "2026-05-10T10:03:00+08:00"
 关联主题: [S83(CAPI总览), S114(MediaCodec核心引擎), S109(MediaMuxer)]
