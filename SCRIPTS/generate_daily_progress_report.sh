@@ -42,7 +42,11 @@ PENDING_APPROVALS=$(python3 -c "
 import yaml
 with open('STATE/pending_actions.yaml') as f:
     data = yaml.safe_load(f)
-pending = [p for p in data.get('pending_approvals', []) if p.get('status') == 'pending_approval']
+# Handle both list and dict formats
+if isinstance(data, list):
+    pending = [p for p in data if isinstance(p, dict) and p.get('status') == 'pending_approval']
+else:
+    pending = [p for p in data.get('pending_approvals', []) if p.get('status') == 'pending_approval']
 print(len(pending))
 " 2>/dev/null || echo "0")
 
@@ -154,7 +158,7 @@ from datetime import datetime
 with open('STATE/pending_actions.yaml') as f:
     data = yaml.safe_load(f)
 
-responses = data.get('approval_responses', [])
+    responses = data if isinstance(data, list) else data.get('approval_responses', [])
 # 获取最近 5 个 approved
 approved = [r for r in responses if r.get('decision') == 'approved']
 approved.sort(key=lambda x: x.get('timestamp', ''), reverse=True)

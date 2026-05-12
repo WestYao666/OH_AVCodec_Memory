@@ -1,40 +1,32 @@
-- mem_id: MEM-ARCH-AVCODEC-S116
+- approved_at: '2026-05-12T10:42:00+08:00'
+  approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
+  mem_id: MEM-ARCH-AVCODEC-S116
   status: approved
   submitted_at: '2026-05-11T01:07:03+08:00'
   submitter: builder
   topic: 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动
   type: approval_request
-  approved_at: '2026-05-12T10:42:00+08:00'
+- approved_at: '2026-05-12T10:42:00+08:00'
   approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-- mem_id: MEM-ARCH-AVCODEC-S117
+  mem_id: MEM-ARCH-AVCODEC-S117
   status: approved
   submitted_at: '2026-05-11T02:10:00+08:00'
   submitter: builder
   topic: TypeFinder 媒体类型探测与 DemuxerPluginManager 轨道路由——SnifferPlugin 探测与三层映射表
   type: approval_request
-  approved_at: '2026-05-12T10:42:00+08:00'
+- approved_at: '2026-05-12T10:42:00+08:00'
   approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-- mem_id: MEM-ARCH-AVCODEC-S118
-  topic: 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动（本地镜像增强版）
+  mem_id: MEM-ARCH-AVCODEC-S118
   status: approved
   submitted_at: '2026-05-11T02:50:00+08:00'
   submitter: builder
+  topic: 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动（本地镜像增强版）
   type: approval_request
-  approved_at: '2026-05-12T10:42:00+08:00'
+- approved_at: '2026-05-12T10:42:00+08:00'
   approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-- mem_id: MEM-ARCH-AVCODEC-S119
-  topic: AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid固定80ms延迟 + SubtitleSink三状态渲染环
+  mem_id: MEM-ARCH-AVCODEC-S119
   status: approved
   submitted_at: '2026-05-11T07:15:00+08:00'
   submitter: builder
-  type: approval_request
-  approved_at: '2026-05-12T10:42:00+08:00'
-  approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-- mem_id: MEM-ARCH-AVCODEC-S119
   topic: AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid固定80ms延迟 + SubtitleSink三状态渲染环
-  status: approved
-  submitted_at: '2026-05-11T07:18:00+08:00'
-  submitter: builder
   type: approval_request
-  approved_at: '2026-05-12T10:42:00+08:00'
-  approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
