@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S119
 title: AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid固定80ms延迟补偿 + SubtitleSink三状态渲染环
 type: architecture
-status: draft
+status: approved
+approved_at: '2026-05-12T10:42:00+08:00'
 author: builder
 created_at: 2026-05-11T08:03:00+08:00
 tags: [openharmony, avcodec, audio, sink, media_engine]

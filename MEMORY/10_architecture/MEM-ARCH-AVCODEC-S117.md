@@ -2,7 +2,8 @@
 id: MEM-ARCH-AVCODEC-S117
 title: TypeFinder 媒体类型探测与 DemuxerPluginManager 轨道路由——SnifferPlugin 探测与三层映射表
 scope: [AVCodec, MediaEngine, Demuxer, TypeFinder, DemuxerPluginManager, Sniff, Plugin, PluginManagerV2, StreamID, TrackID, InnerTrackIndex, DataSource, StreamDemuxer]
-status: pending_approval
+status: approved
+approved_at: '2026-05-12T10:42:00+08:00'
 created_at: "2026-05-11T02:03:00+08:00"
 submitted_at: null
 evidence_count: 12
