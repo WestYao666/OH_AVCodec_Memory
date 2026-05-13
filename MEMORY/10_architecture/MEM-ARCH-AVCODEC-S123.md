@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S123
 title: StreamDemuxer 流式解封装器——分片缓存读取与 PullData 三路分发机制
 scope: [AVCodec, MediaEngine, Demuxer, StreamDemuxer, BaseStreamDemuxer, DemuxerPluginManager, Cache, PullData, ReadRetry, DASH, HLS, AdaptiveBitrate, TrackSwitch, StreamID, TrackID, InnerTrackIndex]
 topic: StreamDemuxer 流式解封装器与 BaseStreamDemuxer 基类的分片缓存读取、PullData 三路分发、ReadRetry 重试逻辑，以及 DemuxerPluginManager 三层映射表。
-status: draft
+status: pending_approval
 submitted_at: "2026-05-14T04:27:00+08:00"
 created_by: builder
 evidence_source: /home/west/av_codec_repo/services/media_engine/modules/demuxer/stream_demuxer.cpp (492行) + base_stream_demuxer.cpp (202行) + demuxer_plugin_manager.cpp (1159行)

@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S113
 title: SeiParserFilter 与 SeiParserHelper SEI 信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链
 scope: [AVCodec, MediaEngine, Filter, SEI, Parser, AnnexB, AVC, HEVC, Nalu, AsyncMode, EventCallback, FlowLimit, IMediaSyncCenter]
 topic: MediaEngine Filter Pipeline 中 SEI（Supplemental Enhancement Information）信息解析的专用 Filter 框架。SeiParserFilter 负责 Filter 层封装（注册、Link、数据流），SeiParserHelper 负责 SEI NAL 单元解析引擎（AVC/HEVC 双格式），SeiParserListener 负责事件上报与流控同步。
-status: draft
+status: pending_approval
 submitted_at: "2026-05-14T03:28:00+08:00"
 created_by: builder
 evidence_source: /home/west/av_codec_repo/services/media_engine/filters/sei_parser_filter.cpp (235行) + sei_parser_helper.cpp (347行) + /home/west/av_codec_repo/interfaces/inner_api/native/sei_parser_filter.h (104行) + sei_parser_helper.h (150行)

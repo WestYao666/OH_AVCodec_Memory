@@ -8,7 +8,7 @@
 | 主题 | AVCodec 错误码与回调体系——三层架构（AVCodecErrorType / AVCodecServiceErrCode / MediaCodecCallback） |
 | 作用域 | AVCodec, ErrorHandling, Callback, CAPI, IPC |
 | 关联场景 | 三方应用接入/问题定位/新人入项 |
-| 状态 | draft |
+| 状态 | ⏳ pending_approval |
 | 创建 | 2026-05-14 |
 | 来源 | S121（Builder 注册） |
 

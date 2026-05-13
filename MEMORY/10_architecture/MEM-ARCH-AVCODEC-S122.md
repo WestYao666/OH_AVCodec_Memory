@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S122: MediaEngine Streaming 基础设施
 
-> **状态**: draft  
+> **状态**: ⏳ pending_approval  
 > **主题**: HttpSourcePlugin 三路下载器路由 / StreamDemuxer 分片缓存 / HLS+DASH 自适应码率调度  
 > **来源**: av_codec_repo (本地镜像)  
 > **与S106互补**: S106聚焦Source.cpp+M3U8解析；本条目聚焦HTTP Source插件路由、协议推断、Streaming分片管理

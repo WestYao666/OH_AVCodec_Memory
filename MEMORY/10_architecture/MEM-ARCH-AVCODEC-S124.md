@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S124: 录音 Pipeline 音频数据源与采集过滤器链——AudioDataSourceFilter / AudioCaptureFilter / AudioEncoderFilter 三联架构
 
-**状态**: draft  
+**状态**: ⏳ pending_approval  
 **主题**: 录音 Pipeline 音频数据源与采集过滤器链——AudioDataSourceFilter / AudioCaptureFilter / AudioEncoderFilter 三联架构  
 **生成时间**: 2026-05-14T04:42  
 **关联主题**: S23(SurfaceEncoderAdapter), S24(AudioEncoderFilter), S31(AudioSinkFilter), S78(MediaSyncManager), S119(AudioSampleFormat)  

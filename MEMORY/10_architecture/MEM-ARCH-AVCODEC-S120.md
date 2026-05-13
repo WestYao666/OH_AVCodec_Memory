@@ -3,7 +3,7 @@
 > **主题**: MediaEngine Source 模块流媒体基础设施——Streaming 协议路由 / Plugin 管理 / HLS 分片下载 / Buffering 策略  
 > **scope**: AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, AdaptiveBitrate, Buffering  
 > **关联场景**: 新需求开发 / 问题定位 / 流媒体播放 / HLS 自适应码率  
-> **状态**: 🚧 draft (Builder 2026-05-13)  
+> **状态**: ⏳ pending_approval (待耀耀审批)  
 > **备注**: 对 S106 的补充，S106 重点在 Source.cpp，M3U8 解析、HLS 下载；S120 聚焦 HTTP Source 插件路由、协议推断、Streaming 分片管理
 
 ---
