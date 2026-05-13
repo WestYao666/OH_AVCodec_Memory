@@ -58,4 +58,10 @@
   submitter: builder
   submitted_at: '2026-05-14T03:28:00+08:00'
   status: pending_approval
-  note: 本地镜像逐行源码增强版（/home/west/av_codec_repo），39条行号级evidence，SeiParserFilter(235行cpp+104行h)Filter层封装+SeiParserHelper(347行cpp+150行h)AVC/HEVC双解析器工厂，HELPER_CONSTRUCTOR_MAP工厂+FlowLimit PTS同步+SeiParserListener事件链，SEI NALU格式+RBSP防伪字节逆转，与S14/S22关联
+  note: 本地镜像逐行源码增强版（/home/west/av_codec_repo），39条行号级evidence，SeiParserFilter(235行cpp+104行h)Filter层封装+SeiParserHelper(347行cpp+150行h)AVC/HEVC双解析器工厂，HELPER_CONSTRUCTOR_MAP工厂+FlowLimit PTS同步+SeiParserListener事件链，SEI NALU格式+RBSP防伪字节逆转，与S14/S22关联- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S123
+  topic: StreamDemuxer 流式解封装器——分片缓存读取与 PullData 三路分发机制
+  submitter: builder
+  submitted_at: '2026-05-14T04:27:00+08:00'
+  status: pending_approval
+  note: 基于本地镜像/home/west/av_codec_repo，stream_demuxer.cpp(492行)+base_stream_demuxer.cpp(202行)+demuxer_plugin_manager.cpp(1159行)，补充S75/S97/S101深度细节，PullData三路分发+ReadRetry+三层映射表

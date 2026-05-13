@@ -791,3 +791,10 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S122 | MediaEngine Streaming 基础设施——HttpSourcePlugin 三路下载器路由 / StreamDemuxer 分片缓存 / HLS+DASH 自适应码率调度 | AVCodec, MediaEngine, Source, Streaming, HttpSourcePlugin, StreamDemuxer, HLS, DASH, AdaptiveBitrate, PullData, DownloadMonitor | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **pending_approval** | MEM-ARCH-AVCODEC-S122 | ✅ 草案已生成（2026-05-14T02:29）→pending_approval（2026-05-14T02:29 Builder提交审批），http_source_plugin.cpp(769行)+stream_demuxer.cpp(492行)+download_monitor.h(148行)+hls_media_downloader.h(90行)行号级evidence，三路下载器工厂(IsDash→DashMediaDownloader/IsSeekToTimeSupported→HlsMediaDownloader/plain http→HttpMediaDownloader)+DownloadMonitor装饰+StreamDemuxer分片缓存(ReadFrameData/ReadHeaderData/PullDataWithCache/ProcInnerDash)+ABR码率调度(SelectBitRate/AutoSelectBitRate)，与S106互补 |
+
+## 新增主题（Builder 2026-05-14 S123注册——本地镜像增强版）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S123 | StreamDemuxer 流式解封装器——分片缓存读取与 PullData 三路分发机制 | AVCodec, MediaEngine, Demuxer, StreamDemuxer, BaseStreamDemuxer, DemuxerPluginManager, Cache, PullData, ReadRetry, DASH, HLS, AdaptiveBitrate | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S123 | 🚧 草案已生成（2026-05-14T04:27）→pending_approval，stream_demuxer.cpp(492行)+base_stream_demuxer.cpp(202行)+demuxer_plugin_manager.cpp(1159行)，PullData三路分发(UNSEEKABLE/SEEKABLE/CallbackReadAt)+ReadRetry(10次×10ms)+DataSourceImpl内类+三层映射表(StreamID→TrackID→InnerTrackIndex)，补充S75/S97/S101深度细节 |
+
