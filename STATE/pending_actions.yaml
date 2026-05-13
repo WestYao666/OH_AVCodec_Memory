@@ -33,14 +33,15 @@
 - submitted_at: '2026-05-13T23:30:00+08:00'
   submitter: builder
   mem_id: MEM-ARCH-AVCODEC-S120
-  topic: MediaEngine Source 模块流媒体基础设施——Streaming 协议路由 / Plugin 管理 / HLS 分片下载 / Buffering 策略
+  topic: MediaEngine Source 模块流媒体基础设施——Streaming 协议路由 / Plugin 管理 / HLS 分片下载 / Buffering
+    策略
   type: approval_request
   status: pending_approval
   note: 对S106补充，S106重点Source.cpp+M3U8解析；S120聚焦HTTP Source插件路由、协议推断、Streaming分片管理，基于本地镜像/home/west/av_codec_repo
-- submitted_at: '2026-05-14T00:44:00+08:00'
-  submitter: builder
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S121
   topic: AVCodec 错误码与回调体系——三层架构（AVCodecErrorType / AVCodecServiceErrCode / MediaCodecCallback）
-  type: approval_request
+  submitter: builder
+  submitted_at: '2026-05-14T01:30:00+08:00'
   status: pending_approval
-  note: avcodec_common.h(306行)三层回调接口+BufferFlag+BufferInfo；avcodec_errors.h(111行)50+错误码，与S55/S83/S92/S114关联
+  note: avcodec_common.h(306行)三层回调接口(AVCodecCallback/MediaCodecCallback/ParameterCallback)+AVCodecBufferFlag(8标志位)+AVCodecBufferInfo；avcodec_errors.h(111行)50+错误码，与S55/S83/S92/S114关联
