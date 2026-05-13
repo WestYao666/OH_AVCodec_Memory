@@ -65,3 +65,10 @@
   submitted_at: '2026-05-14T04:27:00+08:00'
   status: pending_approval
   note: 基于本地镜像/home/west/av_codec_repo，stream_demuxer.cpp(492行)+base_stream_demuxer.cpp(202行)+demuxer_plugin_manager.cpp(1159行)，补充S75/S97/S101深度细节，PullData三路分发+ReadRetry+三层映射表
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S124
+  topic: 录音Pipeline音频数据源与采集过滤器链——AudioDataSourceFilter / AudioCaptureFilter / AudioEncoderFilter 三联架构
+  submitter: builder
+  submitted_at: '2026-05-14T04:42:00+08:00'
+  status: pending_approval
+  note: audio_capture_filter.cpp(790行)AudioCaptureModule实时采集+AUDIO_CAPTURE_MAX_CACHED_FRAMES=256丢帧补偿；audio_data_source_filter.cpp(343行)AudioDataSource外部注入；AutoRegisterFilter("builtin.recorder.audiocapture"/"builtin.recorder.audiodatasource")静态注册，与S23/S24/S31/S119关联
