@@ -785,3 +785,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S121 | AVCodec 错误码与回调体系——三层架构（AVCodecErrorType / AVCodecServiceErrCode / MediaCodecCallback） | AVCodec, ErrorHandling, Callback, CAPI, IPC | 三方应用接入/问题定位/新人入项 | **pending_approval** | 🚧 草案已生成（2026-05-14T01:27）→pending_approval（2026-05-14T01:30 Builder提交审批），avcodec_common.h(306行)三层回调接口(AVCodecCallback/MediaCodecCallback/MediaCodecParameterCallback/MediaCodecParameterWithAttrCallback)+AVCodecBufferFlag(8标志位)+AVCodecBufferInfo；avcodec_errors.h(111行)50+错误码(AVCodecServiceErrCode)，AVCSErrorToOHAVErrCode/StatusToAVCodecServiceErrCode转换函数，与S55(回调链路)/S83(CAPI总览)/S92/S114(MediaCodec核心)关联 |
+
+## 新增主题（Builder 2026-05-14 S122注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S122 | MediaEngine Streaming 基础设施——HttpSourcePlugin 三路下载器路由 / StreamDemuxer 分片缓存 / HLS+DASH 自适应码率调度 | AVCodec, MediaEngine, Source, Streaming, HttpSourcePlugin, StreamDemuxer, HLS, DASH, AdaptiveBitrate, PullData, DownloadMonitor | 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率 | **draft** | MEM-ARCH-AVCODEC-S122 | 🚧 草案已生成（2026-05-14T01:50），http_source_plugin.cpp(769行)+stream_demuxer.cpp(~600行)行号级evidence，三路下载器工厂(HlsMediaDownloader/DashMediaDownloader/HttpMediaDownloader)，PullData三路分发(WithCache/WithoutCache/Retry)，ProcInnerDash DASH分片合并，SelectBitRate/AutoSelectBitRate自适应码率，与S106互补 |
