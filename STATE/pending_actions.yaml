@@ -30,3 +30,10 @@
   submitter: builder
   topic: AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid固定80ms延迟 + SubtitleSink三状态渲染环
   type: approval_request
+- submitted_at: '2026-05-13T23:30:00+08:00'
+  submitter: builder
+  mem_id: MEM-ARCH-AVCODEC-S120
+  topic: MediaEngine Source 模块流媒体基础设施——Streaming 协议路由 / Plugin 管理 / HLS 分片下载 / Buffering 策略
+  type: approval_request
+  status: pending_approval
+  note: 对S106补充，S106重点Source.cpp+M3U8解析；S120聚焦HTTP Source插件路由、协议推断、Streaming分片管理，基于本地镜像/home/west/av_codec_repo

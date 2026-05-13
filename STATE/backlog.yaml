@@ -773,3 +773,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S119 | AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid固定80ms延迟 + SubtitleSink三状态渲染环 | AVCodec, MediaEngine, Sink, AudioSampleFormat, CalcMaxAmplitude, AudioVivid, SubtitleSink, RenderLoop, AudioSink, MediaSync, FIX_DELAY_MS_AUDIO_VIVID, 80ms, AudioSampleFormatToBitDepth, UpdateMaxAmplitude, SAMPLE_S24, PCM, SubtitleBufferState, WAIT, SHOW, DROP, RemoveTextTags, NotifyRender, SUBTITLE_LOOP, SUBTITME_LOOP_RUNNING | 新需求开发/问题定位 | **approved** | 🚧 草案已生成（2026-05-11T07:10）→pending_approval（2026-05-11T07:18 Builder提交审批），audio_sampleformat.cpp(58行)25种格式→位深映射表/calc_max_amplitude.cpp(139行)8/16/24/32bit四函数PCM峰值/ audio_sink.cpp(1793行)FIX_DELAY_MS_AUDIO_VIVID=80ms/AudioVivid写入/subtitle_sink.cpp(517行)RenderLoop独立线程+WAIT/SHOW/DROP三状态+HTML标签剥离，与S31/S61/S49/S78关联 |
+
+## 新增主题（Builder 2026-05-13 S120注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S120 | MediaEngine Source 模块流媒体基础设施——Streaming 协议路由 / Plugin 管理 / HLS 分片下载 / Buffering 策略 | AVCodec, MediaEngine, Source, Streaming, Protocol, HLS, AdaptiveBitrate, Buffering | 新需求开发/问题定位/流媒体播放/HLS自适应码率 | **approved** | 🚧 草案已生成（2026-05-13T23:30），source.cpp(715行)+source.h(184行)行号级evidence，FindPlugin()→PluginManagerV2工厂分发，g_protocolStringToType五协议路由(http/https/file/fd/stream)，HLS_SEEK_READY/DASH_SEEK_READY事件驱动，hls_media_downloader.cpp(704行)分片下载，m3u8.cpp(1435行)M3U8解析，与S106互补，与S75/S37-S38/S41/S87/S86关联 |
