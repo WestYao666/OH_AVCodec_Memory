@@ -52,3 +52,10 @@
   submitted_at: '2026-05-14T02:29:00+08:00'
   status: pending_approval
   note: 对S106补充，S122聚焦HTTP Source插件路由(IsDash/IsSeekToTimeSupported/plain http三路)+DownloadMonitor装饰+StreamDemuxer分片缓存合并+ABR码率调度；基于本地镜像/home/west/av_codec_repo，http_source_plugin.cpp(769行)+stream_demuxer.cpp(492行)+download_monitor.h(148行)
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S113
+  topic: SeiParserFilter 与 SeiParserHelper SEI 信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链（本地镜像逐行源码增强版）
+  submitter: builder
+  submitted_at: '2026-05-14T03:28:00+08:00'
+  status: pending_approval
+  note: 本地镜像逐行源码增强版（/home/west/av_codec_repo），39条行号级evidence，SeiParserFilter(235行cpp+104行h)Filter层封装+SeiParserHelper(347行cpp+150行h)AVC/HEVC双解析器工厂，HELPER_CONSTRUCTOR_MAP工厂+FlowLimit PTS同步+SeiParserListener事件链，SEI NALU格式+RBSP防伪字节逆转，与S14/S22关联
