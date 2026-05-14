@@ -223,20 +223,36 @@ public:
 
 ### 2.5 StateMachine 状态机
 
-**源码**：`state_machine.h:1-46` + `state_machine.cpp`
+**源码**：`state_machine.h:23-29`
 
 ```cpp
-class StateMachine {
-public:
-    enum class State { DISABLED, CONFIGURED, PREPARED, RUNNING };
-    State Get() const;
-    bool Set(State newState);
-    // 状态转换校验：DISABLED→CONFIGURED→PREPARED→RUNNING
+enum class State {
+    DISABLED,
+    CONFIGURED,
+    PREPARED,
+    RUNNING,
+    FLUSHED,
+    STOPPED
 };
 ```
 
-- 四状态：`DISABLED → CONFIGURED → PREPARED → RUNNING`
-- `Set` 方法执行状态转换合法性校验
+- 六状态：`DISABLED → CONFIGURED → PREPARED → RUNNING ↔ FLUSHED`，`STOPPED` 为停止中间态
+- `state_.Get()` 返回当前状态，`state_.Set(State)` 执行状态转换合法性校验
+- PostProcessing 生命周期中，`FLUSHED` 可以回到 `RUNNING`，`STOPPED` 可以回到 `RUNNING` 或 `PREPARED`
+
+### 2.6 PostProcessing 生命周期方法
+
+**源码**：`post_processing.h:106-175`
+
+| 方法 | 触发条件 | 状态转换 |
+|---|---|---|
+| `Configure()` | `Configure(colorSpace)` | → CONFIGURED |
+| `Prepare()` | `PreparePostProcessing()` | CONFIGURED → PREPARED |
+| `Start()` | `StartPostProcessing()` | PREPARED/FLUSHED/STOPPED → RUNNING |
+| `Stop()` | `StopPostProcessing()` | RUNNING/FLUSHED → STOPPED |
+| `Flush()` | `FlushPostProcessing()` | RUNNING → FLUSHED |
+| `Reset()` | `ResetPostProcessing()` | 任意 → DISABLED |
+| `Release()` | `ReleasePostProcessing()` | DISABLED 析构 |
 
 ---
 
@@ -311,17 +327,79 @@ CodecServer::SetOutputSurfaceForPostProcessing(surface)
 
 ---
 
-## 5. 七状态机与 PostProcessing 状态联动
+## 5. CodecServer 七状态机与 PostProcessing 六状态联动
 
-| CodecServer CodecStatus | PostProcessing State | 说明 |
+### 5.1 CodecServer CodecStatus 七状态
+
+**源码**：`codec_server.cpp:47-55`
+
+```cpp
+const std::map<CodecServer::CodecStatus, std::string> CODEC_STATE_MAP = {
+    {UNINITIALIZED, "uninitialized"},
+    {INITIALIZED, "initialized"},
+    {CONFIGURED, "configured"},
+    {RUNNING, "running"},
+    {FLUSHED, "flushed"},
+    {END_OF_STREAM, "EOS"},
+    {ERROR, "error"},
+};
+```
+
+- `ERROR` 状态由 `StatusChanged(ERROR)` 显式设置（codec_server.cpp:228/457）
+- `FLUSHED` 与 `END_OF_STREAM` 是并列的终态（codec_server.cpp:319/429/637/651）
+
+### 5.2 PostProcessing 六状态
+
+**源码**：`state_machine.h:23-29`
+
+```cpp
+enum class State { DISABLED, CONFIGURED, PREPARED, RUNNING, FLUSHED, STOPPED };
+```
+
+- `FLUSHED`：RUNNING 期间 Flush 触发，可回到 RUNNING
+- `STOPPED`：Stop 触发，可回到 RUNNING 或 PREPARED
+- `DISABLED`：Reset/Release 后处于初始态
+
+### 5.3 联合状态映射表
+
+| CodecServer CodecStatus | PostProcessing State | 关键触发点 |
 |---|---|---|
-| UNINITIALIZED | DISABLED | 未创建 |
-| INITIALIZED | DISABLED | PostProcessing 未 Init |
-| CONFIGURED | CONFIGURED | CreatePostProcessing 完成 |
-| RUNNING | PREPARED→RUNNING | StartPostProcessing 完成 |
-| FLUSHED | PREPARED | FlushPostProcessing 触发 |
-| END_OF_STREAM | RUNNING | 数据结束 |
-| ERROR | DISABLED | 出错重置 |
+| `UNINITIALIZED` | `DISABLED` | 构造函数 `status_ = UNINITIALIZED` |
+| `INITIALIZED` | `DISABLED` | `Create()` 后 postProcessing_ = nullptr |
+| `CONFIGURED` | `CONFIGURED` | `CreatePostProcessing()` + `Configure()` 完成后 |
+| `RUNNING` | `PREPARED` | `PreparePostProcessing()` → `controller_->Create()` |
+| `RUNNING` | `RUNNING` | `StartPostProcessing()` → `controller_->Start()` |
+| `FLUSHED` | `FLUSHED` | `FlushPostProcessing()` → `controller_->Flush()` |
+| `FLUSHED` | `STOPPED` | `StopPostProcessing()` → `controller_->Stop()` |
+| `END_OF_STREAM` | `RUNNING` | `EOS` 帧触发 `postProcessing_->NotifyEos()` |
+| `ERROR` | `DISABLED` | `StatusChanged(ERROR)` 时 `postProcessing_` 可能被清空 |
+
+> **注意**：只有视频解码器（`codecType_ == AVCODEC_TYPE_VIDEO_DECODER`）才会触发 PostProcessing（codec_server.cpp:1329-1330）
+
+### 5.4 PostProcessingTask 数据流
+
+**源码**：`codec_server.cpp:1617-1635`
+
+```cpp
+void CodecServer::PostProcessingTask()
+{
+    CHECK_AND_RETURN_LOG_WITH_TAG(decodedBufferInfoQueue_ && postProcessingInputBufferInfoQueue_, "Queue is null");
+    DecodedBufferInfo info;
+    auto ret = decodedBufferInfoQueue_->PopWait(info);           // 等待解码输出（容量20）
+    CHECK_AND_RETURN_LOG_WITH_TAG(ret == QueueResult::OK, "Get data failed, %{public}s", ...);
+    ret = postProcessingInputBufferInfoQueue_->PushWait(info);   // 推入 PostProcessing 输入（容量8）
+    CHECK_AND_RETURN_LOG_WITH_TAG(ret == QueueResult::OK, "Push data failed, %{public}s", ...);
+    if (info.flag == AVCODEC_BUFFER_FLAG_EOS) {
+        AVCODEC_LOGI_WITH_TAG("Catch EOS frame, notify post processing eos");
+        postProcessing_->NotifyEos();
+    }
+    (void)ReleaseOutputBufferOfCodec(info.index, true);           // 归还解码器 buffer
+}
+```
+
+- `PostProcessingTask` 是 TaskThread（"PostProcessing"）驱动的消费循环
+- `StartPostProcessingTask()`（codec_server.cpp:1598）创建 TaskThread 并注册 Handler
+- 三队列驱动：`decodedBufferInfoQueue_`（解码输出）→ `postProcessingInputBufferInfoQueue_`（PostProcessing 输入）→ VPE 处理 → `postProcessingOutputBufferInfoQueue_`（PostProcessing 输出，回传 CodecServer）
 
 ---
 
@@ -331,15 +409,30 @@ CodecServer::SetOutputSurfaceForPostProcessing(surface)
 |---|---|---|
 | CodecServer 类声明 | codec_server.h | 42 |
 | CodecStatus 七状态枚举 | codec_server.h | 50-56 |
+| CodecServer 构造函数 | codec_server.cpp | ~构造函数（初始化 status_ = UNINITIALIZED） |
 | PostProcessing 回调接口 | codec_server.h | 119-121 |
 | PostProcessing 管理方法 | codec_server.h | 189-205 |
 | LockFreeQueue 类型定义 | codec_server.h | 219-222 |
+| `CreatePostProcessing()` 调用点 | codec_server.cpp | 234（Configure 成功后） |
+| `PreparePostProcessing()` | codec_server.cpp | 1291-1296（Prepare() 分发） |
+| `CreatePostProcessing()` 实现 | codec_server.cpp | 1329-1339 |
+| `PostProcessingTask()` 循环体 | codec_server.cpp | 1617-1635 |
+| `StartPostProcessingTask()` | codec_server.cpp | 1598-1615 |
+| DecodedBufferInfoQueue 创建 | codec_server.cpp | 1388 |
+| PostProcessingBufferInfoQueue 创建 | codec_server.cpp | 1395 |
+| PostProcessingCallback 三路绑定 | codec_server.cpp | 1345-1352 |
+| PostProcessingCallbackOnError | codec_server.cpp | 71-78 |
+| PostProcessingCallbackOnOutputBufferAvailable | codec_server.cpp | 80-87 |
+| PostProcessingCallbackOnOutputFormatChanged | codec_server.cpp | 89-95 |
 | PostProcessing CRTP Create | post_processing.h | 41-58 |
 | ConfigurationParameters | post_processing.h | 366-420 |
-| DynamicController 类定义 | dynamic_controller.h | 全文 |
+| PostProcessing 六状态转换 | post_processing.h | 106-175 |
+| DynamicController 类定义 | dynamic_controller.h | 全文（17个 VPE 函数指针） |
 | DynamicInterface 类定义 | dynamic_interface.h | 全文 |
-| StateMachine 状态枚举 | state_machine.h | 全文 |
-| dlopen VPE 加载 | dynamic_controller.cpp | 全文 |
+| StateMachine 六状态枚举 | state_machine.h | 23-29 |
+| StateMachine::Get/Set | state_machine.cpp | 全文 |
+| DynamicPostProcessing 类型别名 | post_processing.h | 446 |
+| dlopen VPE 加载 | dynamic_controller.cpp | 全文（RTLD_LAZY） |
 
 ---
 
