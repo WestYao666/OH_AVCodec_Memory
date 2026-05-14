@@ -20,3 +20,10 @@ pending_approvals:
     status: pending_approval
     summary: "主题：AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口\n关键文件：\n  - native_avsource.cpp(325行)+avsource_impl.cpp(198行) Source CAPI+引擎\n  - native_avdemuxer.cpp(318行)+avdemuxer_impl.cpp(282行) Demuxer CAPI+引擎\n三路创建：CreateWithURI/FD/DataSource → AVSourceFactory → MediaDemuxer\n五路接口：CreateWithSource/SelectTrack/UnselectTrack/ReadSample/ReadSampleBuffer/SeekToTime\nDRM回调：NativeDemuxerCallback + NativeDrmTools::ProcessApplicationDrmInfo PSSH解析\n关联S94(CAPI三件套)、S83(CAPI总览)、S41/S75/S97(MediaDemuxer引擎)"
     type: memory_draft
+- created_at: '2026-05-15T01:15:00+08:00'
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S137.md
+  mem_id: MEM-ARCH-AVCODEC-S137
+  source: builder-agent
+  status: pending_approval
+  summary: "主题：SA Codec 服务框架——AVCodecServerManager + CodecClient IPC 双层架构与 SystemAbility 集成\n关键文件：\n  - avcodec_server_manager.cpp(426行) AVCodecServerManager单例+dlopen加载libMemMgr\n  - avcodec_service_stub.cpp(220行) 服务端IPC接收侧\n  - avcodec_service_proxy.cpp(128行) 服务端IPC发送侧\n  - avcodec_client.cpp(352行) 客户端CodecClient IPC代理\n  - avcodec_server.cpp(182行) SA服务入口+OnDump+OnGetXmlWhiteList\nCreateStubObject双Stub工厂(CODECLIST/CODEC)+codecStubMap_进程实例管理+InstanceInfo(caller/forwardCaller多级调用链)\n与S83(CAPI总览)/S95(AudioCodec CAPI)/S121(错误码体系)/S94(CAPI三件套)关联"
+  type: memory_draft

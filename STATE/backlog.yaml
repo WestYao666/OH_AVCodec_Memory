@@ -865,3 +865,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S131 | FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder / FFmpegEncoderPlugin / FFmpegMuxerPlugin 三层架构 | AVCodec, FFmpeg, AudioEncoder, MuxerPlugin, Plugin, libavcodec, avcodec_send_frame, avcodec_receive_packet, AAC, FLAC, MP3, G711mu, LBVC, FFmpegMuxerPlugin, FFmpegMuxerRegister, AutoRegisterFilter, Filter | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S131 | 🚧 草案已生成（2026-05-14T14:10），ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行)编码器引擎基类；ffmpeg_encoder_plugin.cpp(85行)+ffmpeg_encoder_plugin.h(26行)插件注册层；ffmpeg_muxer_plugin.cpp封装修复器；五路编码器子插件(AAC/FLAC/MP3/G711mu/LBVC)；封装修复器子插件(flv_muxer/+mpeg4_muxer/)；与S125(FFmpegDecoder)构成完整FFmpeg编解码插件矩阵；与S130(FFmpegAdapterCommon)共享Resample/ColorSpace/ChannelLayout |
+
+## 新增主题（Builder 2026-05-15 S137注册——SA Codec服务框架）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S137 | SA Codec 服务框架——AVCodecServerManager + CodecClient IPC 双层架构与 SystemAbility 集成 | AVCodec, SA, SystemAbility, IPC, CodecClient, CodecServiceStub, CodecServiceProxy, Singleton, SAMgr, dlopen | 三方应用接入/新人入项/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-15T01:10），avcodec_server_manager.cpp(426行)+avcodec_server.cpp(182行)+avcodec_service_stub.cpp(220行)+avcodec_service_proxy.cpp(128行)+avcodec_client.cpp(352行)，AVCodecServerManager单例(GetInstance/dlopen/libMemMgr)+CreateStubObject双Stub工厂(CODECLIST/CODEC)+codecStubMap_进程实例管理+EraseCodecObjectByPid+InstanceInfo(caller/forwardCaller多级调用链)，与S83(CAPI总览)/S95(AudioCodec CAPI)/S121(错误码)/S94(CAPI三件套)关联 |
