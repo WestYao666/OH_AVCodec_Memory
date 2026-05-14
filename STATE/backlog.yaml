@@ -913,3 +913,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S144 | DemuxerPluginManager 插件管理与 BaseStreamDemuxer 流式解封装——1159行cpp/多StreamDemuxer/TrackMap/临时映射/Plugin加载/Sniffer路由/StreamID分配 | AVCodec, MediaEngine, DemuxerPluginManager, BaseStreamDemuxer, StreamDemuxer, Plugin, Sniffer, Track, StreamID, TrackMap, MediaStreamInfo, LoadDemuxerPlugin, GetPluginByStreamID, DASH, HTTP | 新需求开发/问题定位/插件加载/流切换 | **pending_approval** | 🚧 草案已生成（2026-05-15T03:02:38+08:00），demuxer_plugin_manager.cpp(1159行)+demuxer_plugin_manager.h(196行)插件管理(DataSourceImpl/MediaStreamInfo/TrackMap/Sniffer/LoadDemuxerPlugin)；base_stream_demuxer.cpp(202行)+base_stream_demuxer.h(161行)流式解封装基类(DemuxerState/CacheData/IsDash)；与S75/S101/S102关联
+
+## 新增主题（Builder 2026-05-15 S146注册——VideoResizeFilter + MetaDataFilter 双过滤器架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S146 | VideoResizeFilter + MetaDataFilter 双过滤器架构——VideoResizeFilter转码增强(FILTERTYPE_VIDRESIZE,DetailEnhancerVideo,VPE)与MetaDataFilter时域元数据(TIMED_METADATA,SetInputMetaSurface) | AVCodec, MediaEngine, Filter, VideoResizeFilter, MetaDataFilter, DetailEnhancerVideo, VPE, Transcoder, TimedMetadata, SurfaceMode, FilterPipeline | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-15T04:37+08:00），video_resize_filter.cpp(566行)+metadata_filter.cpp(420行)行号级evidence，VideoResizeFilter(builtin.transcoder.videoresize/FILTERTYPE_VIDRESIZE/DetailEnhancerVideo::Create/VPE三状态回调ResizeDetailEnhancerVideoCallback/DoPrepare/DoStart/DoStop/DoPause/DoResume完整生命周期)；MetaDataFilter(builtin.player.timedmetadata/TIMED_METADATA/SetInputMetaSurface/GetInputMetaSurface/MetaDataFilterLinkCallback三路回调/OnBufferAvailable)；与S12/S15/S127互补（共享VPE引擎），与S44(S44)互补（元数据注入） |

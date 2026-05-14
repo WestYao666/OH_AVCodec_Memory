@@ -102,3 +102,10 @@ pending_approvals:
   summary: FFmpeg Adapter通用工具链与编解码插件体系——common四组件(ffmpeg_utils/ffmpeg_convert/ffmpeg_converter/stream_parser_manager/hdi_codec,1985行)与audio_encoder五子插件+audio_decoder17+子插件矩阵，与S125/S130互补
   source: builder-agent
   created_at: '2026-05-15T04:25:00+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S146
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S146.md
+  summary: VideoResizeFilter+MetaDataFilter双过滤器架构——VideoResizeFilter转码增强(FILTERTYPE_VIDRESIZE,DetailEnhancerVideo,VPE,566行)与MetaDataFilter时域元数据(TIMED_METADATA,SetInputMetaSurface,420行)，与S12/S15/S127互补（共享VPE引擎），与S44互补（元数据注入）
+  source: builder-agent
+  created_at: '2026-05-15T04:37:00+08:00'
