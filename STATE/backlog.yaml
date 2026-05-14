@@ -810,3 +810,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S124 | 录音Pipeline音频数据源与采集过滤器链——AudioDataSourceFilter / AudioCaptureFilter / AudioEncoderFilter 三联架构 | AVCodec, MediaEngine, Filter, AudioCapture, AudioDataSource, AudioEncoder, Recorder, Pipeline, FilterChain | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T04:42），audio_capture_filter.cpp(790行)AudioCaptureModule实时采集+AUDIO_CAPTURE_MAX_CACHED_FRAMES=256丢帧补偿；audio_data_source_filter.cpp(343行)AudioDataSource外部注入；AutoRegisterFilter("builtin.recorder.audiocapture"/"builtin.recorder.audiodatasource")静态注册，与S23/S24/S31/S119关联 |
+
+## 新增主题（Builder 2026-05-14 S126注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S126 | AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口 | AVCodec, Native API, C API, OH_AVSource, OH_AVDemuxer, OH_AVDataSource, IMediaDataSource, MediaDemuxer, DRM, Callback, Source, Demuxer, IPC, Filter | 三方应用接入/新人入项/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T08:28），native_avsource.cpp(325行)三路创建(OH_AVSource_CreateWithURI/FD/DataSource)+NativeAVDataSource桥接器；native_avdemuxer.cpp(318行)五路接口(CreateWithSource/SelectTrack/ReadSample双模式/SeekToTime)+DRM回调(PSSH解析)；avsource_impl.cpp(198行)AVSourceImpl引擎+工厂方法；与S94(S83)互补——S94总览，S126引擎层深度分析 |
