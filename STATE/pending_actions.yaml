@@ -1,23 +1,22 @@
 entries: []
 pending_approvals:
-- mem_id: MEM-ARCH-AVCODEC-S131
-  type: memory_draft
-  source: builder-agent
+- created_at: '2026-05-14T13:28:00+08:00'
   draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
+  mem_id: MEM-ARCH-AVCODEC-S131
+  source: builder-agent
   status: pending_approval
-  created_at: '2026-05-14T13:28:00+08:00'
   summary: "主题：FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder + FFmpegEncoderPlugin + FFmpegMuxerPlugin\
     \ 三层架构\n关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行)\
     \ 编码器引擎基类\n  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行)+ffmpeg_encoder_plugin.h(26行)\
     \ 插件注册层\n  - muxer/ffmpeg_muxer_plugin.cpp 封装修复器\n编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\n\
     五路编码器子插件：AAC/FLAC/MP3/G711mu/LBVC\n封装修复器子插件：flv_muxer/ + mpeg4_muxer/\n与S125(FFmpegDecoder解码器)构成完整FFmpeg编解码插件矩阵\n\
     与S130(FFmpegAdapterCommon工具链)共享Resample/ColorSpace/ChannelLayout\n"
-- mem_id: MEM-ARCH-AVCODEC-S132
   type: memory_draft
-  source: builder-agent
+- created_at: '2026-05-14T15:56:00+08:00'
   draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S132.md
+  mem_id: MEM-ARCH-AVCODEC-S132
+  source: builder-agent
   status: pending_approval
-  created_at: '2026-05-14T15:56:00+08:00'
   summary: "主题：FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系\n\
     关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(129行)\
     \ 编码器引擎基类\n  - audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行) AAC编码器:自实现+AVAudioFifo+Resample+ADTS\n\
@@ -26,12 +25,12 @@ pending_approvals:
     编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\nFFmpegBaseEncoder vs\
     \ FFmpegAACEncoderPlugin设计差异：AAC自实现完整逻辑，FLAC委托基类\n与S125(FFmpegDecoder解码器)构成编解码对称架构\n\
     与S60(S8/S50)音频编解码体系关联\n"
-- mem_id: MEM-ARCH-AVCODEC-S133
   type: memory_draft
-  source: builder-agent
+- created_at: '2026-05-14T16:50:00+08:00'
   draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S133.md
+  mem_id: MEM-ARCH-AVCODEC-S133
+  source: builder-agent
   status: pending_approval
-  created_at: '2026-05-14T16:50:00+08:00'
   summary: "主题：FFmpeg MPEG-4/FLV 封装修复器插件体系——FFmpegMuxerPlugin / FFmpegFlvMuxerPlugin\
     \ / MPEG4MuxerPlugin / Mpeg4Track 四层架构\n关键文件：\n  - ffmpeg_muxer_plugin.cpp(1414行)+ffmpeg_muxer_register.cpp(377行)\
     \ FFmpeg底层封装\n  - flv_muxer/ffmpeg_flv_muxer_plugin.cpp(586行) FLV专用封装修复器\n  -\
@@ -40,12 +39,12 @@ pending_approvals:
     \  - mpeg4_muxer/track/video_track.cpp(753行)+audio_track.cpp(263行)+basic_track.cpp(282行)\
     \ 轨模型\n架构要点：FFmpegMuxerRegister(九格式注册)→FFmpegMuxerPlugin/FFmpegFlvMuxerPlugin(AVIOContext桥接)→MediaMuxer→MuxerFilter；MPEG4MuxerPlugin走自研AVIOStream+BasicBox树\n\
     29条行号级evidence\n与S40(FFmpegMuxer总览)/S91(Mpeg4Muxer写时构建)/S58(MPEG4BoxParser)互补\n"
-- mem_id: MEM-ARCH-AVCODEC-S134
   type: memory_draft
-  source: builder-agent
+- created_at: '2026-05-14T17:50:00+08:00'
   draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S134.md
+  mem_id: MEM-ARCH-AVCODEC-S134
+  source: builder-agent
   status: pending_approval
-  created_at: '2026-05-14T17:50:00+08:00'
   summary: "主题：FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理\n\
     关键文件：\n  - ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_plugin.h(580行) 主插件引擎\n\
     \  - ffmpeg_demuxer_thread.cpp(891行) FFmpegReadLoop 异步读线程\n  - ffmpeg_format_helper.cpp(1367行)+ffmpeg_format_helper.h(101行)\
@@ -54,12 +53,12 @@ pending_approvals:
     \ per-track限流回调\n  6. 视频首帧三阶段探测(ParseVideoFirstFrames)\n  7. MultiStreamParserManager(dlopen插件/GOP感知)\n\
     \  8. ReferenceParserManager(dlopen插件/I帧精确定位)\n  9. RM流特殊Seek(AVSeekFrameLock+RMSeekToStart)\n\
     \  10. DFX链路追踪(TrackDfxInfo+DumpMode三态)\n与S68/S76(S41/S75/S58/S97/S101)关联\n"
-- mem_id: MEM-ARCH-AVCODEC-S135
   type: memory_draft
-  source: builder-agent
+- created_at: '2026-05-14T21:08:00+08:00'
   draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S135.md
+  mem_id: MEM-ARCH-AVCODEC-S135
+  source: builder-agent
   status: pending_approval
-  created_at: '2026-05-14T21:08:00+08:00'
   summary: "主题：WaterMarkFilter 水印过滤器——OpenGL ES GPU 加速视频水印叠加\n关键文件：\n  - services/media_engine/filters/water_mark_filter.cpp(1001行)\
     \  Filter实现+OpenGL渲染管线\n  - interfaces/inner_api/native/water_mark_filter.h(155行)\
     \  头文件公开接口\n架构要点：\n  - AutoRegisterFilter CRTP静态注册: \"builtin.transcoder.watermark\"\
@@ -68,3 +67,21 @@ pending_approvals:
     \  - RenderLoop独立渲染线程(wakeUpCond_条件变量/wait/notify)\n  - SetWatermark(≤5个/≤20MB)+SetVideoResize(width,height)+SetFaultEvent\
     \ DFX上报\n  - 七Filter生命周期(DoPrepare→DoStart→DoPause→DoResume→DoStop→DoFlush→DoRelease)\n\
     与S14/S20/S45/S46关联"
+  type: memory_draft
+- created_at: '2026-05-14T22:40:00+08:00'
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S136.md
+  mem_id: MEM-ARCH-AVCODEC-S136
+  source: builder-agent
+  status: pending_approval
+  summary: "主题：FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理\n\
+    关键文件：\n  - ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_plugin.h(601行) 主插件引擎\n\
+    \  - ffmpeg_demuxer_thread.cpp(891行) 异步读线程 FFmpegDemuxerThread\n  - ffmpeg_format_helper.cpp(1367行)\
+    \ HDR元数据/格式解析\n  - ffmpeg_reference_parser.cpp(488行) ReferenceParser I帧位置解析\n\
+    14项高级特性：\n  1. HDR六层判断(0xB5/CUVV/PQ/DVCC/HLG/SDR)\n  2. BitstreamFilter三路AnnexB转换(H264/HEVC/VVC)\n\
+    \  3. PTS↔Index双向转换(IndexAndPTSConvertMode四模式枚举)\n  4. ReadAhead双阈值(SOFT_LIMIT/HARD_LIMIT×trackCount动态计算)\n\
+    \  5. per-track缓存压力控制(SetTrackCacheLimit+MaybeNotifyCachePressure)\n  6. MultiStreamParserManager\
+    \ dlopen插件热加载\n  7. ReferenceParserManager I帧精确定位\n  8. 视频首帧三阶段探测(GetProbeSize)\n\
+    \  9. RM流特殊Seek(SeekToRmKeyFrame)\n  10. AVIOContext自定义IO三函数(AVReadPacket/AVWritePacket/AVSeek)\n\
+    \  11. ReadSampleZeroCopy零拷贝\n  12. DFX Dump三态(DUMP_READAT_INPUT/AVPACKET_OUTPUT/AVBUFFER_OUTPUT)\n\
+    \  13. LIVE_FLV_PROBE_SIZE=200KB快速探测\n  14. g_streamContainedXPS扩展参数集列表\n与S68/S76/S41/S75/S58/S97/S101关联"
+  type: memory_draft
