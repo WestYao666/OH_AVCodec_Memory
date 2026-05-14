@@ -847,3 +847,9 @@
 |---|------|-------|---------|------|------|
 | S133 | FFmpeg MPEG-4/FLV 封装修复器插件体系——FFmpegMuxerPlugin / FFmpegFlvMuxerPlugin / MPEG4MuxerPlugin / Mpeg4Track 四层架构 | AVCodec, FFmpeg, MuxerPlugin, MPEG4, FLV, MP4, ISOBMFF, BasicBox, Mpeg4Track, Track, AvcParser, HevcParser, BoxParser, WriteSample, Start, Stop, AddTrack, AVIOContext, FFmpegMuxerRegister, MediaMuxer, MuxerFilter, VideoTrack, AudioTrack, CoverTrack, TimedMetaTrack | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T16:50），ffmpeg_muxer_plugin.cpp(1414行)+ffmpeg_muxer_register.cpp(377行)+ffmpeg_flv_muxer_plugin.cpp(586行)+mpeg4_muxer_plugin.cpp(574行)+basic_box.cpp(1256行)+basic_box.h(575行)+avc_parser.cpp(211行)+avc_parser.h(60行)+hevc_parser.cpp(186行)+video_track.cpp(753行)+audio_track.cpp(263行)+basic_track.cpp(282行)，29条行号级 evidence，与S40(FFmpegMuxer总览)/S91(Mpeg4Muxer写时构建)/S58(MPEG4BoxParser)互补 |
 
+## 新增主题（Builder 2026-05-14 S134注册——FFmpegDemuxerPlugin高级特性）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S134 | FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, HDR_VIVID, HDR10, BitstreamFilter, AnnexB, PTS, IndexConvert, ReadAhead, CachePressure, MultiStreamParser, ReferenceParser, RMSeek | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T17:50），ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_thread.cpp(891行)+ffmpeg_format_helper.cpp(1367行)行号级evidence，HDR六层判断(0xB5/CUVV/PQ)/BitstreamFilter三路AnnexB转换/PTS↔Index双向转换/ReadAhead双阈值/缓存压力per-track限流/视频首帧三阶段探测/MultiStreamParserManager( dlopen)/ReferenceParserManager(dlopen)/RM流特殊Seek/DFX链路追踪，与S68/S76(S41/S75/S58/S97/S101)关联 |
+
