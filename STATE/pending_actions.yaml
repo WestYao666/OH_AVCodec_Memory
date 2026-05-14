@@ -92,6 +92,13 @@ pending_approvals:
   type: memory_draft
   status: pending_approval
   draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S144.md
-  summary: DemuxerPluginManager插件管理(1159行cpp)+BaseStreamDemuxer流式解封装(202行cpp)，多StreamDemuxer架构/TrackMap/Sniffer路由/StreamID分配，与S75/S101/S102关联
+  summary: DemuxerPluginManager插件管理与BaseStreamDemuxer流式解封装——1159行cpp/多StreamDemuxer/TrackMap/临时映射/Plugin加载/Sniffer路由/StreamID分配
   source: builder-agent
   created_at: '2026-05-15T03:02:38+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S145
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S145.md
+  summary: FFmpeg Adapter通用工具链与编解码插件体系——common四组件(ffmpeg_utils/ffmpeg_convert/ffmpeg_converter/stream_parser_manager/hdi_codec,1985行)与audio_encoder五子插件+audio_decoder17+子插件矩阵，与S125/S130互补
+  source: builder-agent
+  created_at: '2026-05-15T04:25:00+08:00'
