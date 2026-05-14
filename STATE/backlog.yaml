@@ -895,3 +895,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S141 | PTS索引转换模块——TimeAndIndexConversion 640行cpp（Box解析/moov遍历/STTS+CTTS+STSC+STSZ解析）/相对时间戳↔样本索引互转 | AVCodec, MediaEngine, PTS, Index, Conversion, TimeAndIndexConversion, MP4, MOV, STTS, CTTS, STSC, STSZ, Sample, RelativePresentationTime, Track, Box, moov, trak, mdia | 新需求开发/问题定位/MP4 Seek辅助 | **pending_approval** | 🚧 草案已生成（2026-05-15T02:53:55+08:00），pts_and_index_conversion.cpp(640行)+pts_and_index_conversion.h(150行)，Box解析器注册表(ftyp/moov/trak/mdia/stbl)+STTSEntry/CTTSEntry/TrakInfo数据结构+GetIndexByRelativePresentationTimeUs(PT→Index)+GetRelativePresentationTimeUsByIndex(Index→PTS)双互转，与S79(S58)/S96关联
+
+## 新增主题（Builder 2026-05-15 S142注册——TypeFinder媒体类型探测）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S142 | TypeFinder 媒体类型探测架构——Sniffer路由/PeekRange/PluginRegistry/DemuxerPlugin评分/DASH识别/DEFAULT_SNIFF_SIZE=4096*4 | AVCodec, MediaEngine, Demuxer, TypeFinder, Sniff, PeekRange, PluginRegistry, DemuxerPlugin, Rank, DASH, MimeType, Uri, SniffNeeded | 新需求开发/问题定位/容器类型识别/插件加载 | **pending_approval** | 🚧 草案已生成（2026-05-15T02:56:27+08:00），type_finder.cpp(216行)+type_finder.h(84行)，PeekRange嗅探4KB数据(DEFAULT_SNIFF_SIZE=4096*4)+PluginRegistry评分排序+DASH识别(IsDash)+IsSniffNeeded URI预判+ReadAt流式读取，与S69/S75/S76/S79关联
