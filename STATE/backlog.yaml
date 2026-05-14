@@ -938,3 +938,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S148 | SA AVCodec IPC 通信层——CodecServiceStub/Proxy/Parcel 三层架构与死亡通知链 | AVCodec, SA, IPC, Stub, Proxy, Parcel, DeathRecipient, Listener, CodecClient, OnCodecServerDied | 新需求开发/问题定位/跨进程通信 | **approved** | MEM-ARCH-AVCODEC-S148 | ✅ 草案已生成（2026-05-15T05:37+08:00），IPC五组件(CodecServiceStub 220行/CodecServiceProxy 128行/Parcel/DeathRecipient/Listener)与S137互补 |
+
+## 新增主题（Builder 2026-05-15 S149注册——Transcoder Pipeline）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S149 | Transcoder Pipeline 架构——视频转码 Encode→Decode 桥接与 Filter 链路 | AVCodec, TransCoder, Pipeline, FilterChain, Encode, Decode, SurfaceEncoderAdapter, MuxerFilter, VideoResizeFilter, AudioEncoderFilter | 新需求开发/问题定位/转码场景接入 | **pending_approval** | MEM-ARCH-AVCODEC-S149 | 🚧 草案已生成（2026-05-15T07:10），576行行号级evidence，isTransCoderMode四层传递链(SurfaceEncoderAdapter→SurfaceEncoderFilter→AudioEncoderFilter→MuxerFilter)，TransCoderOnOutputBufferAvailable专用路径，错误吞掉机制(transCoderErrorCbOnce_)，OnTransCoderBufferFilled双轨EOS计数+音视频PTS同步，VideoResizeFilter("builtin.transcoder.videoresize")VPE DetailEnhancer，MediaDemuxer transcoderStartPts_偏移补偿，与S23/S34/S36/S46关联 |
