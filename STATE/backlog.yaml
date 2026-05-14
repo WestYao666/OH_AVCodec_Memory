@@ -805,6 +805,12 @@
 |---|------|-------|---------|------|------|
 | S125 | FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder / Resample / FfmpegDecoderPlugin 三层架构 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, AudioDecoder, FfmpegBaseDecoder, FfmpegDecoderPlugin, AAC, AC3, MP3, FLAC, Vorbis, WMA, DTS | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T08:10），ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)引擎基类；ffmpeg_convert.cpp(247行)+ffmpeg_convert.h(98行)Resample重采样器；ffmpeg_decoder_plugin.cpp(250行)+ffmpeg_decoder_plugin.h(46行)插件层，17+音频格式子插件（aac/ac3/mp3/flac/vorbis/wma/dts/cook/ape/truehd/twinvq/gsm/g711mu/amrnb/amrwb/alac/adpcm/ilbc/dvaudio/eac3/lbvc），与S35/S8/S50/S60关联 |
 
+## 新增主题（Builder 2026-05-14 S132注册——FFmpeg音频编码器插件体系）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S132 | FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec, AudioEncoder, AAC, FLAC | 新需求开发/问题定位/音频编码接入 | **pending_approval** | MEM-ARCH-AVCODEC-S132 | 🚧 草案已生成（2026-05-14T15:56），ffmpeg_base_encoder.cpp(396行)编码器基类(avcodec_send_frame/avcodec_receive_packet)+ffmpeg_aac_encoder_plugin.cpp(902行)自实现AVAudioFifo+Resample+ADTS头+ffmpeg_flac_encoder_plugin.cpp(252行)组合FFmpegBaseEncoder，与S125(FFmpegDecoder解码器)构成编解码对称架构 |
+
 ## 新增主题（Builder 2026-05-14 S124注册——录音管线音频过滤器链）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |

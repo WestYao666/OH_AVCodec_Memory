@@ -8,7 +8,7 @@ pending_approvals:
     type: memory_draft
     source: builder-agent
     draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
-    status: draft
+    status: pending_approval
     created_at: "2026-05-14T13:28:00+08:00"
     summary: |
       主题：FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder + FFmpegEncoderPlugin + FFmpegMuxerPlugin 三层架构
@@ -21,3 +21,20 @@ pending_approvals:
       封装修复器子插件：flv_muxer/ + mpeg4_muxer/
       与S125(FFmpegDecoder解码器)构成完整FFmpeg编解码插件矩阵
       与S130(FFmpegAdapterCommon工具链)共享Resample/ColorSpace/ChannelLayout
+  - mem_id: MEM-ARCH-AVCODEC-S132
+    type: memory_draft
+    source: builder-agent
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S132.md
+    status: pending_approval
+    created_at: "2026-05-14T15:56:00+08:00"
+    summary: |
+      主题：FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系
+      关键文件：
+        - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(129行) 编码器引擎基类
+        - audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行) AAC编码器:自实现+AVAudioFifo+Resample+ADTS
+        - audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp(252行) FLAC编码器:组合FFmpegBaseEncoder
+        - audio_encoder/ffmpeg_encoder_plugin.cpp(85行) PLUGIN_DEFINITION注册AAC+FLAC
+      编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）
+      FFmpegBaseEncoder vs FFmpegAACEncoderPlugin设计差异：AAC自实现完整逻辑，FLAC委托基类
+      与S125(FFmpegDecoder解码器)构成编解码对称架构
+      与S60(S8/S50)音频编解码体系关联
