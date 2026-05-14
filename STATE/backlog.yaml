@@ -851,7 +851,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S134 | FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, HDR_VIVID, HDR10, BitstreamFilter, AnnexB, PTS, IndexConvert, ReadAhead, CachePressure, MultiStreamParser, ReferenceParser, RMSeek | 新需求开发/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T22:40），DRAFTS/MEM-ARCH-AVCODEC-S136.md |
+| S134 | FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, HDR_VIVID, HDR10, BitstreamFilter, AnnexB, PTS, IndexConvert, ReadAhead, CachePressure, MultiStreamParser, ReferenceParser, RMSeek | 新需求开发/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T22:40），MEMORY/10_architecture/MEM-ARCH-AVCODEC-S136.md |
 
 
 ## 新增主题（Builder 2026-05-14 S135注册）
@@ -859,3 +859,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S135 | WaterMarkFilter 水印过滤器——OpenGL ES GPU 加速视频水印叠加 | AVCodec, MediaEngine, Filter, WaterMark, OpenGL, GPU, Transcoder, EGL, Shader, OH_NativeImage, FBO, RenderLoop | 新需求开发/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T21:08）→approved（2026-05-15T00:23 Builder approve all），water_mark_filter.cpp(1001行)+water_mark_filter.h(155行)，OpenGL ES 2.0 渲染管线(EglRenderContext/ShaderProgram/GL_TEXTURE_EXTERNAL_OES)+FBO水印合并+OH_NativeImage视频纹理绑定+RenderLoop独立线程+SetWatermark(≤5个/≤20MB)+SetVideoResize+SetFaultEvent DFX上报，与S14/S20/S45/S46关联 |
+
+## 新增主题（Builder 2026-05-15 S131补录——FFmpeg音频编码器三层架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S131 | FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder / FFmpegEncoderPlugin / FFmpegMuxerPlugin 三层架构 | AVCodec, FFmpeg, AudioEncoder, MuxerPlugin, Plugin, libavcodec, avcodec_send_frame, avcodec_receive_packet, AAC, FLAC, MP3, G711mu, LBVC, FFmpegMuxerPlugin, FFmpegMuxerRegister, AutoRegisterFilter, Filter | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S131 | 🚧 草案已生成（2026-05-14T14:10），ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行)编码器引擎基类；ffmpeg_encoder_plugin.cpp(85行)+ffmpeg_encoder_plugin.h(26行)插件注册层；ffmpeg_muxer_plugin.cpp封装修复器；五路编码器子插件(AAC/FLAC/MP3/G711mu/LBVC)；封装修复器子插件(flv_muxer/+mpeg4_muxer/)；与S125(FFmpegDecoder)构成完整FFmpeg编解码插件矩阵；与S130(FFmpegAdapterCommon)共享Resample/ColorSpace/ChannelLayout |
