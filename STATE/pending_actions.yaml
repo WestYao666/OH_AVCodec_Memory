@@ -86,3 +86,10 @@
   submitted_at: '2026-05-14T08:43:00+08:00'
   status: pending_approval
   note: 本地镜像增强版（/home/west/av_codec_repo），base_video_post_processor.h(112行)+video_post_processor_factory.h(140行)+super_resolution_post_processor.h(77行)+.cpp(357行)，BaseVideoPostProcessor抽象基类七生命周期+VideoPostProcessorFactory工厂单例(AutoRegisterPostProcessor CRTP静态注册)+SuperResolutionPostProcessor超分四条件(1920×1080/非DRM/非HDRVivid)+VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER)+VPECallback三状态回调(OnError/OnState/OnOutputBuffer)，与S20/S100/S15/S46关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S128
+  topic: HttpSourcePlugin 三路下载器路由与 StreamDemuxer 分片缓存读取机制——DASH/HLS/HTTP三路分发+DownloadMonitor装饰+PullData三路分发
+  submitter: builder
+  submitted_at: '2026-05-14T09:13:00+08:00'
+  status: pending_approval
+  note: 基于本地镜像/home/west/av_codec_repo，http_source_plugin.cpp(769行)三路分发(SetDownloaderBySource 277~307行)+download_monitor.h(232行)DownloadMonitor装饰+stream_demuxer.cpp(492行)PullData三路分发(ReadRetry/PullDataWithCache/PullDataWithoutCache)+ProcInnerDash DASH缓存合并；与S106/S120/S122/S75/S97/S101关联
