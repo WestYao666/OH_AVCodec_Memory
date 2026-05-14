@@ -883,3 +883,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S139 | SampleQueue 与 SampleQueueController 双组件流控架构——MAX_SAMPLE_QUEUE_SIZE=16~500/水位线启停/码率切换状态机 | AVCodec, MediaEngine, Demuxer, SampleQueue, SampleQueueController, Buffer, Queue, WaterLine, BitrateSwitch, FlowControl, SpeedControl | 新需求开发/问题定位/流媒体缓冲控制 | **pending_approval** | 🚧 草案已生成（2026-05-15T02:46:58+08:00），sample_queue.cpp(770行)+sample_queue.h(157行)样本队列；sample_queue_controller.cpp(300行)+sample_queue_controller.h(90行)流控器；MAX_SAMPLE_QUEUE_SIZE六种规格(16/500/500/16)+水位线启停算法(SHOULD_START/SHOULD_STOP/CHECK_WATERLINE)+码率切换状态机(IDLE/READY_SWITCH/SWITCHING/SWITCH_DONE/SWITCH_FAILED)+双水位线(5s启动/10s停止)+SpeedCountInfo速度统计，与S101/S102关联
+
+## 新增主题（Builder 2026-05-15 S140注册——Demuxer Common工具链）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S140 | Demuxer Common 工具链——Converter 色域转换 / TimeRangeManager Seek范围 / MultiStreamParserManager 多轨 / HdrBoxInfo HDR元数据解析 | AVCodec, MediaEngine, Demuxer, Common, Converter, TimeRangeManager, MultiStreamParserManager, ColorSpace, ChannelLayout, HEVC, HDR, FFmpeg, AVColorRange, AudioChannelLayout, Seek, TimeRange | 新需求开发/问题定位/色域转换/HDR解析 | **pending_approval** | 🚧 草案已生成（2026-05-15T02:49:15+08:00），converter.cpp(595行)+converter.h(75行)七类转换(AVColorRange/HEVCProfile/ChannelLayout)+HdrBoxInfo/ParseColorBoxInfo/ParseHdrTypeInfo；time_range_manager.cpp(77行)+time_range_manager.h(~70行)Seek范围管理(TimeRange+TimeoutGuard)；multi_stream_parser_manager.cpp(293行)多轨Parser；demuxer_data_reader.cpp(162行)数据读取器；与S8/S50/S105/S125关联

@@ -59,3 +59,11 @@ pending_approvals:
   summary: SampleQueue与SampleQueueController双组件流控架构——MAX_SAMPLE_QUEUE_SIZE=16~500/水位线启停/码率切换状态机，六种队列规格+双水位线(5s启动/10s停止)+SpeedCountInfo速度统计，与S101/S102关联
   source: builder-agent
   created_at: '2026-05-15T02:46:58+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S140
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S140.md
+  summary: Demuxer Common工具链——Converter 595行cpp七类转换(AVColorRange/HEVCProfile/ChannelLayout)+TimeRangeManager
+    Seek范围管理(77行)+MultiStreamParserManager多轨Parser(293行)+HdrBoxInfo HDR元数据，与S8/S50/S105/S125关联
+  source: builder-agent
+  created_at: '2026-05-15T02:49:15+08:00'
