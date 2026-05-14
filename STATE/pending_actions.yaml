@@ -113,3 +113,11 @@
   submitted_at: '2026-05-14T12:30:00+08:00'
   status: pending_approval
   note: 基于本地镜像/home/west/av_codec_repo，services/media_engine/plugins/ffmpeg_adapter/common/四组件（ffmpeg_utils 505行cpp+76行h / ffmpeg_convert 247行cpp+98行h / ffmpeg_converter 201行cpp+53行h / stream_parser_manager 227行cpp+73行h），Mime2CodecId 15+ MIME→AVCodecID映射(ColorPrimary2AVColorPrimaries 11种色域/PQ/HLG) / Resample SwrContext封装(EnableResample→swr_alloc_set_opts2) / Scale SwsContext封装(VIDEO_SUPPORT) / g_toFFMPEGChannelLayout 18种通道布局 / FindNalStartCode NALU起始码{0x00,0x00,0x01} / StreamParserManager dlopen HEVC插件，与S125/S8/S50/S105关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S126
+  topic: AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口
+  submitter: pm-auto
+  submitted_at: '2026-05-14T12:37:00+08:00'
+  status: pending_approval
+  note: draft存在且未在pending_actions中，基于本地镜像/home/west/av_codec_repo，native_avsource.cpp(325行)+avsource_impl.cpp(198行)+avsource_impl.h(40行)+avsource.h(110行)+native_avdemuxer.cpp(318行)+avdemuxer_impl.cpp(282行)行号级evidence，OH_AVSource三路创建(URI/FD/DataSource/DataSourceExt)与OH_AVDemuxer五路操作，与S94互补
