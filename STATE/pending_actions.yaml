@@ -129,3 +129,9 @@ pending_approvals:
   summary: DataSink数据输出体系+MediaMuxer Track管理+AudioCaptureModule实时采集——DataSinkFile/DataSinkFd双实现(MediaMuxer/File/FD)、MediaMuxer四状态机+Track内部类+AVBufferQueue异步、AudioCaptureModule双Read模式+GetMaxAmplitude振幅监测，与S34/S65/S40/S91/S124/S119/S78关联
   source: builder-agent
   created_at: '2026-05-15T05:05:00+08:00'
+- type: memory_draft
+  mem_id: MEM-ARCH-AVCODEC-S148
+  decision: pending
+  summary: SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode双阶段丢帧策略与MV/NaluAnalyzer分析器，DropSyncCoordinator成对丢帧同步，RetentionStrategy四策略(Auto/Adaptive/Fixed/Auto_Ratio)，dlopen插件热加载，与S17(SFD早期草案)/S43(AFC编码降帧互补)/S39(VideoDecoder)关联
+  source: builder-agent
+  created_at: '2026-05-15T06:08:00+08:00'
