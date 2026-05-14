@@ -1,123 +1,20 @@
-- approved_at: '2026-05-12T10:42:00+08:00'
-  approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-  mem_id: MEM-ARCH-AVCODEC-S116
-  status: approved
-  submitted_at: '2026-05-11T01:07:03+08:00'
-  submitter: builder
-  topic: 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动
-  type: approval_request
-- approved_at: '2026-05-12T10:42:00+08:00'
-  approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-  mem_id: MEM-ARCH-AVCODEC-S117
-  status: approved
-  submitted_at: '2026-05-11T02:10:00+08:00'
-  submitter: builder
-  topic: TypeFinder 媒体类型探测与 DemuxerPluginManager 轨道路由——SnifferPlugin 探测与三层映射表
-  type: approval_request
-- approved_at: '2026-05-12T10:42:00+08:00'
-  approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-  mem_id: MEM-ARCH-AVCODEC-S118
-  status: approved
-  submitted_at: '2026-05-11T02:50:00+08:00'
-  submitter: builder
-  topic: 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动（本地镜像增强版）
-  type: approval_request
-- approved_at: '2026-05-12T10:42:00+08:00'
-  approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
-  mem_id: MEM-ARCH-AVCODEC-S119
-  status: approved
-  submitted_at: '2026-05-11T07:15:00+08:00'
-  submitter: builder
-  topic: AudioSampleFormat位深映射 + CalcMaxAmplitude振幅计算 + AudioVivid固定80ms延迟 + SubtitleSink三状态渲染环
-  type: approval_request
-- submitted_at: '2026-05-13T23:30:00+08:00'
-  submitter: builder
-  mem_id: MEM-ARCH-AVCODEC-S120
-  topic: MediaEngine Source 模块流媒体基础设施——Streaming 协议路由 / Plugin 管理 / HLS 分片下载 / Buffering
-    策略
-  type: approval_request
-  status: pending_approval
-  note: 对S106补充，S106重点Source.cpp+M3U8解析；S120聚焦HTTP Source插件路由、协议推断、Streaming分片管理，基于本地镜像/home/west/av_codec_repo
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S121
-  topic: AVCodec 错误码与回调体系——三层架构（AVCodecErrorType / AVCodecServiceErrCode / MediaCodecCallback）
-  submitter: builder
-  submitted_at: '2026-05-14T01:30:00+08:00'
-  status: pending_approval
-  note: avcodec_common.h(306行)三层回调接口(AVCodecCallback/MediaCodecCallback/ParameterCallback)+AVCodecBufferFlag(8标志位)+AVCodecBufferInfo；avcodec_errors.h(111行)50+错误码，与S55/S83/S92/S114关联
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S122
-  topic: MediaEngine Streaming 基础设施——HttpSourcePlugin 三路下载器路由 / StreamDemuxer 分片缓存 / HLS+DASH 自适应码率调度
-  submitter: builder
-  submitted_at: '2026-05-14T02:29:00+08:00'
-  status: pending_approval
-  note: 对S106补充，S122聚焦HTTP Source插件路由(IsDash/IsSeekToTimeSupported/plain http三路)+DownloadMonitor装饰+StreamDemuxer分片缓存合并+ABR码率调度；基于本地镜像/home/west/av_codec_repo，http_source_plugin.cpp(769行)+stream_demuxer.cpp(492行)+download_monitor.h(148行)
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S113
-  topic: SeiParserFilter 与 SeiParserHelper SEI 信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链（本地镜像逐行源码增强版）
-  submitter: builder
-  submitted_at: '2026-05-14T03:28:00+08:00'
-  status: pending_approval
-  note: 本地镜像逐行源码增强版（/home/west/av_codec_repo），39条行号级evidence，SeiParserFilter(235行cpp+104行h)Filter层封装+SeiParserHelper(347行cpp+150行h)AVC/HEVC双解析器工厂，HELPER_CONSTRUCTOR_MAP工厂+FlowLimit PTS同步+SeiParserListener事件链，SEI NALU格式+RBSP防伪字节逆转，与S14/S22关联
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S123
-  topic: StreamDemuxer 流式解封装器——分片缓存读取与 PullData 三路分发机制
-  submitter: builder
-  submitted_at: '2026-05-14T04:27:00+08:00'
-  status: pending_approval
-  note: 基于本地镜像/home/west/av_codec_repo，stream_demuxer.cpp(492行)+base_stream_demuxer.cpp(202行)+demuxer_plugin_manager.cpp(1159行)，补充S75/S97/S101深度细节，PullData三路分发+ReadRetry+三层映射表
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S124
-  topic: 录音Pipeline音频数据源与采集过滤器链——AudioDataSourceFilter / AudioCaptureFilter / AudioEncoderFilter 三联架构
-  submitter: builder
-  submitted_at: '2026-05-14T04:42:00+08:00'
-  status: pending_approval
-  note: audio_capture_filter.cpp(790行)AudioCaptureModule实时采集+AUDIO_CAPTURE_MAX_CACHED_FRAMES=256丢帧补偿；audio_data_source_filter.cpp(343行)AudioDataSource外部注入；AutoRegisterFilter("builtin.recorder.audiocapture"/"builtin.recorder.audiodatasource")静态注册，与S23/S24/S31/S119关联
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S125
-  topic: FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder / Resample / FfmpegDecoderPlugin 三层架构
-  submitter: builder
-  submitted_at: '2026-05-14T08:15:00+08:00'
-  status: pending_approval
-  note: ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)引擎基类，avcodec_send_packet/receive_frame双函数管线，格式变化自动重采样；ffmpeg_convert.h(98行)Resample重采样器(SwrContext)；ffmpeg_decoder_plugin.cpp(250行)CRTP插件层，17+音频子插件(aac/ac3/mp3/flac/vorbis/wma/dts/cook/ape/truehd/twinvq/gsm/g711mu/amrnb/amrwb/alac/adpcm/ilbc/dvaudio/eac3/lbvc)；与S35 AudioDecoderFilter/S8 FFmpeg总览/S50 AudioResample/S60 AAC FFmpeg关联
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S127
-  topic: Video PostProcessor Framework 视频后处理框架——BaseVideoPostProcessor + VideoPostProcessorFactory + SuperResolutionPostProcessor 三层架构
-  submitter: builder
-  submitted_at: '2026-05-14T08:43:00+08:00'
-  status: pending_approval
-  note: 本地镜像增强版（/home/west/av_codec_repo），base_video_post_processor.h(112行)+video_post_processor_factory.h(140行)+super_resolution_post_processor.h(77行)+.cpp(357行)，BaseVideoPostProcessor抽象基类七生命周期+VideoPostProcessorFactory工厂单例(AutoRegisterPostProcessor CRTP静态注册)+SuperResolutionPostProcessor超分四条件(1920×1080/非DRM/非HDRVivid)+VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER)+VPECallback三状态回调(OnError/OnState/OnOutputBuffer)，与S20/S100/S15/S46关联
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S128
-  topic: HttpSourcePlugin 三路下载器路由与 StreamDemuxer 分片缓存读取机制——DASH/HLS/HTTP三路分发+DownloadMonitor装饰+PullData三路分发
-  submitter: builder
-  submitted_at: '2026-05-14T09:13:00+08:00'
-  status: pending_approval
-  note: 基于本地镜像/home/west/av_codec_repo，http_source_plugin.cpp(769行)三路分发(SetDownloaderBySource 277~307行)+download_monitor.h(232行)DownloadMonitor装饰+stream_demuxer.cpp(492行)PullData三路分发(ReadRetry/PullDataWithCache/PullDataWithoutCache)+ProcInnerDash DASH缓存合并；与S106/S120/S122/S75/S97/S101关联
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S129
-  topic: CodecServer + PostProcessing 联合架构——CodecServer 七状态机与 PostProcessing 三层协作
-  submitter: builder
-  submitted_at: '2026-05-14T09:35:00+08:00'
-  status: pending_approval
-  note: 本地镜像增强版（/home/west/av_codec_repo），PostProcessing六状态机(DISABLED/CONFIGURED/PREPARED/RUNNING/FLUSHED/STOPPED)+CodecServer七状态机+PostProcessingTask双LockFreeQueue(codec_server.cpp:1617-1635)+行号级evidence，与S20/S46/S57/S127/S100关联
-  topic: CodecServer + PostProcessing 联合架构——CodecServer 七状态机与 PostProcessing 三层协作
-  submitter: builder
-  submitted_at: '2026-05-14T09:35:00+08:00'
-  status: pending_approval
-  note: 本地镜像增强版（/home/west/av_codec_repo），codec_server.cpp(1882行)+codec_server.h(258行)+post_processing.h(451行)+state_machine.h(46行)，PostProcessing六状态机(DISABLED/CONFIGURED/PREPARED/RUNNING/FLUSHED/STOPPED)/CodecServer七状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED|END_OF_STREAM|ERROR)/PostProcessingTask双LockFreeQueue(PostProcessingBufferInfoQueue容量8/DecodedBufferInfoQueue容量20)+行号级evidence，与S20/S46/S57/S127/S100关联
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S130
-  topic: FFmpeg Adapter Common 通用工具链——ffmpeg_utils / ffmpeg_convert / ffmpeg_converter / stream_parser_manager 四组件
-  submitter: builder
-  submitted_at: '2026-05-14T12:30:00+08:00'
-  status: pending_approval
-  note: 基于本地镜像/home/west/av_codec_repo，services/media_engine/plugins/ffmpeg_adapter/common/四组件（ffmpeg_utils 505行cpp+76行h / ffmpeg_convert 247行cpp+98行h / ffmpeg_converter 201行cpp+53行h / stream_parser_manager 227行cpp+73行h），Mime2CodecId 15+ MIME→AVCodecID映射(ColorPrimary2AVColorPrimaries 11种色域/PQ/HLG) / Resample SwrContext封装(EnableResample→swr_alloc_set_opts2) / Scale SwsContext封装(VIDEO_SUPPORT) / g_toFFMPEGChannelLayout 18种通道布局 / FindNalStartCode NALU起始码{0x00,0x00,0x01} / StreamParserManager dlopen HEVC插件，与S125/S8/S50/S105关联
+# Pending Actions Log
+# 记忆工厂审批状态文件
 
-- type: approval_request
-  mem_id: MEM-ARCH-AVCODEC-S126
-  topic: AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口
-  submitter: pm-auto
-  submitted_at: '2026-05-14T12:37:00+08:00'
-  status: pending_approval
-  note: draft存在且未在pending_actions中，基于本地镜像/home/west/av_codec_repo，native_avsource.cpp(325行)+avsource_impl.cpp(198行)+avsource_impl.h(40行)+avsource.h(110行)+native_avdemuxer.cpp(318行)+avdemuxer_impl.cpp(282行)行号级evidence，OH_AVSource三路创建(URI/FD/DataSource/DataSourceExt)与OH_AVDemuxer五路操作，与S94互补
+entries: []
+
+pending_approvals:
+  - mem_id: MEM-ARCH-AVCODEC-S131
+    type: memory_draft
+    source: builder-agent
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
+    status: draft
+    created_at: "2026-05-14T13:28:00+08:00"
+    summary: |
+      架构：三层协作（AudioDecoderFilter → AudioDecoderAdapter → FfmpegBaseDecoder → FFmpeg 解码引擎）
+      关键文件：基类 ffmpeg_base_decoder.cpp(605行) + 22 个格式插件子目录
+      解码管线：avcodec_open2 → avcodec_send_packet → avcodec_receive_frame（151/189/424行）
+      重采样：Resample 类封装 SwrContext（ffmpeg_convert.h:52-69）
+      队列接入：Filter 通过 AVBufferQueueProducer/Consumer 与 Pipeline 通信（audio_decoder_filter.cpp:632-647）
+      格式支持：22种格式（AAC/FLAC/MP3/AC3/EAC3/TrueHD/DTS/Vorbis/ALAC/WMA/AMR/G711/GSM/APE/COOK/TwinVQ/ADPCM/iLBC/Raw PCM/DV Audio）
+      证据：10条行号级代码片段
