@@ -1,44 +1,16 @@
 entries: []
 pending_approvals:
-- created_at: '2026-05-14T13:28:00+08:00'
-  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
-  mem_id: MEM-ARCH-AVCODEC-S131
-  source: builder-agent
-  status: pending_approval
-  summary: "主题：FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder + FFmpegEncoderPlugin + FFmpegMuxerPlugin\
-    \ 三层架构\n关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行)\
-    \ 编码器引擎基类\n  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行)+ffmpeg_encoder_plugin.h(26行)\
-    \ 插件注册层\n  - muxer/ffmpeg_muxer_plugin.cpp 封装修复器\n编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\n\
-    五路编码器子插件：AAC/FLAC/MP3/G711mu/LBVC\n封装修复器子插件：flv_muxer/ + mpeg4_muxer/\n与S125(FFmpegDecoder解码器)构成完整FFmpeg编解码插件矩阵\n\
-    与S130(FFmpegAdapterCommon工具链)共享Resample/ColorSpace/ChannelLayout\n"
-  type: memory_draft
-- created_at: '2026-05-14T15:56:00+08:00'
-  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S132.md
-  mem_id: MEM-ARCH-AVCODEC-S132
-  source: builder-agent
-  status: pending_approval
-  summary: "主题：FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系\n\
-    关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(129行)\
-    \ 编码器引擎基类\n  - audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行) AAC编码器:自实现+AVAudioFifo+Resample+ADTS\n\
-    \  - audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp(252行) FLAC编码器:组合FFmpegBaseEncoder\n\
-    \  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行) PLUGIN_DEFINITION注册AAC+FLAC\n\
-    编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\nFFmpegBaseEncoder vs\
-    \ FFmpegAACEncoderPlugin设计差异：AAC自实现完整逻辑，FLAC委托基类\n与S125(FFmpegDecoder解码器)构成编解码对称架构\n\
-    与S60(S8/S50)音频编解码体系关联\n"
-  type: memory_draft
-- created_at: '2026-05-14T17:50:00+08:00'
-  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S134.md
-  mem_id: MEM-ARCH-AVCODEC-S134
-  source: builder-agent
-  status: pending_approval
-  summary: "主题：FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理\n\
-    关键文件：\n  - ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_plugin.h(580行) 主插件引擎\n\
-    \  - ffmpeg_demuxer_thread.cpp(891行) FFmpegReadLoop 异步读线程\n  - ffmpeg_format_helper.cpp(1367行)+ffmpeg_format_helper.h(101行)\
-    \ 轨道元数据解析\n十项高级特性：\n  1. HDR六层判断(ITU_T_T35/CUVV/DVCC/PQ/HLG)\n  2. BitstreamFilter三路AnnexB转换(h264_mp4toannexb/hevc_mp4toannexb/vvc)\n\
-    \  3. PTS↔Index双向转换(堆排序+二分搜索本地实现)\n  4. ReadAhead SOFT/HARD双阈值动态降速/丢帧\n  5. CachePressureCallback\
-    \ per-track限流回调\n  6. 视频首帧三阶段探测(ParseVideoFirstFrames)\n  7. MultiStreamParserManager(dlopen插件/GOP感知)\n\
-    \  8. ReferenceParserManager(dlopen插件/I帧精确定位)\n  9. RM流特殊Seek(AVSeekFrameLock+RMSeekToStart)\n\
-    \  10. DFX链路追踪(TrackDfxInfo+DumpMode三态)\n与S68/S76(S41/S75/S58/S97/S101)关联\n"
-  type: memory_draft
-- created_at: '2026-05-14T22:40:00+08:00'
-  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S136.md
+  - created_at: '2026-05-14T13:28:00+08:00'
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
+    mem_id: MEM-ARCH-AVCODEC-S131
+    source: builder-agent
+    status: pending_approval
+    summary: "主题：FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder + FFmpegEncoderPlugin + FFmpegMuxerPlugin 三层架构\n关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行) 编码器引擎基类\n  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行)+ffmpeg_encoder_plugin.h(26行) 插件注册层\n  - muxer/ffmpeg_muxer_plugin.cpp 封装修复器\n编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\n五路编码器子插件：AAC/FLAC/MP3/G711mu/LBVC\n封装修复器子插件：flv_muxer/ + mpeg4_muxer/\n与S125(FFmpegDecoder解码器)构成完整FFmpeg编解码插件矩阵\n与S130(FFmpegAdapterCommon工具链)共享Resample/ColorSpace/ChannelLayout"
+    type: memory_draft
+  - created_at: '2026-05-14T15:56:00+08:00'
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S132.md
+    mem_id: MEM-ARCH-AVCODEC-S132
+    source: builder-agent
+    status: pending_approval
+    summary: "主题：FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系\n关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(129行) 编码器引擎基类\n  - audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行) AAC编码器:自实现+AVAudioFifo+Resample+ADTS\n  - audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp(252行) FLAC编码器:组合FFmpegBaseEncoder\n  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行) PLUGIN_DEFINITION注册AAC+FLAC\n编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\nFFmpegBaseEncoder vs FFmpegAACEncoderPlugin设计差异：AAC自实现完整逻辑，FLAC委托基类\n与S125(FFmpegDecoder解码器)构成编解码对称架构\n与S60(S8/S50)音频编解码体系关联"
+    type: memory_draft

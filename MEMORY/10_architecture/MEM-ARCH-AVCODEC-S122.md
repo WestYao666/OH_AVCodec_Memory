@@ -3,9 +3,7 @@ id: MEM-ARCH-AVCODEC-S122
 title: "MediaEngine Streaming 基础设施——HttpSourcePlugin 三路下载器路由 / StreamDemuxer 分片缓存 / HLS+DASH 自适应码率调度"
 tags: [AVCodec, MediaEngine, Source, Streaming, HttpSourcePlugin, StreamDemuxer, HLS, DASH, AdaptiveBitrate, PullData, DownloadMonitor]
 scope: "新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率"
-status: approved
-approved_at: '2026-05-12T10:42:00+08:00'
-approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
+status: draft
 created: "2026-05-14T01:50"
 source-ref: https://gitcode.com/openharmony/multimedia_av_codec
 evidence-tags: [HttpSourcePlugin, Streaming, AdaptiveBitrate, DownloadMonitor, PullData, StreamDemuxer, HLS, DASH]
