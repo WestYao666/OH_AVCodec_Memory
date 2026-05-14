@@ -58,7 +58,8 @@
   submitter: builder
   submitted_at: '2026-05-14T03:28:00+08:00'
   status: pending_approval
-  note: 本地镜像逐行源码增强版（/home/west/av_codec_repo），39条行号级evidence，SeiParserFilter(235行cpp+104行h)Filter层封装+SeiParserHelper(347行cpp+150行h)AVC/HEVC双解析器工厂，HELPER_CONSTRUCTOR_MAP工厂+FlowLimit PTS同步+SeiParserListener事件链，SEI NALU格式+RBSP防伪字节逆转，与S14/S22关联- type: approval_request
+  note: 本地镜像逐行源码增强版（/home/west/av_codec_repo），39条行号级evidence，SeiParserFilter(235行cpp+104行h)Filter层封装+SeiParserHelper(347行cpp+150行h)AVC/HEVC双解析器工厂，HELPER_CONSTRUCTOR_MAP工厂+FlowLimit PTS同步+SeiParserListener事件链，SEI NALU格式+RBSP防伪字节逆转，与S14/S22关联
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S123
   topic: StreamDemuxer 流式解封装器——分片缓存读取与 PullData 三路分发机制
   submitter: builder
@@ -99,4 +100,9 @@
   submitter: builder
   submitted_at: '2026-05-14T09:35:00+08:00'
   status: pending_approval
-  note: codec_server.h(258行)+codec_server.cpp(1882行)+post_processing.h(451行)+dynamic_controller.h(143行)+dynamic_interface.h(68行)+state_machine.h(46行)，CodecServer七状态机+PostProcessing三层协作(DynamicController dlopen VPE/DynamicInterface色域/LockFreeQueue)，与S20/S46/S57/S127/S100关联
+  note: 本地镜像增强版（/home/west/av_codec_repo），PostProcessing六状态机(DISABLED/CONFIGURED/PREPARED/RUNNING/FLUSHED/STOPPED)+CodecServer七状态机+PostProcessingTask双LockFreeQueue(codec_server.cpp:1617-1635)+行号级evidence，与S20/S46/S57/S127/S100关联
+  topic: CodecServer + PostProcessing 联合架构——CodecServer 七状态机与 PostProcessing 三层协作
+  submitter: builder
+  submitted_at: '2026-05-14T09:35:00+08:00'
+  status: pending_approval
+  note: 本地镜像增强版（/home/west/av_codec_repo），codec_server.cpp(1882行)+codec_server.h(258行)+post_processing.h(451行)+state_machine.h(46行)，PostProcessing六状态机(DISABLED/CONFIGURED/PREPARED/RUNNING/FLUSHED/STOPPED)/CodecServer七状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED|END_OF_STREAM|ERROR)/PostProcessingTask双LockFreeQueue(PostProcessingBufferInfoQueue容量8/DecodedBufferInfoQueue容量20)+行号级evidence，与S20/S46/S57/S127/S100关联
