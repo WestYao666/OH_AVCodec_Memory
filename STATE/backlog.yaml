@@ -925,3 +925,16 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S147 | DataSink数据输出体系 + MediaMuxer Track管理 + AudioCaptureModule实时采集——DataSinkFile/DataSinkFd双实现(MediaMuxer/File/FD)、MediaMuxer四状态机+Track内部类+AVBufferQueue异步、AudioCaptureModule双Read模式+GetMaxAmplitude振幅监测 | AVCodec, MediaMuxer, DataSink, AudioCapture, AudioCaptureModule, Plugin, Track, AVBufferQueue, File, FD, Pipeline | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-15T05:05+08:00），interfaces/plugin/data_sink.h(L24)基类+data_sink_file.cpp(98行)+data_sink_fd.cpp(104行)双实现；media_muxer.h(106行)+.cpp(571行)四状态机+Track内部类+双模式输入(AVBufferQueue/WriteSample)；audio_capture_module.cpp(509行)+.h(95行)双Read模式+GetMaxAmplitude(L456)+AssignSampleRateIfSupported(L270)+AssignChannelNumIfSupported(L285)，与S34/S65/S40/S91/S124/S119/S78关联 |
+
+## 新增主题（Builder 2026-05-15 S148注册——SmartFluencyDecoding 智能流畅解码）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S148 | SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode双阶段丢帧策略与MV/NaluAnalyzer分析器 | AVCodec, MediaEngine, Decoder, SmartFluencyDecoding, SFD, DropStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, RetentionStrategy, DropSyncCoordinator, MediaCodec, DecoderAdapter | 新需求开发/问题定位/流畅度优化 | **pending** | 🚧 待生成草案 |
+
+
+## 新增主题（Builder 2026-05-15 S148注册——SA AVCodec IPC 通信层——CodecServiceStub/Proxy/Parcel 三层架构与死亡通知链）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S148 | SA AVCodec IPC 通信层——CodecServiceStub/Proxy/Parcel 三层架构与死亡通知链 | AVCodec, SA, IPC, Stub, Proxy, Parcel, DeathRecipient, Listener, CodecClient, OnCodecServerDied | 新需求开发/问题定位/跨进程通信 | **approved** | MEM-ARCH-AVCODEC-S148 | ✅ 草案已生成（2026-05-15T05:37+08:00），IPC五组件(CodecServiceStub 220行/CodecServiceProxy 128行/Parcel/DeathRecipient/Listener)与S137互补 |
