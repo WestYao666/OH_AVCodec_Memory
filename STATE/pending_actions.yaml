@@ -38,3 +38,21 @@ pending_approvals:
       FFmpegBaseEncoder vs FFmpegAACEncoderPlugin设计差异：AAC自实现完整逻辑，FLAC委托基类
       与S125(FFmpegDecoder解码器)构成编解码对称架构
       与S60(S8/S50)音频编解码体系关联
+  - mem_id: MEM-ARCH-AVCODEC-S133
+    type: memory_draft
+    source: builder-agent
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S133.md
+    status: pending_approval
+    created_at: "2026-05-14T16:50:00+08:00"
+    summary: |
+      主题：FFmpeg MPEG-4/FLV 封装修复器插件体系——FFmpegMuxerPlugin / FFmpegFlvMuxerPlugin / MPEG4MuxerPlugin / Mpeg4Track 四层架构
+      关键文件：
+        - ffmpeg_muxer_plugin.cpp(1414行)+ffmpeg_muxer_register.cpp(377行) FFmpeg底层封装
+        - flv_muxer/ffmpeg_flv_muxer_plugin.cpp(586行) FLV专用封装修复器
+        - mpeg4_muxer/mpeg4_muxer_plugin.cpp(574行) MPEG-4 ISOBMFF自研封装修复器
+        - mpeg4_muxer/basic_box.cpp(1256行)+basic_box.h(575行) BasicBox树形原子层级
+        - mpeg4_muxer/avc_parser.cpp(211行)+hevc_parser.cpp(186行) NALU→ISOBMFF转换器
+        - mpeg4_muxer/track/video_track.cpp(753行)+audio_track.cpp(263行)+basic_track.cpp(282行) 轨模型
+      架构要点：FFmpegMuxerRegister(九格式注册)→FFmpegMuxerPlugin/FFmpegFlvMuxerPlugin(AVIOContext桥接)→MediaMuxer→MuxerFilter；MPEG4MuxerPlugin走自研AVIOStream+BasicBox树
+      29条行号级evidence
+      与S40(FFmpegMuxer总览)/S91(Mpeg4Muxer写时构建)/S58(MPEG4BoxParser)互补
