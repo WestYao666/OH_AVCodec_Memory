@@ -907,3 +907,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S143 | StreamParserManager 流式解析管理——StreamParser基类/HevcParseFormat HDR元数据/PacketConvertToBufferInfo/HEVCProfile+ColorRange提取/ConvertPacketToAnnexb | AVCodec, MediaEngine, StreamParser, StreamParserManager, HevcParseFormat, PacketConvertToBufferInfo, HEVC, VVC, AVC, Bitstream, AnnexB, ConvertPacketToAnnexb, ParseExtraData, HDR, ColorRange | 新需求开发/问题定位/码流格式转换/HDR元数据提取 | **pending_approval** | 🚧 草案已生成（2026-05-15T02:58:55+08:00），stream_parser.h(96行)StreamParser基类+HevcParseFormat+PacketConvertToBufferInfo；stream_parser_manager.cpp(227行)+stream_parser_manager.h(73行)管理器(HevcParseFormat/ConvertPacketToAnnexb/Profile/Level提取)；HdiCodec(365行)；与S105(S130)/S141关联
+
+## 新增主题（Builder 2026-05-15 S144注册——DemuxerPluginManager插件管理）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S144 | DemuxerPluginManager 插件管理与 BaseStreamDemuxer 流式解封装——1159行cpp/多StreamDemuxer/TrackMap/临时映射/Plugin加载/Sniffer路由/StreamID分配 | AVCodec, MediaEngine, DemuxerPluginManager, BaseStreamDemuxer, StreamDemuxer, Plugin, Sniffer, Track, StreamID, TrackMap, MediaStreamInfo, LoadDemuxerPlugin, GetPluginByStreamID, DASH, HTTP | 新需求开发/问题定位/插件加载/流切换 | **pending_approval** | 🚧 草案已生成（2026-05-15T03:02:38+08:00），demuxer_plugin_manager.cpp(1159行)+demuxer_plugin_manager.h(196行)插件管理(DataSourceImpl/MediaStreamInfo/TrackMap/Sniffer/LoadDemuxerPlugin)；base_stream_demuxer.cpp(202行)+base_stream_demuxer.h(161行)流式解封装基类(DemuxerState/CacheData/IsDash)；与S75/S101/S102关联
