@@ -1,10 +1,10 @@
-# MEM-ARCH-AVCODEC-S136
+# MEM-ARCH-AVCODEC-S134: FFmpegDemuxerPlugin 高级特性
 
 ## 元信息
 
 | 字段 | 内容 |
 |------|------|
-| id | MEM-ARCH-AVCODEC-S136 |
+| id | MEM-ARCH-AVCODEC-S134 |
 | title | FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理 |
 | scope | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, HDR_VIVID, HDR10, BitstreamFilter, AnnexB, PTS, IndexConvert, ReadAhead, CachePressure, MultiStreamParser, ReferenceParser, RMSeek |
 | status | draft |
