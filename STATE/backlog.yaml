@@ -828,3 +828,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S129 | CodecServer + PostProcessing 联合架构——CodecServer 七状态机与 PostProcessing 三层协作 | AVCodec, CodecServer, PostProcessing, DynamicController, DynamicInterface, LockFreeQueue, StateMachine, VPE, Surface, Pipeline | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S129 | 🚧 草案已生成（2026-05-14T09:30）→pending_approval（2026-05-14T09:46 Builder提交审批），codec_server.h(258行)+codec_server.cpp(1882行)+post_processing.h(451行)+dynamic_controller.h(143行)+dynamic_interface.h(68行)+state_machine.h(46行)，CodecServer七状态机(UNINITIALIZED→RUNNING)+PostProcessing三层协作(DynamicController dlopen VPE/DynamicInterface色域转换四元组/StateMachine四状态)，LockFreeQueue无锁队列(20/8容量)，PostProcessing::DynamicPostProcessing CRTP模板实例，与S20/S46/S57/S127/S100关联 |
+
+## 新增主题（Builder 2026-05-14 S130注册——FFmpeg Adapter Common 工具链）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S130 | FFmpeg Adapter Common 通用工具链——ffmpeg_utils / ffmpeg_convert / ffmpeg_converter / stream_parser_manager 四组件 | AVCodec, FFmpeg, Adapter, Common, Utils, Resample, SwrContext, ColorSpace, ChannelLayout, NALU, StartCode, HEVC, StreamParser, dlopen | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S130 | 🚧 草案已生成（2026-05-14T12:30），services/media_engine/plugins/ffmpeg_adapter/common/四组件（ffmpeg_utils 505行cpp+76行h / ffmpeg_convert 247行cpp+98行h / ffmpeg_converter 201行cpp+53行h / stream_parser_manager 227行cpp+73行h），Mime2CodecId 15+ MIME映射 / ColorSpace三函数映射(PQ/HLG/BT2020) / Resample SwrContext封装 / Scale SwsContext封装 / g_toFFMPEGChannelLayout 18种通道布局 / FindNalStartCode NALU起始码 / StreamParserManager dlopen HEVC插件，与S125/S8/S50/S105关联 |

@@ -106,3 +106,10 @@
   submitted_at: '2026-05-14T09:35:00+08:00'
   status: pending_approval
   note: 本地镜像增强版（/home/west/av_codec_repo），codec_server.cpp(1882行)+codec_server.h(258行)+post_processing.h(451行)+state_machine.h(46行)，PostProcessing六状态机(DISABLED/CONFIGURED/PREPARED/RUNNING/FLUSHED/STOPPED)/CodecServer七状态机(UNINITIALIZED→INITIALIZED→CONFIGURED→RUNNING→FLUSHED|END_OF_STREAM|ERROR)/PostProcessingTask双LockFreeQueue(PostProcessingBufferInfoQueue容量8/DecodedBufferInfoQueue容量20)+行号级evidence，与S20/S46/S57/S127/S100关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S130
+  topic: FFmpeg Adapter Common 通用工具链——ffmpeg_utils / ffmpeg_convert / ffmpeg_converter / stream_parser_manager 四组件
+  submitter: builder
+  submitted_at: '2026-05-14T12:30:00+08:00'
+  status: pending_approval
+  note: 基于本地镜像/home/west/av_codec_repo，services/media_engine/plugins/ffmpeg_adapter/common/四组件（ffmpeg_utils 505行cpp+76行h / ffmpeg_convert 247行cpp+98行h / ffmpeg_converter 201行cpp+53行h / stream_parser_manager 227行cpp+73行h），Mime2CodecId 15+ MIME→AVCodecID映射(ColorPrimary2AVColorPrimaries 11种色域/PQ/HLG) / Resample SwrContext封装(EnableResample→swr_alloc_set_opts2) / Scale SwsContext封装(VIDEO_SUPPORT) / g_toFFMPEGChannelLayout 18种通道布局 / FindNalStartCode NALU起始码{0x00,0x00,0x01} / StreamParserManager dlopen HEVC插件，与S125/S8/S50/S105关联
