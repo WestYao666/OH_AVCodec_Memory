@@ -799,6 +799,12 @@
 | S123 | StreamDemuxer 流式解封装器——分片缓存读取与 PullData 三路分发机制 | AVCodec, MediaEngine, Demuxer, StreamDemuxer, BaseStreamDemuxer, DemuxerPluginManager, Cache, PullData, ReadRetry, DASH, HLS, AdaptiveBitrate | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S123 | 🚧 草案已生成（2026-05-14T04:27）→pending_approval，stream_demuxer.cpp(492行)+base_stream_demuxer.cpp(202行)+demuxer_plugin_manager.cpp(1159行)，PullData三路分发(UNSEEKABLE/SEEKABLE/CallbackReadAt)+ReadRetry(10次×10ms)+DataSourceImpl内类+三层映射表(StreamID→TrackID→InnerTrackIndex)，补充S75/S97/S101深度细节 |
 
 
+## 新增主题（Builder 2026-05-14 S125注册——FFmpeg软件解码器基类）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S125 | FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder / Resample / FfmpegDecoderPlugin 三层架构 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, AudioDecoder, FfmpegBaseDecoder, FfmpegDecoderPlugin, AAC, AC3, MP3, FLAC, Vorbis, WMA, DTS | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T08:10），ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)引擎基类；ffmpeg_convert.cpp(247行)+ffmpeg_convert.h(98行)Resample重采样器；ffmpeg_decoder_plugin.cpp(250行)+ffmpeg_decoder_plugin.h(46行)插件层，17+音频格式子插件（aac/ac3/mp3/flac/vorbis/wma/dts/cook/ape/truehd/twinvq/gsm/g711mu/amrnb/amrwb/alac/adpcm/ilbc/dvaudio/eac3/lbvc），与S35/S8/S50/S60关联 |
+
 ## 新增主题（Builder 2026-05-14 S124注册——录音管线音频过滤器链）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
