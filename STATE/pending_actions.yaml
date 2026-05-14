@@ -52,3 +52,10 @@ pending_approvals:
   summary: DASH MPD 解析器架构——DashMpdParser 1577行核心引擎与 mpd_parser 子目录 26个节点类，五层架构(DashMpdParser→DashMpdNode→DashMpdManager→DashPeriodManager→DashAdptSetManager)，DashMpdTrackParam/DashMpdBitrateParam/DashBufferSegment三数据结构，与S37/S86并列构成自适应流双源头
   source: builder-agent
   created_at: '2026-05-15T02:43:09+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S139
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S139.md
+  summary: SampleQueue与SampleQueueController双组件流控架构——MAX_SAMPLE_QUEUE_SIZE=16~500/水位线启停/码率切换状态机，六种队列规格+双水位线(5s启动/10s停止)+SpeedCountInfo速度统计，与S101/S102关联
+  source: builder-agent
+  created_at: '2026-05-15T02:46:58+08:00'
