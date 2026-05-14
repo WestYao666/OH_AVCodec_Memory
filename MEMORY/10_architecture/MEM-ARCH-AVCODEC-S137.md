@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S137
-status: draft
+status: pending_approval
 topic: SA Codec 服务框架——AVCodecServerManager + CodecClient IPC 双层架构与 SystemAbility 集成
 scope: [AVCodec, SA, SystemAbility, IPC, CodecClient, CodecServiceStub, CodecServiceProxy, Singleton, SAMgr, dlopen]
 created_at: "2026-05-15T01:10:00+08:00"

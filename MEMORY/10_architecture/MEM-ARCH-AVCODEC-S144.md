@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S144
-status: draft
+status: pending_approval
 created_at: "2026-05-15T03:02:38+08:00"
 updated_at: "2026-05-15T03:02:38+08:00"
 created_by: builder

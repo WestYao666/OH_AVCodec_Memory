@@ -3,7 +3,7 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S131
 title: "FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder / FFmpegEncoderPlugin / FfmpegMuxerPlugin 三层架构"
 scope: [AVCodec, FFmpeg, AudioEncoder, MuxerPlugin, Plugin, libavcodec, avcodec_send_frame, avcodec_receive_packet, AAC, FLAC, MP3, G711mu, LBVC, aac, flac, mp3, g711mu, lbvc, FFmpegMuxerPlugin, FFmpegMuxerRegister, AutoRegisterFilter, Filter]
-status: draft
+status: pending_approval
 created_at: "2026-05-14T14:10:00+08:00"
 created_by: builder-agent
 关联主题: [S125(FFmpegDecoder基类), S60(AAC音频FFmpeg插件), S8(FFmpeg音频插件总览), S40(FFmpegMuxerPlugin总览), S130(FFmpegAdapterCommon工具链)]

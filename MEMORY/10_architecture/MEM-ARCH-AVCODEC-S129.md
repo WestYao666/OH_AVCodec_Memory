@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S129
-status: draft
+status: pending_approval
 topic: CodecServer + PostProcessing 联合架构——CodecServer 七状态机与 PostProcessing 三层协作
 scope: [AVCodec, CodecServer, PostProcessing, DynamicController, DynamicInterface, LockFreeQueue, StateMachine, VPE, Surface, Pipeline]
 created_at: "2026-05-14T09:30:00+08:00"

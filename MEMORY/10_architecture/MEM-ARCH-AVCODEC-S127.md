@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S127
-status: draft
+status: pending_approval
 topic: Video PostProcessor Framework 视频后处理框架——BaseVideoPostProcessor + VideoPostProcessorFactory + SuperResolutionPostProcessor 三层架构
 scope: [AVCodec, PostProcessor, VPE, SuperResolution, VideoPostProcessorType, AutoRegisterPostProcessor, Surface, Factory, VideoProcessingEngine, DetailEnhancer, BaseVideoPostProcessor, VideoPostProcessorFactory]
 created_at: "2026-05-14T08:43:00+08:00"

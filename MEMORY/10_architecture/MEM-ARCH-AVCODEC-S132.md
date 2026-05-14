@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S132
 
-> **状态**: draft → **pending_approval**  
+> **状态**: pending_approval  
 > **主题编号**: S132  
 > **生成时间**: 2026-05-14T15:56  
 > **Builder**: builder-agent  
