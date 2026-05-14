@@ -3,7 +3,8 @@ type: architecture
 id: MEM-ARCH-AVCODEC-S130
 title: "FFmpeg Adapter Common 通用工具链——ffmpeg_utils / ffmpeg_convert / ffmpeg_converter / stream_parser_manager 四组件"
 scope: [AVCodec, FFmpeg, Adapter, Common, Utils, Resample, SwrContext, ColorSpace, ChannelLayout, NALU, StartCode, HEVC, StreamParser, dlopen]
-status: draft
+status: approved
+approved_at: '2026-05-15T00:39'
 created_at: "2026-05-14T12:30:00+08:00"
 created_by: builder-agent
 关联主题: [S125(FFmpegDecoder基类), S8(FFmpeg音频插件总览), S50(AudioResample), S105(avc_parser_impl)]
