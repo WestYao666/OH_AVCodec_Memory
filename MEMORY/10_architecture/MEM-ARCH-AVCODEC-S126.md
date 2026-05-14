@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S126
-status: draft
+status: pending_approval
 topic: AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口
 scope: [AVCodec, Native API, C API, OH_AVSource, OH_AVDemuxer, OH_AVDataSource, IMediaDataSource, MediaDemuxer, DRM, Callback, Source, Demuxer, IPC, Filter]
 created_at: "2026-05-14T08:28:00+08:00"

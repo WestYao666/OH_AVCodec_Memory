@@ -13,4 +13,10 @@ pending_approvals:
     source: builder-agent
     status: pending_approval
     summary: "主题：FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系\n关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(129行) 编码器引擎基类\n  - audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行) AAC编码器:自实现+AVAudioFifo+Resample+ADTS\n  - audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp(252行) FLAC编码器:组合FFmpegBaseEncoder\n  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行) PLUGIN_DEFINITION注册AAC+FLAC\n编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\nFFmpegBaseEncoder vs FFmpegAACEncoderPlugin设计差异：AAC自实现完整逻辑，FLAC委托基类\n与S125(FFmpegDecoder解码器)构成编解码对称架构\n与S60(S8/S50)音频编解码体系关联"
+    type: memory_draft  - created_at: '2026-05-15T00:54:00+08:00'
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S126.md
+    mem_id: MEM-ARCH-AVCODEC-S126
+    source: builder-agent
+    status: pending_approval
+    summary: "主题：AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口\n关键文件：\n  - native_avsource.cpp(325行)+avsource_impl.cpp(198行) Source CAPI+引擎\n  - native_avdemuxer.cpp(318行)+avdemuxer_impl.cpp(282行) Demuxer CAPI+引擎\n三路创建：CreateWithURI/FD/DataSource → AVSourceFactory → MediaDemuxer\n五路接口：CreateWithSource/SelectTrack/UnselectTrack/ReadSample/ReadSampleBuffer/SeekToTime\nDRM回调：NativeDemuxerCallback + NativeDrmTools::ProcessApplicationDrmInfo PSSH解析\n关联S94(CAPI三件套)、S83(CAPI总览)、S41/S75/S97(MediaDemuxer引擎)"
     type: memory_draft
