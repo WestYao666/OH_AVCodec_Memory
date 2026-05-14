@@ -845,7 +845,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S133 | FFmpeg MPEG-4/FLV 封装修复器插件体系——FFmpegMuxerPlugin / FFmpegFlvMuxerPlugin / MPEG4MuxerPlugin / Mpeg4Track 四层架构 | AVCodec, FFmpeg, MuxerPlugin, MPEG4, FLV, MP4, ISOBMFF, BasicBox, Mpeg4Track, Track, AvcParser, HevcParser, BoxParser, WriteSample, Start, Stop, AddTrack, AVIOContext, FFmpegMuxerRegister, MediaMuxer, MuxerFilter, VideoTrack, AudioTrack, CoverTrack, TimedMetaTrack | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T16:50），ffmpeg_muxer_plugin.cpp(1414行)+ffmpeg_muxer_register.cpp(377行)+ffmpeg_flv_muxer_plugin.cpp(586行)+mpeg4_muxer_plugin.cpp(574行)+basic_box.cpp(1256行)+basic_box.h(575行)+avc_parser.cpp(211行)+avc_parser.h(60行)+hevc_parser.cpp(186行)+video_track.cpp(753行)+audio_track.cpp(263行)+basic_track.cpp(282行)，29条行号级 evidence，与S40(FFmpegMuxer总览)/S91(Mpeg4Muxer写时构建)/S58(MPEG4BoxParser)互补 |
+| S133 | FFmpeg MPEG-4/FLV 封装修复器插件体系——FFmpegMuxerPlugin / FFmpegFlvMuxerPlugin / MPEG4MuxerPlugin / Mpeg4Track 四层架构 | AVCodec, FFmpeg, MuxerPlugin, MPEG4, FLV, MP4, ISOBMFF, BasicBox, Mpeg4Track, Track, AvcParser, HevcParser, BoxParser, WriteSample, Start, Stop, AddTrack, AVIOContext, FFmpegMuxerRegister, MediaMuxer, MuxerFilter, VideoTrack, AudioTrack, CoverTrack, TimedMetaTrack | 新需求开发/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T16:50）→approved（2026-05-15T00:23 Builder approve all），ffmpeg_muxer_plugin.cpp(1414行)+ffmpeg_muxer_register.cpp(377行)+ffmpeg_flv_muxer_plugin.cpp(586行)+mpeg4_muxer_plugin.cpp(574行)+basic_box.cpp(1256行)+basic_box.h(575行)+avc_parser.cpp(211行)+avc_parser.h(60行)+hevc_parser.cpp(186行)+video_track.cpp(753行)+audio_track.cpp(263行)+basic_track.cpp(282行)，29条行号级 evidence，与S40(FFmpegMuxer总览)/S91(Mpeg4Muxer写时构建)/S58(MPEG4BoxParser)互补 |
 
 ## 新增主题（Builder 2026-05-14 S134注册——FFmpegDemuxerPlugin高级特性）
 
@@ -858,4 +858,4 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S135 | WaterMarkFilter 水印过滤器——OpenGL ES GPU 加速视频水印叠加 | AVCodec, MediaEngine, Filter, WaterMark, OpenGL, GPU, Transcoder, EGL, Shader, OH_NativeImage, FBO, RenderLoop | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T21:08），water_mark_filter.cpp(1001行)+water_mark_filter.h(155行)，OpenGL ES 2.0 渲染管线(EglRenderContext/ShaderProgram/GL_TEXTURE_EXTERNAL_OES)+FBO水印合并+OH_NativeImage视频纹理绑定+RenderLoop独立线程+SetWatermark(≤5个/≤20MB)+SetVideoResize+SetFaultEvent DFX上报，与S14/S20/S45/S46关联 |
+| S135 | WaterMarkFilter 水印过滤器——OpenGL ES GPU 加速视频水印叠加 | AVCodec, MediaEngine, Filter, WaterMark, OpenGL, GPU, Transcoder, EGL, Shader, OH_NativeImage, FBO, RenderLoop | 新需求开发/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T21:08）→approved（2026-05-15T00:23 Builder approve all），water_mark_filter.cpp(1001行)+water_mark_filter.h(155行)，OpenGL ES 2.0 渲染管线(EglRenderContext/ShaderProgram/GL_TEXTURE_EXTERNAL_OES)+FBO水印合并+OH_NativeImage视频纹理绑定+RenderLoop独立线程+SetWatermark(≤5个/≤20MB)+SetVideoResize+SetFaultEvent DFX上报，与S14/S20/S45/S46关联 |
