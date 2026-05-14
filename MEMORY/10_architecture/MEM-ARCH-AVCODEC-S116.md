@@ -2,9 +2,7 @@
 id: MEM-ARCH-AVCODEC-S116
 title: 三路 Sink 引擎协作架构——VideoSink / AudioSink / SubtitleSink 与 MediaSyncManager 联动
 scope: [AVCodec, MediaEngine, Sink, MediaSync, VideoSink, AudioSink, SubtitleSink, IMediaSynchronizer, DoSyncWrite, MediaSyncManager, VideoLagDetector, AudioVivid, RenderLoop, LAG_LIMIT, BufferDiff, Priority]
-status: approved
-approved_at: '2026-05-12T10:42:00+08:00'
-approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
+status: draft
 created_at: "2026-05-10T23:10:00+08:00"
 submitted_at: null
 evidence_count: 14
