@@ -1,223 +1,269 @@
----
-type: architecture
-id: MEM-ARCH-AVCODEC-S148
-status: draft
-topic: SA AVCodec IPC 通信层——CodecServiceStub/Proxy/Parcel 三层架构与死亡通知链
-scope: [AVCodec, SA, IPC, Stub, Proxy, Parcel, DeathRecipient, Listener, CodecClient, OnCodecServerDied, IRemoteObject, MessageParcel, CodecServiceStub, CodecServiceProxy, AVCodecListenerStub, AVCodecListenerProxy]
-created_at: "2026-05-15T05:37:00+08:00"
-updated_at: "2026-05-15T05:37:00+08:00"
-source_repo: /home/west/av_codec_repo
-source_root: services/services/sa_avcodec
-related_mem_ids: [S137]
----
+# MEM-ARCH-AVCODEC-S148 - SmartFluencyDecoding 智能流畅解码
 
-# MEM-ARCH-AVCODEC-S148: SA AVCodec IPC 通信层——CodecServiceStub/Proxy/Parcel 三层架构与死亡通知链
-
-## 摘要
-
-SA AVCodec IPC 通信层位于 `services/services/sa_avcodec/ipc/`，是进程间编解码调用的骨干通道，由 CodecServiceStub（服务端接收侧）、CodecServiceProxy（客户端发送侧）、AVCodecListenerStub/Proxy（服务端回调接收/发送侧）、AVCodecParcel（数据类型序列化）以及 AVCodecDeathRecipient（服务死亡通知）五组件构成，配合 AVCodecClient（客户端代理层，352行）完成完整的 RPC 调用闭环。与 S137（AVCodecServerManager + CodecClient 双层架构）共同构成 AVCodec SA 服务框架的完整通信栈。
+**主题ID**: MEM-ARCH-AVCODEC-S148  
+**主题名称**: SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode双阶段丢帧策略与MV/NaluAnalyzer分析器  
+**状态**: draft  
+**创建日期**: 2026-05-15  
+**Builder**: Builder Agent (minimax/MiniMax-M2.7)
 
 ---
 
-## 一、文件矩阵与行号级证据
+## 1. 概述
 
-### 1.1 IPC 核心文件
+SmartFluencyDecoding (SFD) 是 AVCodec 解码端的**流畅度优化框架**，通过分析 MV (运动矢量) 和 NALU (编码单元) 信息，在解码前后双阶段智能丢帧，在低性能设备上保持播放流畅。核心定位与 AFC (AdaptiveFramerateController，编码端降帧) 互补：SFD 管**解码丢帧**，AFC 管**编码降帧**。
 
-| 文件 | 行数 | 职责 |
+---
+
+## 2. 代码证据（本地镜像）
+
+| 文件 | 行数 | 说明 |
 |------|------|------|
-| `ipc/avcodec_service_stub.cpp` | 220 | CodecServiceStub 服务端 IPC 接收：OnRemoteRequest 分派 COMMAND_* 枚举方法 |
-| `ipc/avcodec_service_stub.h` | — | CodecServiceStub 类定义（继承 IRemoteStub） |
-| `ipc/avcodec_service_proxy.cpp` | 128 | CodecServiceProxy 客户端 IPC 发送侧（Stub 的对端镜像） |
-| `ipc/avcodec_service_proxy.h` | — | CodecServiceProxy 类定义（继承 IRemoteProxy） |
-| `ipc/av_codec_service_ipc_interface_code.h` | 84 | COMMAND_* 枚举，IPC 方法编号定义 |
-| `ipc/avcodec_listener_stub.cpp` | 35 | AVCodecListenerStub 服务端回调接收侧 |
-| `ipc/avcodec_listener_stub.h` | — | AVCodecListenerStub 类定义（OnCodecServerDied 等） |
-| `ipc/avcodec_listener_proxy.cpp` | 35 | AVCodecListenerProxy 客户端回调发送侧 |
-| `ipc/avcodec_listener_proxy.h` | — | AVCodecListenerProxy 类定义 |
-| `ipc/avcodec_parcel.cpp` | 36 | AVCodecParcel::Marshalling/Unmarshalling，Format ↔ MessageParcel 序列化 |
-| `ipc/avcodec_parcel.h` | — | AVCodecParcel 类定义 |
-| `ipc/codeclist_parcel.cpp` | 246 | CodecList 相关数据结构的序列化（FindCodecBy MIME/Name） |
-| `ipc/avcodec_death_recipient.h` | — | AVCodecDeathRecipient 死亡通知接收器 |
-
-**Evidence**：`av_codec_service_ipc_interface_code.h` — COMMAND_* 枚举定义了所有跨进程方法的编号
-
-**Evidence**：`avcodec_service_stub.cpp:220` — OnRemoteRequest 是 IPC 分派的入口，分派给各 COMMAND_* 处理
-
-**Evidence**：`avcodec_client.cpp:352` — CodecClient 是跨进程调用发起方，使用 CodecServiceProxy 发送请求
-
-### 1.2 服务端 SA 文件（对照 S137）
-
-| 文件 | 行数 | 职责 |
-|------|------|------|
-| `server/avcodec_server_manager.cpp` | 426 | AVCodecServerManager 单例，创建/销毁 CodecServiceStub 实例 |
-| `server/avcodec_server.cpp` | 182 | SA OnDump/OnGetXmlWhiteList |
-| `server/avcodec_server_dump.cpp` | 201 | Dump 能力实现（VIDEO_DUMP_TABLE/AUDIO_DUMP_TABLE） |
-| `client/avcodec_client.cpp` | 352 | CodecClient IPC 客户端代理 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding.h` | 95 | 核心类定义 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding.cpp` | 453 | 核心实现 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding_builder.h` | 69 | 工厂构建器 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding_builder.cpp` | 257 | 工厂实现 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/interfaces/smart_fluency_decoding_types.h` | 76 | 类型定义 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/async_drop_dispatcher.h` | ~50 | 异步丢帧调度器 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/drop_sync_coordinator.h` | ~60 | 成对丢帧同步器 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/retention_strategy.h` | - | 策略基类 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/adaptive_retention_strategy.h/cpp` | - | 自适应策略 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/fixed_ratio_retention_strategy.h/cpp` | - | 固定比例策略 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/full_retention_strategy.h/cpp` | - | 全保留策略 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/auto_fallback_retention_strategy.h/cpp` | - | 自动回退策略 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/mv_analyzer.h` | - | MV 分析器接口 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/nalu_analyzer.h` | - | NALU 分析器接口 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/mv_analyzer_so_loader.h/cpp` | - | MV 分析器 dlopen 加载 |
+| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/nalu_analyzer_so_loader.h/cpp` | - | NALU 分析器 dlopen 加载 |
 
 ---
 
-## 二、架构分层
+## 3. 核心架构
+
+### 3.1 命名空间与类层级
 
 ```
-客户端进程（沙箱）                          服务端进程（avcodec_sa）
-CodecClient                                  CodecServiceStub
-  │                                              │
-  │  CreateStubObject()                          │  OnRemoteRequest()
-  │  ─────────────────────────────────────────►  │  (COMMAND_* dispatch)
-  │  CodecServiceProxy                           │  CodecServiceStub
-  │                                              │
-CodecServiceProxy                         CodecServiceStub
-  │  Send Transact() ─────────────────────────►  │
-  │                                              │
-  │  ─────────────────────────────────────────   │
-  │                                              │
-AVCodecListenerProxy ←──── OnCodecServerDied     AVCodecListenerStub
-  │  (回调通知)                                   │  (接收回调)
+OHOS::MediaAVCodec::SFD
+├── SmartFluencyDecoding           # 主引擎类 (smart_fluency_decoding.h/cpp, 548行)
+├── SmartFluencyDecodingBuilder    # 工厂构建器 (builder.h/cpp, 326行)
+├── AsyncDropDispatcher            # 异步丢帧调度器 (async_drop_dispatcher.h/cpp)
+├── DropSyncCoordinator            # 成对丢帧同步器 (drop_sync_coordinator.h/cpp)
+├── IRetentionStrategy             # 策略基类 (abstract)
+│   ├── FullRetentionStrategy
+│   ├── AdaptiveRetentionStrategy
+│   ├── FixedRatioRetentionStrategy
+│   └── AutoFallbackRetentionStrategy
+├── IMvAnalyzer                    # MV 分析器接口 (dlopen 插件)
+└── INaluAnalyzer                  # NALU 分析器接口 (dlopen 插件)
 ```
 
----
-
-## 三、核心组件详解
-
-### 3.1 CodecServiceStub（服务端 IPC 接收）
-
-**文件**：`ipc/avcodec_service_stub.cpp`
-
-CodecServiceStub 继承自 `IRemoteStub<IStandardAVCodecService>`，在服务端接收来自 CodecClient 的 IPC 调用。
+### 3.2 双阶段丢帧决策
 
 ```cpp
-// avcodec_service_stub.cpp:OnRemoteRequest
-int32_t CodecServiceStub::OnRemoteRequest(
-    uint32_t code,                                   // COMMAND_* 编号
-    MessageParcel &data,                            // 调用参数
-    MessageParcel &reply,                           // 返回值
-    MessageOption &option)                          // TRANS_*
+// smart_fluency_decoding.h (L27-28)
+bool MakePreDecodeDecision(uint32_t index);      // 解码前丢帧决策
+bool MakePostDecodeDecision(uint32_t index, int64_t pts, const sptr<SurfaceBuffer> surfaceBuffer); // 解码后丢帧决策
 ```
 
-**Evidence**：`ipc/avcodec_service_stub.cpp:220` — OnRemoteRequest 入口，处理所有跨进程方法调用
+- **PreDecode 阶段** (`MakePreDecodeDecision`)：在输入 buffer 入队前，根据 NALU 类型（SPS/PPS/IDR/non-IDR）和 MV 统计信息提前判断是否丢弃
+- **PostDecode 阶段** (`MakePostDecodeDecision`)：在解码输出后，根据 SurfaceBuffer 的 MV 元数据和当前系统负载决定是否丢弃当前帧
 
-**COMMAND_* 枚举**（`av_codec_service_ipc_interface_code.h`）：
-- `COMMAND_CREATE_*` — 创建编解码实例
-- `COMMAND_DESTROY_*` — 销毁实例
-- `COMMAND_CONFIGURE` — 配置
-- `COMMAND_START/STOP/FLUSH/RESET` — 生命周期控制
-- `COMMAND_QUEUE_INPUT_BUFFER` — 输入Buffer排队
-- `COMMAND_RELEASE_OUTPUT_BUFFER` — 输出Buffer释放
-
-### 3.2 CodecServiceProxy（客户端 IPC 发送）
-
-**文件**：`ipc/avcodec_service_proxy.cpp`
-
-CodecServiceProxy 继承自 `IRemoteProxy<IStandardAVCodecService>`，是客户端的 IPC 发送代理。
+### 3.3 四种 RetentionStrategy
 
 ```cpp
-// avcodec_service_proxy.cpp - Transact 发送示例
-int32_t CodecServiceProxy::Configure(...)
-{
-    MessageParcel data, reply;
-    // marshall 参数 → data
-    // SendTransact(COMMAND_CONFIGURE, ...)
-    auto ret = SendTransactRequest(COMMAND_CONFIGURE, data, reply);
-    // unmarshall reply → 返回值
-}
-```
-
-**Evidence**：`avcodec_service_proxy.cpp:128` — Proxy 端的方法实现与 Stub 端的 OnRemoteRequest 分派一一对应
-
-### 3.3 AVCodecParcel（数据类型序列化）
-
-**文件**：`ipc/avcodec_parcel.cpp:36`
-
-Format 类型（编解码参数）通过 AVCodecParcel 序列化到 MessageParcel：
-
-```cpp
-// avcodec_parcel.cpp
-bool AVCodecParcel::Marshalling(MessageParcel &parcel, const Format &format);
-bool AVCodecParcel::Unmarshalling(MessageParcel &parcel, Format &format);
-// 内部调用 format.GetMeta()->ToParcel(parcel)
-```
-
-### 3.4 AVCodecDeathRecipient（死亡通知链）
-
-**文件**：`ipc/avcodec_death_recipient.h`
-
-当 SA 服务端进程崩溃时，DeathRecipient 自动触发 OnRemoteObjectDied 回调，通知客户端释放资源：
-
-```cpp
-class AVCodecDeathRecipient : public IRemoteObject::DeathRecipient {
-    void OnRemoteObjectDied(const wptr<IRemoteObject> &remote);  // 清理 CodecClient 侧的资源
+// smart_fluency_decoding_types.h
+enum class RetentionStrategyType : int32_t {
+    INVALID = -1,
+    FULL = 0,           // 全保留，无丢帧
+    ADAPTIVE = 1,       // 自适应：基于解码速度动态调整
+    FIXED_RATIO = 2,    // 固定比例：按 retentionRatio 固定丢帧
+    AUTO_RATIO = 3      // 自动比例：分析 MV 数据自动确定保留比例
 };
 ```
 
-**调用链**：`AVCodecServerManager::CreateStubObject` 注册 → 服务崩溃 → DeathRecipient 触发 → `AVCodecListenerProxy::OnCodecServerDied` 回调
+Strategy 路由（builder.cpp 中）：
+- AVC → `ADAPTIVE`
+- HEVC → `FIXED_RATIO`
+- VVC → `AUTO_RATIO`
+- 若初始化失败 → `FULL` (降级)
 
-### 3.5 AVCodecListenerStub/Proxy（回调通道）
+### 3.4 MV/Nalu 双分析器（dlopen 插件）
 
-**文件**：`ipc/avcodec_listener_stub.cpp:35` / `ipc/avcodec_listener_proxy.cpp:35`
-
-服务端回调（OnOutputFormatChanged/OnError/OnStreamChanged）通过 AVCodecListenerProxy 跨进程回调到客户端：
-
+```cpp
+// smart_fluency_decoding.h (L65-67)
+std::unique_ptr<IMvAnalyzer> mvAnalyzer_{nullptr};
+std::unique_ptr<INaluAnalyzer> naluAnalyzer_{nullptr};
+void EnsureNaluAnalyzer();  // dlopen 延迟加载
+void EnsureMvAnalyzer();    // dlopen 延迟加载
 ```
-服务端回调触发 → AVCodecListenerProxy → IPC → AVCodecListenerStub → CodecClient.On*()
+
+- `mv_analyzer.h` / `nalu_analyzer.h` 定义接口
+- `mv_analyzer_so_loader.cpp` / `nalu_analyzer_so_loader.cpp` 负责 dlopen 热加载插件
+- MV 分析器从 SurfaceBuffer 解析帧级运动矢量统计 (`MVStats`)
+- NALU 分析器解析编码单元类型，辅助 pre-decode 决策
+
+### 3.5 DropSyncCoordinator 成对丢帧同步
+
+```cpp
+// drop_sync_coordinator.h
+static constexpr size_t queueCapacity = 128;
+int64_t ptsRingBuffer_[queueCapacity];  // PTS 环形缓冲区
+alignas(cacheLineSize) std::atomic<size_t> writeIndex_{0};
+alignas(cacheLineSize) std::atomic<size_t> readIndex_{0};
+double currentEmaDropRatio_{0.0};         // EMA 平滑丢帧率
+double targetRetentionRatio_{0.0};       // 目标保留率
+
+bool RecordPreDroppedFrame(int64_t droppedPts);           // 记录已丢帧 PTS
+uint32_t GetAndConsumePreDroppedCount(int64_t currentPts); // 成对消费：确保 I/P 帧配对丢帧
+```
+
+核心保证：I 帧和对应的 P 帧必须**成对丢帧**，避免画面撕裂。
+
+### 3.6 AsyncDropDispatcher 异步丢帧调度
+
+```cpp
+// async_drop_dispatcher.h
+void SubmitTask(std::function<void()> task);  // 提交异步丢帧任务
+void WorkerLoop();                            // 独立 worker 线程
+std::thread workerThread_;                   // 后台线程
+std::atomic<bool> isWorking_{false};
+```
+
+异步执行丢弃操作，不阻塞解码主线程。
+
+### 3.7 SFDConfig 配置结构
+
+```cpp
+// smart_fluency_decoding_types.h
+struct SFDConfig {
+    int32_t width{0};
+    int32_t height{0};
+    SFDCodecType codecType{SFDCodecType::INVALID};  // AVC=0, HEVC=1, VVC=2
+    RetentionStrategyType initMode{RetentionStrategyType::INVALID};
+    std::optional<double> retentionRatio{std::nullopt};  // FIXED_RATIO 时使用
+};
+```
+
+### 3.8 MVStats 运动矢量统计
+
+```cpp
+// smart_fluency_decoding_types.h
+typedef struct {
+    uint32_t totalBlocks;           // 总块数
+    uint32_t validBlocks;            // 有效块
+    uint32_t skipBlocks;             // skip 块数
+    uint32_t zeroMotionBlocks;       // 零运动块
+    double avgRefDist;               // 平均参考距离
+    double perceptualMagnitude;      // 感知幅度
+    double motionConsistency;        // 运动一致性
+    double zeroMotionRatio;          // 零运动比例
+} MVStats;
+```
+
+### 3.9 性能反馈更新
+
+```cpp
+// smart_fluency_decoding.h (L31)
+void OnDecodingPerformanceUpdate(double speed, double decFps);
+// speed: 当前播放速度 (e.g. 1.0x)
+// decFps: 实际解码帧率
+// → 更新 EMA Drop Ratio → 反馈给 DropSyncCoordinator → 调整 targetRetentionRatio
 ```
 
 ---
 
-## 四、CodecClient IPC 调用序列
+## 4. 与已有记忆的关联
 
-**Evidence**：`client/avcodec_client.cpp:352` — CodecClient 是完整的 IPC 客户端代理
-
-```
-CodecClient.CreateStub()           // 获取 IRemoteObject（通过 SAMgr 查找 SA）
-CodecClient.GetCodecService()     // AsObject() → sptr<IRemoteObject>
-CodecClient.InvokeFunc()          // SendTransactRequest(COMMAND_*, data, reply)
-CodecClient.OnCodecServerDied()   // DeathRecipient 回调清理资源
-```
-
----
-
-## 五、关联记忆
-
-| 关联 | 关系 |
+| 关联 | 说明 |
 |------|------|
-| **S137** | S137 覆盖 AVCodecServerManager（服务端注册/实例管理）+ CodecClient（客户端 IPC 代理）整体架构；S148 是 S137 的 IPC 层实现细节补充，深入 Stub/Proxy/Parcel/DeathRecipient 四个子组件 |
-| **S83** | CAPI 总览，S148 是其进程间通信的底层实现 |
-| **S95** | AudioCodec CAPI，S148 提供音频编解码的 IPC 通道 |
+| **S17** | SFD 早期草案（已 approved），S148 为源码增强版，基于本地镜像 `/home/west/av_codec_repo` 深度分析 |
+| **S43** | AFC (AdaptiveFramerateController) 管**编码降帧**，SFD 管**解码丢帧**，两者互补 |
+| **S55** | 模块间回调链路，SFD 的 `AsyncDropInputCallback` / `AsyncDropOutputCallback` 属于Codec回调体系 |
+| **S39** | VideoDecoder，SFD 挂载于解码器输出端，分析 `SurfaceBuffer` MV 数据 |
+| **S21** | CodecClient IPC，SFDConfig 通过 CodecServer 注入到解码器 |
 
 ---
 
-## 六、PlantUML 架构图
+## 5. 技术细节
 
-```plantuml
-@startuml
-package "客户端进程（沙箱）" {
-  [CodecClient] --> [CodecServiceProxy]
-  [CodecClient] --> [AVCodecListenerProxy]
-}
+### 5.1 丢帧决策流程
 
-package "服务端进程（avcodec_sa）" {
-  [AVCodecServerManager] --> [CodecServiceStub]
-  [CodecServiceStub] --> [CodecService]
-  [CodecServiceStub] --> [AVCodecListenerStub]
-}
-
-[CodecServiceProxy] -right-> [CodecServiceStub] : IPC Transact\n(COMMAND_*)
-[AVCodecListenerProxy] -left-> [AVCodecListenerStub] : IPC 回调\n(OnOutputFormatChanged)
-
-[AVCodecServiceStub] ..> [AVCodecParcel] : Marshalling\n/Unmarshalling
-[CodecServiceProxy] ..> [AVCodecParcel] : Marshalling\n/Unmarshalling
-
-[CodecClient] -right-> [AVCodecDeathRecipient] : 注册死亡通知\nOnRemoteObjectDied
-[AVCodecDeathRecipient] -left-> [CodecServiceProxy] : 清理资源\n当SA崩溃时
-
-note top of CodecServiceStub
-  OnRemoteRequest()
-  分派 COMMAND_* → 各处理函数
-end note
-
-note bottom of CodecServiceProxy
-  SendTransactRequest()
-  封装 Transact 调用
-end note
-@enduml
 ```
+输入 Buffer
+    ↓
+MakePreDecodeDecision(index)  ← NaluAnalyzer 分析 NALU 类型
+    ↓ (不丢弃)
+AVCodec 解码
+    ↓
+SurfaceBuffer (含 MV 元数据)
+    ↓
+MakePostDecodeDecision(index, pts, surfaceBuffer)  ← MVStats + DropSyncCoordinator
+    ↓ (丢弃)
+AsyncDropDispatcher SubmitTask → 后台线程丢弃
+    ↓ (保留)
+Render 输出
+```
+
+### 5.2 DropSyncCoordinator EMA 反馈
+
+```cpp
+// drop_sync_coordinator.h/cpp
+void UpdateFeedback(uint32_t preDroppedCount, bool currentDropped,
+                    double targetRetentionRatio, double currentSpeed);
+// currentEmaDropRatio_ 平滑更新 → 下一帧决策参考
+```
+
+### 5.3 dlopen 插件加载
+
+```cpp
+// mv_analyzer_so_loader.cpp / nalu_analyzer_so_loader.cpp
+// 延迟加载 .so 插件，不在主流程阻塞
+void EnsureMvAnalyzer() { if (!mvAnalyzer_) mvAnalyzer_ = MvAnalyzerSoLoader::Load(...); }
+```
+
+### 5.4 播放速度联动
+
+```cpp
+// smart_fluency_decoding.cpp
+void UpdatePlaybackSpeed(double speed);  // 速度变化时重新配置策略
+```
+
+---
+
+## 6. 关键成员变量
+
+```cpp
+// smart_fluency_decoding.h (L59-69)
+mutable std::mutex configMutex_;
+std::unique_ptr<DropSyncCoordinator> dropSyncCoordinator_{nullptr};
+std::unique_ptr<AsyncDropDispatcher> asyncDispatcher_{nullptr};
+std::unique_ptr<IRetentionStrategy> strategy_{nullptr};
+std::unique_ptr<IMvAnalyzer> mvAnalyzer_{nullptr};
+std::unique_ptr<INaluAnalyzer> naluAnalyzer_{nullptr};
+```
+
+---
+
+## 7. 状态与生命周期
+
+1. `Initialize(const SFDConfig&)` → 创建策略、分析器、协调器
+2. `UpdatePlaybackSpeed(double)` → 速度变化时重配
+3. `UpdateDynamicConfig(Media::Format)` → 动态格式更新（解析 retentionRatio）
+4. `MakePreDecodeDecision` / `MakePostDecodeDecision` → 每帧决策
+5. `Flush()` → 清空所有缓冲状态
+
+---
+
+## 8. 与 S17 的区别
+
+| 维度 | S17 (早期草案) | S148 (本地镜像增强版) |
+|------|---------------|---------------------|
+| 源码 | 推测/早期 | 本地镜像实际行号级 evidence |
+| 行数 | 未知 | 548行核心类 + 326行Builder + 各策略文件 |
+| 分析器 | 提及 dlopen | 具体接口定义 + so_loader 实现 |
+| DropSyncCoordinator | 提及成对丢帧 | 具体 ring buffer 实现 (128 PTS, cache line aligned) |
+| 策略类型 | 四种 | 四种 + AUTO_RATIO 降级路径 |
+
+---
+
+**草案状态**: 待提交审批  
+**下一步**: Builder 提交 pending_approval → 等待耀耀审批
