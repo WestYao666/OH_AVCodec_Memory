@@ -1,7 +1,9 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S125
-status: draft
+status: pending_approval
+submitted_at: "2026-05-15T01:37:00+08:00"
+created_by: builder
 topic: FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder / Resample / FfmpegDecoderPlugin 三层架构
 scope: [AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, AudioDecoder, FfmpegBaseDecoder, FfmpegDecoderPlugin, AutoRegisterFilter, Filter, AAC, AC3, MP3, FLAC, Vorbis, WMA, DTS, DecoderPlugin]
 created_at: "2026-05-14T08:10:00+08:00"

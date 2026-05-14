@@ -5,25 +5,33 @@ pending_approvals:
     mem_id: MEM-ARCH-AVCODEC-S131
     source: builder-agent
     status: pending_approval
-    summary: "主题：FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder + FFmpegEncoderPlugin + FFmpegMuxerPlugin 三层架构\n关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行) 编码器引擎基类\n  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行)+ffmpeg_encoder_plugin.h(26行) 插件注册层\n  - muxer/ffmpeg_muxer_plugin.cpp 封装修复器\n编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\n五路编码器子插件：AAC/FLAC/MP3/G711mu/LBVC\n封装修复器子插件：flv_muxer/ + mpeg4_muxer/\n与S125(FFmpegDecoder解码器)构成完整FFmpeg编解码插件矩阵\n与S130(FFmpegAdapterCommon工具链)共享Resample/ColorSpace/ChannelLayout"
+    summary: "FFmpeg 音频编码器与封装修复器插件体系——FFmpegBaseEncoder + FFmpegEncoderPlugin + FFmpegMuxerPlugin 三层架构，五路编码器子插件(AAC/FLAC/MP3/G711mu/LBVC)，与S125(FFmpegDecoder解码器)构成完整FFmpeg编解码插件矩阵"
     type: memory_draft
   - created_at: '2026-05-14T15:56:00+08:00'
     draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S132.md
     mem_id: MEM-ARCH-AVCODEC-S132
     source: builder-agent
     status: pending_approval
-    summary: "主题：FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系\n关键文件：\n  - audio_encoder/ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(129行) 编码器引擎基类\n  - audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行) AAC编码器:自实现+AVAudioFifo+Resample+ADTS\n  - audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp(252行) FLAC编码器:组合FFmpegBaseEncoder\n  - audio_encoder/ffmpeg_encoder_plugin.cpp(85行) PLUGIN_DEFINITION注册AAC+FLAC\n编码管线：avcodec_send_frame → avcodec_receive_packet（与解码方向相反）\nFFmpegBaseEncoder vs FFmpegAACEncoderPlugin设计差异：AAC自实现完整逻辑，FLAC委托基类\n与S125(FFmpegDecoder解码器)构成编解码对称架构\n与S60(S8/S50)音频编解码体系关联"
-    type: memory_draft  - created_at: '2026-05-15T00:54:00+08:00'
+    summary: "FFmpeg Audio Encoder Plugin 架构——FFmpegBaseEncoder 基类 + AAC/FLAC 编码器插件体系，avcodec_send_frame/receive_packet，与S125(FFmpegDecoder)构成编解码对称架构"
+    type: memory_draft
+  - created_at: '2026-05-15T00:54:00+08:00'
     draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S126.md
     mem_id: MEM-ARCH-AVCODEC-S126
     source: builder-agent
     status: pending_approval
-    summary: "主题：AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口\n关键文件：\n  - native_avsource.cpp(325行)+avsource_impl.cpp(198行) Source CAPI+引擎\n  - native_avdemuxer.cpp(318行)+avdemuxer_impl.cpp(282行) Demuxer CAPI+引擎\n三路创建：CreateWithURI/FD/DataSource → AVSourceFactory → MediaDemuxer\n五路接口：CreateWithSource/SelectTrack/UnselectTrack/ReadSample/ReadSampleBuffer/SeekToTime\nDRM回调：NativeDemuxerCallback + NativeDrmTools::ProcessApplicationDrmInfo PSSH解析\n关联S94(CAPI三件套)、S83(CAPI总览)、S41/S75/S97(MediaDemuxer引擎)"
+    summary: "AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口，与S94(S83)关联"
     type: memory_draft
-- created_at: '2026-05-15T01:15:00+08:00'
-  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S137.md
-  mem_id: MEM-ARCH-AVCODEC-S137
-  source: builder-agent
-  status: pending_approval
-  summary: "主题：SA Codec 服务框架——AVCodecServerManager + CodecClient IPC 双层架构与 SystemAbility 集成\n关键文件：\n  - avcodec_server_manager.cpp(426行) AVCodecServerManager单例+dlopen加载libMemMgr\n  - avcodec_service_stub.cpp(220行) 服务端IPC接收侧\n  - avcodec_service_proxy.cpp(128行) 服务端IPC发送侧\n  - avcodec_client.cpp(352行) 客户端CodecClient IPC代理\n  - avcodec_server.cpp(182行) SA服务入口+OnDump+OnGetXmlWhiteList\nCreateStubObject双Stub工厂(CODECLIST/CODEC)+codecStubMap_进程实例管理+InstanceInfo(caller/forwardCaller多级调用链)\n与S83(CAPI总览)/S95(AudioCodec CAPI)/S121(错误码体系)/S94(CAPI三件套)关联"
-  type: memory_draft
+  - created_at: '2026-05-15T01:15:00+08:00'
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S137.md
+    mem_id: MEM-ARCH-AVCODEC-S137
+    source: builder-agent
+    status: pending_approval
+    summary: "SA Codec 服务框架——AVCodecServerManager + CodecClient IPC 双层架构与 SystemAbility 集成，与S83/S95/S121/S94关联"
+    type: memory_draft
+  - created_at: '2026-05-15T01:37:00+08:00'
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S125.md
+    mem_id: MEM-ARCH-AVCODEC-S125
+    source: builder-agent
+    status: pending_approval
+    summary: "FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder + Resample + FfmpegDecoderPlugin 三层架构，17+音频格式子插件(AAC/AC3/MP3/FLAC/Vorbis/WMA/DTS等)，avcodec_send_packet/receive_frame管线，与S125构成完整FFmpeg编解码插件矩阵"
+    type: memory_draft
