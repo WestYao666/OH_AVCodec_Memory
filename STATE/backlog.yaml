@@ -901,3 +901,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S142 | TypeFinder 媒体类型探测架构——Sniffer路由/PeekRange/PluginRegistry/DemuxerPlugin评分/DASH识别/DEFAULT_SNIFF_SIZE=4096*4 | AVCodec, MediaEngine, Demuxer, TypeFinder, Sniff, PeekRange, PluginRegistry, DemuxerPlugin, Rank, DASH, MimeType, Uri, SniffNeeded | 新需求开发/问题定位/容器类型识别/插件加载 | **pending_approval** | 🚧 草案已生成（2026-05-15T02:56:27+08:00），type_finder.cpp(216行)+type_finder.h(84行)，PeekRange嗅探4KB数据(DEFAULT_SNIFF_SIZE=4096*4)+PluginRegistry评分排序+DASH识别(IsDash)+IsSniffNeeded URI预判+ReadAt流式读取，与S69/S75/S76/S79关联
+
+## 新增主题（Builder 2026-05-15 S143注册——StreamParserManager流式解析管理）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S143 | StreamParserManager 流式解析管理——StreamParser基类/HevcParseFormat HDR元数据/PacketConvertToBufferInfo/HEVCProfile+ColorRange提取/ConvertPacketToAnnexb | AVCodec, MediaEngine, StreamParser, StreamParserManager, HevcParseFormat, PacketConvertToBufferInfo, HEVC, VVC, AVC, Bitstream, AnnexB, ConvertPacketToAnnexb, ParseExtraData, HDR, ColorRange | 新需求开发/问题定位/码流格式转换/HDR元数据提取 | **pending_approval** | 🚧 草案已生成（2026-05-15T02:58:55+08:00），stream_parser.h(96行)StreamParser基类+HevcParseFormat+PacketConvertToBufferInfo；stream_parser_manager.cpp(227行)+stream_parser_manager.h(73行)管理器(HevcParseFormat/ConvertPacketToAnnexb/Profile/Level提取)；HdiCodec(365行)；与S105(S130)/S141关联

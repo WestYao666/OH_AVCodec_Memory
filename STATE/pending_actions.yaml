@@ -81,3 +81,10 @@ pending_approvals:
   summary: TypeFinder媒体类型探测架构——Sniffer路由/PeekRange/PluginRegistry评分(DEFAULT_SNIFF_SIZE=4096*4)/DASH识别，与S69/S75/S76/S79关联
   source: builder-agent
   created_at: '2026-05-15T02:56:27+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S143
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S143.md
+  summary: StreamParserManager流式解析管理——StreamParser接口(96行h)/HevcParseFormat HDR元数据/PacketConvertToBufferInfo/ConvertPacketToAnnexb/Profile+Level提取，与S105(S130)/S141关联
+  source: builder-agent
+  created_at: '2026-05-15T02:58:55+08:00'
