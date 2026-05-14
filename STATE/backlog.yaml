@@ -853,3 +853,9 @@
 |---|------|-------|---------|------|------|
 | S134 | FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, HDR_VIVID, HDR10, BitstreamFilter, AnnexB, PTS, IndexConvert, ReadAhead, CachePressure, MultiStreamParser, ReferenceParser, RMSeek | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T17:50），ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_thread.cpp(891行)+ffmpeg_format_helper.cpp(1367行)行号级evidence，HDR六层判断(0xB5/CUVV/PQ)/BitstreamFilter三路AnnexB转换/PTS↔Index双向转换/ReadAhead双阈值/缓存压力per-track限流/视频首帧三阶段探测/MultiStreamParserManager( dlopen)/ReferenceParserManager(dlopen)/RM流特殊Seek/DFX链路追踪，与S68/S76(S41/S75/S58/S97/S101)关联 |
 
+
+## 新增主题（Builder 2026-05-14 S135注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S135 | WaterMarkFilter 水印过滤器——OpenGL ES GPU 加速视频水印叠加 | AVCodec, MediaEngine, Filter, WaterMark, OpenGL, GPU, Transcoder, EGL, Shader, OH_NativeImage, FBO, RenderLoop | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T21:08），water_mark_filter.cpp(1001行)+water_mark_filter.h(155行)，OpenGL ES 2.0 渲染管线(EglRenderContext/ShaderProgram/GL_TEXTURE_EXTERNAL_OES)+FBO水印合并+OH_NativeImage视频纹理绑定+RenderLoop独立线程+SetWatermark(≤5个/≤20MB)+SetVideoResize+SetFaultEvent DFX上报，与S14/S20/S45/S46关联 |
