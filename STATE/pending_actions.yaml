@@ -56,3 +56,27 @@ pending_approvals:
       架构要点：FFmpegMuxerRegister(九格式注册)→FFmpegMuxerPlugin/FFmpegFlvMuxerPlugin(AVIOContext桥接)→MediaMuxer→MuxerFilter；MPEG4MuxerPlugin走自研AVIOStream+BasicBox树
       29条行号级evidence
       与S40(FFmpegMuxer总览)/S91(Mpeg4Muxer写时构建)/S58(MPEG4BoxParser)互补
+  - mem_id: MEM-ARCH-AVCODEC-S134
+    type: memory_draft
+    source: builder-agent
+    draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S134.md
+    status: pending_approval
+    created_at: "2026-05-14T17:50:00+08:00"
+    summary: |
+      主题：FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理
+      关键文件：
+        - ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_plugin.h(580行) 主插件引擎
+        - ffmpeg_demuxer_thread.cpp(891行) FFmpegReadLoop 异步读线程
+        - ffmpeg_format_helper.cpp(1367行)+ffmpeg_format_helper.h(101行) 轨道元数据解析
+      十项高级特性：
+        1. HDR六层判断(ITU_T_T35/CUVV/DVCC/PQ/HLG)
+        2. BitstreamFilter三路AnnexB转换(h264_mp4toannexb/hevc_mp4toannexb/vvc)
+        3. PTS↔Index双向转换(堆排序+二分搜索本地实现)
+        4. ReadAhead SOFT/HARD双阈值动态降速/丢帧
+        5. CachePressureCallback per-track限流回调
+        6. 视频首帧三阶段探测(ParseVideoFirstFrames)
+        7. MultiStreamParserManager(dlopen插件/GOP感知)
+        8. ReferenceParserManager(dlopen插件/I帧精确定位)
+        9. RM流特殊Seek(AVSeekFrameLock+RMSeekToStart)
+        10. DFX链路追踪(TrackDfxInfo+DumpMode三态)
+      与S68/S76(S41/S75/S58/S97/S101)关联
