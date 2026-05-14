@@ -735,7 +735,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S113 | SeiParserFilter 与 SeiParserHelper SEI信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链 | AVCodec, MediaEngine, Filter, SEI, Parser, AnnexB, AVC, HEVC, Nalu, EventCallback | 三方应用/问题定位 | **in_review** | 🚧 草案已生成（2026-05-10T05:03），sei_parser_filter.cpp(235行)+sei_parser_helper.cpp(347行)+sei_parser_filter.h(104行)，"builtin.player.seiParser"注册，FilterType::FILTERTYPE_SEI，HELPER_CONSTRUCTOR_MAP工厂(AVC→AvcSeiParserHelper/HEVC→HevcSeiParserHelper)，EVENT_SEI_INFO回调，AVBufferQueue双端，DoProcessInputBuffer+DrainOutputBuffer数据流，与S14(FilterChain)关联 |
+| S113 | SeiParserFilter 与 SeiParserHelper SEI信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链 | AVCodec, MediaEngine, Filter, SEI, Parser, AnnexB, AVC, HEVC, Nalu, EventCallback | 三方应用/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-10T05:03）→pending_approval（2026-05-15T02:27 Builder提交审批），本地镜像行号级evidence，SEI NALU双格式(AVC 0x06/HEVC 39-40)，HELPER_CONSTRUCTOR_MAP工厂，FlowLimit PTS同步，EVENT_SEI_INFO回调，与S14(FilterChain)/S22(MediaSyncManager)关联 |
 
 ## 新增主题（Builder 2026-05-10 S114注册）
 

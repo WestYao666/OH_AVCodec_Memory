@@ -1,4 +1,5 @@
-entries: []
+entries:
+  - {type: approval_response, decision: pending, mem_id: "MEM-ARCH-AVCODEC-S113", summary: "SeiParserFilter + SeiParserHelper SEI解析框架——AnnexB NALU双格式(AVC 0x06/HEVC 39-40)、HELPER_CONSTRUCTOR_MAP工厂、FlowLimit PTS同步、EVENT_SEI_INFO回调，与S14(FilterChain)/S22(MediaSyncManager)关联", source: builder-agent, created_at: "2026-05-15T02:27:00+08:00"}
 pending_approvals:
   - created_at: '2026-05-14T13:28:00+08:00'
     draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
