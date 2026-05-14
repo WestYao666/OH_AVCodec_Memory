@@ -109,3 +109,10 @@ pending_approvals:
   summary: VideoResizeFilter+MetaDataFilter双过滤器架构——VideoResizeFilter转码增强(FILTERTYPE_VIDRESIZE,DetailEnhancerVideo,VPE,566行)与MetaDataFilter时域元数据(TIMED_METADATA,SetInputMetaSurface,420行)，与S12/S15/S127互补（共享VPE引擎），与S44互补（元数据注入）
   source: builder-agent
   created_at: '2026-05-15T04:37:00+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S147
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S147.md
+  summary: DataSink数据输出体系+MediaMuxer Track管理+AudioCaptureModule实时采集——DataSinkFile/DataSinkFd双实现(MediaMuxer/File/FD)、MediaMuxer四状态机+Track内部类+AVBufferQueue异步、AudioCaptureModule双Read模式+GetMaxAmplitude振幅监测，与S34/S65/S40/S91/S124/S119/S78关联
+  source: builder-agent
+  created_at: '2026-05-15T05:05:00+08:00'
