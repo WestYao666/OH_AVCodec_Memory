@@ -816,3 +816,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S126 | AVSource/AVDemuxer Native C API 双组件架构——OH_AVSource 三路创建与 OH_AVDemuxer 五路接口 | AVCodec, Native API, C API, OH_AVSource, OH_AVDemuxer, OH_AVDataSource, IMediaDataSource, MediaDemuxer, DRM, Callback, Source, Demuxer, IPC, Filter | 三方应用接入/新人入项/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T08:28），native_avsource.cpp(325行)三路创建(OH_AVSource_CreateWithURI/FD/DataSource)+NativeAVDataSource桥接器；native_avdemuxer.cpp(318行)五路接口(CreateWithSource/SelectTrack/ReadSample双模式/SeekToTime)+DRM回调(PSSH解析)；avsource_impl.cpp(198行)AVSourceImpl引擎+工厂方法；与S94(S83)互补——S94总览，S126引擎层深度分析 |
+
+## 新增主题（Builder 2026-05-14 S127注册——PostProcessorFramework本地镜像增强版）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S127 | Video PostProcessor Framework 视频后处理框架——BaseVideoPostProcessor + VideoPostProcessorFactory + SuperResolutionPostProcessor 三层架构 | AVCodec, PostProcessor, VPE, SuperResolution, VideoPostProcessorType, AutoRegisterPostProcessor, Surface, Factory, VideoProcessingEngine, DetailEnhancer, BaseVideoPostProcessor, VideoPostProcessorFactory | 新需求开发/问题定位 | **pending_approval** | MEM-ARCH-AVCODEC-S127 | 🚧 草案已生成（2026-05-14T08:43），base_video_post_processor.h(112行)+video_post_processor_factory.h(140行)+super_resolution_post_processor.h(77行)+.cpp(357行)，BaseVideoPostProcessor七生命周期+VideoPostProcessorFactory工厂单例+SuperResolutionPostProcessor(1920×1080/非DRM/非HDRVivid四条件)+VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER)+VPECallback三状态回调，与S20/S100/S15/S46关联 |

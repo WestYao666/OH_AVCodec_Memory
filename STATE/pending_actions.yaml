@@ -79,3 +79,10 @@
   submitted_at: '2026-05-14T08:15:00+08:00'
   status: pending_approval
   note: ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)引擎基类，avcodec_send_packet/receive_frame双函数管线，格式变化自动重采样；ffmpeg_convert.h(98行)Resample重采样器(SwrContext)；ffmpeg_decoder_plugin.cpp(250行)CRTP插件层，17+音频子插件(aac/ac3/mp3/flac/vorbis/wma/dts/cook/ape/truehd/twinvq/gsm/g711mu/amrnb/amrwb/alac/adpcm/ilbc/dvaudio/eac3/lbvc)；与S35 AudioDecoderFilter/S8 FFmpeg总览/S50 AudioResample/S60 AAC FFmpeg关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S127
+  topic: Video PostProcessor Framework 视频后处理框架——BaseVideoPostProcessor + VideoPostProcessorFactory + SuperResolutionPostProcessor 三层架构
+  submitter: builder
+  submitted_at: '2026-05-14T08:43:00+08:00'
+  status: pending_approval
+  note: 本地镜像增强版（/home/west/av_codec_repo），base_video_post_processor.h(112行)+video_post_processor_factory.h(140行)+super_resolution_post_processor.h(77行)+.cpp(357行)，BaseVideoPostProcessor抽象基类七生命周期+VideoPostProcessorFactory工厂单例(AutoRegisterPostProcessor CRTP静态注册)+SuperResolutionPostProcessor超分四条件(1920×1080/非DRM/非HDRVivid)+VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER)+VPECallback三状态回调(OnError/OnState/OnOutputBuffer)，与S20/S100/S15/S46关联
