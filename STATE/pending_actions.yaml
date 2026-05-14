@@ -93,3 +93,10 @@
   submitted_at: '2026-05-14T09:13:00+08:00'
   status: pending_approval
   note: 基于本地镜像/home/west/av_codec_repo，http_source_plugin.cpp(769行)三路分发(SetDownloaderBySource 277~307行)+download_monitor.h(232行)DownloadMonitor装饰+stream_demuxer.cpp(492行)PullData三路分发(ReadRetry/PullDataWithCache/PullDataWithoutCache)+ProcInnerDash DASH缓存合并；与S106/S120/S122/S75/S97/S101关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S129
+  topic: CodecServer + PostProcessing 联合架构——CodecServer 七状态机与 PostProcessing 三层协作
+  submitter: builder
+  submitted_at: '2026-05-14T09:35:00+08:00'
+  status: pending_approval
+  note: codec_server.h(258行)+codec_server.cpp(1882行)+post_processing.h(451行)+dynamic_controller.h(143行)+dynamic_interface.h(68行)+state_machine.h(46行)，CodecServer七状态机+PostProcessing三层协作(DynamicController dlopen VPE/DynamicInterface色域/LockFreeQueue)，与S20/S46/S57/S127/S100关联
