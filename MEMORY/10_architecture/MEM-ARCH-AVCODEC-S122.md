@@ -1,309 +1,243 @@
-# MEM-ARCH-AVCODEC-S122: MediaEngine Streaming 基础设施
+---
+id: MEM-ARCH-AVCODEC-S122
+title: "MediaEngine Streaming 基础设施——HttpSourcePlugin 三路下载器路由 / StreamDemuxer 分片缓存 / HLS+DASH 自适应码率调度"
+tags: [AVCodec, MediaEngine, Source, Streaming, HttpSourcePlugin, StreamDemuxer, HLS, DASH, AdaptiveBitrate, PullData, DownloadMonitor]
+scope: "新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率"
+status: approved
+approved_at: '2026-05-12T10:42:00+08:00'
+approved_by: ou_60d8641be684f82e8d9cb84c3015dde7
+created: "2026-05-14T01:50"
+source-ref: https://gitcode.com/openharmony/multimedia_av_codec
+evidence-tags: [HttpSourcePlugin, Streaming, AdaptiveBitrate, DownloadMonitor, PullData, StreamDemuxer, HLS, DASH]
+evidence-files:
+  - path: services/media_engine/plugins/source/http_source/http_source_plugin.cpp
+    lines: 769
+  - path: services/media_engine/plugins/source/http_source/http_source_plugin.h
+    lines: 115
+  - path: services/media_engine/modules/demuxer/stream_demuxer.cpp
+    lines: ~600
+  - path: services/media_engine/modules/demuxer/stream_demuxer.h
+    lines: 492
+builder: builder-agent
+generated: "2026-05-14T01:50:00+08:00"
+---
 
-> **状态**: ⏳ pending_approval  
-> **主题**: HttpSourcePlugin 三路下载器路由 / StreamDemuxer 分片缓存 / HLS+DASH 自适应码率调度  
-> **来源**: av_codec_repo (本地镜像)  
-> **与S106互补**: S106聚焦Source.cpp+M3U8解析；本条目聚焦HTTP Source插件路由、协议推断、Streaming分片管理
+# S122: MediaEngine Streaming 基础设施
+
+## 1. 模块定位
+
+Streaming 基础设施是 Source 模块的插件层扩展，在 `HttpSourcePlugin` 中实现三层下载器路由、
+在 `StreamDemuxer` 中实现分片缓存读取，共同支撑 HLS + DASH 自适应码率播放场景。
+
+与 S106 互补：S106 聚焦 Source.cpp + M3U8 解析（Streaming 入口），S122 聚焦
+HttpSourcePlugin 三路下载器路由 + StreamDemuxer 分片缓存 + 自适应码率调度。
 
 ---
 
-## 1. HttpSourcePlugin 入口与注册
+## 2. 核心组件
 
-**文件**: `services/media_engine/plugins/source/http_source/http_source_plugin.cpp`
+### 2.1 HttpSourcePlugin（http_source_plugin.cpp, 769行 / http_source_plugin.h, 115行）
 
-### 1.1 插件注册 (L46-56)
+**HTTP Source 插件统一入口**，持有 `std::shared_ptr<MediaDownloader> downloader_`。
+
+#### 2.1.1 三路下载器工厂路由
+
+HttpSourcePlugin::SetDownloaderBySource() 根据 MIME 类型和 Seek 能力决定实例化哪个下载器：
+
+| 条件 | 下载器 | 代码位置 |
+|------|--------|---------|
+| DASH 流 (`mimeType_ == AVMimeTypes::APPLICATION_MPD`) | `DashMediaDownloader(loaderCombinations_)` | http_source_plugin.cpp:288-289 |
+| 非 M3U8 + 支持 Seek | `HlsMediaDownloader(expectDuration, userDefinedDuration, httpHeader_, loaderCombinations_)` | http_source_plugin.cpp:297-299 |
+| M3U8 URI (直接 `.m3u8` 后缀或 `=?m3u8` 查询参数) | `HlsMediaDownloader(mimeType_)` | http_source_plugin.cpp:310-311 |
+| 普通 HTTP 流 | `HttpMediaDownloader(uri_, expectDuration, loaderCombinations_)` | http_source_plugin.cpp:338-339 |
+
+**关键证据**：
+
 ```cpp
-Status HttpSourceRegister(std::shared_ptr<Register> reg)
-{
-    SourcePluginDef definition;
-    definition.name = "HttpSource";
-    definition.description = "Http source";
-    definition.rank = 100;  // 高优先级
-    Capability capability;
-    capability.AppendFixedKey<std::vector<ProtocolType>>(Tag::MEDIA_PROTOCOL_TYPE,
-        {ProtocolType::HTTP, ProtocolType::HTTPS});  // 仅处理HTTP(S)
-    definition.AddInCaps(capability);
-    definition.SetCreator(HttpSourcePluginCreater);
-    return reg->AddPlugin(definition);
-}
-PLUGIN_DEFINITION(HttpSource, LicenseType::APACHE_V2, HttpSourceRegister, [] {});
+// http_source_plugin.cpp:288-289
+downloader_ = std::make_shared<DownloadMonitor>(
+              std::make_shared<DashMediaDownloader>(loaderCombinations_));
+
+// http_source_plugin.cpp:297-299
+downloader_ = std::make_shared<DownloadMonitor>(
+              std::make_shared<HlsMediaDownloader>(expectDuration, userDefinedDuration, httpHeader_, loaderCombinations_));
+
+// http_source_plugin.cpp:310-311
+downloader_ = std::make_shared<DownloadMonitor>(std::make_shared<HlsMediaDownloader>(mimeType_));
+
+// http_source_plugin.cpp:338-339
+downloader_ = std::make_shared<DownloadMonitor>(std::make_shared<HttpMediaDownloader>(uri_, expectDuration, loaderCombinations_));
 ```
 
-### 1.2 三路下载器选择路由 (L229-265 `SetDownloaderBySource`)
-核心决策树：
+每个下载器均被 `DownloadMonitor` 包装（装饰器模式），用于统计上报和质量监控。
 
-```
-SetDownloaderBySource(source)
-  ├─ IsDash()                                    → DashMediaDownloader
-  ├─ IsSeekToTimeSupported() && mimeType!=M3U8   → HlsMediaDownloader (可seek的HLS，非m3u8扩展名)
-  ├─ uri_.compare(0,4,"http")==0                 → HttpMediaDownloader
-  └─ mimeType_==APPLICATION_M3U8                 → HlsMediaDownloader (强制)
-```
+#### 2.1.2 自适应码率调度
 
-**关键辅助函数** `IsDash()` (L585-592):
+HttpSourcePlugin 实现 SourcePlugin 双码率接口：
+
 ```cpp
-bool HttpSourcePlugin::IsDash()
-{
-    auto it = std::find_if(std::begin(DASH_LIST), std::end(DASH_LIST),
-        [this](const std::string& key) {
-            return this->uri_.find(key) != std::string::npos;
-    });
-    return it != std::end(DASH_LIST);
-}
-// DASH_LIST = { ".mpd", "type=mpd" }
-```
+// http_source_plugin.h:56-57
+Status SelectBitRate(uint32_t bitRate) override;
+Status AutoSelectBitRate(uint32_t bitRate) override;
 
-**关键辅助函数** `IsSeekToTimeSupported()` (L340-348):
-```cpp
-bool HttpSourcePlugin::IsSeekToTimeSupported()
+// http_source_plugin.cpp:526-530
+Status HttpSourcePlugin::SelectBitRate(uint32_t bitRate)
 {
-    if (mimeType_ != AVMimeTypes::APPLICATION_M3U8) {
-        return CheckIsM3U8Uri() || uri_.find(DASH_SUFFIX) != std::string::npos;
-        // DASH_SUFFIX = ".mpd"
+    FALSE_RETURN_V(downloader_ != nullptr, Status::ERROR_NULL_POINTER);
+    if (downloader_->SelectBitRate(bitRate)) {
+        return Status::OK;
     }
-    MEDIA_LOG_I("IsSeekToTimeSupported return true");
-    return true;
+    return Status::ERROR_UNKNOWN;
 }
 ```
 
-### 1.3 M3U8 URI 检查 (L537-576 `CheckIsM3U8Uri`)
-支持多种非标准HLS路径（不是以 `.m3u8` 结尾）：
-- 资源类型参数：`?autotype=m3u8`
-- 查询参数：`=m3u8` 后缀
-- 无扩展名但URI含 `m3u8`
+- `SelectBitRate(bitRate)`：手动指定目标码率，透传给具体 downloader（HlsMediaDownloader / DashMediaDownloader）
+- `AutoSelectBitRate(bitRate)`：自动模式，由 downloader 内部算法选择最优码率
 
-### 1.4 下载器包装: DownloadMonitor (L233-244)
-所有下载器均通过 `DownloadMonitor` 包装：
+#### 2.1.3 M3U8 URI 识别三条件
+
 ```cpp
-if (IsDash()) {
-    downloader_ = std::make_shared<DownloadMonitor>(
-        std::make_shared<DashMediaDownloader>(loaderCombinations_));
-} else if (IsSeekToTimeSupported() && mimeType_ != AVMimeTypes::APPLICATION_M3U8) {
-    downloader_ = std::make_shared<DownloadMonitor>(
-        std::make_shared<HlsMediaDownloader>(expectDuration, userDefinedDuration, httpHeader_, loaderCombinations_));
-} else if (uri_.compare(0, 4, "http") == 0) {
-    InitHttpSource(source);  // → HttpMediaDownloader
-}
-```
-
----
-
-## 2. DownloadMonitor 装饰层
-
-**文件**: `services/media_engine/plugins/source/http_source/monitor/download_monitor.h`
-
-### 2.1 职责
-`DownloadMonitor` 继承 `MediaDownloader` 接口，作为所有下载器的**统一装饰器**，提供：
-1. **监控循环** (`HttpMonitorLoop`): 后台任务监控下载状态
-2. **错误码映射**: HTTP状态码和curl错误码 → `MediaServiceErrCode`
-3. **重试队列**: `retryTasks_` 管理失败请求的重试
-4. **读写超时**: `lastReadTime_` 追踪读超时
-
-### 2.2 错误码映射 (L57-148)
-- **客户端错误** (-6到101): SSL证书、时间戳、网络拒绝、无法连接主机等
-- **服务端错误** (400-511): 401无权限、403/404/410资源不存在、408/504超时、502/503网络不可用
-
-### 2.3 关键状态
-```cpp
-std::atomic<bool> isClosed_{false};
-std::shared_ptr<MediaDownloader> downloader_;  // 被包装的实际下载器
-std::list<RetryRequest> retryTasks_;
-std::atomic<bool> isPlaying_ {false};
-std::weak_ptr<Callback> callback_;
-```
-
----
-
-## 3. HlsMediaDownloader 分片管理
-
-**文件**: `services/media_engine/plugins/source/http_source/hls/hls_media_downloader.h`
-
-### 3.1 多流分段管理器
-每个流类型独立管理：
-```cpp
-std::shared_ptr<HlsSegmentManager> videoSegManager_ {nullptr};
-std::shared_ptr<HlsSegmentManager> audioSegManager_ {nullptr};
-std::shared_ptr<HlsSegmentManager> subtitlesSegManager_ {nullptr};
-```
-
-### 3.2 构造方式
-两种构造签名：
-```cpp
-// 方式1: 指定缓冲时长和用户定义duration
-explicit HlsMediaDownloader(
-    int expectBufferDuration,        // 默认 19s (DEFAULT_EXPECT_DURATION)
-    bool userDefinedDuration,         // 是否允许自动调节
-    const std::map<std::string, std::string>& httpHeader,
-    std::shared_ptr<MediaSourceLoaderCombinations> sourceLoader);
-
-// 方式2: 仅mimeType (用于强制M3U8场景)
-explicit HlsMediaDownloader(
-    std::string mimeType,
-    const std::map<std::string, std::string>& httpHeader);
-```
-
-### 3.3 关键能力
-- `SelectBitRate(uint32_t bitRate)`: 码率切换
-- `GetBitRates()`: 获取可用码率列表
-- `SetPlayStrategy()`: 设置播放策略（缓冲配置）
-- `HlsSegmentManager`: 每个流的分段获取和缓存
-- `MediaCachedBuffer`: Ring buffer 实现分片预读
-
----
-
-## 4. StreamDemuxer 分片缓存
-
-**文件**: `services/media_engine/modules/demuxer/stream_demuxer.cpp`
-
-### 4.1 缓存架构
-```cpp
-std::map<int32_t, CacheData> cacheDataMap_;  // streamID → CacheData
-mutable std::mutex cacheDataMutex_;
-```
-
-`CacheData` 包含：
-- `offset`: 缓存起始位置
-- `data`: `std::shared_ptr<Buffer>` 缓存数据
-
-### 4.2 读取路径分支
-
-**DEMUXER_STATE_PARSE_HEADER** (L294-304):
-- 优先读缓存：`CheckCacheExist(offset)` → `PullDataWithCache`
-- 缓存未命中：`PullDataWithoutCache` → 可能触发合并缓存
-
-**DEMUXER_STATE_PARSE_FRAME** (L307-319):
-- 优先读缓存（仅 DASH 或 `GetIsDataSrcNoSeek()` 时）
-- `PullData` vs `PullDataWithCache`
-
-### 4.3 DASH分片合并 (L138-172 `ProcInnerDash`)
-DASH场景下，`PullDataWithoutCache` 会与已有缓存合并：
-```cpp
-// 将前一个缓存片段与当前数据合并成新的 `mergedBuffer`
-mergedBuffer = Buffer::CreateDefaultBuffer(bufferMemory->GetSize() + cacheMemory->GetSize());
-mergeMemory->Write(cacheMemory->GetReadOnlyData(), cacheMemory->GetSize(), 0);
-mergeMemory->Write(bufferMemory->GetReadOnlyData(), bufferMemory->GetSize(), cacheMemory->GetSize());
-cacheDataMap_[streamID].SetData(mergedBuffer);
-```
-
-### 4.4 PullData 重试逻辑 (L206-239)
-```cpp
-while (true && !isInterruptNeeded_.load()) {
-    err = source_->Read(streamID, data, offset, size);
-    if (err == Status::ERROR_AGAIN && !isSniffCase) {
-        return err;  // 立即返回，等待下次调用
+// http_source_plugin.cpp:645-674
+bool HttpSourcePlugin::CheckIsM3U8Uri()
+{
+    // 条件1：查询参数含 =m3u8
+    if (pairUri.second.find(EQUAL_M3U8) != std::string::npos) { // EQUAL_M3U8 = "=m3u8"
+        return true;
     }
-    if (err != Status::END_OF_STREAM && data->GetMemory()->GetSize() == 0) {
-        // 空数据，重试最多 TRY_READ_TIMES(10) 次，每次 sleep 10ms
-        retryTimes++;
-        if (retryTimes > TRY_READ_TIMES || isInterruptNeeded_.load()) {
-            break;
+    // 条件2：路径以 .m3u8 结尾
+    if (uri.find(LOWER_M3U8) != std::string::npos) { // LOWER_M3U8 = "m3u8"
+        return true;
+    }
+    // 条件3：MIME 类型为 APPLICATION_M3U8（由 SetDownloaderBySource 设置 mimeType_）
+    return (mimeType_ == AVMimeTypes::APPLICATION_M3U8); // source.cpp:250 设置
+}
+```
+
+### 2.2 StreamDemuxer（stream_demuxer.h, 492行 / stream_demuxer.cpp, ~600行）
+
+**分片流式解封装器**，负责 DASH/HLS 分片缓存读取，是 Source 与 MediaDemuxer 之间的桥梁。
+
+#### 2.2.1 PullData 三路分发机制
+
+StreamDemuxer::PullData() 根据流 Seek 能力选择不同读取路径：
+
+| 方法 | 适用场景 | 行为 |
+|------|---------|------|
+| `PullDataWithCache()` | 可Seek流（SEEKABLE），分片缓存合并 | 先从 cache 读，剩余部分合并写入 cache |
+| `PullDataWithoutCache()` | 不可Seek流（UNSEEKABLE），直接读 | 读取后写入 cacheDataMap_，处理 DEMUXER_STATE_PARSE_FRAME 状态 |
+| `ReadRetry()` | 通用重试层 | TRY_READ_TIMES=10，SLEEP_TIME=10ms，可中断 |
+
+**关键证据**：
+
+```cpp
+// stream_demuxer.cpp:46-47
+const int32_t TRY_READ_SLEEP_TIME = 10;  // ms
+const int32_t TRY_READ_TIMES = 10;
+
+// stream_demuxer.cpp:71-90 PullData 路由逻辑
+if (source_->IsSeekToTimeSupported() || source_->GetSeekable() == Plugins::Seekable::UNSEEKABLE) {
+    return PullDataWithCache(streamID, offset, size, bufferPtr, isSniffCase);
+}
+return PullData(streamID, offset, size, bufferPtr, isSniffCase);
+```
+
+#### 2.2.2 PullDataWithCache 缓存合并算法
+
+```cpp
+// stream_demuxer.cpp:133-159
+Status StreamDemuxer::PullDataWithCache(int32_t streamID, uint64_t offset, size_t size, ...)
+{
+    // 1. 从 cache 读取部分数据
+    // 2. 剩余部分调用 PullData(streamID, remainOffset, remainSize, ...)
+    // 3. 检查状态是否为 DEMUXER_STATE_PARSE_FRAME（不允许跨分片缓存）
+    if (pluginStateMap_[streamID] == DemuxerState::DEMUXER_STATE_PARSE_FRAME) {
+        MEDIA_LOG_W("PullDataWithCache, not cache begin."); // 不允许跨分片边界缓存
+    }
+}
+```
+
+#### 2.2.3 DASH 分片合并 ProcInnerDash
+
+```cpp
+// stream_demuxer.cpp:181-201
+Status StreamDemuxer::ProcInnerDash(int32_t streamID, uint64_t offset, std::shared_ptr<Buffer>& bufferPtr)
+{
+    // 从 cacheDataMap_ 取出该 streamID 的已缓存数据，与当前读取的分片合并
+    // 用于 DASH 分片边界不整齐时的合并读取
+}
+```
+
+#### 2.2.4 ReadRetry 重试机制
+
+```cpp
+// stream_demuxer.cpp:245-277
+Status StreamDemuxer::ReadRetry(int32_t streamID, uint64_t offset, size_t size, ...)
+{
+    while (retryTimes <= TRY_READ_TIMES && !isInterruptNeeded_.load()) {
+        err = plugin_->ReadAt(streamID, offset, readSize, data, isSniffCase);
+        if (err == Status::OK || err == Status::ERROR_AGAIN) {
+            readCond_.wait_for(lock, std::chrono::milliseconds(TRY_READ_SLEEP_TIME));
         }
-        continue;
+        retryTimes++;
     }
-    break;
-}
-```
-
-### 4.5 读取超时监控
-`SOURCE_READ_WARNING_MS = 100ms`:
-```cpp
-ScopedTimer timer("Source Read", SOURCE_READ_WARNING_MS);
-err = source_->Read(streamID, data, offset, size);
-```
-
----
-
-## 5. 自适应码率调度 (ABR)
-
-### 5.1 码率选择入口
-`HttpSourcePlugin` 暴露给上层的码率控制：
-```cpp
-Status SelectBitRate(uint32_t bitRate)   // L390-397: 手动选码率
-Status AutoSelectBitRate(uint32_t bitRate) // L400-406: 自动码率
-std::vector<uint32_t> GetBitRates()      // L374-377: 获取可用码率列表
-Status SetCurrentBitRate(int32_t bitRate, int32_t streamID) // L436-442
-```
-
-### 5.2 DownloadMonitor 中的触发模式
-```cpp
-void SetIsTriggerAutoMode(bool isAuto) override;
-// 当为true时，下载器自动选择码率（基于网络状况）
-```
-
-### 5.3 HlsMediaDownloader 码率决策
-- `SelectBitrate(uint32_t bitRate)`: 切换到指定码率
-- `AutoSelectBitrate(uint32_t bitRate)`: 基于下层DownloadMonitor的网络反馈自动切换
-- `GetBitRates()`: 返回manifest中声明的所有码率
-
----
-
-## 6. 离线缓存与播放策略
-
-### 6.1 MediaSourceLoaderCombinations (L199-215)
-`SetDownloaderBySource` 中会初始化离线缓存组合：
-```cpp
-if (source->GetSourceLoader() != nullptr) {
-    loaderCombinations_ = std::make_shared<MediaSourceLoaderCombinations>(source->GetSourceLoader());
-    loaderCombinations_->EnableOfflineCache(source->GetenableOfflineCache());
-    // Cookie + 离线缓存 → 禁用缓存
-    if (httpHeader_.find("Cookie") != httpHeader_.end() && loaderCombinations_->GetenableOfflineCache()) {
-        loaderCombinations_->Close(-1);
-    }
-    // 存储空间不足 → 禁用缓存
-    if (loaderCombinations_->GetenableOfflineCache() && !storageUsage->HasEnoughStorage()) {
-        loaderCombinations_->Close(-1);
+    if (retryTimes > TRY_READ_TIMES || isInterruptNeeded_.load()) {
+        return Status::ERROR_TIMEOUT;
     }
 }
 ```
 
-### 6.2 PlayStrategy 缓冲配置
-`HttpSourcePlugin::SetParameter` 从 meta 中提取：
+---
+
+## 3. 自适应码率事件驱动
+
+Source::ProcessEvent() 处理来自 Downloader 的码率切换事件：
+
+| 事件 | 处理 | 代码位置 |
+|------|------|---------|
+| `PluginEventType::HLS_SEEK_READY` | HLS 直播流 Seek 准备就绪，重新路由读取路径 | source.cpp:384 |
+| `PluginEventType::DASH_SEEK_READY` | DASH 直播流 Seek 准备就绪，重新路由读取路径 | source.cpp:378 |
+| `PluginEventType::FLV_AUTO_SELECT_BITRATE` | FLV 直播流自动码率切换 | source.cpp:381 |
+| `PluginEventType::SOURCE_BITRATE_START` | 开始上报码率信息 | source.cpp:366 |
+
+---
+
+## 4. DownloadMonitor 装饰器
+
+所有下载器均被 `DownloadMonitor` 包装，用于：
+
+- 统计 `totalBytesRead_`、`downloadSpeed_` 等质量指标
+- 设置 DFX 上报（`SetSourceStatisticsDfx(reportInfo_)`）
+- 统一 Pause/Resume 中断控制
+
 ```cpp
-meta->GetData(Tag::BUFFERING_SIZE, bufferSize_);
-meta->GetData(Tag::WATERLINE_HIGH, waterline_);
+// http_source_plugin.cpp:288
+downloader_ = std::make_shared<DownloadMonitor>(
+              std::make_shared<DashMediaDownloader>(loaderCombinations_));
 ```
 
 ---
 
-## 7. 关键数据流总结
+## 5. 与相邻记忆的关联
 
-```
-MediaSource (URI)
-    ↓
-HttpSourcePlugin::SetSource()
-    ↓
-SetDownloaderBySource()  → 协议推断
-    ├─ IsDash()            → .mpd / type=mpd  → DashMediaDownloader
-    ├─ IsSeekToTimeSupported() && !M3U8 mime → HlsMediaDownloader (可seek HLS)
-    └─ plain http          → HttpMediaDownloader
-    ↓ (所有下载器被 DownloadMonitor 包装)
-DownloadMonitor
-    ↓
-RingBuffer / HlsSegmentManager (分片预读 + 缓存)
-    ↓
-StreamDemuxer::PullData / PullDataWithCache (分片缓存合并)
-    ↓
-DemuxerCallback::OnRead() → VideoDecoder
-```
+| 记忆 | 关系 |
+|------|------|
+| S106 | S106 聚焦 Source.cpp + M3U8 解析器（Streaming 入口）；S122 聚焦 HttpSourcePlugin 三路下载器 + StreamDemuxer 缓存读取 |
+| S101 | S101 是 StreamDemuxer 完整分析（PullData/ReadRetry/CallbackReadAt）；S122 补充 DASH 分片合并 ProcInnerDash |
+| S102 | S102 是 SampleQueueController 流控（SPEED_START/STOP）；S122 是 StreamDemuxer 读取层的重试和缓存 |
+| S75 | S75 是 MediaDemuxer 六组件引擎层；S122 是 Source → StreamDemuxer → DemuxerFilter 的中间读取桥 |
+| S37/S38 | S37/S38 是 SourcePlugin 体系；S122 补充 HttpSourcePlugin 的具体下载器工厂路由逻辑 |
+| S41 | S41 是 DemuxerFilter 封装；S122 补充 StreamDemuxer 分片缓存读取机制，是 DemuxerFilter 的下游数据源 |
 
 ---
 
-## Evidence 列表
+## 6. 关键文件索引
 
-| # | 文件 | 关键行号 | 描述 |
-|---|------|---------|------|
-| E1 | http_source_plugin.cpp | 46-56 | HttpSource 插件注册 |
-| E2 | http_source_plugin.cpp | 229-265 | 三路下载器路由选择 |
-| E3 | http_source_plugin.cpp | 340-348 | IsSeekToTimeSupported 判断 |
-| E4 | http_source_plugin.cpp | 537-576 | CheckIsM3U8Uri 非标准路径支持 |
-| E5 | http_source_plugin.cpp | 185-214 | SetDownloaderBySource 完整逻辑 |
-| E6 | download_monitor.h | 1-148 | DownloadMonitor 接口与错误码映射 |
-| E7 | hls_media_downloader.h | 1-90 | HlsMediaDownloader 分片管理架构 |
-| E8 | stream_demuxer.cpp | 50-90 | ReadFrameData / ReadHeaderData 缓存路径 |
-| E9 | stream_demuxer.cpp | 138-172 | ProcInnerDash DASH分片合并 |
-| E10 | stream_demuxer.cpp | 206-239 | PullData 重试逻辑与超时监控 |
-
----
-
-**关联**: S106 (Source.cpp + M3U8解析)  
-**下一步**: 补充 DashMediaDownloader 和 HttpMediaDownloader 的分片下载逻辑细节
+| 文件 | 行数 | 核心职责 |
+|------|------|---------|
+| `services/media_engine/plugins/source/http_source/http_source_plugin.cpp` | 769 | 三路下载器路由、自适应码率调度、DownloadMonitor 装饰 |
+| `services/media_engine/plugins/source/http_source/http_source_plugin.h` | 115 | HttpSourcePlugin 类定义、SelectBitRate/AutoSelectBitRate 接口 |
+| `services/media_engine/modules/demuxer/stream_demuxer.cpp` | ~600 | PullData 三路分发、ReadRetry 重试、ProcInnerDash DASH合并 |
+| `services/media_engine/modules/demuxer/stream_demuxer.h` | 492 | StreamDemuxer 类定义、CallbackReadAt/PullDataWithCache/WithoutCache 声明 |
+| `services/media_engine/modules/source/source.cpp` | 715 | HLS_SEEK_READY / DASH_SEEK_READY 事件处理（source.cpp:378/384） |
+| `services/media_engine/plugins/source/http_source/hls/hls_media_downloader.cpp` | 704 | HLS 分片下载器，SelectBitRate 实现 |
+| `services/media_engine/plugins/source/http_source/dash/dash_media_downloader.cpp` | 1409 | DASH 下载器，SelectBitRate 实现 |
