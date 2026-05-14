@@ -851,7 +851,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S134 | FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, HDR_VIVID, HDR10, BitstreamFilter, AnnexB, PTS, IndexConvert, ReadAhead, CachePressure, MultiStreamParser, ReferenceParser, RMSeek | 新需求开发/问题定位 | **in_progress** | 🚧 草案已生成（2026-05-14T22:40），DRAFTS/MEM-ARCH-AVCODEC-S136.md |
+| S134 | FFmpegDemuxerPlugin 高级特性——HDR元数据解析/BitstreamFilter/PTS索引转换/分片缓冲/缓存压力控制/RM流处理 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, HDR_VIVID, HDR10, BitstreamFilter, AnnexB, PTS, IndexConvert, ReadAhead, CachePressure, MultiStreamParser, ReferenceParser, RMSeek | 新需求开发/问题定位 | **approved** | 🚧 草案已生成（2026-05-14T22:40），DRAFTS/MEM-ARCH-AVCODEC-S136.md |
 
 
 ## 新增主题（Builder 2026-05-14 S135注册）
