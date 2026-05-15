@@ -139,3 +139,9 @@ entries:
   summary: MediaMuxer+Source双核模块架构——封装/源/采集三功能与协议插件体系，Source(715行)协议路由(http/https/file/fd/stream)+PluginManagerV2插件发现，MediaMuxer(571行)OutputFormat九格式支持矩阵+MUX_MIME_INFO Tag校验，AudioCaptureModule(509行)Read/Poll双模式+GetMaxAmplitude峰值检测，与S94/S83/S34/S28/S29/S115关联
   source: builder-agent
   created_at: '2026-05-15T22:50:00+08:00'
+- id: memory_draft_s158
+  type: memory_draft
+  mem_id: MEM-ARCH-AVCODEC-S158
+  status: pending_approval
+  created_at: "2026-05-16T00:08:00+08:00"
+  summary: FFmpeg音频编码器三层架构（FFmpegBaseEncoder基类+AAC自实现+FLAC/MP3组合）

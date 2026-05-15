@@ -1029,3 +1029,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-15T22:50 | Builder | S157注册：MediaMuxer+Source双核模块架构草案已生成，写入 MEM-ARCH-AVCODEC-S157.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-16 S158注册——FFmpeg音频编码器三层架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S158 | FFmpeg 音频编码器插件体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件架构 | AVCodec, FFmpeg, AudioEncoder, Plugin, SoftwareCodec, AAC, FLAC, MP3, G711mu, LBVC, FFmpegBaseEncoder, FFmpegEncoderPlugin, ADTS, AudioResample, SwrContext | 新需求开发/问题定位/音频编码接入 | **pending_approval** | 🚧 草案已生成（2026-05-16T00:08），ffmpeg_base_encoder.cpp(396行)+ffmpeg_encoder_plugin.cpp(85行)+AAC(902行)+FLAC(252行)行号级evidence，三层架构(FFmpegEncoderPlugin注册层+FFmpegBaseEncoder基类+五子插件)，AAC自实现(AVAudioFifo+ADTS 7字节头)，FLAC/MP3组合FFmpegBaseEncoder，与S125(S132)编解码对称，与S130/S50关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-16T00:08 | Builder | S158注册：FFmpeg 音频编码器插件体系草案已生成，写入 MEM-ARCH-AVCODEC-S158.md（pending_approval） |
