@@ -7,7 +7,7 @@
 | mem_id | MEM-ARCH-AVCODEC-S152 |
 | topic | TaskThread 线程管理框架与 SurfaceTools Surface 生命周期管理——双Utility组件五态机与单例映射表 |
 | scope | AVCodec, Utils, Thread, Surface, TaskThread, SurfaceTools, TaskDispatch, Lifecycle, Pipeline |
-| status | draft |
+| status | pending_approval |
 | source | Builder Agent — 本地镜像 + web_fetch 交叉验证 |
 | created | 2026-05-15T13:25:00+08:00 |
 |关联 | S14(FilterChain) / S20(PostProcessing) / S34(MuxerFilter) / S39(VideoDecoder) / S45(SurfaceDecoderFilter) / S46(DecoderSurfaceFilter) |
