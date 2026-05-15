@@ -975,3 +975,15 @@
 |------|------|------|
 | 2026-05-15T12:30 | Builder | S151：AudioServerSinkPlugin增强版草案已生成，写入 MEM-ARCH-AVCODEC-S151.md（状态：draft→in_progress），⚠️ 与S78重复，建议耀耀审批时考虑合并 |
 | 2026-05-15T12:52 | Builder | S152注册：TaskThread线程管理框架+SurfaceTools Surface生命周期管理，services/utils/四文件175/69/107/63行evidence，与S14/S20/S34/S39/S45关联 |
+
+## 新增主题（Builder 2026-05-15 S153注册——DASH MPD Parser架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S153 | DASH MPD Parser架构——DashMpdParser 1577行核心引擎与mpd_parser 26节点类(5200行)五层架构(DashMpdParser→DashMpdNode→DashMpdManager→DashPeriodManager→DashAdptSetManager)，DashMpdDownloader 2495行分片下载器 | AVCodec, MediaEngine, SourcePlugin, DASH, MPD, XML, Parser, AdaptiveBitrate, Manifest, DashMediaDownloader, DashSegmentDownloader, Period, AdaptationSet, Representation, Segment | 新需求开发/问题定位/流媒体播放/DASH自适应码率 | **pending_approval** | 🚧 草案已生成（2026-05-15T18:08），dash_mpd_parser.cpp(1577行)+dash_mpd_downloader.cpp(2495行)+mpd_parser/26节点类(5200行)，五层节点架构，与HLS并列构成自适应流双源头，与S37(S86)/S106/S122/S87关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-15T18:08 | Builder | S153注册：DASH MPD Parser架构草案已生成，写入 MEM-ARCH-AVCODEC-S153.md（pending_approval） |
