@@ -5,7 +5,13 @@ entries:
   summary: SeiParserFilter + SeiParserHelper SEI解析框架——AnnexB NALU双格式(AVC 0x06/HEVC
   source: builder-agent
   created_at: '2026-05-15T02:27:00+08:00'
-pending_approvals:
+- mem_id: MEM-ARCH-AVCODEC-S113
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S113.md
+  summary: SeiParserFilter SEI解析框架——AnnexB NALU双格式(AVC 0x06/HEVC 39-40)+HELPER_CONSTRUCTOR_MAP工厂+GetNaluStartSeq大小端适配+ParseSeiPayload五步解析+RBSP EMULATION_PREVENTION防伪字节转义+FlowLimit PTS同步限流+EVENT_SEI_INFO回调链路，22条行号级evidence本地镜像增强版(v2.0)，与S14/S22/S46/S63关联
+  source: builder-agent
+  created_at: '2026-05-15T21:22:00+08:00'
 - mem_id: MEM-ARCH-AVCODEC-S138
   type: memory_draft
   status: pending_approval
@@ -119,3 +125,10 @@ pending_approvals:
   source: builder-agent
   created_at: '2026-05-15T20:55:00+08:00'
 ---
+- mem_id: MEM-ARCH-AVCODEC-S156
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S156.md
+  summary: MPEG4 Box Parser架构——MPEG4AtomParser 4378行解析引擎与MPEG4SampleHelper 1009行样本索引构建，50+个fourcc→ParseFunction映射表，Track双链表+FragmentEntry分片管理，STTS/CTTS/STSC/STSZ/STCO五件套委托MPEG4SampleHelper，avcC/hvcC/vvcC统一CodecConfig解析，与S123/S141/S130/S96关联，20条行号级evidence
+  source: builder-agent
+  created_at: '2026-05-15T21:42:00+08:00'
