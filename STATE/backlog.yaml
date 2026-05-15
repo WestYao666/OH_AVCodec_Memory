@@ -987,3 +987,9 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-15T18:08 | Builder | S153注册：DASH MPD Parser架构草案已生成，写入 MEM-ARCH-AVCODEC-S153.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-15 S154注册——VideoDecoder基类与RenderSurface双组件）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S154 | VideoDecoder 基类与 RenderSurface 双组件架构——VideoDecoder 1122行cpp + RenderSurface 553行cpp + BlockQueue 三队列 + Owner 枚举四态缓冲区所有权 + DMA SwapOut/SwapIn 冻结机制 | AVCodec, VideoDecoder, RenderSurface, BlockQueue, Owner, SwapOut, SwapIn, SurfaceMode, BufferMode, DMA-BUF, VideoCodec, Filter | 新需求开发/问题定位/Surface模式解码 | **pending_approval** | 🚧 草案已生成（2026-05-15T19:55），video_decoder.h(1122行)+render_surface.h(553行)+coderstate.h行号级evidence，VideoDecoder基类(RenderSurface组合+BlockQueue三队列+SendFrame TaskThread)+RenderSurface组件(CodecBuffer双缓冲池+Owner枚举+六队列+SwapOut/SwapIn)+State五状态机，与S39/S45/S46/S57/S80关联 |
