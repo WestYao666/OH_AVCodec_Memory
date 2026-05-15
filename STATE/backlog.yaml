@@ -930,7 +930,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S148 | SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode双阶段丢帧策略与MV/NaluAnalyzer分析器 | AVCodec, MediaEngine, Decoder, SmartFluencyDecoding, SFD, DropStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, RetentionStrategy, DropSyncCoordinator, MediaCodec, DecoderAdapter | 新需求开发/问题定位/流畅度优化 | **pending_approval** | 🚧 草案已生成（2026-05-15T06:08） |
+| S148 | SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode双阶段丢帧策略与MV/NaluAnalyzer分析器 | AVCodec, MediaEngine, Decoder, SmartFluencyDecoding, SFD, DropStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, RetentionStrategy, DropSyncCoordinator, MediaCodec, DecoderAdapter | 新需求开发/问题定位/流畅度优化 | **pending_approval** | 🚧 草案已生成（2026-05-15T06:08）→pending_approval（2026-05-15T08:09 Builder重制草案），MEM-ARCH-AVCODEC-S148.md（18条行号级evidence），smart_fluency_decoding.cpp(582行)+.h(126行)双阶段丢帧决策；smart_fluency_decoding_manager.cpp(358行)+.h(87行)Manager封装；drop_sync_coordinator.h/cpp(1024环buffer+EMA)；retention_strategy.h(5策略接口)；interfaces/nalu_analyzer_c_api.h(41行NALU C API)；与S14/S20/S46/S149关联 |
 
 
 ## 新增主题（Builder 2026-05-15 S148注册——SA AVCodec IPC 通信层——CodecServiceStub/Proxy/Parcel 三层架构与死亡通知链）
