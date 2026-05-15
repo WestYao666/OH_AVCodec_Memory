@@ -177,21 +177,26 @@ FFmpegBaseEncoder（基类）
 - 继承 `AudioBaseCodec` 基类
 - `AudioEncoderCreateByMime()` 工厂函数
 
-### 3.3 AAC 编码器（ffmpeg_aac_encoder_plugin.cpp）
+### 3.3 AAC 编码器（ffmpeg_aac_encoder_plugin.cpp, 902行）
 
-**Evidence**: `audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp`
+**Evidence**: `audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp:1-902`
 
-- 自实现 `AVAudioFifo` 环形缓冲区（避免FFmpeg版本依赖）
-- `AudioResample` 集成：输入重采样（支持非48kHz输入自动升频）
-- ADTS 7字节头注入（采样率/通道布局/帧长度）
+- **AVAudioFifo 环形缓冲区**: L694-697 `av_audio_fifo_alloc(fmt, channels, frameSize)` 分配（L80 fifo_成员, L392/L445/L748/L818/L819/L826/L867 读写操作）
+- **AudioResample 集成**: L530/L561-562 `needResample_` + `ResamplePara resamplePara` + `std::make_shared<Ffmpeg::Resample>()` 重采样（L571）
+- **ADTS 7字节头注入**: L37 `constexpr ADTS_HEADER_SIZE = 7`，L102-124 `GetAdtsHeader()` 函数（L113-119 填充 0xFF/0xF1 + profile/freqIdx/chanCfg/frameLength）
+- **采样率表**: L15-35 `sampleFreqMap`（13档采样率 8k-192k）
+- **码率控制**: L100-121 bitrate 校验（FLAC_MIN_BIT_RATE/FLAC_MAX_BIT_RATE 不适用于 AAC）
 - 支持 CBR/VBR 两种码率模式
 
-### 3.4 FLAC 编码器（ffmpeg_flac_encoder_plugin.cpp）
+### 3.4 FLAC 编码器（ffmpeg_flac_encoder_plugin.cpp, 252行）
 
-**Evidence**: `audio_encoder/flac/`（252行cpp）
+**Evidence**: `audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp:1-252`
 
-- 组合 FFmpegBaseEncoder 基类
+- 组合 FFmpegBaseEncoder 基类（L169 `basePlugin->InitContext(parameter)`）
 - FLAC元数据块写入（STREAMINFO/MD5/SEEKTABLE/APPLICATION）
+- **采样率表**: L38-40 `FLAC_ENCODER_SAMPLE_RATE_TABLE[]`（8000-192000Hz, 11档）
+- **通道布局表**: L41-44 `FLAC_CHANNEL_LAYOUT_TABLE[]`（mono/stereo/surround/quad/5.1/7.1）
+- **码率范围**: L32-33 `FLAC_MIN_BIT_RATE=32000 / FLAC_MAX_BIT_RATE=1536000`
 - 无需重采样（FLAC固定支持 8-192kHz）
 
 ### 3.5 其他编码器子插件
@@ -266,7 +271,67 @@ FFmpegBaseDecoder（基类）
 
 ---
 
-## 五、与 S125/S130 关联
+## 五、muxer/ FFmpeg 封装修复器插件体系
+
+### 5.1 FFmpegMuxerPlugin（1414行cpp + 126行h）
+
+**Evidence**: `muxer/ffmpeg_muxer_plugin.cpp:1-1414`, `muxer/ffmpeg_muxer_plugin.h:1-126`
+
+- `FFmpegMuxerPlugin`: 基于 libavformat 的封装修复器插件
+- 支持 9 种格式: MP4/M4A/MP3/WAV/AAC/FLAC/OGG/FLV/AMR
+- `AVFMT_FLAG_CUSTOM_IO`: 自定义 AVIOContext（用于 FileSink/DataSink 抽象）
+- `WriteSample()` 三分支: H.264 / HEVC / FLAC / 普通样本
+
+### 5.2 FFmpegMuxerRegister（377行cpp）
+
+**Evidence**: `muxer/ffmpeg_muxer_register.cpp:1-377`
+
+- `FFmpegMuxerRegister`: CRTP 模板插件注册表
+- `CreateMuxerPlugin()`: MIME → 具体 MuxerPlugin 工厂分发
+
+### 5.3 FFmpegFlvMuxerPlugin（586行cpp + 85行h）
+
+**Evidence**: `muxer/flv_muxer/ffmpeg_flv_muxer_plugin.cpp:1-586`, `muxer/flv_muxer/ffmpeg_flv_muxer_plugin.h:1-85`
+
+- FLV 容器专属封装修复器（相对于 MP4 的 FLV 特有格式）
+- 支持 H.264 + AAC 封入 FLV
+
+### 5.4 MPEG4MuxerPlugin（574行cpp）
+
+**Evidence**: `muxer/mpeg4_muxer/mpeg4_muxer_plugin.cpp:1-574`
+
+- 原生 MP4/MOV ISOBMFF 封装修复器（非 FFmpeg）
+- `BasicBox` 树形层级: ftyp/moov/trak/mdia/minf
+
+### 5.5 MP4 Box 写时构建体系
+
+**Evidence**: `muxer/mpeg4_muxer/basic_box.cpp:1-1256`, `muxer/mpeg4_muxer/basic_box.h:1-575`
+
+- `BasicBox`: ISOBMFF 原子结构基类（L575 h 定义）
+- `FullBox`: 扩展 version+flags（L575）
+- `BoxParser`: MoovBoxGenerate → MvhdBoxGenerate / TrakBoxGenerate / UdtaBox（L916-78 h）
+
+### 5.6 Track 轨封装
+
+**Evidence**: `muxer/mpeg4_muxer/video_track.cpp:1-753`, `muxer/mpeg4_muxer/audio_track.cpp:1-263`, `muxer/mpeg4_muxer/basic_track.cpp:1-282`
+
+- `VideoTrack`: AvccBox(H.264)/HvccBox(HEVC)/ColrBox 视频轨封装（L753）
+- `AudioTrack`: AAC/FLAC/PCM 音频轨封装（L263）
+- `BasicTrack`: Track 基类（L282）
+- `CoverTrack`: 封面轨（L93）
+- `TimedMetaTrack`: 时间元数据轨（L49 h）
+
+### 5.7 Parser 封装
+
+**Evidence**: `muxer/mpeg4_muxer/avc_parser.cpp:1-211`, `muxer/mpeg4_muxer/hevc_parser.cpp:1-186`
+
+- `AvcParser`: H.264 NALU → AVCC 格式封装（L211）
+- `HevcParser`: HEVC NALU → HVCC 格式封装（L186）
+- `VideoParser`: 视频码流解析基类（L121 h）
+
+---
+
+## 六、与 S125/S130 关联
 
 | 对比维度 | S125 (FFmpegDecoder) | S130 (FFmpegAdapterCommon) | S145 (本记忆) |
 |----------|----------------------|---------------------------|--------------|
@@ -283,7 +348,7 @@ FFmpegBaseDecoder（基类）
 
 ---
 
-## 六、Evidence 汇总
+## 七、Evidence 汇总
 
 | 文件 | 行号 | 关键内容 |
 |------|------|----------|
@@ -300,14 +365,31 @@ FFmpegBaseDecoder（基类）
 | `audio_encoder/ffmpeg_base_encoder.cpp` | 1-396 | 音频编码器基类 |
 | `audio_encoder/ffmpeg_base_encoder.h` | 1-94 | FFmpegBaseEncoder类定义 |
 | `audio_encoder/ffmpeg_encoder_plugin.cpp` | 1-85 | 插件注册层 |
-| `audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp` | - | AAC编码器（自实现AVAudioFifo） |
+| `audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp` | 902 | AAC编码器：ADTS7字节头(L37/L102-124)、av_audio_fifo_alloc(L694)、Resample(L571) |
+| `audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp` | 252 | FLAC编码器：采样率表(L38-40)、通道布局表(L41-44)、InitContext(L169) |
 | `audio_decoder/ffmpeg_base_decoder.cpp` | 1-605 | 音频解码器基类 |
 | `audio_decoder/ffmpeg_base_decoder.h` | 1-129 | FFmpegBaseDecoder类定义 |
 | `audio_decoder/ffmpeg_decoder_plugin.cpp` | 1-250 | 解码器插件代理 |
+| `muxer/ffmpeg_muxer_plugin.cpp` | 1414 | FFmpegMuxerPlugin封装修复器主文件 |
+| `muxer/ffmpeg_muxer_register.cpp` | 377 | 插件注册表 |
+| `muxer/ffmpeg_muxer_plugin.h` | 126 | FFmpegMuxerPlugin类定义 |
+| `muxer/ffmpeg_flv_muxer_plugin.cpp` | 586 | FLV封装修复器 |
+| `muxer/ffmpeg_flv_muxer_plugin.h` | 85 | FLV muxer类定义 |
+| `muxer/mpeg4_muxer/mpeg4_muxer_plugin.cpp` | 574 | MPEG4 muxer插件 |
+| `muxer/mpeg4_muxer/basic_box.cpp` | 1256 | ISOBMFF Box结构体 |
+| `muxer/mpeg4_muxer/basic_box.h` | 575 | BasicBox类定义 |
+| `muxer/mpeg4_muxer/box_parser.cpp` | 916 | Box解析器 |
+| `muxer/mpeg4_muxer/box_parser.h` | 78 | BoxParser类定义 |
+| `muxer/mpeg4_muxer/video_track.cpp` | 753 | 视频轨封装 |
+| `muxer/mpeg4_muxer/audio_track.cpp` | 263 | 音频轨封装 |
+| `muxer/mpeg4_muxer/basic_track.cpp` | 282 | 基础轨 |
+| `muxer/mpeg4_muxer/avc_parser.cpp` | 211 | AVC H.264封装 |
+| `muxer/mpeg4_muxer/hevc_parser.cpp` | 186 | HEVC H.265封装 |
+| `muxer/mpeg4_muxer/avio_stream.cpp` | 221 | AVIO自定义流 |
 
 ---
 
-## 变更记录
+## 八、变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|

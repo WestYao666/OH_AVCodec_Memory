@@ -914,6 +914,12 @@
 |---|------|-------|---------|------|------|
 | S144 | DemuxerPluginManager 插件管理与 BaseStreamDemuxer 流式解封装——1159行cpp/多StreamDemuxer/TrackMap/临时映射/Plugin加载/Sniffer路由/StreamID分配 | AVCodec, MediaEngine, DemuxerPluginManager, BaseStreamDemuxer, StreamDemuxer, Plugin, Sniffer, Track, StreamID, TrackMap, MediaStreamInfo, LoadDemuxerPlugin, GetPluginByStreamID, DASH, HTTP | 新需求开发/问题定位/插件加载/流切换 | **pending_approval** | 🚧 草案已生成（2026-05-15T03:02:38+08:00），demuxer_plugin_manager.cpp(1159行)+demuxer_plugin_manager.h(196行)插件管理(DataSourceImpl/MediaStreamInfo/TrackMap/Sniffer/LoadDemuxerPlugin)；base_stream_demuxer.cpp(202行)+base_stream_demuxer.h(161行)流式解封装基类(DemuxerState/CacheData/IsDash)；与S75/S101/S102关联
 
+## 新增主题（Builder 2026-05-15 S145注册——FFmpeg Adapter通用工具链与编解码插件体系）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S145 | FFmpeg Adapter 通用工具链与编解码插件体系——common四组件(ffmpeg_utils/ffmpeg_convert/ffmpeg_converter/stream_parser_manager/hdi_codec,1985行)与audio_encoder五子插件+audio_decoder17+子插件矩阵 | AVCodec, FFmpeg, Plugin, Adapter, Common, AudioEncoder, AudioDecoder, Muxer, libavcodec, libavformat, FFmpegBaseEncoder, FFmpegBaseDecoder, FFmpegMuxerPlugin, MPEG4MuxerPlugin | 新需求开发/问题定位/FFmpeg集成 | **pending_approval** | 🚧 草案已生成（2026-05-15T04:25+08:00）→增强行号（2026-05-15T09:09 Builder），muxer/9451行cpp完整证据(ffmpeg_muxer_plugin 1414行/basic_box 1256行/video_track 753行/avio_stream 221行)，AAC编码器902行(L37 ADTS_HEADER_SIZE/L102-124 GetAdtsHeader/L694-697 av_audio_fifo_alloc)，FLAC编码器252行(L38-44采样率表/通道布局表/L169 InitContext)，与S130(S125)互补，构成完整FFmpeg Adapter体系 |
+
 ## 新增主题（Builder 2026-05-15 S146注册——VideoResizeFilter + MetaDataFilter 双过滤器架构）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
