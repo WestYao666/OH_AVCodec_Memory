@@ -967,7 +967,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S152 | TaskThread 线程管理框架与 SurfaceTools Surface 生命周期管理——双Utility组件五态机与单例映射表 | AVCodec, Utils, Thread, Surface, TaskThread, SurfaceTools, TaskDispatch, Lifecycle, Pipeline | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-15T12:52），services/utils/四文件(175行+69行+107行+63行)行号级evidence，TaskThread五态机(STOPPED/STARTED/PAUSING/PAUSED/STOPPING)+500ms自醒+pthread_setname_np；SurfaceTools单例+surfaceProducerMap_映射表+RegisterReleaseListener+CleanCache+ReleaseSurface，与S14/S20/S34/S39/S45关联 |
+| S152 | TaskThread 线程管理框架与 SurfaceTools Surface 生命周期管理——双Utility组件五态机与单例映射表 | AVCodec, Utils, Thread, Surface, TaskThread, SurfaceTools, TaskDispatch, Lifecycle, Pipeline | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-15T13:25），services/utils/四文件(175行+69行+107行+63行)行号级evidence，TaskThread五态机(STOPPED/STARTED/PAUSING/PAUSED/STOPPING)+500ms自醒+pthread_setname_np；SurfaceTools单例+surfaceProducerMap_映射表+RegisterReleaseListener+CleanCache+ReleaseSurface，与S14/S20/S34/S39/S45关联 |
 
 ## 变更记录
 
