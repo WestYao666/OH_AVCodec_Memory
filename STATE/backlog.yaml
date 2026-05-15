@@ -961,7 +961,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S151 | AudioServerSinkPlugin 音频渲染插件——AudioRenderer集成、音频焦点中断、设备切换与AudioVivid（本地镜像增强版） | AVCodec, MediaEngine, Plugin, Sink, AudioRenderer, AudioStandard, Interrupt, DeviceChange, Offload, AudioVivid, WRITE, OnInterrupt, OnOutputDeviceChange | 新需求开发/问题定位/音频渲染 | **in_progress** | 🚧 草案已生成（2026-05-15T12:30），audio_server_sink_plugin.cpp(1495行)+.h(311行)行号级evidence，g_aduFmtMap 25种采样格式映射表(L54-78)/g_auInterruptMap焦点映射(L49-51)/mimeTypeToEncodingMap(L81-93)/WriteAudioVivid(L126-145)/OnInterrupt(L169-185)/OnOutputDeviceChange(L192-210)/SetOffloadAllowed(L500-550)，与S31(S61/S78/S119)关联，⚠️ 警告：与S78主题重复，S78为已提交审批版本，建议approve S78并reject S151或合并 |
+| S151 | AudioServerSinkPlugin 音频渲染插件——AudioRenderer集成、音频焦点中断、设备切换与AudioVivid（本地镜像增强版） | AVCodec, MediaEngine, Plugin, Sink, AudioRenderer, AudioStandard, Interrupt, DeviceChange, Offload, AudioVivid, WRITE, OnInterrupt, OnOutputDeviceChange | 新需求开发/问题定位/音频渲染 | **pending_approval** | 🚧 草案已生成（2026-05-15T12:30）→pending_approval（2026-05-15T13:40 Builder提交审批），audio_server_sink_plugin.cpp(1495行)+.h(311行)行号级evidence，g_aduFmtMap 25种采样格式映射表(L54-78)/g_auInterruptMap焦点映射(L49-51)/mimeTypeToEncodingMap(L81-93)/WriteAudioVivid(L126-145)/OnInterrupt(L169-185)/OnOutputDeviceChange(L192-210)/SetOffloadAllowed(L500-550)，与S31(S61/S78/S119)关联，⚠️ 警告：与S78主题重复，S78为已提交审批版本，建议approve S78并reject S151或合并 |
 
 ## 新增主题（Builder 2026-05-15 S152注册）
 
