@@ -950,3 +950,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S149 | Transcoder Pipeline 架构——视频转码 Encode→Decode 桥接与 Filter 链路 | AVCodec, TransCoder, Pipeline, FilterChain, Encode, Decode, SurfaceEncoderAdapter, MuxerFilter, VideoResizeFilter, AudioEncoderFilter | 新需求开发/问题定位/转码场景接入 | **pending_approval** | MEM-ARCH-AVCODEC-S149 | 🚧 草案已生成（2026-05-15T07:10），576行行号级evidence，isTransCoderMode四层传递链(SurfaceEncoderAdapter→SurfaceEncoderFilter→AudioEncoderFilter→MuxerFilter)，TransCoderOnOutputBufferAvailable专用路径，错误吞掉机制(transCoderErrorCbOnce_)，OnTransCoderBufferFilled双轨EOS计数+音视频PTS同步，VideoResizeFilter("builtin.transcoder.videoresize")VPE DetailEnhancer，MediaDemuxer transcoderStartPts_偏移补偿，与S23/S34/S36/S46关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-15T11:37 | Builder | S149 提交审批：Transcoder Pipeline 架构，576行行号级 evidence，草案路径 MEM-ARCH-AVCODEC-S149.md |
