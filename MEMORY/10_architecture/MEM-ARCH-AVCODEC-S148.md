@@ -1,269 +1,319 @@
-# MEM-ARCH-AVCODEC-S148 - SmartFluencyDecoding 智能流畅解码
+# MEM-ARCH-AVCODEC-S148 (DRAFT)
 
-**主题ID**: MEM-ARCH-AVCODEC-S148  
-**主题名称**: SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode双阶段丢帧策略与MV/NaluAnalyzer分析器  
-**状态**: draft  
-**创建日期**: 2026-05-15  
-**Builder**: Builder Agent (minimax/MiniMax-M2.7)
+> **Status:** draft  
+> **Topic:** SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode 双阶段丢帧策略与 MV/NaluAnalyzer 分析器  
+> **Tags:** AVCodec, MediaEngine, Decoder, SmartFluencyDecoding, SFD, DropStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, RetentionStrategy, DropSyncCoordinator, MediaCodec, DecoderAdapter  
+> **Domain:** 新需求开发/问题定位/流畅度优化  
+> **Backlog:** S148 | **pending_approval**  
+> **Evidence source:** repo_tmp (本地镜像) + GitCode https://gitcode.com/openharmony/multimedia_av_codec  
 
 ---
 
 ## 1. 概述
 
-SmartFluencyDecoding (SFD) 是 AVCodec 解码端的**流畅度优化框架**，通过分析 MV (运动矢量) 和 NALU (编码单元) 信息，在解码前后双阶段智能丢帧，在低性能设备上保持播放流畅。核心定位与 AFC (AdaptiveFramerateController，编码端降帧) 互补：SFD 管**解码丢帧**，AFC 管**编码降帧**。
+SmartFluencyDecoding（SFD）是 AVCodec 解码器的**智能流畅度优化组件**，位于 `services/codec/server/video/features/smart_fluency_decoding/` 目录。通过**双阶段丢帧决策**（PreDecode + PostDecode）结合 NALU 分析器（识别非参考帧）和 MV 分析器（运动矢量统计），在保证播放质量的前提下主动丢弃冗余帧，提升解码流畅度。
+
+**支持编解码器：** AVC / HEVC / VVC（三者均通过 `SFDCodecType` 枚举标识）
+
+**核心文件（共 10+ 个源文件，总计约 2900 行）：**
+- smart_fluency_decoding.cpp (L1-582) — 核心引擎，双阶段决策
+- smart_fluency_decoding.h (L1-126) — 核心类声明
+- smart_fluency_decoding_manager.cpp (L1-358) — Manager 封装
+- smart_fluency_decoding_manager.h (L1-87) — Manager 类声明
+- smart_fluency_decoding_types.h (L1-101, interfaces/) — 类型与枚举
+- smart_fluency_decoding_builder.cpp (L1-127) — Builder 构造器
+- smart_fluency_decoding_builder.h (L1-52) — Builder 声明
+- drop_sync_coordinator.cpp (L1-113) + .h (L1-53) — 丢帧同步协调
+- async_drop_dispatcher.cpp (L1-97) + .h (L1-48) — 异步丢帧调度
+- strategies/ — 5 种保留策略子目录
+  - retention_strategy.h (L1-50) — 策略基类 IRetentionStrategy
+  - retention_strategy_factory.cpp (L1-55) + .h — 策略工厂
+  - fixed_ratio_retention_strategy.cpp (L1-94) + .h (L1-50)
+  - adaptive_retention_strategy.cpp (L1-160) + .h (L1-47)
+  - full_retention_strategy.cpp (L1-71) + .h (L1-42)
+  - auto_fallback_retention_strategy.cpp (L1-67) + .h (L1-45)
+- interfaces/nalu_analyzer_c_api.h (L1-41) — NALU 分析器 C 接口
+- interfaces/mv_analyzer_c_api.h (L1-41) — MV 分析器 C 接口
 
 ---
 
-## 2. 代码证据（本地镜像）
+## 2. 双阶段丢帧决策架构
 
-| 文件 | 行数 | 说明 |
-|------|------|------|
-| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding.h` | 95 | 核心类定义 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding.cpp` | 453 | 核心实现 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding_builder.h` | 69 | 工厂构建器 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/smart_fluency_decoding_builder.cpp` | 257 | 工厂实现 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/interfaces/smart_fluency_decoding_types.h` | 76 | 类型定义 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/async_drop_dispatcher.h` | ~50 | 异步丢帧调度器 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/drop_sync_coordinator.h` | ~60 | 成对丢帧同步器 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/retention_strategy.h` | - | 策略基类 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/adaptive_retention_strategy.h/cpp` | - | 自适应策略 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/fixed_ratio_retention_strategy.h/cpp` | - | 固定比例策略 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/full_retention_strategy.h/cpp` | - | 全保留策略 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/strategies/auto_fallback_retention_strategy.h/cpp` | - | 自动回退策略 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/mv_analyzer.h` | - | MV 分析器接口 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/nalu_analyzer.h` | - | NALU 分析器接口 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/mv_analyzer_so_loader.h/cpp` | - | MV 分析器 dlopen 加载 |
-| `services/services/codec/server/video/features/smart_fluency_decoding/analyzers/nalu_analyzer_so_loader.h/cpp` | - | NALU 分析器 dlopen 加载 |
+### 2.1 PreDecode 阶段（L1-300）
 
----
-
-## 3. 核心架构
-
-### 3.1 命名空间与类层级
+**触发位置：** `smart_fluency_decoding.cpp:341-390` (`MakePreDecodeDecision`)
 
 ```
-OHOS::MediaAVCodec::SFD
-├── SmartFluencyDecoding           # 主引擎类 (smart_fluency_decoding.h/cpp, 548行)
-├── SmartFluencyDecodingBuilder    # 工厂构建器 (builder.h/cpp, 326行)
-├── AsyncDropDispatcher            # 异步丢帧调度器 (async_drop_dispatcher.h/cpp)
-├── DropSyncCoordinator            # 成对丢帧同步器 (drop_sync_coordinator.h/cpp)
-├── IRetentionStrategy             # 策略基类 (abstract)
-│   ├── FullRetentionStrategy
-│   ├── AdaptiveRetentionStrategy
-│   ├── FixedRatioRetentionStrategy
-│   └── AutoFallbackRetentionStrategy
-├── IMvAnalyzer                    # MV 分析器接口 (dlopen 插件)
-└── INaluAnalyzer                  # NALU 分析器接口 (dlopen 插件)
+NALU 分析器（NaluAnalyzer）
+    ↓ IsNonReferenceFrame(buffer)
+非参考帧判断 → EMA 比率饱和检测 → 丢帧 / 保留
 ```
 
-### 3.2 双阶段丢帧决策
+**决策逻辑源码（smart_fluency_decoding.cpp:365-386）：**
+- L365: `if (naluAnalyzer_ && caps.requiresNalu)` — 非参考帧检测
+- L366-368: `res.isNonRef = naluAnalyzer_->IsNonReferenceFrame(buffer)` — 核心判断
+- L370-376: EMA 比率比较（`GetEmaRatio()` vs `targetRatio`）决定 PRE_DROP / PRE_RETAIN
+- L383: `ExecutePreDrop(index, buffer)` — 异步提交丢帧任务
 
+**关键数据结构（smart_fluency_decoding.h:67-78）：**
+- `PreDecResult { shouldRetain, isNonRef, reason, naluCostUs }`
+- `StrategyCaps { isPassthrough, requiresNalu, requiresMv, targetRatio }`
+
+### 2.2 PostDecode 阶段（L450-480）
+
+**触发位置：** `smart_fluency_decoding.cpp:450-480` (`MakePostDecodeDecision`)
+
+```
+SurfaceBuffer 元数据 (ATTRKEY_VIDEO_DECODER_MV)
+    ↓ ParseMVData(surfaceBuffer)
+MVStats { totalBlocks, validBlocks, skipBlocks, zeroMotionBlocks,
+          avgRefDist, perceptualMagnitude, motionConsistency, zeroMotionRatio }
+    ↓ IRetentionStrategy->MakeRetentionDecision(ctx)
+保留 / 丢帧
+```
+
+**MV 数据提取源码（smart_fluency_decoding.cpp:494-512）：**
+- L497-499: `surfaceBuffer->GetMetadata(V2_0::ATTRKEY_VIDEO_DECODER_MV, vec)` — 获取 MV 元数据
+- L503: `mvStats = mvAnalyzer_->Analyze(input, data.length)` — 调用 MV 分析器
+- L470-476: `strategy_->MakeRetentionDecision(ctx)` — 策略决策
+
+**关键数据结构（smart_fluency_decoding_types.h:32-40）：**
 ```cpp
-// smart_fluency_decoding.h (L27-28)
-bool MakePreDecodeDecision(uint32_t index);      // 解码前丢帧决策
-bool MakePostDecodeDecision(uint32_t index, int64_t pts, const sptr<SurfaceBuffer> surfaceBuffer); // 解码后丢帧决策
-```
-
-- **PreDecode 阶段** (`MakePreDecodeDecision`)：在输入 buffer 入队前，根据 NALU 类型（SPS/PPS/IDR/non-IDR）和 MV 统计信息提前判断是否丢弃
-- **PostDecode 阶段** (`MakePostDecodeDecision`)：在解码输出后，根据 SurfaceBuffer 的 MV 元数据和当前系统负载决定是否丢弃当前帧
-
-### 3.3 四种 RetentionStrategy
-
-```cpp
-// smart_fluency_decoding_types.h
-enum class RetentionStrategyType : int32_t {
-    INVALID = -1,
-    FULL = 0,           // 全保留，无丢帧
-    ADAPTIVE = 1,       // 自适应：基于解码速度动态调整
-    FIXED_RATIO = 2,    // 固定比例：按 retentionRatio 固定丢帧
-    AUTO_RATIO = 3      // 自动比例：分析 MV 数据自动确定保留比例
-};
-```
-
-Strategy 路由（builder.cpp 中）：
-- AVC → `ADAPTIVE`
-- HEVC → `FIXED_RATIO`
-- VVC → `AUTO_RATIO`
-- 若初始化失败 → `FULL` (降级)
-
-### 3.4 MV/Nalu 双分析器（dlopen 插件）
-
-```cpp
-// smart_fluency_decoding.h (L65-67)
-std::unique_ptr<IMvAnalyzer> mvAnalyzer_{nullptr};
-std::unique_ptr<INaluAnalyzer> naluAnalyzer_{nullptr};
-void EnsureNaluAnalyzer();  // dlopen 延迟加载
-void EnsureMvAnalyzer();    // dlopen 延迟加载
-```
-
-- `mv_analyzer.h` / `nalu_analyzer.h` 定义接口
-- `mv_analyzer_so_loader.cpp` / `nalu_analyzer_so_loader.cpp` 负责 dlopen 热加载插件
-- MV 分析器从 SurfaceBuffer 解析帧级运动矢量统计 (`MVStats`)
-- NALU 分析器解析编码单元类型，辅助 pre-decode 决策
-
-### 3.5 DropSyncCoordinator 成对丢帧同步
-
-```cpp
-// drop_sync_coordinator.h
-static constexpr size_t queueCapacity = 128;
-int64_t ptsRingBuffer_[queueCapacity];  // PTS 环形缓冲区
-alignas(cacheLineSize) std::atomic<size_t> writeIndex_{0};
-alignas(cacheLineSize) std::atomic<size_t> readIndex_{0};
-double currentEmaDropRatio_{0.0};         // EMA 平滑丢帧率
-double targetRetentionRatio_{0.0};       // 目标保留率
-
-bool RecordPreDroppedFrame(int64_t droppedPts);           // 记录已丢帧 PTS
-uint32_t GetAndConsumePreDroppedCount(int64_t currentPts); // 成对消费：确保 I/P 帧配对丢帧
-```
-
-核心保证：I 帧和对应的 P 帧必须**成对丢帧**，避免画面撕裂。
-
-### 3.6 AsyncDropDispatcher 异步丢帧调度
-
-```cpp
-// async_drop_dispatcher.h
-void SubmitTask(std::function<void()> task);  // 提交异步丢帧任务
-void WorkerLoop();                            // 独立 worker 线程
-std::thread workerThread_;                   // 后台线程
-std::atomic<bool> isWorking_{false};
-```
-
-异步执行丢弃操作，不阻塞解码主线程。
-
-### 3.7 SFDConfig 配置结构
-
-```cpp
-// smart_fluency_decoding_types.h
-struct SFDConfig {
-    int32_t width{0};
-    int32_t height{0};
-    SFDCodecType codecType{SFDCodecType::INVALID};  // AVC=0, HEVC=1, VVC=2
-    RetentionStrategyType initMode{RetentionStrategyType::INVALID};
-    std::optional<double> retentionRatio{std::nullopt};  // FIXED_RATIO 时使用
-};
-```
-
-### 3.8 MVStats 运动矢量统计
-
-```cpp
-// smart_fluency_decoding_types.h
 typedef struct {
-    uint32_t totalBlocks;           // 总块数
-    uint32_t validBlocks;            // 有效块
-    uint32_t skipBlocks;             // skip 块数
-    uint32_t zeroMotionBlocks;       // 零运动块
-    double avgRefDist;               // 平均参考距离
-    double perceptualMagnitude;      // 感知幅度
-    double motionConsistency;        // 运动一致性
-    double zeroMotionRatio;          // 零运动比例
+    uint32_t totalBlocks;
+    uint32_t validBlocks;
+    uint32_t skipBlocks;
+    uint32_t zeroMotionBlocks;
+    double avgRefDist;
+    double perceptualMagnitude;
+    double motionConsistency;
+    double zeroMotionRatio;
 } MVStats;
 ```
 
-### 3.9 性能反馈更新
+---
+
+## 3. 五大保留策略体系
+
+### 3.1 策略类型枚举（smart_fluency_decoding_types.h:58-64）
 
 ```cpp
-// smart_fluency_decoding.h (L31)
-void OnDecodingPerformanceUpdate(double speed, double decFps);
-// speed: 当前播放速度 (e.g. 1.0x)
-// decFps: 实际解码帧率
-// → 更新 EMA Drop Ratio → 反馈给 DropSyncCoordinator → 调整 targetRetentionRatio
+enum class RetentionStrategyType : int32_t {
+    INVALID = -1,
+    FULL = 0,         // 全保留，不丢帧
+    ADAPTIVE = 1,     // 自适应决策树
+    FIXED_RATIO = 2,  // 固定比率
+    AUTO_RATIO = 3    // 自动比率
+};
+```
+
+### 3.2 策略工厂（retention_strategy_factory.cpp:retention_strategy_factory.h）
+
+L1-55 `CreateStrategy(mode, retentionRate)` 根据 `RetentionStrategyType` 创建对应策略实例。
+
+### 3.3 各策略特性
+
+| 策略 | NALU分析 | MV分析 | 典型应用场景 |
+|------|----------|--------|--------------|
+| FULL | ✅ | ❌ | 质量优先 |
+| ADAPTIVE | ✅ | ✅ | 决策树+速度自适应 |
+| FIXED_RATIO | ✅ | ❌ | 固定丢帧比率 |
+| AUTO_RATIO | ✅ | ❌ | 自动比率调整 |
+
+---
+
+## 4. 丢帧同步协调器（DropSyncCoordinator）
+
+**位置：** drop_sync_coordinator.cpp (L1-113) + .h (L1-53)
+
+**核心机制：** 环形缓冲区（RingBuffer）+ EMA 指数移动平均
+
+**关键设计（drop_sync_coordinator.h:30-40）：**
+- L30-31: `queueCapacity = 1024`, `queueMask = 1023` — 1024 循环队列
+- L34-37: `ptsRingBuffer_[1024]`, `isConsumed_[1024]` — PTS 记录 + 消费标记
+- L39-40: `writeIndex_` / `readIndex_` — 原子操作（`alignas(cacheLineSize)` 防止伪共享）
+- L42: `emaRatio_` — EMA 平滑后的丢帧比率
+
+**丢帧协调流程（drop_sync_coordinator.cpp）：**
+- L1-30: `RecordPreDroppedFrame(pts, speed)` — 记录 PreDrop 的 PTS
+- L31-60: `GetAndConsumePreDroppedCount(currentPts)` — 查询并消费对应数量的 PreDrop
+- L61-90: `UpdateFeedback(isRetained, speed)` — 根据实际保留情况更新 EMA
+
+---
+
+## 5. 异步丢帧调度器（AsyncDropDispatcher）
+
+**位置：** async_drop_dispatcher.cpp (L1-97) + .h (L1-48)
+
+使用 `std::function` 异步提交丢帧任务，与主解码线程解耦。
+
+**关键接口：**
+- L1-48.h: `SubmitTask(std::function<void()> task)` — 提交异步任务
+
+---
+
+## 6. NALU 分析器接口（nalu_analyzer_c_api.h）
+
+**L1-41 C API 定义：**
+```c
+typedef void* NaluAnalyzerHandle;
+NaluAnalyzerHandle CreateNaluAnalyzer(int32_t codecType);  // codecType: 0=AVC, 1=HEVC, 2=VVC
+void DestroyNaluAnalyzer(NaluAnalyzerHandle analyzer);
+bool IsNonReferenceFrame(NaluAnalyzerHandle analyzer, const uint8_t* bufferAddr, uint32_t bufferSize);
+typedef void (*NaluStreamAuxInfoCallback)(const StreamAuxInfo* info, void* userData);
+void SetCallback(NaluAnalyzerHandle analyzer, NaluStreamAuxInfoCallback cb, void* userData);
+```
+
+**StreamAuxInfo（smart_fluency_decoding_types.h:26-31）：**
+```c
+typedef struct {
+    uint32_t directSpatialMvPredFlag;
+    uint32_t direct8x8InferenceFlag;
+    uint32_t frameMbsOnlyFlag;
+    uint32_t ctuSize;
+} StreamAuxInfo;
+```
+
+**在 SmartFluencyDecoding 中的集成（smart_fluency_decoding.cpp:514-541）：**
+- L514-531: `EnsureNaluAnalyzer()` — 懒创建，`NaluAnalyzerFactory::CreateNaluAnalyzer`
+- L533-541: 回调注册 `SetAuxInfoCallback` 接收 `StreamAuxInfo` 并转发给 `mvAnalyzer_->SetStreamAuxInfo`
+
+---
+
+## 7. Manager 封装层（SmartFluencyDecodingManager）
+
+**位置：** smart_fluency_decoding_manager.h (L1-87) + .cpp (L1-358)
+
+Manager 是对 SmartFluencyDecoding 引擎的封装，提供给 DecoderAdapter 等外部组件调用。
+
+**核心接口（smart_fluency_decoding_manager.h:27-43）：**
+- L28: `Configure(const Media::Format& format)` — 配置 SFD 参数
+- L29: `SetCallbacks(...)` — 设置输入/输出丢帧回调
+- L32: `MakePreDecodeDecision(index)` / L33: `MakePostDecodeDecision(...)` — 双阶段决策入口
+- L34: `EnableMVOutput(format)` — 启用 MV 元数据输出
+- L36: `CacheCsdData(index)` / `ExtractCsdData(buffer)` — CSD 数据缓存与提取
+
+**关键成员（smart_fluency_decoding_manager.h:47-60）：**
+- `std::unique_ptr<SmartFluencyDecoding> sfd_` — 核心引擎实例
+- `std::vector<uint8_t> cachedCsdData_` — CSD 数据缓存
+- `std::unordered_map<int64_t, sptr<SurfaceBuffer>> surfaceBufMap_` — 帧级 SurfaceBuffer 映射
+
+---
+
+## 8. Builder 构造器模式（SmartFluencyDecodingBuilder）
+
+**位置：** smart_fluency_decoding_builder.h (L1-52) + .cpp (L1-127)
+
+采用 Builder 模式构造 `SmartFluencyDecoding` 实例，分离配置与构造。
+
+**Builder 接口（smart_fluency_decoding_builder.h:24-32）：**
+```cpp
+SmartFluencyDecodingBuilder& SetVideoWidth(int32_t width);
+SmartFluencyDecodingBuilder& SetVideoHeight(int32_t height);
+SmartFluencyDecodingBuilder& SetCodecMime(const std::string& mime);
+SmartFluencyDecodingBuilder& UpdatePlaybackSpeed(double speed);
+SmartFluencyDecodingBuilder& SetFromFormat(const Media::Format& format);
+std::unique_ptr<SmartFluencyDecoding> Build();
 ```
 
 ---
 
-## 4. 与已有记忆的关联
+## 9. 配置与动态更新
 
-| 关联 | 说明 |
+### 9.1 静态配置（smart_fluency_decoding.cpp:48-67）
+
+```cpp
+config_.width > 0 && config_.height > 0  // 尺寸校验（L48）
+config_.codecType != SFDCodecType::INVALID  // 编解码器类型校验（L52）
+```
+
+### 9.2 动态配置（smart_fluency_decoding.cpp:157-178）
+
+**`UpdateDynamicConfig` 支持运行时更新：**
+- L157-159: 从 `Media::Format` 解析 `VIDEO_DECODER_FRAME_RETENTION_RATIO`
+- L160-173: 从 `Media::Format` 解析 `VIDEO_DECODER_FRAME_RETENTION_MODE` → 映射到 `RetentionStrategyType`
+- L175-178: 若模式变更，调用 `ApplyNewStrategy()` 热更新策略
+
+### 9.3 速度更新（smart_fluency_decoding.cpp:101-117）
+
+**`UpdatePlaybackSpeed` 动态更新播放速度：**
+- L104: 速度值通过 `DoubleUtils::IsGreater(speed, 0.0)` 合法性校验
+- L105: `currentPlaybackSpeed_` 成员变量更新
+- L106: 策略层同步更新 `strategy_->UpdatePlaybackSpeed(speed)`
+
+---
+
+## 10. 决策原因枚举（SfdDecisionReason）
+
+**位置：** smart_fluency_decoding_types.h:42-56
+
+```cpp
+enum class SfdDecisionReason : int32_t {
+    // Pre-Decode
+    PRE_RETAIN_REFERENCE = 1,         // 保留：参考帧
+    PRE_RETAIN_TARGET_FULL = 2,        // 保留：目标比率 100%（FULL 模式）
+    PRE_RETAIN_EMA_SATISFIED = 3,      // 保留：EMA 比率已满足目标
+    PRE_DROP_EMA_UNSATISFIED = 4,      // 丢弃：EMA 比率过高需补偿
+
+    // Post-Decode
+    POST_BYPASSED = 10,               // 绕过：PreDecode 已丢帧
+    POST_RETAIN_FULL = 11,            // 保留：Passthrough (FULL) 策略
+    POST_RETAIN_FIXED_ACC = 12,       // 保留：FixedRatio 累加器达阈值
+    POST_DROP_FIXED_ACC = 13,         // 丢弃：FixedRatio 累加器低于阈值
+    POST_RETAIN_ADAPTIVE_SPEED = 14,  // 保留：Adaptive 低速播放
+    POST_RETAIN_ADAPTIVE_DT = 15,      // 保留：Adaptive 决策树允许保留
+    POST_RETAIN_ADAPTIVE_MAX_DROP = 16,// 保留：Adaptive 最大连续丢帧+强制释放
+    POST_DROP_ADAPTIVE_DT = 17,       // 丢弃：Adaptive 决策树建议丢弃
+    POST_RETAIN_AUTO_FALLBACK = 18,   // 保留：AutoFallback 安全间隔释放
+};
+```
+
+---
+
+## 11. 关联主题
+
+| 关联 | 关系 |
 |------|------|
-| **S17** | SFD 早期草案（已 approved），S148 为源码增强版，基于本地镜像 `/home/west/av_codec_repo` 深度分析 |
-| **S43** | AFC (AdaptiveFramerateController) 管**编码降帧**，SFD 管**解码丢帧**，两者互补 |
-| **S55** | 模块间回调链路，SFD 的 `AsyncDropInputCallback` / `AsyncDropOutputCallback` 属于Codec回调体系 |
-| **S39** | VideoDecoder，SFD 挂载于解码器输出端，分析 `SurfaceBuffer` MV 数据 |
-| **S21** | CodecClient IPC，SFDConfig 通过 CodecServer 注入到解码器 |
+| S14 (FilterChain) | FilterPipeline 体系，SFD 嵌入 Decoder Filter |
+| S20 (CodecServer) | CodecServer 生命周期管理 |
+| S46 (Transcoder) | Transcoder 场景下 VideoResizeFilter 与 SFD 联动 |
+| S121 (错误码) | SFD 错误码映射到 `AVCodecServiceErrCode` |
+| S137 (SA Codec) | IPC 通信层，SFD Manager 通过 CodecClient 跨进程 |
+| S149 (Transcoder Pipeline) | 转码场景 Encode→Decode 桥接与 SFD 配合 |
 
 ---
 
-## 5. 技术细节
+## 12. Evidence 汇总
 
-### 5.1 丢帧决策流程
-
-```
-输入 Buffer
-    ↓
-MakePreDecodeDecision(index)  ← NaluAnalyzer 分析 NALU 类型
-    ↓ (不丢弃)
-AVCodec 解码
-    ↓
-SurfaceBuffer (含 MV 元数据)
-    ↓
-MakePostDecodeDecision(index, pts, surfaceBuffer)  ← MVStats + DropSyncCoordinator
-    ↓ (丢弃)
-AsyncDropDispatcher SubmitTask → 后台线程丢弃
-    ↓ (保留)
-Render 输出
-```
-
-### 5.2 DropSyncCoordinator EMA 反馈
-
-```cpp
-// drop_sync_coordinator.h/cpp
-void UpdateFeedback(uint32_t preDroppedCount, bool currentDropped,
-                    double targetRetentionRatio, double currentSpeed);
-// currentEmaDropRatio_ 平滑更新 → 下一帧决策参考
-```
-
-### 5.3 dlopen 插件加载
-
-```cpp
-// mv_analyzer_so_loader.cpp / nalu_analyzer_so_loader.cpp
-// 延迟加载 .so 插件，不在主流程阻塞
-void EnsureMvAnalyzer() { if (!mvAnalyzer_) mvAnalyzer_ = MvAnalyzerSoLoader::Load(...); }
-```
-
-### 5.4 播放速度联动
-
-```cpp
-// smart_fluency_decoding.cpp
-void UpdatePlaybackSpeed(double speed);  // 速度变化时重新配置策略
-```
+| # | 源文件 | 行号 | 描述 |
+|---|--------|------|------|
+| 1 | smart_fluency_decoding.h | 41-50 | 核心类 SmartFluencyDecoding 声明，双阶段决策方法 |
+| 2 | smart_fluency_decoding.cpp | 48-67 | Initialize 配置校验逻辑 |
+| 3 | smart_fluency_decoding.cpp | 101-117 | UpdatePlaybackSpeed 动态速度更新 |
+| 4 | smart_fluency_decoding.cpp | 157-178 | UpdateDynamicConfig 运行时策略热更新 |
+| 5 | smart_fluency_decoding.cpp | 341-390 | MakePreDecodeDecision PreDecode 决策核心（含 EMA 比较） |
+| 6 | smart_fluency_decoding.cpp | 450-480 | MakePostDecodeDecision PostDecode 决策核心 |
+| 7 | smart_fluency_decoding.cpp | 494-512 | ParseMVData 从 SurfaceBuffer 提取 MV 元数据 |
+| 8 | smart_fluency_decoding.cpp | 514-541 | EnsureNaluAnalyzer 懒创建 + StreamAuxInfo 回调链 |
+| 9 | smart_fluency_decoding_types.h | 26-40 | MVStats / StreamAuxInfo 数据结构定义 |
+| 10 | smart_fluency_decoding_types.h | 58-64 | RetentionStrategyType 五种策略枚举 |
+| 11 | smart_fluency_decoding_types.h | 42-56 | SfdDecisionReason 18 种决策原因枚举 |
+| 12 | drop_sync_coordinator.h | 30-40 | RingBuffer 1024 + EMA + 原子上下文 |
+| 13 | retention_strategy.h | 24-39 | IRetentionStrategy 接口（MakeRetentionDecision） |
+| 14 | nalu_analyzer_c_api.h | 29-37 | NALU 分析器 C API 四函数接口 |
+| 15 | smart_fluency_decoding_manager.h | 27-43 | Manager 类双阶段决策入口 + CSD 缓存 |
+| 16 | smart_fluency_decoding_builder.h | 24-32 | Builder 模式五配置方法 + Build() |
+| 17 | smart_fluency_decoding.cpp | 248-261 | ExecutePreDrop 异步丢帧提交机制 |
+| 18 | smart_fluency_decoding.cpp | 393-412 | ExecutePostDrop 异步输出缓冲丢弃 |
 
 ---
 
-## 6. 关键成员变量
+## 13. 附录：关键常量
 
-```cpp
-// smart_fluency_decoding.h (L59-69)
-mutable std::mutex configMutex_;
-std::unique_ptr<DropSyncCoordinator> dropSyncCoordinator_{nullptr};
-std::unique_ptr<AsyncDropDispatcher> asyncDispatcher_{nullptr};
-std::unique_ptr<IRetentionStrategy> strategy_{nullptr};
-std::unique_ptr<IMvAnalyzer> mvAnalyzer_{nullptr};
-std::unique_ptr<INaluAnalyzer> naluAnalyzer_{nullptr};
-```
-
----
-
-## 7. 状态与生命周期
-
-1. `Initialize(const SFDConfig&)` → 创建策略、分析器、协调器
-2. `UpdatePlaybackSpeed(double)` → 速度变化时重配
-3. `UpdateDynamicConfig(Media::Format)` → 动态格式更新（解析 retentionRatio）
-4. `MakePreDecodeDecision` / `MakePostDecodeDecision` → 每帧决策
-5. `Flush()` → 清空所有缓冲状态
-
----
-
-## 8. 与 S17 的区别
-
-| 维度 | S17 (早期草案) | S148 (本地镜像增强版) |
-|------|---------------|---------------------|
-| 源码 | 推测/早期 | 本地镜像实际行号级 evidence |
-| 行数 | 未知 | 548行核心类 + 326行Builder + 各策略文件 |
-| 分析器 | 提及 dlopen | 具体接口定义 + so_loader 实现 |
-| DropSyncCoordinator | 提及成对丢帧 | 具体 ring buffer 实现 (128 PTS, cache line aligned) |
-| 策略类型 | 四种 | 四种 + AUTO_RATIO 降级路径 |
-
----
-
-**草案状态**: 待提交审批  
-**下一步**: Builder 提交 pending_approval → 等待耀耀审批
+| 常量 | 值 | 定义位置 |
+|------|-----|----------|
+| MIN_RETENTION_RATIO | 0.01 | smart_fluency_decoding_types.h:54 |
+| MAX_RETENTION_RATIO | 1.0 | smart_fluency_decoding_types.h:54 |
+| queueCapacity | 1024 | drop_sync_coordinator.h:30 |
+| cacheLineSize | 64 | drop_sync_coordinator.h:32 |
+| DOMAIN_SFD | LOG_DOMAIN_SFD | smart_fluency_decoding.cpp:33 |
