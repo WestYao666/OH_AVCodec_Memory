@@ -132,3 +132,10 @@ entries:
   summary: MPEG4 Box Parser架构——MPEG4AtomParser 4378行解析引擎与MPEG4SampleHelper 1009行样本索引构建，50+个fourcc→ParseFunction映射表，Track双链表+FragmentEntry分片管理，STTS/CTTS/STSC/STSZ/STCO五件套委托MPEG4SampleHelper，avcC/hvcC/vvcC统一CodecConfig解析，与S123/S141/S130/S96关联，20条行号级evidence
   source: builder-agent
   created_at: '2026-05-15T21:42:00+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S157
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S157.md
+  summary: MediaMuxer+Source双核模块架构——封装/源/采集三功能与协议插件体系，Source(715行)协议路由(http/https/file/fd/stream)+PluginManagerV2插件发现，MediaMuxer(571行)OutputFormat九格式支持矩阵+MUX_MIME_INFO Tag校验，AudioCaptureModule(509行)Read/Poll双模式+GetMaxAmplitude峰值检测，与S94/S83/S34/S28/S29/S115关联
+  source: builder-agent
+  created_at: '2026-05-15T22:50:00+08:00'

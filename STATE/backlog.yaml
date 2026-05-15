@@ -1017,3 +1017,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-15T22:00 | Builder | S156注册：MPEG4 Box Parser架构草案已完成并提交审批 |
+
+## 新增主题（Builder 2026-05-15 S157注册——MediaMuxer+Source双核模块架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S157 | MediaMuxer+Source双核模块架构——封装/源/采集三功能与协议插件体系，Source(715行)协议路由(http/https/file/fd/stream)+PluginManagerV2插件发现，MediaMuxer(571行)OutputFormat九格式支持矩阵+MUX_MIME_INFO Tag校验，AudioCaptureModule(509行)Read/Poll双模式+GetMaxAmplitude峰值检测，FFmpegMuxerPlugin(65457行)+MPEG4MuxerPlugin+FLVMuxerPlugin三封装插件 | AVCodec, MediaEngine, Source, MediaMuxer, AudioCapture, Protocol, Plugin, OutputFormat, FFmpegMuxerPlugin, MPEG4Muxer, FLVMuxer, Track, AudioCaptureModule, ProtocolType, PluginManagerV2, AudioDataSource | 新需求开发/问题定位/封装与源管理 | **pending_approval** | 🚧 草案已生成（2026-05-15T22:50），modules/source/source.cpp(715行)+source.h(184行)+modules/muxer/media_muxer.cpp(571行)+modules/source/audio_capture/audio_capture_module.cpp(509行)+plugins/ffmpeg_adapter/muxer/ffmpeg_muxer_plugin.cpp(65457行)+ffmpeg_muxer_register.cpp(12239行)，25条行号级evidence，与S94(OH_AVMuxer三件套)/S83(CAPI总览)/S34(MuxerFilter)/S28(VideoCaptureFilter)/S29(AudioDataSourceFilter)/S115(DFX模块)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-15T22:50 | Builder | S157注册：MediaMuxer+Source双核模块架构草案已生成，写入 MEM-ARCH-AVCODEC-S157.md（pending_approval） |
