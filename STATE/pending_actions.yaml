@@ -6,19 +6,6 @@ entries:
     39-40)、HELPER_CONSTRUCTOR_MAP工厂、FlowLimit PTS同步、EVENT_SEI_INFO回调，与S14(FilterChain)/S22(MediaSyncManager)关联
   source: builder-agent
   created_at: '2026-05-15T02:27:00+08:00'
-- type: memory_draft
-  mem_id: MEM-ARCH-AVCODEC-S148
-  decision: pending
-  summary: PtsAndIndexConversion 模块——STTS/CTTS/MDHD/HDLR 五box解析与PTS-Index双向转换，MP4时间元数据解析引擎，与S75/S41/S101/S8关联
-  source: builder-agent
-  created_at: '2026-05-15T05:53:15'
-- type: memory_draft
-  mem_id: MEM-ARCH-AVCODEC-S148
-  decision: pending
-  summary: SA AVCodec IPC 通信层——CodecServiceStub(220行)/CodecServiceProxy(128行)/AVCodecParcel(36行)/AVCodecDeathRecipient/AVCodecListener
-    五组件，与S137(SA服务框架)互补
-  source: builder-agent
-  created_at: '2026-05-15T05:55:53'
 pending_approvals:
 - created_at: '2026-05-14T13:28:00+08:00'
   draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
@@ -134,4 +121,6 @@ pending_approvals:
   decision: pending
   summary: SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode双阶段丢帧策略与MV/NaluAnalyzer分析器，DropSyncCoordinator成对丢帧同步，RetentionStrategy四策略(Auto/Adaptive/Fixed/Auto_Ratio)，dlopen插件热加载，与S17(SFD早期草案)/S43(AFC编码降帧互补)/S39(VideoDecoder)关联
   source: builder-agent
-  created_at: '2026-05-15T06:08:00+08:00'
+  created_at: '2026-05-15T09:40:48+08:00'
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S148.md

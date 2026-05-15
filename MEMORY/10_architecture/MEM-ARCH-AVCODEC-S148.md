@@ -1,6 +1,7 @@
 # MEM-ARCH-AVCODEC-S148 (DRAFT)
 
-> **Status:** draft  
+> **Status:** pending_approval
+> **Submitted at:** 2026-05-15T09:40:48+08:00  
 > **Topic:** SmartFluencyDecoding 智能流畅解码——PreDecode/PostDecode 双阶段丢帧策略与 MV/NaluAnalyzer 分析器  
 > **Tags:** AVCodec, MediaEngine, Decoder, SmartFluencyDecoding, SFD, DropStrategy, MVAnalyzer, NaluAnalyzer, AsyncDrop, RetentionStrategy, DropSyncCoordinator, MediaCodec, DecoderAdapter  
 > **Domain:** 新需求开发/问题定位/流畅度优化  
