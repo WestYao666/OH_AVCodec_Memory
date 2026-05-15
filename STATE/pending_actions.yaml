@@ -123,3 +123,10 @@ pending_approvals:
   summary: Transcoder Pipeline 架构——视频转码 Encode→Decode 桥接与 Filter 链路，isTransCoderMode四层传递链，TransCoderOnOutputBufferAvailable专用路径，transCoderErrorCbOnce_首次错误吞掉，双轨EOS计数+音视频PTS同步，VideoResizeFilter VPE DetailEnhancer，transcoderStartPts_偏移补偿，与S23/S34/S36/S46关联
   source: builder-agent
   created_at: '2026-05-15T11:37:00+08:00'
+- mem_id: MEM-ARCH-AVCODEC-S150
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S150.md
+  summary: CodecDrmDecrypt CENC解密引擎——H.264/H.265/AVS3 NAL单元解析与SEI密钥提取，基于codec_drm_decrypt.cpp(764行)全量分析，DrmVideoCencDecrypt/DrmAudioCencDecrypt双入口，SvpMode三态标志，NAL起始码搜索/歧义字节去除/SEI密钥提取完整链路，DecryptMediaData RPC调用，与S17/S46/S63关联
+  source: builder-agent
+  created_at: '2026-05-15T12:11:00+08:00'
