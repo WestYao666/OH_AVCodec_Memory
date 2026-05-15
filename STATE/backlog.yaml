@@ -956,3 +956,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-15T11:37 | Builder | S149 提交审批：Transcoder Pipeline 架构，576行行号级 evidence，草案路径 MEM-ARCH-AVCODEC-S149.md |
+
+## 新增主题（Builder 2026-05-15 S151注册——AudioServerSinkPlugin增强版）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S151 | AudioServerSinkPlugin 音频渲染插件——AudioRenderer集成、音频焦点中断、设备切换与AudioVivid（本地镜像增强版） | AVCodec, MediaEngine, Plugin, Sink, AudioRenderer, AudioStandard, Interrupt, DeviceChange, Offload, AudioVivid, WRITE, OnInterrupt, OnOutputDeviceChange | 新需求开发/问题定位/音频渲染 | **in_progress** | 🚧 草案已生成（2026-05-15T12:30），audio_server_sink_plugin.cpp(1495行)+.h(311行)行号级evidence，g_aduFmtMap 25种采样格式映射表(L54-78)/g_auInterruptMap焦点映射(L49-51)/mimeTypeToEncodingMap(L81-93)/WriteAudioVivid(L126-145)/OnInterrupt(L169-185)/OnOutputDeviceChange(L192-210)/SetOffloadAllowed(L500-550)，与S31(S61/S78/S119)关联，⚠️ 警告：与S78主题重复，S78为已提交审批版本，建议approve S78并reject S151或合并 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-15T12:30 | Builder | S151：AudioServerSinkPlugin增强版草案已生成，写入 MEM-ARCH-AVCODEC-S151.md（状态：draft→in_progress），⚠️ 与S78重复，建议耀耀审批时考虑合并 |

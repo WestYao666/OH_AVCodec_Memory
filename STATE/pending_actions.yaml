@@ -130,3 +130,10 @@ pending_approvals:
   summary: CodecDrmDecrypt CENC解密引擎——H.264/H.265/AVS3 NAL单元解析与SEI密钥提取，基于codec_drm_decrypt.cpp(764行)全量分析，DrmVideoCencDecrypt/DrmAudioCencDecrypt双入口，SvpMode三态标志，NAL起始码搜索/歧义字节去除/SEI密钥提取完整链路，DecryptMediaData RPC调用，与S17/S46/S63关联
   source: builder-agent
   created_at: '2026-05-15T12:11:00+08:00'
+---
+type: builder_draft_submitted
+mem_id: MEM-ARCH-AVCODEC-S151
+title: "AudioServerSinkPlugin音频渲染插件——AudioRenderer集成、音频焦点中断、设备切换与AudioVivid"
+status: in_progress
+created_at: "2026-05-15T12:30"
+note: "⚠️ 与S78主题重复，S78为已提交审批版本，S151为增强版。草案路径 MEM-ARCH-AVCODEC-S151.md，等待耀耀审批决策（approve S78+reject S151 或 approve S151+reject S78）"
