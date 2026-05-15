@@ -1005,3 +1005,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-15T20:55 | Builder | S155注册：MediaEngine Sink/Source核心模块架构草案已生成，写入 MEM-ARCH-AVCODEC-S155.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-15 S156注册——MPEG4 Box Parser架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S156 | MPEG4 Box Parser架构——MPEG4AtomParser 4378行解析引擎与MPEG4SampleHelper 1009行样本索引构建，50+ Box解析函数路由表，Track双链表，STTS/CTTS/STSC/STSZ/STCO五样本表委托 | AVCodec, MediaEngine, Demuxer, MPEG4, MP4, MOV, Container, BoxParser, Atom, Track, SampleTable, STTS, CTTS, STSC, STSZ, STCO, FragmentedMP4, ISOBMFF | 新需求开发/问题定位/MP4容器解析 | **pending_approval** | 🚧 草案已生成（2026-05-15T22:00），mpeg4_box_parser.cpp(4378行)+mpeg4_box_parser.h(287行)+mpeg4_sample_helper.cpp(1009行)+mpeg4_sample_helper.h(164行)，50+函数路由表(InitParseTable L3879)，Track双链表(Track结构体 L36-130)，五级Box层级递归(ParseMoov L617/ParseTrak L892/ParseMdia L1174/ParseStbl L1335)，样本表六委托(stts L2674/ctts L2699/stsc L2710/stsz L2724/stco L2740)，ParseMoof分片解析(L3035)，avcC/hvcC/vvcC三合一统一解析(L1524)，与S79(MPEG4DemuxerPlugin)/S123(FFmpegDemuxer)并列构成demuxer双引擎，与S141(PTS索引)/S58互补 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-15T22:00 | Builder | S156注册：MPEG4 Box Parser架构草案已完成并提交审批 |
