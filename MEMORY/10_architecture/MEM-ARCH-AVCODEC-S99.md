@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-20"
+---
+
 # MEM-ARCH-AVCODEC-S99: MediaMuxer Track Management and AVBufferQueue Architecture
 
 **Topic**: MediaMuxer Module Track Management and AVBufferQueue Async Write Architecture  

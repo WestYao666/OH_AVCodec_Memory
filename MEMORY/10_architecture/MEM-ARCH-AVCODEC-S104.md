@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-20"
+---
+
 # S104: CodecAdapter 编解码适配层框架——CodecBase/CodecAdapter/CodecEngine 三层桥接与插件热插拔
 
 | 属性 | 值 |

@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-20"
+---
+
 # MEM-ARCH-AVCODEC-S120
 
 > **主题**: MediaEngine Source 模块流媒体基础设施——Streaming 协议路由 / Plugin 管理 / HLS 分片下载 / Buffering 策略  

@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-20"
+---
+
 # MEM-ARCH-AVCODEC-S98
 
 ## 主题

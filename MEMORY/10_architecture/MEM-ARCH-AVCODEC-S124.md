@@ -1,3 +1,8 @@
+---
+status: approved
+approved_at: "2026-05-20"
+---
+
 # MEM-ARCH-AVCODEC-S124: 录音 Pipeline 音频数据源与采集过滤器链——AudioDataSourceFilter / AudioCaptureFilter / AudioEncoderFilter 三联架构
 
 **状态**: approved  
