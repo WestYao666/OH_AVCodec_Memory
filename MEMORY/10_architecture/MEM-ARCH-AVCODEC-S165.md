@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S165
-status: draft
+status: pending_approval
 topic: av_codec 部件目录结构与媒体引擎分层架构——services/engine vs services/media_engine 双路径发现
 scope: [AVCodec, Architecture, DirectoryStructure, MediaEngine, services, frameworks, interfaces]
 created_at: "2026-05-20T15:39:00+08:00"
