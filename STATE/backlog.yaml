@@ -1083,3 +1083,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-20T13:15 | Builder | S162注册：CodecAbility/CodecListCore编解码能力查询体系草案已生成，写入 MEM-ARCH-AVCODEC-S162.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-20 S166注册——MediaEngine模块架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S166 | MediaEngine 模块架构——filters/plugins/modules 三层目录结构与Filter组件体系 | AVCodec, MediaEngine, Filter, Plugin, Module, Directory, Architecture | 新需求开发/问题定位/新人入项/代码导航 | **draft** | 🚧 草案已生成（2026-05-20T18:15），services/media_engine/三层目录(filters/~20子目录/plugins/plugins/modules/)，filters/20+ Filter类型(demuxer/video_decoder/audio_decoder/muxer等)，plugins/ffmpeg_adapter/五子插件(AAC/FLAC/MP3/G711mu/LBVC)，modules/sink/(Video/Audio/Subtitle)Sink三路引擎，modules/source/Source+AudioCaptureModule，modules/demuxer/五组件(MediaDemuxer/StreamDemuxer/DemuxerPluginManager/TypeFinder/SampleQueue)，modules/muxer/MediaMuxer，与S14/S41/S34/S22/S112关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-20T18:15 | Builder | S166注册：MediaEngine 模块架构草案已生成，写入 MEM-ARCH-AVCODEC-S166.md（draft） |
