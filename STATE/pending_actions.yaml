@@ -263,3 +263,10 @@ entries:
   summary: CodecAbility/CodecListCore编解码能力查询体系——CodecAbilitySingleton单例(229行)+CodecListCore查询引擎(388行)+audio_codeclist_info能力数据(942行)+avcodec_info.h(1225行)三层索引(capabilityDataArray/MimeCapIdxMap/NameCodecTypeMap)，六项能力校验(分辨率/帧率/码率/声道/采样率/像素格式)，VideoCodecType四态(DECODER_HARDWARE/SOFTWARE,ENCODER_HARDWARE/SOFTWARE)，MIME_VEC 21+30格式向量，HCodecLoader硬件能力注册，CodecListBase派生类工厂，与S83/S94/S95(CAPI体系)/S137/S161(SA IPC框架)关联
   source: builder-agent
   created_at: "2026-05-20T13:15:00+08:00"
+- mem_id: MEM-ARCH-AVCODEC-S163
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S163.md
+  summary: DRM CENC 解密框架——CodecDrmDecrypt(764行)+MediaCodec三路解密链(SetAudioDecryptionConfig/AttachDrmBufffer/DrmAudioCencDecrypt)+SurfaceDecoderAdapter(478行)+AVC/HEVC/AVS三格式处理+DRM_AES_BLOCK_SIZE=16+错误码CODEC_DRM_DECRYPTION_FAILED，与S159/S121/S83/S95/S162关联
+  source: builder-agent
+  created_at: '2026-05-20T13:38:00+08:00'
