@@ -1,8 +1,1 @@
-- type: subagent_completion
-  source: builder-agent
-  mem_id: MEM-ARCH-AVCODEC-S169
-  status: completed
-  summary: |
-    FFmpeg Audio Encoder 插件体系草案已完成。三层架构：FFmpegEncoderPlugin 注册层 → FFmpegBaseEncoder 引擎基类（396行cpp+94行h，avcodec_send_frame/avcodec_receive_packet 双函数管线）→ AAC/FLAC/MP3/G711mu/LBVC 五子插件（1314行）。AAC 插件自实现 AVAudioFifo + ADTS 7字节头 + 13档采样率表 + 8通道布局表。与 S125（FFmpegDecoder 解码对称）、S130（共享 FFmpegConvert）关联。
-  file_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S169.md
-  timestamp: 2026-05-21T02:57:00+08:00
+[]

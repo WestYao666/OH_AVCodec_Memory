@@ -1,7 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S169
 title: FFmpeg Audio Encoder 插件体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件
-status: draft
+status: pending_approval
 scope: [AVCodec, FFmpeg, AudioEncoder, Plugin, SoftwareCodec, AAC, FLAC, MP3, G711mu, LBVC, FFmpegBaseEncoder, FFmpegEncoderPlugin, ADTS, AudioResample, SwrContext]
 assoc_scenarios: [新需求开发/问题定位/音频编码接入]
 sources:
