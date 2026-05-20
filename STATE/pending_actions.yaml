@@ -306,3 +306,10 @@ entries:
   summary: SEI Parser Filter与SEI Parser Helper源码深度分析——双文件582行全量解析(sei_parser_filter.cpp 235行+sei_parser_helper.cpp 347行)，ANNEX B起始码(0x00000001)，AVC SEI(NAL type=6)与HEVC SEI(NAL type=39/40)双格式，RBSP EMULATION_PREVENTION防伪字节转义，SEI payload五步解析，FlowLimit PTS同步限流，EVENT_SEI_INFO回调链路，AutoRegisterFilter静态注册"builtin.player.seiparser"，与S10/S113/S14/S22/S46/S63关联
   source: builder-agent
   created_at: "2026-05-21T01:54:00+08:00"
+- mem_id: MEM-ARCH-AVCODEC-S169
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S169.md
+  summary: FrameDropFilter+FastKitsInterface预处理器框架——FrameDropFilter双策略丢帧(RatioDropStrategy等比例帧保留/TimestampDropStrategy PTS间隔丢帧)三态机(首帧→策略选择→激活)，FastKitsInterface dlopen libfast_image.z.so+12个硬件加速图像处理函数，与S85(PreprocessorManager)/S33(PreProcessing总览)/S20(PostProcessing)关联
+  source: builder-agent
+  created_at: "2026-05-21T02:30:00+08:00"
