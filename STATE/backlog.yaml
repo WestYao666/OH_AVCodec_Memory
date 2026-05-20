@@ -1053,3 +1053,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-20T08:24 | Builder | S159注册：AVCodec错误码与回调体系三层架构草案增强行号级evidence，已提交审批 |
+
+## 新增主题（Builder 2026-05-20 S160注册——HDecoder/HEncoder后台管理体系）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S160 | HDecoder/HEncoder 后台管理——FreezeBuffers / DMA-BUF Swap / DmaSwaper 与 MsgHandleLoop 状态机 | AVCodec, HardwareCodec, HDecoder, HEncoder, HCodec, SuspendResume, DMA-BUF, MsgHandleLoop, StateMachine, BufferOwner, OMX | 后台切换/省电策略/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-20T09:25），msg_handle_loop.h(37)MsgHandleLoop异步消息队列；hcodec.h(70)MsgWhat十状态；FreezeBuffers/ActiveBuffers OMX_IndexParamBufferRecycle；DmaSwaper SwapOutDma/SwapInDma；BufferOwner四态(OWNED_BY_USER/OWNED_BY_OMX/OWNED_BY_SURFACE)；与S57/S70/S21/S154关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-20T09:25 | Builder | S160注册：HDecoder/HEncoder后台管理体系草案已生成，写入 MEM-ARCH-AVCODEC-S160.md（pending_approval） |

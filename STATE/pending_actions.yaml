@@ -161,3 +161,83 @@ entries:
   summary: HDecoder/HEncoder后台管理——MsgHandleLoop异步消息队列(73行)+Frozen/Running双状态机+FreezeBuffers二阶段冻结(OMX_IndexParamBufferRecycle+DMA-BUF SwapOut/SwapIn)+DmaSwaper单例(/dev/dma_reclaim)+BufferOwner四态流转+NotifySuspend/NotifyResume+DecreaseFreq/RecoverFreq，与S57/S154/S21关联
   source: builder-agent
   created_at: "2026-05-20T10:22:00+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S121
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S121.md
+  summary: AVCodec错误码与回调体系三层架构（AVCodecErrorType/AVCodecServiceErrCode 50+条目/MediaCodecCallback三层回调接口），avcodec_common.h(306行)8个AVCodecBufferFlag标志位，avcodec_errors.h(111行)错误码转换函数，与S55/S83/S92/S114/S121关联
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S123
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S123.md
+  summary: StreamDemuxer流式解封装器——分片缓存读取与PullData三路分发机制(UNSEEKABLE/SEEKABLE/CallbackReadAt)，ReadRetry(10次×10ms)+DataSourceImpl内类+三层映射表(StreamID→TrackID→InnerTrackIndex)，补充S75/S97/S101深度细节
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S125
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S125.md
+  summary: FFmpeg软件解码器基类与FFmpeg音频解码插件体系——FfmpegBaseDecoder/Resample/FfmpegDecoderPlugin三层架构(605行cpp+129行h)，17+音频格式子插件，与S35/S8/S50/S60关联
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S127
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S127.md
+  summary: Video PostProcessor Framework视频后处理框架——BaseVideoPostProcessor七生命周期+VideoPostProcessorFactory工厂单例+SuperResolutionPostProcessor(1920×1080/非DRM/非HDRVivid四条件)+VpeVideo::Create(VIDEO_TYPE_DETAIL_ENHANCER)+VPECallback三状态回调，与S20/S100/S15/S46关联
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S129
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S129.md
+  summary: CodecServer+PostProcessing联合架构——CodecServer七状态机(UNINITIALIZED→RUNNING)+PostProcessing三层协作(DynamicController dlopen VPE/DynamicInterface色域转换四元组/StateMachine四状态)，LockFreeQueue无锁队列(20/8容量)，PostProcessing::DynamicPostProcessing CRTP模板实例，与S20/S46/S57/S127/S100关联
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S131
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S131.md
+  summary: FFmpeg音频编码器与封装修复器插件体系——FFmpegBaseEncoder(396行)/FFmpegEncoderPlugin(85行)/FFmpegMuxerPlugin三层架构，五路编码器子插件(AAC/FLAC/MP3/G711mu/LBVC)，与S125构成完整FFmpeg编解码插件矩阵，与S130共享Resample/ColorSpace/ChannelLayout
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S132
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S132.md
+  summary: FFmpeg Audio Encoder Plugin架构——FFmpegBaseEncoder基类(avcodec_send_frame/avcodec_receive_packet)+ffmpeg_aac_encoder_plugin.cpp(902行)自实现AVAudioFifo+Resample+ADTS头+ffmpeg_flac_encoder_plugin.cpp(252行)组合FFmpegBaseEncoder，与S125(FFmpegDecoder)构成编解码对称架构
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S137
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S137.md
+  summary: SA Codec服务框架——AVCodecServerManager单例(GetInstance/dlopen/libMemMgr)+CreateStubObject双Stub工厂(CODECLIST/CODEC)+codecStubMap_进程实例管理+EraseCodecObjectByPid+InstanceInfo(caller/forwardCaller多级调用链)，与S83/S95/S121/S94关联
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S148
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S148.md
+  summary: SmartFluencyDecoding智能流畅解码——PreDecode/PostDecode双阶段丢帧决策(smart_fluency_decoding.cpp 582行)+smart_fluency_decoding_manager.cpp(358行)Manager封装+drop_sync_coordinator.h/cpp(1024环buffer+EMA)+retention_strategy.h五策略接口，与S14/S20/S46/S149关联
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S151
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S151.md
+  summary: AudioServerSinkPlugin音频渲染插件——AudioRenderer集成/音频焦点中断/设备切换/AudioVivid，WriteAudioVivid(L126-145)/OnInterrupt(L169-185)/OnOutputDeviceChange(L192-210)/SetOffloadAllowed(L500-550)，⚠️与S78主题重复，S78为已提交审批版本
+  source: builder-agent
+  created_at: "2026-05-20T12:05:08+08:00"
