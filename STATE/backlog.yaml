@@ -1071,3 +1071,15 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S161 | SA Codec 服务框架——IPC五层架构与错误回调体系——AVCodecServerManager单例(426行dlopen)+AVCodecServer SA注册(182行)+CodecServiceStub服务端存根(220行)+CodecServiceProxy客户端代理(128行)+CodecClient生命周期封装(352行)+av_codec_service_ipc_interface_code.h 84行33接口枚举，CodecListenerInterfaceCode 6路回调+CodecServiceInterfaceCode 33接口代码+AVCodecListServiceInterfaceCode 5接口+AVCodecServiceInterfaceCode 5系统管理接口，错误码AVCodecServiceErrCode 50+条目(AVCS_ERR_OFFSET=200000)+错误转换函数，与S137/S121/S83/S55/S21关联 | AVCodec, SA, IPC, CodecServerManager, CodecServiceStub, CodecServiceProxy, CodecClient, SystemAbility, dlopen, Callback, ErrorCode, Binder, Stub, Proxy | 新需求开发/问题定位/跨进程通信 | **pending_approval** | 🚧 草案已生成（2026-05-20T12:55），services/services/sa_avcodec/六文件行号级evidence |
+
+## 新增主题（Builder 2026-05-20 S162注册——CodecAbility/CodecListCore 编解码能力查询体系）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S162 | CodecAbility/CodecListCore 编解码能力查询体系——CodecAbilitySingleton单例(229行)+CodecListCore查询引擎(388行)+audio_codeclist_info能力数据(942行)+avcodec_info.h(1225行)三层索引(capabilityDataArray/MimeCapIdxMap/NameCodecTypeMap)，六项能力校验(分辨率/帧率/码率/声道/采样率/像素格式)，VideoCodecType四态(DECODER_HARDWARE/SOFTWARE,ENCODER_HARDWARE/SOFTWARE)，MIME_VEC 21+30格式向量，HCodecLoader硬件能力注册，CodecListBase派生类工厂(AudioCodecList/VideoCodecList/VideoHevcDecoderList/VideoAvcEncoderList)，与S83/S94/S95(CAPI体系)/S137/S161(SA IPC框架)关联 | AVCodec, CodecList, Capability, CodecAbility, FindDecoder, FindEncoder, MimeMap, Profile, Level, HCodec, AudioCodec, VideoCodec, CodecListCore, CodecAbilitySingleton | 三方应用接入/问题定位/编解码能力查询 | **pending_approval** | 🚧 草案已生成（2026-05-20T13:15），services/engine/codeclist/四文件行号级evidence，与S83/S94/S95(CAPI体系)/S137/S161(SA IPC)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-20T13:15 | Builder | S162注册：CodecAbility/CodecListCore编解码能力查询体系草案已生成，写入 MEM-ARCH-AVCODEC-S162.md（pending_approval） |
