@@ -1065,3 +1065,9 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-20T09:25 | Builder | S160注册：HDecoder/HEncoder后台管理体系草案已生成，写入 MEM-ARCH-AVCODEC-S160.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-20 S161注册——SA Codec IPC五层架构增强版）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S161 | SA Codec 服务框架——IPC五层架构与错误回调体系——AVCodecServerManager单例(426行dlopen)+AVCodecServer SA注册(182行)+CodecServiceStub服务端存根(220行)+CodecServiceProxy客户端代理(128行)+CodecClient生命周期封装(352行)+av_codec_service_ipc_interface_code.h 84行33接口枚举，CodecListenerInterfaceCode 6路回调+CodecServiceInterfaceCode 33接口代码+AVCodecListServiceInterfaceCode 5接口+AVCodecServiceInterfaceCode 5系统管理接口，错误码AVCodecServiceErrCode 50+条目(AVCS_ERR_OFFSET=200000)+错误转换函数，与S137/S121/S83/S55/S21关联 | AVCodec, SA, IPC, CodecServerManager, CodecServiceStub, CodecServiceProxy, CodecClient, SystemAbility, dlopen, Callback, ErrorCode, Binder, Stub, Proxy | 新需求开发/问题定位/跨进程通信 | **pending_approval** | 🚧 草案已生成（2026-05-20T12:55），services/services/sa_avcodec/六文件行号级evidence |
