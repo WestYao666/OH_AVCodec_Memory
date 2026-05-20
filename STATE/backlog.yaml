@@ -1129,3 +1129,15 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S170 | SA Codec 服务框架——IPC五层架构与33+6+5接口枚举体系（avcodec_server_manager.cpp 426行/avcodec_service_stub.cpp 220行/av_codec_service_ipc_interface_code.h 84行） | AVCodec, SA, IPC, CodecServerManager, CodecServiceStub, CodecServiceProxy, CodecClient, SystemAbility, Binder, Stub, Proxy, dlopen, Listener, DeathRecipient, Parcel, InterfaceCode | 新需求开发/问题定位/跨进程通信/新人入项 | **pending_approval** | 🚧 草案已生成（2026-05-21T05:25），services/services/sa_avcodec/六文件(avcodec_server_manager 426行/avcodec_server 182行/avcodec_service_stub 220行/avcodec_service_proxy 128行/av_codec_service_ipc_interface_code.h 84行/avcodec_listener_stub 35行/avcodec_listener_proxy 35行/avcodec_death_recipient 48行/avcodec_parcel 33行/avcodec_client 352行)行号级evidence，IPC五层架构(AVCodecServerManager单例/dlopen→AVCodecServer SA注册→CodecServiceStub 33路分发→CodecServiceProxy→CodecClient)+接口枚举三合一(CodecServiceInterfaceCode 33路/CodecListenerInterfaceCode 6路/AVCodecListServiceInterfaceCode 5路/AVCodecServiceInterfaceCode 5路)，与S137/S161互补 |
+
+## 新增主题（Builder 2026-05-21 S171注册——CodecCapabilityAdapter能力查询适配器）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S171 | CodecCapabilityAdapter 编解码能力查询适配器——AVCodecList工厂注入与水印能力探测 | AVCodec, MediaEngine, Filter, CodecCapability, AVCodecList, CapabilityData, Watermark, WaterMarkFilter, Adapter | 新需求开发/问题定位/能力查询 | **pending_approval** | 🚧 草案已生成（2026-05-21T06:20），codec_capability_adapter.cpp(113行)+.h(60行)行号级evidence，CodecCapabilityAdapter Filter适配层(Init→CreateAVCodecList→codeclist_)+IsWatermarkSupported硬件优先两段查询+GetAvailableEncoder(AVC/HEVC/AAC三路)+featuresMap VIDEO_WATERMARK特性探测，与S47/S71/S162(CodecCapability体系)互补，S135(WaterMarkFilter)直接使用者 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-21T06:20 | Builder | S171注册：CodecCapabilityAdapter编解码能力查询适配器草案已生成，写入 MEM-ARCH-AVCODEC-S171.md（pending_approval） |
