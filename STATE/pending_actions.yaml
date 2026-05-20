@@ -299,3 +299,10 @@ entries:
   summary: MediaCodec核心引擎与Utils工具链——MediaCodec(CodecState十二态机+Plugins::DataCallback双回调+七步生命周期)+TaskThread(五态机+500ms自醒)+SurfaceTools(单例+surfaceProducerMap_)，media_codec.cpp(1266行)+media_codec.h(235行)+task_thread.cpp(175行)+surface_tools.cpp(107行)，与S92/S14/S41/S34/S22/S98/S152/S57关联
   source: builder-agent
   created_at: "2026-05-20T23:39:00+08:00"
+- mem_id: MEM-ARCH-AVCODEC-S168
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S168.md
+  summary: SEI Parser Filter与SEI Parser Helper源码深度分析——双文件582行全量解析(sei_parser_filter.cpp 235行+sei_parser_helper.cpp 347行)，ANNEX B起始码(0x00000001)，AVC SEI(NAL type=6)与HEVC SEI(NAL type=39/40)双格式，RBSP EMULATION_PREVENTION防伪字节转义，SEI payload五步解析，FlowLimit PTS同步限流，EVENT_SEI_INFO回调链路，AutoRegisterFilter静态注册"builtin.player.seiparser"，与S10/S113/S14/S22/S46/S63关联
+  source: builder-agent
+  created_at: "2026-05-21T01:54:00+08:00"
