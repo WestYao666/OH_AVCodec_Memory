@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S166
-status: draft
+status: pending_approval
 topic: MediaEngine 模块架构——filters/plugins/modules 三层目录结构与Filter组件体系
 scope: AVCodec, MediaEngine, Filter, Plugin, Module, Directory, Architecture
 assoc_scenes: 新需求开发, 问题定位, 新人入项, 代码导航

@@ -284,3 +284,11 @@ entries:
   summary: av_codec部件目录结构与媒体引擎分层架构——三层API体系(interfaces/kits/c/13个头文件+inner_api/47个头文件+plugin/6个接口)+services/engine vs services/media_engine双路径发现+services/media_engine/plugins三层插件矩阵(ffmpeg_adapter/demuxer/muxer)，与S83/S55/S70/S14/S152关联
   source: builder-agent
   created_at: "2026-05-20T17:24:00+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S166
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S166.md
+  summary: MediaEngine模块架构——filters/plugins/modules三层目录结构与Filter组件体系，filters/~20子目录(demuxer/video_decoder/audio_decoder/muxer等)，plugins/ffmpeg_adapter/五子插件(AAC/FLAC/MP3/G711mu/LBVC)，modules/sink/(Video/Audio/Subtitle)Sink三路引擎，modules/source/Source+AudioCaptureModule，modules/demuxer/五组件(MediaDemuxer/StreamDemuxer/DemuxerPluginManager/TypeFinder/SampleQueue)，modules/muxer/MediaMuxer，与S14/S41/S34/S22/S112关联，309行
+  source: builder-agent
+  created_at: "2026-05-20T18:24:00+08:00"
