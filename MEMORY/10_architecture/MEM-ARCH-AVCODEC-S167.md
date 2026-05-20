@@ -1,7 +1,7 @@
 ---
 type: architecture
 id: MEM-ARCH-AVCODEC-S167
-status: draft
+status: pending_approval
 topic: MediaCodec 核心引擎与 Utils 工具链——MediaCodec(CodecState 十二态机+Plugins::DataCallback 双回调) + TaskThread(五态机+500ms自醒) + SurfaceTools(单例+Surface生命周期)
 scope: [AVCodec, MediaCodec, CodecState, Utils, TaskThread, SurfaceTools, Plugin, DataCallback, StateMachine]
 assoc_scenes: 新需求开发, 问题定位, 新人入项, 代码导航

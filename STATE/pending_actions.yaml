@@ -292,3 +292,10 @@ entries:
   summary: MediaEngine模块架构——filters/plugins/modules三层目录结构与Filter组件体系，filters/~20子目录(demuxer/video_decoder/audio_decoder/muxer等)，plugins/ffmpeg_adapter/五子插件(AAC/FLAC/MP3/G711mu/LBVC)，modules/sink/(Video/Audio/Subtitle)Sink三路引擎，modules/source/Source+AudioCaptureModule，modules/demuxer/五组件(MediaDemuxer/StreamDemuxer/DemuxerPluginManager/TypeFinder/SampleQueue)，modules/muxer/MediaMuxer，与S14/S41/S34/S22/S112关联，309行
   source: builder-agent
   created_at: "2026-05-20T18:24:00+08:00"
+- mem_id: MEM-ARCH-AVCODEC-S167
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S167.md
+  summary: MediaCodec核心引擎与Utils工具链——MediaCodec(CodecState十二态机+Plugins::DataCallback双回调+七步生命周期)+TaskThread(五态机+500ms自醒)+SurfaceTools(单例+surfaceProducerMap_)，media_codec.cpp(1266行)+media_codec.h(235行)+task_thread.cpp(175行)+surface_tools.cpp(107行)，与S92/S14/S41/S34/S22/S98/S152/S57关联
+  source: builder-agent
+  created_at: "2026-05-20T23:39:00+08:00"
