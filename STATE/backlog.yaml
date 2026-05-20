@@ -1123,3 +1123,9 @@
 
 ## 新增主题（Builder 2026-05-21 S169注册——FFmpeg音频编码器三层架构）
 | S169 | FFmpeg Audio Encoder 插件体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件 | AVCodec, FFmpeg, AudioEncoder, Plugin, SoftwareCodec, AAC, FLAC, MP3, G711mu, LBVC, FFmpegBaseEncoder, FFmpegEncoderPlugin, ADTS, AudioResample, SwrContext | 新需求开发/问题定位/音频编码接入 | **pending_approval** | 🚧 草案已生成（2026-05-21T02:54），services/media_engine/plugins/ffmpeg_adapter/audio_encoder/七文件(ffmpeg_base_encoder 396行cpp+94行h/ffmpeg_encoder_plugin 85行/五子插件1314行)行号级evidence，三层架构(FFmpegEncoderPlugin注册层+FFmpegBaseEncoder基类+五子插件)，AAC自实现AVAudioFifo+ADTS 7字节头(L37/102-124)，13档采样率表(L47-49)，8通道布局表(L51-57)，与S125/S132/S158编解码对称，与S130共享FFmpegConvert |
+
+## 新增主题（Builder 2026-05-21 S170注册——SA Codec IPC五层架构增强版）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S170 | SA Codec 服务框架——IPC五层架构与33+6+5接口枚举体系（avcodec_server_manager.cpp 426行/avcodec_service_stub.cpp 220行/av_codec_service_ipc_interface_code.h 84行） | AVCodec, SA, IPC, CodecServerManager, CodecServiceStub, CodecServiceProxy, CodecClient, SystemAbility, Binder, Stub, Proxy, dlopen, Listener, DeathRecipient, Parcel, InterfaceCode | 新需求开发/问题定位/跨进程通信/新人入项 | **pending_approval** | 🚧 草案已生成（2026-05-21T05:25），services/services/sa_avcodec/六文件(avcodec_server_manager 426行/avcodec_server 182行/avcodec_service_stub 220行/avcodec_service_proxy 128行/av_codec_service_ipc_interface_code.h 84行/avcodec_listener_stub 35行/avcodec_listener_proxy 35行/avcodec_death_recipient 48行/avcodec_parcel 33行/avcodec_client 352行)行号级evidence，IPC五层架构(AVCodecServerManager单例/dlopen→AVCodecServer SA注册→CodecServiceStub 33路分发→CodecServiceProxy→CodecClient)+接口枚举三合一(CodecServiceInterfaceCode 33路/CodecListenerInterfaceCode 6路/AVCodecListServiceInterfaceCode 5路/AVCodecServiceInterfaceCode 5路)，与S137/S161互补 |
