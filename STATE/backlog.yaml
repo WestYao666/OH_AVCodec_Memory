@@ -1095,3 +1095,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-20T18:15 | Builder | S166注册：MediaEngine 模块架构草案已生成，写入 MEM-ARCH-AVCODEC-S166.md（draft） |
+
+## 新增主题（Builder 2026-05-20 S167注册——MediaCodec核心引擎与Utils工具链）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S167 | MediaCodec核心引擎与Utils工具链——MediaCodec(CodecState十二态机+Plugins::DataCallback双回调)+TaskThread(五态机+500ms自醒)+SurfaceTools(单例+Surface生命周期) | AVCodec, MediaCodec, CodecState, Utils, TaskThread, SurfaceTools, Plugin, DataCallback, StateMachine, Lifecycle | 新需求开发/问题定位/新人入项/代码导航 | **draft** | 🚧 草案已生成（2026-05-20T22:55），media_codec.cpp(1266行)+media_codec.h(235行)CodecState十二态机(L24-36)+Plugins::DataCallback继承(L90)+七步生命周期(L100-488)+SetDataCallback(L236/L261)；task_thread.cpp(175行)五态机+500ms自醒；surface_tools.cpp(107行)单例+surfaceProducerMap_映射表，与S92(S152)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-20T22:55 | Builder | S167注册：MediaCodec核心引擎与Utils工具链草案已生成，写入 MEM-ARCH-AVCODEC-S167.md（draft） |
