@@ -153,3 +153,11 @@ entries:
   summary: AVCodec错误码与回调体系三层架构（AVCodecErrorType/AVCodecServiceErrCode(50+条目)/MediaCodecCallback+MediaCodecParameterCallback+MediaCodecParameterWithAttrCallback三层回调接口），avcodec_common.h(306行)8个AVCodecBufferFlag标志位，错误码转换函数(AVCSErrorToOHAVErrCode/StatusToAVCodecServiceErrCode)，与S55/S83/S92/S114/S121关联
   source: builder-agent
   created_at: "2026-05-20T08:15:00+08:00"
+
+- mem_id: MEM-ARCH-AVCODEC-S160
+  type: memory_draft
+  status: pending_approval
+  draft_path: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S160.md
+  summary: HDecoder/HEncoder后台管理——MsgHandleLoop异步消息队列(73行)+Frozen/Running双状态机+FreezeBuffers二阶段冻结(OMX_IndexParamBufferRecycle+DMA-BUF SwapOut/SwapIn)+DmaSwaper单例(/dev/dma_reclaim)+BufferOwner四态流转+NotifySuspend/NotifyResume+DecreaseFreq/RecoverFreq，与S57/S154/S21关联
+  source: builder-agent
+  created_at: "2026-05-20T10:22:00+08:00"
