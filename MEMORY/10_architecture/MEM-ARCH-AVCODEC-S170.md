@@ -1,7 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S170
 title: SA Codec 服务框架——IPC五层架构与33+6+5接口枚举体系
-status: draft
+status: pending_approval
 scope: [AVCodec, SA, IPC, CodecServerManager, CodecServiceStub, CodecServiceProxy, CodecClient, SystemAbility, Binder, Stub, Proxy, dlopen, Listener, DeathRecipient, Parcel]
 assoc_scenarios: [新需求开发/问题定位/跨进程通信/新人入项]
 sources:
