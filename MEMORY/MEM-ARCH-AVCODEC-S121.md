@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S121
 title: "AVCodec 错误码与回调体系——三层架构（AVCodecErrorType / AVCodecServiceErrCode / MediaCodecCallback）"
-status: draft
+status: pending_approval
 ticket_id: S121
 scope: "AVCodec, ErrorHandling, Callback, CAPI, IPC"
 关联场景: "三方应用接入/问题定位/新人入项"
