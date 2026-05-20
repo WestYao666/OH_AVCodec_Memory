@@ -2,7 +2,7 @@
 
 > **主题**: AVCodec 错误码与回调体系——三层架构（AVCodecErrorType / AVCodecServiceErrCode / MediaCodecCallback）
 >
-> **状态**: draft
+> **状态**: pending_approval
 >
 > **scope**: AVCodec, ErrorHandling, Callback, CAPI, IPC, ErrorCode, EventDriven
 >
@@ -45,7 +45,7 @@ enum AVCodecErrorType : int32_t {
 ```
 
 **Evidence**:
-- L37-42: AVCodecErrorType 三层分类（INTERNAL/DECRYTION_FAILED/FRAMEWORK_FAILED/EXTEND_START）
+- avcodec_common.h:37-50: AVCodecErrorType 四项枚举（INTERNAL/DECRYTION_FAILED/FRAMEWORK_FAILED/EXTEND_START）
 - 扩展错误码（EXTEND_START=0x10000）用于插件自定义错误
 
 ---
@@ -75,7 +75,7 @@ typedef enum AVCodecServiceErrCode : ErrCode {
 
 **Evidence**:
 - `avcodec_errors.h:32`: 错误码偏移计算规则 `AVCS_ERR_OFFSET = ErrCodeOffset(SUBSYS_MULTIMEDIA, AVCS_MODULE)`
-- `avcodec_errors.h:34-62`: 50+错误码枚举覆盖内存/状态/不支持/服务死亡等场景
+- `avcodec_errors.h:34-62`: 50+错误码枚举覆盖OK/NO_MEMORY/INVALID_OPERATION/INVALID_VAL/UNKNOWN/SERVICE_DIED/INVALID_STATE/UNSUPPORT及音视频参数类错误
 
 ### 3.2 主要错误码分类
 
@@ -147,6 +147,7 @@ public:
 **Evidence**:
 - `avcodec_common.h:220-233`: MediaCodecParameterCallback（仅缓冲区回调，无 OnError/OnOutputFormatChanged）
 - 缺少错误处理方法，用于纯参数驱动场景
+- avcodec_common.h:233+: MediaCodecParameterWithAttrCallback（带属性信息的缓冲区回调）
 
 ### 4.4 MediaCodecParameterWithAttrCallback（带属性参数回调）
 
@@ -259,14 +260,15 @@ enum AVCodecBufferFlag : uint32_t {
 
 | 证据 | 文件 | 行号 | 说明 |
 |------|------|------|------|
-| E1 | interfaces/inner_api/native/avcodec_common.h | 37-42 | AVCodecErrorType 三层分类 |
-| E2 | interfaces/inner_api/native/avcodec_common.h | 58-86 | AVCodecBufferFlag 8标志位 |
-| E3 | interfaces/inner_api/native/avcodec_common.h | 98-130 | AVCodecCallback 四方法 |
-| E4 | interfaces/inner_api/native/avcodec_common.h | 172-211 | MediaCodecCallback 四方法 |
-| E5 | interfaces/inner_api/native/avcodec_common.h | 220-233 | MediaCodecParameterCallback |
-| E6 | interfaces/inner_api/native/avcodec_errors.h | 32-62 | AVCodecServiceErrCode 50+条目 |
-| E7 | services/services/codec/ipc/codec_service_stub.cpp | 863行 | IPC 服务端 Stub |
-| E8 | services/services/codec/ipc/codec_service_proxy.cpp | 574行 | IPC 客户端 Proxy |
+| E1 | interfaces/inner_api/native/avcodec_common.h | 37-50 | AVCodecErrorType 四项枚举（INTERNAL/DECRYTION_FAILED/FRAMEWORK_FAILED/EXTEND_START=0x10000） |
+| E2 | interfaces/inner_api/native/avcodec_common.h | 59-86 | AVCodecBufferFlag 8标志位（NONE/EOS/SYNC_FRAME/PARTIAL_FRAME/CODEC_DATA/DISCARD/DISPOSABLE/DISPOSABLE_EXT/MUL_FRAME） |
+| E3 | interfaces/inner_api/native/avcodec_common.h | 98-130 | AVCodecCallback 四方法（C API层，AVSharedMemory） |
+| E4 | interfaces/inner_api/native/avcodec_common.h | 172-211 | MediaCodecCallback 四方法（引擎层，AVBuffer） |
+| E5 | interfaces/inner_api/native/avcodec_common.h | 220-233 | MediaCodecParameterCallback 仅缓冲区回调 |
+| E6 | interfaces/inner_api/native/avcodec_common.h | 233- | MediaCodecParameterWithAttrCallback 带属性回调 |
+| E7 | interfaces/inner_api/native/avcodec_errors.h | 32-62 | AVCodecServiceErrCode 50+条目错误码体系 |
+| E8 | services/services/codec/ipc/codec_service_stub.cpp | 863行 | IPC 服务端 Stub |
+| E9 | services/services/codec/ipc/codec_service_proxy.cpp | 574行 | IPC 客户端 Proxy |
 
 ---
 
