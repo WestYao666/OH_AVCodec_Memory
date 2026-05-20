@@ -1120,3 +1120,6 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-21T01:54 | Builder | S168注册：SEI Parser Filter与SEI Parser Helper源码深度分析草案已生成，写入 MEM-ARCH-AVCODEC-S168.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-21 S169注册——FFmpeg音频编码器三层架构）
+| S169 | FFmpeg Audio Encoder 插件体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件 | AVCodec, FFmpeg, AudioEncoder, Plugin, SoftwareCodec, AAC, FLAC, MP3, G711mu, LBVC, FFmpegBaseEncoder, FFmpegEncoderPlugin, ADTS, AudioResample, SwrContext | 新需求开发/问题定位/音频编码接入 | **pending_approval** | 🚧 草案已生成（2026-05-21T02:54），services/media_engine/plugins/ffmpeg_adapter/audio_encoder/七文件(ffmpeg_base_encoder 396行cpp+94行h/ffmpeg_encoder_plugin 85行/五子插件1314行)行号级evidence，三层架构(FFmpegEncoderPlugin注册层+FFmpegBaseEncoder基类+五子插件)，AAC自实现AVAudioFifo+ADTS 7字节头(L37/102-124)，13档采样率表(L47-49)，8通道布局表(L51-57)，与S125/S132/S158编解码对称，与S130共享FFmpegConvert |
