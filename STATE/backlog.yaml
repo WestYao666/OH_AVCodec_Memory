@@ -1171,7 +1171,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S175 | MediaDemuxer PTS自动维护机制——media_demuxer_pts_functions.cpp 219行PTS分段校正与HandleAutoMaintainPts双轨同步 | AVCodec, MediaEngine, Demuxer, PTS, MediaDemuxer, SampleQueue, Track, Segment, Timestamp, AutoMaintainPts, HLS, DASH, AdaptiveBitrate, TransCoder | 新需求开发/问题定位/流媒体播放/HLS-DASH自适应码率/TransCoder转码 | 🚧 draft | 🚧 草案已生成（2026-05-21T20:40），media_demuxer_pts_functions.cpp(219行)行号级evidence，HandleAutoMaintainPts核心校正逻辑(2s阈值段切换检测)、InitMediaStartPts起播初始化、TranscoderInitMediaStartPts转码专用、UpdateSegmentOffset码率切换更新，与S69/S75/S101/S106/S139/S149关联 |
+| S175 | MediaDemuxer PTS自动维护机制——media_demuxer_pts_functions.cpp 219行PTS分段校正与HandleAutoMaintainPts双轨同步 | AVCodec, MediaEngine, Demuxer, PTS, MediaDemuxer, SampleQueue, Track, Segment, Timestamp, AutoMaintainPts, HLS, DASH, AdaptiveBitrate, TransCoder | 新需求开发/问题定位/流媒体播放/HLS-DASH自适应码率/TransCoder转码 | **pending_approval** | 🚧 草案已生成（2026-05-21T20:40）→pending_approval（2026-05-21T20:55 Builder提交审批），media_demuxer_pts_functions.cpp(219行)行号级evidence，HandleAutoMaintainPts核心校正逻辑(2s阈值段切换检测)、InitMediaStartPts起播初始化、TranscoderInitMediaStartPts转码专用、UpdateSegmentOffset码率切换更新，与S69/S75/S101/S106/S139/S149关联 |
 
 ## 变更记录
 

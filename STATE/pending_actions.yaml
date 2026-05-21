@@ -113,3 +113,15 @@
   git_branch: master
   commit: ec764fab47606588249ca45c30c19d326dbc1877
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/ec764fab47606588249ca45c30c19d326dbc1877
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S175
+  decision: pending_approval
+  timestamp: "2026-05-21T20:55:00+08:00"
+  builder: builder-agent (subagent)
+  subject: MediaDemuxer PTS自动维护机制——media_demuxer_pts_functions.cpp 219行PTS分段校正与HandleAutoMaintainPts双轨同步
+  evidence_count: 16
+  source_files: media_demuxer_pts_functions.cpp(219行) + media_demuxer.h(618行) 行号级evidence，MaintainBaseInfo结构体/MAX_PTS_DIFFER_THRESHOLD_US=2s/8个核心函数(HandleAutoMaintainPts/InitPtsInfo/InitMediaStartPts/TranscoderInitMediaStartPts/UpdateSegmentOffset双版本/GetCurrentSegmentOffset/SetCurrentSegmentOffset)
+  git_branch: master
+  commit: da09299
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/da09299
