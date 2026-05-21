@@ -18,3 +18,14 @@
   source_files: codec_capability_adapter.cpp(113行) + codec_capability_adapter.h(60行) + avcodec_list.h(50行) = 223行源码
   commit: 3fb7eaf
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/3fb7eaf
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S137
+  decision: pending_approval
+  timestamp: "2026-05-21T12:24:00+08:00"
+  builder: builder-agent (subagent)
+  subject: SA Codec 服务框架——AVCodecServerManager + CodecClient IPC 双层架构与 SystemAbility 集成
+  evidence_count: 16
+  source_files: avcodec_server_manager.cpp(426行) + avcodec_service_stub.cpp(220行) + avcodec_service_proxy.cpp(128行) + avcodec_client.cpp(352行) + av_codec_service_ipc_interface_code.h(84行) + avcodec_listener_stub.cpp(35行) + avcodec_death_recipient.h(48行) + avcodec_parcel.cpp(36行) = 1329行源码
+  commit: 18c3ab1
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/18c3ab1
