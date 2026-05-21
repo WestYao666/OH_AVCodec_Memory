@@ -1,4 +1,40 @@
 - type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S164
+  decision: pending_approval
+  timestamp: "2026-05-21T17:54:00+08:00"
+  builder: builder-agent (subagent)
+  subject: SA Codec IPC服务框架——CodecServiceStub/Proxy双层架构与CodecListenerStub/CodecListenerProxy回调链路
+  evidence_count: 20
+  source_files: avcodec_service_stub.cpp(220行) + avcodec_service_proxy.cpp(128行) + avcodec_listener_stub.cpp(35行) + avcodec_listener_proxy.cpp(35行) + avcodec_parcel.cpp(33行) + avcodec_death_recipient.h(48行) = 499行源码
+  git_branch: master
+  commit: 9a6f03f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/9a6f03f
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S165
+  decision: pending_approval
+  timestamp: "2026-05-21T17:54:00+08:00"
+  builder: builder-agent (subagent)
+  subject: av_codec部件目录结构与媒体引擎分层架构——services/engine vs services/media_engine双路径发现
+  evidence_count: 18
+  source_files: 7个关键文件，覆盖av_codec顶层目录结构services/engine/和services/media_engine/并行双路径
+  git_branch: master
+  commit: cb2d3d8
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/cb2d3d8
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S163
+  decision: pending_approval
+  timestamp: "2026-05-21T17:54:00+08:00"
+  builder: builder-agent (subagent)
+  subject: DRM CENC解密框架——CodecDrmDecrypt 764行+三路解密链(AVC/HEVC/AVS)+SurfaceDecoderAdapter 478行+错误码体系关联
+  evidence_count: 16
+  source_files: codec_drm_decrypt.cpp(764行) + codec_drm_decrypt.h(96行) + media_codec.cpp(1266行) + surface_decoder_adapter.cpp(478行) = 2604行源码
+  git_branch: master
+  commit: 716b228
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/716b228
+
+- type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S168
   decision: pending_approval
   timestamp: "2026-05-21T09:52:00+08:00"
