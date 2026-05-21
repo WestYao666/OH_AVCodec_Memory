@@ -1166,3 +1166,15 @@
 |------|------|------|
 | 2026-05-21T16:25 | Builder | S172注册：HttpSourcePlugin三路下载器工厂路由草案恢复（orphan commit 1deff74→762c6d1），写入 MEM-ARCH-AVCODEC-S172.md（in_progress） |
 | 2026-05-21T14:54 | Builder | S173注册：AudioCodecAdapter + AudioCodecWorker草案已生成，写入 MEM-ARCH-AVCODEC-S173.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-21 S175注册——MediaDemuxer PTS自动维护机制）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S175 | MediaDemuxer PTS自动维护机制——media_demuxer_pts_functions.cpp 219行PTS分段校正与HandleAutoMaintainPts双轨同步 | AVCodec, MediaEngine, Demuxer, PTS, MediaDemuxer, SampleQueue, Track, Segment, Timestamp, AutoMaintainPts, HLS, DASH, AdaptiveBitrate, TransCoder | 新需求开发/问题定位/流媒体播放/HLS-DASH自适应码率/TransCoder转码 | 🚧 draft | 🚧 草案已生成（2026-05-21T20:40），media_demuxer_pts_functions.cpp(219行)行号级evidence，HandleAutoMaintainPts核心校正逻辑(2s阈值段切换检测)、InitMediaStartPts起播初始化、TranscoderInitMediaStartPts转码专用、UpdateSegmentOffset码率切换更新，与S69/S75/S101/S106/S139/S149关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-21T20:40 | Builder | S175注册：MediaDemuxer PTS自动维护机制草案已生成，写入 MEM-ARCH-AVCODEC-S175.md（draft） |
