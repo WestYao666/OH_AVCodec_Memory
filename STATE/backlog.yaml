@@ -1147,3 +1147,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-21T06:20 | Builder | S171注册：CodecCapabilityAdapter编解码能力查询适配器草案已生成，写入 MEM-ARCH-AVCODEC-S171.md（pending_approval） |
+
+## 新增主题（Builder 2026-05-21 S173注册——AudioCodecAdapter + AudioCodecWorker）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S173 | AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动 | AVCodec, AudioCodec, Adapter, Worker, AudioBaseCodec, TaskThread, Pipeline, CodecState | 新需求开发/问题定位/音频编解码/Worker驱动 | **pending_approval** | 🚧 草案已生成（2026-05-21T14:54），audio_codec_adapter.cpp(467行)+.h(77行)+audio_codec_worker.cpp(429行)+.h(95行)行号级evidence，AudioCodecAdapter(CodecBase子类)+AudioBaseCodec::make_sharePtr工厂+AudioCodecWorker双TaskThread驱动，与S35(S62)互补 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-21T14:54 | Builder | S173注册：AudioCodecAdapter + AudioCodecWorker草案已生成，写入 MEM-ARCH-AVCODEC-S173.md（pending_approval） |
