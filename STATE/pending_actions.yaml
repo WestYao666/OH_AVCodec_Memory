@@ -1,1 +1,10 @@
-[]
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S168
+  decision: pending_approval
+  timestamp: "2026-05-21T09:52:00+08:00"
+  builder: builder-agent (subagent)
+  subject: SEI Parser Filter 与 SEI Parser Helper 源码深度分析
+  evidence_count: 22
+  source_files: sei_parser_filter.cpp(235行) + sei_parser_helper.cpp(347行) + sei_parser_filter.h(104行) + sei_parser_helper.h(135行) = 821行源码
+  commit: f0b2caf
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/f0b2caf
