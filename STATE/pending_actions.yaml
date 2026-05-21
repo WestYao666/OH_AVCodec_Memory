@@ -101,3 +101,15 @@
   git_branch: master
   commit: 3f66e77
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/3f66e77
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S174
+  decision: pending_approval
+  timestamp: "2026-05-21T19:40:00+08:00"
+  builder: builder-agent (subagent)
+  subject: FFmpeg 音频编码器插件体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件架构
+  evidence_count: 16
+  source_files: ffmpeg_base_encoder.cpp(396行) + ffmpeg_base_encoder.h(94行) + ffmpeg_encoder_plugin.cpp(85行) + ffmpeg_encoder_plugin.h(26行) + aac/ffmpeg_aac_encoder_plugin.cpp(902行) + aac/ffmpeg_aac_encoder_plugin.h(159行) + flac/ffmpeg_flac_encoder_plugin.cpp(252行) + mp3/ffmpeg_mp3_encoder_plugin.cpp(252行) + g711mu/ffmpeg_g711mu_encoder_plugin.cpp(~120行) + lbvc/ffmpeg_lbvc_encoder_plugin.cpp(~120行) = 2406+行源码
+  git_branch: master
+  commit: pending
+  note: 本地镜像行号级evidence，基于 /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_encoder/
