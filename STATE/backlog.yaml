@@ -1134,13 +1134,15 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S171 | CodecCapabilityAdapter 编解码能力查询适配器——AVCodecList工厂注入与水印能力探测 | AVCodec, MediaEngine, Filter, CodecCapability, AVCodecList, CapabilityData, Watermark, WaterMarkFilter, Adapter | 新需求开发/问题定位/能力查询 | 🚧 in_progress | 🚧 草案已生成（2026-05-21T06:20），codec_capability_adapter.cpp(113行)+.h(60行)行号级evidence，CodecCapabilityAdapter Filter适配层(Init→CreateAVCodecList→codeclist_)+IsWatermarkSupported硬件优先两段查询+GetAvailableEncoder(AVC/HEVC/AAC三路)+featuresMap VIDEO_WATERMARK特性探测，与S47/S71/S162(CodecCapability体系)互补，S135(WaterMarkFilter)直接使用者 |
+| S171 | CodecCapabilityAdapter 编解码能力查询适配器——AVCodecList工厂注入与水印能力探测 | AVCodec, MediaEngine, Filter, CodecCapability, AVCodecList, CapabilityData, Watermark, WaterMarkFilter, Adapter | 新需求开发/问题定位/能力查询 | **pending_approval** | 🚧 草案已生成（2026-05-21T06:20→21:00行号增强）→pending_approval（2026-05-22T00:15 Builder提交审批），codec_capability_adapter.cpp(113行)+.h(44行)行号级evidence，CodecCapabilityAdapter Filter适配层(Init→CreateAVCodecList→codeclist_)+IsWatermarkSupported硬件优先两段查询+GetAvailableEncoder(AVC/HEVC/AAC三路)+featuresMap VIDEO_WATERMARK特性探测，与S47/S71/S162(CodecCapability体系)互补，S135(WaterMarkFilter)直接使用者 |
 
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
-| 2026-05-21T13:09 | Builder | S171 in_progress：builder-agent开始处理
+| 2026-05-21T06:20 | Builder | S171注册：CodecCapabilityAdapter编解码能力查询适配器草案已生成，写入 MEM-ARCH-AVCODEC-S171.md（pending_approval） |
+| 2026-05-21T13:09 | Builder | S171 in_progress：builder-agent开始处理 |
+| 2026-05-22T00:15 | Builder | S171行号增强：基于本地镜像/av_codec_repo行号级evidence增强，草案路径MEM-ARCH-AVCODEC-S171.md，提交审批
 
 ## 变更记录
 

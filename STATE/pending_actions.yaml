@@ -159,3 +159,16 @@
   commit: ""
   git_url: ""
   note: 融合S132/S158/S174三次草案，完整五子插件+三层架构行号级evidence，基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/audio_encoder/ 探索
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S171
+  decision: pending_approval
+  timestamp: "2026-05-22T00:15:00+08:00"
+  builder: builder-agent (subagent)
+  subject: CodecCapabilityAdapter 编解码能力查询适配器——AVCodecList工厂注入与水印能力探测
+  evidence_count: 12
+  source_files: codec_capability_adapter.cpp(113行) + codec_capability_adapter.h(44行) = 157行源码
+  git_branch: master
+  commit: ""
+  git_url: ""
+  note: 基于本地镜像/av_codec_repo行号级evidence增强，草案路径MEM-ARCH-AVCODEC-S171.md
