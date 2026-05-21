@@ -1,7 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S173
 title: AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动
-status: draft
+status: pending_approval
 scope: [AVCodec, AudioCodec, Adapter, Worker, AudioBaseCodec, TaskThread, Pipeline, CodecState]
 assoc_scenarios: [新需求开发/问题定位/音频编解码/Worker驱动]
 sources:
