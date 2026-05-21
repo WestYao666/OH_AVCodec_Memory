@@ -172,3 +172,23 @@
   commit: ""
   git_url: ""
   note: 基于本地镜像/av_codec_repo行号级evidence增强，草案路径MEM-ARCH-AVCODEC-S171.md
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S177
+  decision: pending_approval
+  timestamp: "2026-05-22T01:45:00+08:00"
+  builder: builder-agent (subagent)
+  subject: Demuxer Common 共享解析工具链——MultiStreamParserManager / StreamParser / Converter / TimeRangeManager / ReferenceParserManager 五组件
+  evidence_count: 15
+  source_files: |
+    plugins/demuxer/common/multi_stream_parser_manager.cpp (293行) + .h (100行)
+    plugins/common/stream_parser.h (96行) - 基类
+    plugins/demuxer/common/converter.cpp (595行) + .h (75行)
+    plugins/demuxer/common/time_range_manager.cpp (77行) + .h (74行)
+    plugins/demuxer/common/reference_parser_manager.cpp (138行) + .h (77行)
+    plugins/common/reference_parser.h (41行) - C API接口
+    plugins/demuxer/common/demuxer_data_reader.cpp (162行) + .h (63行)
+    = 1587行源码
+  git_branch: master
+  commit: b8ed319
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/b8ed319
