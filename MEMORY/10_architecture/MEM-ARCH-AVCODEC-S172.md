@@ -1,5 +1,20 @@
 # MEM-ARCH-AVCODEC-S172 — HttpSourcePlugin 源码深度分析
 
+---
+mem_id: MEM-ARCH-AVCODEC-S172
+title: HttpSourcePlugin 三路下载器工厂路由——DownloadMonitor装饰器+HlsMediaDownloader/DashMediaDownloader/HttpMediaDownloader三路分发
+status: pending_approval
+scope: [AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate]
+assoc_scenarios: [新需求开发/问题定位/流媒体播放/HLS-DASH自适应码率]
+sources:
+  - /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/http_source_plugin.cpp (769行, 本地镜像)
+  - /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/http_source_plugin.h (115行, 本地镜像)
+  - /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/download_monitor.h (232行, 本地镜像)
+builder: builder-agent (subagent)
+created: 2026-05-21T16:25:00+08:00
+---
+
+
 > **主题**: HttpSourcePlugin 三路下载器工厂路由 + DownloadMonitor 装饰器 + MediaSourceLoaderCombinations 自适应码率
 > **scope**: AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, MediaSourceLoaderCombinations, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate
 > **关联场景**: 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率
