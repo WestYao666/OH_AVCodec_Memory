@@ -61,4 +61,5 @@
   evidence_count: 16
   source_files: audio_codec_adapter.cpp(467行) + audio_codec_adapter.h(77行) + audio_codec_worker.cpp(429行) + audio_codec_worker.h(95行) = 1068行源码
   git_branch: master
-  note: 基于本地镜像 services/engine/codec/audio/ 探索
+  commit: 3f66e77
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/3f66e77
