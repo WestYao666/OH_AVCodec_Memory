@@ -40,3 +40,14 @@
   source_files: http_source_plugin.cpp(769行) + http_source_plugin.h(140行) + download_monitor.h(148行) = 1057行源码
   git_branch: master
   note: 基于本地镜像 services/media_engine/plugins/source/http_source/ 探索
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S171
+  decision: pending_approval
+  timestamp: "2026-05-21T13:09:00+08:00"
+  builder: builder-agent (subagent)
+  subject: CodecCapabilityAdapter 编解码能力查询适配器——AVCodecList工厂注入与水印能力探测
+  evidence_count: 12
+  source_files: codec_capability_adapter.cpp(113行) + codec_capability_adapter.h(44行) + avcodec_list.h(77行) + avcodec_info.h(320行) = 554行源码
+  commit: 119b9ed
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/119b9ed
