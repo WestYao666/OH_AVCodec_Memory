@@ -1166,7 +1166,7 @@
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
-| 2026-05-21T16:25 | Builder | S172注册：HttpSourcePlugin三路下载器工厂路由草案恢复（orphan commit 1deff74→762c6d1），写入 MEM-ARCH-AVCODEC-S172.md（in_progress） |
+| 2026-05-21T16:25 | Builder | S172注册：HttpSourcePlugin三路下载器工厂路由草案恢复（orphan commit 1deff74→762c6d1），写入 MEM-ARCH-AVCODEC-S172.md（pending_approval） |
 | 2026-05-21T14:54 | Builder | S173注册：AudioCodecAdapter + AudioCodecWorker草案已生成，写入 MEM-ARCH-AVCODEC-S173.md（pending_approval） |
 
 ## 新增主题（Builder 2026-05-21 S175注册——MediaDemuxer PTS自动维护机制）
