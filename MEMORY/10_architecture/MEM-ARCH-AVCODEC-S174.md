@@ -3,7 +3,7 @@
 ## 状态
 
 - **draft**：Builder 生成中
-- **pending_approval**：待审批
+- **pending_approval**：待审批（2026-05-21T20:29+08:00 Builder-Agent commit）
 - **approved**：已入库
 
 ---
