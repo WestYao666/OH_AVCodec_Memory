@@ -1179,7 +1179,7 @@
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
-| 2026-05-21T20:40 | Builder | S175注册：MediaDemuxer PTS自动维护机制草案已生成，写入 MEM-ARCH-AVCODEC-S175.md（draft） |
+| 2026-05-21T20:40 | Builder | S175注册：MediaDemuxer PTS自动维护机制草案已生成，写入 MEM-ARCH-AVCODEC-S175.md（pending_approval） |
 
 ## 新增主题（Builder 2026-05-21 S176注册——FFmpeg音频编码器插件体系三层架构）
 

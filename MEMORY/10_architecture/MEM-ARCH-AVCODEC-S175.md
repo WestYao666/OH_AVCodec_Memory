@@ -2,11 +2,20 @@
 id: MEM-ARCH-AVCODEC-S175
 title: MediaDemuxer PTS自动维护机制——media_demuxer_pts_functions.cpp 219行PTS分段校正与HandleAutoMaintainPts双轨同步
 scope: [AVCodec, MediaEngine, Demuxer, PTS, MediaDemuxer, SampleQueue, Track, Segment, Timestamp, AutoMaintainPts, HLS, DASH, AdaptiveBitrate, TransCoder]
-topic: MediaDemuxer PTS自动维护机制——HandleAutoMaintainPts分段PTS校正/InitPtsInfo初始化/UpdateSegmentOffset段切换/TranscoderInitMediaStartPts转码起点补偿
+architectural_layer: AVCodec, MediaEngine, Demuxer
+status: pending_approval
+created_at: "2026-05-21T20:40:00+08:00"
+evidence_count: 33
+source_files: >
+  services/media_engine/modules/demuxer/media_demuxer_pts_functions.cpp (219行) |
+  media_demuxer.h (618行) |
+  media_demuxer.cpp (6012行) |
+  sample_queue.cpp (770行) |
+  sample_queue_controller.cpp (300行)
+subject: MediaDemuxer PTS自动维护机制——HandleAutoMaintainPts分段PTS校正/InitPtsInfo初始化/UpdateSegmentOffset段切换/TranscoderInitMediaStartPts转码起点补偿
+related_mem_ids: [S69, S75, S101, S102, S106, S139, S149]
 ===
 # MEM-ARCH-AVCODEC-S175
-
-> **状态**: draft
 > **生成时间**: 2026-05-21T20:40:00+08:00
 > **Builder**: builder-agent (subagent)
 > **来源**: 本地镜像 `/home/west/av_codec_repo/services/media_engine/modules/demuxer/`
