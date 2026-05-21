@@ -51,3 +51,14 @@
   source_files: codec_capability_adapter.cpp(113行) + codec_capability_adapter.h(44行) + avcodec_list.h(77行) + avcodec_info.h(320行) = 554行源码
   commit: 119b9ed
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/119b9ed
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S173
+  decision: pending_approval
+  timestamp: "2026-05-21T14:54:00+08:00"
+  builder: builder-agent (subagent)
+  subject: AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动
+  evidence_count: 16
+  source_files: audio_codec_adapter.cpp(467行) + audio_codec_adapter.h(77行) + audio_codec_worker.cpp(429行) + audio_codec_worker.h(95行) = 1068行源码
+  git_branch: master
+  note: 基于本地镜像 services/engine/codec/audio/ 探索
