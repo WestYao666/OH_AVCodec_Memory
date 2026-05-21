@@ -1158,7 +1158,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S172 | HttpSourcePlugin 三路下载器工厂路由——DownloadMonitor装饰器+HlsMediaDownloader/DashMediaDownloader/HttpMediaDownloader三路分发 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate | 新需求开发/问题定位/流媒体播放/HLS-DASH自适应码率 | 🚧 in_progress | 🚧 草案已生成（2026-05-21T16:25），http_source_plugin.cpp(769行)+.h(115行)+download_monitor.h(232行)共1116行，16条行号级evidence，SetDownloaderBySource三路路由+DownloadMonitor装饰器+MediaSourceLoaderCombinations离线缓存，与S37/S86/S106/S122/S87/S38关联 |
+| S172 | HttpSourcePlugin 三路下载器工厂路由——DownloadMonitor装饰器+HlsMediaDownloader/DashMediaDownloader/HttpMediaDownloader三路分发 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate | 新需求开发/问题定位/流媒体播放/HLS-DASH自适应码率 | **pending_approval** | 🚧 草案已生成（2026-05-21T16:25）→pending_approval（2026-05-21T22:26 Builder提交审批），http_source_plugin.cpp(769行)+.h(115行)+download_monitor.h(232行)共1116行，16条行号级evidence，SetDownloaderBySource三路路由+DownloadMonitor装饰器+MediaSourceLoaderCombinations离线缓存，与S37/S86/S106/S122/S87/S38关联 |
 
 ## 变更记录
 

@@ -3,7 +3,7 @@
 > **主题**: HttpSourcePlugin 三路下载器工厂路由 + DownloadMonitor 装饰器 + MediaSourceLoaderCombinations 自适应码率  
 > **scope**: AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, MediaSourceLoaderCombinations, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate  
 > **关联场景**: 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率  
-> **状态**: draft  
+> **状态**: pending_approval  
 > **生成时间**: 2026-05-21T12:50:00+08:00  
 > **Builder**: builder-agent (subagent)  
 > **关联主题**: S37(HttpSourcePlugin总览)/S86(HLS缓存引擎)/S106(Source模块)/S122(StreamDemuxer)/S87(Source架构)/S38(SourcePlugin体系)

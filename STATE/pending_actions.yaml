@@ -125,3 +125,16 @@
   git_branch: master
   commit: da09299
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/da09299
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S172
+  decision: pending_approval
+  timestamp: "2026-05-21T22:26:00+08:00"
+  builder: builder-agent (subagent)
+  subject: HttpSourcePlugin 三路下载器工厂路由——DownloadMonitor装饰器+HlsMediaDownloader/DashMediaDownloader/HttpMediaDownloader三路分发
+  evidence_count: 16
+  source_files: http_source_plugin.cpp(769行) + http_source_plugin.h(115行) + download_monitor.h(232行) = 1116行源码
+  git_branch: master
+  commit: 762c6d1
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/762c6d1
+  note: orphan commit恢复（1deff74→762c6d1），基于本地镜像 services/media_engine/plugins/source/http_source/ 探索
