@@ -232,3 +232,23 @@
   commit: 8b80796
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/8b80796
   note: 本地镜像增强版（本地镜像 /home/west/av_codec_repo），S173孤儿草案恢复，15条行号级evidence
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S179
+  decision: pending_approval
+  timestamp: "2026-05-25T05:50:00+08:00"
+  builder: builder-agent (subagent)
+  subject: MediaEngine Modules 层架构——Sink/Muxer/Source/PostProcessor/MediaCodec/PTSIndex六模块与20条行号级evidence
+  evidence_count: 20
+  source_files: |
+    modules/sink/media_sync_manager.cpp(491行)+.h(76行)
+    modules/sink/video_sink.cpp(462行)+audio_sink.cpp(1863行)+subtitle_sink.cpp(517行)
+    modules/muxer/media_muxer.cpp(571行)+.h(106行)
+    modules/source/audio_capture/audio_capture_module.cpp(509行)+.h(95行)
+    modules/post_processor/super_resolution_post_processor.cpp(357行)+side_output_surface_processor.cpp(844行)+video_post_processor_factory.cpp(47行)
+    modules/media_codec/media_codec.cpp(1266行)+.h(235行)
+    modules/pts_index_conversion/pts_and_index_conversion.cpp(640行)+.h(150行)
+    = 5500+行源码
+  git_branch: master
+  commit: 4ffe083
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/4ffe083

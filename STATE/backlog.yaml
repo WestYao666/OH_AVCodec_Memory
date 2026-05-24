@@ -1212,3 +1212,15 @@
 |------|------|------|
 | 2026-05-25T03:05 | Builder | S178注册：AVCodec源代码双目录架构草案已生成，写入 MEM-ARCH-AVCODEC-S178.md（draft） |
 | 2026-05-25T03:48 | Builder | S178提交审批：pending_approval，GitCode仓库web访问受限（robot检测），增强本地镜像行号evidence，MEM-ARCH-AVCODEC-S178.md |
+
+## 新增主题（Builder 2026-05-25 S179注册——MediaEngine Modules层架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S179 | MediaEngine Modules 层架构——Sink/Muxer/Source/PostProcessor/MediaCodec/PTSIndex 六模块与20条行号级evidence | AVCodec, MediaEngine, Module, Sink, Muxer, Source, PostProcessor, MediaCodec, PTS, Index, AudioCapture, MediaSyncManager, VideoSink, AudioSink, SubtitleSink, SuperResolution, VPE, CodecState | 新需求开发/问题定位/新人入项/代码导航 | **pending_approval** | 🚧 草案已生成（2026-05-25T05:50），modules/七模块行号级evidence，MediaSyncManager(491行)/VideoSink(462行)/AudioSink(1863行)/SubtitleSink(517行)/MediaMuxer(571行)/AudioCaptureModule(509行)/SuperResolutionPostProcessor(357行)/MediaCodec(1266行)/PTSIndexConversion(640行)=5500+行源码，20条行号级evidence，与S22/S98/S99/S120/S124/S100/S108/S114关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-25T05:50 | Builder | S179注册：MediaEngine Modules层架构草案已生成，写入 MEM-ARCH-AVCODEC-S179.md（pending_approval） |
