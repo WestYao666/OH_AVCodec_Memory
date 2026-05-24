@@ -1199,3 +1199,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-22T01:45 | Builder | S177注册：Demuxer Common共享解析工具链草案已生成，写入 MEM-ARCH-AVCODEC-S177.md（pending_approval），1587行源码，15条行号级evidence |
+
+## 新增主题（Builder 2026-05-25 S178注册——AVCodec源代码双目录架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S178 | AVCodec源代码双目录架构——services/engine/codec与services/media_engine/plugins并行路径 | AVCodec, Directory, Architecture, Build, GN, Engine, Plugin, Filter, CodecBase | 新人入项/代码导航/跨层调用/构建系统理解 | **draft** | 🚧 草案已生成（2026-05-25T03:05），services/engine/codec/(video/audio/)引擎层~5000行+services/media_engine/plugins/demuxer/common/3103行源码，services/engine/codec/video/七类Loader(FCodec/HCodec/Hevc/Av1/VP8/VP9/AvcEncoder)+services/engine/codec/audio/音频引擎(AudioCodecAdapter 467行/AudioCodecWorker 429行)，与S166(MediaEngine模块架构)/S83(CAPI总览)/S137(SA IPC框架)互补 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-25T03:05 | Builder | S178注册：AVCodec源代码双目录架构草案已生成，写入 MEM-ARCH-AVCODEC-S178.md（draft） |
