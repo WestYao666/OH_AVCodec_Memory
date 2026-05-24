@@ -1225,3 +1225,16 @@
 |------|------|------|
 | 2026-05-25T05:50 | Builder | S179注册：MediaEngine Modules层架构草案已生成，写入 MEM-ARCH-AVCODEC-S179.md（pending_approval） |
 | 2026-05-25T07:18 | Builder | S165草案行号增强：AudioCodecAdapter(467行)+AudioCodecWorker(429行)本地镜像源码18条行号级evidence，status: draft→pending_approval |
+
+## 新增主题（Builder 2026-05-25 S180注册——FFmpeg Adapter Muxer Plugin体系）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S180 | FFmpeg Adapter Muxer Plugin体系——FFmpegMuxerRegister注册机+MPEG4MuxerPlugin/FLVMuxerPlugin子插件 | AVCodec, FFmpeg, MuxerPlugin, FFmpegAdapter, MPEG4, FLV, ISOBMFF, Box, AutoRegisterFilter, libavformat, Track | 新需求开发/问题定位/封装格式/FFmpeg集成 | **draft** | 🚧 草案已生成（2026-05-25T07:50），services/media_engine/plugins/ffmpeg_adapter/muxer/，mpeg4_muxer子目录(4851行)+ffmpeg_muxer_plugin(1414行)+ffmpeg_muxer_register(377行)，三层插件架构(AutoRegisterFilter+FFmpegMuxerPlugin+MPEG4MuxerPlugin)，BasicBox树形封装(1256行)+VideoTrack(753行)+Track双链表，与S91/S131/S145/S158/S176关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-25T07:50 | Builder | S180注册：FFmpeg Adapter Muxer Plugin体系草案已生成，写入 MEM-ARCH-AVCODEC-S180.md（draft），6642行源码，22条行号级evidence |
+

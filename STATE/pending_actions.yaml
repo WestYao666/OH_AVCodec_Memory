@@ -252,3 +252,24 @@
   git_branch: master
   commit: 4ffe083
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/4ffe083
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S180
+  decision: pending_approval
+  timestamp: "2026-05-25T07:50:00+08:00"
+  builder: builder-agent (subagent)
+  subject: FFmpeg Adapter Muxer Plugin体系——FFmpegMuxerRegister注册机+MPEG4MuxerPlugin/FLVMuxerPlugin子插件
+  evidence_count: 22
+  source_files: |
+    services/media_engine/plugins/ffmpeg_adapter/muxer/ffmpeg_muxer_register.cpp (377行) + ffmpeg_muxer_register.h
+    services/media_engine/plugins/ffmpeg_adapter/muxer/ffmpeg_muxer_plugin.cpp (1414行) + .h
+    services/media_engine/plugins/ffmpeg_adapter/muxer/mpeg4_muxer/ (4851行总)
+      mpeg4_muxer_plugin.cpp (574行) + basic_box.cpp (1256行) + avio_stream.cpp (221行)
+      track/video_track.cpp (753行) + track/basic_track.cpp (282行) + track/cover_track.cpp (93行) + track/timed_meta_track.cpp (198行)
+      avc_parser.cpp/h + hevc_parser.cpp/h + mpeg4_utils.cpp/h + box_parser.cpp/h + video_parser.cpp/h
+    services/media_engine/plugins/ffmpeg_adapter/muxer/flv_muxer/ffmpeg_flv_muxer_plugin.cpp
+    = 6642+行源码
+  git_branch: master
+  commit: ""
+  git_url: ""
+  note: 三层插件体系(AutoRegisterFilter+FFmpegMuxerPlugin+MPEG4MuxerPlugin)，BasicBox树形封装(1256行)，mpeg4_muxer子目录4851行，与S91/S131/S145/S158/S176关联
