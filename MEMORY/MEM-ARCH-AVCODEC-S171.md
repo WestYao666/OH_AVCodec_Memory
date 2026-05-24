@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S171
 subject: CodecCapabilityAdapter 编解码能力查询适配器——AVCodecList工厂注入与水印能力探测
-status: draft
+status: pending_approval
 created_at: 2026-05-21T21:00:00+08:00
 evidence_count: 12
 source_files:

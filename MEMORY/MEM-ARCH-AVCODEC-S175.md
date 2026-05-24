@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S175
 subject: MediaDemuxer PTS自动维护机制——media_demuxer_pts_functions.cpp 219行PTS分段校正与HandleAutoMaintainPts双轨同步
-status: draft
+status: pending_approval
 created_at: 2026-05-21T21:39:00+08:00
 evidence_count: 14
 source_files:
@@ -318,7 +318,7 @@ int64_t MediaDemuxer::GetCurrentSegmentOffset(int32_t trackId, int64_t oldSegmen
 ## status
 
 ```
-status: draft
+status: pending_approval
 pending_approval: MEM-ARCH-AVCODEC-S175
 submitted_at: 2026-05-21T21:39:00+08:00
 ```

@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S177
 title: Demuxer Common 共享解析工具链——MultiStreamParserManager / StreamParser / Converter / TimeRangeManager / ReferenceParserManager 五组件
 scope: [AVCodec, MediaEngine, Demuxer, StreamParser, MultiStreamParserManager, Converter, TimeRangeManager, ReferenceParserManager, HevcParseFormat, VideoStreamType, HEVC, VVC, AVC, HDR, HDR_VIVID, HDR10Plus, AnnexB, EBSP, RBSP, dlopen, Plugin, Seek, ColorSpace]
 topic: Demuxer公共解析工具链五组件（MultiStreamParserManager 293行dlopen插件管理/StreamParser基类96行/Converter 595行色域转换/HevcParseFormat HDR元数据/TimeRangeManager 77行Seek范围/ReferenceParserManager 138行插件加载/ReferenceParser接口41行），与FFmpegDemuxerPlugin(S68/S76)/MPEG4DemuxerPlugin(S79)/MediaDemuxer引擎(S75)深度关联，补充S105/S140/S143的dlopen插件管理细节。
-status: draft
+status: pending_approval
 created_at: "2026-05-22T01:45:00+08:00"
 evidence_count: 15
 source_files: |

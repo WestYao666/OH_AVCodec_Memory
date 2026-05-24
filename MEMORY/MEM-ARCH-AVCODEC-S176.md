@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S176
 name: FFmpeg 音频编码器插件体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件架构
-status: draft
+status: pending_approval
 datasource: /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_encoder/
 evidence_count: 20
 tags:
