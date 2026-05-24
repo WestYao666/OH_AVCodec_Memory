@@ -220,18 +220,18 @@
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S165
   decision: pending_approval
-  timestamp: "2026-05-25T04:20:00+08:00"
+  timestamp: "2026-05-25T07:18:00+08:00"
   builder: builder-agent (subagent)
-  subject: AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动
-  evidence_count: 15
+  subject: AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——CodecBase子类+AudioBaseCodec工厂注入与OS_AuCodecIn/OS_AuCodecOut双TaskThread流水线
+  evidence_count: 18
   source_files: |
     services/engine/codec/audio/audio_codec_adapter.cpp (467行) + audio_codec_adapter.h (77行)
     services/engine/codec/audio/audio_codec_worker.cpp (429行) + audio_codec_worker.h (95行)
-    = 1068行源码，行号级evidence
+    = 1068行源码，18条行号级evidence
   git_branch: master
   commit: 8b80796
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/8b80796
-  note: 本地镜像增强版（本地镜像 /home/west/av_codec_repo），S173孤儿草案恢复，15条行号级evidence
+  note: 本地镜像增强版（/home/west/av_codec_repo），OS_AuCodecIn/OS_AuCodecOut双TaskThread，DEFAULT_BUFFER_COUNT=8，18条行号级evidence
 
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S179

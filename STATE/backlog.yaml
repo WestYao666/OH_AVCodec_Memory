@@ -1224,3 +1224,4 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-25T05:50 | Builder | S179注册：MediaEngine Modules层架构草案已生成，写入 MEM-ARCH-AVCODEC-S179.md（pending_approval） |
+| 2026-05-25T07:18 | Builder | S165草案行号增强：AudioCodecAdapter(467行)+AudioCodecWorker(429行)本地镜像源码18条行号级evidence，status: draft→pending_approval |
