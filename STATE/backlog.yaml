@@ -1204,10 +1204,11 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S178 | AVCodec源代码双目录架构——services/engine/codec与services/media_engine/plugins并行路径 | AVCodec, Directory, Architecture, Build, GN, Engine, Plugin, Filter, CodecBase | 新人入项/代码导航/跨层调用/构建系统理解 | **draft** | 🚧 草案已生成（2026-05-25T03:05），services/engine/codec/(video/audio/)引擎层~5000行+services/media_engine/plugins/demuxer/common/3103行源码，services/engine/codec/video/七类Loader(FCodec/HCodec/Hevc/Av1/VP8/VP9/AvcEncoder)+services/engine/codec/audio/音频引擎(AudioCodecAdapter 467行/AudioCodecWorker 429行)，与S166(MediaEngine模块架构)/S83(CAPI总览)/S137(SA IPC框架)互补 |
+| S178 | AVCodec源代码双目录架构——services/engine/codec与services/media_engine/plugins并行路径 | AVCodec, Directory, Architecture, Build, GN, Engine, Plugin, Filter, CodecBase | 新人入项/代码导航/跨层调用/构建系统理解 | **pending_approval** | 🚧 草案已生成（2026-05-25T03:05）→pending_approval（2026-05-25T03:48 Builder提交审批），services/engine/codec/(video/audio/)引擎层~5000行+services/media_engine/plugins/demuxer/common/3103行源码，services/engine/codec/video/七类Loader(FCodec/HCodec/Hevc/Av1/VP8/VP9/AvcEncoder)+services/engine/codec/audio/音频引擎(AudioCodecAdapter 467行/AudioCodecWorker 429行)，与S166(MediaEngine模块架构)/S83(CAPI总览)/S137(SA IPC框架)互补 |
 
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-25T03:05 | Builder | S178注册：AVCodec源代码双目录架构草案已生成，写入 MEM-ARCH-AVCODEC-S178.md（draft） |
+| 2026-05-25T03:48 | Builder | S178提交审批：pending_approval，GitCode仓库web访问受限（robot检测），增强本地镜像行号evidence，MEM-ARCH-AVCODEC-S178.md |
