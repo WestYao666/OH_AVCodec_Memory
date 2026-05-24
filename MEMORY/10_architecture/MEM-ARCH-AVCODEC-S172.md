@@ -1,371 +1,229 @@
-# MEM-ARCH-AVCODEC-S172 — HttpSourcePlugin 源码深度分析
-
 ---
-mem_id: MEM-ARCH-AVCODEC-S172
-title: HttpSourcePlugin 三路下载器工厂路由——DownloadMonitor装饰器+HlsMediaDownloader/DashMediaDownloader/HttpMediaDownloader三路分发
+type: architecture
+id: MEM-ARCH-AVCODEC-S172
 status: pending_approval
-scope: [AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate]
+topic: HttpSourcePlugin 三路下载器工厂路由——DownloadMonitor装饰器 + Dash/Hls/HttpMediaDownloader 三路分发
+scope: [AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate, Decorator]
 assoc_scenarios: [新需求开发/问题定位/流媒体播放/HLS-DASH自适应码率]
 sources:
   - /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/http_source_plugin.cpp (769行, 本地镜像)
   - /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/http_source_plugin.h (115行, 本地镜像)
   - /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/download_monitor.h (232行, 本地镜像)
-builder: builder-agent (subagent)
-created: 2026-05-21T16:25:00+08:00
+  - /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/download_monitor.cpp (610行, 本地镜像)
+created_by: builder-agent
+created_at: "2026-05-25T07:35:00+08:00"
+updated_at: "2026-05-25T07:35:00+08:00"
+evidence_source: local_mirror /home/west/av_codec_repo
+evidence_count: 15
+source_files: 4
+git_branch: master
+git_url: https://github.com/WestYao666/OH_AVCodec_Memory
+summary: HttpSourcePlugin三路下载器工厂路由，DownloadMonitor装饰器模式，DASH/HLS/HTTP三路分发，SetDownloaderBySource路由核心，loaderCombinations_离线缓存，SelectBitRate/AutoSelectBitRate码率管理
+review_status: pending_approval
 ---
 
+# MEM-ARCH-AVCODEC-S172 — HttpSourcePlugin 三路下载器工厂路由
 
-> **主题**: HttpSourcePlugin 三路下载器工厂路由 + DownloadMonitor 装饰器 + MediaSourceLoaderCombinations 自适应码率
-> **scope**: AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, MediaSourceLoaderCombinations, HLS, DASH, AdaptiveBitrate, SelectBitRate, AutoSelectBitRate
-> **关联场景**: 新需求开发/问题定位/流媒体播放/HLS-DASH 自适应码率
-> **状态**: draft
-> **生成时间**: 2026-05-21T16:25:00+08:00
-> **Builder**: builder-agent (subagent)
-> **关联主题**: S37(HttpSourcePlugin总览)/S86(HLS缓存引擎)/S106(Source模块)/S122(StreamDemuxer)/S87(Source架构)/S38(SourcePlugin体系)
+## Metadata
 
----
-
-## 1. HttpSourcePlugin 核心架构
-
-**文件**: `services/media_engine/plugins/source/http_source/http_source_plugin.h` (115行) + `http_source_plugin.cpp` (769行)
-
-HttpSourcePlugin 继承 SourcePlugin，是 HTTP/HTTPS 流媒体源的顶层插件入口，提供 40+ 个接口方法（Init/Start/Stop/Seek/SelectBitRate 等），通过 DownloadMonitor 装饰器组合三种下载器。
-
-**核心接口方法**:
-```cpp
-// http_source_plugin.h L31-75 (主要接口方法)
-class HttpSourcePlugin : public SourcePlugin {
-    Status Init() override;                                   // L32
-    Status Deinit() override;                                 // L33
-    Status Prepare() override;                               // L34
-    Status Reset() override;                                 // L35
-    Status Start() override;                                 // L36
-    Status Stop() override;                                  // L37
-    Status SetSource(std::shared_ptr<MediaSource> source) override;  // L44
-    Status Read(std::shared_ptr<Buffer>& buffer, ...) override;      // L46-47
-    Status SelectBitRate(uint32_t bitRate) override;         // L56
-    Status AutoSelectBitRate(uint32_t bitRate) override;     // L57
-    bool IsDash() override;                                  // L720+
-    bool IsHls() override;                                   // L759+
-    bool IsHlsFmp4() override;                               // L729+
-    bool GetHLSDiscontinuity() override;                    // L599+
-    Status GetBitRates(std::vector<uint32_t>& bitRates) override;  // L55
-    void SetDemuxerState(int32_t streamId) override;         // L63
-    void SetDownloadErrorState() override;                   // L64
-    void SetInterruptState(bool isInterruptNeeded) override;  // L65
-    Status GetPlaybackInfo(PlaybackInfo& playbackInfo) override;  // L68
-    std::vector<SeekRange> GetSeekableRanges() const override;   // L69
-};
-```
-
-**关键成员变量** (http_source_plugin.cpp):
-- `std::shared_ptr<DownloadMonitor> downloader_` — 三路下载器统一包装
-- `std::shared_ptr<MediaSourceLoaderCombinations> loaderCombinations_` — 离线缓存与多源管理
-- `std::string mimeType_` — MIME 类型路由判断依据
-- `std::string uri_` — 当前资源 URI
-- `std::map<std::string, std::string> httpHeader_` — HTTP 请求头
+| Field | Value |
+|-------|-------|
+| mem_id | MEM-ARCH-AVCODEC-S172 |
+| topic | HttpSourcePlugin 三路下载器工厂路由——DownloadMonitor装饰器 + Dash/Hls/HttpMediaDownloader 三路分发 |
+| status | pending_approval |
+| created | 2026-05-25T07:35:00+08:00 |
+| builder | builder-agent |
+| source | 本地镜像 /home/west/av_codec_repo |
+| evidence | 15条行号级证据 |
 
 ---
 
-## 2. 三路下载器工厂路由机制
+## 一、架构概述
 
-**文件**: `http_source_plugin.cpp` L266-355
+`HttpSourcePlugin` 是媒体源插件的 **HTTP/HTTPS 协议入口**，位于 `services/media_engine/plugins/source/http_source/`。
 
-SetDownloaderBySource() 是三路下载器的路由决策中心，mimeType + URI 联合判断：
-
-### 2.1 DASH 路径 (IsDash() → .mpd)
-
-```cpp
-// L287-294
-if (IsDash()) {
-    downloader_ = std::make_shared<DownloadMonitor>(
-        std::make_shared<DashMediaDownloader>(loaderCombinations_));
-    downloader_->Init();
-    downloader_->SetSourceStatisticsDfx(reportInfo_);
-    delayReady_ = false;
-}
-```
-
-**判断条件**: `mimeType == AVMimeTypes::APPLICATION_DASH` 或 URI 含 `.mpd` 或 `type=mpd`
-**下载器类型**: DashMediaDownloader — MPD 清单解析 + 分片下载
-
-### 2.2 HLS 路径 (IsSeekToTimeSupported() && 非 APPLICATION_M3U8)
-
-```cpp
-// L294-309
-else if (IsSeekToTimeSupported() && mimeType_ != AVMimeTypes::APPLICATION_M3U8) {
-    bool userDefinedDuration = false;
-    uint32_t expectDuration = DEFAULT_EXPECT_DURATION;
-    UserDefinedDuration(playStrategy, userDefinedDuration, expectDuration);  // 用户定义缓冲时长
-    downloader_ = std::make_shared<DownloadMonitor>(
-        std::make_shared<HlsMediaDownloader>(expectDuration, userDefinedDuration, httpHeader_, loaderCombinations_));
-    downloader_->Init();
-}
-```
-
-**判断条件**: IsSeekToTimeSupported()（检查 URI 是否含 `.m3u8` 或 `.mpd` 后缀）且 mimeType 非 APPLICATION_M3U8
-**下载器类型**: HlsMediaDownloader — M3U8 解析 + 视频/音频/字幕三轨分片管理
-
-### 2.3 HLS M3U8 直接指定 (mimeType == APPLICATION_M3U8)
-
-```cpp
-// L310-314
-if (mimeType_== AVMimeTypes::APPLICATION_M3U8) {
-    downloader_ = std::make_shared<DownloadMonitor>(std::make_shared<HlsMediaDownloader>(mimeType_));
-    downloader_->Init();
-}
-```
-
-### 2.4 普通 HTTP 路径
-
-```cpp
-// L336-342
-else {
-    InitHttpSource(source);  // → HttpMediaDownloader
-}
-
-void HttpSourcePlugin::InitHttpSource(const std::shared_ptr<MediaSource>& source)
-{
-    // L322-339: 从 MediaStreamList 取最小码率 URL，构造 HttpMediaDownloader
-    downloader_ = std::make_shared<DownloadMonitor>(
-        std::make_shared<HttpMediaDownloader>(uri_, expectDuration, loaderCombinations_));
-    downloader_->Init();
-}
-```
-
-### 2.5 路由条件汇总
-
-| 条件 | 下载器 | 缓存策略 |
-|------|--------|---------|
-| IsDash() = true | DashMediaDownloader | delayReady_=false |
-| IsSeekToTimeSupported() && mimeType!=APPLICATION_M3U8 | HlsMediaDownloader | delayReady_=false |
-| mimeType == APPLICATION_M3U8 | HlsMediaDownloader | 用户定义缓冲 |
-| uri 以 http 开头且不满足上述 | HttpMediaDownloader | InitHttpSource() |
+核心设计模式为 **装饰器模式 + 工厂路由**：
+- `HttpSourcePlugin::SetDownloaderBySource` 是路由核心，根据媒体类型分发到三种下载器
+- `DownloadMonitor` 作为装饰器（Decorator）包装所有下载器，添加离线缓存、限速、统计等横切能力
+- 三路下载器：`DashMediaDownloader`（DASH）、`HlsMediaDownloader`（HLS）、`HttpMediaDownloader`（普通HTTP）
 
 ---
 
-## 3. DownloadMonitor 装饰器
+## 二、核心组件
 
-**文件**: `download_monitor.h` (232行, 位于 `plugins/source/http_source/monitor/`)
+### 2.1 HttpSourcePlugin 入口
 
-DownloadMonitor 是所有下载器的统一装饰器，注入统计、缓冲管理、错误处理能力：
+**源码**：`http_source_plugin.cpp(769行) + http_source_plugin.h(115行)`
 
+**Evidence [E1]** `http_source_plugin.h:28`：`HttpSourcePlugin` 类继承 `SourcePlugin`
 ```cpp
-// 推断自 download_monitor.h + 调用模式
-class DownloadMonitor : public std::enable_shared_from_this<DownloadMonitor> {
-    DownloadMonitor(std::shared_ptr<MediaDownloader> actual);  // 装饰模式
-    bool SelectBitRate(uint32_t bitRate);  // L526-530: 透传给实际下载器
-    bool AutoSelectBitRate(uint32_t bitRate);  // L536-539
-    bool GetHLSDiscontinuity();  // L599-602
-    void Init();  // 下载器初始化
-    void SetPlayStrategy(std::shared_ptr<PlayStrategy> strategy);  // L298
-    void SetInterruptState(bool isInterruptNeeded);  // L314
-    void SetAppUid(uid_t uid);  // L318
-    void SetSourceStatisticsDfx(std::shared_ptr<ReportInfo> reportInfo);  // L292
-};
+class __attribute__((visibility("default"))) HttpSourcePlugin : public SourcePlugin {
 ```
 
-**关键设计**: DownloadMonitor 不改变下载行为，只在调用链上注入 DFX 上报、缓冲策略、错误状态管理，实现下载逻辑与监控逻辑的分离。
+**Evidence [E2]** `http_source_plugin.cpp:229`：`ParseAndSetSource` 调用 `SetDownloaderBySource` 路由
+```cpp
+    SetDownloaderBySource(source);
+```
+
+**Evidence [E3]** `http_source_plugin.cpp:270`：`SetDownloaderBySource` 路由核心函数
+```cpp
+void HttpSourcePlugin::SetDownloaderBySource(std::shared_ptr<MediaSource> source)
+```
+
+### 2.2 DownloadMonitor 装饰器
+
+**源码**：`download_monitor.h(232行) + download_monitor.cpp(610行)`
+
+**Evidence [E4]** `download_monitor.h:43`：DownloadMonitor 双重继承装饰器
+```cpp
+class DownloadMonitor : public MediaDownloader, public std::enable_shared_from_this<DownloadMonitor> {
+```
+
+**Evidence [E5]** `download_monitor.h:45`：装饰器构造函数
+```cpp
+    explicit DownloadMonitor(std::shared_ptr<MediaDownloader> downloader) noexcept;
+```
+
+### 2.3 三路下载器
+
+| 下载器 | 类型 | 路由条件 | 代码行 |
+|--------|------|----------|--------|
+| `DashMediaDownloader` | DASH MPD | `IsDash()` | cpp:287 |
+| `HlsMediaDownloader` | HLS m3u8 | `IsHlsFmp4()` / `IsHls()` | cpp:297 / 310 |
+| `HttpMediaDownloader` | 普通HTTP | fallback | cpp:319 |
 
 ---
 
-## 4. MediaSourceLoaderCombinations 离线缓存管理
+## 三、路由决策链
 
-**文件**: `http_source_plugin.cpp` L276-283
+### 3.1 SetDownloaderBySource 完整路由链
 
+**Evidence [E6]** `http_source_plugin.cpp:287-290`：DASH 优先路由
 ```cpp
-if (source->GetSourceLoader() != nullptr) {
-    loaderCombinations_ = std::make_shared<MediaSourceLoaderCombinations>(source->GetSourceLoader());
-    loaderCombinations_->EnableOfflineCache(source->GetenableOfflineCache());
-    if (httpHeader_.find("Cookie") != httpHeader_.end() && loaderCombinations_->GetenableOfflineCache()) {
-        loaderCombinations_->Close(-1);  // Cookie 场景不缓存
-    } else {
-        std::shared_ptr<StorageUsageUtil> storageUsage = std::make_shared<StorageUsageUtil>();
-        if (loaderCombinations_->GetenableOfflineCache() && !storageUsage->HasEnoughStorage()) {
-            loaderCombinations_->Close(-1);  // 存储空间不足不缓存
-        }
+    if (IsDash()) {
+        downloader_ = std::make_shared<DownloadMonitor>(
+                      std::make_shared<DashMediaDownloader>(loaderCombinations_));
+```
+
+**Evidence [E7]** `http_source_plugin.cpp:297-300`：HLS fMP4 路由
+```cpp
+    } else if (IsSeekToTimeSupported() && mimeType_ != AVMimeTypes::APPLICATION_M3U8) {
+        // ...
+        downloader_ = std::make_shared<DownloadMonitor>(std::make_shared<HlsMediaDownloader>
+                      (expectDuration, userDefinedDuration, httpHeader_, loaderCombinations_));
+```
+
+**Evidence [E8]** `http_source_plugin.cpp:310-313`：普通 HLS 路由
+```cpp
+    } else if (IsHls()) {
+        downloader_ = std::make_shared<DownloadMonitor>(
+            std::make_shared<HlsMediaDownloader>(mimeType_));
+```
+
+**Evidence [E9]** `http_source_plugin.cpp:319-322`：普通 HTTP fallback
+```cpp
+    } else if (uri_.compare(0, 4, "http") == 0) {
+        InitHttpSource(source);
     }
-}
 ```
 
-**职责**:
-- `EnableOfflineCache(bool)` — 启用/禁用离线缓存
-- `Close(-1)` — 禁用缓存时的清理操作
-- 存储空间检测（StorageUsageUtil）
-- Cookie 场景下禁用缓存（隐私保护）
+### 3.2 IsDash / IsHls / IsHlsFmp4 判断函数
+
+**Evidence [E10]** `http_source_plugin.cpp:720`：`IsDash()` 实现
+```cpp
+bool HttpSourcePlugin::IsDash()
+```
+
+**Evidence [E11]** `http_source_plugin.cpp:729`：`IsHlsFmp4()` 实现
+```cpp
+bool HttpSourcePlugin::IsHlsFmp4()
+```
+
+**Evidence [E12]** `http_source_plugin.cpp:759`：`IsHls()` 实现
+```cpp
+bool HttpSourcePlugin::IsHls()
+```
 
 ---
 
-## 5. 自适应码率机制
+## 四、DownloadMonitor 装饰器能力
 
-**文件**: `http_source_plugin.cpp` L526-544
+### 4.1 ReadAt 缓存优先逻辑
 
-### 5.1 SelectBitRate 手动选码率
-
+**Evidence [E13]** `http_source_plugin.cpp:276`：离线缓存管理器初始化
 ```cpp
-// L526-535
+        loaderCombinations_ = std::make_shared<MediaSourceLoaderCombinations>(source->GetSourceLoader());
+        loaderCombinations_->EnableOfflineCache(source->GetenableOfflineCache());
+```
+
+### 4.2 SelectBitRate / AutoSelectBitRate 码率管理
+
+**Evidence [E14]** `http_source_plugin.cpp:526-530`：人工指定码率
+```cpp
 Status HttpSourcePlugin::SelectBitRate(uint32_t bitRate)
 {
-    MEDIA_LOG_I("SelectBitRate: " PUBLIC_LOG_U32, bitRate);
-    if (downloader_ == nullptr) {
-        return Status::ERROR_NULL_POINTER;
-    }
-    downloader_->SetIsTriggerAutoMode(false);
+    FALSE_RETURN_V(PrepareParam(bitRate), Status::ERROR_INVALID_PARAMETER);
     if (downloader_->SelectBitRate(bitRate)) {
-        return Status::OK;
-    }
-    return Status::ERROR_UNKNOWN;
-}
 ```
 
-### 5.2 AutoSelectBitRate 自动选码率
-
+**Evidence [E15]** `http_source_plugin.cpp:536-539`：自适应码率
 ```cpp
-// L536-544
 Status HttpSourcePlugin::AutoSelectBitRate(uint32_t bitRate)
 {
-    MEDIA_LOG_I("AutoSelectBitRate: " PUBLIC_LOG_U32, bitRate);
     if (downloader_->AutoSelectBitRate(bitRate)) {
-        return Status::OK;
-    }
-    return Status::ERROR_UNKNOWN;
-}
-```
-
-**差异**: `SelectBitRate` 由调用方指定固定码率；`AutoSelectBitRate` 由下载器根据网络状况自动调节。两者均通过 DownloadMonitor 透传给具体下载器（DASH/HLS/HTTP 三种下载器各自实现码率切换逻辑）。
-
-### 5.3 GetBitRates 获取可用码率列表
-
-```cpp
-// http_source_plugin.h L55
-Status GetBitRates(std::vector<uint32_t>& bitRates) override;
-```
-
-播放器通过此接口查询当前流媒体支持的所有码率档位，用于 UI 展示和用户切换。
-
----
-
-## 6. URI 探测与 MIME 类型判断
-
-**文件**: `http_source_plugin.cpp` L37-42, L714-770
-
-```cpp
-// L37-42 常量定义
-const std::string LOWER_M3U8 = "m3u8";
-const std::string DASH_SUFFIX = ".mpd";
-const std::string EQUAL_M3U8 = "=" + LOWER_M3U8;
-const std::string DASH_LIST[] = {
-    std::string(".mpd"),
-    std::string("type=mpd"),
-};
-
-// L720-730 IsDash()
-bool HttpSourcePlugin::IsDash()
-{
-    auto it = std::find_if(std::begin(DASH_LIST), std::end(DASH_LIST),
-        [this](const std::string& key) {
-            return this->uri_.find(key) != std::string::npos;
-    });
-    return it != std::end(DASH_LIST);
-}
-
-// L729-732 IsHlsFmp4()
-bool HttpSourcePlugin::IsHlsFmp4()
-{
-    FALSE_RETURN_V_MSG_E(downloader_ != nullptr, false, "downloader_ is nullptr");
-    return downloader_->IsHlsFmp4();
-}
-
-// L759-766 IsHls()
-bool HttpSourcePlugin::IsHls()
-{
-    if (mimeType_ != AVMimeTypes::APPLICATION_M3U8) {
-        return CheckIsM3U8Uri();  // 自定义 URI 后缀判断
-    }
-    MEDIA_LOG_I("IsHls return true");
-    return true;
-}
 ```
 
 ---
 
-## 7. Read 读取路径
+## 五、架构小结
 
-**文件**: `http_source_plugin.cpp` L370-395
-
-```cpp
-// L370-395 Read 入口
-Status HttpSourcePlugin::Read(std::shared_ptr<Buffer>& buffer, uint64_t offset, size_t expectedLen)
-{
-    // ... buffer 分配逻辑 ...
-    ReadDataInfo readDataInfo;
-    readDataInfo.streamId_ = streamId;
-    readDataInfo.nextStreamId_ = streamId;
-    readDataInfo.wantReadLength_ = expectedLen;
-    readDataInfo.ffmpegOffset = offset;
-    auto result = downloader_->Read(writableAddr, readDataInfo);  // 透传给下载器
-}
 ```
-
-Read 是阻塞式接口，通过 `downloader_->Read()` 从各下载器的缓冲队列中读取数据。DownloadMonitor 内部管理缓冲队列和流控逻辑。
+HttpSourcePlugin (SourcePlugin 实现)
+    │
+    ├── SetDownloaderBySource() 路由决策
+    │       │
+    │       ├── IsDash() → DashMediaDownloader + DownloadMonitor 装饰
+    │       ├── IsHlsFmp4() / IsHls() → HlsMediaDownloader + DownloadMonitor 装饰
+    │       └── fallback → HttpMediaDownloader + DownloadMonitor 装饰
+    │
+    └── DownloadMonitor (Decorator)
+            ├── 离线缓存 (loaderCombinations_)
+            ├── SelectBitRate / AutoSelectBitRate 码率管理
+            ├── 限速
+            └── 统计上报 (SetSourceStatisticsDfx)
+```
 
 ---
 
-## 8. 与其他 S 系列主题关联
+## 六、关联记忆
 
-| 关联主题 | 关系 |
+| 关联记忆 | 关系 |
 |---------|------|
-| S37 (HttpSourcePlugin 总览) | 上游：S172 是 S37 的源码深度版，补充三路工厂路由细节 |
-| S86 (HLS 缓存引擎) | 同级：S86 聚焦 RingBuffer/SegmentManager，S172 聚焦 HttpSourcePlugin 整体路由 |
-| S106 (Source 模块) | 上游：S106 总览 Source 模块，S172 深耕 HttpSourcePlugin |
-| S122 (StreamDemuxer 分片缓存) | 下游：HttpSourcePlugin 产出数据喂给 StreamDemuxer |
-| S87 (Source 架构) | 上游：Source 持有 HttpSourcePlugin，PluginManagerV2 工厂创建 |
-| S38 (SourcePlugin 体系) | 基础：HttpSourcePlugin 继承 SourcePlugin 基接口 |
-| S69/S75 (MediaDemuxer) | 下游：HttpSourcePlugin → StreamDemuxer → MediaDemuxer 数据流 |
+| MEM-ARCH-AVCODEC-S86 | HLS 流媒体缓存引擎（HlsSegmentManager） |
+| MEM-ARCH-AVCODEC-S106 | MediaEngine Source 模块流媒体基础设施 |
+| MEM-ARCH-AVCODEC-S122 | MediaEngine Streaming 基础设施 |
+| MEM-ARCH-AVCODEC-S87 | MediaSource 核心架构 |
+| MEM-ARCH-AVCODEC-S37 | HttpSourcePlugin 统一入口（HLS/DASH 自适应流处理） |
+| MEM-ARCH-AVCODEC-S38 | SourcePlugin 源插件体系 |
 
 ---
 
-## 9. 关键 Evidence 汇总
+## Evidence Summary
 
-| # | 文件 | 行号 | 内容 |
-|---|------|------|------|
-| 1 | http_source_plugin.h | 31-75 | HttpSourcePlugin 40+ 接口方法完整列表 |
-| 2 | http_source_plugin.cpp | 37-42 | DASH/HLS 常量定义（LOWER_M3U8/DASH_SUFFIX/DASH_LIST） |
-| 3 | http_source_plugin.cpp | 244-251 | PlayStrategyInit + mimeType_ 提取 |
-| 4 | http_source_plugin.cpp | 266-351 | SetDownloaderBySource() 三路路由核心逻辑 |
-| 5 | http_source_plugin.cpp | 276-283 | MediaSourceLoaderCombinations 离线缓存管理（Cookie/存储空间检测） |
-| 6 | http_source_plugin.cpp | 287-294 | DASH 路径：DashMediaDownloader 构造 |
-| 7 | http_source_plugin.cpp | 294-309 | HLS 路径：HlsMediaDownloader 构造（含 UserDefinedDuration） |
-| 8 | http_source_plugin.cpp | 310-314 | HLS M3U8 直接指定路径 |
-| 9 | http_source_plugin.cpp | 322-342 | InitHttpSource() → HttpMediaDownloader 普通 HTTP 下载 |
-| 10 | http_source_plugin.cpp | 350-355 | DownloadMonitor 统一包装 + SetPlayStrategy + SetInterruptState |
-| 11 | http_source_plugin.cpp | 370-395 | Read() 入口，downloader_->Read() 透传 |
-| 12 | http_source_plugin.cpp | 526-544 | SelectBitRate/AutoSelectBitRate 自适应码率双接口 |
-| 13 | http_source_plugin.cpp | 599-604 | GetHLSDiscontinuity() 透传 |
-| 14 | http_source_plugin.cpp | 659-673 | 非 .m3u8 后缀的 HLS URI 处理（autotype=m3u8/doplaylist） |
-| 15 | http_source_plugin.cpp | 714-730 | IsDash() / IsFlvLive() 实现 |
-| 16 | http_source_plugin.cpp | 759-766 | IsHls() / IsHlsEnd() 实现 |
-
----
-
-## 10. 架构小结
-
-```
-MediaSource
-  └── HttpSourcePlugin (L31-75 接口, L244 mimeType_ 提取)
-        └── DownloadMonitor (装饰器: 统计/缓冲/错误处理)
-              ├── DashMediaDownloader (mimeType==DASH || URI含.mpd)
-              ├── HlsMediaDownloader (IsSeekToTimeSupported() || mimeType==M3U8)
-              └── HttpMediaDownloader (普通HTTP)
-        └── MediaSourceLoaderCombinations (离线缓存: Cookie/存储空间/离线开关)
-              └── MediaSourceLoader (底层存储)
-```
-
-**关键设计模式**:
-- **装饰器模式**: DownloadMonitor 包装所有下载器，注入 DFX 和流控
-- **工厂路由**: SetDownloaderBySource() 根据 mimeType + URI 动态选择下载器
-- **策略模式**: MediaSourceLoaderCombinations 根据 Cookie/存储空间启用/禁用缓存
-
----
-
-> 本草案基于本地镜像 `services/media_engine/plugins/source/http_source/` 探索（769行主文件），GitCode 验证。16条行号级 evidence。提交待耀耀审批。
+| # | Evidence | Source | Line |
+|---|----------|--------|-------|
+| E1 | HttpSourcePlugin 类继承 SourcePlugin | http_source_plugin.h | 28 |
+| E2 | ParseAndSetSource 调用 SetDownloaderBySource | http_source_plugin.cpp | 229 |
+| E3 | SetDownloaderBySource 路由核心函数 | http_source_plugin.cpp | 270 |
+| E4 | DownloadMonitor 双重继承装饰器 | download_monitor.h | 43 |
+| E5 | DownloadMonitor 装饰器构造函数 | download_monitor.h | 45 |
+| E6 | IsDash() → DASH 下载器路由 | http_source_plugin.cpp | 287 |
+| E7 | IsHlsFmp4() / IsSeekToTimeSupported → HLS 下载器路由 | http_source_plugin.cpp | 297 |
+| E8 | IsHls() → 普通 HLS 下载器路由 | http_source_plugin.cpp | 310 |
+| E9 | http URI → HttpMediaDownloader fallback | http_source_plugin.cpp | 319 |
+| E10 | IsDash() 判断函数 | http_source_plugin.cpp | 720 |
+| E11 | IsHlsFmp4() 判断函数 | http_source_plugin.cpp | 729 |
+| E12 | IsHls() 判断函数 | http_source_plugin.cpp | 759 |
+| E13 | loaderCombinations_ 离线缓存管理器初始化 | http_source_plugin.cpp | 276 |
+| E14 | SelectBitRate 人工码率指定 | http_source_plugin.cpp | 526 |
+| E15 | AutoSelectBitRate 自适应码率 | http_source_plugin.cpp | 536 |
