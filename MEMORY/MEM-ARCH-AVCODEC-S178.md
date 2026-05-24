@@ -8,10 +8,10 @@
 | 主题 | AVCodec 源代码双目录架构——services/engine/codec 与 services/media_engine/plugins 并行路径 |
 | scope | AVCodec, Directory, Architecture, Build, GN |
 | 关联场景 | 新人入项/代码导航/跨层调用/构建系统理解 |
-| 状态 | **draft** |
+| 状态 | **pending_approval** |
 | Builder | builder-agent (subagent) |
 | 生成时间 | 2026-05-25T03:05:00+08:00 |
-| 关联 | S166(MediaEngine模块架构)/S83(CAPI总览)/S137(SA IPC框架) |
+| git_branch | master |
 
 ---
 
@@ -27,11 +27,24 @@ services/
 ├── media_engine/          ← 媒体引擎层：Filter/Plugin封装
 │   ├── plugins/           ← 插件层：Demuxer/Muxer/Source/Sink/Encoder/Decoder适配器
 │   │   ├── demuxer/       ← 解封装插件（FFmpegDemuxer/MPEG4Demuxer/common）
+│   │   │   ├── ffmpeg_demuxer/  ← FFmpeg解封装插件（ffmpeg_demuxer_plugin.cpp 4129行）
+│   │   │   ├── mpeg4_demuxer/   ← 原生MP4解封装插件（mpeg4_demuxer_plugin.cpp 1625行）
+│   │   │   └── common/       ← 共享解析工具链（3103行源码）
 │   │   ├── muxer/         ← 封装插件（FFmpegMuxer/MPEG4Muxer）
-│   │   ├── source/        ← 源插件（HttpSource/FileSource）
-│   │   ├── sink/          ← 输出插件（AudioServerSink）
-│   │   ├── ffmpeg_adapter/← FFmpeg编解码适配器（audio_encoder/audio_decoder/common）
-│   │   └── video_enc_dec/ ← 视频编解码适配器（Surface/Video DecoderAdapter）
+│   │   │   ├── ffmpeg_muxer_plugin.cpp (1414行)
+│   │   │   └── mpeg4_muxer/     ← MPEG4封装插件（video_track 753行/audio_track 263行）
+│   │   ├── source/        ← 源插件（HttpSource/FileSource/DataStream/FileFd）
+│   │   │   ├── http_source_plugin.cpp (769行)
+│   │   │   ├── file_source_plugin.cpp
+│   │   │   ├── data_stream_source_plugin.cpp
+│   │   │   └── file_fd_source_plugin.cpp
+│   │   ├── sink/          ← 输出插件
+│   │   │   └── audio_server_sink_plugin.cpp (1495行)
+│   │   ├── ffmpeg_adapter/← FFmpeg编解码适配器
+│   │   │   ├── audio_encoder/ ← 音频编码器插件（AAC/FLAC/MP3/G711mu/LBVC）
+│   │   │   ├── audio_decoder/ ← 音频解码器插件（17+格式）
+│   │   │   └── common/     ← 通用工具（ffmpeg_utils/ffmpeg_convert）
+│   │   └── BUILD.gn       ← 插件层编译入口
 │   ├── filters/           ← Filter层：20+ Filter类型
 │   └── modules/            ← 模块层：Sink/Source/Muxer/Demuxer/PTS
 ```
@@ -130,35 +143,29 @@ decoder/  encoder/
 
 ## 3. services/media_engine/plugins 插件适配层
 
-### 3.1 插件目录结构
+### 3.1 plugins/ 插件目录结构（实测修正版）
 
 ```
 services/media_engine/plugins/
 ├── demuxer/              ← 解封装插件
 │   ├── common/           ← 共享解析工具链（3103行源码）
-│   │   ├── multi_stream_parser_manager.cpp/h  (293+100行)
-│   │   ├── converter.cpp/h                    (595+75行)
-│   │   ├── time_range_manager.cpp/h           (77+74行)
-│   │   ├── reference_parser_manager.cpp/h     (138+77行)
-│   │   ├── demuxer_data_reader.cpp/h          (162+63行)
-│   │   ├── avc_parser_impl.cpp/h              (180+83行)
-│   │   ├── rbsp_context.cpp/h                 (82+71行)
-│   │   ├── block_queue.h                      (191行模板化有界阻塞队列)
-│   │   ├── block_queue_pool.h                 (552行模板化内存池)
-│   │   └── demuxer_log_compressor.cpp/h       (219+31行)
-│   ├── ffmpeg_demuxer/  ← FFmpeg解封装插件
-│   └── mpeg4_demuxer/   ← 原生MP4解封装插件
+│   ├── ffmpeg_demuxer/  ← FFmpeg解封装插件（13文件，ffmpeg_demuxer_plugin.cpp 4129行）
+│   └── mpeg4_demuxer/   ← 原生MP4解封装插件（10文件，mpeg4_demuxer_plugin.cpp 1625行）
 ├── muxer/                ← 封装插件
-│   └── ffmpeg_muxer_plugin.cpp (1414行)
+│   ├── ffmpeg_muxer_plugin.cpp (1414行)
+│   └── mpeg4_muxer/     ← MPEG4封装（video_track 753行/audio_track 263行/basic_box 1256行）
 ├── source/               ← 源插件
-│   └── http_source_plugin.cpp (769行)
+│   ├── http_source/     ← HTTP源插件（769行，HLS/DASH/Download/Monitor完整）
+│   ├── file_source_plugin.cpp
+│   ├── data_stream_source_plugin.cpp
+│   └── file_fd_source_plugin.cpp
 ├── sink/                 ← 输出插件
 │   └── audio_server_sink_plugin.cpp (1495行)
 ├── ffmpeg_adapter/       ← FFmpeg编解码适配器
 │   ├── audio_encoder/    ← 音频编码器插件（AAC/FLAC/MP3/G711mu/LBVC）
 │   ├── audio_decoder/    ← 音频解码器插件（17+格式）
 │   └── common/          ← 通用工具（ffmpeg_utils/ffmpeg_convert）
-└── video_enc_dec/        ← 视频编解码适配器
+└── BUILD.gn             ← 插件层编译入口
 ```
 
 #### Evidence (plugins/demuxer/common 详细文件清单)
@@ -283,11 +290,3 @@ MediaCodec (interfaces/kits/c/)
 | MEM-ARCH-AVCODEC-S70 | VideoCodec工厂与Loader插件体系 | 覆盖 services/engine/codec/video/ 七类Loader |
 | MEM-ARCH-AVCODEC-S173 | AudioCodecAdapter + AudioCodecWorker | 覆盖 services/engine/codec/audio/ 音频引擎 |
 | MEM-ARCH-AVCODEC-S125 | FFmpeg软件解码器基类 | 覆盖 services/engine/codec/video/fcodec/ FFmpeg软解 |
-
----
-
-## 8. 待验证事项
-
-- [ ] services/media_engine/plugins/video_enc_dec/ 目录完整性验证
-- [ ] BUILD.gn 依赖关系详细梳理
-- [ ] 双目录是否存在代码重复或功能重叠
