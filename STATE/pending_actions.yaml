@@ -372,3 +372,14 @@
   commit: ""
   git_url: ""
   note: 新主题探索，基于本地镜像 services/engine/codec/video/avcencoder/ 行号级evidence，AvcEncoder双库加载架构(libavc_encoder.z.so外壳+libavcenc_ohos.z.so内核)，三函数指针(InitEncoder/EncodeProcess/ReleaseEncoder)，TaskThread驱动SendFrame，BT601/BT709色彩空间矩阵+ARM NEON，AVCLevel→H264Level完整映射表，与S59/S70/S54/S57/S50关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S183
+  decision: pending_approval
+  timestamp: "2026-05-25T10:49:00+08:00"
+  builder: builder-agent (subagent)
+  subject: AVC H.264软件编码器体系——AvcEncoder + AvcEncoderLoader + AvcEncoderConvert + AvcEncoderUtil四组件2747行
+  evidence_count: 20
+  source_files: avc_encoder.cpp(1765行)+avc_encoder.h(270行)+avc_encoder_convert.cpp(369行)+avc_encoder_util.cpp(235行)+avc_encoder_api.cpp(36行)+avc_encoder_loader.cpp(72行)=2747行
+  git_branch: master
+  note: 软件编码器AvcEncoder（libavc_encoder.z.so外壳+libavcenc_ohos.z.so内核），FBuffer四态所有权，BT601/BT709色彩空间矩阵，TaskThread SendFrame驱动，与S59硬件编码器互补
