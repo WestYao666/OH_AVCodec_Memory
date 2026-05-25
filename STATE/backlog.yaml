@@ -1357,3 +1357,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S193 | FFmpeg Adapter Audio Encoder Plugin 体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件架构 | AVCodec, FFmpeg, AudioEncoder, Plugin, SoftwareCodec, LBVC, HDI, OMX, AAC, FLAC, MP3, G711mu, ADTS, AVAudioFifo, SwrContext, LAME, HdiCodec, ICodecComponentManager | 新需求开发/音频编码接入/HDI硬件加速 | **pending_approval** | 🚧 草案已生成（2026-05-26T02:18 builder-agent处理）→pending_approval（2026-05-26T02:18 Builder提交审批），MEM-ARCH-AVCODEC-S193.md（18条行号级evidence），三层架构(FFmpegEncoderPlugin注册层+FFmpegBaseEncoder基类+五子插件)，AAC(ADTS 7字节头+av_audio_fifo)/FLAC(组合basePlugin)/MP3(LAME库)/G711mu(零依赖表)/LBVC(HDI OMX)，HdiCodec封装CreateComponent/EmptyThisBuffer/FillThisBuffer，与S125(FFmpegDecoder)/S130(FFmpegAdapterCommon)/S50(AudioResample)/S191(OHOS-Native双路径)关联 |
+
+## 新增主题（Builder 2026-05-26 S195注册——HttpSourcePlugin Downloader网络下载架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S195 | HttpSourcePlugin Downloader 网络下载架构——DownloadRequest + Downloader + HttpCurlClient 三层架构与分片续传 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, Downloader, DownloadRequest, HttpCurlClient, ChunkedTransfer, RangeRequest, Retry, Seekable, HTTP, HTTPS | 流媒体播放/网络下载/分片续传/直播流/码率自适应 | **pending_approval** | 🚧 草案已生成（2026-05-26T02:50 builder-agent处理），MEM-ARCH-AVCODEC-S195.md（18条行号级evidence），Downloader三层架构(Downloader 1351行+DownloadRequest+HttpCurlClient 453行)，PER_REQUEST_SIZE=2MB+RETRY_TIMES=6000+LIVE_CONTENT_LENGTH=2147483646直播流标识，HttpDownloadLoop核心循环(622行)+GetFileContentLength轮询+GetBitRate实时码率+IsChunked分块传输判断，Range分片续传+Seek跳转+HandleRedirect 302，与S106/S122/S182/S192/S187/S138关联 |

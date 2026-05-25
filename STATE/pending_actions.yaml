@@ -886,3 +886,31 @@
     againIndex_分片输出处理EAGAIN
     swr_resample三层(SwrContext初始化/ConvertCommon/NeedResample)
     与S125/S35/AudioDecoderFilter(上游Filter)/S130(FFmpegAdapterCommon)/S50(AudioResample)关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S195
+  title: "HttpSourcePlugin Downloader 网络下载架构——DownloadRequest + Downloader + HttpCurlClient 三层架构与分片续传"
+  scope: AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, Downloader, DownloadRequest, HttpCurlClient, ChunkedTransfer, RangeRequest, Retry, Seekable, HTTP, HTTPS
+  timestamp: "2026-05-26T02:50:00+08:00"
+  builder: builder-agent
+  evidence_count: 18
+  source_files: |
+    services/media_engine/plugins/source/http_source/download/
+      downloader.cpp (1351行) — Downloader调度器+HttpDownloadLoop核心循环
+      downloader.h (301行) — DownloadRequest请求封装+HeaderInfo+RequestProtocolType
+      network_client/http_curl_client.cpp (453行) — HttpCurlClient libcurl封装
+      network_client/http_curl_client.h (93行) — HTTP/HTTPS操作
+      app_client.cpp (261行) + .h (93行) — 应用客户端
+      media_source_loading_request.cpp (193行) + .h (86行) — 加载请求配置
+      download_metrics_info.h (86行) — 下载指标
+    = 2917+ 行源码
+  git_branch: master
+  commit: pending (local draft)
+  notes: |
+    18条行号级evidence（E1-E18）
+    三层架构(DownloadRequest请求层+Downloader调度层+HttpCurlClient网络层)
+    PER_REQUEST_SIZE=2MB+RETRY_TIMES=6000+LIVE_CONTENT_LENGTH=2147483646直播流标识
+    HttpDownloadLoop核心循环(622行)+GetFileContentLength轮询(115行)+GetBitRate实时码率(222行)
+    IsChunked分块传输判断(133行)+isChunked&&!LIVE时UNSEEKABLE
+    Range分片续传(startPos+=PER_REQUEST_SIZE)+Seek跳转(486行)+HandleRedirect 302(669行)
+    HeaderInfo异步填充(fileContentLen由OnHeader回调设置，主线程轮询等待)
+    与S106/S122/S182/S192/S187/S138关联
