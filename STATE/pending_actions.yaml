@@ -834,3 +834,28 @@
     LBVC: HdiCodec InitComponent→EmptyThisBuffer→FillThisBuffer OMX HDI IPC(lbvc L27-94, hdi_codec L42-228)
     SwrContext RAII包装ffmpeg_convert.cpp L28-53
     与S125(FFmpegDecoder)对称，与S130(FFmpegAdapterCommon)/S50(AudioResample)/S191(OHOS-Native双路径)关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S194
+  title: "HLS Tags Parser体系——四层Tag结构(SingleValueTag/AttributesTag/ValuesListTag)+Attribute解析器链+TagFactory+HlsTagSection分段枚举"
+  scope: HLS, M3U8, Tags, Parser, Playlist, Attribute, DRM, Encryption, MultiRate
+  timestamp: "2026-05-26T00:55:00+08:00"
+  builder: builder-agent
+  evidence_count: 18
+  source_files: |
+    services/media_engine/plugins/source/http_source/hls/
+      hls_tags.h (145行) — HlsTag枚举(四Section分段)+Attribute类+四层Tag继承树+TagFactory
+      hls_tags.cpp (648行) — g_exttagmapping[22Tag]+Attribute解析链(Decimal/HexSequence/FloatingPoint)+TagFactory+ParseEntries
+      m3u8.cpp (1435行) — UriJoin相对路径拼接+M3U8Fragment/MasterPlaylist/MediaPlaylist结构
+      m3u8.h (291行) — M3U8Fragment/MasterPlaylist/MediaPlaylist数据结构定义
+    = 2519+ 行源码
+  git_branch: master
+  commit: ""
+  git_url: ""
+  notes: |
+    18条行号级evidence（E1-E18）
+    HlsTagSection分段编码：REGULAR/SINGLE_VALUE/ATTRIBUTES/VALUES_LIST各占16位区间，O(1)类型判断
+    Attribute解析链：Decimal(C locale)/HexSequence(DRM PSSH)/FloatingPoint/QuotedString/UnescapeQuotes
+    四层Tag继承树：Tag→SingleValueTag(单值)|AttributesTag(属性)→ValuesListTag(EXTINF列表)
+    DRM体系：EXTXKEY+HexSequence解析AES-128 IV/Widevine PSSH/PlayReady/FairPlay
+    多码率：EXTXMEDIA的kTypeMap(AUDIO/VIDEO/SUBTITLES/CLOSED-CAPTIONS)+GROUP-ID分组
+    与S192(M3U8解析器)/S188(HLS Playlist)/S191(HLS下载器)关联
