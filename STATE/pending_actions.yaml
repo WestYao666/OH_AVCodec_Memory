@@ -678,3 +678,18 @@
   git_branch: master
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/TBD
   note: 五态机(STARTED/PAUSING/PAUSED/STOPPING/STOPPED)+500ms自醒+pthread_setname_np；SurfaceTools单例+surfaceProducerMap_映射表三段式释放；BlockQueue模板生产者-消费者队列；与S14/S20/S34/S39/S45/S154/S167关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S113
+  decision: pending_approval
+  timestamp: "2026-05-25T11:22:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "SeiParserFilter 与 SeiParserHelper SEI信息解析框架——AnnexB/Nalu双格式+AVC/HEVC双解析器工厂+回调驱动事件链"
+  evidence_count: 24
+  source_files: |
+    services/media_engine/filters/sei_parser_filter.cpp (235行)
+    services/media_engine/filters/sei_parser_filter.h
+    services/media_engine/filters/sei_parser_helper.cpp (347行)
+    interfaces/inner_api/native/sei_parser_helper.h
+    = 582+行源码，24条行号级evidence
+  git_branch: master
+  note: 本地镜像增强版，基于本地镜像 services/media_engine/filters/sei_parser/ 探索，HELPER_CONSTRUCTOR_MAP工厂双解析器，SEI NALU双格式(AVC 0x06/HEVC 39-40)，EVENT_SEI_INFO事件回调，与S14(FilterChain)/S22(MediaSyncManager)关联
