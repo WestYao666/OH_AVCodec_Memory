@@ -2,7 +2,7 @@
 id: MEM-ARCH-AVCODEC-S182
 title: "HLS Playlist Downloader 三路媒体流管理架构——M3U8MasterPlaylist + M3U8VariantStream + M3U8Media 三层结构与 SelectMedia/SetDefaultMedia 轨选机制"
 scope: [AVCodec, MediaEngine, Source, HLS, Playlist, M3U8, M3U8MasterPlaylist, M3U8VariantStream, M3U8Media, SelectMedia, SetDefaultMedia, Track, AdaptiveBitrate, AES, DRM, SegmentDownload]
-status: draft
+status: pending_approval
 created_by: builder-agent
 created_at: "2026-05-25T09:50:00+08:00"
 submitted_by: builder-agent
