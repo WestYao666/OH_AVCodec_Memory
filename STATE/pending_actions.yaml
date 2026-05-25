@@ -507,3 +507,26 @@
   commit: fb41010
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/fb41010
   note: 基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/common/ 和 services/media_engine/modules/source/audio_capture/ 探索，18条行号级evidence（E1-E18），SwrContext重采样三阶段(swr_alloc_set_opts2/swr_init/swrCtx_)、AudioCapturer双Read模式、TrackMaxAmplitude/GetMaxAmplitude振幅监测、av_audio_fifo AAC编码缓冲、ADTS 7字节头封装，与S125/S132/S158/S176/S119/S147关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S187
+  decision: pending_approval
+  timestamp: "2026-05-25T15:03:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "DASH MPD Parser 解析器体系——DashMpdParser五层XML解析+26个节点类+三段继承机制+DashSegmentDownloader环形缓冲架构"
+  evidence_count: 20
+  source_files: |
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/
+      dash_mpd_parser.cpp(1577行) + dash_mpd_parser.h(182行)
+      dash_mpd_manager.cpp(188行) + dash_mpd_manager.h(74行)
+      dash_adpt_set_manager.cpp(297行) + dash_adpt_set_manager.h(85行)
+      dash_period_manager.cpp(285行) + dash_period_manager.h(87行)
+      dash_representation_manager.cpp(127行) + dash_representation_manager.h(61行)
+      i_dash_mpd_node.cpp(90行) + i_dash_mpd_node.h(62行)
+      dash_mpd_def.h(~350行) + dash_mpd_util.cpp(283行) + dash_mpd_util.h(~150行)
+      sidx_box_parser.cpp(233行) + 20+个节点类头文件
+    services/media_engine/plugins/source/http_source/dash/
+      dash_mpd_downloader.cpp(2495行)
+      dash_segment_downloader.cpp(1361行)
+    = 9200+行源码
+  git_branch: master
+  note: 基于本地镜像 services/media_engine/plugins/source/http_source/dash/ 探索，填补S138(DASH MPD Parser)未起草空白，20条行号级evidence，5层XML解析+三段继承机制+环形缓冲，与S172/S182/S75/S97关联
