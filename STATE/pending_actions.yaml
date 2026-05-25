@@ -435,3 +435,20 @@
   commit: a6db66c
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a6db66c
   note: 基于本地镜像services/media_engine/plugins/demuxer/common/探索，S140增强版，新增HdrBoxInfo/ParseHdrTypeInfo/ParseColorBoxInfo，与S105/S140/S143/S68/S76/S79/S75/S97/S111关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S123
+  decision: pending_approval
+  timestamp: "2026-05-25T13:05:00+08:00"
+  builder: builder-agent (subagent)
+  subject: StreamDemuxer 流式解封装器——分片缓存读取与 PullData 三路分发机制
+  evidence_count: 14
+  source_files: |
+    services/media_engine/modules/demuxer/stream_demuxer.cpp (492行)
+    services/media_engine/modules/demuxer/stream_demuxer.h
+    services/media_engine/modules/demuxer/base_stream_demuxer.cpp (202行)
+    services/media_engine/modules/demuxer/base_stream_demuxer.h
+    services/media_engine/modules/demuxer/demuxer_plugin_manager.cpp (1159行)
+    services/media_engine/modules/demuxer/demuxer_plugin_manager.h (196行)
+    = 1853行源码
+  git_branch: master
+  note: PullData三路分发(UNSEEKABLE/SEEKABLE/CallbackReadAt)，ReadRetry(10次×10ms)，PullDataWithCache缓存合并，ProcInnerDash DASH分片合并，DemuxerState三状态机，CacheData缓存结构，MediaStreamInfo/MediaTrackMap三层映射表，LoadDemuxerPlugin Sniffer探测(200ms)，GetPluginByStreamID插件查找，与S75/S97/S101/S102深度关联
