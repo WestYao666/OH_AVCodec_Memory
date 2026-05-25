@@ -383,3 +383,18 @@
   source_files: avc_encoder.cpp(1765行)+avc_encoder.h(270行)+avc_encoder_convert.cpp(369行)+avc_encoder_util.cpp(235行)+avc_encoder_api.cpp(36行)+avc_encoder_loader.cpp(72行)=2747行
   git_branch: master
   note: 软件编码器AvcEncoder（libavc_encoder.z.so外壳+libavcenc_ohos.z.so内核），FBuffer四态所有权，BT601/BT709色彩空间矩阵，TaskThread SendFrame驱动，与S59硬件编码器互补
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S184
+  decision: pending_approval
+  timestamp: "2026-05-25T11:34:00+08:00"
+  builder: builder-agent (subagent)
+  subject: FFmpeg Audio Decoder Plugin体系——FfmpegBaseDecoder基类+29子插件+Resample重采样三层架构
+  evidence_count: 23
+  source_files: |
+    services/media_engine/plugins/ffmpeg_adapter/audio_decoder/ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)
+    services/media_engine/plugins/ffmpeg_adapter/audio_decoder/ffmpeg_decoder_plugin.cpp(250行)
+    = 984行源码（不含29个子插件目录）
+    29个子插件目录：aac/ac3/adpcm/alac/amrnb/amrwb/ape/cook/dts/dvaudio/eac3/flac/g711a/g711mu/gsm/gsm_ms/ilbc/lbvc/mp3/raw/truehd/twinvq/vorbis/wma等，各100-500行
+  git_branch: master
+  note: FFmpeg音频解码器三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+29子插件)，avcodec_send_packet/avcodec_receive_frame管线，Resample SwrContext重采样，codecVec 50种codec名称映射，mimeVec 50种MIME映射，InitDefinition模板50实例化，与S125/S130/S50/S158/S169关联
