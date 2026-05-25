@@ -1250,3 +1250,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-25T08:35 | Builder | S181注册：FFmpeg Adapter Common 通用工具链草案已生成，写入 MEM-ARCH-AVCODEC-S181.md（pending_approval），1685行源码，18条行号级evidence |
+
+## 新增主题（Builder 2026-05-25 S182注册——HLS Playlist Downloader架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S182 | HLS Playlist Downloader 三路媒体流管理架构——M3U8MasterPlaylist + M3U8VariantStream + M3U8Media 三层结构与 SelectMedia/SetDefaultMedia 轨选机制 | AVCodec, MediaEngine, Source, HLS, Playlist, M3U8, M3U8MasterPlaylist, M3U8VariantStream, M3U8Media, SelectMedia, SetDefaultMedia, Track, AdaptiveBitrate, AES, DRM, SegmentDownload | 新需求开发/问题定位/流媒体播放/HLS自适应码率/音视频轨选择 | **pending_approval** | 🚧 草案已生成（2026-05-25T09:52），MEM-ARCH-AVCODEC-S182.md（3349行源码，20条行号级evidence），HlsPlayListDownloader核心引擎，HlsSegmentType三轨枚举(SEG_VIDEO/SEG_AUDIO/SEG_SUBTITLE)，SelectMedia/SetDefaultMedia/UpdateMedia三轨API，M3U8MasterPlaylist/M3U8VariantStream/M3U8Media三层结构，AesDecryptorManager按keyIndex管理AES-128解密，isFmp4_/isPureByteRange_差异化，与S37/S106/S138/S172并列 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-25T09:52 | Builder | S182注册：HLS Playlist Downloader三路媒体流管理架构草案已生成，写入 MEM-ARCH-AVCODEC-S182.md（pending_approval），3349行源码，20条行号级evidence，与S37/S106/S138/S172并列自适应流体系 |
