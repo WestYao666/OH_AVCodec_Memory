@@ -398,3 +398,40 @@
     29个子插件目录：aac/ac3/adpcm/alac/amrnb/amrwb/ape/cook/dts/dvaudio/eac3/flac/g711a/g711mu/gsm/gsm_ms/ilbc/lbvc/mp3/raw/truehd/twinvq/vorbis/wma等，各100-500行
   git_branch: master
   note: FFmpeg音频解码器三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+29子插件)，avcodec_send_packet/avcodec_receive_frame管线，Resample SwrContext重采样，codecVec 50种codec名称映射，mimeVec 50种MIME映射，InitDefinition模板50实例化，与S125/S130/S50/S158/S169关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S185
+  decision: pending_approval
+  timestamp: "2026-05-25T12:10:00+08:00"
+  builder: builder-agent (subagent)
+  subject: AudioServerSinkPlugin 音频渲染输出插件——AudioStandard::AudioRenderer 集成 + Write 管线 + AVS3DA 特殊路径
+  evidence_count: 20
+  source_files: audio_server_sink_plugin.cpp(1495行) + audio_server_sink_plugin.h(311行) = 1806行源码
+  git_branch: master
+  commit: 28c20cd
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/28c20cd
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S186
+  decision: pending_approval
+  timestamp: "2026-05-25T12:25:00+08:00"
+  builder: builder-agent (subagent)
+  subject: Demuxer Common共享解析工具链——Converter 595行色域转换七函数/HEVCProfile映射/HDR元数据解析/TimeRangeManager Seek范围管理
+  evidence_count: 25
+  source_files: |
+    plugins/demuxer/common/converter.cpp(595行)+converter.h(75行)
+    plugins/demuxer/common/time_range_manager.cpp(77行)+time_range_manager.h(74行)
+    plugins/demuxer/common/multi_stream_parser_manager.cpp(293行)+multi_stream_parser_manager.h(100行)
+    plugins/demuxer/common/reference_parser_manager.cpp(138行)+reference_parser_manager.h(77行)
+    plugins/common/stream_parser.h(96行)-StreamParser纯虚基类
+    plugins/common/reference_parser.h(41行)-C API接口
+    plugins/demuxer/common/demuxer_data_reader.cpp(162行)+demuxer_data_reader.h(63行)
+    plugins/demuxer/common/avc_parser_impl.cpp(180行)+avc_parser_impl.h(83行)
+    plugins/demuxer/common/rbsp_context.cpp(82行)+rbsp_context.h(71行)
+    plugins/demuxer/common/demuxer_log_compressor.cpp(219行)+demuxer_log_compressor.h(31行)
+    plugins/demuxer/common/block_queue.h(191行)+block_queue_pool.h(552行)
+    = 3103行源码，25条行号级evidence
+  git_branch: master
+  commit: a6db66c
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a6db66c
+  note: 基于本地镜像services/media_engine/plugins/demuxer/common/探索，S140增强版，新增HdrBoxInfo/ParseHdrTypeInfo/ParseColorBoxInfo，与S105/S140/S143/S68/S76/S79/S75/S97/S111关联
