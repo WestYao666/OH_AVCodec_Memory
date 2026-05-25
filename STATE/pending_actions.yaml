@@ -605,3 +605,29 @@
     swr_alloc_set_opts2+swr_init重采样/InitSwrContext→swr_convert_frame→outBuffer写入
     OHOS原生G711mu零依赖表驱动vs FFmpegBaseDecoder双轨
     与S125/S130/S50/S158/S169关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S191
+  title: OHOS-Native Audio Codec Plugins vs FFmpeg Adapter Architecture——G711mu零依赖表驱动 vs FFmpeg组合基类
+  scope: AVCodec AudioCodec Plugin FFmpeg Adapter
+  timestamp: '2026-05-25T18:20:00+08:00'
+  builder: builder-agent
+  evidence_count: 26
+  source_files: |
+    services/engine/codec/audio/encoder/audio_g711mu_encoder_plugin.cpp (239行) + decoder/audio_g711mu_decoder_plugin.cpp (168行)
+    services/engine/codec/audio/encoder/audio_opus_encoder_plugin.cpp (263行) + decoder/audio_opus_decoder_plugin.cpp (242行)
+    services/engine/codec/audio/decoder/audio_ffmpeg_decoder_plugin.cpp (426行)
+    services/media_engine/plugins/ffmpeg_adapter/audio_encoder/g711mu/audio_g711mu_encoder_plugin.cpp (304行)
+    services/media_engine/plugins/ffmpeg_adapter/audio_encoder/ffmpeg_base_encoder.cpp (396行)
+    services/media_engine/plugins/ffmpeg_adapter/audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp (902行)
+    services/media_engine/plugins/ffmpeg_adapter/audio_encoder/flac/ffmpeg_flac_encoder_plugin.cpp (252行)
+    = ~3290行源码
+  git_branch: master
+  commit: e52136f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/e52136f
+  notes: |
+    26条行号级evidence（E1-E26）
+    双路径架构：OHOS-Native（engine/codec/audio/）G711mu零依赖表驱动+Opus dlopen libav_codec_ext_base.z.so vs FFmpegAdapter（ffmpeg_adapter/audio/）FFmpegBaseDecoder继承基类
+    G711mu双路径共存：services/engine/（CodecPlugin基类）+ services/media_engine/plugins/（FFmpegAdapter生态+PLUGIN_DEFINITION宏）
+    AudioFfmpegDecoderPlugin 426行组合FFmpeg avcodec_send_packet/avcodec_receive_frame管线，InitResample()初始化SwrContext，bufferGroupPtsDistance追踪
+    Opus dlopen扩展库 libav_codec_ext_base.z.so（非标准FFmpeg），OpusPluginClassEncoderCreate/DecoderCreate函数指针
+    与S125/S130/S50/S158/S169/S176关联
