@@ -319,3 +319,23 @@
   commit: ""
   git_url: ""
   note: 七模块架构，MediaSyncManager优先级体系(0/2/8)，VideoSink LAG_LIMIT_TIME=100ms/VIDEO_SINK_START_FRAME=4，AudioSink FIX_DELAY_MS_AUDIO_VIVID=80ms，MediaCodec CodecState十二态机，PTS MAX_FRAMES=36000，与S22/S98/S99/S120/S124/S100/S108/S114关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S181
+  decision: pending_approval
+  timestamp: "2026-05-25T09:33:00+08:00"
+  builder: builder-agent (subagent)
+  subject: FFmpeg Adapter Common 通用工具链——ffmpeg_utils / ffmpeg_convert / ffmpeg_converter / hdi_codec / stream_parser_manager 五组件
+  evidence_count: 20
+  source_files: >
+    ffmpeg_utils.cpp(505行)+ffmpeg_utils.h(76行) / 
+    ffmpeg_convert.cpp(247行)+ffmpeg_convert.h(98行) /
+    ffmpeg_converter.cpp(201行)+ffmpeg_converter.h(53行) /
+    hdi_codec.cpp(365行)+hdi_codec.h(76行) /
+    stream_parser_manager.cpp(227行)+stream_parser_manager.h(73行)，
+    共5组件1685行源码+5头文件376行，20条行号级evidence，
+    本地镜像增强（S181 = S130增强版，新增hdi_codec 365行完整证据）
+  git_branch: master
+  commit: ""
+  git_url: ""
+  note: 五工具链架构，Mime2CodecId(L41) / ColorMatrix2AVColorSpace(L218) / FindNalStartCode(L492) / g_toFFMPEGChannelLayout(L30) / Resample::InitSwrContext(L64) / Scale::Convert(L230) / FFMpegConverter(L138) / HdiCodec::InitComponent(L42) / GetComponentManager(L61) / EmptyThisBuffer(L211) / FillThisBuffer(L232) / HdiCallback L327-L355 / StreamParserManager::Create(L67) / dlopen(L183)，HdiCodec是FFmpeg音频解码器HDI硬件加速通道，与S125/S50/S105/S158/S169/S176关联

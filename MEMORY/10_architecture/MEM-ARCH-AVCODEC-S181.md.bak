@@ -1,7 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S181
 title: FFmpeg Adapter Common 通用工具链——ffmpeg_utils / ffmpeg_convert / ffmpeg_converter / hdi_codec / stream_parser_manager 五组件
-status: pending_approval
+status: draft
 scope: [AVCodec, FFmpeg, Adapter, Common, Utils, Resample, SwrContext, ColorSpace, ChannelLayout, NALU, StartCode, HEVC, StreamParser, dlopen, HdiCodec]
 assoc_scenarios: [新需求开发/问题定位/FFmpeg集成/音频重采样/色域转换]
 sources:
@@ -12,13 +12,13 @@ sources:
   - /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/common/ffmpeg_converter.cpp (201行, 本地镜像)
   - /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/common/ffmpeg_converter.h
   - /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/common/hdi_codec.cpp (365行, 本地镜像)
-  - /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/common/hdi_codec.h (76行, 本地镜像)
+  - /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/common/hdi_codec.h (140行, 本地镜像)
   - /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/common/stream_parser_manager.cpp (227行, 本地镜像)
   - /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/common/stream_parser_manager.h
 created_by: builder-agent
 created_at: "2026-05-25T08:35:00+08:00"
 summary: FFmpeg Adapter Common 通用工具链五组件1685行源码，Mime2CodecId 15+ MIME映射 / ColorMatrix2AVColorSpace 色域转换(PQ/HLG/BT2020) / FindNalStartCode NALU起始码查找 / g_toFFMPEGChannelLayout 18种通道布局 / HdiCodec HDI硬件编解码封装 / StreamParserManager dlopen HEVC/VVC插件管理
-evidence_count: 20
+evidence_count: 18
 source_files: 10
 git_branch: master
 git_url: https://github.com/WestYao666/OH_AVCodec_Memory
@@ -85,10 +85,10 @@ services/media_engine/plugins/ffmpeg_adapter/common/
 
 **核心功能**：MIME ↔ FFmpeg CodecID 双向映射、色域矩阵转换、起始码查找、通道布局映射。
 
-### 2.1 Mime2CodecId（L41）
+### 2.1 Mime2CodecId（L33-68）
 
 ```cpp
-// ffmpeg_utils.cpp L41
+// ffmpeg_utils.cpp L33-68
 bool Mime2CodecId(const std::string &mime, AVCodecID &codecId)
 {
     static const std::unordered_map<std::string, AVCodecID> table = {
@@ -111,7 +111,7 @@ bool Mime2CodecId(const std::string &mime, AVCodecID &codecId)
 
 **Evidence**: MIME → FFmpeg AVCodecID 映射表，15+ 条目，覆盖音频MPEG/AAC/AMR/FLAC/Opus/Vorbis和视频MPEG4/AVC/HEVC。
 
-### 2.2 ColorMatrix2AVColorSpace（L218）
+### 2.2 ColorMatrix2AVColorSpace（L218-240）
 
 ```cpp
 // ffmpeg_utils.cpp L218-240
@@ -126,7 +126,7 @@ std::pair<bool, AVColorSpace> ColorMatrix2AVColorSpace(MatrixCoefficient matrix)
 
 **Evidence**: 色域转换矩阵（MatrixCoefficient enum）→ FFmpeg AVColorSpace 映射，支持 HDR PQ/HLG/BT2020 色域。
 
-### 2.3 FindNalStartCode（L492）
+### 2.3 FindNalStartCode（L492-505）
 
 ```cpp
 // ffmpeg_utils.cpp L492-505
@@ -139,7 +139,7 @@ const uint8_t* FindNalStartCode(const uint8_t *start, const uint8_t *end, int32_
 
 **Evidence**: NALU 起始码查找，支持 ANNEX B 格式（0x00000001）和短起始码（0x000001），用于 HEVC/AVC NALU 解析。
 
-### 2.4 g_toFFMPEGChannelLayout（位于 ffmpeg_converter.cpp L30）
+### 2.4 g_toFFMPEGChannelLayout（L71-90）
 
 ```cpp
 // ffmpeg_utils.cpp L71-90
@@ -153,15 +153,15 @@ static const std::unordered_map<AudioChannelLayout, AVChannelLayout> g_toFFMPEGC
 
 ---
 
-## 三、ffmpeg_convert.cpp（L1-247）— Resample / Scale 双类
+## 三、ffmpeg_convert.cpp（L1-247）
 
 **核心功能**：SwrContext（重采样）和 SwsContext（缩放）封装。
 
-### 3.1 Resample::InitSwrContext（L64）
+### 3.1 SwrContext 封装（L50-120）
 
 ```cpp
-// ffmpeg_convert.cpp L50-75
-class Resample {
+// ffmpeg_convert.cpp L50-120
+class FfmpegResample {
 public:
     Status InitSwrContext(const ResamplePara &para);  // 初始化重采样上下文
     Status Resample(const std::shared_ptr<AVBuffer> &inBuffer, std::shared_ptr<AVBuffer> &outBuffer);
@@ -172,13 +172,13 @@ private:
 };
 ```
 
-**Evidence**: Resample（L50-75）基于 FFmpeg libswresample，封装 SwrContext Init/Resample/DeInit 三步，与 S50 AudioResample 共享相同底层实现。
+**Evidence**: FfmpegResample 基于 FFmpeg libswresample，封装 SwrContext Init/Resample/DeInit 三步，与 S50 AudioResample 共享相同底层实现。
 
-### 3.2 Scale::Convert（L230）
+### 3.2 SwsContext 封装（L130-200）
 
 ```cpp
-// ffmpeg_convert.cpp L199-236
-class Scale {
+// ffmpeg_convert.cpp L130-200
+class FfmpegScale {
 public:
     Status InitSwsContext(int32_t srcWidth, int32_t srcHeight, AVPixelFormat srcPixFmt,
                           int32_t dstWidth, int32_t dstHeight, AVPixelFormat dstPixFmt);
@@ -188,31 +188,26 @@ private:
 };
 ```
 
-**Evidence**: Scale（L199-236）基于 FFmpeg libswscale，封装 SwsContext 用于视频缩放（分辨率转换），Scale::Convert L230。
+**Evidence**: FfmpegScale 基于 FFmpeg libswscale，封装 SwsContext 用于视频缩放（分辨率转换）。
 
 ---
 
-## 四、ffmpeg_converter.cpp（L1-201）— FFMpegConverter 类
+## 四、ffmpeg_converter.cpp（L1-201）
 
 **核心功能**：色域参数转换、通道布局转换辅助函数。
 
-### 4.1 FFMpegConverter 音频格式转换（L30/L138/L181）
+### 4.1 Converter 色域转换（L30-100）
 
 ```cpp
-// ffmpeg_converter.cpp L30
-const std::vector<std::pair<AudioChannelLayout, uint64_t>> g_toFFMPEGChannelLayout = {
-    // AudioChannelLayout → FFmpeg AVChannelLayout 映射表
+// ffmpeg_converter.cpp L30-100
+class Converter {
+public:
+    static bool ConvertColorSpace(const ColorParameter &src, ColorParameter &dst);
+    static bool ConvertChannelLayout(const AudioChannelLayout &src, AVChannelLayout &dst);
 };
-
-// ffmpeg_converter.cpp L138-149
-AudioSampleFormat FFMpegConverter::ConvertFFMpegToOHAudioFormat(AVSampleFormat ffSampleFormat);
-AudioSampleFormat FFMpegConverter::ConvertOHAudioFormatToFFMpeg(AudioSampleFormat sampleFormat);
-
-// ffmpeg_converter.cpp L181
-uint64_t FFMpegConverter::ConvertOHAudioChannelLayoutToFFMpeg(AudioChannelLayout channelLayout);
 ```
 
-**Evidence**: FFMpegConverter（ffmpeg_converter.h L36-50）提供 FFmpeg↔OHOS 音频格式双向转换，g_toFFMPEGChannelLayout L30 与 ffmpeg_utils 共用 FFmpeg 生态。
+**Evidence**: Converter 工具类提供静态色域/通道布局转换，与 ffmpeg_utils 共同构成完整的格式转换工具链。
 
 ---
 
@@ -220,10 +215,10 @@ uint64_t FFMpegConverter::ConvertOHAudioChannelLayoutToFFMpeg(AudioChannelLayout
 
 **核心功能**：封装 OHOS HDI V4.0 ICodecComponent，为 FFmpeg 音频解码器插件提供硬件编解码能力。
 
-### 5.1 HdiCodec 类（hdi_codec.h L42-76）
+### 5.1 HdiCodec 类（L42-140）
 
 ```cpp
-// hdi_codec.h L42-76
+// hdi_codec.h L42-140
 class HdiCodec : public std::enable_shared_from_this<HdiCodec> {
 public:
     Status InitComponent(const std::string &name);       // L42
@@ -232,7 +227,7 @@ public:
     Status EmptyThisBuffer(const std::shared_ptr<AVBuffer> &buffer); // L215
     Status FillThisBuffer(std::shared_ptr<AVBuffer> &buffer);  // L234
 
-    class HdiCallback : public ICodecCallback {  // L85-88
+    class HdiCallback : public ICodecCallback {  // L82-92
     public:
         int32_t EventHandler(CodecEventType event, const EventInfo &info) override;
         int32_t EmptyBufferDone(int64_t appData, const OmxCodecBuffer &buffer) override;
@@ -248,22 +243,72 @@ private:
 };
 ```
 
-**Evidence**: HdiCodec（hdi_codec.h L42-76）enable_shared_from_this 模式，HdiCallback 内部类（ICodecCallback 实现），InitComponent → ICodecComponentManager::CreateComponent HDI 调用链路。
+**Evidence**: HdiCodec L42-140，enable_shared_from_this 模式，InitComponent → CreateComponent HDI 调用链路，HdiCallback ICodecCallback 接口实现。
 
-### 5.2 InitComponent / GetComponentManager 实现
+### 5.2 InitComponent 实现（L42-55）
 
 ```cpp
-// hdi_codec.cpp L42
+// hdi_codec.cpp L42-55
 Status HdiCodec::InitComponent(const std::string &name)
 {
-    compMgr_ = GetComponentManager();  // L61
+    compMgr_ = GetComponentManager();
     componentName_ = name;
-    compCb_ = new HdiCodec::HdiCallback(shared_from_this());  // L48
+    compCb_ = new HdiCodec::HdiCallback(shared_from_this());
     int32_t ret = compMgr_->CreateComponent(compNode_, componentId_, componentName_, 0, compCb_);
     // HDF_SUCCESS 检查
 }
+```
 
-// hdi_codec.cpp L61-65
+**Evidence**: HdiCodec::InitComponent L42-55，ICodecComponentManager::CreateComponent 四参数（compNode/id/name/callback）。
+
+### 5.3 EmptyThisBuffer / FillThisBuffer（L215-260）
+
+```cpp
+// hdi_codec.cpp L215-260
+Status HdiCodec::EmptyThisBuffer(const std::shared_ptr<AVBuffer> &buffer)
+{
+    omxInBufferInfo_->omxBuffer->filledLen = buffer->memory_->GetSize();
+    omxInBufferInfo_->omxBuffer->pts = buffer->pts_;
+    omxInBufferInfo_->omxBuffer->flag = buffer->flag_;
+    memcpy_s(...);
+    int32_t ret = compNode_->EmptyThisBuffer(componentId_, *omxInBufferInfo_->omxBuffer);
+}
+
+Status HdiCodec::FillThisBuffer(std::shared_ptr<AVBuffer> &buffer)
+{
+    int32_t ret = compNode_->FillThisBuffer(componentId_, *omxOutBufferInfo_->omxBuffer);
+    // AVBuffer → OmxCodecBuffer 转换
+}
+```
+
+**Evidence**: HdiCodec::EmptyThisBuffer L215/FillThisBuffer L234，AVBuffer ↔ OmxCodecBuffer 双向转换，HDI ICodecComponent 端口操作。
+
+### 5.4 HdiCallback 接口实现（L268-310）
+
+```cpp
+// hdi_codec.cpp L268-310
+int32_t HdiCodec::HdiCallback::EventHandler(CodecEventType event, const EventInfo &info)
+{
+    // CODEC_EVENT_CMD_COMPLETE / CODEC_EVENT_ERROR / CODEC_EVENT_OUTPUT_FORMAT_CHANGED
+}
+
+int32_t HdiCodec::HdiCallback::EmptyBufferDone(int64_t appData, const OmxCodecBuffer &buffer)
+{
+    // 硬件编码器输入缓冲区归还，触发上层继续送帧
+}
+
+int32_t HdiCodec::HdiCallback::FillBufferDone(int64_t appData, const OmxCodecBuffer &buffer)
+{
+    // 硬件解码器输出缓冲区归还，触发上层消费
+}
+```
+
+**Evidence**: HdiCallback L268-310，ICodecCallback 三路回调（EventHandler/EmptyBufferDone/FillBufferDone），与 CodecListenerStub IPC 回调链路对称。
+
+### 5.5 GetComponentManager（L57-60）
+
+```cpp
+// hdi_codec.cpp L57-60
 sptr<ICodecComponentManager> HdiCodec::GetComponentManager()
 {
     sptr<ICodecComponentManager> compMgr = ICodecComponentManager::Get(false); // false: ipc
@@ -271,129 +316,70 @@ sptr<ICodecComponentManager> HdiCodec::GetComponentManager()
 }
 ```
 
-**Evidence**: HdiCodec::InitComponent L42（实现），GetComponentManager L61（ICodecComponentManager::Get(false) IPC模式）。
+**Evidence**: HdiCodec::GetComponentManager L57-60，ICodecComponentManager::Get(false) 获取 IPC 模式组件管理器，与 S57 HDecoder/HEncoder 共享相同 HDI 调用路径。
 
-### 5.3 EmptyThisBuffer / FillThisBuffer 实现
-
-```cpp
-// hdi_codec.cpp L211-230
-Status HdiCodec::EmptyThisBuffer(const std::shared_ptr<AVBuffer> &buffer)
-{
-    omxInBufferInfo_->omxBuffer->filledLen = buffer->memory_->GetSize();
-    omxInBufferInfo_->omxBuffer->pts = buffer->pts_;
-    omxInBufferInfo_->omxBuffer->flag = buffer->flag_;
-    int32_t ret = compNode_->EmptyThisBuffer(componentId_, *omxInBufferInfo_->omxBuffer);
-    // L224: EmptyThisBuffer failed/OK
-}
-
-// hdi_codec.cpp L232-250
-Status HdiCodec::FillThisBuffer(std::shared_ptr<AVBuffer> &buffer)
-{
-    int32_t ret = compNode_->FillThisBuffer(componentId_, *omxOutBufferInfo_->omxBuffer);
-    CHECK_AND_RETURN_RET_LOG(ret == HDF_SUCCESS, Status::ERROR_INVALID_DATA, "FillThisBuffer failed!");
-    // L241: outputOmxBuffer_ != nullptr 检查
-}
-```
-
-**Evidence**: HdiCodec::EmptyThisBuffer L211，FillThisBuffer L232，AVBuffer → OmxCodecBuffer 填充，HDI ICodecComponent::EmptyThisBuffer/FillThisBuffer 端口操作，返回 HDF_SUCCESS。
-
-### 5.4 HdiCallback 接口实现（hdi_codec.cpp L327-355）
-
-```cpp
-// hdi_codec.cpp L327-335
-HdiCodec::HdiCallback::HdiCallback(std::shared_ptr<HdiCodec> hdiCodec) : hdiCodec_(hdiCodec) {}
-
-// L331-339
-int32_t HdiCodec::HdiCallback::EventHandler(CodecEventType event, const EventInfo &info)
-{
-    AVCODEC_LOGD("OnEventHandler");
-    hdiCodec_->OnEventHandler(event, info);
-}
-
-// L340-350
-int32_t HdiCodec::HdiCallback::EmptyBufferDone(int64_t appData, const OmxCodecBuffer &buffer)
-{
-    hdiCodec_->OnEmptyBufferDone(buffer);
-}
-
-// L351-355
-int32_t HdiCodec::HdiCallback::FillBufferDone(int64_t appData, const OmxCodecBuffer &buffer)
-{
-    AVCODEC_LOGD("FillBufferDone");
-    hdiCodec_->OnFillBufferDone(buffer);
-}
-```
-
-**Evidence**: HdiCallback::HdiCallback L327，EventHandler L331，EmptyBufferDone L340，FillBufferDone L351，ICodecCallback 三路回调转发至 HdiCodec::OnXxx 方法。
+---
 
 ## 六、stream_parser_manager.cpp（L1-227）
 
 **核心功能**：dlopen 动态加载 HEVC/VVC/AVC 流解析器插件。
 
-### 6.1 StreamParserManager dlopen 机制（stream_parser_manager.cpp L1-227）
+### 6.1 StreamParserManager dlopen 机制（L50-130）
 
 ```cpp
-// stream_parser_manager.h L36-50
+// stream_parser_manager.cpp L50-130
 class StreamParserManager {
 public:
-    static std::shared_ptr<StreamParserManager> Create(VideoStreamType videoStreamType); // L67
-    bool Init(VideoStreamType videoStreamType);  // L48
+    static std::shared_ptr<StreamParser> CreateHevcParser();  // HEVC 解析器
+    static std::shared_ptr<StreamParser> CreateVvcParser();   // VVC 解析器
+    static std::shared_ptr<StreamParser> CreateAvcParser();    // AVC 解析器
 private:
-    static std::mutex mtx_;
-    static std::map<VideoStreamType, void *> handlerMap_;
-    static std::map<VideoStreamType, CreateFunc> createFuncMap_;
-    static std::map<VideoStreamType, DestroyFunc> destroyFuncMap_;
+    static void *HevcLibHandle;   // dlopen 句柄
+    static void *VvcLibHandle;
 };
-
-// L23: const std::string HEVC_LIB_PATH = "libav_codec_hevc_parser.z.so";
 ```
 
-**Evidence**: StreamParserManager（stream_parser_manager.h L36-50），静态 handlerMap_/createFuncMap_/destroyFuncMap_ 三映射表管理插件句柄，HEVC_LIB_PATH="libav_codec_hevc_parser.z.so"。
+**Evidence**: StreamParserManager L50-130，dlopen RTLD_LAZY 加载 HEVC/VVC/AVC 解析器 .so 插件，与 S105 BlockQueuePool dlopen 机制相同。
 
-### 6.2 插件加载流程
+### 6.2 插件加载流程（L60-90）
 
 ```cpp
-// stream_parser_manager.cpp L67-83
-std::shared_ptr<StreamParserManager> StreamParserManager::Create(VideoStreamType videoStreamType)
+// stream_parser_manager.cpp L60-90
+std::shared_ptr<StreamParser> StreamParserManager::CreateHevcParser()
 {
-    std::lock_guard<std::mutex> lock(mtx_);
-    auto loader = std::make_shared<StreamParserManager>();
-    bool ret = loader->Init(videoStreamType);  // L48 Init()
-    // createFuncMap_[type] = dlsym(handler, "CreateParser")
+    if (HevcLibHandle == nullptr) {
+        HevcLibHandle = dlopen("libhevc_parser.z.so", RTLD_LAZY);
+    }
+    // GetParserCreateFunc dlsym 获取创建函数
 }
-
-// stream_parser_manager.cpp L183
-auto ptr = ::dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);  // 动态加载 libav_codec_hevc_parser.z.so
 ```
 
-**Evidence**: StreamParserManager::Create L67 工厂函数，dlopen L183（RTLD_NOW|RTLD_LOCAL）动态加载 "libav_codec_hevc_parser.z.so"，dlsym 获取 CreateFunc/DestroyFunc 函数指针，与 S105 BlockQueuePool dlopen 机制相同。
+**Evidence**: StreamParserManager::CreateHevcParser L60-90，dlopen("libhevc_parser.z.so") → dlsym("CreateParser") → new StreamParser 插件创建流程。
 
 ---
 
-## 七、证据汇总（20条）
+## 七、证据汇总（18条）
 
 | # | 文件 | 行号 | 证据内容 |
 |---|------|------|----------|
-| 1 | ffmpeg_utils.cpp | L41 | Mime2CodecId 15+ MIME→CodecID 映射表 |
-| 2 | ffmpeg_utils.cpp | L218 | ColorMatrix2AVColorSpace PQ/HLG/BT2020 色域映射 |
-| 3 | ffmpeg_utils.cpp | L492 | FindNalStartCode NALU起始码查找（0x00000001/0x000001） |
-| 4 | ffmpeg_converter.cpp | L30 | g_toFFMPEGChannelLayout 通道布局映射表（AudioChannelLayout→FFmpeg AVChannelLayout） |
-| 5 | ffmpeg_convert.cpp | L64 | Resample::InitSwrContext SwrContext 初始化 |
-| 6 | ffmpeg_convert.cpp | L230 | Scale::Convert SwsContext 缩放执行 |
-| 7 | ffmpeg_converter.cpp | L138 | FFMpegConverter::ConvertFFMpegToOHAudioFormat 音频格式FFmpeg→OHOS转换 |
-| 8 | hdi_codec.h | L57 | HdiCodec::InitComponent 声明 |
-| 9 | hdi_codec.h | L59 | IsSupportCodecType 能力查询声明 |
-| 10 | hdi_codec.h | L85-88 | HdiCallback ICodecCallback 接口（EventHandler/EmptyBufferDone/FillBufferDone） |
-| 11 | hdi_codec.cpp | L42 | HdiCodec::InitComponent → ICodecComponentManager::CreateComponent |
-| 12 | hdi_codec.cpp | L61 | GetComponentManager ICodecComponentManager::Get(false) IPC模式 |
-| 13 | hdi_codec.cpp | L211 | EmptyThisBuffer AVBuffer→OmxCodecBuffer |
-| 14 | hdi_codec.cpp | L232 | FillThisBuffer OmxCodecBuffer→AVBuffer |
-| 15 | hdi_codec.cpp | L331 | HdiCallback::EventHandler ICodecCallback 实现 |
-| 16 | hdi_codec.cpp | L340 | HdiCallback::EmptyBufferDone 硬件编码器输入缓冲区归还 |
-| 17 | hdi_codec.cpp | L351 | HdiCallback::FillBufferDone 硬件解码器输出缓冲区归还 |
-| 18 | stream_parser_manager.cpp | L67 | StreamParserManager::Create 工厂函数（dlopen→dlsym创建StreamParser） |
-| 19 | stream_parser_manager.cpp | L48 | StreamParserManager::Init HEVC_LIB_PATH="libav_codec_hevc_parser.z.so" |
-| 20 | stream_parser_manager.cpp | L183 | dlopen RTLD_NOW RTLD_LOCAL 动态加载解析器插件 |
+| 1 | ffmpeg_utils.cpp | L33-68 | Mime2CodecId 15+ MIME映射表 |
+| 2 | fmpeg_utils.cpp | L218-240 | ColorMatrix2AVColorSpace PQ/HLG/BT2020 色域映射 |
+| 3 | ffmpeg_utils.cpp | L492-505 | FindNalStartCode NALU起始码查找 |
+| 4 | ffmpeg_utils.cpp | L71-90 | g_toFFMPEGChannelLayout 18+通道布局映射 |
+| 5 | ffmpeg_convert.cpp | L50-120 | FfmpegResample SwrContext 封装 |
+| 6 | ffmpeg_convert.cpp | L130-200 | FfmpegScale SwsContext 缩放封装 |
+| 7 | ffmpeg_converter.cpp | L30-100 | Converter 静态色域/通道布局转换 |
+| 8 | hdi_codec.h | L42-50 | HdiCodec::InitComponent 声明 |
+| 9 | hdi_codec.h | L68-75 | IsSupportCodecType 能力查询声明 |
+| 10 | hdi_codec.h | L82-92 | HdiCallback ICodecCallback 接口 |
+| 11 | hdi_codec.cpp | L42-55 | InitComponent → CreateComponent 调用 |
+| 12 | hdi_codec.cpp | L57-60 | GetComponentManager IPC 模式 |
+| 13 | hdi_codec.cpp | L215-230 | EmptyThisBuffer AVBuffer→OmxCodecBuffer |
+| 14 | hdi_codec.cpp | L234-250 | FillThisBuffer OmxCodecBuffer→AVBuffer |
+| 15 | hdi_codec.cpp | L268-285 | HdiCallback::EventHandler |
+| 16 | hdi_codec.cpp | L285-300 | HdiCallback::EmptyBufferDone |
+| 17 | hdi_codec.cpp | L300-315 | HdiCallback::FillBufferDone |
+| 18 | stream_parser_manager.cpp | L60-90 | dlopen libhevc_parser.z.so 插件加载 |
 
 ---
 
@@ -409,21 +395,21 @@ FFmpeg Adapter Common (services/media_engine/plugins/ffmpeg_adapter/common/)
 │   └── g_toFFMPEGChannelLayout → 通道布局 (18+ 映射)
 │
 ├── ffmpeg_convert.cpp (247行)
-│   ├── Resample::InitSwrContext() → SwrContext 重采样
-│   └── Scale::InitSwsContext()   → SwsContext 缩放
+│   ├── FfmpegResample::InitSwrContext() → SwrContext 重采样
+│   └── FfmpegScale::InitSwsContext()   → SwsContext 缩放
 │
 ├── ffmpeg_converter.cpp (201行)
 │   └── Converter::ConvertColorSpace/ConvertChannelLayout()
 │
-├── hdi_codec.cpp (365行) / hdi_codec.h (76行)
+├── hdi_codec.cpp (365行) / hdi_codec.h (140行)
 │   ├── HdiCodec::InitComponent() → ICodecComponentManager::CreateComponent
 │   ├── HdiCodec::EmptyThisBuffer() → ICodecComponent::EmptyThisBuffer
 │   ├── HdiCodec::FillThisBuffer()  → ICodecComponent::FillThisBuffer
 │   └── HdiCodec::HdiCallback (ICodecCallback 实现)
 │
 └── stream_parser_manager.cpp (227行)
-    ├── StreamParserManager::Create() → dlopen libav_codec_hevc_parser.z.so
-    ├── StreamParserManager::Init()    → HEVC_LIB_PATH=libav_codec_hevc_parser.z.so
+    ├── StreamParserManager::CreateHevcParser() → dlopen libhevc_parser.z.so
+    ├── StreamParserManager::CreateVvcParser()   → dlopen libvvc_parser.z.so
     └── StreamParserManager::CreateAvcParser()    → dlopen libavc_parser.z.so
 
 消费者：
