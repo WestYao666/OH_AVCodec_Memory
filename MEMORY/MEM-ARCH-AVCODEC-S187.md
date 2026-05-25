@@ -5,7 +5,7 @@
 | 字段 | 内容 |
 |------|------|
 | mem_id | MEM-ARCH-AVCODEC-S187 |
-| status | draft |
+| status | pending_approval |
 | 主题 | DASH MPD Parser 解析器体系——DashMpdParser五层XML解析+26个节点类+三段继承机制+DashSegmentDownloader环形缓冲架构 |
 | scope | AVCodec, MediaEngine, SourcePlugin, DASH, MPD, XML, AdaptiveBitrate, MPD, ISO-IEC23009-1 |
 | 关联场景 | DASH流媒体播放 / 自适应码率切换 / MPD动态更新 |
