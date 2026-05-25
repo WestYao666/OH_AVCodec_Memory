@@ -491,3 +491,19 @@
       = ~9030行源码
   git_branch: master
   note: 基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/audio_decoder/ 探索，23条行号级evidence（E1-E23），三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+29子插件)，avcodec_send_packet/avcodec_receive_frame管线，SwrContext重采样，50 codec变体（ADPCM×34/WMA×3共享），与S183 AvcEncoder软件编码器对称
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S189
+  decision: pending_approval
+  timestamp: "2026-05-25T14:50:00+08:00"
+  builder: builder-agent (subagent)
+  subject: FFmpeg Resample重采样器 + AudioCaptureModule音频采集 双模块集成架构——SwrContext/AVAudioFifo双缓冲 + AudioCapturer/Read双模式 + GetMaxAmplitude振幅监测
+  evidence_count: 18
+  source_files: >
+    ffmpeg_convert.cpp(247行) + ffmpeg_convert.h(98行) Resample重采样器；
+    audio_capture_module.cpp(509行) + audio_capture_module.h(95行) 音频采集；
+    aac/ffmpeg_aac_encoder_plugin.cpp(902行) ADTS+FIFO+Resample集成
+  git_branch: master
+  commit: fb41010
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/fb41010
+  note: 基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/common/ 和 services/media_engine/modules/source/audio_capture/ 探索，18条行号级evidence（E1-E18），SwrContext重采样三阶段(swr_alloc_set_opts2/swr_init/swrCtx_)、AudioCapturer双Read模式、TrackMaxAmplitude/GetMaxAmplitude振幅监测、av_audio_fifo AAC编码缓冲、ADTS 7字节头封装，与S125/S132/S158/S176/S119/S147关联
