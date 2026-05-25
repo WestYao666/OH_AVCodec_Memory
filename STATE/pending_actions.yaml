@@ -859,3 +859,30 @@
     DRM体系：EXTXKEY+HexSequence解析AES-128 IV/Widevine PSSH/PlayReady/FairPlay
     多码率：EXTXMEDIA的kTypeMap(AUDIO/VIDEO/SUBTITLES/CLOSED-CAPTIONS)+GROUP-ID分组
     与S192(M3U8解析器)/S188(HLS Playlist)/S191(HLS下载器)关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S125
+  title: "FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder / Resample / FfmpegDecoderPlugin 三层架构"
+  scope: AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, AudioDecoder, FfmpegBaseDecoder, FfmpegDecoderPlugin, AAC, AC3, MP3, FLAC, Vorbis, WMA, DTS
+  timestamp: "2026-05-26T02:04:00+08:00"
+  builder: builder-agent
+  evidence_count: 15
+  source_files: |
+    services/media_engine/plugins/ffmpeg_adapter/audio_decoder/
+      ffmpeg_decoder_plugin.cpp (250行) — 50 codec变体codecVec+codecMimeMap+codecInitMap
+      ffmpeg_decoder_plugin.h (46行) — 插件定义
+      ffmpeg_base_decoder.cpp (605行) — avcodec_send_packet/avcodec_receive_frame管线+againIndex_
+      ffmpeg_base_decoder.h (129行) — FfmpegBaseDecoder基类+Ffmpeg::Resample组合
+    services/media_engine/plugins/ffmpeg_adapter/common/
+      ffmpeg_convert.cpp (247行) — swr_alloc_set_opts2+swr_init+swr_convert
+      ffmpeg_convert.h (98行) — Resample类定义
+    = 1374+ 行源码
+  git_branch: master
+  notes: |
+    15条行号级evidence（E1-E15）
+    三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+FfmpegConvert::Resample)
+    50 codec变体(ADPCM×34共享同一FFmpegADPCMDecoderPlugin类)
+    avcodec_send_packet/avcodec_receive_frame双线程管线
+    againIndex_分片输出处理EAGAIN
+    swr_resample三层(SwrContext初始化/ConvertCommon/NeedResample)
+    与S125/S35/AudioDecoderFilter(上游Filter)/S130(FFmpegAdapterCommon)/S50(AudioResample)关联

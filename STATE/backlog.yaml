@@ -803,7 +803,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S125 | FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder / Resample / FfmpegDecoderPlugin 三层架构 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, AudioDecoder, FfmpegBaseDecoder, FfmpegDecoderPlugin, AAC, AC3, MP3, FLAC, Vorbis, WMA, DTS | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T08:10），ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)引擎基类；ffmpeg_convert.cpp(247行)+ffmpeg_convert.h(98行)Resample重采样器；ffmpeg_decoder_plugin.cpp(250行)+ffmpeg_decoder_plugin.h(46行)插件层，17+音频格式子插件（aac/ac3/mp3/flac/vorbis/wma/dts/cook/ape/truehd/twinvq/gsm/g711mu/amrnb/amrwb/alac/adpcm/ilbc/dvaudio/eac3/lbvc），与S35/S8/S50/S60关联 |
+| S125 | FFmpeg 软件解码器基类与 FFmpeg 音频解码插件体系——FfmpegBaseDecoder / Resample / FfmpegDecoderPlugin 三层架构 | AVCodec, AudioCodec, FFmpeg, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, AudioDecoder, FfmpegBaseDecoder, FfmpegDecoderPlugin, AAC, AC3, MP3, FLAC, Vorbis, WMA, DTS | 新需求开发/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-14T08:10）→本地镜像增强（2026-05-26T02:04），ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)引擎基类；ffmpeg_convert.cpp(247行)+ffmpeg_convert.h(98行)Resample重采样器；ffmpeg_decoder_plugin.cpp(250行)+ffmpeg_decoder_plugin.h(46行)插件层，50 codec变体(ADPCM×34共享)+againIndex_分片输出+swr_resample三层架构，与S35/S8/S50/S60/S130/S158/S169/S184关联 |
 
 ## 新增主题（Builder 2026-05-14 S132注册——FFmpeg音频编码器插件体系）
 
