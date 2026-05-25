@@ -631,3 +631,50 @@
     AudioFfmpegDecoderPlugin 426行组合FFmpeg avcodec_send_packet/avcodec_receive_frame管线，InitResample()初始化SwrContext，bufferGroupPtsDistance追踪
     Opus dlopen扩展库 libav_codec_ext_base.z.so（非标准FFmpeg），OpusPluginClassEncoderCreate/DecoderCreate函数指针
     与S125/S130/S50/S158/S169/S176关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S187
+  title: "DASH MPD Parser 解析器体系——DashMpdParser五层XML解析+26个节点类+三段继承机制+DashSegmentDownloader环形缓冲架构"
+  scope: AVCodec MediaEngine SourcePlugin DASH MPD
+  timestamp: '2026-05-25T19:00:00+08:00'
+  builder: builder-agent
+  evidence_count: 20
+  source_files: |
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_parser.cpp (1577行) + dash_mpd_parser.h (182行)
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/i_dash_mpd_node.cpp + i_dash_mpd_node.h
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_manager.cpp (188行) + dash_mpd_manager.h (74行)
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_period_manager.cpp (285行) + dash_period_manager.h (87行)
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_adpt_set_manager.cpp (297行) + dash_adpt_set_manager.h (85行)
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_representation_manager.cpp (127行) + dash_representation_manager.h (61行)
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/dash_mpd_def.h (~350行)
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/sidx_box_parser.cpp (233行) + sidx_box_parser.h
+    services/media_engine/plugins/source/http_source/dash/dash_mpd_downloader.cpp (2495行) + dash_mpd_downloader.h
+    services/media_engine/plugins/source/http_source/dash/dash_segment_downloader.cpp (1361行) + dash_segment_downloader.h
+    services/media_engine/plugins/source/http_source/dash/dash_media_downloader.cpp (1409行) + dash_media_downloader.h
+    + 20+ 节点类头文件
+    = 9200+行源码
+  git_branch: master
+  commit: cadae8f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/cadae8f
+  notes: |
+    20条行号级evidence（E1-E20）
+    五层XML解析路径：ParseMPD(L1320)→GetMpdElement→ParsePeriodElement→ParsePeriod→ParseAdaptationSet→ParseRepresentation
+    DashMpdParser::ParseMPD(L1320-1353)：XmlParser→ParseFromBuffer→GetRootElement→IDashMpdNode::CreateNode→ParseNode→GetMpdAttr→GetMpdElement
+    GetMpdAttr(L1225)：profiles/type(dynamic|static)/mediaPresentationDuration/minBufferTime/availabilityStartTime
+    ParseSegmentTemplate(L818)：ParseElement→ParseSegmentTimeline(L1142)时间线解析
+    InheritMultSegBase(L795)/InheritSegBase(L811)：属性继承机制
+    DashMpdDownloader::ParseManifest(L639)：mpdParser.ParseMPD→GetMPD→遍历period/adptSet/representation
+    DashSegmentDownloader：环形缓冲OnWriteRingBuffer(L990)+按时间清理CleanByTimeInternal(L782)
+    26个IDashMpdNode节点类，三段继承机制（基类→管理器→节点类）
+    与S138/S172/S182并列自适应流双源头，与S75/S97关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S152
+  decision: pending_approval
+  timestamp: "2026-05-25T19:05:00+08:00"
+  builder: builder-agent (subagent)
+  subject: TaskThread线程管理框架与SurfaceTools Surface生命周期管理——双Utility组件五态机与单例映射表
+  evidence_count: 21
+  source_files: services/utils/task_thread.cpp(175行) + task_thread.h(69行) + surface_tools.cpp(107行) + surface_tools.h(41行) + block_queue.h(168行) + utils.h(46行) = 606行源码，21条行号级evidence
+  git_branch: master
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/TBD
+  note: 五态机(STARTED/PAUSING/PAUSED/STOPPING/STOPPED)+500ms自醒+pthread_setname_np；SurfaceTools单例+surfaceProducerMap_映射表三段式释放；BlockQueue模板生产者-消费者队列；与S14/S20/S34/S39/S45/S154/S167关联
