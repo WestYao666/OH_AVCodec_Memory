@@ -1302,3 +1302,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S184 | FFmpeg Audio Decoder Plugin体系——FfmpegBaseDecoder基类+29子插件+Resample重采样三层架构 | AVCodec, FFmpeg, AudioDecoder, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, FfmpegBaseDecoder, FfmpegDecoderPlugin, AAC, FLAC, MP3, Vorbis, WMA, DTS, COOK, ADPCM, AMR, ALAC, ILBC, TrueHD, APE, GSM, DTS | 新需求开发/音频解码接入/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-25T11:34），MEM-ARCH-AVCODEC-S184.md（984行源码，23条行号级evidence），ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)+ffmpeg_decoder_plugin.cpp(250行)，三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+29子插件)，avcodec_send_packet/avcodec_receive_frame管线，Resample SwrContext重采样，codecVec 50种codec名称映射，mimeVec 50种MIME映射，InitDefinition模板50实例化，与S125/S130/S50/S158/S169关联 |
+
+## 新增主题（Builder 2026-05-25 S188注册——FFmpeg Audio Decoder Plugin体系本地镜像增强版）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S188 | FFmpeg Audio Decoder Plugin体系——FfmpegBaseDecoder基类+29子插件+Resample重采样三层架构（本地镜像增强版） | AVCodec, FFmpeg, AudioDecoder, Plugin, SoftwareCodec, Resample, SwrContext, libavcodec, avcodec_send_packet, avcodec_receive_frame, FfmpegBaseDecoder, FfmpegDecoderPlugin, AAC, FLAC, MP3, Vorbis, WMA, DTS, COOK, ADPCM, AMR, ALAC, ILBC, TrueHD, APE, GSM, DTS | 新需求开发/音频解码接入/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-25T14:19），MEM-ARCH-AVCODEC-S188.md（~9030行源码，23条行号级evidence），本地镜像services/media_engine/plugins/ffmpeg_adapter/audio_decoder/，三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+29子插件)，avcodec_send_packet/avcodec_receive_frame管线，SwrContext重采样，50 codec变体（ADPCM×34/WMA×3共享），与S183 AvcEncoder软件编码器对称，与S125/S130/S50/S158/S169关联 |

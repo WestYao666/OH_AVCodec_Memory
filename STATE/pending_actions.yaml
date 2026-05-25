@@ -475,3 +475,19 @@
     = 9200+行源码
   git_branch: master
   note: 基于本地镜像 services/media_engine/plugins/source/http_source/dash/ 探索，填补S138(DASH MPD Parser)未起草空白，20条行号级evidence，5层XML解析+三段继承机制+环形缓冲，与S172/S182/S75/S97关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S188
+  decision: pending_approval
+  timestamp: "2026-05-25T14:19:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "FFmpeg Audio Decoder Plugin体系——FfmpegBaseDecoder基类+29子插件+Resample重采样三层架构（本地镜像增强版）"
+  evidence_count: 23
+  source_files: |
+    services/media_engine/plugins/ffmpeg_adapter/audio_decoder/
+      ffmpeg_base_decoder.cpp (605行) + ffmpeg_base_decoder.h (129行)
+      ffmpeg_decoder_plugin.cpp (250行) + ffmpeg_decoder_plugin.h (46行)
+      29个子插件目录（aac/ac3/adpcm/alac/amrnb/amrwb/ape/cook/dts/dvaudio/eac3/flac/g711a/g711mu/gsm/gsm_ms/ilbc/lbvc/mp3/raw/truehd/twinvq/vorbis/wma）
+      = ~9030行源码
+  git_branch: master
+  note: 基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/audio_decoder/ 探索，23条行号级evidence（E1-E23），三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+29子插件)，avcodec_send_packet/avcodec_receive_frame管线，SwrContext重采样，50 codec变体（ADPCM×34/WMA×3共享），与S183 AvcEncoder软件编码器对称
