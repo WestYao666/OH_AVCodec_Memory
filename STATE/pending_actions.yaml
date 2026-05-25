@@ -156,8 +156,8 @@
     lbvc/audio_lbvc_encoder_plugin.cpp(285行) +
     common/ffmpeg_utils.cpp(505行) + common/ffmpeg_convert.cpp(247行)
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 融合S132/S158/S174三次草案，完整五子插件+三层架构行号级evidence，基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/audio_encoder/ 探索
 
 - type: approval_request
@@ -169,8 +169,8 @@
   evidence_count: 12
   source_files: codec_capability_adapter.cpp(113行) + codec_capability_adapter.h(44行) = 157行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 基于本地镜像/av_codec_repo行号级evidence增强，草案路径MEM-ARCH-AVCODEC-S171.md
 
 - type: approval_request
@@ -270,8 +270,8 @@
     services/media_engine/plugins/ffmpeg_adapter/muxer/flv_muxer/ffmpeg_flv_muxer_plugin.cpp
     = 6642+行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 三层插件体系(AutoRegisterFilter+FFmpegMuxerPlugin+MPEG4MuxerPlugin)，BasicBox树形封装(1256行)，mpeg4_muxer子目录4851行，与S91/S131/S145/S158/S176关联
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S180
@@ -290,8 +290,8 @@
     services/media_engine/plugins/ffmpeg_adapter/muxer/flv_muxer/ffmpeg_flv_muxer_plugin.cpp
     = 6642+行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 三层插件体系(AutoRegisterFilter+FFmpegMuxerPlugin+MPEG4MuxerPlugin)，BasicBox树形封装(1256行)，mpeg4_muxer子目录4851行，与S91/S131/S145/S158/S176关联
 
 - type: approval_request
@@ -303,8 +303,8 @@
   evidence_count: 20
   source_files: services/engine/codec/video/七类Loader + services/engine/codec/audio/AudioCodecAdapter(467行)+AudioCodecWorker(429行)，services/media_engine/plugins/demuxer/common/3103行
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 双目录并行架构，engine层~5000行+plugins层3103行，与S166/S83/S137/S70/S173/S125关联
 
 - type: approval_request
@@ -316,8 +316,8 @@
   evidence_count: 76
   source_files: modules/sink/media_sync_manager.cpp(491行)+video_sink.cpp(462行)+audio_sink.cpp(1863行)+subtitle_sink.cpp(517行)+media_muxer.cpp(571行)+media_codec.cpp(1266行)+pts_and_index_conversion.cpp(640行)+super_resolution_post_processor.cpp(357行)+audio_capture_module.cpp(509行)=~6656行源码，56条本地镜像增强evidence(E1-E56)
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 七模块架构，MediaSyncManager优先级体系(0/2/8)，VideoSink LAG_LIMIT_TIME=100ms/VIDEO_SINK_START_FRAME=4，AudioSink FIX_DELAY_MS_AUDIO_VIVID=80ms，MediaCodec CodecState十二态机，PTS MAX_FRAMES=36000，与S22/S98/S99/S120/S124/S100/S108/S114关联
 
 - type: approval_request
@@ -336,8 +336,8 @@
     共5组件1685行源码+5头文件376行，20条行号级evidence，
     本地镜像增强（S181 = S130增强版，新增hdi_codec 365行完整证据）
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 五工具链架构，Mime2CodecId(L41) / ColorMatrix2AVColorSpace(L218) / FindNalStartCode(L492) / g_toFFMPEGChannelLayout(L30) / Resample::InitSwrContext(L64) / Scale::Convert(L230) / FFMpegConverter(L138) / HdiCodec::InitComponent(L42) / GetComponentManager(L61) / EmptyThisBuffer(L211) / FillThisBuffer(L232) / HdiCallback L327-L355 / StreamParserManager::Create(L67) / dlopen(L183)，HdiCodec是FFmpeg音频解码器HDI硬件加速通道，与S125/S50/S105/S158/S169/S176关联
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S182
@@ -350,8 +350,8 @@
     playlist_downloader.h(206行) + hls_playlist_downloader.cpp(1270行) + hls_playlist_downloader.h(147行) +
     m3u8.h(291行) + m3u8.cpp(1435行) = 3349行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 基于本地镜像 services/media_engine/plugins/source/http_source/hls/ 探索，HlsSegmentType三轨枚举，SelectMedia/SetDefaultMedia/UpdateMedia三轨API，AesDecryptorManager按keyIndex管理AES-128解密，isFmp4_/isPureByteRange_差异化，与S37/S106/S138并列
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S183
@@ -369,8 +369,8 @@
     services/engine/codec/video/avc_encoder_loader.cpp (72行)
     = 2747行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   note: 新主题探索，基于本地镜像 services/engine/codec/video/avcencoder/ 行号级evidence，AvcEncoder双库加载架构(libavc_encoder.z.so外壳+libavcenc_ohos.z.so内核)，三函数指针(InitEncoder/EncodeProcess/ReleaseEncoder)，TaskThread驱动SendFrame，BT601/BT709色彩空间矩阵+ARM NEON，AVCLevel→H264Level完整映射表，与S59/S70/S54/S57/S50关联
 
 - type: approval_request
@@ -721,8 +721,8 @@
     ffmpeg_demuxer_plugin.cpp (4129行) + ffmpeg_demuxer_thread.cpp (891行) + ffmpeg_format_helper.cpp (1367行)
     + ffmpeg_demuxer_plugin.h (601行) = 6988行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   notes: |
     20条行号级evidence（E1-E29）
     AVIOContext三回调(AVReadPacket/AVWritePacket/AVSeek) / FFmpegReadLoop异步读线程 / SOFT_LIMIT-HARD_LIMIT双阈值(trackCount×2/×4) /
@@ -750,8 +750,8 @@
     services/services/sa_avcodec/ipc/codeclist_parcel.cpp (246行)
     services/services/sa_avcodec/client/avcodec_client.cpp (352行)
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   notes: |
     22条行号级evidence（E1-E22）
     AVCodecServerManager单例+dlopen(avcodec_server_manager.cpp L34/L42/L51/L62/L74/L90/L91/L123/L132) /
@@ -776,7 +776,7 @@
     ffmpeg_aac_encoder_plugin.cpp (902行) — av_audio_fifo/ADTS 集成
   git_branch: master
   commit: pending (local draft)
-  git_url: ""
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
 
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S177
@@ -798,7 +798,7 @@
     avc_parser_impl.h/cpp — AVC NALU解析
   git_branch: master
   commit: pending (local draft)
-  git_url: ""
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S193
   title: "FFmpeg Adapter Audio Encoder Plugin 体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件架构"
@@ -820,8 +820,8 @@
       ffmpeg_convert.cpp (247行) + ffmpeg_convert.h (98行)
     = 3584+ 行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   notes: |
     18条行号级evidence（E1-E18）
     三层架构(FFmpegEncoderPlugin注册层+FFmpegBaseEncoder基类+五子插件)
@@ -849,8 +849,8 @@
       m3u8.h (291行) — M3U8Fragment/MasterPlaylist/MediaPlaylist数据结构定义
     = 2519+ 行源码
   git_branch: master
-  commit: ""
-  git_url: ""
+  commit: a2886eb834fa6743b3ff465fd82697ec5e0c760f
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
   notes: |
     18条行号级evidence（E1-E18）
     HlsTagSection分段编码：REGULAR/SINGLE_VALUE/ATTRIBUTES/VALUES_LIST各占16位区间，O(1)类型判断
