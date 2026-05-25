@@ -777,3 +777,25 @@
   git_branch: master
   commit: pending (local draft)
   git_url: ""
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S177
+  decision: pending_approval
+  timestamp: "2026-05-26T00:15:00+08:00"
+  builder: builder-agent (subagent)
+  subject: Demuxer Common 共享解析工具链——MultiStreamParserManager / StreamParser / Converter / TimeRangeManager / ReferenceParserManager 五组件
+  evidence_count: 20
+  source_files: |
+    plugins/demuxer/common/ 六文件共约 1103 行核心源码
+    multi_stream_parser_manager.cpp (293行) + .h (100行)
+    stream_parser.h (96行) — 流解析器基类
+    converter.cpp (595行) + .h (75行) — 色域转换
+    time_range_manager.cpp (77行) + .h (70行) — Seek范围管理
+    reference_parser_manager.cpp (138行) + .h (77行) — dlopen插件管理
+    demuxer_data_reader.cpp (162行) + .h (49行) — 数据读取器
+    block_queue_pool.h — 内存池模板特化
+    rbsp_context.h/cpp — EBSP→RBSP防伪字节
+    avc_parser_impl.h/cpp — AVC NALU解析
+  git_branch: master
+  commit: pending (local draft)
+  git_url: ""
