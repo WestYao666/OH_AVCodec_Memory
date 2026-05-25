@@ -709,3 +709,24 @@
       = 1030行基底源码（不含子插件目录）
   git_branch: master
   note: 基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/audio_decoder/ 探索，19条行号级evidence（E1-E19），三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+19子插件)，codecVec 50 codec名称映射/codecMimeMap 50 MIME映射/codecInitMap 50 InitDefinition函数指针驱动模板实例化，avcodec_send_packet/avcodec_receive_frame管线/againIndex_分片输出，SwrContext重采样(EnableResample/InitResample→HandleFirstFrame)，durationTime_=1000000.f/sampleRate PTS计算，与S183(AvcEncoder软件编码器)对称，与S125/S130/S50/S158/S169/S176关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S192
+  decision: pending_approval
+  timestamp: "2026-05-25T21:25:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "FFmpegDemuxerPlugin 深度架构——AVIOContext/FFmpegReadLoop/SOFT_LIMIT/PTS-Index/HDR/BitstreamFilter/ReferenceParser"
+  evidence_count: 20
+  source_files: |
+    ffmpeg_demuxer_plugin.cpp (4129行) + ffmpeg_demuxer_thread.cpp (891行) + ffmpeg_format_helper.cpp (1367行)
+    + ffmpeg_demuxer_plugin.h (601行) = 6988行源码
+  git_branch: master
+  commit: ""
+  git_url: ""
+  notes: |
+    20条行号级evidence（E1-E29）
+    AVIOContext三回调(AVReadPacket/AVWritePacket/AVSeek) / FFmpegReadLoop异步读线程 / SOFT_LIMIT-HARD_LIMIT双阈值(trackCount×2/×4) /
+    PTS MaxHeap逆查+二分顺查 / ParseHEVCMetadataInfo六步HDR判定(CUVA/HDR10/HLG/NONE) /
+    ConvertAvcToAnnexb BitstreamFilter / ReferenceParserManager dlopen GOP索引 /
+    LIVE_FLV_PROBE_SIZE=200KB / RMSeek特殊路径
+    与S68/S76/S134互补，构成完整FFmpegDemuxer体系
