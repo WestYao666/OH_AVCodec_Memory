@@ -1330,3 +1330,9 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-25T15:34 | Builder | S190注册：FFmpeg Resample + AudioCaptureModule 双模块集成架构草案已生成，写入 MEM-ARCH-AVCODEC-S190.md（pending_approval），18条行号级evidence |
+
+## 新增主题（Builder 2026-05-25 S185注册——AudioServerSinkPlugin音频渲染插件）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S185 | AudioServerSinkPlugin 音频渲染输出插件——AudioStandard::AudioRenderer集成+Write管线+AVS3DA特殊路径 | AVCodec, MediaEngine, AudioSink, AudioServerSinkPlugin, AudioRenderer, Write, AudioVivid, AVS3DA, Resample | 新需求开发/音频播放管线/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-25T15:48 builder-agent处理）→pending_approval，MEM-ARCH-AVCODEC-S185.md（1495行cpp，20条行号级evidence），AudioServerSinkPlugin=最下游音频输出节点，g_aduFmtMap 24格式三元组映射，Write管线(DrainCacheData+WriteAudioBuffer+5ms超时等待)，AVS3DA特殊路径WriteAudioVivid带元数据，Resample SwrContext重采样，与S184(FFmpeg音频解码)对称 |
