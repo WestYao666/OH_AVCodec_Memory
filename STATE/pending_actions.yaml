@@ -353,3 +353,22 @@
   commit: ""
   git_url: ""
   note: 基于本地镜像 services/media_engine/plugins/source/http_source/hls/ 探索，HlsSegmentType三轨枚举，SelectMedia/SetDefaultMedia/UpdateMedia三轨API，AesDecryptorManager按keyIndex管理AES-128解密，isFmp4_/isPureByteRange_差异化，与S37/S106/S138并列
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S183
+  decision: pending_approval
+  timestamp: "2026-05-25T10:18:00+08:00"
+  builder: builder-agent (subagent)
+  subject: AVC H.264 软件编码器体系——AvcEncoder + AvcEncoderLoader + AvcEncoderConvert + AvcEncoderUtil 四组件2747行
+  evidence_count: 20
+  source_files: |
+    services/engine/codec/video/avcencoder/avc_encoder.cpp (1765行)
+    services/engine/codec/video/avcencoder/avc_encoder.h (270行)
+    services/engine/codec/video/avcencoder/avc_encoder_convert.cpp (369行)
+    services/engine/codec/video/avcencoder/avc_encoder_util.cpp (235行)
+    services/engine/codec/video/avcencoder/avc_encoder_api.cpp (36行)
+    services/engine/codec/video/avc_encoder_loader.cpp (72行)
+    = 2747行源码
+  git_branch: master
+  commit: ""
+  git_url: ""
+  note: 新主题探索，基于本地镜像 services/engine/codec/video/avcencoder/ 行号级evidence，AvcEncoder双库加载架构(libavc_encoder.z.so外壳+libavcenc_ohos.z.so内核)，三函数指针(InitEncoder/EncodeProcess/ReleaseEncoder)，TaskThread驱动SendFrame，BT601/BT709色彩空间矩阵+ARM NEON，AVCLevel→H264Level完整映射表，与S59/S70/S54/S57/S50关联
