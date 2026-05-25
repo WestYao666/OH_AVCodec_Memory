@@ -1,7 +1,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S180
 title: FFmpeg Adapter Muxer Plugin 体系——FFmpegMuxerRegister 注册机 + MPEG4MuxerPlugin / FLVMuxerPlugin 子插件
-status: draft
+status: pending_approval
 scope: [AVCodec, FFmpeg, MuxerPlugin, FFmpegAdapter, MPEG4, FLV, ISOBMFF, Box, AutoRegisterFilter, libavformat, Track]
 assoc_scenarios: [新需求开发/问题定位/封装格式/FFmpeg集成]
 sources:
