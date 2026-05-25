@@ -530,3 +530,16 @@
     = 9200+行源码
   git_branch: master
   note: 基于本地镜像 services/media_engine/plugins/source/http_source/dash/ 探索，填补S138(DASH MPD Parser)未起草空白，20条行号级evidence，5层XML解析+三段继承机制+环形缓冲，与S172/S182/S75/S97关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S190
+  decision: pending_approval
+  timestamp: "2026-05-25T15:34:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "FFmpeg Resample 重采样器 + AudioCaptureModule 音频采集双模块集成架构——SwrContext/AVAudioFifo双缓冲 + AudioCapturer/Read双模式 + GetMaxAmplitude振幅监测"
+  evidence_count: 18
+  source_files: |
+    services/media_engine/plugins/ffmpeg_adapter/common/ffmpeg_convert.cpp(247行) + ffmpeg_convert.h(98行)
+    services/media_engine/modules/source/audio_capture/audio_capture_module.cpp(509行) + audio_capture_module.h(95行)
+    services/media_engine/plugins/ffmpeg_adapter/audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行)
+  git_branch: master
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory
