@@ -339,3 +339,17 @@
   commit: ""
   git_url: ""
   note: 五工具链架构，Mime2CodecId(L41) / ColorMatrix2AVColorSpace(L218) / FindNalStartCode(L492) / g_toFFMPEGChannelLayout(L30) / Resample::InitSwrContext(L64) / Scale::Convert(L230) / FFMpegConverter(L138) / HdiCodec::InitComponent(L42) / GetComponentManager(L61) / EmptyThisBuffer(L211) / FillThisBuffer(L232) / HdiCallback L327-L355 / StreamParserManager::Create(L67) / dlopen(L183)，HdiCodec是FFmpeg音频解码器HDI硬件加速通道，与S125/S50/S105/S158/S169/S176关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S182
+  decision: pending_approval
+  timestamp: "2026-05-25T09:52:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "HLS Playlist Downloader 三路媒体流管理架构——M3U8MasterPlaylist + M3U8VariantStream + M3U8Media 三层结构与 SelectMedia/SetDefaultMedia 轨选机制"
+  evidence_count: 20
+  source_files: >
+    playlist_downloader.h(206行) + hls_playlist_downloader.cpp(1270行) + hls_playlist_downloader.h(147行) +
+    m3u8.h(291行) + m3u8.cpp(1435行) = 3349行源码
+  git_branch: master
+  commit: ""
+  git_url: ""
+  note: 基于本地镜像 services/media_engine/plugins/source/http_source/hls/ 探索，HlsSegmentType三轨枚举，SelectMedia/SetDefaultMedia/UpdateMedia三轨API，AesDecryptorManager按keyIndex管理AES-128解密，isFmp4_/isPureByteRange_差异化，与S37/S106/S138并列
