@@ -730,3 +730,33 @@
     ConvertAvcToAnnexb BitstreamFilter / ReferenceParserManager dlopen GOP索引 /
     LIVE_FLV_PROBE_SIZE=200KB / RMSeek特殊路径
     与S68/S76/S134互补，构成完整FFmpegDemuxer体系
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S170
+  decision: pending_approval
+  timestamp: "2026-05-25T22:15:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "SA Codec 服务框架——IPC五层架构与33+6+5接口枚举体系（本地镜像增强版，22条行号级evidence）"
+  evidence_count: 22
+  source_files: |
+    services/services/sa_avcodec/server/avcodec_server_manager.cpp (426行)
+    services/services/sa_avcodec/server/avcodec_server.cpp (182行)
+    services/services/sa_avcodec/ipc/avcodec_service_stub.cpp (220行)
+    services/services/sa_avcodec/ipc/avcodec_service_proxy.cpp (128行)
+    services/services/sa_avcodec/ipc/av_codec_service_ipc_interface_code.h (84行)
+    services/services/sa_avcodec/ipc/avcodec_listener_stub.cpp (35行)
+    services/services/sa_avcodec/ipc/avcodec_listener_proxy.cpp (35行)
+    services/services/sa_avcodec/ipc/avcodec_death_recipient.h (48行)
+    services/services/sa_avcodec/ipc/avcodec_parcel.cpp (36行)
+    services/services/sa_avcodec/ipc/codeclist_parcel.cpp (246行)
+    services/services/sa_avcodec/client/avcodec_client.cpp (352行)
+  git_branch: master
+  commit: ""
+  git_url: ""
+  notes: |
+    22条行号级evidence（E1-E22）
+    AVCodecServerManager单例+dlopen(avcodec_server_manager.cpp L34/L42/L51/L62/L74/L90/L91/L123/L132) /
+    CodecServiceStub 33路分发+DeathRecipient(avcodec_service_stub.cpp L46/L81/L86/L93/L96/L99/L102/L109/L115) /
+    接口枚举四合一(av_codec_service_ipc_interface_code.h L22/L32/L69/L77) /
+    CodecClient代理获取链路(avcodec_client.cpp L70/L80/L129/L132/L195/L207/L212/L220/L229) /
+    SuspendFreeze省电+ActiveAll权限校验(L165/L181/L197/L199)
+    与S137/S161互补，构成完整SA IPC体系
