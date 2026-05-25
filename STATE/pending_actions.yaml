@@ -693,3 +693,19 @@
     = 582+行源码，24条行号级evidence
   git_branch: master
   note: 本地镜像增强版，基于本地镜像 services/media_engine/filters/sei_parser/ 探索，HELPER_CONSTRUCTOR_MAP工厂双解析器，SEI NALU双格式(AVC 0x06/HEVC 39-40)，EVENT_SEI_INFO事件回调，与S14(FilterChain)/S22(MediaSyncManager)关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S188
+  decision: pending_approval
+  timestamp: "2026-05-25T20:30:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "FFmpeg Audio Decoder Plugin体系——FfmpegBaseDecoder基类+19子插件+Resample重采样三层架构（本地镜像增强版）"
+  evidence_count: 19
+  source_files: |
+    services/media_engine/plugins/ffmpeg_adapter/audio_decoder/
+      ffmpeg_base_decoder.cpp (605行) + ffmpeg_base_decoder.h (129行)
+      ffmpeg_decoder_plugin.cpp (250行) + ffmpeg_decoder_plugin.h (46行)
+      + 19个子插件目录（aac/ac3/adpcm/alac/amrnb/amrwb/ape/cook/dts/eac3/flac/g711a/g711mu/gsm/gsm_ms/ilbc/lbvc/mp3/truehd/twinvq/vorbis/wma）
+      = 1030行基底源码（不含子插件目录）
+  git_branch: master
+  note: 基于本地镜像 services/media_engine/plugins/ffmpeg_adapter/audio_decoder/ 探索，19条行号级evidence（E1-E19），三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+19子插件)，codecVec 50 codec名称映射/codecMimeMap 50 MIME映射/codecInitMap 50 InitDefinition函数指针驱动模板实例化，avcodec_send_packet/avcodec_receive_frame管线/againIndex_分片输出，SwrContext重采样(EnableResample/InitResample→HandleFirstFrame)，durationTime_=1000000.f/sampleRate PTS计算，与S183(AvcEncoder软件编码器)对称，与S125/S130/S50/S158/S169/S176关联
