@@ -293,3 +293,29 @@
   commit: ""
   git_url: ""
   note: 三层插件体系(AutoRegisterFilter+FFmpegMuxerPlugin+MPEG4MuxerPlugin)，BasicBox树形封装(1256行)，mpeg4_muxer子目录4851行，与S91/S131/S145/S158/S176关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S178
+  decision: pending_approval
+  timestamp: "2026-05-25T09:05:00+08:00"
+  builder: builder-agent (subagent)
+  subject: AVCodec源代码双目录架构——services/engine/codec与services/media_engine/plugins并行路径
+  evidence_count: 20
+  source_files: services/engine/codec/video/七类Loader + services/engine/codec/audio/AudioCodecAdapter(467行)+AudioCodecWorker(429行)，services/media_engine/plugins/demuxer/common/3103行
+  git_branch: master
+  commit: ""
+  git_url: ""
+  note: 双目录并行架构，engine层~5000行+plugins层3103行，与S166/S83/S137/S70/S173/S125关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S179
+  decision: pending_approval
+  timestamp: "2026-05-25T09:05:00+08:00"
+  builder: builder-agent (subagent)
+  subject: MediaEngine Modules层架构——Sink/Muxer/Source/PostProcessor/MediaCodec/PTSIndex六模块
+  evidence_count: 76
+  source_files: modules/sink/media_sync_manager.cpp(491行)+video_sink.cpp(462行)+audio_sink.cpp(1863行)+subtitle_sink.cpp(517行)+media_muxer.cpp(571行)+media_codec.cpp(1266行)+pts_and_index_conversion.cpp(640行)+super_resolution_post_processor.cpp(357行)+audio_capture_module.cpp(509行)=~6656行源码，56条本地镜像增强evidence(E1-E56)
+  git_branch: master
+  commit: ""
+  git_url: ""
+  note: 七模块架构，MediaSyncManager优先级体系(0/2/8)，VideoSink LAG_LIMIT_TIME=100ms/VIDEO_SINK_START_FRAME=4，AudioSink FIX_DELAY_MS_AUDIO_VIVID=80ms，MediaCodec CodecState十二态机，PTS MAX_FRAMES=36000，与S22/S98/S99/S120/S124/S100/S108/S114关联
