@@ -543,3 +543,19 @@
     services/media_engine/plugins/ffmpeg_adapter/audio_encoder/aac/ffmpeg_aac_encoder_plugin.cpp(902行)
   git_branch: master
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S185
+  decision: pending_approval
+  timestamp: "2026-05-25T15:48:00+08:00"
+  builder: builder-agent (subagent)
+  subject: AudioServerSinkPlugin音频渲染输出插件——AudioStandard::AudioRenderer集成+Write管线+AVS3DA特殊路径
+  evidence_count: 20
+  source_files: |
+    services/media_engine/plugins/sink/audio_server_sink_plugin.cpp(1495行)
+    + audio_server_sink_plugin.h(311行)
+    = 1806行源码
+  git_branch: master
+  commit: f8f32c5
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/f8f32c5
+  note: S185草案+backlog更新+pending_actions同步，基于本地镜像 services/media_engine/plugins/sink/ 探索，AudioServerSinkPlugin = MediaEngine最下游音频输出节点（对应S184最上游音频解码节点）
