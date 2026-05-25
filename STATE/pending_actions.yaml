@@ -559,3 +559,28 @@
   commit: f8f32c5
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/f8f32c5
   note: S185草案+backlog更新+pending_actions同步，基于本地镜像 services/media_engine/plugins/sink/ 探索，AudioServerSinkPlugin = MediaEngine最下游音频输出节点（对应S184最上游音频解码节点）
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S192
+  title: FFmpegDemuxerPlugin深度架构——AVIOContext/FFmpegReadLoop/SOFT_LIMIT/PTS-Index/HDR/BitstreamFilter/ReferenceParser
+  scope: AVCodec Demuxer FFmpeg
+  timestamp: '2026-05-25T17:30:00+08:00'
+  builder: builder-agent
+  notes: |
+    4129行cpp+895行thread+1367行format_helper，20条行号级evidence
+    AVIOContext三回调/FFmpegReadLoop异步读/SOFT_LIMIT-HARD_LIMIT/PTS MaxHeap逆查/ParseHEVCMetadataInfo六步HDR
+    与S68/S76/S134互补，构成完整FFmpegDemuxer体系
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S184
+  title: FFmpeg Audio Decoder Plugin体系——FfmpegBaseDecoder基类+29子插件+Resample重采样三层架构
+  scope: AVCodec AudioDecoder FFmpeg
+  timestamp: '2026-05-25T17:50:00+08:00'
+  builder: builder-agent
+  notes: |
+    ffmpeg_base_decoder.cpp(605行)+ffmpeg_base_decoder.h(129行)+ffmpeg_decoder_plugin.cpp(250行)+ffmpeg_decoder_plugin.h(46行)
+    19条行号级evidence
+    三层架构(FfmpegDecoderPlugin注册层+FfmpegBaseDecoder引擎基类+29子插件)
+    codecVec 50名称映射/codecMimeMap 50 MIME映射/codecInitMap函数指针驱动InitDefinition模板50实例化
+    avcodec_send_packet/avcodec_receive_frame管线/againIndex_分片输出
+    swr_alloc_set_opts2+swr_init重采样/InitSwrContext→swr_convert_frame→outBuffer写入
+    OHOS原生G711mu零依赖表驱动vs FFmpegBaseDecoder双轨
+    与S125/S130/S50/S158/S169关联
