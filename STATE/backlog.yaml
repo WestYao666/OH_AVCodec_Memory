@@ -1342,3 +1342,9 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S191 | OHOS-Native Audio Codec Plugins vs FFmpeg Adapter Architecture——G711mu/Opus 自主实现 vs FFmpeg-Based 音频编解码双路径 | AVCodec, AudioCodec, Plugin, FFmpeg, G711mu, Opus, SoftwareCodec, Engine, FFmpegAdapter, dlopen, OHOS-Native, AudioFfmpegDecoderPlugin, Composition, Inheritance | 新需求开发/音频编解码/问题定位/新人入项 | **pending_approval** | 🚧 草案已生成（2026-05-25T16:20），MEM-ARCH-AVCODEC-S191.md（20条行号级evidence），services/engine/codec/audio/引擎路径三模式（G711mu零依赖表驱动/Opus dlopen libav_codec_ext_base.z.so/AudioFfmpegDecoderPlugin组合基类），vs FFmpegAdapter路径（FFmpegBaseDecoder/Encoder继承模式），audio_g711mu_encoder_plugin.cpp(239行)μ-law L120-148+audio_g711mu_decoder_plugin.cpp(168行)L62-74+audio_opus_encoder_plugin.cpp(263行)dlopen L49-67+audio_opus_decoder_plugin.cpp(242行)L49-62+audio_ffmpeg_decoder_plugin.cpp(398行)avcodec管线L55-130，与S125/S8/S50/S158/S169/S184关联 |
+
+## 新增主题（Builder 2026-05-25 S192注册——FFmpegDemuxerPlugin深度架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S192 | FFmpegDemuxerPlugin 深度架构——libavformat管线/AVIOContext自定义IO/异步读线程/ReadAhead缓冲/SOFT_LIMIT-HARD_LIMIT/PTS-Index双向转换/HDR元数据解析 | AVCodec, MediaEngine, Demuxer, FFmpeg, Plugin, libavformat, AVIOContext, FFmpegReadLoop, ReadAhead, SOFT_LIMIT, HARD_LIMIT, CachePressure, PTS, Index, HDR, BitstreamFilter, AnnexB, ReferenceParser, dlopen, GOP, I-Frame, WebVTT, LIVE_FLV | 新需求开发/问题定位/流媒体播放/FFmpeg集成 | **pending_approval** | 🚧 草案已生成（2026-05-25T17:25），MEM-ARCH-AVCODEC-S192.md（4129行cpp+895行thread+1367行format_helper+601行h，20条行号级evidence），AVIOContext三回调(AVReadPacket/AVWritePacket/AVSeek)、FFmpegReadLoop异步读线程、SOFT_LIMIT/HARD_LIMIT双阈值(trackCount×2/×4)、PTS MaxHeap逆查+二分顺查、ParseHEVCMetadataInfo六步HDR判定、ConvertAvcToAnnexb BitstreamFilter、ReferenceParserManager dlopen GOP索引，与S68/S76(S134)互补构成完整FFmpegDemuxer体系 |
