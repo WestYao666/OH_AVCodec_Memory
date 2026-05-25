@@ -452,3 +452,26 @@
     = 1853行源码
   git_branch: master
   note: PullData三路分发(UNSEEKABLE/SEEKABLE/CallbackReadAt)，ReadRetry(10次×10ms)，PullDataWithCache缓存合并，ProcInnerDash DASH分片合并，DemuxerState三状态机，CacheData缓存结构，MediaStreamInfo/MediaTrackMap三层映射表，LoadDemuxerPlugin Sniffer探测(200ms)，GetPluginByStreamID插件查找，与S75/S97/S101/S102深度关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S187
+  decision: pending_approval
+  timestamp: "2026-05-25T14:05:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "DASH MPD Parser 解析器体系——DashMpdParser五层XML解析+26个节点类+三段继承机制+DashSegmentDownloader环形缓冲架构"
+  evidence_count: 20
+  source_files: |
+    services/media_engine/plugins/source/http_source/dash/mpd_parser/
+      dash_mpd_parser.cpp(1577行) + dash_mpd_parser.h(182行)
+      dash_mpd_manager.cpp(188行) + dash_mpd_manager.h(74行)
+      dash_adpt_set_manager.cpp(297行) + dash_adpt_set_manager.h(85行)
+      dash_period_manager.cpp(285行) + dash_period_manager.h(87行)
+      dash_representation_manager.cpp(127行) + dash_representation_manager.h(61行)
+      i_dash_mpd_node.cpp(90行) + i_dash_mpd_node.h(62行)
+      dash_mpd_def.h(~350行) + dash_mpd_util.cpp(283行) + dash_mpd_util.h(~150行)
+      sidx_box_parser.cpp(233行) + 20+个节点类头文件
+    services/media_engine/plugins/source/http_source/dash/
+      dash_mpd_downloader.cpp(2495行)
+      dash_segment_downloader.cpp(1361行)
+    = 9200+行源码
+  git_branch: master
+  note: 基于本地镜像 services/media_engine/plugins/source/http_source/dash/ 探索，填补S138(DASH MPD Parser)未起草空白，20条行号级evidence，5层XML解析+三段继承机制+环形缓冲，与S172/S182/S75/S97关联
