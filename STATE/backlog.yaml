@@ -1262,3 +1262,37 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-05-25T09:52 | Builder | S182注册：HLS Playlist Downloader三路媒体流管理架构草案已生成，写入 MEM-ARCH-AVCODEC-S182.md（pending_approval），3349行源码，20条行号级evidence，与S37/S106/S138/S172并列自适应流体系 |
+
+## 新增主题（Builder 2026-05-25 S163注册——DRM CENC 解密框架，orphan draft恢复）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S163 | DRM CENC 解密框架——CodecDrmDecrypt + MediaCodec 三路解密链(AVC/HEVC/AVS) + SurfaceDecoderAdapter 478行 | AVCodec, DRM, CENC, Decryption, CryptoSession, MediaCodec, SurfaceDecoder, AudioCodec, H265, H264, AVS, ISOBMFF, MPEG2 | 新需求开发/DRM解密/加密媒体播放 | **pending_approval** | 🚧 草案已生成（2026-05-20T13:38）→pending_approval（2026-05-21T17:54 Builder提交审批），orphan draft恢复注册，codec_drm_decrypt.cpp(764行)+codec_drm_decrypt.h(96行)+media_codec.cpp(1266行)+surface_decoder_adapter.cpp(478行)=2604行源码，16条行号级evidence，三路解密路径(AudioCencDecrypt/VideoCencDecrypt/AttachDrmBufffer)，三路DRM算法(AES-CTR/AES-CBC/SM4-CTR)，DrmVideoCencDecrypt(L551)/DrmAudioCencDecrypt(L595)/DecryptMediaData(L737)，与S159/S121/S83/S95/S162关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-20T13:38 | Builder | S163注册（orphan）：DRM CENC解密框架草案已生成，写入 MEM-ARCH-AVCODEC-S163.md（draft） |
+| 2026-05-21T17:54 | Builder | S163提交审批：pending_approval |
+| 2026-05-25T10:18 | Builder | S163 backlog恢复注册：orphan draft正式登记入backlog（backlog中缺失此条目） |
+
+## 新增主题（Builder 2026-05-25 S164注册——SA Codec IPC 服务框架，orphan draft恢复）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S164 | SA Codec IPC 服务框架——CodecServiceStub/Proxy双层架构与CodecListenerStub/CodecListenerProxy回调链路 | AVCodec, SA, IPC, CodecServerManager, CodecServiceStub, CodecServiceProxy, CodecClient, SystemAbility, dlopen, Callback, ErrorCode, Binder, Stub, Proxy | 新需求开发/跨进程通信 | **pending_approval** | 🚧 草案已生成（2026-05-20T14:54）→pending_approval（2026-05-21T17:54 Builder提交审批），orphan draft恢复注册，avcodec_service_stub.cpp(220行)+avcodec_service_proxy.cpp(128行)+avcodec_listener_stub.cpp(35行)+avcodec_listener_proxy.cpp(35行)+avcodec_parcel.cpp(33行)+avcodec_death_recipient.h(48行)=499行源码，20条行号级evidence，与S137/S121/S83/S55/S21关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-05-20T14:54 | Builder | S164注册（orphan）：SA Codec IPC服务框架草案已生成，写入 MEM-ARCH-AVCODEC-S164.md（draft） |
+| 2026-05-21T17:54 | Builder | S164提交审批：pending_approval |
+| 2026-05-25T10:18 | Builder | S164 backlog恢复注册：orphan draft正式登记入backlog（backlog中缺失此条目） |
+
+## 新增主题（Builder 2026-05-25 S183注册——AvcEncoder H.264软件编码器体系）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S183 | AVC H.264 软件编码器体系——AvcEncoder + AvcEncoderLoader + AvcEncoderConvert + AvcEncoderUtil 四组件2747行 | AVCodec, VideoEncoder, H264, AVC, SoftwareCodec, libavcenc, ColorSpace, RateControl, AvcEncoder, AvcEncoderLoader | 新需求开发/视频编码/色彩空间转换 | **pending_approval** | 🚧 草案已生成（2026-05-25T10:18），MEM-ARCH-AVCODEC-S183.md（2747行源码，20条行号级evidence），avc_encoder.cpp(1765行)+avc_encoder.h(270行)+avc_encoder_convert.cpp(369行)+avc_encoder_util.cpp(235行)+avc_encoder_api.cpp(36行)+avc_encoder_loader.cpp(72行)，AvcEncoder双库加载(libavc_encoder.z.so外壳+libavcenc_ohos.z.so内核)，三函数指针(InitEncoder/EncodeProcess/ReleaseEncoder)，TaskThread驱动SendFrame，BT601/BT709色彩空间矩阵+ARM NEON优化，AVCLevel→H264Level完整映射表(1.0-6.2)，与S59/S70/S54/S57/S50关联 |
