@@ -989,3 +989,23 @@
   git_branch: master
   commit: 46fe882
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/46fe882
+
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S196
+  decision: pending_approval
+  timestamp: "2026-06-04T22:40:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "FFmpeg Adapter Muxer Plugin三层架构——FFmpegMuxerPlugin+MPEG4MuxerPlugin+FFmpegMuxerRegister(AVFMT_FLAG_CUSTOM_IO/ADTS/AVAudioFifo/PCM缓存模式)"
+  evidence_count: 18
+  source_files: >
+    ffmpeg_muxer_plugin.cpp(1414行) 封装修复器 AVFMT_FLAG_CUSTOM_IO/NAL_START_PATTERN+
+    ffmpeg_muxer_register.cpp(377行) 注册机 av_muxer_iterate遍历+
+    ffmpeg_muxer_register.h(90行) 静态函数声明+IOContext结构体+
+    ffmpeg_base_encoder.cpp(396行) avcodec_send_frame/receive_frame管线+
+    ffmpeg_base_encoder.h(94行) FFmpegBaseEncoder类定义+
+    ffmpeg_convert.cpp(247行) SwrContext重采样+
+    ffmpeg_convert.h(98行) Resample类定义
+  git_branch: master
+  commit: pending
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/pending

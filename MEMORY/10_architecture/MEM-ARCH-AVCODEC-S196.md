@@ -4,7 +4,7 @@
 
 - **id**: MEM-ARCH-AVCODEC-S196
 - **subject**: FFmpeg Adapter Muxer Plugin 三层架构——FFmpegMuxerPlugin+MPEG4MuxerPlugin+FFmpegMuxerRegister(AVFMT_FLAG_CUSTOM_IO/ADTS/AVAudioFifo/PCM缓存模式)
-- **status**: draft
+- **status**: pending_approval
 - **created**: 2026-06-04T19:20:00+08:00
 - **scope**: AVCodec, FFmpeg, MuxerPlugin, FFmpegAdapter, MPEG4, ISOBMFF, Box, libavformat, avcodec_send_frame, avcodec_receive_frame, Track, DataSink, ADTS, AudioFifo, SwrContext
 - **关联主题**: S91/S145/S131/S130/S125/S181/S183/S158/S169/S176
