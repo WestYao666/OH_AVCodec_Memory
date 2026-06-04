@@ -1071,3 +1071,24 @@
     = 732行源码
   evidence_source: services/media_engine/filters/ + interfaces/inner_api/native/
   note: VideoDecoderAdapter Filter层适配器(VideoDecoderCallback四路回调桥接+VideoConsumerListener Surface消费+AVBufferQueue双队列+DRM SetDecryptConfig+DFX监控)，与S45/S46/S39/S55/S92关联
+---
+mem_id: MEM-ARCH-AVCODEC-S213
+type: approval_request
+decision: pending
+timestamp: "2026-06-05T06:21:00+08:00"
+scope: "AVCodec, DFX, HiSysEvent, HiTrace, XCollie, Dump, Trace, FaultEvent, HiLog, Statistics, InstanceInfo, RAII, Singleton, Timer, EventManager"
+draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S213.md"
+evidence_count: 18
+evidence_source: |
+    /home/west/av_codec_repo/services/dfx/ (18条行号级evidence)
+    avcodec_trace.h (94行) / avcodec_dfx_component.h/cpp (58+70行) /
+    avcodec_sysevent.h/cpp (95+198行) / avcodec_xcollie.h/cpp (113+175行) /
+    avcodec_dump_utils.h/cpp (57+126行) / instance_info.h (93行)
+source_files: |
+    avcodec_trace.h (94行) — HiTrace ScopeGuard RAII + HITRACE_TAG_ZMEDIA
+    avcodec_sysevent.h/cpp (95+198行) — HiSysEvent FAULT/BEHAVIOR/STATISTIC
+    avcodec_dfx_component.h/cpp (58+70行) — CreateVideoLogTag + atomic tag_
+    avcodec_xcollie.h/cpp (113+175行) — XCollie SetTimer/CancelTimer + RAII包装器
+    avcodec_dump_utils.h/cpp (57+126行) — AVCodecDumpControler dump工具
+    instance_info.h (93行) — InstanceId + VideoCodecType + CallerInfo
+note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_dfx_component/avcodec_xcollie/avcodec_dump_utils)，18条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/dfx/，与S82/S200关联
