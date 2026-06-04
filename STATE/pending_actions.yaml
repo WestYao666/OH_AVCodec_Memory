@@ -935,3 +935,19 @@
   evidence_count: 24
   source_files: video_capture_filter.cpp(420行) + audio_capture_filter.cpp(790行) + audio_data_source_filter.cpp(343行) + audio_sink_filter.cpp(471行) + muxer_filter.cpp(475行) + metadata_filter.cpp(420行) = 2919行源码
   git_branch: master
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S198
+  decision: pending_approval
+  timestamp: "2026-06-04T16:40:00+08:00"
+  builder: builder-agent (subagent)
+  subject: MPEG4DemuxerPlugin 原生MP4解封装插件体系——mpeg4_box_parser ISOBMFF Box层级解析 + mpeg4_sample_helper Sample索引/PTS/EditList + mpeg4_audio_parser DTS/MPEG声道布局 + mpeg4_reference_parser TrackReference 六文件7322行
+  evidence_count: 17
+  source_files: >
+    mpeg4_box_parser.cpp(4378行) ISOBMFF Box层级解析（ftyp/moov/moof/mdat/traf/trak/mdia/minf/stbl）+ MPEG4_ROOT_DEPTH(MPEG4_DEPTH_FOUR)+PathAdder递归深度+GetMaxSamplePtsEnd+
+    mpeg4_demuxer_plugin.cpp(1625行) 插件入口/Track管理/Sample读取 DEFAULT_CACHE_LIMIT/PROBE_SIZE/FIRST_LEVEL_RANK=100(StreamParser MIME路由)+
+    mpeg4_sample_helper.cpp(1009行) Sample索引/PTS计算/EditList/B帧延迟估算 EstimateVideoDelay(MAX_REORDER_DELAY=16帧缓冲)+FindWithSyncSamplesByPts+SetEditListParams+
+    mpeg4_audio_parser.cpp(199行) MPEG/DTS音频帧解析/声道布局映射 DTS_SYNC_WORD=0x7FFE8001+g_channelLayoutDefaultMap+
+    mpeg4_reference_parser.cpp(111行) TrackReference解析
+  git_branch: master
+  commit: a7e57fd
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a7e57fd

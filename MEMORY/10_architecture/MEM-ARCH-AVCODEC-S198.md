@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S198: MPEG4DemuxerPlugin 原生 MP4 解封装插件体系
-**状态**: draft
-**生成时间**: 2026-06-04T16:20:00+08:00
+**状态**: pending_approval
+**提交时间**: 2026-06-04T16:40:00+08:00
 **scope**: AVCodec, MediaEngine, Demuxer, MPEG4, MP4, ISOBMFF, Box, Sample, PTS, EditList, DTS, MPEG Audio, ChannelLayout, AAC, ALAC
 **关联场景**: 新需求开发/问题定位/MP4封装解析/音视频分离
 **关联记忆**: S68(FFmpegDemuxerPlugin)/S76(FFmpegDemuxerPlugin)/S74(Mpeg4MuxerPlugin)/S177(Demuxer Common)/S97(DemuxerPluginManager)
