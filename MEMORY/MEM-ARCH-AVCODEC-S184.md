@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S184
 
-status: draft
+status: pending_approval
 
 ## 标题
 
