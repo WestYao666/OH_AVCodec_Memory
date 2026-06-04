@@ -3,19 +3,13 @@ id: MEM-ARCH-AVCODEC-S191
 title: "OHOS-Native Audio Codec Plugins vs FFmpeg Adapter Architecture——G711mu/Opus 自主实现 vs FFmpeg-Based 音频编解码双路径"
 scope: ["AVCodec", "AudioCodec", "Plugin", "FFmpeg", "G711mu", "Opus", "SoftwareCodec", "Engine", "FFmpegAdapter", "dlopen", "OHOS-Native"]
 topic: "OHOS-Native Audio Codec Plugins（G711mu/Opus自主实现）vs FFmpeg Adapter Architecture（FFmpeg-Based编解码）——services/engine/codec/audio/引擎路径与services/media_engine/plugins/ffmpeg_adapter/适配路径对比，services/engine/codec/audio/decoder/audio_ffmpeg_decoder_plugin.cpp基类组合模式，services/engine/codec/audio/encoder/audio_g711mu_encoder_plugin.cpp无外部依赖表驱动算法，services/engine/codec/audio/encoder/audio_opus_encoder_plugin.cpp dlopen libav_codec_ext_base.z.so。
-status: draft
+status: pending_approval
 created_at: "2026-05-25T16:20:00+08:00"
 evidence_count: 20
-source_files: |
-  services/engine/codec/audio/encoder/audio_g711mu_encoder_plugin.cpp (239行)
-  services/engine/codec/audio/decoder/audio_g711mu_decoder_plugin.cpp (168行)
-  services/engine/codec/audio/encoder/audio_opus_encoder_plugin.cpp (263行)
-  services/engine/codec/audio/decoder/audio_opus_decoder_plugin.cpp (242行)
-  services/engine/codec/audio/decoder/audio_ffmpeg_decoder_plugin.cpp (398行)
-  services/engine/codec/audio/encoder/audio_ffmpeg_aac_encoder_plugin.cpp (583行)
-  services/engine/codec/audio/decoder/audio_ffmpeg_aac_decoder_plugin.cpp (~250行)
-  services/media_engine/plugins/ffmpeg_adapter/audio_encoder/ffmpeg_base_encoder.cpp (396行)
-  services/media_engine/plugins/ffmpeg_adapter/audio_decoder/ffmpeg_base_decoder.cpp (605行)
+git_branch: master
+git_commit: c232995
+source_repo: https://gitcode.com/openharmony/multimedia_av_codec
+source_root: services/engine/codec/audio + services/media_engine/plugins/ffmpeg_adapter/audio
 ---
 
 # OHOS-Native Audio Codec Plugins vs FFmpeg Adapter Architecture
