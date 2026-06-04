@@ -926,3 +926,12 @@
   git_branch: master
   commit: ee0c727
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/ee0c727
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S197
+  decision: pending_approval
+  timestamp: "2026-06-04T14:36:00+08:00"
+  builder: builder-agent (subagent)
+  subject: MediaEngine Filter 录制管线过滤器链——VideoCaptureFilter/AudioCaptureFilter/AudioDataSourceFilter/AudioSinkFilter/MuxerFilter/MetaDataFilter 六类录制管线过滤器
+  evidence_count: 24
+  source_files: video_capture_filter.cpp(420行) + audio_capture_filter.cpp(790行) + audio_data_source_filter.cpp(343行) + audio_sink_filter.cpp(471行) + muxer_filter.cpp(475行) + metadata_filter.cpp(420行) = 2919行源码
+  git_branch: master
