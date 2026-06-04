@@ -5,15 +5,16 @@ status: pending_approval
 scope: [AVCodec, AudioCodec, Adapter, Worker, AudioBaseCodec, TaskThread, Pipeline, CodecState]
 assoc_scenarios: [新需求开发/问题定位/音频编解码/Worker驱动]
 sources:
-  - /home/west/av_codec_repo/services/engine/codec/audio/audio_codec_adapter.cpp (467行, 本地镜像)
+  - https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/codec/audio/audio_codec_adapter.cpp (GitCode, 467行)
+  - https://gitcode.com/openharmony/multimedia_av_codec/blob/master/services/engine/codec/audio/audio_codec_worker.cpp (GitCode, 429行)
   - /home/west/av_codec_repo/services/engine/codec/include/audio/audio_codec_adapter.h (77行, 本地镜像)
-  - /home/west/av_codec_repo/services/engine/codec/audio/audio_codec_worker.cpp (429行, 本地镜像)
   - /home/west/av_codec_repo/services/engine/codec/include/audio/audio_codec_worker.h (95行, 本地镜像)
 created_by: builder-agent
 created_at: "2026-05-21T14:54:00+08:00"
-summary: AudioCodecAdapter（CodecBase子类）三层架构，AudioBaseCodec工厂注入，双TaskThread（OS_AuCodecIn/OS_AuCodecOut）驱动，CodecState十一态机，AudioBuffersManager双缓冲池，与AudioDecoderFilter(S35)互补
-evidence_count: 16
-source_files: 4
+updated_by: builder-agent
+updated_at: "2026-06-04T14:55:00+08:00"
+summary: AudioCodecAdapter（CodecBase子类）三层架构，AudioBaseCodec工厂注入，双TaskThread（OS_AuCodecIn/OS_AuCodecOut）驱动，CodecState十一态机（TIMEOUT_MS=1000ms），AudioBuffersManager双缓冲池，与AudioDecoderFilter(S35)互补
+evidence_count: 20
 git_branch: master
 git_url: https://github.com/WestYao666/OH_AVCodec_Memory
 ---
@@ -26,11 +27,12 @@ git_url: https://github.com/WestYao666/OH_AVCodec_Memory
 |-------|-------|
 | mem_id | MEM-ARCH-AVCODEC-S173 |
 | topic | AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动 |
-| status | draft |
+| status | pending_approval |
 | created | 2026-05-21T14:54:00+08:00 |
+| updated | 2026-06-04T14:55:00+08:00 |
 | builder | builder-agent |
-| source | 本地镜像 /home/west/av_codec_repo |
-| evidence | 16条行号级证据 |
+| source | GitCode (https://gitcode.com/openharmony/multimedia_av_codec) + 本地镜像 |
+| evidence | 20条行号级证据（含GitCode行号校正） |
 
 ---
 
@@ -71,6 +73,7 @@ AVCodec 分层架构
 - S95: AudioCodec C API —— CAPI层完整视图
 - S50: AudioResample —— FFmpeg resample工具链
 - S62: AudioBuffersManager —— 双缓冲队列管理（Worker依赖）
+- S88: AudioDecoder C API —— CAPI层封装AudioCodecAdapter，与S173是引擎层vs CAPI层关系
 
 ---
 
@@ -88,7 +91,7 @@ CodecBase (抽象基类)
     └── std::string name_                              ← codec实例名
 ```
 
-**证据 L20-36** (audio_codec_adapter.h):
+**证据 L24-36** (audio_codec_adapter.h):
 ```cpp
 class AudioCodecAdapter : public CodecBase, public NoCopyable {
 public:
@@ -225,7 +228,7 @@ void AudioCodecWorker::ProduceInputBuffer()  // OS_AuCodecIn 线程
         callback_->OnInputBufferAvailable(index, inputBuffer->GetBuffer());  // 通知上层可用
     }
     inputCondition_.wait_for(lock, std::chrono::milliseconds(TIMEOUT_MS),
-        [this] { return (!inBufAvaIndexQue_.empty() || !isRunning); });  // 500ms超时等待
+        [this] { return (!inBufAvaIndexQue_.empty() || !isRunning); });  // 1000ms超时等待
 }
 ```
 
@@ -249,7 +252,7 @@ void AudioCodecWorker::ConsumerOutputBuffer()  // OS_AuCodecOut 线程
                 outBuffer->GetFlag(), outBuffer->GetBuffer());  // 回调通知输出可用
         }
     }
-    outputCondition_.wait_for(lock, std::chrono::milliseconds(TIMEOUT_MS), ...);  // 500ms超时
+    outputCondition_.wait_for(lock, std::chrono::milliseconds(TIMEOUT_MS), ...);  // 1000ms超时
 }
 ```
 
@@ -304,11 +307,19 @@ bool AudioCodecWorker::HandInputBuffer(int32_t &ret)
 | 9 | audio_codec_adapter.cpp L451-462 | CodecState 十一态机完整枚举 |
 | 10 | audio_codec_worker.h L24-58 | AudioCodecWorker成员：inputBuffer/outputBuffer/inputTask/outputTask/双队列 |
 | 11 | audio_codec_worker.cpp L383-406 | Begin() 双TaskThread启动：inBufAvaIndexQue_初始化+inputTask_->Start()+outputTask_->Start() |
-| 12 | audio_codec_worker.cpp L213-244 | ProduceInputBuffer() 输入线程：OnInputBufferAvailable回调+500ms条件等待 |
+| 12 | audio_codec_worker.cpp L213-244 | ProduceInputBuffer() 输入线程：OnInputBufferAvailable回调+1000ms条件等待 |
 | 13 | audio_codec_worker.cpp L259-292 | HandInputBuffer() 输入处理：ProcessSendData+ReleaseBuffer+归还队列 |
-| 14 | audio_codec_worker.cpp L313-358 | ConsumerOutputBuffer() 输出线程：ProcessRecieveData+OnOutputBufferAvailable回调+500ms条件等待 |
+| 14 | audio_codec_worker.cpp L313-358 | ConsumerOutputBuffer() 输出线程：ProcessRecieveData+OnOutputBufferAvailable回调+1000ms条件等待 |
 | 15 | audio_codec_worker.cpp L59-65 | Pause()：Dispose()+inputTask_->PauseAsync()+outputTask_->PauseAsync() |
 | 16 | audio_codec_worker.cpp L375-405 | Begin()：isRunning=true + inputBuffer_->SetRunning()/outputBuffer_->SetRunning() |
+| 17 | audio_codec_worker.cpp L24-36 | 构造函数：DEFAULT_BUFFER_COUNT=8/TIMEOUT_MS=1000/ASYNC_HANDLE_INPUT="OS_AuCodecIn"/ASYNC_DECODE_FRAME="OS_AuCodecOut" |
+| 18 | audio_codec_adapter.cpp L29-37 | ~AudioCodecAdapter()析构：worker_->Release()+audioCodec->Release()+mallopt(M_FLUSH_THREAD_CACHE, 0) |
+| 19 | audio_codec_adapter.cpp L139-162 | Flush()：FLUSHING→doFlush()→FLUSHED态，含RUNNING态校验+OnError回调 |
+| 20 | audio_codec_adapter.cpp L164-182 | Reset()：worker_->Release()→audioCodec->Reset()→INITIALIZED态或重新doInit() |
+
+**行号校正说明：**
+- TIMEOUT_MS: GitCode源码确认 L24-36 声明 `constexpr int TIMEOUT_MS = 1000;`（1秒），草案原写500ms有误
+- L451-462 stateStrMap 位置在GitCode中确认为第451行以后
 
 ---
 
@@ -352,7 +363,7 @@ AudioCodecWorker  (双TaskThread驱动, 429行cpp)
 | **定位** | 音频编解码引擎适配层 + Worker线程驱动框架 |
 | **三层架构** | AudioCodecAdapter(CAPI/Filter适配) → AudioCodecWorker(TaskThread驱动) → AudioBaseCodec(引擎) |
 | **状态机** | CodecState十一态 (RELEASED→INITIALIZING→INITIALIZED→CONFIGURED→STARTING→RUNNING)，含FLUSHED/RESUMING |
-| **线程模型** | 双TaskThread：OS_AuCodecIn(ProduceInputBuffer)+OS_AuCodecOut(ConsumerOutputBuffer)，500ms超时等待 |
-| **缓冲管理** | AudioBuffersManager双缓冲池(inputBuffer/outputBuffer)，各含bufferCount个AudioBufferInfo |
+| **线程模型** | 双TaskThread：OS_AuCodecIn(ProduceInputBuffer)+OS_AuCodecOut(ConsumerOutputBuffer)，1000ms超时等待 |
+| **缓冲管理** | AudioBuffersManager双缓冲池(inputBuffer/outputBuffer)，各含8个AudioBufferInfo |
 | **工厂创建** | `AudioBaseCodec::make_sharePtr(name_)` 按名称动态创建具体编解码器插件 |
 | **关键路径** | QueueInputBuffer → PushInputData → HandInputBuffer → ProcessSendData → ProcessRecieveData → OnOutputBufferAvailable |

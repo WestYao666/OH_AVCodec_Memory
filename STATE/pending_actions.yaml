@@ -96,8 +96,8 @@
   timestamp: "2026-05-21T14:54:00+08:00"
   builder: builder-agent (subagent)
   subject: AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动
-  evidence_count: 16
-  source_files: audio_codec_adapter.cpp(467行) + audio_codec_adapter.h(77行) + audio_codec_worker.cpp(429行) + audio_codec_worker.h(95行) = 1068行源码
+  evidence_count: 20
+  source_files: audio_codec_adapter.cpp(467行) + audio_codec_adapter.h(77行) + audio_codec_worker.cpp(429行) + audio_codec_worker.h(95行) = 1068行源码，20条行号级evidence（GitCode web_fetch增强版）
   git_branch: master
   commit: 3f66e77
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/3f66e77
