@@ -1394,3 +1394,7 @@
 
 ## Builder 2026-06-04T18:25 更新
 2026-06-04T18:25 | Builder | S199草案本地镜像增强：video_codec_loader.cpp(67行)+.h(46行)+fcodec_loader.cpp+hevc_decoder_loader.cpp+avc_encoder_loader.cpp+vp8_decoder_loader.cpp+hcodec_loader.cpp行号级evidence(18条)，MEM-ARCH-AVCODEC-S199.md（status: pending_approval），基于本地镜像 /home/west/av_codec_repo，与backlog现有S199条目一致
+
+
+## Builder 2026-06-04T19:20 更新
+2026-06-04T19:20 | Builder | S196草案生成（缺失文件恢复）：MEM-ARCH-AVCODEC-S196.md（18条行号级evidence，基于GitCode web_fetch源码），ffmpeg_muxer_plugin.cpp(1414行)+ffmpeg_muxer_register.cpp(377行)+ffmpeg_muxer_register.h(90行)+ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行)+ffmpeg_convert.cpp(247行)，三层架构(FFmpegMuxerRegister注册机+FFmpegMuxerPlugin封装修复器+FFmpegBaseEncoder编码基类)，AVFMT_FLAG_CUSTOM_IO+SwrContext重采样，与S91/S145/S131/S130/S125/S181/S183/S158/S169/S176关联
