@@ -1450,3 +1450,4 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-05T04:51 | Builder | S212注册：VideoDecoderAdapter过滤层编解码适配器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S212.md（pending_approval），609行cpp+123行h，14条行号级evidence，基于本地镜像 /home/west/av_codec_repo，与S45/S46/S39/S55/S92关联 |
+| 2026-06-05T06:51 | Builder | S213注册：AVCodec DFX五组件协作框架草案已生成，写入 MEM-ARCH-AVCODEC-S213.md（pending_approval），18条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/dfx/，与S82/S200关联 |

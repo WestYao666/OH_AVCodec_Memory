@@ -1074,7 +1074,7 @@
 ---
 mem_id: MEM-ARCH-AVCODEC-S213
 type: approval_request
-decision: pending
+decision: pending_approval
 timestamp: "2026-06-05T06:21:00+08:00"
 scope: "AVCodec, DFX, HiSysEvent, HiTrace, XCollie, Dump, Trace, FaultEvent, HiLog, Statistics, InstanceInfo, RAII, Singleton, Timer, EventManager"
 draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S213.md"

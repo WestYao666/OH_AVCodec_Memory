@@ -1,5 +1,5 @@
 ---
-status: draft
+status: pending_approval
 mem_id: MEM-ARCH-AVCODEC-S213
 title: "AVCodec DFX 五组件协作框架——avcodec_trace / avcodec_sysevent / avcodec_dfx_component / avcodec_xcollie / avcodec_dump_utils 五组件协同架构"
 scope: "AVCodec, DFX, HiSysEvent, HiTrace, XCollie, Dump, Trace, FaultEvent, HiLog, Statistics, InstanceInfo, RAII, Singleton, Timer, EventManager"
