@@ -969,3 +969,23 @@
   git_branch: master
   commit: 66c4fd3
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/66c4fd3
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S191
+  decision: pending_approval
+  timestamp: "2026-06-04T21:06:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "OHOS-Native Audio Codec Plugins vs FFmpeg Adapter Architecture——G711mu/Opus 自主实现 vs FFmpeg-Based 音频编解码双路径"
+  evidence_count: 20
+  source_files: >
+    audio_g711mu_encoder_plugin.cpp (239行) μ-law表驱动算法零外部依赖+
+    audio_g711mu_decoder_plugin.cpp (168行) μ-law解码+
+    audio_opus_encoder_plugin.cpp (263行) dlopen libav_codec_ext_base.z.so+
+    audio_opus_decoder_plugin.cpp (242行) dlopen OpusPluginClassDecoderCreate+
+    audio_ffmpeg_decoder_plugin.cpp (426行) 组合AudioFfmpegDecoderPlugin基类+
+    audio_ffmpeg_aac_encoder_plugin.cpp (583行) ADTS头构造+
+    ffmpeg_base_encoder.cpp (396行) 继承FFmpegBaseEncoder+
+    ffmpeg_base_decoder.cpp (605行) 继承FFmpegBaseDecoder
+  git_branch: master
+  commit: 46fe882
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/46fe882
