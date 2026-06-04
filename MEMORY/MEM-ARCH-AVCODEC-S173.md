@@ -4,7 +4,7 @@
 AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动
 
 ## 状态
-status: draft
+status: pending_approval
 
 ## 生成时间
 2026-05-25T22:48:00+08:00
@@ -108,4 +108,4 @@ AudioCodecAdapter不直接创建AudioCodec，而是调用AudioBaseCodec::make_sh
 ---
 
 ## git_branch / commit
-master / pending (local draft)
+master / e92dd3a (S199 latest) → S173 pending_approval
