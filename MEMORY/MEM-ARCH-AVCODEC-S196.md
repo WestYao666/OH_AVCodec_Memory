@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S196
 title: FFmpeg Adapter Muxer Plugin 体系——FFmpegMuxerPlugin + MPEG4MuxerPlugin + FFmpegMuxerRegister 三层架构
-status: draft
+status: pending_approval
 scope: FFmpeg Adapter Muxer Plugin Architecture, FFmpegBaseEncoder, FFmpegMuxerRegister, MPEG4MuxerPlugin, ISOBMFF, Box, libavformat, avcodec_send_frame, avcodec_receive_frame, Track, DataSink, ADTS, AudioFifo
 timestamp: 2026-06-04T13:45
 evidence_count: 18

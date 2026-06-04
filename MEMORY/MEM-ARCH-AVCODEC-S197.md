@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S197
 title: MediaEngine Filter 录制管线过滤器链——VideoCaptureFilter/AudioCaptureFilter/AudioDataSourceFilter/AudioSinkFilter/MuxerFilter/MetaDataFilter 六类录制管线过滤器
-status: draft
+status: pending_approval
 scope: MediaEngine Filter, VideoCaptureFilter, AudioCaptureFilter, AudioDataSourceFilter, AudioSinkFilter, MuxerFilter, MetaDataFilter, Filter Framework, AutoRegisterFilter, ConsumerSurfaceBufferListener, FilterLinkCallback, builtin.*, Pipeline, Recorder
 timestamp: 2026-06-04T14:36
 evidence_count: 22
