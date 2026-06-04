@@ -1438,3 +1438,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-05T04:40 | Builder | S211注册：FFmpegDemuxerPlugin FFmpegReadLoop深度解析草案已生成，写入 MEM-ARCH-AVCODEC-S211.md（draft→pending_approval），基于本地镜像 /home/west/av_codec_repo，14条行号级evidence，与S68/S76/S134/S75/S41/S69/S97/S192/S105关联 |
+
+## 新增主题（Builder 2026-06-05 S212注册——VideoDecoderAdapter 过滤层编解码适配器）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S212 | VideoDecoderAdapter 过滤层编解码适配器——AVBufferQueue双队列与CodecEngine三层回调桥接 | AVCodec, MediaEngine, Filter, VideoDecoder, Adapter, AVBufferQueue, MediaCodec, CodecEngine, Surface | 新需求开发/问题定位/视频解码Filter适配 | **pending_approval** | 🚧 草案已生成（2026-06-05T04:51 Builder基于本地镜像）→pending_approval，MEM-ARCH-AVCODEC-S212.md（609行cpp+123行h，14条行号级evidence，基于本地镜像 services/media_engine/filters/），VideoDecoderCallback四路回调桥接(OnError/OnOutputFormatChanged/OnInputBufferAvailable/OnOutputBufferAvailable)+VideoConsumerListener Surface环形消费(AcquireBuffer+ReleaseBuffer)+AVBufferQueue双队列(inputBufferQueue_/Producer/Consumer)+SetDecryptConfig DRM解密，与S45(SurfaceDecoderFilter)/S46(DecoderSurfaceFilter)/S39(VideoDecoderFilter)/S55(CodecCallback)/S92(MediaCodec)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-05T04:51 | Builder | S212注册：VideoDecoderAdapter过滤层编解码适配器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S212.md（pending_approval），609行cpp+123行h，14条行号级evidence，基于本地镜像 /home/west/av_codec_repo，与S45/S46/S39/S55/S92关联 |

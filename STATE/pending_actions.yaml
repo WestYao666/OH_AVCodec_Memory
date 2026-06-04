@@ -1058,3 +1058,16 @@
   source_files: ffmpeg_demuxer_plugin.cpp(4129行) + ffmpeg_demuxer_thread.cpp(891行) + ffmpeg_format_helper.cpp(1367行) = 6387行源码
   evidence_source: services/media_engine/plugins/demuxer/ffmpeg_demuxer/
   note: 基于本地镜像 /home/west/av_codec_repo 行号级evidence，14条行号级证据
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S212
+  decision: pending_approval
+  timestamp: "2026-06-05T04:51:00+08:00"
+  builder: builder-agent (subagent)
+  subject: VideoDecoderAdapter 过滤层编解码适配器——AVBufferQueue双队列与CodecEngine三层回调桥接
+  evidence_count: 14
+  source_files: |
+    video_decoder_adapter.cpp (609行) + video_decoder_adapter.h (123行)
+    = 732行源码
+  evidence_source: services/media_engine/filters/ + interfaces/inner_api/native/
+  note: VideoDecoderAdapter Filter层适配器(VideoDecoderCallback四路回调桥接+VideoConsumerListener Surface消费+AVBufferQueue双队列+DRM SetDecryptConfig+DFX监控)，与S45/S46/S39/S55/S92关联
