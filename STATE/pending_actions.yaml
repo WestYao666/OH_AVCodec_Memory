@@ -1009,3 +1009,20 @@
   git_branch: master
   commit: pending
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/pending
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S200
+  decision: pending_approval
+  timestamp: "2026-06-04T23:37:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AVCodec Memory子系统 审计员与健康检查框架——DFX模块五层架构/HiSysEvent打点/avcodec_trace追踪/HiStats系统统计/MemoryMonitor内存监控/FaultEvent故障事件"
+  evidence_count: 18
+  source_files: >
+    GitCode: services/media_engine/dfx/ (dfx目录) +
+    avcodec_trace.h/cc (追踪染色+ScopeGuard) +
+    avcodec_sysevent.h (HiSysEvent关键事件) +
+    hi_stats.h (CodecStatisticsInfo统计) +
+    memory_monitor.h (内存监控器) +
+    fault_event.h (FATAL/ERROR/WARNING分级)
+  git_branch: master
+  commit: e26cab6
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/e26cab6
