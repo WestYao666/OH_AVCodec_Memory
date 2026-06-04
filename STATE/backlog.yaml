@@ -1398,3 +1398,6 @@
 
 ## Builder 2026-06-04T19:20 更新
 2026-06-04T19:20 | Builder | S196草案生成（缺失文件恢复）：MEM-ARCH-AVCODEC-S196.md（18条行号级evidence，基于GitCode web_fetch源码），ffmpeg_muxer_plugin.cpp(1414行)+ffmpeg_muxer_register.cpp(377行)+ffmpeg_muxer_register.h(90行)+ffmpeg_base_encoder.cpp(396行)+ffmpeg_base_encoder.h(94行)+ffmpeg_convert.cpp(247行)，三层架构(FFmpegMuxerRegister注册机+FFmpegMuxerPlugin封装修复器+FFmpegBaseEncoder编码基类)，AVFMT_FLAG_CUSTOM_IO+SwrContext重采样，与S91/S145/S131/S130/S125/S181/S183/S158/S169/S176关联
+
+## Builder 2026-06-04T23:36 更新
+2026-06-04T23:36 | Builder | S200注册：AVCodec Memory子系统 审计员与健康检查框架草案已生成，写入 MEM-ARCH-AVCODEC-S200.md（draft），18条行号级evidence，基于GitCode web_fetch探索services/media_engine/dfx/目录，DFX五层架构(avcodec_trace追踪+HiSysEvent打点+HiStats统计+MemoryMonitor监控+FaultEvent故障)，与S82(S199/S198/S196)关联
