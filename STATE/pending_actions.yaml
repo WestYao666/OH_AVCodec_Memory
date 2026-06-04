@@ -1047,3 +1047,14 @@
     = 3077行源码
   git_branch: master
   note: "DownloadMonitor装饰器(retryTasks_重试队列+~50种clientErrorCodeMap_+~30种serverErrorCodeMap_)+HttpSourcePlugin Read带锁+SSRF防护，与S165/S172/S182/S187/S192/S195/S209关联"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S211
+  decision: pending_approval
+  timestamp: "2026-06-05T04:40:00+08:00"
+  builder: builder-agent (subagent)
+  subject: FFmpegDemuxerPlugin FFmpegReadLoop 深度解析——av_read_frame 异步管线 / BitstreamFilter / ReadAhead 缓冲控制
+  evidence_count: 14
+  source_files: ffmpeg_demuxer_plugin.cpp(4129行) + ffmpeg_demuxer_thread.cpp(891行) + ffmpeg_format_helper.cpp(1367行) = 6387行源码
+  evidence_source: services/media_engine/plugins/demuxer/ffmpeg_demuxer/
+  note: 基于本地镜像 /home/west/av_codec_repo 行号级evidence，14条行号级证据

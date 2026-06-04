@@ -1426,3 +1426,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-05T02:21 | Builder | S210注册：HttpSourcePlugin 下载监控装饰器模式与错误恢复架构草案已生成，写入 MEM-ARCH-AVCODEC-S210.md（draft），18条行号级evidence，基于GitCode web_fetch源码+本地镜像 services/media_engine/plugins/source/http_source/，与S165/S172/S182/S187/S192/S195/S209关联 |
+
+## Builder 2026-06-05T04:45 S211注册——FFmpegDemuxerPlugin FFmpegReadLoop 深度解析
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S211 | FFmpegDemuxerPlugin FFmpegReadLoop 深度解析——av_read_frame 异步管线 / BitstreamFilter / ReadAhead 缓冲控制 | AVCodec, MediaEngine, Demuxer, FFmpeg, FFmpegReadLoop, av_read_frame, BitstreamFilter, ReadAhead, SOFT_LIMIT, HARD_LIMIT, AnnexB, AVIOContext, HEVC, HDR, PTS, Index | 新需求开发/问题定位/流媒体播放/FFmpeg集成 | **pending_approval** | 🚧 草案已生成（2026-06-05T04:40 Builder基于本地镜像），MEM-ARCH-AVCODEC-S211.md（6387行源码，14条行号级evidence），ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_thread.cpp(891行)+ffmpeg_format_helper.cpp(1367行)，FFmpegReadLoop异步读线程(BitstreamFilter注入/AVIOContext回调)+ReadAhead双阈值(SOFT_LIMIT/HARD_LIMIT)+PTS-Index双向转换，与S68/S76/S134/S75/S41/S69/S97/S192/S105关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-05T04:40 | Builder | S211注册：FFmpegDemuxerPlugin FFmpegReadLoop深度解析草案已生成，写入 MEM-ARCH-AVCODEC-S211.md（draft→pending_approval），基于本地镜像 /home/west/av_codec_repo，14条行号级evidence，与S68/S76/S134/S75/S41/S69/S97/S192/S105关联 |
