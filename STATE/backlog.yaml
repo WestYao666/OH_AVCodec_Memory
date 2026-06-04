@@ -1363,3 +1363,15 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S195 | HttpSourcePlugin Downloader 网络下载架构——DownloadRequest + Downloader + HttpCurlClient 三层架构与分片续传 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, Downloader, DownloadRequest, HttpCurlClient, ChunkedTransfer, RangeRequest, Retry, Seekable, HTTP, HTTPS | 流媒体播放/网络下载/分片续传/直播流/码率自适应 | **pending_approval** | 🚧 草案已生成（2026-05-26T02:50 builder-agent处理），MEM-ARCH-AVCODEC-S195.md（18条行号级evidence），Downloader三层架构(Downloader 1351行+DownloadRequest+HttpCurlClient 453行)，PER_REQUEST_SIZE=2MB+RETRY_TIMES=6000+LIVE_CONTENT_LENGTH=2147483646直播流标识，HttpDownloadLoop核心循环(622行)+GetFileContentLength轮询+GetBitRate实时码率+IsChunked分块传输判断，Range分片续传+Seek跳转+HandleRedirect 302，与S106/S122/S182/S192/S187/S138关联 |
+
+## 新增主题（Builder 2026-06-04 S196注册——FFmpeg Adapter Muxer Plugin体系）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S196 | FFmpeg Adapter Muxer Plugin三层架构——FFmpegMuxerPlugin+MPEG4MuxerPlugin+FFmpegMuxerRegister(AVFMT_FLAG_CUSTOM_IO/ADTS/AVAudioFifo/PCM缓存模式) | AVCodec, FFmpeg, MuxerPlugin, FFmpegBaseEncoder, FFmpegMuxerRegister, MPEG4MuxerPlugin, ISOBMFF, Box, libavformat, avcodec_send_frame, avcodec_receive_frame, Track, DataSink, ADTS, AudioFifo, SwrContext | 新需求开发/问题定位/封装格式/FFmpeg集成 | **pending_approval** | 🚧 草案已生成（2026-06-04T13:45）→pending_approval（2026-06-04T13:45 Builder提交审批），MEM-ARCH-AVCODEC-S196.md（18条行号级evidence，基于GitCode web_fetch源码），ffmpeg_muxer_plugin.cpp封装修复器(AVFMT_FLAG_CUSTOM_IO/NAL_START_PATTERN)+ffmpeg_muxer_register.cpp注册机(IoOpen/IoClose/InitAvIoCtx)+ffmpeg_base_encoder.cpp(396行avcodec_send_frame/receive_packet)+ffmpeg_base_encoder.h(94行)+ffmpeg_convert.cpp(SwrContext重采样)，与S91/S145/S131/S130/S125/S181/S183/S158/S169/S176关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-04T13:45 | Builder | S196注册：FFmpeg Adapter Muxer Plugin三层架构草案已生成，写入 MEM-ARCH-AVCODEC-S196.md（pending_approval），18条行号级evidence，基于GitCode web_fetch源码 |
