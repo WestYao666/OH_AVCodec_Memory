@@ -1414,3 +1414,15 @@
 |------|------|------|
 | 2026-06-05T00:22 | Builder | S201注册：MediaCodec IPC客户端链路（双代理架构）草案已生成，写入 MEM-ARCH-AVCODEC-S201.md（draft），1111行源码，20条行号级evidence，基于GitCode web_fetch源码+本地镜像，与S164/S137/S121/S83/S55关联 |
 | 2026-06-05T00:51 | Builder | S201提交审批：draft→submitted，等待耀耀审批，MEM-ARCH-AVCODEC-S201.md（20条行号级evidence，1111行源码，基于GitCode web_fetch+本地镜像验证） |
+
+## Builder 2026-06-05T02:21 S210注册——HttpSourcePlugin 下载监控装饰器模式与错误恢复架构
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S210 | HttpSourcePlugin 下载监控装饰器模式与错误恢复架构——DownloadMonitor + Downloader + HttpCurlClient 三层下载链路 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, Downloader, HttpCurlClient, Retry, ErrorCode, HTTP, HTTPS, ChunkedTransfer, RangeRequest, SSRF | 新需求开发/问题定位/流媒体下载/错误恢复/DFX可观测性 | **pending_approval** | 🚧 草案已生成（2026-06-05T02:21 Builder基于GitCode web_fetch+本地镜像），MEM-ARCH-AVCODEC-S210.md（draft→pending_approval），18条行号级evidence，http_source_plugin.cpp(769行)+http_source_plugin.h(115行)+download_monitor.h(232行)+download_monitor.cpp(610行)+downloader.cpp(1351行)，DownloadMonitor装饰器(retryTasks_重试队列+~50种clientErrorCodeMap_+~30种serverErrorCodeMap_)+HttpSourcePlugin Read带锁+SSRF防护，与S165/S172/S182/S187/S192/S195/S209关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-05T02:21 | Builder | S210注册：HttpSourcePlugin 下载监控装饰器模式与错误恢复架构草案已生成，写入 MEM-ARCH-AVCODEC-S210.md（draft），18条行号级evidence，基于GitCode web_fetch源码+本地镜像 services/media_engine/plugins/source/http_source/，与S165/S172/S182/S187/S192/S195/S209关联 |

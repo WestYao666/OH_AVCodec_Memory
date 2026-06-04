@@ -1032,3 +1032,18 @@
   timestamp: "2026-06-05T01:39:00+08:00"
   status: pending_approval
   note: "HttpSourcePlugin download monitor decorator pattern + error handling architecture"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S210
+  timestamp: "2026-06-05T02:21:00+08:00"
+  decision: pending_approval
+  builder: builder-agent (subagent)
+  subject: "HttpSourcePlugin 下载监控装饰器模式与错误恢复架构——DownloadMonitor + Downloader + HttpCurlClient 三层下载链路"
+  evidence_count: 18
+  source_files: |
+    http_source_plugin.cpp (769行) + http_source_plugin.h (115行)
+    download_monitor.h (232行) + download_monitor.cpp (610行)
+    downloader.cpp (1351行)
+    = 3077行源码
+  git_branch: master
+  note: "DownloadMonitor装饰器(retryTasks_重试队列+~50种clientErrorCodeMap_+~30种serverErrorCodeMap_)+HttpSourcePlugin Read带锁+SSRF防护，与S165/S172/S182/S187/S192/S195/S209关联"
