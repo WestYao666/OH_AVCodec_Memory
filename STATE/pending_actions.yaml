@@ -775,7 +775,7 @@
     audio_capture_module.h (95行) — AudioCaptureModule 类定义
     ffmpeg_aac_encoder_plugin.cpp (902行) — av_audio_fifo/ADTS 集成
   git_branch: master
-  commit: pending (local draft)
+  commit: 66c4fd3 (local draft)
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
 
 - type: approval_request
@@ -797,7 +797,7 @@
     rbsp_context.h/cpp — EBSP→RBSP防伪字节
     avc_parser_impl.h/cpp — AVC NALU解析
   git_branch: master
-  commit: pending (local draft)
+  commit: 66c4fd3 (local draft)
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a2886eb834fa6743b3ff465fd82697ec5e0c760f
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S193
@@ -904,7 +904,7 @@
       download_metrics_info.h (86行) — 下载指标
     = 2917+ 行源码
   git_branch: master
-  commit: pending (local draft)
+  commit: 66c4fd3 (local draft)
   notes: |
     18条行号级evidence（E1-E18）
     三层架构(DownloadRequest请求层+Downloader调度层+HttpCurlClient网络层)
@@ -951,3 +951,21 @@
   git_branch: master
   commit: a7e57fd
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a7e57fd
+
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S199
+  decision: pending_approval
+  timestamp: "2026-06-04T17:35:00+08:00"
+  builder: builder-agent (subagent)
+  subject: VideoCodecLoader 视频编解码器动态加载架构——dlopen/RTLD_LAZY双函数指针注入与七类Loader工厂
+  evidence_count: 18
+  source_files: >
+    video_codec_loader.cpp(~70行) VideoCodecLoader基类 dlopen/RTLD_LAZY/dlsym通用逻辑+
+    fcodec_loader.cpp(~72行) libfcodec.z.so CreateFCodecByName/GetFCodecCapabilityList+
+    hevc_decoder_loader.cpp(~72行) libhevc_decoder.z.so CreateHevcDecoderByName/GetHevcDecoderCapabilityList+
+    avc_encoder_loader.cpp(~72行) libavc_encoder.z.so CreateAvcEncoderByName/GetAvcEncoderCapabilityList+
+    av1_decoder_loader.cpp/vp8_decoder_loader.cpp/vp9_decoder_loader.cpp/hcodec_loader.cpp各~70行
+  git_branch: master
+  commit: 66c4fd3
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/66c4fd3
