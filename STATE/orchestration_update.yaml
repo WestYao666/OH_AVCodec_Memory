@@ -8,3 +8,12 @@ message: |
   - S70: VideoCodec 基类与工厂体系 — VideoDecoderFactory/VideoEncoderFactory 双工厂路由与四层 Loader 插件热加载
     Covers: VideoDecoderFactory (CreateByMime/ByName), VideoEncoderFactory, VideoCodecLoader base (dlopen/dlsym), per-codec loaders (FCodecLoader, HevcDecoderLoader, etc.)
   Action required: respawn builder-agent with above topic.
+- type: memory_draft_completed
+  mem_id: MEM-ARCH-AVCODEC-S201
+  title: "MediaCodec IPC客户端链路——avcodec_client.cpp + avcodec_service_proxy.cpp 双代理架构"
+  action: draft_generated_and_submitted
+  timestamp: "2026-06-05T00:55:00+08:00"
+  evidence_count: 20
+  source_lines: 1111
+  commit: local draft
+  note: "S201 backlog已更新为submitted状态，草案已生成，主session可发送审批卡片给耀耀"

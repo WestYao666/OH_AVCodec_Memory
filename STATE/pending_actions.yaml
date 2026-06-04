@@ -1026,3 +1026,9 @@
   git_branch: master
   commit: e26cab6
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/e26cab6
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S209
+  timestamp: "2026-06-05T01:39:00+08:00"
+  status: pending_approval
+  note: "HttpSourcePlugin download monitor decorator pattern + error handling architecture"
