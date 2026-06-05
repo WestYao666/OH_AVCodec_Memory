@@ -1135,3 +1135,17 @@ note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_df
     surface_encoder_adapter.cpp (1037行) + surface_encoder_adapter.h (183行) = 1220行源码
   git_branch: master
   note: "基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/，20条行号级evidence(E1-E20)，SurfaceEncoderAdapter过滤层编码适配器(ProcessStateCode五态机+pauseResumeQueue双端队列+isTransCoderMode转码模式+releaseBufferTask后台线程)，与S212(VideoDecoderAdapter对称)关联"
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S215
+  decision: pending_approval
+  timestamp: "2026-06-05T13:36:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AudioDecoderFilter 音频解码过滤层适配器——Filter基类+AudioDecoderAdapter双层架构与12状态BufferStatus FSM"
+  evidence_count: 18
+  source_files: |
+    services/media_engine/filters/audio_decoder_filter.cpp (773行)
+    = 773行源码，18条行号级evidence（E1-E18）
+  git_branch: master
+  commit: ea070d6628100d8fcdd1a71334309cfce64a5d09
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/ea070d6628100d8fcdd1a71334309cfce64a5d09
+  note: 基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/ 探索，AudioDecoderFilter(773行)=Filter子类+AudioDecoderAdapter组合引擎，双端口BufferQueue异步驱动，12状态BufferStatus FSM，与S212(VideoDecoderAdapter对称)关联
