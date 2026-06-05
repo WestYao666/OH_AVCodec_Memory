@@ -1007,7 +1007,7 @@
     ffmpeg_convert.cpp(247行) SwrContext重采样+
     ffmpeg_convert.h(98行) Resample类定义
   git_branch: master
-  commit: pending
+  commit: a78c3a83b893493a2eff533bdd242cc90d33ef13
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/pending
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S200
@@ -1113,3 +1113,14 @@ note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_df
   commit: 8a6c1a1ac214997aed26516c9bcb5500f6384c8c
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/8a6c1a1ac214997aed26516c9bcb5500f6384c8c
   note: GitCode web_fetch增强版，27条行号级evidence(E1-E27)，三层架构(FFmpegEncoderPlugin注册层+FFmpegBaseEncoder基类+五子插件)，AAC(ADTS 7字节头+av_audio_fifo)/FLAC/MP3(LAME)/G711mu(零依赖表)/LBVC(HDI OMX)，HdiCodec封装CreateComponent/EmptyThisBuffer/FillThisBuffer，与S125/S130/S50/S158/S169/S184/S191关联
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S193
+  decision: pending_approval
+  timestamp: "2026-06-05T09:51:00+08:00"
+  builder: builder-agent (subagent)
+  subject: FFmpeg Adapter Audio Encoder Plugin体系——FFmpegBaseEncoder基类+AAC/FLAC/MP3/G711mu/LBVC五子插件架构
+  evidence_count: 27
+  source_files: ffmpeg_encoder_plugin.cpp(85行)+ffmpeg_base_encoder.cpp(396行)+aac/ffmpeg_aac_encoder_plugin.cpp(902行)+flac/ffmpeg_flac_encoder_plugin.cpp(252行)+mp3/audio_mp3_encoder_plugin.cpp(404行)+g711mu/audio_g711mu_encoder_plugin.cpp(304行)+lbvc/audio_lbvc_encoder_plugin.cpp(285行)+hdi_codec.cpp(365行)+hdi_codec.h(140行) = 3584+行源码
+  git_branch: master
+  commit: a78c3a83b893493a2eff533bdd242cc90d33ef13
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a78c3a83b893493a2eff533bdd242cc90d33ef13
