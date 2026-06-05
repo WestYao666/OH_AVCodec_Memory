@@ -1124,3 +1124,14 @@ note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_df
   git_branch: master
   commit: a78c3a83b893493a2eff533bdd242cc90d33ef13
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/a78c3a83b893493a2eff533bdd242cc90d33ef13
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S214
+  decision: pending_approval
+  timestamp: "2026-06-05T12:51:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "SurfaceEncoderAdapter 过滤层编码适配器——AVCodecVideoEncoder CodecServer封装 + Surface输入 + TransCoder/Recording双模式 + AVBufferQueue输出"
+  evidence_count: 20
+  source_files: |
+    surface_encoder_adapter.cpp (1037行) + surface_encoder_adapter.h (183行) = 1220行源码
+  git_branch: master
+  note: "基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/，20条行号级evidence(E1-E20)，SurfaceEncoderAdapter过滤层编码适配器(ProcessStateCode五态机+pauseResumeQueue双端队列+isTransCoderMode转码模式+releaseBufferTask后台线程)，与S212(VideoDecoderAdapter对称)关联"
