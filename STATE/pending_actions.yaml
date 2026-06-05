@@ -1149,3 +1149,22 @@ note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_df
   commit: ea070d6628100d8fcdd1a71334309cfce64a5d09
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/ea070d6628100d8fcdd1a71334309cfce64a5d09
   note: 基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/ 探索，AudioDecoderFilter(773行)=Filter子类+AudioDecoderAdapter组合引擎，双端口BufferQueue异步驱动，12状态BufferStatus FSM，与S212(VideoDecoderAdapter对称)关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S216
+  decision: pending_approval
+  timestamp: "2026-06-05T15:10:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AVCodec DFX & DRM Decryptor 双模块统一架构——services/dfx五组件与services/drm_decryptor三路解密链"
+  evidence_count: 45
+  source_files: |
+    services/dfx/avcodec_dfx_component.cpp(70行)+avcodec_dfx_component.h(58行)+
+    services/dfx/avcodec_sysevent.cpp(198行)+avcodec_sysevent.h(95行)+
+    services/dfx/avcodec_xcollie.cpp(175行)+avcodec_xcollie.h(113行)+
+    services/dfx/avcodec_dump_utils.cpp(126行)+
+    services/drm_decryptor/codec_drm_decrypt.cpp(764行)+codec_drm_decrypt.h(96行)
+    = ~1695行源码
+  git_branch: master
+  commit: 39ae71e
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/39ae71e
+  note: GitCode web_fetch探索版，E1-E45行号级evidence，DFX五组件(AVCodecDfxComponent/HiSysEvent/XCollie/DumpUtils)+DRM三路(AVC/HEVC/AVS CENC解密)，与S82/S163/S200/S213关联
