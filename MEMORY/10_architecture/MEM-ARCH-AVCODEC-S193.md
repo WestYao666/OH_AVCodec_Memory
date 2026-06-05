@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S193: FFmpeg Adapter Audio Encoder Plugin 体系——FFmpegBaseEncoder 基类 + AAC/FLAC/MP3/G711mu/LBVC 五子插件架构
 
-**状态**: pending_approval  
+**状态**: draft → pending_approval  
 **生成时间**: 2026-05-26T02:18  
 **增强时间**: 2026-06-05T09:36 (GitCode web_fetch 增强)  
 **Builder**: builder-agent (subagent)  

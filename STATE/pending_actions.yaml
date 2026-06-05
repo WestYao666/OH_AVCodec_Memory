@@ -1193,3 +1193,15 @@ note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_df
   source_files: side_output_surface_processor.cpp + side_output_surface_processor.h + base_video_post_processor.h + video_post_processor_factory.h = 4个源码文件
   git_branch: master
   git_url: https://gitcode.com/openharmony/multimedia_av_codec
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S217
+  decision: pending_approval
+  timestamp: "2026-06-05T17:06:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "SideOutputSurfaceProcessor 侧输出表面处理器——VideoPostProcessorType::SIDE_OUTPUT 五类后处理器之一与三 Surface 架构"
+  evidence_count: 21
+  source_files: side_output_surface_processor.cpp(844行) + side_output_surface_processor.h(183行) + base_video_post_processor.h(140行) + video_post_processor_factory.h(120行) = 1287行源码
+  evidence_source: GitCode: services/media_engine/modules/post_processor/
+  git_branch: master
+  draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S217.md"
+  note: "GitCode web_fetch探索版，21条行号级evidence(E1-E21)，三Surface架构(consumerSurface_/producerSurface_/sideSurface_)、三队列(consumerBufferQueue_/producerBufferQueue_/renderBufferQueue_)、WorkerThread ProcessBuffers、WaitTrigger 200ms超时、AutoRegisterPostProcessor静态注册SIDE_OUTPUT，与S179关联"
