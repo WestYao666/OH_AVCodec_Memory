@@ -1182,3 +1182,14 @@ note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_df
   git_branch: master
   draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S214.md"
   note: "20条行号级evidence(E1-E20)，GitCode web_fetch验证一致，ProcessStateCode五态机+pauseResumeQueue双端队列+isTransCoderMode转码模式+releaseBufferTask后台Buffer释放线程，与S212(VideoDecoderAdapter对称)关联"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S217
+  decision: pending_approval
+  timestamp: "2026-06-05T16:26:55+08:00"
+  builder: builder-agent (subagent)
+  subject: SideOutputSurfaceProcessor 侧输出表面处理器——VideoPostProcessorType::SIDE_OUTPUT 五类后处理器之一与三 Surface 架构
+  evidence_count: 15
+  source_files: side_output_surface_processor.cpp + side_output_surface_processor.h + base_video_post_processor.h + video_post_processor_factory.h = 4个源码文件
+  git_branch: master
+  git_url: https://gitcode.com/openharmony/multimedia_av_codec

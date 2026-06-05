@@ -1460,3 +1460,9 @@
 |---|------|-------|---------|------|------|
 | S214 | SurfaceEncoderAdapter 过滤层编码适配器——AVCodecVideoEncoder CodecServer封装 + Surface输入 + TransCoder/Recording双模式 + AVBufferQueue输出 | AVCodec, MediaEngine, Filter, Encoder, Adapter, SurfaceEncoderAdapter, AVCodecVideoEncoder, CodecServer, AVBufferQueue, TransCoder, Surface, ProcessStateCode, PauseResume, ReleaseOutputBuffer | 新需求开发/问题定位/视频编码Filter适配/录制/转码 | **pending_approval** | 🚧 草案已生成（2026-06-05T12:51 Builder基于本地镜像），surface_encoder_adapter.cpp(1037行)+surface_encoder_adapter.h(183行)=1220行源码，20条行号级evidence(E1-E20)，SurfaceEncoderAdapter过滤层编码适配器(Filter适配器+CodecServer封装+AVBufferQueueProducer输出+ProcessStateCode五态机+pauseResumeQueue双端队列暂停恢复+isTransCoderMode转码模式标志+releaseBufferTask后台Buffer释放线程)，与S212(VideoDecoderAdapter对称)+S55(S92)关联 |
 
+
+## Builder 2026-06-05 S217注册——SideOutputSurfaceProcessor 侧输出表面处理器
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S217 | SideOutputSurfaceProcessor 侧输出表面处理器——VideoPostProcessorType::SIDE_OUTPUT 五类后处理器之一与三 Surface 架构 | AVCodec, MediaEngine, PostProcessor, SurfaceMode, SideOutput, PiP, Screenshot, SuperResolution, CameraPostProcessor, VideoPostProcessorType | 新需求开发/问题定位/侧输出视频/画中画/截屏/录屏 | **pending_approval** | 🚧 草案已生成（2026-06-05T16:21 Builder基于GitCode公开源码），MEM-ARCH-AVCODEC-S217.md（15条行号级evidence，基于GitCode https://gitcode.com/openharmony/multimedia_av_codec），SideOutputSurfaceProcessor三Surface架构(consumerSurface接收+producerSurface主渲染+sideSurface侧输出)+Worker线程驱动ProcessBuffers+WaitTrigger双队列触发+HandleResolutionChange分辨率变化清空旧缓冲区队列+AutoRegisterPostProcessor静态注册SIDE_OUTPUT类型，与S20/S127/S100(PostProcessor框架)/S46/S45(DecoderSurfaceFilter)/S14/S112(FilterPipeline)/S63/S46(DRM)关联 |
