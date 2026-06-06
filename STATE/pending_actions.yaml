@@ -1205,3 +1205,33 @@ note: AVCodec DFX五组件协作框架(avcodec_trace/avcodec_sysevent/avcodec_df
   git_branch: master
   draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S217.md"
   note: "GitCode web_fetch探索版，21条行号级evidence(E1-E21)，三Surface架构(consumerSurface_/producerSurface_/sideSurface_)、三队列(consumerBufferQueue_/producerBufferQueue_/renderBufferQueue_)、WorkerThread ProcessBuffers、WaitTrigger 200ms超时、AutoRegisterPostProcessor静态注册SIDE_OUTPUT，与S179关联"
+type: approval_request
+mem_id: AVCODEC_TERMINOLOGY
+decision: pending_approval
+timestamp: '2026-06-07T00:08:06+08:00'
+builder: synthesize-agent
+subject: 00_domain_map/AVCODEC_TERMINOLOGY.yaml — 896个术语从208个S系列记忆提取
+evidence_count: 896
+draft_file: MEMORY/00_domain_map/AVCODEC_TERMINOLOGY.yaml
+note: synthesize_high_level_knowledge 工作流生成，提取了896个AVCodec领域术语，需审批入库
+
+type: approval_request
+mem_id: SCENARIO_MATRIX
+decision: pending_approval
+timestamp: '2026-06-07T00:08:06+08:00'
+builder: synthesize-agent
+subject: 40_scenarios/SCENARIO_MATRIX.yaml — 四类场景矩阵，533条匹配记录
+evidence_count: 533
+draft_file: MEMORY/40_scenarios/SCENARIO_MATRIX.yaml
+note: synthesize_high_level_knowledge 工作流生成，建立新人入项/三方应用/新需求开发/问题定位四类场景矩阵，需审批入库
+
+type: approval_request
+mem_id: ARCHITECTURE_DECISIONS
+decision: pending_approval
+timestamp: '2026-06-07T00:08:06+08:00'
+builder: synthesize-agent
+subject: 90_decisions/ARCHITECTURE_DECISIONS.yaml — 56条架构决策记录从S系列记忆识别
+evidence_count: 56
+draft_file: MEMORY/90_decisions/ARCHITECTURE_DECISIONS.yaml
+note: synthesize_high_level_knowledge 工作流生成，识别了56条ADR（工厂注册/插件热加载/状态机/IPC/动态加载等），需审批入库
+

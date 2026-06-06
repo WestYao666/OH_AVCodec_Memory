@@ -1,12 +1,12 @@
 # 00_domain_map/AVCODEC_TERMINOLOGY.yaml
 # AVCodec 术语表 — 从 S 系列记忆自动提取生成
-# 生成时间: 2026-05-07
-# 来源: 90 个 S 系列记忆
+# 生成时间: 2026-06-07
+# 来源: 209 个 S 系列记忆
 # 状态: pending_approval
 
 ---
-terminology_version: "2026-05-07"
-source_memories: "90 S-series entries"
+terminology_version: "2026-06-07"
+source_memories: "209 S-series entries"
 status: pending_approval
 generated_by: synthesize_high_level_knowledge
 ---
@@ -15,59 +15,83 @@ generated_by: synthesize_high_level_knowledge
 
 ### AAC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S24.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S24.md, MEM-ARCH-AVCODEC-S197.md, MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S190.md ... (+36 more)
 
 ### ABR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S108.md, MEM-ARCH-AVCODEC-S86.md
+
+### ACTIVE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S170.md, MEM-ARCH-AVCODEC-S161.md
+
+### ACTIVEALL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S170.md, MEM-ARCH-AVCODEC-S161.md
 
 ### ADAPTIVE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S17.md, MEM-ARCH-AVCODEC-S148.md, MEM-ARCH-AVCODEC-S42.md
+
+### ADPCM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S188.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S191.md, MEM-ARCH-AVCODEC-S125.md
 
 ### ADTS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S190.md, MEM-ARCH-AVCODEC-S158.md, MEM-ARCH-AVCODEC-S176.md ... (+15 more)
 
 ### AES
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S163.md, MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S37.md ... (+4 more)
 
 ### AFC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S13.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S13.md, MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S64.md, MEM-ARCH-AVCODEC-S17.md, MEM-ARCH-AVCODEC-S43.md ... (+2 more)
 
 ### AGAIN
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S51.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S51.md, MEM-ARCH-AVCODEC-S128.md
 
 ### AI
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S15.md, MEM-ARCH-AVCODEC-S2.md
 
 ### AIFF
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S68.md
 
+### AIGC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S91.md, MEM-ARCH-AVCODEC-S196.md
+
 ### ALAC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S184.md ... (+2 more)
+
+### ALAW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md
 
 ### AMR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S40.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S197.md, MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S145.md ... (+12 more)
+
+### ANNEX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md
 
 ### ANY
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S18.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S114.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S18.md
 
 ### APE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S215.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S68.md, MEM-ARCH-AVCODEC-S184.md ... (+1 more)
 
 ### API
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S165.md, MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S18.md, MEM-ARCH-AVCODEC-S196.md ... (+54 more)
 
 ### APP
 - **类型**: abbreviation
@@ -75,19 +99,39 @@ generated_by: synthesize_high_level_knowledge
 
 ### ARCH
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S188.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S97.md, MEM-ARCH-AVCODEC-S26.md ... (+201 more)
+
+### ARM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S188.md
+
+### AS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S187.md
 
 ### ASC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S58.md
+
+### ASYNC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md, MEM-ARCH-AVCODEC-S192.md
+
+### ATTRIBUTES
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
 
 ### AU
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S68.md
 
+### AUD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md
+
 ### AUDIO
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S3.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S96.md, MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S87.md ... (+11 more)
 
 ### AUDIOBOOK
 - **类型**: abbreviation
@@ -99,35 +143,95 @@ generated_by: synthesize_high_level_knowledge
 
 ### AVBufferQueue
 - **类型**: scope
-- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S147.md, MEM-ARCH-AVCODEC-S99.md
 
 ### AVC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S74.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S130.md ... (+39 more)
 
 ### AVCC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S90.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S90.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S111.md ... (+3 more)
 
 ### AVCODEC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S188.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S97.md, MEM-ARCH-AVCODEC-S26.md ... (+201 more)
+
+### AVCapabilityFeature
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S171.md, MEM-ARCH-AVCODEC-S47.md
+
+### AVCodecAudioCodecImpl
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S95.md
+
+### AVCodecBufferFlag
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### AVCodecBufferInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md
+
+### AVCodecCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
 
 ### AVCodecCategory
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S47.md
 
+### AVCodecClient
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md
+
+### AVCodecDfxComponent
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S213.md
+
+### AVCodecDumpControler
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S213.md
+
+### AVCodecErrorType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### AVCodecInnerCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S95.md
+
 ### AVCodecList
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S71.md
 
 ### AVCodecListFactory
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S171.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S71.md
 
 ### AVCodecListServiceInterfaceCode
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S170.md
+
+### AVCodecListenerStub
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S170.md
+
+### AVCodecParcel
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S170.md
+
+### AVCodecServiceErrCode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### AVCodecServiceInterfaceCode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S170.md
+
+### AVCodecTrace
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S213.md
 
 ### AVCodecType
 - **类型**: class
@@ -141,17 +245,49 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S42.md
 
+### AVCodecXCollie
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S213.md
+
+### AVCodecXcollieInterfaceTimer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S213.md
+
+### AVCodecXcollieTimer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S213.md
+
+### AVDemuxerCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md
+
 ### AVERROR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S53.md, MEM-ARCH-AVCODEC-S132.md
 
 ### AVI
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S96.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S41.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S136.md ... (+4 more)
+
+### AVIO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S180.md, MEM-ARCH-AVCODEC-S133.md
 
 ### AVS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S63.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S63.md, MEM-ARCH-AVCODEC-S163.md
+
+### AVSource
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S126.md
+
+### AVStreamSnapshot
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
+### AVTimedMetaData
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md
 
 ### AdaptiveFramerateController
 - **类型**: class
@@ -161,13 +297,29 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S86.md
 
+### AesDecryptorManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
+
+### AnyBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
+### AsyncMode
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S99.md
+
 ### AtomParser
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S79.md
 
+### Attribute
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
+
 ### AudioBaseCodec
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md, MEM-ARCH-AVCODEC-S8.md
 
 ### AudioBaseCodecCallback
 - **类型**: class
@@ -175,35 +327,59 @@ generated_by: synthesize_high_level_knowledge
 
 ### AudioBufferInfo
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S62.md, MEM-ARCH-AVCODEC-S50.md
 
 ### AudioBuffersManager
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S62.md, MEM-ARCH-AVCODEC-S50.md, MEM-ARCH-AVCODEC-S72.md
 
 ### AudioCaps
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S47.md
 
-### AudioCaptureModule
+### AudioCapture
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S124.md, MEM-ARCH-AVCODEC-S147.md
+
+### AudioCaptureFilterLinkCallback
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S26.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S124.md
+
+### AudioCaptureModule
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S26.md, MEM-ARCH-AVCODEC-S147.md
+
+### AudioCaptureModuleCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md
 
 ### AudioCodec
 - **类型**: scope
-- **来源记忆**: MEM-ARCH-AVCODEC-S78.md, MEM-ARCH-AVCODEC-S72.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md, MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S78.md
+
+### AudioCodecAdapter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S173.md
 
 ### AudioCodecFaultInfo
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S35.md
 
+### AudioCodecObject
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S95.md
+
 ### AudioCodecWorker
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S173.md
 
 ### AudioCodeclistInfo
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+
+### AudioDataSource
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S124.md
 
 ### AudioDecInputPortConsumerListener
 - **类型**: class
@@ -217,9 +393,17 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S88.md
 
+### AudioEncoder
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S124.md
+
+### AudioEncoderObject
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S95.md
+
 ### AudioFFMpegAacDecoderPlugin
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md, MEM-ARCH-AVCODEC-S8.md
 
 ### AudioFFMpegAacEncoderPlugin
 - **类型**: class
@@ -239,7 +423,7 @@ generated_by: synthesize_high_level_knowledge
 
 ### AudioResample
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S50.md, MEM-ARCH-AVCODEC-S8.md
 
 ### AudioServer
 - **类型**: scope
@@ -251,7 +435,7 @@ generated_by: synthesize_high_level_knowledge
 
 ### AudioSink
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S78.md, MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S31.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S78.md
 
 ### AudioSinkPlugin
 - **类型**: class
@@ -263,35 +447,63 @@ generated_by: synthesize_high_level_knowledge
 
 ### AutoRegisterPostProcessor
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S217.md, MEM-ARCH-AVCODEC-S127.md, MEM-ARCH-AVCODEC-S15.md
 
 ### Av1Decoder
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S51.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md, MEM-ARCH-AVCODEC-S51.md
+
+### Av1DecoderLoader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md
 
 ### AvcNalType
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S90.md
 
+### AvcParserImpl
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md
+
+### AvcodecDeathRecipient
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md
+
 ### BASELINE
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S47.md
 
+### BE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S168.md
+
 ### BEHAVIOR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S213.md, MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S77.md
 
 ### BICUBIC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S33.md, MEM-ARCH-AVCODEC-S85.md
 
 ### BILINEAR
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S33.md
 
+### BINDED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S170.md
+
 ### BITRATE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S36.md, MEM-ARCH-AVCODEC-S77.md, MEM-ARCH-AVCODEC-S2.md
+
+### BLURAY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md
+
+### BMP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S99.md
 
 ### BOTTOM
 - **类型**: abbreviation
@@ -299,23 +511,47 @@ generated_by: synthesize_high_level_knowledge
 
 ### BT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S2.md
 
 ### BUF
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S6.md, MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S57.md ... (+6 more)
+
+### BUILD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S152.md, MEM-ARCH-AVCODEC-S165.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S200.md ... (+1 more)
 
 ### BaseStreamDemuxer
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S66.md
 
 ### BaseVideoPostProcessor
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md, MEM-ARCH-AVCODEC-S15.md
+
+### BasicBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
+### BitReader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md
+
+### BlockQueue
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S111.md
+
+### BlockQueuePool
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S111.md
+
+### BlockTraits
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md, MEM-ARCH-AVCODEC-S111.md
 
 ### BoxHeader
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S108.md
 
 ### BoxParser
 - **类型**: scope
@@ -331,15 +567,19 @@ generated_by: synthesize_high_level_knowledge
 
 ### BufferOwner
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S6.md
 
 ### BufferStatus
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S64.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md, MEM-ARCH-AVCODEC-S64.md
+
+### ByteStreamConverter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md
 
 ### CA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S30.md
 
 ### CAF
 - **类型**: abbreviation
@@ -347,23 +587,43 @@ generated_by: synthesize_high_level_knowledge
 
 ### CAPI
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S85.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S163.md, MEM-ARCH-AVCODEC-S165.md, MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S85.md ... (+11 more)
+
+### CAPTIONS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S194.md
 
 ### CBC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S163.md, MEM-ARCH-AVCODEC-S86.md, MEM-ARCH-AVCODEC-S106.md
+
+### CBCS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md
 
 ### CBR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S162.md, MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S83.md ... (+2 more)
+
+### CEI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md
 
 ### CENC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S163.md, MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S126.md ... (+7 more)
 
 ### CERT
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### CHANGED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S151.md
+
+### CLOSED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S194.md
 
 ### CMAF
 - **类型**: abbreviation
@@ -371,19 +631,23 @@ generated_by: synthesize_high_level_knowledge
 
 ### CODEC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S80.md, MEM-ARCH-AVCODEC-S7.md ... (+3 more)
 
 ### CODECLIST
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S170.md
 
 ### CONFIGURE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S57.md, MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S20.md ... (+3 more)
 
 ### CONFIGURED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S18.md, MEM-ARCH-AVCODEC-S4.md, MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S54.md ... (+18 more)
+
+### CONNECTED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S151.md
 
 ### CONSUMER
 - **类型**: abbreviation
@@ -393,13 +657,21 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S72.md
 
+### COOK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S94.md
+
+### CPP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S197.md
+
 ### CPU
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S6.md, MEM-ARCH-AVCODEC-S80.md, MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S135.md ... (+1 more)
 
 ### CQ
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S162.md, MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S83.md, MEM-ARCH-AVCODEC-S47.md
 
 ### CRC
 - **类型**: abbreviation
@@ -407,7 +679,7 @@ generated_by: synthesize_high_level_knowledge
 
 ### CREATE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S20.md
 
 ### CREATED
 - **类型**: abbreviation
@@ -423,23 +695,39 @@ generated_by: synthesize_high_level_knowledge
 
 ### CRTP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S174.md, MEM-ARCH-AVCODEC-S60.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S76.md ... (+9 more)
+
+### CSD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S148.md
+
+### CTA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md
 
 ### CTR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S63.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S63.md, MEM-ARCH-AVCODEC-S163.md, MEM-ARCH-AVCODEC-S86.md
+
+### CTS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S108.md, MEM-ARCH-AVCODEC-S133.md
 
 ### CTTS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S96.md, MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S108.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S156.md ... (+4 more)
 
 ### CTTSEntry
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S108.md
 
 ### CUVA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S111.md
+
+### CUVV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S136.md, MEM-ARCH-AVCODEC-S134.md, MEM-ARCH-AVCODEC-S192.md
 
 ### CV
 - **类型**: abbreviation
@@ -451,7 +739,7 @@ generated_by: synthesize_high_level_knowledge
 
 ### CacheData
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S69.md
 
 ### CacheMediaChunkBufferImpl
 - **类型**: class
@@ -461,21 +749,29 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S82.md
 
+### CallbackImpl
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S157.md
+
+### CallerInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md
+
 ### Capability
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S71.md
 
 ### CapabilityData
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S171.md, MEM-ARCH-AVCODEC-S71.md, MEM-ARCH-AVCODEC-S47.md, MEM-ARCH-AVCODEC-S162.md
 
 ### CodecAbilitySingleton
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S71.md
 
 ### CodecBase
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S1.md, MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S42.md
 
 ### CodecBaseCallback
 - **类型**: class
@@ -483,15 +779,23 @@ generated_by: synthesize_high_level_knowledge
 
 ### CodecBuffer
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S154.md, MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S80.md
 
 ### CodecCallback
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S55.md
 
+### CodecCapabilityAdapter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S171.md
+
 ### CodecClient
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S88.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S88.md, MEM-ARCH-AVCODEC-S161.md
+
+### CodecDfxInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S213.md
 
 ### CodecDrmDecrypt
 - **类型**: class
@@ -501,73 +805,157 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S71.md
 
+### CodecListBuilder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S162.md
+
 ### CodecListCore
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S27.md
 
 ### CodecListServer
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S71.md
 
 ### CodecListenerCallback
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S55.md
 
+### CodecListenerInterfaceCode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S170.md
+
 ### CodecListenerStub
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S21.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md, MEM-ARCH-AVCODEC-S21.md
 
 ### CodecParams
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S58.md
 
 ### CodecScenario
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S19.md
 
+### CodecServer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S129.md
+
+### CodecServiceInterfaceCode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S170.md
+
+### CodecServiceProxy
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S161.md
+
+### CodecServiceStub
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S161.md
+
+### CodecState
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S114.md, MEM-ARCH-AVCODEC-S167.md
+
+### CodecStatisticsInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md
+
 ### CodecStatus
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S3.md, MEM-ARCH-AVCODEC-S1.md, MEM-ARCH-AVCODEC-S129.md
 
 ### CodecType
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S70.md
 
+### ColorSpaceInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+
 ### Config
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md, MEM-ARCH-AVCODEC-S139.md
 
 ### Configuration
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S129.md
+
+### ConfigurationParameters
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S129.md
 
 ### ConsumerListener
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S85.md
 
+### ConsumerSurfaceBufferListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S217.md
+
 ### Container
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S79.md
 
+### ConvertToAnnexbParams
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
+### Converter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S177.md
+
+### CttsEntry
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
+
 ### DASH
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S101.md, MEM-ARCH-AVCODEC-S97.md, MEM-ARCH-AVCODEC-S122.md ... (+23 more)
+
+### DASHLIVE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S213.md
+
+### DASHVOD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S213.md
+
+### DATERANGE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S99.md
+
+### DBL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S185.md
+
+### DEBUG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md
 
 ### DECODER
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S112.md, MEM-ARCH-AVCODEC-S47.md, MEM-ARCH-AVCODEC-S167.md
 
 ### DEFAULT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S65.md, MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S193.md
+
+### DEFINE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
 
 ### DEMUXER
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S75.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S117.md, MEM-ARCH-AVCODEC-S66.md ... (+1 more)
+
+### DESTORY
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S192.md
 
 ### DESTROY
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S170.md, MEM-ARCH-AVCODEC-S161.md
 
 ### DEVFLOW
 - **类型**: abbreviation
@@ -575,11 +963,19 @@ generated_by: synthesize_high_level_knowledge
 
 ### DISABLED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S129.md
+
+### DISCARD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S105.md, MEM-ARCH-AVCODEC-S159.md
+
+### DISPOSABLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
 
 ### DMA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S6.md, MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S57.md ... (+7 more)
 
 ### DMABUF
 - **类型**: abbreviation
@@ -587,19 +983,99 @@ generated_by: synthesize_high_level_knowledge
 
 ### DOUBLE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S77.md
 
 ### DR
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S10.md
 
+### DRAFT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S151.md, MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S148.md
+
 ### DROP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S118.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S49.md, MEM-ARCH-AVCODEC-S98.md, MEM-ARCH-AVCODEC-S119.md ... (+4 more)
+
+### DUCK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S151.md
+
+### DUMP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S212.md
+
+### DURATION
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S119.md
 
 ### DV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S83.md, MEM-ARCH-AVCODEC-S8.md
+
+### DVCC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S136.md, MEM-ARCH-AVCODEC-S134.md, MEM-ARCH-AVCODEC-S192.md
+
+### DVD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md
+
+### DVVC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S136.md, MEM-ARCH-AVCODEC-S134.md, MEM-ARCH-AVCODEC-S192.md
+
+### DashAdptSetManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S187.md, MEM-ARCH-AVCODEC-S138.md
+
+### DashBufferSegment
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
+
+### DashMpdBitrateParam
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
+
+### DashMpdManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S187.md, MEM-ARCH-AVCODEC-S138.md
+
+### DashMpdNode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
+
+### DashMpdParser
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
+
+### DashMpdTrackParam
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
+
+### DashPeriodManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S187.md, MEM-ARCH-AVCODEC-S138.md
+
+### DashRepresentationManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S187.md
+
+### DataSink
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md
+
+### DataSinkFd
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md
+
+### DataSinkFile
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md
+
+### DataSourceImpl
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md
 
 ### DecodingBehaviorType
 - **类型**: class
@@ -613,6 +1089,10 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S90.md
 
+### DemuxerDataReader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md
+
 ### DemuxerFilter
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S89.md
@@ -621,33 +1101,81 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S89.md
 
+### DemuxerObject
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S126.md
+
 ### DemuxerPlugin
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S79.md
+
+### DemuxerPluginManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S97.md
+
+### DemuxerState
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md
 
 ### DeviceChange
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S78.md
 
+### DfxSourceType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S213.md
+
 ### DmaBufIoctlSwPara
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S6.md, MEM-ARCH-AVCODEC-S9.md
 
 ### DmaSwaper
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S6.md
 
 ### DoSyncWrite
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S73.md
 
+### DownloadMonitor
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S172.md, MEM-ARCH-AVCODEC-S210.md, MEM-ARCH-AVCODEC-S128.md
+
+### DownloadStatus
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S195.md
+
+### DumpMode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S136.md, MEM-ARCH-AVCODEC-S134.md
+
+### DynamicController
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S129.md
+
+### DynamicInterface
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S129.md
+
 ### EAGAIN
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S51.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S174.md, MEM-ARCH-AVCODEC-S132.md, MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S64.md, MEM-ARCH-AVCODEC-S53.md ... (+5 more)
+
+### EBSP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S111.md, MEM-ARCH-AVCODEC-S105.md, MEM-ARCH-AVCODEC-S177.md
 
 ### EGL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S84.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S84.md, MEM-ARCH-AVCODEC-S135.md
+
+### EINVAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### EMA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S148.md
 
 ### EMPTY
 - **类型**: abbreviation
@@ -659,51 +1187,83 @@ generated_by: synthesize_high_level_knowledge
 
 ### ENCODER
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S27.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S47.md
 
 ### END
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S82.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S213.md, MEM-ARCH-AVCODEC-S82.md, MEM-ARCH-AVCODEC-S200.md
 
 ### ENDLIST
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S37.md
 
+### ENOMEM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### ENOSYS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### EOF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S147.md
+
+### EOM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S193.md
+
 ### EOS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S197.md, MEM-ARCH-AVCODEC-S4.md, MEM-ARCH-AVCODEC-S101.md, MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S48.md ... (+39 more)
 
 ### ERROR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S18.md, MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S129.md ... (+22 more)
 
 ### ES
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S63.md, MEM-ARCH-AVCODEC-S17.md, MEM-ARCH-AVCODEC-S135.md ... (+1 more)
 
 ### ESDS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S133.md
 
 ### EVENTS
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S77.md
 
+### EXCEPT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S167.md
+
 ### EXT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S99.md, MEM-ARCH-AVCODEC-S138.md ... (+3 more)
 
 ### EXTINF
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S138.md, MEM-ARCH-AVCODEC-S120.md, MEM-ARCH-AVCODEC-S86.md, MEM-ARCH-AVCODEC-S194.md
 
 ### EXTXKEY
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S194.md
+
+### EXTXMAP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
 
 ### EXTXMEDIA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S194.md
+
+### EXTXSKIP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
+
+### EXTXSTART
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
 
 ### EncoderInfo
 - **类型**: class
@@ -721,37 +1281,69 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S2.md
 
+### FATAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md
+
 ### FAULT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S213.md, MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S77.md
 
 ### FAULTTYPE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S77.md, MEM-ARCH-AVCODEC-S213.md
+
+### FBO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S135.md
 
 ### FBuffer
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S53.md
+
+### FCodec
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S199.md
 
 ### FD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S38.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S120.md, MEM-ARCH-AVCODEC-S195.md ... (+7 more)
+
+### FF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md
 
 ### FFmpeg
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S72.md
 
+### FFmpegBaseEncoder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S176.md, MEM-ARCH-AVCODEC-S158.md, MEM-ARCH-AVCODEC-S193.md
+
+### FFmpegFlacEncoderPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S158.md
+
+### FFmpegFlvMuxerPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
+### FFmpegMuxerRegister
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S180.md
+
 ### FIFO
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S174.md, MEM-ARCH-AVCODEC-S62.md, MEM-ARCH-AVCODEC-S169.md, MEM-ARCH-AVCODEC-S132.md, MEM-ARCH-AVCODEC-S190.md ... (+4 more)
 
 ### FILE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S34.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S120.md, MEM-ARCH-AVCODEC-S34.md ... (+7 more)
 
 ### FLAC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S74.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S190.md ... (+29 more)
 
 ### FLAG
 - **类型**: abbreviation
@@ -759,31 +1351,47 @@ generated_by: synthesize_high_level_knowledge
 
 ### FLOAT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S77.md
+
+### FLTP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S185.md
 
 ### FLUSH
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S57.md, MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S20.md ... (+4 more)
 
 ### FLUSHED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S18.md, MEM-ARCH-AVCODEC-S4.md, MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S59.md ... (+18 more)
 
 ### FLUSHING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S53.md, MEM-ARCH-AVCODEC-S173.md ... (+4 more)
 
 ### FLV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S34.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S122.md, MEM-ARCH-AVCODEC-S34.md, MEM-ARCH-AVCODEC-S106.md, MEM-ARCH-AVCODEC-S157.md ... (+20 more)
+
+### FRAME
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S101.md
+
+### FREEZE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S170.md, MEM-ARCH-AVCODEC-S161.md
 
 ### FREEZING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S80.md, MEM-ARCH-AVCODEC-S53.md, MEM-ARCH-AVCODEC-S39.md
 
 ### FROZEN
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S26.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S215.md, MEM-ARCH-AVCODEC-S46.md, MEM-ARCH-AVCODEC-S82.md, MEM-ARCH-AVCODEC-S53.md ... (+9 more)
+
+### FSM
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S215.md
 
 ### FSurfaceMemory
 - **类型**: class
@@ -791,11 +1399,27 @@ generated_by: synthesize_high_level_knowledge
 
 ### FULL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S17.md, MEM-ARCH-AVCODEC-S148.md, MEM-ARCH-AVCODEC-S42.md
 
 ### FastResizeAlgoType
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S33.md
+
+### FaultType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S200.md, MEM-ARCH-AVCODEC-S213.md
+
+### FfmpegDecoderPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S125.md
+
+### File
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md
+
+### Filter
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S124.md
 
 ### FilterCallBackCommand
 - **类型**: class
@@ -804,6 +1428,10 @@ generated_by: synthesize_high_level_knowledge
 ### FilterCallback
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S89.md
+
+### FilterChain
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S124.md
 
 ### FilterType
 - **类型**: class
@@ -815,39 +1443,55 @@ generated_by: synthesize_high_level_knowledge
 
 ### FragmentEntry
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S58.md
 
 ### FrameRetentionContext
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S17.md
 
+### FullBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
 ### GBM
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S9.md
 
 ### GBR
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S54.md
 
+### GC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S111.md
+
 ### GCM
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S86.md
 
+### GLTF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S91.md
+
 ### GMT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S62.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S62.md, MEM-ARCH-AVCODEC-S214.md, MEM-ARCH-AVCODEC-S185.md, MEM-ARCH-AVCODEC-S88.md, MEM-ARCH-AVCODEC-S212.md
+
+### GN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S178.md
 
 ### GPU
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S16.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S16.md, MEM-ARCH-AVCODEC-S4.md, MEM-ARCH-AVCODEC-S6.md ... (+5 more)
 
 ### GSM
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S125.md, MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S8.md
 
 ### HAL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S78.md, MEM-ARCH-AVCODEC-S35.md
 
 ### HARD
 - **类型**: abbreviation
@@ -861,25 +1505,33 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S57.md
 
+### HD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md
+
 ### HDF
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md, MEM-ARCH-AVCODEC-S42.md
 
 ### HDLR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S108.md
 
 ### HDR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S54.md, MEM-ARCH-AVCODEC-S186.md ... (+22 more)
 
 ### HDecoder
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md, MEM-ARCH-AVCODEC-S57.md
 
 ### HE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S131.md, MEM-ARCH-AVCODEC-S8.md
+
+### HEADER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S101.md
 
 ### HEIF
 - **类型**: abbreviation
@@ -887,19 +1539,23 @@ generated_by: synthesize_high_level_knowledge
 
 ### HEIGHT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S85.md, MEM-ARCH-AVCODEC-S97.md, MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S36.md, MEM-ARCH-AVCODEC-S77.md ... (+2 more)
 
 ### HEVC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S74.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S130.md ... (+45 more)
+
+### HEXAGONAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S130.md
 
 ### HEncoder
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S11.md, MEM-ARCH-AVCODEC-S57.md
 
 ### HIGH
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md, MEM-ARCH-AVCODEC-S217.md, MEM-ARCH-AVCODEC-S51.md, MEM-ARCH-AVCODEC-S112.md, MEM-ARCH-AVCODEC-S15.md ... (+1 more)
 
 ### HIVIEWDFX
 - **类型**: abbreviation
@@ -911,47 +1567,115 @@ generated_by: synthesize_high_level_knowledge
 
 ### HLG
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S145.md ... (+6 more)
+
+### HLOGD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md
+
+### HLOGE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md
+
+### HLOGI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md
+
+### HLOGW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md
 
 ### HLS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S101.md, MEM-ARCH-AVCODEC-S97.md, MEM-ARCH-AVCODEC-S122.md, MEM-ARCH-AVCODEC-S187.md, MEM-ARCH-AVCODEC-S194.md ... (+24 more)
+
+### HLSLIVE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S213.md
+
+### HLSVOD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S213.md
+
+### HOA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md
 
 ### HTML
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S118.md, MEM-ARCH-AVCODEC-S49.md, MEM-ARCH-AVCODEC-S98.md, MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S116.md ... (+1 more)
 
 ### HTTP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S122.md, MEM-ARCH-AVCODEC-S106.md, MEM-ARCH-AVCODEC-S153.md ... (+23 more)
+
+### HTTPLIVE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S213.md
 
 ### HTTPS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S172.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S90.md, MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S87.md ... (+7 more)
+
+### HTTPVOD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S213.md
 
 ### HVCC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S111.md, MEM-ARCH-AVCODEC-S68.md ... (+1 more)
+
+### HdiCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md
 
 ### HdiCodec
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S55.md
+
+### HdrBoxInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S177.md
 
 ### HdrMetadata
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md, MEM-ARCH-AVCODEC-S42.md
+
+### HeaderInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S195.md
 
 ### HevcDecoder
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md, MEM-ARCH-AVCODEC-S42.md
 
 ### HevcDecoderLoader
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S70.md
 
+### HevcParseFormat
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S143.md
+
+### HlsPlayListDownloader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
+
 ### HlsSegmentManager
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S86.md
+
+### HlsSegmentType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
+
+### HlsTag
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
+
+### HlsTagSection
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
 
 ### IAudioDataSource
 - **类型**: class
@@ -959,39 +1683,67 @@ generated_by: synthesize_high_level_knowledge
 
 ### ID
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S196.md ... (+53 more)
+
+### IDC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S93.md
 
 ### IDLE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S23.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S62.md, MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S214.md, MEM-ARCH-AVCODEC-S217.md ... (+6 more)
 
 ### IDR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S63.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S90.md, MEM-ARCH-AVCODEC-S63.md, MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S105.md, MEM-ARCH-AVCODEC-S83.md
+
+### IDashMpdNode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
 
 ### IDropStrategy
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S33.md
 
+### IEC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S163.md
+
 ### IGNORE
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S78.md
 
+### II
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S198.md
+
 ### III
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S198.md, MEM-ARCH-AVCODEC-S8.md
 
 ### IL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S64.md, MEM-ARCH-AVCODEC-S57.md
 
 ### ILBC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S125.md, MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S8.md
+
+### IMAGE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S99.md
+
+### IMediaSyncCenter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S110.md
 
 ### IMediaSynchronizer
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S22.md, MEM-ARCH-AVCODEC-S73.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S110.md, MEM-ARCH-AVCODEC-S56.md, MEM-ARCH-AVCODEC-S22.md
+
+### IN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S215.md
 
 ### INACTIVE
 - **类型**: abbreviation
@@ -1003,31 +1755,51 @@ generated_by: synthesize_high_level_knowledge
 
 ### INF
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S120.md
+
+### INFO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md
 
 ### INIT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S21.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S57.md, MEM-ARCH-AVCODEC-S72.md, MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S21.md, MEM-ARCH-AVCODEC-S170.md ... (+3 more)
 
 ### INPUT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S80.md
+
+### INTERNAL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S159.md
 
 ### INVALID
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S148.md, MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S17.md, MEM-ARCH-AVCODEC-S66.md, MEM-ARCH-AVCODEC-S106.md
 
 ### IO
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S74.md, MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S136.md ... (+2 more)
+
+### IOContext
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S192.md
 
 ### IPC
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S71.md
 
+### IReferenceParser
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S177.md
+
 ### IRetentionStrategy
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+
+### IS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S176.md
 
 ### ISMV
 - **类型**: abbreviation
@@ -1035,15 +1807,27 @@ generated_by: synthesize_high_level_knowledge
 
 ### ISO
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S198.md, MEM-ARCH-AVCODEC-S163.md
+
+### ISOBMFF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S163.md, MEM-ARCH-AVCODEC-S153.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S196.md ... (+3 more)
+
+### IStandardCodecListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### ITU
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S176.md, MEM-ARCH-AVCODEC-S93.md
 
 ### IV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S95.md, MEM-ARCH-AVCODEC-S63.md, MEM-ARCH-AVCODEC-S86.md
 
 ### IndexAndPTSConvertMode
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S136.md, MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S134.md, MEM-ARCH-AVCODEC-S52.md
 
 ### InputFrame
 - **类型**: class
@@ -1051,11 +1835,15 @@ generated_by: synthesize_high_level_knowledge
 
 ### InstanceInfo
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S48.md
 
 ### Interrupt
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+
+### InvokerType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
 
 ### JPEG
 - **类型**: abbreviation
@@ -1063,27 +1851,51 @@ generated_by: synthesize_high_level_knowledge
 
 ### JS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S9.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S170.md
 
 ### JSON
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S77.md, MEM-ARCH-AVCODEC-S200.md
 
 ### KEY
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S138.md, MEM-ARCH-AVCODEC-S86.md, MEM-ARCH-AVCODEC-S194.md
+
+### KeyInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
 
 ### LABEL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md, MEM-ARCH-AVCODEC-S197.md, MEM-ARCH-AVCODEC-S108.md, MEM-ARCH-AVCODEC-S51.md, MEM-ARCH-AVCODEC-S213.md ... (+4 more)
+
+### LAME
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S193.md
 
 ### LANCZOS
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S33.md
 
+### LATITUDE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S131.md
+
 ### LATM
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md, MEM-ARCH-AVCODEC-S191.md, MEM-ARCH-AVCODEC-S8.md
+
+### LBVC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S174.md, MEM-ARCH-AVCODEC-S169.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S132.md, MEM-ARCH-AVCODEC-S145.md ... (+6 more)
+
+### LC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S169.md, MEM-ARCH-AVCODEC-S131.md, MEM-ARCH-AVCODEC-S193.md
+
+### LE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S168.md
 
 ### LEFT
 - **类型**: abbreviation
@@ -1091,7 +1903,11 @@ generated_by: synthesize_high_level_knowledge
 
 ### LGPL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S40.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S169.md, MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S132.md, MEM-ARCH-AVCODEC-S40.md ... (+1 more)
+
+### LICENSE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S165.md
 
 ### LL
 - **类型**: abbreviation
@@ -1101,9 +1917,21 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S11.md
 
+### LONGITUDE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S131.md
+
+### LOOP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S94.md
+
 ### LPCM
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+
+### LPP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
 
 ### LRC
 - **类型**: abbreviation
@@ -1113,9 +1941,13 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S86.md
 
+### LSB
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S119.md
+
 ### LTR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S19.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S19.md, MEM-ARCH-AVCODEC-S47.md, MEM-ARCH-AVCODEC-S42.md, MEM-ARCH-AVCODEC-S68.md
 
 ### LagDetector
 - **类型**: class
@@ -1133,9 +1965,21 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S37.md
 
+### M3U8MasterPlaylist
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
+
+### M3U8Media
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
+
+### M3U8VariantStream
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
+
 ### MAIN
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S47.md, MEM-ARCH-AVCODEC-S51.md
 
 ### MAP
 - **类型**: abbreviation
@@ -1147,7 +1991,7 @@ generated_by: synthesize_high_level_knowledge
 
 ### MAX
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S60.md, MEM-ARCH-AVCODEC-S135.md, MEM-ARCH-AVCODEC-S86.md
 
 ### MB
 - **类型**: abbreviation
@@ -1155,23 +1999,27 @@ generated_by: synthesize_high_level_knowledge
 
 ### MDHD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S108.md
+
+### MDIA
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S108.md
 
 ### MEDIA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S194.md
 
 ### MEM
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S188.md, MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S97.md, MEM-ARCH-AVCODEC-S26.md ... (+201 more)
 
 ### MEMORY
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S77.md, MEM-ARCH-AVCODEC-S66.md, MEM-ARCH-AVCODEC-S178.md
 
 ### METHOD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S86.md
 
 ### MIC
 - **类型**: abbreviation
@@ -1179,11 +2027,15 @@ generated_by: synthesize_high_level_knowledge
 
 ### MIME
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S197.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S165.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S151.md ... (+43 more)
 
 ### MIN
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+
+### MINF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S108.md
 
 ### MINOR
 - **类型**: abbreviation
@@ -1195,11 +2047,11 @@ generated_by: synthesize_high_level_knowledge
 
 ### MJPEG
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S70.md, MEM-ARCH-AVCODEC-S53.md
 
 ### MKV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S28.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S90.md, MEM-ARCH-AVCODEC-S149.md, MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S28.md, MEM-ARCH-AVCODEC-S109.md ... (+13 more)
 
 ### ML
 - **类型**: abbreviation
@@ -1207,19 +2059,23 @@ generated_by: synthesize_high_level_knowledge
 
 ### MODULE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S77.md, MEM-ARCH-AVCODEC-S213.md
 
 ### MONO
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S174.md, MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S58.md
+
+### MOOV
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S108.md
 
 ### MOV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S22.md, MEM-ARCH-AVCODEC-S79.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S96.md, MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S108.md, MEM-ARCH-AVCODEC-S111.md ... (+13 more)
 
 ### MP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md, MEM-ARCH-AVCODEC-S15.md
 
 ### MP4
 - **类型**: scope
@@ -1227,11 +2083,11 @@ generated_by: synthesize_high_level_knowledge
 
 ### MPD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S172.md, MEM-ARCH-AVCODEC-S153.md, MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S210.md ... (+4 more)
 
 ### MPEG
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S53.md ... (+4 more)
 
 ### MPEG4
 - **类型**: scope
@@ -1241,29 +2097,53 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S58.md
 
+### MPEG4AtomParser
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
+
 ### MPEG4DemuxerPlugin
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S79.md
 
+### MPEG4MuxerPlugin
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
+### MPEG4Sample
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md, MEM-ARCH-AVCODEC-S111.md
+
+### MPEG4SampleHelper
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
+
 ### MPEGPS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S96.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S41.md, MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S76.md ... (+5 more)
 
 ### MPEGTS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S41.md, MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S136.md ... (+3 more)
 
 ### MS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S83.md, MEM-ARCH-AVCODEC-S8.md
 
 ### MSE
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S58.md
 
+### MSECOND
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S130.md
+
 ### MSG
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S77.md, MEM-ARCH-AVCODEC-S213.md
+
+### MULAW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md
 
 ### MUSIC
 - **类型**: abbreviation
@@ -1271,11 +2151,11 @@ generated_by: synthesize_high_level_knowledge
 
 ### MUXER
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S65.md
 
 ### MV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S43.md, MEM-ARCH-AVCODEC-S17.md, MEM-ARCH-AVCODEC-S148.md, MEM-ARCH-AVCODEC-S42.md
 
 ### MVC
 - **类型**: abbreviation
@@ -1285,21 +2165,53 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S17.md
 
+### MaintainBaseInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S175.md
+
+### MdiaBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
 ### MediaCodec
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md, MEM-ARCH-AVCODEC-S167.md
+
+### MediaCodecCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### MediaCodecParameterCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
+
+### MediaCodecParameterWithAttrCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S159.md
 
 ### MediaDemuxer
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md, MEM-ARCH-AVCODEC-S75.md, MEM-ARCH-AVCODEC-S149.md
+
+### MediaDownloader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S128.md
 
 ### MediaEngine
 - **类型**: scope
-- **来源记忆**: MEM-ARCH-AVCODEC-S73.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S124.md
 
 ### MediaMuxer
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S65.md, MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S147.md, MEM-ARCH-AVCODEC-S99.md
+
+### MediaSegSampleInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
+
+### MediaStreamInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S97.md
 
 ### MediaSync
 - **类型**: scope
@@ -1309,21 +2221,77 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S73.md
 
+### MediaSynchronousSink
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S98.md
+
+### MediaTrackMap
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S97.md
+
+### MemoryMonitor
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md
+
+### MetaDataFilterLinkCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S146.md
+
+### MinfBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
 ### MockAudioDataSource
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S29.md
 
+### MsgHandleLoop
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md
+
+### MsgToken
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md
+
 ### MsgWhat
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S57.md
+
+### MultiStreamParserManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S111.md
+
+### MultiTrack
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S99.md
+
+### MuxerBrokerListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S112.md
+
+### MvhdBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
 
 ### NALU
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S74.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S196.md ... (+15 more)
+
+### NAME
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
+
+### NATIVE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S170.md
 
 ### NB
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S162.md, MEM-ARCH-AVCODEC-S94.md, MEM-ARCH-AVCODEC-S125.md ... (+1 more)
+
+### NEON
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S183.md
 
 ### NEXT
 - **类型**: abbreviation
@@ -1331,15 +2299,27 @@ generated_by: synthesize_high_level_knowledge
 
 ### NONE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S185.md, MEM-ARCH-AVCODEC-S217.md, MEM-ARCH-AVCODEC-S213.md, MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S116.md ... (+18 more)
 
 ### NORMAL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S69.md
+
+### NTT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md
 
 ### NULL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S54.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S54.md, MEM-ARCH-AVCODEC-S101.md
+
+### NativeAVDataSource
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S126.md
+
+### NativeAudioCodec
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S95.md
 
 ### NativeAudioDecoder
 - **类型**: class
@@ -1347,79 +2327,131 @@ generated_by: synthesize_high_level_knowledge
 
 ### NativeVideoEncoderCallback
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S84.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S84.md, MEM-ARCH-AVCODEC-S107.md
+
+### OAT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S165.md
 
 ### OGG
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S99.md, MEM-ARCH-AVCODEC-S76.md ... (+9 more)
 
 ### OH
-- **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S60.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S132.md, MEM-ARCH-AVCODEC-S84.md ... (+10 more)
 
 ### OHOS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S188.md, MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S151.md ... (+52 more)
+
+### OHSO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S161.md
 
 ### OK
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S24.md, MEM-ARCH-AVCODEC-S188.md, MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S126.md ... (+50 more)
 
 ### OMX
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S132.md ... (+10 more)
 
 ### OOM
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S2.md
 
+### OPEN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md
+
 ### OPUS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S162.md
+
+### OR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S166.md
 
 ### OSAL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S46.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S195.md, MEM-ARCH-AVCODEC-S46.md
+
+### OUT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S215.md
 
 ### OUTPUT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S80.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S80.md
 
 ### Offload
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S78.md
 
+### OutputInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S95.md
+
 ### Owner
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S53.md, MEM-ARCH-AVCODEC-S80.md, MEM-ARCH-AVCODEC-S7.md ... (+2 more)
+
+### PARAMS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md
 
 ### PAT
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S76.md
 
+### PAUSE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S214.md, MEM-ARCH-AVCODEC-S185.md
+
 ### PAUSED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S152.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S149.md, MEM-ARCH-AVCODEC-S215.md ... (+12 more)
 
 ### PAUSING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S152.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S14.md
 
 ### PCM
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S24.md, MEM-ARCH-AVCODEC-S197.md, MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S151.md ... (+30 more)
 
 ### PID
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S6.md, MEM-ARCH-AVCODEC-S82.md, MEM-ARCH-AVCODEC-S81.md, MEM-ARCH-AVCODEC-S137.md ... (+2 more)
+
+### PIXFMT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S129.md
 
 ### PLANAR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S100.md, MEM-ARCH-AVCODEC-S50.md
+
+### PLAYING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S179.md
+
+### PLAYLIST
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S138.md
 
 ### PMT
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+
+### PNG
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S99.md
+
+### POSIX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md
 
 ### PP
 - **类型**: abbreviation
@@ -1427,23 +2459,23 @@ generated_by: synthesize_high_level_knowledge
 
 ### PPS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S90.md, MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S58.md ... (+11 more)
 
 ### PQ
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S145.md ... (+5 more)
 
 ### PREPARE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S21.md, MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S170.md, MEM-ARCH-AVCODEC-S161.md
 
 ### PREPARED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S151.md, MEM-ARCH-AVCODEC-S114.md, MEM-ARCH-AVCODEC-S3.md, MEM-ARCH-AVCODEC-S20.md ... (+4 more)
 
 ### PREPARING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S14.md
 
 ### PREROLLING
 - **类型**: abbreviation
@@ -1453,73 +2485,149 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S76.md
 
+### PRIXPTR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S157.md
+
+### PS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S192.md
+
+### PSSH
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S126.md
+
 ### PWP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md, MEM-ARCH-AVCODEC-S15.md
+
+### PacketConvertToBufferInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S143.md
 
 ### ParseContext
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S58.md
 
+### PathAdder
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S198.md
+
 ### Pipeline
 - **类型**: scope
-- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S72.md, MEM-ARCH-AVCODEC-S124.md, MEM-ARCH-AVCODEC-S147.md
+
+### PlayInfo
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
+
+### PlayListDownloader
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md
 
 ### Plugin
 - **类型**: scope
-- **来源记忆**: MEM-ARCH-AVCODEC-S78.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md, MEM-ARCH-AVCODEC-S78.md
+
+### PluginManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md
 
 ### PostProcessing
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S129.md
+
+### PostProcessingCallbackUserData
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S55.md
+
+### PostProcessorCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md
 
 ### ProcessStateCode
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S36.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S107.md, MEM-ARCH-AVCODEC-S36.md, MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S214.md
+
+### ProcessorState
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S217.md
 
 ### QP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S47.md
 
 ### QUAD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S58.md
 
 ### RAII
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S152.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S196.md, MEM-ARCH-AVCODEC-S111.md, MEM-ARCH-AVCODEC-S98.md ... (+4 more)
+
+### RAW
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S125.md, MEM-ARCH-AVCODEC-S215.md
 
 ### RBSP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S90.md, MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S111.md ... (+5 more)
+
+### READ
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
+### READING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
+### README
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S165.md
 
 ### READY
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S35.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S215.md, MEM-ARCH-AVCODEC-S168.md, MEM-ARCH-AVCODEC-S112.md, MEM-ARCH-AVCODEC-S35.md
+
+### RECORDER
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S197.md
 
 ### RECORDING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S23.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S149.md, MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S214.md, MEM-ARCH-AVCODEC-S107.md, MEM-ARCH-AVCODEC-S36.md ... (+2 more)
+
+### REGISTERED
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S164.md
+
+### REGULAR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
 
 ### RELEASE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S57.md, MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S170.md ... (+2 more)
 
 ### RELEASED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S151.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S173.md, MEM-ARCH-AVCODEC-S114.md ... (+1 more)
+
+### RELEASING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S114.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S92.md, MEM-ARCH-AVCODEC-S173.md
 
 ### RESAMPLE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S60.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S125.md, MEM-ARCH-AVCODEC-S60.md
 
 ### RESET
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S20.md, MEM-ARCH-AVCODEC-S170.md, MEM-ARCH-AVCODEC-S21.md ... (+1 more)
 
 ### RESUME
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S151.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S57.md, MEM-ARCH-AVCODEC-S214.md ... (+2 more)
 
 ### RESUMED
 - **类型**: abbreviation
@@ -1527,11 +2635,15 @@ generated_by: synthesize_high_level_knowledge
 
 ### RESUMING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S82.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S82.md, MEM-ARCH-AVCODEC-S173.md, MEM-ARCH-AVCODEC-S114.md, MEM-ARCH-AVCODEC-S92.md
+
+### RGB
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S183.md
 
 ### RGBA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S53.md, MEM-ARCH-AVCODEC-S214.md, MEM-ARCH-AVCODEC-S68.md ... (+2 more)
 
 ### RIGHT
 - **类型**: abbreviation
@@ -1539,11 +2651,11 @@ generated_by: synthesize_high_level_knowledge
 
 ### RM
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S211.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S136.md, MEM-ARCH-AVCODEC-S68.md, MEM-ARCH-AVCODEC-S134.md ... (+1 more)
 
 ### RPC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S11.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md, MEM-ARCH-AVCODEC-S11.md, MEM-ARCH-AVCODEC-S150.md
 
 ### RT
 - **类型**: abbreviation
@@ -1555,7 +2667,7 @@ generated_by: synthesize_high_level_knowledge
 
 ### RUNNING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S18.md, MEM-ARCH-AVCODEC-S4.md, MEM-ARCH-AVCODEC-S151.md, MEM-ARCH-AVCODEC-S48.md ... (+36 more)
 
 ### RV
 - **类型**: abbreviation
@@ -1565,33 +2677,89 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S47.md
 
-### Resample
+### RbspContext
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md
+
+### ReadMode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
+### Recorder
 - **类型**: scope
-- **来源记忆**: MEM-ARCH-AVCODEC-S72.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S124.md
+
+### RefParser
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S111.md
+
+### ReferenceParserHandle
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md
+
+### RequestProtocolType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S120.md, MEM-ARCH-AVCODEC-S195.md
+
+### Resample
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S125.md, MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S190.md, MEM-ARCH-AVCODEC-S72.md
 
 ### ResamplePara
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S189.md, MEM-ARCH-AVCODEC-S72.md, MEM-ARCH-AVCODEC-S50.md, MEM-ARCH-AVCODEC-S125.md
 
 ### ResizeDetailEnhancerVideoCallback
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md, MEM-ARCH-AVCODEC-S146.md, MEM-ARCH-AVCODEC-S149.md
+
+### RetentionStrategyType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S148.md
 
 ### SA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S27.md, MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S165.md, MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S71.md ... (+15 more)
+
+### SAID
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S170.md, MEM-ARCH-AVCODEC-S161.md
 
 ### SAMI
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S68.md
 
+### SAMPL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md
+
+### SDF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S137.md
+
 ### SDR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S32.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S32.md, MEM-ARCH-AVCODEC-S136.md, MEM-ARCH-AVCODEC-S134.md, MEM-ARCH-AVCODEC-S192.md
+
+### SDTP
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S98.md
+
+### SEEK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S192.md
 
 ### SEEKABLE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S38.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S123.md, MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S101.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S122.md ... (+3 more)
+
+### SEEKTABLE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md
+
+### SEI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S111.md, MEM-ARCH-AVCODEC-S10.md, MEM-ARCH-AVCODEC-S63.md, MEM-ARCH-AVCODEC-S136.md ... (+5 more)
 
 ### SEQUENCE
 - **类型**: abbreviation
@@ -1599,19 +2767,27 @@ generated_by: synthesize_high_level_knowledge
 
 ### SFD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S148.md, MEM-ARCH-AVCODEC-S3.md, MEM-ARCH-AVCODEC-S17.md, MEM-ARCH-AVCODEC-S43.md, MEM-ARCH-AVCODEC-S1.md
 
 ### SFDConfig
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S17.md
 
+### SHELL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S170.md
+
 ### SHOW
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S118.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S49.md, MEM-ARCH-AVCODEC-S98.md, MEM-ARCH-AVCODEC-S119.md ... (+4 more)
 
 ### SIMPLE
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+
+### SINGLETON
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S217.md
 
 ### SL
 - **类型**: abbreviation
@@ -1625,6 +2801,10 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S37.md
 
+### SMPTE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md
+
 ### SNR
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S83.md
@@ -1637,9 +2817,13 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S68.md
 
+### SOFTWARE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S162.md
+
 ### SOURCE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S67.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S120.md, MEM-ARCH-AVCODEC-S67.md, MEM-ARCH-AVCODEC-S155.md ... (+1 more)
 
 ### SP
 - **类型**: abbreviation
@@ -1647,91 +2831,147 @@ generated_by: synthesize_high_level_knowledge
 
 ### SPS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S53.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S90.md, MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S145.md ... (+12 more)
 
 ### SQR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S47.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S47.md, MEM-ARCH-AVCODEC-S162.md
 
 ### SRT
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S68.md
 
+### SSR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S169.md
+
+### SSRF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S210.md
+
 ### START
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S123.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S75.md, MEM-ARCH-AVCODEC-S164.md ... (+9 more)
 
 ### STARTED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S65.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S152.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S65.md ... (+2 more)
 
 ### STARTING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S173.md, MEM-ARCH-AVCODEC-S114.md, MEM-ARCH-AVCODEC-S3.md, MEM-ARCH-AVCODEC-S92.md ... (+2 more)
 
 ### STATISTIC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S213.md, MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S77.md
+
+### STBL
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S108.md
+
+### STCO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
 
 ### STEREO
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S50.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S174.md, MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S58.md ... (+2 more)
 
 ### STOP
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S20.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S123.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S75.md, MEM-ARCH-AVCODEC-S164.md ... (+10 more)
 
 ### STOPPED
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S13.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S31.md, MEM-ARCH-AVCODEC-S151.md, MEM-ARCH-AVCODEC-S129.md, MEM-ARCH-AVCODEC-S147.md, MEM-ARCH-AVCODEC-S23.md ... (+19 more)
 
 ### STOPPING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S152.md, MEM-ARCH-AVCODEC-S167.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S53.md ... (+8 more)
 
 ### STREAM
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S120.md, MEM-ARCH-AVCODEC-S67.md ... (+2 more)
+
+### STREAMINFO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S130.md
 
 ### STRING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S77.md
+
+### STSC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S156.md
+
+### STSS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
+
+### STSZ
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S156.md
 
 ### STTS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S96.md, MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S108.md, MEM-ARCH-AVCODEC-S156.md ... (+4 more)
 
 ### STTSEntry
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S108.md
 
 ### SUBTITLE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S41.md, MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S58.md ... (+5 more)
+
+### SUBTITLES
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S194.md
+
+### SUBTITME
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S119.md
 
 ### SURFACE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S6.md, MEM-ARCH-AVCODEC-S80.md, MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S154.md
 
 ### SURROUND
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S58.md
 
 ### SUSPEND
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S57.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S160.md, MEM-ARCH-AVCODEC-S164.md, MEM-ARCH-AVCODEC-S57.md
 
 ### SVC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S1.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S19.md, MEM-ARCH-AVCODEC-S68.md, MEM-ARCH-AVCODEC-S1.md, MEM-ARCH-AVCODEC-S42.md
 
 ### SWITCHING
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md, MEM-ARCH-AVCODEC-S139.md
+
+### SWR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md
+
+### SWS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md
+
+### SYNC
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
 
 ### SYSCAP
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+
+### Sample
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md
 
 ### SampleBufferConsumerListener
 - **类型**: class
@@ -1741,21 +2981,61 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S75.md
 
+### SampleFlag
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md
+
+### SampleIndexEntry
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
+
+### SamplePacket
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S105.md, MEM-ARCH-AVCODEC-S111.md
+
+### SampleQueueCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S139.md
+
+### SampleQueueController
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S102.md
+
+### Scale
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S130.md
+
+### ScalePara
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S130.md
+
+### Seekable
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S106.md
+
 ### SeiParserFilter
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S113.md, MEM-ARCH-AVCODEC-S14.md
+
+### SeiParserListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S168.md
 
 ### SeiPayloadInfo
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S113.md, MEM-ARCH-AVCODEC-S168.md, MEM-ARCH-AVCODEC-S10.md
 
 ### SeiPayloadInfoGroup
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S113.md, MEM-ARCH-AVCODEC-S168.md, MEM-ARCH-AVCODEC-S10.md
 
 ### SelectBitrateStatus
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md, MEM-ARCH-AVCODEC-S139.md
+
+### SfdDecisionReason
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S148.md
 
 ### Singleton
 - **类型**: scope
@@ -1765,25 +3045,49 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S73.md
 
+### Source
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S106.md
+
+### SourceObject
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S126.md
+
 ### SourcePlugin
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S67.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S67.md, MEM-ARCH-AVCODEC-S87.md
 
 ### SpeedCountInfo
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S69.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S69.md, MEM-ARCH-AVCODEC-S139.md, MEM-ARCH-AVCODEC-S102.md
 
 ### State
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S53.md, MEM-ARCH-AVCODEC-S154.md, MEM-ARCH-AVCODEC-S54.md ... (+5 more)
 
 ### StateMachine
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S57.md
 
+### StblBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
+
+### StreamDemuxer
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S101.md
+
 ### StreamInfo
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S87.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S87.md
+
+### StreamParser
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S143.md
+
+### StreamParserManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S143.md
 
 ### StreamType
 - **类型**: class
@@ -1791,11 +3095,11 @@ generated_by: synthesize_high_level_knowledge
 
 ### StubType
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S48.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S48.md, MEM-ARCH-AVCODEC-S170.md
 
 ### SubtitleBufferState
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S49.md
 
 ### SubtitleInfo
 - **类型**: class
@@ -1805,9 +3109,13 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S73.md
 
+### SuperResolutionPostProcessor
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md
+
 ### SurfaceDecoderAdapter
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S16.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S16.md, MEM-ARCH-AVCODEC-S42.md
 
 ### SurfaceDecoderAdapterCallback
 - **类型**: class
@@ -1819,15 +3127,27 @@ generated_by: synthesize_high_level_knowledge
 
 ### SurfaceDecoderFilterLinkCallback
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S14.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S45.md, MEM-ARCH-AVCODEC-S112.md, MEM-ARCH-AVCODEC-S14.md
 
 ### SurfaceEncoderAdapter
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S149.md, MEM-ARCH-AVCODEC-S42.md
+
+### SurfaceEncoderAdapterCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S149.md
 
 ### SurfaceEncoderFilter
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S36.md
+
+### SurfaceTools
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S152.md, MEM-ARCH-AVCODEC-S167.md
+
+### SvpMode
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md
 
 ### SwrContext
 - **类型**: scope
@@ -1841,13 +3161,17 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: scope
 - **来源记忆**: MEM-ARCH-AVCODEC-S73.md
 
+### TBD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S170.md
+
 ### TFHD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S58.md
 
 ### TIME
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S77.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S115.md, MEM-ARCH-AVCODEC-S77.md
 
 ### TIMEDMETA
 - **类型**: abbreviation
@@ -1855,19 +3179,47 @@ generated_by: synthesize_high_level_knowledge
 
 ### TL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S19.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S19.md, MEM-ARCH-AVCODEC-S68.md, MEM-ARCH-AVCODEC-S42.md
 
 ### TOP
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S85.md
 
+### TRAK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S108.md
+
 ### TRUE
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S76.md
 
+### TRUEHD
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S184.md, MEM-ARCH-AVCODEC-S94.md, MEM-ARCH-AVCODEC-S185.md
+
+### TRUN
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
+
 ### TS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S76.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S153.md, MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S192.md ... (+2 more)
+
+### TU
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S211.md
+
+### TWINVQ
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S94.md
+
+### TYPE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S138.md
+
+### TagFactory
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
 
 ### TagHevcDecInArgs
 - **类型**: class
@@ -1881,69 +3233,129 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S54.md
 
+### TaskThreadState
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S167.md
+
+### ThreadState
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
 ### TimeAndIndexConversion
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S96.md, MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S108.md
+
+### TimeRange
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S111.md
+
+### TimeRangeManager
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S140.md, MEM-ARCH-AVCODEC-S177.md
+
+### TimeoutGuard
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S140.md
 
 ### TimerInfo
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S30.md
 
+### TraceLevel
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md
+
 ### Track
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S156.md, MEM-ARCH-AVCODEC-S109.md, MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S65.md ... (+2 more)
+
+### Track Management
+- **类型**: scope
+- **来源记忆**: MEM-ARCH-AVCODEC-S99.md
+
+### TrakBox
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S133.md
 
 ### TrakInfo
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S52.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S52.md, MEM-ARCH-AVCODEC-S108.md
+
+### TrakType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md
+
+### TrunFlag
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S156.md
 
 ### TypeFinder
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S66.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S142.md, MEM-ARCH-AVCODEC-S66.md
 
 ### UBR
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S2.md
 
+### UI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S147.md
+
 ### UID
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S21.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S36.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S77.md, MEM-ARCH-AVCODEC-S21.md
+
+### UNDUCK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S151.md
 
 ### UNINIT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S18.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S18.md, MEM-ARCH-AVCODEC-S42.md
 
 ### UNKNOWN
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S13.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S13.md, MEM-ARCH-AVCODEC-S58.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S82.md ... (+8 more)
 
 ### UNSEEKABLE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S38.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S123.md, MEM-ARCH-AVCODEC-S198.md, MEM-ARCH-AVCODEC-S87.md, MEM-ARCH-AVCODEC-S101.md, MEM-ARCH-AVCODEC-S76.md ... (+4 more)
+
+### UNSET
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
+### UNSUPPORT
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S159.md
 
 ### URI
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S172.md, MEM-ARCH-AVCODEC-S30.md, MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S87.md ... (+12 more)
 
 ### URL
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S153.md, MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S138.md ... (+5 more)
 
 ### US
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S7.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S9.md
 
 ### USB
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S78.md
 
+### USECOND
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S130.md
+
 ### USER
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S6.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S6.md, MEM-ARCH-AVCODEC-S80.md, MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S154.md
 
 ### UUID
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S10.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S169.md, MEM-ARCH-AVCODEC-S126.md, MEM-ARCH-AVCODEC-S10.md, MEM-ARCH-AVCODEC-S113.md
 
 ### UV
 - **类型**: abbreviation
@@ -1953,9 +3365,13 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S10.md
 
+### VALUE
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S194.md
+
 ### VBR
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S59.md, MEM-ARCH-AVCODEC-S162.md, MEM-ARCH-AVCODEC-S183.md, MEM-ARCH-AVCODEC-S83.md ... (+2 more)
 
 ### VC
 - **类型**: abbreviation
@@ -1965,13 +3381,17 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: class
 - **来源记忆**: MEM-ARCH-AVCODEC-S55.md
 
+### VENDOR
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S193.md
+
 ### VIDEO
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S12.md, MEM-ARCH-AVCODEC-S141.md, MEM-ARCH-AVCODEC-S182.md, MEM-ARCH-AVCODEC-S96.md ... (+10 more)
 
 ### VIVID
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S103.md, MEM-ARCH-AVCODEC-S58.md
 
 ### VOB
 - **类型**: abbreviation
@@ -1979,23 +3399,27 @@ generated_by: synthesize_high_level_knowledge
 
 ### VOD
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S37.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S144.md, MEM-ARCH-AVCODEC-S123.md, MEM-ARCH-AVCODEC-S37.md, MEM-ARCH-AVCODEC-S69.md, MEM-ARCH-AVCODEC-S128.md
+
+### VORBIS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S99.md, MEM-ARCH-AVCODEC-S162.md
 
 ### VPE
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S12.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S12.md, MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S149.md, MEM-ARCH-AVCODEC-S77.md ... (+11 more)
 
 ### VPECallback
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md, MEM-ARCH-AVCODEC-S100.md, MEM-ARCH-AVCODEC-S15.md
 
 ### VPS
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S58.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S133.md, MEM-ARCH-AVCODEC-S121.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S58.md ... (+6 more)
 
 ### VPX
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S68.md, MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S42.md, MEM-ARCH-AVCODEC-S111.md
 
 ### VRR
 - **类型**: abbreviation
@@ -2009,9 +3433,13 @@ generated_by: synthesize_high_level_knowledge
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S68.md
 
+### VUI
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S59.md
+
 ### VVC
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S17.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S181.md, MEM-ARCH-AVCODEC-S103.md, MEM-ARCH-AVCODEC-S148.md, MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S111.md ... (+11 more)
 
 ### VideoCaps
 - **类型**: class
@@ -2019,31 +3447,47 @@ generated_by: synthesize_high_level_knowledge
 
 ### VideoCodecLoader
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S5.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S5.md, MEM-ARCH-AVCODEC-S70.md, MEM-ARCH-AVCODEC-S199.md
+
+### VideoCodecType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S213.md
+
+### VideoConsumerListener
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S212.md
 
 ### VideoDecoder
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md, MEM-ARCH-AVCODEC-S42.md, MEM-ARCH-AVCODEC-S39.md
+
+### VideoDecoderAdapter
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S212.md
 
 ### VideoDecoderCallback
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S39.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S104.md, MEM-ARCH-AVCODEC-S212.md, MEM-ARCH-AVCODEC-S39.md
 
 ### VideoEncoderFactory
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S107.md, MEM-ARCH-AVCODEC-S42.md
 
 ### VideoEncoderObject
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S84.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S84.md, MEM-ARCH-AVCODEC-S107.md
 
 ### VideoLagDetector
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S46.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S56.md, MEM-ARCH-AVCODEC-S155.md, MEM-ARCH-AVCODEC-S46.md
+
+### VideoPostProcessorFactory
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md
 
 ### VideoPostProcessorType
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S15.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S127.md, MEM-ARCH-AVCODEC-S217.md, MEM-ARCH-AVCODEC-S100.md, MEM-ARCH-AVCODEC-S15.md
 
 ### VideoResizeFilter
 - **类型**: class
@@ -2051,23 +3495,39 @@ generated_by: synthesize_high_level_knowledge
 
 ### VideoSink
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S46.md, MEM-ARCH-AVCODEC-S73.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S73.md, MEM-ARCH-AVCODEC-S46.md
+
+### VideoStreamType
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S186.md, MEM-ARCH-AVCODEC-S177.md, MEM-ARCH-AVCODEC-S130.md, MEM-ARCH-AVCODEC-S143.md
 
 ### VpxDecoder
 - **类型**: class
-- **来源记忆**: MEM-ARCH-AVCODEC-S42.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S54.md, MEM-ARCH-AVCODEC-S42.md
 
 ### WAIT
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S118.md, MEM-ARCH-AVCODEC-S166.md, MEM-ARCH-AVCODEC-S75.md, MEM-ARCH-AVCODEC-S49.md, MEM-ARCH-AVCODEC-S98.md ... (+5 more)
+
+### WAITING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S192.md
+
+### WARNING
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S200.md
+
+### WATERMARK
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S135.md
 
 ### WAV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S40.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S157.md, MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S99.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S68.md ... (+6 more)
 
 ### WB
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S8.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S162.md, MEM-ARCH-AVCODEC-S94.md, MEM-ARCH-AVCODEC-S125.md ... (+1 more)
 
 ### WIDTH
 - **类型**: abbreviation
@@ -2075,15 +3535,23 @@ generated_by: synthesize_high_level_knowledge
 
 ### WMA
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S68.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S145.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S8.md, MEM-ARCH-AVCODEC-S68.md, MEM-ARCH-AVCODEC-S184.md ... (+2 more)
+
+### WMAPRO
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S94.md
 
 ### WMV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S41.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S41.md, MEM-ARCH-AVCODEC-S79.md, MEM-ARCH-AVCODEC-S76.md, MEM-ARCH-AVCODEC-S68.md, MEM-ARCH-AVCODEC-S192.md
 
 ### WW
 - **类型**: abbreviation
 - **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+
+### WaterMarkFilterLinkCallback
+- **类型**: class
+- **来源记忆**: MEM-ARCH-AVCODEC-S135.md
 
 ### WorkerThread
 - **类型**: scope
@@ -2091,15 +3559,31 @@ generated_by: synthesize_high_level_knowledge
 
 ### XML
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S49.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S187.md, MEM-ARCH-AVCODEC-S153.md, MEM-ARCH-AVCODEC-S138.md, MEM-ARCH-AVCODEC-S49.md
+
+### XPS
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S143.md, MEM-ARCH-AVCODEC-S192.md
 
 ### XX
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S30.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S150.md, MEM-ARCH-AVCODEC-S216.md, MEM-ARCH-AVCODEC-S30.md
+
+### XXFF
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md
+
+### XXXX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md
+
+### XXXXXX
+- **类型**: abbreviation
+- **来源记忆**: MEM-ARCH-AVCODEC-S216.md
 
 ### YUV
 - **类型**: abbreviation
-- **来源记忆**: MEM-ARCH-AVCODEC-S2.md
+- **来源记忆**: MEM-ARCH-AVCODEC-S9.md, MEM-ARCH-AVCODEC-S7.md, MEM-ARCH-AVCODEC-S3.md, MEM-ARCH-AVCODEC-S54.md, MEM-ARCH-AVCODEC-S183.md ... (+1 more)
 
 ### YY
 - **类型**: abbreviation
