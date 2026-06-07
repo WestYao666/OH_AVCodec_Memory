@@ -1235,3 +1235,43 @@ evidence_count: 56
 draft_file: MEMORY/90_decisions/ARCHITECTURE_DECISIONS.yaml
 note: synthesize_high_level_knowledge 工作流生成，识别了56条ADR（工厂注册/插件热加载/状态机/IPC/动态加载等），需审批入库
 
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S211
+  decision: pending_approval
+  timestamp: "2026-06-07T08:17:00+08:00"
+  builder: pm-agent (cron)
+  subject: "FFmpegDemuxerPlugin FFmpegReadLoop 深度解析——av_read_frame 异步管线 / BitstreamFilter / ReadAhead 缓冲控制"
+  scope: "新需求开发/问题定位/流媒体播放/FFmpeg集成"
+  draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S211.md
+  note: "draft发现自动上报，待耀耀审批"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S190
+  decision: pending_approval
+  timestamp: "2026-06-07T08:17:00+08:00"
+  builder: pm-agent (cron)
+  subject: "FFmpeg Resample 重采样器 + AudioCaptureModule 音频采集双模块集成架构——SwrContext/AVAudioFifo双缓冲"
+  draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S190.md
+  note: "draft发现自动上报，待耀耀审批"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S200
+  decision: pending_approval
+  timestamp: "2026-06-07T08:17:00+08:00"
+  builder: pm-agent (cron)
+  subject: "AVCodec Memory子系统 审计员与健康检查框架——DFX模块五层架构 / HiSysEvent打点 / avcodec_trace追踪 / HiStats系统统计 / MemoryMonitor内存监控 / FaultEvent故障事件"
+  evidence_count: 18
+  draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S200.md
+  note: "draft发现自动上报，待耀耀审批"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S213
+  decision: pending_approval
+  timestamp: "2026-06-07T08:17:00+08:00"
+  builder: pm-agent (cron)
+  subject: "AVCodec FFmpeg Adapter Common 工具链 + DFX 四工具支柱——ffmpeg_utils/ffmpeg_convert/ffmpeg_converter/hdi_codec/stream_parser_manager 五组件与HiSysEvent/XCollie/Trace/Dump四大DFX支柱"
+  scope: "AVCodec, FFmpeg, Adapter, Common, Utils, DFX, HiSysEvent, XCollie, Trace, Dump"
+  evidence_count: 18
+  draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S213.md
+  note: "draft发现自动上报，待耀耀审批"
