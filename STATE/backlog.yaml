@@ -1536,3 +1536,14 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T07:09 | builder-agent | S223注册：MPEG4BoxParser ISOBMFF/MP4 Box 解析器架构与五层递归解析框架草案已生成，写入 MEM-ARCH-AVCODEC-S223.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/demuxer/mpeg4_demuxer/，与S138/S219/S195/S187/S222关联 |
+
+## Builder 2026-06-08 S224注册——VideoCodecParamChecker 视频编码参数校验框架
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S224 | VideoCodecParamChecker 视频编码参数校验框架——20+校验器链表+CodecScenario四分场景+自动降级(SQR→VBR/CBRHQ→CBR) | AVCodec, VideoCodec, ParamChecker, CodecScenario, TemporalScalability, BFrame, RateControl, QP, Resolution, PixelFormat, Profile, ColorSpace, LTR, SwsContext | 新需求开发/问题定位/编码参数配置/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-08），MEM-ARCH-AVCODEC-S224.md（1005行cpp+45行h，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/），CodecParamChecker三入口(CheckConfigureValid/CheckParameterValid/CheckCodecScenario)+CodecScenario四分场景(ENC_NORMAL/TEMPORAL_SCALABILITY/ENABLE_B_FRAME/DEC_NORMAL)+五checker链表(13+14+7+3+1)+20个校验器函数，CheckSqrMode自动降级(SQR→VBR)+CheckCBRHQMode(CBRHQ→CBR)+BitrateAndQuality五步冲突检测，E1-E20行号级evidence，与S19(时域可分级)/S84(VideoEncoder C API)/S221(编码器端口配置)/S42(编码核心)关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T07:38 | builder-agent | S224注册：VideoCodecParamChecker视频编码参数校验框架草案已生成，写入 MEM-ARCH-AVCODEC-S224.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/，与S19/S84/S221/S42关联 |
