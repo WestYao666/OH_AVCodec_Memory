@@ -1512,3 +1512,11 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T04:30 | Builder | S220注册：AVCodec Native Capability Query API草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S220.md（pending_approval） |
+
+## Builder 2026-06-08 S221注册——VideoCodecEncoder 输入/输出端口配置与Surface/PixelFormat/Profile参数体系
+| S221 | VideoCodecEncoder 输入/输出端口配置与Surface/PixelFormat/Profile参数体系——avc_encoder.cpp(1765行)+avc_encoder.h(270行)+avc_encoder_util.cpp(235行)+avcodec_video_encoder.h(417行)双模式输入(Surface/Buffer)、PixelFormat五格式(YUVI420/NV12/NV21/RGBA/SURFACE_FORMAT)、Profile三级映射(BASELINE→PROFILE_BASE/MAIN→PROFILE_MAIN/HIGH→PROFILE_HIGH)、Level 17级映射表(1.0~6.2)、COLOR_FORMAT三态枚举(YUV_420P/YUV_420SP_UV/YUV_420SP_VU) | AVCodec, VideoEncoder, InputPort, OutputPort, SurfaceMode, BufferMode, PixelFormat, VideoPixelFormat, GraphicPixelFormat, AVCProfile, AVCLevel, ENC_PROFILE, H264Level, COLOR_FORMAT, Profile, Level, SetupPort, CreateInputSurface, TranslateVideoPixelFormat, TranslateEncProfile, TranslateEncLevel | 新需求开发/问题定位/新人入项/编码参数配置 | **pending_approval** | 🚧 草案已生成（2026-06-08T03:53 builder-agent），MEM-ARCH-AVCODEC-S221.md（15976字节，24条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/），三层调用链(CAPI→AvcEncoder→libavcenc_ohos.z.so HDI)，双模式输入(Surface模式CreateInputSurface/Buffer模式QueueInputBuffer)、SetupPort输入端口宽高校验(E8)、PixelFormat五格式(E6/E13/E14/E15)、Profile三级映射(E16)、Level 17级映射表(E12/E17)、GetCodecCapability能力注册(E10/E11)、DEFAULT_IN_BUFFER_CNT=4(E3)、SURFACE_MODE_CONSUMER_USAGE=0x1(E2)，与S59/S70/S84/S83/S57关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T03:53 | builder-agent | S221注册：VideoCodecEncoder输入/输出端口配置与Surface/PixelFormat/Profile参数体系草案已生成，写入 MEM-ARCH-AVCODEC-S221.md（pending_approval），24条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/，与S59/S70/S84/S83/S57关联 |
