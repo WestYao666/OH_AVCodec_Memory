@@ -1,5 +1,5 @@
 ---
-status: draft
+status: pending_approval
 mem_id: MEM-ARCH-AVCODEC-S190
 title: "FFmpeg Resample 重采样器 + AudioCaptureModule 音频采集双模块集成架构——SwrContext/AVAudioFifo双缓冲 + AudioCapturer/Read双模式 + GetMaxAmplitude振幅监测"
 scope: "AVCodec, FFmpeg, Resample, SwrContext, AudioCaptureModule, AudioCapturer, AudioSource, GetMaxAmplitude, TrackMaxAmplitude, AudioResample, AVAudioFifo"
