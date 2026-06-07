@@ -1520,3 +1520,11 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T03:53 | builder-agent | S221注册：VideoCodecEncoder输入/输出端口配置与Surface/PixelFormat/Profile参数体系草案已生成，写入 MEM-ARCH-AVCODEC-S221.md（pending_approval），24条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/，与S59/S70/S84/S83/S57关联 |
+
+## Builder 2026-06-08 S222注册——DASH Segment Downloader 环形缓冲架构
+| S222 | DASH Segment Downloader 环形缓冲架构——DashSegmentDownloader 1361行环形缓冲与分段下载管理 | AVCodec, MediaEngine, SourcePlugin, DASH, DashSegmentDownloader, RingBuffer, SegmentList, BitrateAdaptation, Buffering, WaterLine, DashBufferSegment, DashMpdParser | 新需求开发/问题定位/DASH流媒体/缓冲管理/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-08T05:54 builder-agent），MEM-ARCH-AVCODEC-S222.md（23746字节，30条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/dash/），DashSegmentDownloader五方法(Open/Read/SaveData/PutRequestIntoDownloader/HandleBuffering)+DashBufferSegment分段管理+RING_BUFFER大小按媒体类型分层(video 4MB/audio 400KB/subtitle 200KB)+WaterLineAbove动态水位(video 128KB/audio 24KB)+CalculateBitRate码率计算(realTimeBitBate_)+UpdateCachedPercent缓冲百分比回调，与S138(DASH MPD Parser)/S187(S153/HLS流下载架构)/S195(HttpSourcePlugin Downloader架构)关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T05:54 | builder-agent | S222注册：DASH Segment Downloader 环形缓冲架构草案已生成，写入 MEM-ARCH-AVCODEC-S222.md（pending_approval），30条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/dash/，与S138/S187/S153/S195关联 |
