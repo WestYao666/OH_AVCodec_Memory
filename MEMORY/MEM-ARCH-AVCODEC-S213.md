@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S213
 title: "AVCodec FFmpeg Adapter Common 工具链 + DFX 四工具支柱——ffmpeg_utils/ffmpeg_convert/ffmpeg_converter/hdi_codec/stream_parser_manager 五组件与HiSysEvent/XCollie/Trace/Dump四大DFX支柱"
-status: draft
+status: pending_approval
 ticket_id: S213
 scope: "AVCodec, FFmpeg, Adapter, Common, Utils, DFX, HiSysEvent, XCollie, Trace, Dump, Resample, ColorSpace, ChannelLayout, SwrContext, SwsContext"
 关联场景: "新需求开发/问题定位/FFmpeg集成/DFX监控"
