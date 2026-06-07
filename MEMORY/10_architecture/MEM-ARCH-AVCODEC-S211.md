@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S211
 title: "FFmpegDemuxerPlugin FFmpegReadLoop 深度解析——av_read_frame 异步管线 / BitstreamFilter / ReadAhead 缓冲控制"
 tags: [AVCodec, MediaEngine, Demuxer, FFmpeg, FFmpegReadLoop, av_read_frame, BitstreamFilter, ReadAhead, SOFT_LIMIT, HARD_LIMIT, AnnexB, AVIOContext, HEVC, HDR, PTS, Index]
 scope: "新需求开发/问题定位/流媒体播放/FFmpeg集成"
-status: draft
+status: pending_approval
 created: "2026-06-05T04:40:00+08:00"
 source-ref: https://gitcode.com/openharmony/multimedia_av_codec + /home/west/av_codec_repo
 evidence-tags: [FFmpegReadLoop, av_read_frame, BitstreamFilter, SOFT_LIMIT, HARD_LIMIT, AVIOContext, AnnexB, ParseHEVCMetadataInfo, FFmpegFormatHelper, ReadAhead, InvokerType, cacheQueue]
@@ -122,6 +122,42 @@ evidence_source: "services/media_engine/plugins/demuxer/ffmpeg_demuxer/"
 - ffmpeg_demuxer_plugin.cpp:340-348 成员变量：indexToRelativePTSMaxHeap_（最大堆）
 - ffmpeg_demuxer_plugin.cpp:335 IndexToRelativePTSProcess（逆查）
 - ffmpeg_demuxer_plugin.cpp:336 RelativePTSToIndexProcess（顺查）
+
+**E15. FFmpegReadLoop 线程安全停止（DESTORY）**
+- ffmpeg_demuxer_thread.cpp:396 `if (ioContext_.invokerType == InvokerType::DESTORY)` 退出判断
+- ffmpeg_demuxer_thread.cpp:576-580 ReleaseFFmpegReadLoop() 双重检查 + 线程 join
+- ffmpeg_demuxer_thread.cpp:574-578 停止时设置 ioContext_.invokerType = DESTORY，唤醒所有等待线程
+- ffmpeg_demuxer_thread.cpp:411-418 退出时 threadState_ = NOT_STARTED，seekWaitCv_.notify_one() 通知 Seek 等待者
+
+**E16. HEVC 元数据深度解析（HevcParseFormat + HDR VIVID）**
+- ffmpeg_demuxer_plugin.cpp:2731-2735 ParseHEVCMetadataInfo() 两步调用链
+- MultiStreamParserManager::ParseMetadataInfo() 提取 HevcParseFormat（isHdrVivid/profile/level）
+- ffmpeg_format_helper.cpp:1197-1220 ParseHevcInfo() 解析 isHdrVivid + ParseColorBoxInfo() 色域四元组
+- ffmpeg_format_helper.cpp:1163-1175 HEVCProfile/HEVCLevel 枚举转换（Converter::ConvertToOHHEVCProfile）
+- ffmpeg_format_helper.cpp:1200 `if (parse.isHdrVivid) format.Set<Tag::VIDEO_IS_HDR_VIVID>(true)`
+
+**E17. FFmpegFormatHelper 文件类型路由（GetFileTypeByName）**
+- ffmpeg_format_helper.cpp:749 FileType GetFileTypeByName(const AVFormatContext&) 文件类型探测入口
+- ffmpeg_format_helper.cpp:841-855 IsMpeg4File() 辅助判断 MP4/MOV/M4A
+- ffmpeg_demuxer_plugin.cpp:1508 FLV 快速探测 `if (FFmpegFormatHelper::GetFileTypeByName(...) == FileType::FLV)`
+- ffmpeg_format_helper.cpp:1317 IsMpeg4File() 与 FLV 区分，影响 BitstreamFilter 选择策略
+
+**E18. ReadRetry 三次重试机制（读错误/非读错误）**
+- ffmpeg_demuxer_plugin.cpp:1247-1258 AVReadFrameLimit() 限流封装
+- 非读错误重试：AV_READ_PACKET_NON_READ_RETRY_UPPER_LIMIT=10次，间隔 AV_READ_PACKET_NON_READ_SLEEP_TIME=10ms
+- 读错误重试：AV_READ_PACKET_RETRY_UPPER_LIMIT=9次，间隔 AV_READ_PACKET_SLEEP_TIME=50ms
+- ResetContext() 重建格式上下文，超限后上报 ERROR
+
+**E19. FLV 直播流快速探测（LIVE_FLV_PROBE_SIZE）**
+- ffmpeg_demuxer_plugin.cpp:56 `const int64_t LIVE_FLV_PROBE_SIZE = 100 * 1024 * 2`（200KB）
+- ffmpeg_format_helper.cpp:1508 `if (GetFileTypeByName(...) == FileType::FLV)` 快速路径
+- 避免 avformat_find_stream_info 全量探测，节省直播流启动延迟
+
+**E20. cacheQueue_ 双轨缓冲队列管理（ReadAhead + 流控）**
+- ffmpeg_demuxer_thread.cpp:234 `cacheQueue_.HasCache(trackId)` 缓冲存在检查
+- ffmpeg_demuxer_thread.cpp:244-262 缓冲读取：cacheQueue_.Front() → cacheQueue_.Pop()
+- ffmpeg_demuxer_thread.cpp:343-344 NeedCombineFrame() 复合帧检测
+- ffmpeg_demuxer_plugin.cpp:2140-2152 MaybeNotifyCachePressure() 缓冲压力通知
 
 ---
 

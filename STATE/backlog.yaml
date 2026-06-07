@@ -1444,13 +1444,14 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S211 | FFmpegDemuxerPlugin FFmpegReadLoop 深度解析——av_read_frame 异步管线 / BitstreamFilter / ReadAhead 缓冲控制 | AVCodec, MediaEngine, Demuxer, FFmpeg, FFmpegReadLoop, av_read_frame, BitstreamFilter, ReadAhead, SOFT_LIMIT, HARD_LIMIT, AnnexB, AVIOContext, HEVC, HDR, PTS, Index | 新需求开发/问题定位/流媒体播放/FFmpeg集成 | **pending_approval** | 🚧 草案已生成（2026-06-05T04:40 Builder基于本地镜像），MEM-ARCH-AVCODEC-S211.md（6387行源码，14条行号级evidence），ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_thread.cpp(891行)+ffmpeg_format_helper.cpp(1367行)，FFmpegReadLoop异步读线程(BitstreamFilter注入/AVIOContext回调)+ReadAhead双阈值(SOFT_LIMIT/HARD_LIMIT)+PTS-Index双向转换，与S68/S76/S134/S75/S41/S69/S97/S192/S105关联 |
+| S211 | FFmpegDemuxerPlugin FFmpegReadLoop 深度解析——av_read_frame 异步管线 / BitstreamFilter / ReadAhead 缓冲控制 | AVCodec, MediaEngine, Demuxer, FFmpeg, FFmpegReadLoop, av_read_frame, BitstreamFilter, ReadAhead, SOFT_LIMIT, HARD_LIMIT, AnnexB, AVIOContext, HEVC, HDR, PTS, Index | 新需求开发/问题定位/流媒体播放/FFmpeg集成 | **pending_approval** | 🚧 草案已生成（2026-06-05T04:40 Builder基于本地镜像）→增强至20条行号级evidence（2026-06-08），MEM-ARCH-AVCODEC-S211.md（6387行源码，20条行号级evidence），ffmpeg_demuxer_plugin.cpp(4129行)+ffmpeg_demuxer_thread.cpp(891行)+ffmpeg_format_helper.cpp(1367行)，FFmpegReadLoop异步读线程(BitstreamFilter注入/AVIOContext回调)+ReadAhead双阈值(SOFT_LIMIT/HARD_LIMIT)+PTS-Index双向转换+E15线程安全停止+E16 HEVC元数据深度解析+E17文件类型路由+E18 ReadRetry重试+E19 FLV快速探测+E20 cacheQueue缓冲队列，与S68/S76/S134/S75/S41/S69/S97/S192/S105关联 |
 
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-05T04:40 | Builder | S211注册：FFmpegDemuxerPlugin FFmpegReadLoop深度解析草案已生成，写入 MEM-ARCH-AVCODEC-S211.md（draft→pending_approval），基于本地镜像 /home/west/av_codec_repo，14条行号级evidence，与S68/S76/S134/S75/S41/S69/S97/S192/S105关联 |
+2026-06-08T01:53 | builder-agent | S211草案增强：基于本地镜像 /home/west/av_codec_repo 源码增强至20条行号级evidence（新增E15-E20：线程安全停止/HEVC元数据解析/文件类型路由/ReadRetry/FLV快速探测/cacheQueue缓冲），MEM-ARCH-AVCODEC-S211.md（status: draft→pending_approval） |
 
 ## 新增主题（Builder 2026-06-05 S212注册——VideoDecoderAdapter 过滤层编解码适配器）
 

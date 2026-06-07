@@ -1051,12 +1051,13 @@
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S211
   decision: pending_approval
-  timestamp: "2026-06-05T04:40:00+08:00"
+  timestamp: "2026-06-08T01:53:00+08:00"
   builder: builder-agent (subagent)
   subject: FFmpegDemuxerPlugin FFmpegReadLoop 深度解析——av_read_frame 异步管线 / BitstreamFilter / ReadAhead 缓冲控制
-  evidence_count: 14
+  evidence_count: 20
   source_files: ffmpeg_demuxer_plugin.cpp(4129行) + ffmpeg_demuxer_thread.cpp(891行) + ffmpeg_format_helper.cpp(1367行) = 6387行源码
   evidence_source: services/media_engine/plugins/demuxer/ffmpeg_demuxer/
+  enhancement_note: "本地镜像增强：新增E15-E20（线程安全停止/HEVC元数据解析/文件类型路由/ReadRetry重试/FLV快速探测/cacheQueue缓冲），MEM-ARCH-AVCODEC-S211.md"
   note: 基于本地镜像 /home/west/av_codec_repo 行号级evidence，14条行号级证据
 
 - type: approval_request
