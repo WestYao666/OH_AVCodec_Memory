@@ -1466,3 +1466,27 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S217 | SideOutputSurfaceProcessor 侧输出表面处理器——VideoPostProcessorType::SIDE_OUTPUT 五类后处理器之一与三 Surface 架构 | AVCodec, MediaEngine, PostProcessor, SurfaceMode, SideOutput, PiP, Screenshot, SuperResolution, CameraPostProcessor, VideoPostProcessorType | 新需求开发/问题定位/侧输出视频/画中画/截屏/录屏 | **pending_approval** | 🚧 草案已生成（2026-06-05T16:21 Builder基于GitCode公开源码），MEM-ARCH-AVCODEC-S217.md（15条行号级evidence，基于GitCode https://gitcode.com/openharmony/multimedia_av_codec），SideOutputSurfaceProcessor三Surface架构(consumerSurface接收+producerSurface主渲染+sideSurface侧输出)+Worker线程驱动ProcessBuffers+WaitTrigger双队列触发+HandleResolutionChange分辨率变化清空旧缓冲区队列+AutoRegisterPostProcessor静态注册SIDE_OUTPUT类型，与S20/S127/S100(PostProcessor框架)/S46/S45(DecoderSurfaceFilter)/S14/S112(FilterPipeline)/S63/S46(DRM)关联 |
+
+## Builder 2026-06-07 S218注册——AVCodec Native Buffer 管理架构
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S218 | AVCodec Native Buffer 管理架构——OH_AVBuffer / BufferConverter / CodecBufferCircular 三层体系 | AVCodec, OH_AVBuffer, AVBuffer, AVSharedMemory, BufferConverter, CodecBufferCircular, AudioBuffersManager, AudioBufferInfo, SurfaceFormat, VideoPixelFormat, SyncMode, AsyncMode, BufferOwner | 新需求开发/内存管理/新人入项/Filter适配 | **pending_approval** | 🚧 草案已生成（2026-06-07T22:24 Builder基于本地镜像），MEM-ARCH-AVCODEC-S218.md（18条行号级evidence，基于本地镜像 /home/west/av_codec_repo），三层架构(OH_AVBuffer C API→BufferConverter格式转换→CodecBufferCircular同步/异步双模式缓冲管理)+AudioBuffersManager音频专用缓冲池，buffer_converter.cpp(441行)+codec_buffer_circular.cpp(791行)+audio_buffers_manager.cpp(160行)+audio_buffer_info.h(95行)，与S212(S214)CodecBufferCircular回调/S200 Memory DFX/S55 CodecCallback关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-07T22:24 | Builder | S218注册：AVCodec Native Buffer 管理架构草案已生成，写入 MEM-ARCH-AVCODEC-S218.md（pending_approval），18条行号级evidence，基于本地镜像 /home/west/av_codec_repo，与S212/S214/S200/S55关联 |
+
+## Builder 2026-06-07 S219注册——MediaEngine Source Plugin 三件套
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S219 | MediaEngine Source Plugin 三件套——FileFdSourcePlugin + FileSourcePlugin + DataStreamSourcePlugin 三路源插件体系 | AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, FileFdSource, FileSource, DataStreamSource, FD, FILE, STREAM, RingBuffer, HMDFS, Seek, Read, PreDownload, Retry | 新需求开发/本地文件读取/新人入项/代码导航 | **pending_approval** | 🚧 草案已生成（2026-06-07T22:37 builder-agent处理），MEM-ARCH-AVCODEC-S219.md（15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/），FileFdSourcePlugin(893行)fd:// URI解析+RingBuffer 40MB预读+HMDFS IOCTL云文件缓存+Seek双阈值(20/1000ms)；FileSourcePlugin(377行)file:///路径+RingBuffer缓冲+统计；DataStreamSourcePlugin(338行)stream://内存流+10MB预取+三级重试(100/200/500ms)；三路统一SourcePlugin基类+ProtocolType路由+rank=100，与S106/S122/S195/S210关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-07T22:37 | builder-agent | S219注册：MediaEngine Source Plugin 三件套草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S219.md（pending_approval），15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/，与S106/S122/S195/S210关联 |
