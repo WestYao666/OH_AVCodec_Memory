@@ -1483,7 +1483,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S219 | MediaEngine Source Plugin 三件套——FileFdSourcePlugin + FileSourcePlugin + DataStreamSourcePlugin 三路源插件体系 | AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, FileFdSource, FileSource, DataStreamSource, FD, FILE, STREAM, RingBuffer, HMDFS, Seek, Read, PreDownload, Retry | 新需求开发/本地文件读取/新人入项/代码导航 | **pending_approval** | 🚧 草案已生成（2026-06-07T22:37 builder-agent处理），MEM-ARCH-AVCODEC-S219.md（15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/），FileFdSourcePlugin(893行)fd:// URI解析+RingBuffer 40MB预读+HMDFS IOCTL云文件缓存+Seek双阈值(20/1000ms)；FileSourcePlugin(377行)file:///路径+RingBuffer缓冲+统计；DataStreamSourcePlugin(338行)stream://内存流+10MB预取+三级重试(100/200/500ms)；三路统一SourcePlugin基类+ProtocolType路由+rank=100，与S106/S122/S195/S210关联 |
+| S219 | MediaEngine Source Plugin 三件套——FileFdSourcePlugin + FileSourcePlugin + DataStreamSourcePlugin 三路源插件体系 | AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, FileFdSource, FileSource, DataStreamSource, FD, FILE, STREAM, RingBuffer, HMDFS, Seek, Read, PreDownload, Retry | 新需求开发/本地文件读取/新人入项/代码导航 | **submitted** | 🚧 草案已生成（2026-06-07T22:37 builder-agent处理），MEM-ARCH-AVCODEC-S219.md（15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/），FileFdSourcePlugin(893行)fd:// URI解析+RingBuffer 40MB预读+HMDFS IOCTL云文件缓存+Seek双阈值(20/1000ms)；FileSourcePlugin(377行)file:///路径+RingBuffer缓冲+统计；DataStreamSourcePlugin(338行)stream://内存流+10MB预取+三级重试(100/200/500ms)；三路统一SourcePlugin基类+ProtocolType路由+rank=100，与S106/S122/S195/S210关联 |
 
 ## 变更记录
 
