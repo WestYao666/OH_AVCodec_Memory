@@ -1504,3 +1504,11 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-07T22:37 | builder-agent | S219注册：MediaEngine Source Plugin 三件套草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S219.md（pending_approval），15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/，与S106/S122/S195/S210关联 |
+
+## Builder 2026-06-08 S220注册——AVCodec Native Capability Query API
+| S220 | AVCodec Native Capability Query API——OH_AVCodec_GetCapability 系统三层架构（native_avcapability.h 572行 + native_avcapability.cpp 705行 + avcodec_info.h CapabilityData + codec_ability_singleton.cpp 229行 + codeclist_core.cpp 388行） | AVCodec, Native API, C API, Capability, OH_AVCodec_GetCapability, CodecAbility, VideoCaps, AudioCaps, OH_AVRange, HARDWARE, SOFTWARE | 三方应用接入/新人入项/问题定位/能力查询 | **pending_approval** | 🚧 草案已生成（2026-06-08T04:30）→pending_approval（Builder提交审批），MEM-ARCH-AVCODEC-S220.md（20436字节，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo），三层架构(C API层24函数+能力引擎层CodecAbilitySingleton+数据模型层CapabilityData/VideoCaps/AudioCaps)，E1: native_avcapability.h 24个API函数(行55-572)；E2: native_avcapability.cpp 705行实现；E3: avcodec_info.h CapabilityData结构体(行155-191)+VideoCaps(行319-511)+AudioCaps(行535-614)；E4: codec_ability_singleton.cpp单例(行43-103)；E5: codeclist_core.cpp查询引擎(七项Check+FindEncoder/FindDecoder)；E6: audio_codeclist_info.cpp 942行音频能力数据，与S47/S71/S83/S162/S95/S171关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T04:30 | Builder | S220注册：AVCodec Native Capability Query API草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S220.md（pending_approval） |
