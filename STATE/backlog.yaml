@@ -1402,6 +1402,18 @@
 ## Builder 2026-06-04T23:36 更新
 2026-06-04T23:36 | Builder | S200注册：AVCodec Memory子系统 审计员与健康检查框架草案已生成，写入 MEM-ARCH-AVCODEC-S200.md（draft），18条行号级evidence，基于GitCode web_fetch探索services/media_engine/dfx/目录，DFX五层架构(avcodec_trace追踪+HiSysEvent打点+HiStats统计+MemoryMonitor监控+FaultEvent故障)，与S82(S199/S198/S196)关联
 
+## Builder 2026-06-08S200更新——DFX五组件源码级增强
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S200 | AVCodec DFX 五组件协作框架——avcodec_trace链路追踪 / avcodec_sysevent HiSysEvent上报 / AVCodecXCollie看门狗 / AVCodecDfxComponent日志标签 / AVCodecDumpControler分层Dump | AVCodec, DFX, HiTrace, HiSysEvent, XCollie, Trace, Dump, FaultType, HiLog, AVCodecDfxComponent, LogTag | 新需求开发/DFX监控/问题定位/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-04T23:36）→pending_approval（2026-06-08T01:50 builder-agent源码级增强），MEM-ARCH-AVCODEC-S200.md（598行，22条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/dfx/），**目录纠正：services/dfx/（非services/media_engine/dfx/）**，avcodec_trace.h(90行)RAII追踪+avcodec_sysevent.h(132行)+.cpp(197行)HiSysEvent三级事件(FAULT/BEHAVIOR/STATISTIC)+avcodec_xcollie.h(104行)+.cpp(177行)XCollie看门狗(_exit(-1))+avcodec_dfx_component.h(46行)+.cpp(68行)CreateVideoLogTag([instanceId][h.vdec])+avcodec_dump_utils.h(44行)+.cpp(156行)AVCodecDumpControler+avcodec_log.h(221行)+avcodec_log_ex.h(163行)，与S82/S115/S77/S30关联
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T01:50 | builder-agent | S200本地镜像源码级增强：MEM-ARCH-AVCODEC-S200.md（598行，22条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/dfx/），GitCode robot检测web_fetch受限，目录纠正(services/dfx/)，五组件架构（avcodec_trace+avcodec_sysevent+avcodec_xcollie+avcodec_dfx_component+avcodec_dump_utils），提交审批
+
 ## Builder 2026-06-05S201注册——MediaCodec IPC客户端链路（双代理架构）
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
