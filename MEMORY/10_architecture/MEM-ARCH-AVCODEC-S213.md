@@ -348,6 +348,65 @@ struct InstanceInfo {
 
 ---
 
+
+### 2.7 avcodec_log — LOG_DOMAIN六域定义与AVCODEC_LOG宏
+
+**E17: avcodec_log.h L24-L62** — LOG_DOMAIN六域定义 + AVCODEC_LOG宏族 + 频率限制宏
+```cpp
+#undef  LOG_DOMAIN_FRAMEWORK
+#define LOG_DOMAIN_FRAMEWORK     0xD002B30  // L25: 框架域
+#undef  LOG_DOMAIN_AUDIO
+#define LOG_DOMAIN_AUDIO         0xD002B31  // L27: 音频域
+#undef  LOG_DOMAIN_HCODEC
+#define LOG_DOMAIN_HCODEC        0xD002B32  // L29: 硬件Codec域
+#undef  LOG_DOMAIN_SFD
+#define LOG_DOMAIN_SFD           0xD002B33  // L31: 流媒体域
+#undef  LOG_DOMAIN_DEMUXER
+#define LOG_DOMAIN_DEMUXER       0xD002B3A  // L35: 解封装域
+#undef  LOG_DOMAIN_MUXER
+#define LOG_DOMAIN_MUXER         0xD002B3B  // L37: 封装域
+
+#define POINTER_MASK 0x00FFFFFF  // L47: 地址脱敏掩码
+#define FAKE_POINTER(addr) (POINTER_MASK & reinterpret_cast<uintptr_t>(addr))  // L48: 日志脱敏
+
+#define AVCODEC_LOG(level, fmt, args...)  \
+    (void)HILOG_IMPL(LABEL.type, level, LABEL.domain, LABEL.tag,  // L51-53: 核心日志宏
+#define AVCODEC_LOGF(fmt, ...) AVCODEC_LOG(LOG_FATAL, fmt, ##__VA_ARGS__)  // L58: FATAL级
+#define AVCODEC_LOGE(fmt, ...) AVCODEC_LOG(LOG_ERROR, fmt, ##__VA_ARGS__)  // L59: ERROR级
+#define AVCODEC_LOGW(fmt, ...) AVCODEC_LOG(LOG_WARN,  fmt, ##__VA_ARGS__)  // L60: WARN级
+#define AVCODEC_LOGI(fmt, ...) AVCODEC_LOG(LOG_INFO,  fmt, ##__VA_ARGS__)  // L61: INFO级
+#define AVCODEC_LOGD(fmt, ...) AVCODEC_LOG(LOG_DEBUG, fmt, ##__VA_ARGS__)  // L62: DEBUG级
+
+#define AVCODEC_LOG_LIMIT(logger, frequency, fmt, ...)  // L65: 频率限制日志
+#define AVCODEC_LOG_LIMIT_POW2(logger, pow2, fmt, ...)  // L75: 指数退避日志
+#define AVCODEC_LOG_LIMIT_IN_TIME(logger, intervalMs, maxCount, fmt, ...)  // L85: 时间窗口日志
+```
+本地镜像路径：`/home/west/av_codec_repo/services/dfx/include/avcodec_log.h`
+
+---
+
+
+### 2.8 avcodec_log_ex — AVCODEC_LOG_WITH_TAG带实例Tag日志宏
+
+**E18: avcodec_log_ex.h L22-L149** — AVCODEC_LOG_WITH_TAG + CHECK/EXPECT宏族 + Tag频率限制宏
+```cpp
+#define AVCODEC_LOG_WITH_TAG(level, fmt, args...)  \
+    (void)HILOG_IMPL(LABEL.type, level, LABEL.domain, LABEL.tag,  // L22-24: 带Tag日志宏
+#define AVCODEC_LOGF_WITH_TAG(fmt, ...) AVCODEC_LOG_WITH_TAG(LOG_FATAL, fmt, ##__VA_ARGS__)  // L28
+#define AVCODEC_LOGE_WITH_TAG(fmt, ...) AVCODEC_LOG_WITH_TAG(LOG_ERROR, fmt, ##__VA_ARGS__)  // L29
+#define AVCODEC_LOGW_WITH_TAG(fmt, ...) AVCODEC_LOG_WITH_TAG(LOG_WARN, fmt, ##__VA_ARGS__)  // L30
+#define AVCODEC_LOGI_WITH_TAG(fmt, ...) AVCODEC_LOG_WITH_TAG(LOG_INFO, fmt, ##__VA_ARGS__)  // L31
+#define AVCODEC_LOGD_WITH_TAG(fmt, ...) AVCODEC_LOG_WITH_TAG(LOG_DEBUG, fmt, ##__VA_ARGS__)  // L32
+
+#define CHECK_AND_RETURN_RET_LOG_WITH_TAG(cond, ret, fmt, ...)  // L43: 条件检查+Tag日志+返回
+#define CHECK_AND_RETURN_LOG_WITH_TAG(cond, fmt, ...)  // L123: 条件检查+Tag日志
+#define EXPECT_AND_LOGE_WITH_TAG(cond, fmt, ...)  // L88: 断言+Tag Error日志
+#define CHECK_AND_RETURN_RET_LOG_LIMIT_IN_TIME_WITH_TAG(cond, ret, intervalMs, maxCount, fmt, ...)  // L149: 时间窗口限制
+```
+本地镜像路径：`/home/west/av_codec_repo/services/dfx/include/avcodec_log_ex.h`
+
+---
+
 ## 3. 五组件协作流程
 
 ### 3.1 Codec启动事件链

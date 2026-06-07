@@ -1528,3 +1528,11 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T05:54 | builder-agent | S222注册：DASH Segment Downloader 环形缓冲架构草案已生成，写入 MEM-ARCH-AVCODEC-S222.md（pending_approval），30条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/dash/，与S138/S187/S153/S195关联 |
+
+## Builder 2026-06-08 S223注册——MPEG4BoxParser ISOBMFF/MP4 Box 解析器架构与五层递归解析框架
+| S223 | MPEG4BoxParser ISOBMFF/MP4 Box 解析器架构与五层递归解析框架——mpeg4_box_parser.cpp(4378行)+mpeg4_box_parser.h(601行)+mpeg4_demuxer_plugin.cpp(1625行)+mpeg4_sample_helper.h/cpp五层递归深度(ROOT/DEPTH_ONE~FOUR)+Track链表管理多轨道+FragmentEntry分片管理+55+ Box类型函数表驱动(ftyp/moov/mdat/moof/TKHD/MDIA/STBL等)+MPEG4Atom/ParseContext核心数据结构+SampleIndexEntry样本索引+STTS/STSC/STSS/CTTS表+FindSyncSampleAtTime同步帧查找 | AVCodec, MediaEngine, MPEG4DemuxerPlugin, MPEG4AtomParser, MPEG4SampleHelper, ISOBMFF, MP4, BoxParser, Atom, Track, Sample, Fragment, Moof, Sidx, DemuxerPlugin | 新人入项/问题定位/MP4文件解析/流媒体/分片播放/DRM/码流分析 | **pending_approval** | 🚧 草案已生成（2026-06-08T07:09 builder-agent），MEM-ARCH-AVCODEC-S223.md（16811字节，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/demuxer/mpeg4_demuxer/），MPEG4AtomParser五层递归解析框架(ROOT→DEPTH_ONE→DEPTH_TWO→DEPTH_THREE→DEPTH_FOUR)+Track链表(firstTrack_/lastTrack_/currentTrack_)+FragmentEntry分片管理(firstDts/moofOffset/nextAtomOffset)+函数表驱动55+ Box类型(E6)+ParseContext解析上下文(E19)+DemuxerDataReader数据抽象(E20)+MPEG4SampleHelper样本索引(STTS/STSC/STSS/CTTS)+FindSyncSampleAtTime三种SeekMode(E15)，与S138(Sidx)/S219(SourcePlugin)/S195(HttpSourcePlugin)/S187(DASH下载)/S222(DASH Segment)关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T07:09 | builder-agent | S223注册：MPEG4BoxParser ISOBMFF/MP4 Box 解析器架构与五层递归解析框架草案已生成，写入 MEM-ARCH-AVCODEC-S223.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/demuxer/mpeg4_demuxer/，与S138/S219/S195/S187/S222关联 |
