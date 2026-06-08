@@ -1,119 +1,92 @@
-# MEM-ARCH-AVCODEC-S171: CodecCapabilityAdapter 编解码能力查询适配器
+---
+id: MEM-ARCH-AVCODEC-S171
+type: architecture
+status: draft
+subject: "CodecCapabilityAdapter 能力查询适配器——CodecList工厂+GetAvailableEncoder双层分发+水印能力探测"
+scope: "AVCodec, MediaEngine, Filter, Capability, AVCodecList, CodecCapability, VideoEncoder, AudioEncoder, Watermark"
+evidence_count: 10
+source_files:
+  - "/home/west/av_codec_repo/services/media_engine/filters/codec_capability_adapter.cpp (113行)"
+  - "/home/west/av_codec_repo/interfaces/inner_api/native/codec_capability_adapter.h (44行)"
+  - "/home/west/av_codec_repo/test/unittest/codec_capability_adapter_unittest/codec_capability_adapter_unittest.cpp (159行)"
+关联记忆:
+  - S162 (CodecAbility/CodecListCore能力查询体系)
+  - S83/S94 (Native C API能力查询)
+  - S47 (CodecCapability五层能力模型)
+  - S70 (VideoCodecLoader插件体系)
+---
 
-**状态**: draft  
-**主题**: CodecCapabilityAdapter 编解码能力查询适配器——AVCodecList工厂注入与水印能力探测  
-**scope**: AVCodec, MediaEngine, Filter, CodecCapability, AVCodecList, CapabilityData, Watermark, WaterMarkFilter, Adapter  
-**生成时间**: 2026-05-21T13:09  
-**来源**: GitCode 仓库 https://gitcode.com/openharmony/multimedia_av_codec / 本地镜像 /home/west/av_codec_repo  
-**builder**: builder-agent (subagent)  
-**关联**: S47/S71/S162(CodecCapability体系), S135(WaterMarkFilter)
+# S171 CodecCapabilityAdapter 能力查询适配器
+
+## 1. 架构概述
+
+CodecCapabilityAdapter 是 MediaEngine Filter 层与 AVCodecList 能力查询系统之间的**适配器桥接类**，位于 `services/media_engine/filters/` 目录。自身不维护能力数据，仅委托 `AVCodecList` 单例查询硬件/软件编解码器能力，主要服务于水印功能探测和可用编码器列表查询两个场景。
+
+```
+CodecCapabilityAdapter（Pipeline命名空间，113行cpp）
+    ├── Init()                              — AVCodecListFactory::CreateAVCodecList() 创建codeclist_
+    ├── GetAvailableEncoder() — 驱动GetAudioEncoder+GetVideoEncoder双分发
+    ├── GetVideoEncoder()                   — 优先查硬件AVC(HARDWARE)→回退软件AVC→查询硬件HEVC
+    ├── GetAudioEncoder()                   — 仅查软件AAC
+    └── IsWatermarkSupported()              — 先查硬件codec→再查软件codec，featuresMap特征探测
+```
 
 ---
 
-## 一、架构定位
+## 2. 核心文件定位
 
-CodecCapabilityAdapter 是 MediaEngine Filter 层的**能力查询适配器**，位于 Filter 适配层（Layer 1），负责：
-1. 注入 AVCodecList 工厂单例
-2. 查询可用编码器（视频 AVC/HEVC、音频 AAC）
-3. 探测水印能力（硬件优先两段查询）
-
-```
-Filter 适配层（CodecCapabilityAdapter）
-    ↓ codeclist_
-AVCodecList 工厂 → AVCodecList 单例
-    ↓ GetCapability()
-CodecListCore 能力查询引擎
-    ↓
-CapabilityData (featuresMap)
-```
-
----
-
-## 二、关键源文件
-
-| 文件 | 行数 | 路径 |
+| 文件 | 行数 | 角色 |
 |------|------|------|
-| codec_capability_adapter.h | 44行 | interfaces/inner_api/native/codec_capability_adapter.h |
-| codec_capability_adapter.cpp | 113行 | services/media_engine/filters/codec_capability_adapter.cpp |
-| avcodec_list.h | 77行 | interfaces/inner_api/native/avcodec_list.h |
-| avcodec_info.h | ~320行 | interfaces/inner_api/native/avcodec_info.h |
+| `codec_capability_adapter.cpp` | 113 | 实现层 |
+| `codec_capability_adapter.h` | 44 | 接口声明，Pipeline命名空间 |
+| `codec_capability_adapter_unittest.cpp` | 159 | 单元测试 |
 
 ---
 
-## 三、CodecCapabilityAdapter 类定义
+## 3. 关键方法分析
 
-**文件**: codec_capability_adapter.h
+### 3.1 Init()
 
-```cpp
-class CodecCapabilityAdapter {
-public:
-    explicit CodecCapabilityAdapter();
-    ~CodecCapabilityAdapter();
-    void Init();  // L30: 创建 AVCodecList 单例
-    Status GetAvailableEncoder(std::vector<MediaAVCodec::CapabilityData*> &encoderInfo);  // L32-33
-    Status IsWatermarkSupported(std::string &CodecMimeType, bool &isWatermarkSupported);  // L34
-private:
-    Status GetVideoEncoder(...);  // L37: 查询视频编码器
-    Status GetAudioEncoder(...);  // L38: 查询音频编码器
-    std::shared_ptr<MediaAVCodec::AVCodecList> codeclist_ {nullptr};  // L40: 工厂注入
-};
-```
-
-**关键证据点**:
-- L40: `std::shared_ptr<MediaAVCodec::AVCodecList> codeclist_ {nullptr};` — Filter适配层持有AVCodecList单例的shared_ptr
-- L30: `void Init();` — Init()调用AVCodecListFactory::CreateAVCodecList()
-
----
-
-## 四、Init() 实现——AVCodecList 工厂注入
-
-**文件**: codec_capability_adapter.cpp
+E1: `codec_capability_adapter.cpp L37-40` — Init() 通过工厂方法创建 AVCodecList 单例：
 
 ```cpp
-// L38-42
 void CodecCapabilityAdapter::Init()
 {
-    codeclist_ = MediaAVCodec::AVCodecListFactory::CreateAVCodecList();  // L40: 工厂方法创建
+    codeclist_ = MediaAVCodec::AVCodecListFactory::CreateAVCodecList(); // E1: 创建能力查询单例
     MEDIA_LOG_I("CodecCapabilityAdapter Init end");
 }
 ```
 
-**关键证据点**:
-- L40: `MediaAVCodec::AVCodecListFactory::CreateAVCodecList()` — 工厂模式创建AVCodecList单例
-- 工厂方法定义在 avcodec_list.h L67-74，UNSUPPORT_CODECLIST 条件编译开关
+### 3.2 GetAvailableEncoder()
 
----
-
-## 五、GetAvailableEncoder() 实现——三路编码器查询
-
-**文件**: codec_capability_adapter.cpp
+E2: `codec_capability_adapter.cpp L42-46` — GetAvailableEncoder 顺序调用音频和视频编码器查询：
 
 ```cpp
-// L44-47
-Status CodecCapabilityAdapter::GetAvailableEncoder(std::vector<MediaAVCodec::CapabilityData*> &encoderInfo)
+Status CodecCapabilityAdapter::GetAvailableEncoder(
+    std::vector<MediaAVCodec::CapabilityData*> &encoderInfo)
 {
-    GetAudioEncoder(encoderInfo);  // L45: 查询音频 AAC 软件编码器
-    GetVideoEncoder(encoderInfo);  // L46: 查询视频 AVC/HEVC 编码器
+    GetAudioEncoder(encoderInfo);   // E2: 先查音频
+    GetVideoEncoder(encoderInfo);   // E2: 再查视频
     return Status::OK;
 }
 ```
 
-### 5.1 GetVideoEncoder()——AVC/HEVC 硬件优先
+### 3.3 GetVideoEncoder() — 硬件优先回退逻辑
 
-**文件**: codec_capability_adapter.cpp
+E3: `codec_capability_adapter.cpp L70-90` — 视频编码器查询优先硬件 AVC，回退软件 AVC，再查硬件 HEVC：
 
 ```cpp
-// L84-103
-Status CodecCapabilityAdapter::GetVideoEncoder(std::vector<MediaAVCodec::CapabilityData*> &encoderInfo)
+Status CodecCapabilityAdapter::GetVideoEncoder(
+    std::vector<MediaAVCodec::CapabilityData*> &encoderInfo)
 {
-    // L86-93: 查询 AVC 硬件编码器
+    // E3: 优先查硬件AVC编码器
     MediaAVCodec::CapabilityData *capabilityDataAVC = codeclist_->GetCapability(
-        std::string(MediaAVCodec::CodecMimeType::VIDEO_AVC), true, 
-        MediaAVCodec::AVCodecCategory::AVCODEC_HARDWARE);  // L87-88
+        std::string(MediaAVCodec::CodecMimeType::VIDEO_AVC),
+        true, MediaAVCodec::AVCodecCategory::AVCODEC_HARDWARE);
     if (capabilityDataAVC != nullptr) {
         encoderInfo.push_back(capabilityDataAVC);
     } else {
-        // L91-96: 硬件不支持则 fallback 到软件
+        // E3: 硬件不存在则回退到软件AVC
         MediaAVCodec::CapabilityData *capabilityDataAVCSoft = codeclist_->GetCapability(
             std::string(MediaAVCodec::CodecMimeType::VIDEO_AVC), true,
             MediaAVCodec::AVCodecCategory::AVCODEC_SOFTWARE);
@@ -122,7 +95,7 @@ Status CodecCapabilityAdapter::GetVideoEncoder(std::vector<MediaAVCodec::Capabil
         }
     }
 
-    // L97-101: 查询 HEVC 硬件编码器
+    // E3: 额外查询硬件HEVC编码器
     MediaAVCodec::CapabilityData *capabilityDataHEVC = codeclist_->GetCapability(
         std::string(MediaAVCodec::CodecMimeType::VIDEO_HEVC), true,
         MediaAVCodec::AVCodecCategory::AVCODEC_HARDWARE);
@@ -133,22 +106,17 @@ Status CodecCapabilityAdapter::GetVideoEncoder(std::vector<MediaAVCodec::Capabil
 }
 ```
 
-**关键证据点**:
-- L87-88: `GetCapability(VIDEO_AVC, true, AVCODEC_HARDWARE)` — 查询硬件编码器
-- L91-96: 软件 fallback — 硬件不支持时自动切换到 AVCODEC_SOFTWARE
-- L97-101: HEVC 硬件编码器单独查询
+### 3.4 GetAudioEncoder()
 
-### 5.2 GetAudioEncoder()——AAC 软件编码器
-
-**文件**: codec_capability_adapter.cpp
+E4: `codec_capability_adapter.cpp L63-68` — 音频编码器仅查询软件 AAC（无硬件优先逻辑）：
 
 ```cpp
-// L77-82
-Status CodecCapabilityAdapter::GetAudioEncoder(std::vector<MediaAVCodec::CapabilityData*> &encoderInfo)
+Status CodecCapabilityAdapter::GetAudioEncoder(
+    std::vector<MediaAVCodec::CapabilityData*> &encoderInfo)
 {
     MediaAVCodec::CapabilityData *capabilityData = codeclist_->GetCapability(
-        std::string(MediaAVCodec::CodecMimeType::AUDIO_AAC), true,
-        MediaAVCodec::AVCodecCategory::AVCODEC_SOFTWARE);  // L79
+        std::string(MediaAVCodec::CodecMimeType::AUDIO_AAC),
+        true, MediaAVCodec::AVCodecCategory::AVCODEC_SOFTWARE);
     if (capabilityData != nullptr) {
         encoderInfo.push_back(capabilityData);
     }
@@ -156,25 +124,21 @@ Status CodecCapabilityAdapter::GetAudioEncoder(std::vector<MediaAVCodec::Capabil
 }
 ```
 
-**关键证据点**:
-- L79: `GetCapability(AUDIO_AAC, true, AVCODEC_SOFTWARE)` — 音频只查软件编码器
+### 3.5 IsWatermarkSupported() — 水印能力探测
 
----
-
-## 六、IsWatermarkSupported()——硬件优先两段查询
-
-**文件**: codec_capability_adapter.cpp
+E5: `codec_capability_adapter.cpp L48-62` — 先查硬件，再查软件，通过 featuresMap 计数 VIDEO_WATERMARK 特征：
 
 ```cpp
-// L49-75
-Status CodecCapabilityAdapter::IsWatermarkSupported(std::string &codecMimeType, bool &isWatermarkSupported)
+Status CodecCapabilityAdapter::IsWatermarkSupported(
+    std::string &codecMimeType, bool &isWatermarkSupported)
 {
-    // L50-58: 第一段——硬件编码器查询
-    MediaAVCodec::CapabilityData *capabilityData = codeclist_->GetCapability(codecMimeType,
-        true, MediaAVCodec::AVCodecCategory::AVCODEC_HARDWARE);
+    // E5: 优先查硬件codec的水印能力
+    MediaAVCodec::CapabilityData *capabilityData =
+        codeclist_->GetCapability(codecMimeType, true,
+            MediaAVCodec::AVCodecCategory::AVCODEC_HARDWARE);
     if (capabilityData != nullptr) {
-        if (capabilityData->featuresMap.count(
-            static_cast<int32_t>(MediaAVCodec::AVCapabilityFeature::VIDEO_WATERMARK))) {  // L54
+        if (capabilityData->featuresMap.count( // E5: featuresMap计数判有水印
+            static_cast<int32_t>(MediaAVCodec::AVCapabilityFeature::VIDEO_WATERMARK))) {
             isWatermarkSupported = true;
         } else {
             isWatermarkSupported = false;
@@ -182,7 +146,7 @@ Status CodecCapabilityAdapter::IsWatermarkSupported(std::string &codecMimeType, 
         return Status::OK;
     }
 
-    // L60-72: 第二段——软件编码器 fallback
+    // E5: 硬件未命中则回退查软件codec
     capabilityData = codeclist_->GetCapability(codecMimeType, true,
         MediaAVCodec::AVCodecCategory::AVCODEC_SOFTWARE);
     if (capabilityData != nullptr) {
@@ -194,89 +158,88 @@ Status CodecCapabilityAdapter::IsWatermarkSupported(std::string &codecMimeType, 
         }
         return Status::OK;
     }
-
-    return Status::ERROR_UNKNOWN;
+    return Status::ERROR_UNKNOWN; // E5: 两者都查不到返回ERROR_UNKNOWN
 }
 ```
 
-**关键证据点**:
-- L50-58: 硬件优先查询 `GetCapability(mime, true, AVCODEC_HARDWARE)`
-- L54: `featuresMap.count(VIDEO_WATERMARK)` — 从 CapabilityData.featuresMap 查询 VIDEO_WATERMARK 特性
-- L60-72: 软件 fallback 查询 `GetCapability(mime, true, AVCODEC_SOFTWARE)`
-- 硬件优先于软件——水印能力优先检查硬件编码器
+---
+
+## 4. 设计模式分析
+
+### 4.1 工厂 + 单例模式
+
+E1: `codec_capability_adapter.cpp L39` — CodecCapabilityAdapter 通过 `AVCodecListFactory::CreateAVCodecList()` 获取 AVCodecList 实例（实际为单例），而非自行构造。codeclist_ 以 `shared_ptr<MediaAVCodec::AVCodecList>` 管理生命周期。
+
+### 4.2 硬件优先回退策略
+
+E3/E5: GetVideoEncoder 和 IsWatermarkSupported 均遵循"硬件优先，失败回退软件"的双层查询策略：
+- HARDWARE → SOFTARE 两层递进
+- 每层通过 `GetCapability(mime, isEncoder, category)` 查询
+
+### 4.3 能力特征探测
+
+E5: IsWatermarkSupported 通过 `CapabilityData.featuresMap.count(VIDEO_WATERMARK)` 而非布尔标志判断水印支持，featuresMap 是 `std::map<int32_t, Format>` 结构，支持运行时扩展特征。
 
 ---
 
-## 七、CapabilityData 与 featuresMap 数据结构
+## 5. 与 CodecList/CodecAbility体系的关系
 
-**文件**: avcodec_info.h
+| 对比维度 | CodecCapabilityAdapter | CodecAbility/CodecListCore |
+|---------|----------------------|--------------------------|
+| 命名空间 | Pipeline | MediaAVCodec |
+| 查询范围 | 仅限 AVC/HEVC/AAC 三种 MIME | 全部67+ MIME 类型 |
+| 返回类型 | CapabilityData* 指针 | CapabilityData 结构体 |
+| 典型场景 | 水印探测/可用编码器列表 | Native C API(OH_AVCapability) |
+| 层级 | Filter → CodecListAdapter | CodecListCore → CodecAbilitySingleton |
+
+---
+
+## 6. 单元测试关键用例
+
+E6: `codec_capability_adapter_unittest.cpp L69-82` — IsWatermarkSupported_002 测试两次硬件查空后回退软件命中：
 
 ```cpp
-// L60-64: 特性枚举
-enum class AVCapabilityFeature : int32_t {
-    VIDEO_WATERMARK = 3,  // L64: 水印特性值=3
-    // ...
-};
-
-// L294-309: CapabilityData 核心方法
-class CapabilityData {
-    bool IsFeatureSupported(AVCapabilityFeature feature);  // L299
-    int32_t GetFeatureProperties(AVCapabilityFeature feature, Format &format);  // L309
-    std::unordered_map<int32_t, std::vector<uint8_t>> featuresMap;  // 特性map
-    // ...
-};
+HWTEST_F(CodecCapabilityAdapterUnitTest, IsWatermarkSupported_002, TestSize.Level1)
+{
+    // E6: Times(4) = HW_null + HW_hit + SW_null + SW_hit
+    EXPECT_CALL(*(mockAvcodecList_), GetCapability(_, _, _))
+        .Times(TEST_TIMES_FOUR)
+        .WillOnce(Return(nullptr))        //硬件第一次返回空
+        .WillOnce(Return(&capabilityData_)) // 硬件第二次返回空
+        .WillOnce(Return(nullptr))        // 软件第一次返回空
+        .WillOnce(Return(&capabilityData_)); // 软件第二次命中
+    codecCapabilityAdapter_->IsWatermarkSupported(codecMimeType, isWatermarkSupported);
+    EXPECT_TRUE(!isWatermarkSupported);
+}
 ```
 
-**关键证据点**:
-- L64: `VIDEO_WATERMARK = 3` — 特性枚举值
-- `featuresMap` 是 `unordered_map<int32_t, vector<uint8_t>>`，键为 AVCapabilityFeature 枚举值
-
----
-
-## 八、AVCodecList 工厂与接口
-
-**文件**: avcodec_list.h
+E7: `codec_capability_adapter_unittest.cpp L53-68` — IsWatermarkSupported_001 测试 featuresMap 中无 VIDEO_WATERMARK 键时返回 false：
 
 ```cpp
-// L27-35: GetCapability 纯虚接口
-virtual CapabilityData *GetCapability(const std::string &mime, const bool isEncoder,
-                                      const AVCodecCategory &category) = 0;
-
-// L67-76: 工厂方法
-class AVCodecListFactory {
-#ifdef UNSUPPORT_CODECLIST
-    static std::shared_ptr<AVCodecList> CreateAVCodecList() { return nullptr; }
-#else
-    static std::shared_ptr<AVCodecList> CreateAVCodecList();  // L71
-#endif
-};
+HWTEST_F(CodecCapabilityAdapterUnitTest, IsWatermarkSupported_001, TestSize.Level1)
+{
+    capabilityData_.featuresMap.insert(std::pair<int32_t, Format>(TEST_VIDEO_RPR, Format()));
+    // E7: featuresMap中没有VIDEO_WATERMARK只有VIDEO_RPR，返回false
+    EXPECT_CALL(*(mockAvcodecList_), GetCapability(_, _, _)).Times(1).WillOnce(Return(&capabilityData_));
+    codecCapabilityAdapter_->IsWatermarkSupported(codecMimeType, isWatermarkSupported);
+    EXPECT_TRUE(!isWatermarkSupported);
+}
 ```
 
-**关键证据点**:
-- L39: `AVCodecCategory` 枚举参数 —— `AVCODEC_HARDWARE` / `AVCODEC_SOFTWARE`
-- L71: 工厂方法返回 `shared_ptr<AVCodecList>`
+---
+
+## 7. 关键发现
+
+1. **独立无依赖**：CodecCapabilityAdapter 仅在 media_engine/filters/ 下定义，无其他 Filter 直接调用它，说明它是中间层工具类，非 Filter Pipeline 节点
+2. **查询范围受限**：GetVideoEncoder 仅覆盖 AVC+HEVC，GetAudioEncoder 仅覆盖 AAC，不支持其他视频编码器（VP8/VP9/AV1）
+3. **水印特化**：IsWatermarkSupported 是最完整的 capability 查询方法，体现了 OpenHarmony 水印功能对编解码器能力的特定要求
+4. **TEST_VIDEO_WATERMARK=3 / TEST_VIDEO_RPR=4**：单元测试中 VIDEO_WATERMARK 和 VIDEO_RPR 是两个独立的 AVCapabilityFeature 枚举值
 
 ---
 
-## 九、与 WaterMarkFilter 的关联
+## 8. 关联索引
 
-**文件**: water_mark_filter.cpp (~1001行)
-
-CodecCapabilityAdapter 的 `IsWatermarkSupported()` 是 WaterMarkFilter 的前置能力探测：
-1. WaterMarkFilter 初始化前调用 CodecCapabilityAdapter::IsWatermarkSupported() 查询是否支持水印
-2. 支持则启用 WaterMarkFilter，否则跳过
-3. VIDEO_WATERMARK 特性从 featuresMap 中读取
-
----
-
-## 十、总结
-
-| 维度 | 内容 |
-|------|------|
-| 架构位置 | Filter适配层（Layer 1），Filter基类 + AVCodecList工厂 |
-| 核心功能 | GetAvailableEncoder（三路查询）+ IsWatermarkSupported（两段查询） |
-| 关键成员 | `codeclist_` (shared_ptr<AVCodecList>) |
-| 工厂注入 | `Init()` → `AVCodecListFactory::CreateAVCodecList()` |
-| 查询顺序 | 硬件优先 → 软件fallback |
-| 水印探测 | featuresMap.count(VIDEO_WATERMARK=3) |
-| 关联主题 | S47/S71/S162(CodecCapability体系)、S135(WaterMarkFilter直接使用者) |
+- **S162** CodecAbility/CodecListCore：AVCodecList 底层能力查询引擎
+- **S47** CodecCapability五层能力模型：CapabilityData.featuresMap 结构说明
+- **S83** AVCodec Native C API：OH_AVCapability 能力查询入口
+- **S135** WaterMarkFilter：水印过滤器使用 CodecCapabilityAdapter::IsWatermarkSupported
