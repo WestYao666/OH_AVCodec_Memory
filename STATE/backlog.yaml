@@ -1701,7 +1701,8 @@
 |---|------|-------|---------|------|------|
 | S209 | HttpSourcePlugin Download Monitor 装饰器模式与错误恢复架构——DownloadMonitor 842行装饰器 + retryTasks_重试队列 + clientErrorCodeMap_~50条映射 + serverErrorCodeMap_~30条映射 + NeedRetry六段式判定 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, Retry, ErrorCode, HTTP, HTTPS, Decorator, MediaDownloader, RetryRequest | 新需求开发/问题定位/流媒体下载/错误恢复/DFX可观测性 | **pending_approval** | 🚧 草案已生成（2026-06-09T05:00 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S209.md（16727字节，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/），DownloadMonitor装饰器(842行)包裹MediaDownloader，重试队列retryTasks_(50ms周期)，CLIENT_NOT_RETRY_ERROR_CODES{992}/CLIENT_RETRY_ERROR_CODES{8个}/SERVER_RETRY_ERROR_CODES{9个含302}，clientErrorCodeMap_~50条/serverErrorCodeMap_~30条查表转换，RETRY_TIMES_TO_REPORT_ERROR=10/APP_DOWNLOAD_RETRY_TIMES=60/RETRY_TIMES=6000，与S210(S209增强版)/S195(Downloader Retry)/S172/S234/HLS关联 |
 
-## 变更记录
-| 日期 | 操作 | 说明 |
-|------|------|------|
-| 2026-06-09T05:00 | builder-agent (subagent) | S209注册：HttpSourcePlugin Download Monitor 装饰器模式与错误恢复架构草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S209.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/，与S210/S195/S172/S234关联 |
+## Builder 2026-06-09 S237注册——AVCodec Native CENC Info API
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S237 | AVCodec Native CENC Info API——OH_AVCencInfo 对象模型 + 七函数API + 六算法 + SubSample + AVBuffer附着 + Tag::DRM_CENC_INFO | AVCodec, Native API, C API, DRM, CENC, OH_AVCencInfo, OH_AVBuffer, MetaDrmCencInfo, AES-CTR, AES-CBC, SM4, Widevine, Subsample, Common Encryption, Spliter, SysCap | DRM加密媒体播放/第三方应用接入/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-09T05:53 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S237.md（11925字节，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo），OH_AVCencInfo对象模型(7个C函数：Create/Destroy/SetAlgorithm/SetKeyIdAndIv/SetSubsampleInfo/SetMode/SetAVBuffer)+6种算法(AES-CTR/AES-WV/AES-CBC/SM4-CBC/SM4-CTR)+SubSample分块解密+DRM_CENC_INFO Tag注入AVBuffer+libnative_media_avcencinfo.so，与S63/S225(CodecDrmDecrypt服务端)互补构成完整DRM CENC链路 |
