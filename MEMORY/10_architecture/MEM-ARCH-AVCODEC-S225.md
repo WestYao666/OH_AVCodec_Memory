@@ -516,3 +516,124 @@ int32_t CodecDrmDecrypt::DecryptMediaData(const MetaDrmCencInfo * const cencInfo
 | `CryptInfo` | DrmStandard 命名空间 | 加密参数（type/keyId/iv/pattern/subSamples） |
 | `IMediaKeySessionService` | drm_i_keysession_service.h | DRM 密钥会话服务（SetDecryptionConfig获取） |
 | `IMediaDecryptModuleService` | drm_i_mediadecryptmodule_service.h | 媒体解密模块（DecryptMediaData调用） |
+---
+
+## 13. SEI NALU 三Codec专用解析器
+
+### 13.1 DrmFindAvsCeiNalUnit AVS3 SEI定位（codec_drm_decrypt.cpp L282-305）
+
+```cpp
+int CodecDrmDecrypt::DrmFindAvsCeiNalUnit(const uint8_t *data, uint32_t dataSize, uint32_t &ceiStartPos,
+    uint32_t index)
+{
+    uint32_t i = index;
+    if (((data[i + DRM_LEGACY_LEN] > 0) && (data[i + DRM_LEGACY_LEN] < 0xb8)) &&
+        (data[i + DRM_LEGACY_LEN] != 0xb0) && (data[i + DRM_LEGACY_LEN] != 0xb5) &&
+        (data[i + DRM_LEGACY_LEN] != 0xb1)) {
+        return 0; // avs frame found
+    }
+    if ((data[i + DRM_LEGACY_LEN] == 0xb5) && (i + DRM_LEGACY_LEN + 1 < dataSize)) {
+        if ((data[i + DRM_LEGACY_LEN + 1] & 0xf0) == 0xd0) { // extension user data tag
+            ceiStartPos = i;
+        }
+    }
+    return -1;
+}
+```
+
+**E21** (codec_drm_decrypt.cpp L282-305): AVS3 SEI定位：AVS3 NALU header 0xb5（extension_and_user_data）中的 extension user data tag（0xd0）与 H.264/HEVC完全不同；AVS3 不使用 NAL type 而是使用0xb0-0xb5 范围判断帧 vs SEI。
+
+### 13.2 DrmFindHevcCeiNalUnit HEVC SEI定位（codec_drm_decrypt.cpp L307-337）
+
+```cpp
+int CodecDrmDecrypt::DrmFindHevcCeiNalUnit(const uint8_t *data, uint32_t dataSize, uint32_t &ceiStartPos,
+    uint32_t index)
+{
+    uint32_t i = index;
+    uint8_t nalType = (data[i + DRM_LEGACY_LEN] >> DRM_SHIFT_LEFT_NUM) & DRM_H265_VIDEO_NAL_TYPE_UMASK_NUM;
+    if (nalType <= DRM_H265_VIDEO_END_NAL_TYPE) { return 0; } // 帧数据
+    } else if ((nalType == 39) && (i + DRM_H265_PAYLOAD_TYPE_OFFSET < dataSize)) {
+        if (data[i + DRM_H265_PAYLOAD_TYPE_OFFSET] == DRM_USER_DATA_UNREGISTERED_TAG) {
+            ceiStartPos = i;
+        }
+    }
+    // UUID比对确认DRM descriptor
+    for (; (startPos + DRM_USER_DATA_REGISTERED_UUID_SIZE < endPos); startPos++) {
+        if (memcmp(data + startPos, USER_REGISTERED_UUID, ...) == 0) { ceiStartPos = i; break; }
+    }
+}
+```
+
+**E22** (codec_drm_decrypt.cpp L307-337): HEVC SEI 定位：NAL type=39 且 payload_type=0x05；使用右移 DRM_SHIFT_LEFT_NUM 提取 6-bit NAL type；UUID 比对确认 DRM descriptor 存在于 UNREGISTERED SEI 中。
+
+### 13.3 DrmFindH264CeiNalUnit H.264 SEI定位（codec_drm_decrypt.cpp L339-370）
+
+```cpp
+int CodecDrmDecrypt::DrmFindH264CeiNalUnit(const uint8_t *data, uint32_t dataSize, uint32_t &ceiStartPos,
+    uint32_t index)
+{
+    uint32_t i = index;
+    uint8_t nalType = data[i + DRM_LEGACY_LEN] & DRM_H264_VIDEO_NAL_TYPE_UMASK_NUM;
+    if ((nalType >= DRM_H264_VIDEO_START_NAL_TYPE) && (nalType <= DRM_H264_VIDEO_END_NAL_TYPE)) {
+        return 0; // h264 frame found
+    } else if ((nalType == 39) || (nalType == 6)) { // 39 or 6 is SEI nal unit tag
+        if ((i + DRM_LEGACY_LEN + 1 < dataSize) &&
+            (data[i + DRM_LEGACY_LEN + 1] == DRM_USER_DATA_UNREGISTERED_TAG)) {
+            ceiStartPos = i;
+        }
+    }
+    // UUID比对
+    if (ceiStartPos != DRM_INVALID_START_POS) {
+        DrmGetSyncHeaderIndex(data, dataSize, endPos);
+        for (; (startPos + DRM_USER_DATA_REGISTERED_UUID_SIZE < endPos); startPos++) {
+            if (memcmp(data + startPos, USER_REGISTERED_UUID, ...) == 0) { ceiStartPos = i; break; }
+        }
+    }
+}
+```
+
+**E23** (codec_drm_decrypt.cpp L339-370): H.264 SEI 定位：NAL type 39 或 6（两个 NAL type 都可以是 SEI）；NAL type 用8-bit mask 直接提取（不同于 HEVC 的右移）；H.264 SEI 可以在 NAL type 6（supplemental enhancement information）中也携带。
+
+---
+
+## 14. MediaCodec DRM解密入口与AttachDrmBufffer
+
+### 14.1 AttachDrmBufffer DRM缓冲区创建（media_codec.cpp L680-706）
+
+```cpp
+Status MediaCodec::AttachDrmBufffer(std::shared_ptr<AVBuffer> &drmInbuf, std::shared_ptr<AVBuffer> &drmOutbuf,
+    uint32_t size)
+{
+    AVCODEC_LOGD("AttachDrmBufffer");
+    std::shared_ptr<AVAllocator> avAllocator;
+    avAllocator = AVAllocatorFactory::CreateSharedAllocator(MemoryFlag::MEMORY_READ_WRITE);
+    CHECK_AND_RETURN_RET_LOG(avAllocator != nullptr, Status::ERROR_UNKNOWN, "avAllocator is nullptr");
+    drmInbuf = AVBuffer::CreateAVBuffer(avAllocator, size);
+    CHECK_AND_RETURN_RET_LOG(drmInbuf != nullptr, Status::ERROR_UNKNOWN, "drmInbuf is nullptr");
+    drmInbuf->memory_->SetSize(size);
+    drmOutbuf = AVBuffer::CreateAVBuffer(avAllocator, size);
+    CHECK_AND_RETURN_RET_LOG(drmOutbuf != nullptr, Status::ERROR_UNKNOWN, "drmOutbuf is nullptr");
+    drmOutbuf->memory_->SetSize(size);
+    return Status::OK;
+}
+```
+
+**E24** (media_codec.cpp L680-706): AttachDrmBufffer 为 DRM 解密分配双 AVBuffer（drmInbuf/drmOutbuf）；使用 AVAllocatorFactory::CreateSharedAllocator 创建读写内存；两缓冲区大小相同（size），用于加密输入/解密输出。
+
+### 14.2 MediaCodec::DrmAudioCencDecrypt 音频DRM主入口（media_codec.cpp L707-720）
+
+```cpp
+Status MediaCodec::DrmAudioCencDecrypt(std::shared_ptr<AVBuffer> &filledInputBuffer)
+{
+    AVCODEC_LOGD("DrmAudioCencDecrypt enter");
+    uint32_t bufSize = static_cast<uint32_t>(filledInputBuffer->memory_->GetSize());
+    std::shared_ptr<AVBuffer> drmInBuf, drmOutBuf;
+    ret = AttachDrmBufffer(drmInBuf, drmOutBuf, bufSize);
+    CHECK_AND_RETURN_RET_LOG(ret == Status::OK, Status::ERROR_UNKNOWN, "AttachDrmBufffer failed");
+    ret = AttachDrmBufffer(drmInBuf, drmOutBuf, bufSize); // 再次调用（实际解密路径）
+    ret = drmDecryptor_->DrmAudioCencDecrypt(drmInBuf, drmOutBuf, bufSize);
+    // ... 将解密后的 drmOutBuf 内容复制回 filledInputBuffer
+}
+```
+
+**E25** (media_codec.cpp L707-720): MediaCodec::DrmAudioCencDecrypt 是音频解密主入口；先 AttachDrmBufffer 创建 DRM缓冲区，再调用 drmDecryptor_->DrmAudioCencDecrypt；解密结果复制回原始缓冲区。Video 解密类似。

@@ -1475,3 +1475,18 @@ note: synthesize_high_level_knowledge 工作流生成，识别了56条ADR（工�
   git_branch: master
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory (待提交)
   notes: 行号校正增强版，E21 header成员变量L96-104/E20 OnVPEError L557/E23 DoPrepare/E24 LinkNext L411/E25 NotifyNextFilterEos L346，新增3条evidence(E23-E25)，与S20/S127/S100/S14/S46关联
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S225
+  decision: pending_approval
+  timestamp: "2026-06-08T10:07:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "CodecDrmDecrypt：CODEC DRM CENC 解密框架——H.264/HEVC/AVS3 全Codec统一内容解密引擎"
+  evidence_count: 25
+  source_files: |
+    /home/west/av_codec_repo/services/drm_decryptor/codec_drm_decrypt.cpp (764行)
+    /home/west/av_codec_repo/services/drm_decryptor/codec_drm_decrypt.h (96行)
+    /home/west/av_codec_repo/services/media_engine/modules/media_codec/media_codec.cpp (1266行)
+  git_branch: master
+  draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S225.md"
+  note: "本地镜像增强版：E21(E22/E23)新增DrmFindAvsCeiNalUnit(DrmFindHevcCeiNalUnit/DrmFindH264CeiNalUnit三Codec专用SEI定位，E24/E25新增AttachDrmBufffer(MediaCodec.cpp L680)与DrmAudioCencDecrypt入口(L707)，总25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo，升级自DRAFTS/"

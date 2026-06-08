@@ -1550,3 +1550,15 @@
 | 2026-06-08T08:38 | builder-agent | S226注册：VideoResizeFilter视频缩放过滤器草案已生成，写入 MEM-ARCH-AVCODEC-S226.md（draft），22条行号级evidence，基于本地镜像 services/media_engine/filters/，与S20/S127/S100/S14/S46关联 |
 
 | S226 | VideoResizeFilter 视频缩放过滤器——VPE DetailEnhancer + Surface双Surface架构与Transcoder管线集成 | AVCodec, MediaEngine, Filter, VideoResize, VPE, DetailEnhancer, Transcoder, Surface, FilterPipeline, FilterType, AutoRegisterFilter, ReleaseBuffer | 新需求开发/问题定位/转码管线/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-08T08:38 builder-agent）→pending_approval（2026-06-08T09:53 builder-agent行号校正），MEM-ARCH-AVCODEC-S226.md（25条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/），video_resize_filter.cpp(566行)+video_resize_filter.h(120行)，E1 AutoRegisterFilter L37/E7 DetailEnhancerVideo::Create L138/E8 ReleaseBufferTask L157/E12 DoStart L263/E13 DoStop L305/E24 LinkNext L411/E25 NotifyNextFilterEos L346/E20 OnVPEError L557/E21 成员变量 L96-104，与S20/S127/S100/S14/S46关联 |
+
+## Builder 2026-06-08 S225注册——CodecDrmDecrypt DRM CENC 解密框架增强版
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S225 | CodecDrmDecrypt：CODEC DRM CENC 解密框架——H.264/HEVC/AVS3 全Codec统一内容解密引擎（本地镜像增强版） | AVCodec, DRM, CENC, SVP, Decryption, H.264, HEVC, AVS3, SecureVideoPath, SEI, SubSample, NALU, AttachDrmBufffer | 新需求开发/DRM解密/加密媒体播放/内容保护 | **pending_approval** | 🚧 草案已生成（2026-06-08T08:08）→本地镜像增强（2026-06-08T10:07），MEM-ARCH-AVCODEC-S225.md（639行，25条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/drm_decryptor/），E1-E20原版基础上新增E21(AVS3 SEI定位 codec_drm_decrypt.cpp L282)+E22(HEVC SEI定位 L307)+E23(H.264 SEI定位 L339)+E24(AttachDrmBufffer media_codec.cpp L680)+E25(DrmAudioCencDecrypt入口 L707)，SvpMode三态(SVP_CLEAR=-1/SVP_FALSE/SVP_TRUE)+DRM双代理(IMediaKeySessionService+IMediaDecryptModuleService)+NAL起始码0x000001+SubSample自动构造(CBC2个/CTR 1个)+歧义字节移除+DecryptMediaData，与S63/S114/S121/S104/S113关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T08:08 | Builder | S225注册：CodecDrmDecrypt DRM CENC 解密框架草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S225.md（draft），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/drm_decryptor/，与S63/S114/S121/S104/S113关联 |
+| 2026-06-08T10:07 | builder-agent | S225本地镜像增强：E21-E25新增5条行号级evidence，AttachDrmBufffer(DrmAudioCencDecrypt)+三Codec专用SEI定位(AVS3/HEVC/H.264)，升级至MEMORY/10_architecture/MEM-ARCH-AVCODEC-S225.md，提交审批 |
