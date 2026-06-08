@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S237: AVCodec Native CENC Info API
 
-**状态**: draft → pending_approval  
+**状态**: pending_approval
 **Builder**: builder-agent (subagent) @2026-06-09T05:53+08:00 → **builder-agent 增强版** @2026-06-09T06:25+08:00  
 **源码基于**: 本地镜像 `/home/west/av_codec_repo`
 
@@ -326,6 +326,15 @@ OH_AVErrCode OH_AVCencInfo_SetAVBuffer(OH_AVCencInfo *cencInfo, OH_AVBuffer *buf
 | E24 | codec_drm_decrypt.cpp | 566-568 | encryptBlocks<=DRM_CRYPT_BYTE_BLOCK校验 + algo==UNENCRYPTED明文直通分支 |
 | E25 | codec_drm_decrypt.cpp | 582-587 | mode==NOT_SET时走DrmGetCencInfo/DrmModifyCencInfo路径 + DRM_TS_SUB_SAMPLE_NUM=2 |
 | E26 | codec_drm_decrypt.cpp | 615-622 | AES-CTR/SM4-CTR(流式解密) vs AES-CBC/SM4-CBC(块解密) 算法分发 |
+| E27 | native_cencinfo.cpp | 64-65 | `new (std::nothrow) OH_AVCencInfo()` - 堆分配+nothrow异常安全 |
+| E28 | native_cencinfo.cpp | 67-70 | `memset_s`零初始化+失败时delete释放资源 |
+| E29 | native_cencinfo.cpp | 79 | `delete cencInfo` - 析构函数资源释放 |
+| E30 | native_cencinfo.cpp | 188 | `Tag::DRM_CENC_INFO` + `SetData` 元数据注入 AVBuffer |
+| E31 | codec_drm_decrypt.cpp | 55 | `DRM_MAX_STREAM_DATA_SIZE = 20971520` (20MB 流数据上限) |
+| E32 | codec_drm_decrypt.cpp | 76-77 | `DRM_VIDEO_AVC = 0x1` / `DRM_VIDEO_HEVC` 枚举值定义 |
+| E33 | codec_drm_decrypt.cpp | 653/655 | `codingType_ = DRM_VIDEO_AVC/HEVC` 编码类型初始化 |
+| E34 | codec_drm_decrypt.cpp | 737 | `DecryptMediaData` 解密入口函数体 |
+| E35 | codec_drm_decrypt.cpp | 730 | `decryptModuleProxy_->DecryptMediaData()` DRM解密模块proxy调用 |
 
 ---
 
