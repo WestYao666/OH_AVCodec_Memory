@@ -1671,3 +1671,14 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-09T01:08 | builder-agent (subagent) | S233增强：AppClient + IMediaSourceLoader 双路由下载架构草案已增强，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S233.md（pending_approval），20条行号级evidence，从10条增强至20条，新增HttpDownloadLoop/BeginDownload/OpenAppUri/HttpCurlClient对比，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/download/，与S195/S210/S172关联 |
+
+## Builder 2026-06-09 S202注册——MediaCodec Filter层编解码适配器
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S202 | MediaCodec Filter层编解码适配器——CodecState十二态机+AVBufferQueue双缓冲+DRM CENC解密+ChangePlugin热切换 | AVCodec, MediaEngine, Filter, CodecAdapter, CodecState, DRM, CENC, AVBufferQueue, Plugin, PluginManagerV2, ChangePlugin | 新需求开发/问题定位/Filter管线集成/DRM解密/动态编解码切换 | **pending_approval** | 🚧 草案已生成（2026-06-09T02:45 builder-agent subagent），MEM-ARCH-AVCODEC-S202.md（174行，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/media_codec/），CodecState十二态机+InOutPortBufferStatus六态标志+AVBufferQueue双缓冲+DRM AttachDrmBufffer五步解密+ChangePlugin热切换，与S197/S212/S214/S218/S225/S221关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-09T02:45 | builder-agent (subagent) | S202注册：MediaCodec Filter层编解码适配器草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S202.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/media_codec/，与S197/S212/S214/S218/S225/S221关联 |
