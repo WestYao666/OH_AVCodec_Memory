@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S226
 title: "VideoResizeFilter 视频缩放过滤器——VPE DetailEnhancer + Surface双Surface架构与Transcoder管线集成"
-status: draft
+status: pending_approval
 scope: AVCodec, MediaEngine, Filter, VideoResize, VPE, DetailEnhancer, Transcoder, Surface, FilterPipeline
 tags:
   - AVCodec
@@ -15,10 +15,10 @@ tags:
   - FilterPipeline
 created: 2026-06-08
 modified: 2026-06-08
-evidence_count: 22
+evidence_count: 25
 source_path: /home/west/av_codec_repo/services/media_engine/filters/video_resize_filter.cpp
 source_path2: /home/west/av_codec_repo/interfaces/inner_api/native/video_resize_filter.h
-lines_of_code: "566行cpp + 113行h"
+lines_of_code: "566行cpp + 120行h"
 associations:
   - S20 (PostProcessing框架)
   - S127 (VideoPostProcessor框架)
@@ -244,28 +244,35 @@ static AutoRegisterFilter<VideoResizeFilter> g_registerVideoResizeFilter("builti
   ```
 - **意义**：普通缓冲区立即释放，EOS 缓冲区释放后触发 NotifyNextFilterEos 通知下游
 
-### E20：OnVPEError — VPE 错误上报
-- **文件**：video_resize_filter.cpp L535-545
+### E20：OnVPEError — VPE 错误上报（条件编译保护）
+- **文件**：video_resize_filter.cpp L557-562 + video_resize_filter.h L82
 - **内容**：
   ```cpp
-  isVPEReportError_ = true;  // L541
-  eventReceiver_->OnEvent({"video_resize_filter", EventType::EVENT_ERROR, MSERR_VID_RESIZE_FAILED});  // L543
+  // cpp L557-562
+  void VideoResizeFilter::OnVPEError(int32_t errorCode)
+  {
+      FALSE_RETURN_MSG(eventReceiver_ != nullptr, "no eventReceiver_");
+      FALSE_RETURN_NOLOG(isVPEReportError_ == false);  // 仅上报一次
+      isVPEReportError_ = true;
+      eventReceiver_->OnEvent({"video_resize_filter", EventType::EVENT_ERROR, MSERR_VID_RESIZE_FAILED});
+  }
+  // h L82: void OnVPEError(int32_t errorCode);  // #ifdef USE_VIDEO_PROCESSING_ENGINE
   ```
-- **意义**：VPE 错误通过 EventReceiver 上报，仅上报一次（isVPEReportError_ 保护）
+- **意义**：VPE 错误通过 EventReceiver 上报，`isVPEReportError_` 原子标志确保仅上报一次；`#ifdef USE_VIDEO_PROCESSING_ENGINE` 条件编译保护
 
 ### E21：成员变量 — 互斥锁与条件变量
-- **文件**：video_resize_filter.h L65-79
+- **文件**：video_resize_filter.h L96-104
 - **内容**：
   ```cpp
-  std::mutex releaseBufferMutex_;  // L65
-  std::condition_variable releaseBufferCondition_;  // L66
-  std::shared_ptr<Task> releaseBufferTask_{nullptr};  // L68
-  std::vector<uint32_t> indexs_;  // L69
-  uint32_t eosBufferIndex_ {UINT32_MAX};  // L71
-  std::atomic<int64_t> currentFrameNum_ = 0;  // L75
-  std::atomic<bool> isThreadExit_ = true;  // L76
+  std::mutex releaseBufferMutex_;  // L96
+  std::condition_variable releaseBufferCondition_;  // L97
+  std::shared_ptr<Task> releaseBufferTask_{nullptr};  // L98
+  std::vector<uint32_t> indexs_;  // L99
+  uint32_t eosBufferIndex_ {UINT32_MAX};  // L100
+  std::atomic<int64_t> currentFrameNum_ = 0;  // L103
+  std::atomic<bool> isThreadExit_ = true;  // L104
   ```
-- **意义**：完整的线程安全缓冲区管理机制，原子变量保护帧计数
+- **意义**：完整的线程安全缓冲区管理机制，原子变量保护帧计数，条件变量协调 ReleaseBuffer 后台线程
 
 ### E22：SetCallingInfo — 调用者信息记录
 - **文件**：video_resize_filter.cpp L547-554
@@ -277,6 +284,58 @@ static AutoRegisterFilter<VideoResizeFilter> g_registerVideoResizeFilter("builti
   instanceId_ = instanceId;  // L551
   ```
 - **意义**：记录应用身份信息，用于 DFX 错误追踪和日志关联
+
+### E23：DoPrepare — NEXT_FILTER_NEEDED 回调
+- **文件**：video_resize_filter.cpp L246-260
+- **内容**：
+  ```cpp
+  Status VideoResizeFilter::DoPrepare()
+  {
+      if (filterCallback_ == nullptr) return Status::ERROR_UNKNOWN;
+      switch (filterType_) {
+          case FilterType::FILTERTYPE_VIDRESIZE:
+              filterCallback_->OnCallback(shared_from_this(), FilterCallBackCommand::NEXT_FILTER_NEEDED,
+                  StreamType::STREAMTYPE_RAW_VIDEO);  // L253-254
+              break;
+      }
+      return Status::OK;
+  }
+  ```
+- **意义**：DoPrepare 阶段通过 FilterCallback 向上游请求下一个 Filter（通常为 MuxerFilter），完成管线拓扑构建
+
+### E24：LinkNext — 链路建立与回调传递
+- **文件**：video_resize_filter.cpp L411-424
+- **内容**：
+  ```cpp
+  Status VideoResizeFilter::LinkNext(const std::shared_ptr<Filter> &nextFilter, StreamType outType)
+  {
+      nextFilter_ = nextFilter;
+      nextFiltersMap_[outType].push_back(nextFilter_);  // L416
+      std::shared_ptr<FilterLinkCallback> filterLinkCallback =
+          std::make_shared<VideoResizeFilterLinkCallback>(shared_from_this());  // L418
+      auto ret = nextFilter->OnLinked(outType, configureParameter_, filterLinkCallback);  // L420
+      return ret;
+  }
+  ```
+- **意义**：LinkNext 将下游 Filter 加入 nextFiltersMap_ 并传递 VideoResizeFilterLinkCallback，使下游可通过回调影响 VideoResizeFilter 的状态
+
+### E25：NotifyEos — EOS 向下游传播
+- **文件**：video_resize_filter.cpp L346-356
+- **内容**：
+  ```cpp
+  Status VideoResizeFilter::NotifyNextFilterEos()
+  {
+      for (auto iter : nextFiltersMap_) {
+          for (auto filter : iter.second) {
+              std::shared_ptr<Meta> eosMeta = std::make_shared<Meta>();
+              eosMeta->Set<Tag::MEDIA_END_OF_STREAM>(true);  // L352
+              eosMeta->Set<Tag::USER_FRAME_PTS>(eosPts_);  // L353
+              filter->SetParameter(eosMeta);  // L354
+          }
+      }
+  }
+  ```
+- **意义**：NotifyNextFilterEos 遍历所有下游 Filter，通过 SetParameter 将 EOS 信息传播给每个下游 Filter，确保整个管线正确结束
 
 ## 4. 生命周期状态机
 
