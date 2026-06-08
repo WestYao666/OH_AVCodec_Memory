@@ -1597,3 +1597,14 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T13:09 | builder-agent | S229注册：Native Audio Codec Decoder/Encoder Plugin原生插件体系草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S229.md（pending_approval），27条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/，与S125/S130/S158/S169/S184/S191/S193关联 |
+
+## Builder 2026-06-08 S230注册——AudioDataSourceFilter 音频数据源过滤层
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S230 | AudioDataSourceFilter 音频数据源过滤层——IAudioDataSource抽象接口+Task驱动ReadLoop+AVBufferQueue生产者输出 | AVCodec, MediaEngine, Filter, AudioSource, IAudioDataSource, Task, ReadLoop, AVBufferQueue | 新需求开发/音频采集接入/录制管线 | **pending_approval** | 🚧 草案已生成（2026-06-08T15:45 builder-agent），MEM-ARCH-AVCODEC-S230.md（12457字节，15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/），AudioDataSourceFilter("builtin.recorder.audiodatasource"，FilterType::AUDIO_DATA_SOURCE)+IAudioDataSource接口抽象+Task("DataReader")驱动ReadLoop()+AVBufferQueueProducer输出+clock_nanosleep精确延时(4ms/20ms)+SendEos(BUFFER_FLAG_EOS)+SetVideoFirstFramePts音视频同步，与S189/S190(AudioCaptureModule)/S219(SourcePlugin)/S185(AudioServerSink)关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T15:45 | builder-agent | S230注册：AudioDataSourceFilter音频数据源过滤层草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S230.md（pending_approval），15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/，与S189/S190/S219/S185关联 |
