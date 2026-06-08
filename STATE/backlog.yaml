@@ -1547,3 +1547,6 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T07:38 | builder-agent | S224注册：VideoCodecParamChecker视频编码参数校验框架草案已生成，写入 MEM-ARCH-AVCODEC-S224.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/，与S19/S84/S221/S42关联 |
+| 2026-06-08T08:38 | builder-agent | S226注册：VideoResizeFilter视频缩放过滤器草案已生成，写入 MEM-ARCH-AVCODEC-S226.md（draft），22条行号级evidence，基于本地镜像 services/media_engine/filters/，与S20/S127/S100/S14/S46关联 |
+
+| S226 | VideoResizeFilter 视频缩放过滤器——VPE DetailEnhancer + Surface双Surface架构与Transcoder管线集成 | AVCodec, MediaEngine, Filter, VideoResize, VPE, DetailEnhancer, Transcoder, Surface, FilterPipeline, FilterType, AutoRegisterFilter, ReleaseBuffer | 新需求开发/问题定位/转码管线/新人入项 | **draft** | 🚧 草案已生成（2026-06-08T08:38 builder-agent），MEM-ARCH-AVCODEC-S226.md（10293字节，22条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/），video_resize_filter.cpp(566行)+video_resize_filter.h(113行)，AutoRegisterFilter静态注册builtin.transcoder.videoresize(L37-40)+VPE条件编译+DetailEnhancerVideo封装(L138-143)+ReleaseBuffer后台线程(L154-161,500-515)+双Surface架构(L202,229)+OnVPEError单次上报(L535-545)，与S20/S127/S100/S14/S46关联 |
