@@ -1705,7 +1705,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S237 | AVCodec Native CENC Info API——OH_AVCencInfo 对象模型 + 七函数API + 六算法 + SubSample + AVBuffer附着 + Tag::DRM_CENC_INFO | AVCodec, Native API, C API, DRM, CENC, OH_AVCencInfo, OH_AVBuffer, MetaDrmCencInfo, AES-CTR, AES-CBC, SM4, Widevine, Subsample, Common Encryption, Spliter, SysCap | DRM加密媒体播放/第三方应用接入/新人入项 | **draft** | 🚧 草案已生成（2026-06-09T05:53 builder-agent subagent）→增强至26条E21-E26（2026-06-09T06:25 builder-agent增强），DRAFTS/MEM-ARCH-AVCODEC-S237.md（15965字节，26条行号级evidence，基于本地镜像 /home/west/av_codec_repo），E21-E22(codec_drm_decrypt.cpp常量DRM_CRYPT_BYTE_BLOCK/DRM_SKIP_BYTE_BLOCK/DRM_TS_SUB_SAMPLE_NUM)+E23-E26(codec_drm_decrypt.cpp消费端GetData读取/UNENCRYPTED明文直通/NOT_SET路径/CTR-CBC算法分发)，OH_AVCencInfo对象模型(7个C函数)+6种算法+SubSample分块解密+DRM_CENC_INFO Tag注入AVBuffer，与S63/S225(CodecDrmDecrypt服务端)互补 |
+| S237 | AVCodec Native CENC Info API——OH_AVCencInfo 对象模型 + 七函数API + 六算法 + SubSample + AVBuffer附着 + Tag::DRM_CENC_INFO | AVCodec, Native API, C API, DRM, CENC, OH_AVCencInfo, OH_AVBuffer, MetaDrmCencInfo, AES-CTR, AES-CBC, SM4, Widevine, Subsample, Common Encryption, Spliter, SysCap | DRM加密媒体播放/第三方应用接入/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-09T05:53 builder-agent subagent）→增强至35条E21-E35（2026-06-09T07:20 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S237.md（35条行号级evidence，基于本地镜像 /home/west/av_codec_repo），E27-E35(native_cencinfo.cpp新增nothrow/new+memset_s+delete析构+Tag::DRM_CENC_INFO注入，codec_drm_decrypt.cpp新增DRM_MAX_STREAM=20MB+DRM_VIDEO_AVC枚举+DecryptMediaData入口+proxy调用)，与S63/S225(CodecDrmDecrypt服务端)互补 |
 
 ## 变更记录
 
