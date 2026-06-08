@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S171
 type: architecture
-status: draft
+status: pending_approval
 subject: "CodecCapabilityAdapter 能力查询适配器——CodecList工厂+GetAvailableEncoder双层分发+水印能力探测"
 scope: "AVCodec, MediaEngine, Filter, Capability, AVCodecList, CodecCapability, VideoEncoder, AudioEncoder, Watermark"
 evidence_count: 10
