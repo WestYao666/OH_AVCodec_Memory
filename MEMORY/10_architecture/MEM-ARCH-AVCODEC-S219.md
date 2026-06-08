@@ -4,7 +4,7 @@ title: "MediaEngine Source Plugin 三件套——FileFdSourcePlugin / FileSource
 status: pending_approval
 scope: AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, FD, FILE, STREAM
 created_at: "2026-06-07T23:08:00+08:00"
-evidence_count: 15
+evidence_count: 21
 source_files: |
   /home/west/av_codec_repo/services/media_engine/plugins/source/file_fd_source_plugin.cpp (893行)
   /home/west/av_codec_repo/services/media_engine/plugins/source/file_fd_source_plugin.h (157行)
@@ -293,6 +293,176 @@ S106（MediaEngine Source 模块流媒体基础设施）覆盖 HttpSourcePlugin 
 3. **DFX 事件上报**：FileFdSource 创建时上报 APP 包名和创建结果到 `MediaAVCodec::StreamAppPackageNameEventWrite`。
 4. **DataStreamSource 重试三级跳**：ERROR_AGAIN 后支持 100ms→200ms→500ms 三级递增重试间隔。
 5. **三者统一继承 SourcePlugin**，通过 ProtocolType 路由，rank 均为 100（最高优先级）。
+
+---
+
+### E16: FileFdSourcePlugin 云/本判定 CheckFileType（L725-760）
+
+```cpp
+void FileFdSourcePlugin::CheckFileType()
+{
+    int loc; // 1本地，2云端
+    int ioResult = ioctl(fd_, HMDFS_IOC_GET_LOCATION, &loc);
+    MEDIA_LOG_I("SetSource ioctl loc, ret " PUBLIC_LOG_D32 ", loc " PUBLIC_LOG_D32, ioResult, loc);
+    if (!isEnableFdCache_) {
+        isCloudFile_ = false;
+        return;
+    }
+    if (ioResult == 0) {
+        if (loc == IOCTL_CLOUD) {
+            isCloudFile_ = true;
+            MEDIA_LOG_I("ioctl file is cloud");
+            int ret = ioctl(fd_, HMDFS_IOC_RESTORE_READ);
+            // ...
+        } else {
+            isCloudFile_ = false;
+            MEDIA_LOG_I("ioctl file is local");
+        }
+    } else {
+        isCloudFile_ = false;
+    }
+}
+```
+
+通过 `ioctl(fd_, HMDFS_IOC_GET_LOCATION)` 查询云端（loc=2）或本地（loc=1），`HMDFS_IOC_RESTORE_READ` 恢复云文件读取。
+
+---
+
+### E17: FileFdSourcePlugin GetSize 实现（L701-706）
+
+```cpp
+Status FileFdSourcePlugin::GetSize(uint64_t& size)
+{
+    size = size_;
+    return Status::OK;
+}
+
+Seekable FileFdSourcePlugin::GetSeekable()
+{
+    MEDIA_LOG_D("GetSeekable in");
+    return seekable_;
+}
+```
+
+直接返回 `size_` 成员变量，Seekable 通过 `seekable_` 成员变量返回。
+
+---
+
+
+### E18: FileSourcePlugin GetSize 实现（L220-230）
+
+```cpp
+Status FileSourcePlugin::GetSize(uint64_t& size)
+{
+    size = fileSize_;
+    return Status::OK;
+}
+
+Seekable FileSourcePlugin::GetSeekable()
+{
+    MEDIA_LOG_DD("IN");
+    return seekable_;
+}
+
+std::vector<SeekRange> FileSourcePlugin::GetSeekableRanges() const
+{
+    if (seekable_ != Seekable::SEEKABLE || durationUs_ <= 0) {
+        return {};
+    }
+    // ...
+    return {{0, durationHst}};
+}
+```
+
+FileSourcePlugin 基于 `fstat` 获取 `fileSize_`，SeekableRanges 返回 {0, durationHst} 范围。
+
+---
+
+
+### E19: DataStreamSourcePlugin SetSource 实现（L78-88）
+
+```cpp
+Status DataStreamSourcePlugin::SetSource(std::shared_ptr<Plugins::MediaSource> source)
+{
+    dataSrc_ = source->GetDataSrc();
+    FALSE_RETURN_V(dataSrc_ != nullptr, Status::ERROR_INVALID_PARAMETER);
+    int64_t size = 0;
+    if (dataSrc_->GetSize(size) != 0) {
+        MEDIA_LOG_E("Get size failed");
+    }
+    size_ = size;
+    seekable_ = size_ == -1 ? Plugins::Seekable::UNSEEKABLE : Plugins::Seekable::SEEKABLE;
+    MEDIA_LOG_I("SetSource, size_: " PUBLIC_LOG_D64 ", seekable_: " PUBLIC_LOG_D32, size_, seekable_);
+    return Status::OK;
+}
+```
+
+DataStreamSourcePlugin 从 DataSource 获取 size，size==-1 判定为 UNSEEKABLE 流式源。
+
+---
+
+### E20: DataStreamSourcePlugin GetSize/Seekable 实现（L263-280）
+
+
+```cpp
+Status DataStreamSourcePlugin::GetSize(uint64_t& size)
+{
+    if (seekable_ == Plugins::Seekable::SEEKABLE) {
+        size = static_cast<uint64_t>(size_);
+    } else {
+        size = std::max(static_cast<size_t>(offset_), DEFAULT_PREDOWNLOAD_SIZE_BYTE);
+    }
+    return Status::OK;
+}
+
+Plugins::Seekable DataStreamSourcePlugin::GetSeekable()
+{
+    return seekable_;
+}
+
+Status DataStreamSourcePlugin::SeekTo(uint64_t offset)
+{
+    if (seekable_ == Plugins::Seekable::UNSEEKABLE) {
+        MEDIA_LOG_E("source is unseekable!");
+        return Status::ERROR_INVALID_OPERATION;
+    }
+    // ...
+    offset_ = offset;
+    isExitRead_ = false;
+    return Status::OK;
+}
+```
+
+Seekable 流返回实际 size；UNSEEKABLE 流返回 `DEFAULT_PREDOWNLOAD_SIZE_BYTE`（10MB）和当前 offset 的最大值。
+
+
+---
+
+### E21: FileFdSourcePlugin IsLocalFd/IsCloudFd 双接口（L866-893）
+
+```cpp
+bool FileFdSourcePlugin::IsLocalFd()
+{
+    return !isCloudFile_;
+}
+
+bool FileFdSourcePlugin::IsCloudFd()
+{
+    return isCloudFile_;
+}
+
+Status FileFdSourcePlugin::GetDownloadInfo(DownloadInfo& downloadInfo)
+{
+    downloadInfo.totalDownLoadBytes = totalDownLoadBytes_;
+    downloadInfo.totalLoadingTime = totalDownloadDuringTime_;
+    downloadInfo.loadingCount = totalDownloadCount_;
+    downloadInfo.firstDownloadTime = firstDownloadTime_;
+    downloadInfo.firstFrameDecapsulationTime = firstDownloadTimestamp_;
+    return Status::OK;
+}
+```
+
+`IsLocalFd()` / `IsCloudFd()` 一对互补接口查询 FD 类型；`GetDownloadInfo` 上报下载统计（字节数/时间/次数/首帧时间）。
 
 ---
 
