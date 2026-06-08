@@ -1,7 +1,7 @@
 # MEM-ARCH-AVCODEC-S237: AVCodec Native CENC Info API
 
 **状态**: draft → pending_approval  
-**Builder**: builder-agent (subagent) @2026-06-09T05:53+08:00  
+**Builder**: builder-agent (subagent) @2026-06-09T05:53+08:00 → **builder-agent 增强版** @2026-06-09T06:25+08:00  
 **源码基于**: 本地镜像 `/home/west/av_codec_repo`
 
 ---
@@ -320,6 +320,12 @@ OH_AVErrCode OH_AVCencInfo_SetAVBuffer(OH_AVCencInfo *cencInfo, OH_AVBuffer *buf
 | E18 | native_cencinfo.h | 106-111 | DrmCencInfoMode 2枚举值 |
 | E19 | native_cencinfo.h | 114-118 | DrmSubsample 结构体（clearHeaderLen/payLoadLen） |
 | E20 | ffmpeg_demuxer_plugin.cpp | 662-663 | av_packet_get_side_data(AV_PKT_DATA_ENCRYPTION_INFO) 提取 DRM 元数据 |
+| E21 | codec_drm_decrypt.cpp | 42-43 | DRM_CRYPT_BYTE_BLOCK=1 / DRM_SKIP_BYTE_BLOCK=9 常量（解密块边界） |
+| E22 | codec_drm_decrypt.cpp | 52 | DRM_TS_SUB_SAMPLE_NUM=2 常量（Transport Stream subsample数） |
+| E23 | codec_drm_decrypt.cpp | 562 | `GetData(Media::Tag::DRM_CENC_INFO, drmCencVec)` 消费端读取 AVBuffer metadata |
+| E24 | codec_drm_decrypt.cpp | 566-568 | encryptBlocks<=DRM_CRYPT_BYTE_BLOCK校验 + algo==UNENCRYPTED明文直通分支 |
+| E25 | codec_drm_decrypt.cpp | 582-587 | mode==NOT_SET时走DrmGetCencInfo/DrmModifyCencInfo路径 + DRM_TS_SUB_SAMPLE_NUM=2 |
+| E26 | codec_drm_decrypt.cpp | 615-622 | AES-CTR/SM4-CTR(流式解密) vs AES-CBC/SM4-CBC(块解密) 算法分发 |
 
 ---
 
@@ -338,3 +344,4 @@ OH_AVErrCode OH_AVCencInfo_SetAVBuffer(OH_AVCencInfo *cencInfo, OH_AVBuffer *buf
 
 **变更记录**：
 - 2026-06-09T05:53+08:00：S237 注册草案生成（基于本地镜像 `/home/west/av_codec_repo`），20条行号级 evidence，与 S63/S225 CodecDrmDecrypt 区分
+- 2026-06-09T06:25+08:00：S237 增强——E21-E26 新增（codec_drm_decrypt.cpp 消费端证据：DRM块常量/DRM_CENC_INFO读取/UNENCRYPTED明文直通/NOT_SET路径/CTR-CBC算法分发），从20条增强至26条行号级 evidence
