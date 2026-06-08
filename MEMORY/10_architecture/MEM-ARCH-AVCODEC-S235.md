@@ -1,400 +1,137 @@
----
-id: MEM-ARCH-AVCODEC-S235
-title: VideoCaptureFilter — Surface → AVBuffer 桥接过滤器
-type: architecture_fact
-scope: [AVCodec, MediaEngine, Filter, VideoCapture, Surface]
-status: pending_approval
-confidence: high
-summary: >
-  VideoCaptureFilter 是录制管线的视频采集过滤器，桥接 Surface（OHOS 图形表面）
-  与 Filter 管线。它从 Surface 消费原始视频帧（通过 IBufferConsumerListener回调），
-  将 SurfaceBuffer 转换为 AVBuffer 后通过 outputBufferQueueProducer_推送给下游。
-  支持 Pause/Resume 时间戳修正（totalPausedTime_ 累积），支持 EOS通知。
-关联场景: 录制管线 / Camera → Encoder 桥接 / 实时视频采集
-关联: S100(Filter框架) / S112(Surface机制) / S215(AVBuffer)
----
+# MEM-ARCH-AVCODEC-S235: AudioCodecAdapter + AudioCodecWorker 双组件架构
 
-## 1. 架构定位
+## 概述
 
-VideoCaptureFilter位于录制（Recorder）管线的数据源侧，负责：
+**主题**: AudioCodecAdapter + AudioCodecWorker 双组件架构——CodecBase适配器+双TaskThread流水线+AudioBuffersManager双缓冲池
 
-```
-Camera/VirtualCamera
-    │
-    ▼  (Surface Producer → Consumer Surface)
-Surface (OHOS Graphic Buffer)
-    │
-    ▼ ConsumerSurfaceBufferListener::OnBufferAvailable()
-VideoCaptureFilter
-    │
-    ▼ ProcessAndPushOutputBuffer() → outputBufferQueueProducer_->PushBuffer()
-下游 Filter (VideoEncoderFilter)
-```
+**Scope**: AVCodec, AudioCodec, AudioCodecAdapter, AudioCodecWorker, CodecBase, TaskThread, AudioBuffersManager, Pipeline, CodecState, ProcessSendData, ProcessRecieveData
 
-**核心职责**：将 OHOS Surface 的视频帧转换为 Filter 管线中的 AVBuffer，不做编解码。
+**关联场景**: 新需求开发/问题定位/音频编码解码/新人入项
+
+**来源**: 本地镜像 /home/west/av_codec_repo
 
 ---
 
-## 2. 过滤器注册与实例化
+## 架构概览
 
-###2.1 自注册机制
+```
+AudioCodecAdapter (CodecBase子类)
+  ├── state_ (std::atomic<CodecState>)
+  ├── audioCodec (std::shared_ptr<AudioBaseCodec>)  ← 核心编解码引擎
+  ├── worker_ (std::shared_ptr<AudioCodecWorker>)    ← 双线程驱动
+  └── callback_ (std::shared_ptr<AVCodecCallback>)
 
-**E1**: `video_capture_filter.cpp L30-35` — Filter 自注册宏
-
-```cpp
-static AutoRegisterFilter<VideoCaptureFilter> g_registerSurfaceEncoderFilter(
-    "builtin.recorder.videocapture",
-    FilterType::VIDEO_CAPTURE,
-    [](const std::string& name, const FilterType type) {
-        return std::make_shared<VideoCaptureFilter>(name, FilterType::VIDEO_CAPTURE);
-    });
+AudioCodecWorker
+  ├── inputTask_ (TaskThread, "OS_AuCodecIn")  → ProduceInputBuffer()
+  ├── outputTask_ (TaskThread, "OS_AuCodecOut") → ConsumerOutputBuffer()
+  ├── inputBuffer_ (AudioBuffersManager)  ← 输入缓冲池 (8个buffer)
+  ├── outputBuffer_ (AudioBuffersManager) ← 输出缓冲池 (8个buffer)
+  ├── codec_ (AudioBaseCodec)             ← 核心编解码引擎
+  └── inBufIndexQue_ / inBufAvaIndexQue_ ← 队列协调
 ```
 
-注册名称：`"builtin.recorder.videocapture"`，类型：`FilterType::VIDEO_CAPTURE`。
-
-### 2.2 FilterLinkCallback 适配器
-
-**E2**: `video_capture_filter.cpp L37-66` — VideoCaptureFilterLinkCallback弱引用回调桥
-
-```cpp
-class VideoCaptureFilterLinkCallback : public FilterLinkCallback {
-    std::weak_ptr<VideoCaptureFilter> videoCaptureFilter_;
-    void OnLinkedResult(...)  { videoCaptureFilter_.lock()->OnLinkedResult(...); }
-    void OnUnlinkedResult(...) { videoCaptureFilter_.lock()->OnUnlinkedResult(...); }
-    void OnUpdatedResult(...) { videoCaptureFilter_.lock()->OnUpdatedResult(...); }
-};
-```
-
-通过 `weak_ptr` 避免循环引用。
-
-### 2.3 ConsumerSurfaceBufferListener 表面缓冲区监听器
-
-**E3**: `video_capture_filter.cpp L68-80` — IBufferConsumerListener 实现
-
-```cpp
-class ConsumerSurfaceBufferListener : public IBufferConsumerListener {
-    std::weak_ptr<VideoCaptureFilter> videoCaptureFilter_;
-    void OnBufferAvailable() {
-        videoCaptureFilter_.lock()->OnBufferAvailable(); // 触发帧采集
-    }
-};
-```
-
-当 Surface 有可用帧时触发采集流程。
+三层调用链：
+1. **AudioCodecAdapter** (C++ API层) → 处理外部API调用（SetCallback/Configure/Start/Stop/QueueInputBuffer等）
+2. **AudioCodecWorker** (线程调度层) → 双TaskThread驱动input/output流水线
+3. **AudioBaseCodec** (编解码引擎层) → 实际编解码实现（FFmpeg/硬件编解码器）
 
 ---
 
-## 3. Surface 配置与初始化
+## Evidence（行号级证据）
 
-### 3.1 SetInputSurface 外部注入模式
+**E1** (audio_codec_adapter.h L19-55): AudioCodecAdapter类定义——继承CodecBase和NoCopyable，成员包含state_/name_/callback_/audioCodec/worker_，实现了完整的CodecBase生命周期API
 
-**E4**: `video_capture_filter.cpp L111-119` — 外部 Surface 注入 + Listener 注册
+**E2** (audio_codec_adapter.cpp L32-42): 析构函数——释放worker_/callback_/audioCodec，调用mallopt(M_FLUSH_THREAD_CACHE, 0)清理线程缓存资源
 
-```cpp
-Status VideoCaptureFilter::SetInputSurface(sptr<Surface> surface)
-{
-    if (surface == nullptr) return Status::ERROR_UNKNOWN;
-    inputSurface_ = surface;
-    sptr<IBufferConsumerListener> listener = new ConsumerSurfaceBufferListener(shared_from_this());
-    inputSurface_->RegisterConsumerListener(listener); // 注册帧回调
-    return Status::OK;
-}
-```
+**E3** (audio_codec_adapter.cpp L47-53): SetCallback——状态校验（RELEASED/INITIALIZED/INITIALIZING才可设回调），防重复设置
 
-### 3.2 GetInputSurface 内部创建模式
+**E4** (audio_codec_adapter.cpp L325-345): doInit——AudioBaseCodec::make_sharePtr(name_)创建核心编解码引擎，状态从RELEASED→INITIALIZED
 
-**E5**: `video_capture_filter.cpp L121-145` — 创建 Consumer Surface 并返回 Producer
+**E5** (audio_codec_adapter.cpp L347-363): doConfigure——audioCodec->Init(format)初始化codec，mallopt禁用线程缓存优化（内存分配策略），状态INITIALIZED→CONFIGURED
 
-```cpp
-sptr<Surface> VideoCaptureFilter::GetInputSurface()
-{
-    // 1. 创建 Consumer Surface
-    sptr<Surface> consumerSurface = Surface::CreateSurfaceAsConsumer("EncoderSurface");
-    // 2. 设置 DefaultUsage = ENCODE_USAGE（编码用途）
-    GSError err = consumerSurface->SetDefaultUsage(ENCODE_USAGE);
-    // 3. 获取 Producer Surface 并返回给上游（Camera）
-    sptr<IBufferProducer> producer = consumerSurface->GetProducer();
-    sptr<Surface> producerSurface = Surface::CreateSurfaceAsProducer(producer);
-    inputSurface_ = consumerSurface;
-    inputSurface_->RegisterConsumerListener(listener);
-    return producerSurface; // 返回给 Camera
-}
-```
+**E6** (audio_codec_adapter.cpp L368-379): doStart——创建AudioCodecWorker(audioCodec, callback_)，调用worker_->Start()启动双线程，状态STARTING→RUNNING
 
-两种工作模式：外部注入（SetInputSurface）或内部创建（GetInputSurface）。
+**E7** (audio_codec_adapter.cpp L155-184): QueueInputBuffer——输入缓冲入队流程：校验callback_/audioCodec/bufferSize，worker_->GetInputBufferInfo(index)获取buffer，SetUsing()标记占用，PushInputData(index)推入worker
 
----
+**E8** (audio_codec_adapter.cpp L186-201): ReleaseOutputBuffer——输出缓冲释放：worker_->GetOutputBufferInfo(index)获取outBuffer，callback_->OnOutputBufferAvailable回调给客户端
 
-## 4. 生命周期管理
+**E9** (audio_codec_adapter.cpp L383-392): doResume——FLUSHED状态恢复：worker_->Start()重新启动双线程，状态RESUMING→RUNNING
 
-### 4.1 DoPrepare / DoStart / DoPause / DoResume / DoStop
+**E10** (audio_codec_worker.h L30-60): AudioCodecWorker类定义——双TaskThread(inputTask_/outputTask_)+双AudioBuffersManager(inputBuffer_/outputBuffer_)+四队列mutex(inAvaMutex_/inputMutex_/outputMutex_/stateMutex_)+双condition_variable
 
-**E6**: `video_capture_filter.cpp L147-182` — 生命周期方法
+**E11** (audio_codec_worker.cpp L36-43): 构造函数——DEFAULT_BUFFER_COUNT=8，inputTask_创建"OS_AuCodecIn"线程，outputTask_创建"OS_AuCodecOut"线程，inputBuffer_/outputBuffer_各8个buffer，Begin()预填充inBufAvaIndexQue_(0-7)
 
-```cpp
-Status VideoCaptureFilter::DoPrepare()
-{
-    filterCallback_->OnCallback(shared_from_this(),
-        FilterCallBackCommand::NEXT_FILTER_NEEDED, StreamType::STREAMTYPE_ENCODED_VIDEO);
-    return Status::OK;
-}
+**E12** (audio_codec_worker.cpp L52-53): 线程注册——inputTask_->RegisterHandler([this]{ProduceInputBuffer()})注册输入线程处理函数；outputTask_->RegisterHandler([this]{ConsumerOutputBuffer()})注册输出线程处理函数
 
-Status VideoCaptureFilter::DoPause()
-{
-    isStop_ = true;
-    latestPausedTime_ = latestBufferTime_; // 记录暂停时刻
-    return Status::OK;
-}
+**E13** (audio_codec_worker.cpp L232-256): ProduceInputBuffer——输入缓冲生产：当inBufAvaIndexQue_非空时，循环pop索引→GetInputBufferInfo(index)→SetBufferOwned()→callback_->OnInputBufferAvailable(index, buffer)通知客户端；超时1000ms等待
 
-Status VideoCaptureFilter::DoResume()
-{
-    isStop_ = false;
-    refreshTotalPauseTime_ = true; // 下帧时刷新暂停时长
-    return Status::OK;
-}
-```
+**E14** (audio_codec_worker.cpp L261-282): HandInputBuffer——输入处理核心：pop inBufIndexQue_获取索引→GetInputBufferInfo→CheckIsEos检测EOS→codec_->ProcessSendData(inputBuffer)发送数据→ReleaseBuffer→push回inBufAvaIndexQue_完成循环
 
-**E7**: `video_capture_filter.cpp L184-195` — DoStop 重置所有时间状态
+**E15** (audio_codec_worker.cpp L307-355): ConsumerOutputBuffer——输出缓冲消费：当inBufIndexQue_非空时：HandInputBuffer处理输入→outputBuffer_->RequestAvailableIndex获取输出索引→codec_->ProcessRecieveData(outBuffer)接收编码结果→callback_->OnOutputBufferAvailable回调
 
-```cpp
-Status VideoCaptureFilter::DoStop()
-{
-    isStop_ = true;
-    latestBufferTime_ = TIME_NONE;
-    latestPausedTime_ = TIME_NONE;
-    totalPausedTime_ = 0;
-    refreshTotalPauseTime_ = false;
-    return Status::OK;
-}
-```
+**E16** (audio_codec_worker.cpp L374-394): Begin——启动初始化：预填充inBufAvaIndexQue_(0到bufferCount-1)，设置isRunning=true，SetRunning()激活两个buffer池，Start()启动inputTask_和outputTask_，notify_all唤醒条件变量
+
+**E17** (audio_codec_worker.cpp L115-130): Stop——停止流程：Dispose()设置isRunning=false并notify_all，inputTask_->StopAsync()/outputTask_->StopAsync()停止线程，ReleaseAllInBufferQueue/ReleaseAllInBufferAvaQueue清空队列，inputBuffer_->ReleaseAll()/outputBuffer_->ReleaseAll()释放所有buffer
+
+**E18** (audio_codec_worker.cpp L145-173): Pause/Resume——暂停恢复：Pause调用Dispose()并StopAsync线程，Resume重新调用Begin()恢复流水线；Dispose()原子设置isRunning=false并notify input/output条件变量
+
+**E19** (audio_codec_adapter.cpp L163-180): doFlush——Flush流程：状态RUNNING→FLUSHING，调用doFlush()清空缓冲，状态→FLUSHED；Flush时Worker的input/outputTask继续运行但isRunning=false停止生产
+
+**E20** (audio_codec_adapter.cpp L203-226): doRelease——Release流程：RELEASING→RELEASED状态转换，doRelease()释放audioCodec/worker_资源
+
+**E21** (audio_codec_worker.cpp L289-305): ReleaseOutputBuffer——错误处理：ret非OK/END_OF_STREAM时ReleaseOutputBuffer(index, ret)记录错误状态，可能触发OnError回调
+
+**E22** (audio_codec_worker.cpp L77-96): PushInputData——入队入口：PushInputData检查isRunning/callback_/codec_三检查，Dispose()错误处理，stateMutex_锁保护，inBufIndexQue_入队完成生产循环
+
+**E23** (audio_codec_adapter.cpp L214-220): NotifyEos——EOS通知：NotifyEos调用Flush()实现EOS传播，FLUSHED状态后客户端收到EOS回调
+
+**E24** (audio_codec_adapter.cpp L228-239): GetOutputFormat——格式查询：GetOutputFormat查询codec输出格式(format = audioCodec->GetFormat())，若缺少MD_KEY_CODEC_NAME则补充name_，AVCS_ERR_NO_MEMORY空指针保护
 
 ---
 
-## 5. 核心数据流：OnBufferAvailable → AcquireInputBuffer → ProcessAndPushOutputBuffer
+## 关键设计模式
 
-### 5.1 OnBufferAvailable 触发采集
+### 1. 双缓冲队列协调
+- `inBufAvaIndexQue_`: 客户端可用输入缓冲索引队列（初始填充0-7）
+- `inBufIndexQue_`: 已排队待处理输入缓冲索引队列
+- 生产者（ProduceInputBuffer）从inBufAvaIndexQue_取索引回调客户端
+- 消费者（ConsumerOutputBuffer）从inBufIndexQue_取索引调用codec处理
 
-**E8**: `video_capture_filter.cpp L230-244` — 主触发函数
+### 2. TaskThread双线程流水线
+- `OS_AuCodecIn`: 驱动ProduceInputBuffer()，等待inBufAvaIndexQue_非空时通知客户端OnInputBufferAvailable
+- `OS_AuCodecOut`: 驱动ConsumerOutputBuffer()，等待inBufIndexQue_非空时执行codec处理+OnOutputBufferAvailable
 
-```cpp
-void VideoCaptureFilter::OnBufferAvailable()
-{
-    sptr<SurfaceBuffer> inputBuffer;
-    int64_t timestamp;
-    int32_t bufferSize = 0;
-    int32_t isKeyFrame = 0;
+### 3. CodecState状态机
+RELEASED → INITIALIZING → INITIALIZED → CONFIGURED → STARTING → RUNNING → FLUSHED → CONFIGURED
+                    ↑______________|            ↓                              ↓
+                    (doInit失败)     (doStop)    (doFlush)                    (doResume)
 
-    if (!AcquireInputBuffer(inputBuffer, timestamp, bufferSize, isKeyFrame)) return;
-    if (!ProcessAndPushOutputBuffer(inputBuffer, timestamp, bufferSize, isKeyFrame)) return;
-    inputSurface_->ReleaseBuffer(inputBuffer, -1); // 归还 Surface Buffer
-}
-```
-
-### 5.2 AcquireInputBuffer 获取并验证 Surface Buffer
-
-**E9**: `video_capture_filter.cpp L246-268` — Surface AcquireBuffer + 同步等待
-
-```cpp
-bool VideoCaptureFilter::AcquireInputBuffer(sptr<SurfaceBuffer>& buffer, ...)
-{
-    FALSE_RETURN_V_MSG(inputSurface_ != nullptr, false, "inputSurface_ is nullptr");
-
-    sptr<SyncFence> fence;
-    OHOS::Rect damage;
-    GSError ret = inputSurface_->AcquireBuffer(buffer, fence, timestamp, damage);
-    FALSE_RETURN_V_MSG(ret == GSERROR_OK && buffer != nullptr && fence != nullptr, false, "AcquireBuffer fail");
-
-    constexpr uint32_t waitForEver = -1;
-    (void)fence->Wait(waitForEver); // 等待帧就绪（同步等待）
-
-    if (isStop_) { // 暂停状态则放弃此帧
-        inputSurface_->ReleaseBuffer(buffer, -1);
-        return false;
-    }
-
-    // 从 SurfaceBuffer 的 ExtraData 提取关键信息
-    auto extraData = buffer->GetExtraData();
-    extraData->ExtraGet("timeStamp", timestamp);
-    extraData->ExtraGet("dataSize", bufferSize);
-    extraData->ExtraGet("isKeyFrame", isKeyFrame);
-    return true;
-}
-```
-
-关键：从 SurfaceBuffer 的 ExtraData 中提取 `timeStamp`/`dataSize`/`isKeyFrame`。
-
-### 5.3 ProcessAndPushOutputBuffer 转换为 AVBuffer 并推送
-
-**E10**: `video_capture_filter.cpp L270-295` — RequestBuffer + Write + Push 三步曲
-
-```cpp
-bool VideoCaptureFilter::ProcessAndPushOutputBuffer(
-    sptr<SurfaceBuffer>& buffer, int64_t timestamp, int32_t bufferSize, int32_t isKeyFrame)
-{
-    std::shared_ptr<AVBuffer> emptyOutputBuffer;
-    AVBufferConfig avBufferConfig;
-    avBufferConfig.size = bufferSize;
-    avBufferConfig.memoryType = MemoryType::SHARED_MEMORY;
-    avBufferConfig.memoryFlag = MemoryFlag::MEMORY_READ_WRITE;
-
-    Status status = outputBufferQueueProducer_->RequestBuffer(emptyOutputBuffer, ...);
-    FALSE_RETURN_V_MSG(status == Status::OK && emptyOutputBuffer != nullptr, false, "RequestBuffer fail");
-
-    emptyOutputBuffer->flag_ = isKeyFrame != 0
-        ? static_cast<uint32_t>(Plugins::AVBufferFlag::SYNC_FRAME) : 0;
-    bufferMem->Write((const uint8_t *)buffer->GetVirAddr(), bufferSize, 0); // 内存拷贝
-    UpdateBufferConfig(emptyOutputBuffer, timestamp);
-
-    status = outputBufferQueueProducer_->PushBuffer(emptyOutputBuffer, true);
-    FALSE_RETURN_V_MSG(status == Status::OK, false, "PushBuffer fail");
-    return true;
-}
-```
-
-注意：帧数据通过 `GetVirAddr()` 直接读取 SurfaceBuffer 虚拟地址，零拷贝写入 AVBuffer。
+### 4. 生命周期资源管理
+- 析构函数释放所有资源（worker/callback/audioCodec）
+- mallopt(M_FLUSH_THREAD_CACHE/M_DELAYED_FREE)禁用内存分配优化
+- AudioCodecWorker析构调用Dispose+ResetTask+ReleaseAllBuffer
 
 ---
 
-## 6. PTS 时间戳修正机制
+## 关联记忆
 
-### 6.1 UpdateBufferConfig 时间戳计算
-
-**E11**: `video_capture_filter.cpp L297-315` — PTS = (timestamp - startBufferTime_ - totalPausedTime_) / 1000
-
-```cpp
-void VideoCaptureFilter::UpdateBufferConfig(std::shared_ptr<AVBuffer> buffer, int64_t timestamp)
-{
-    if (startBufferTime_ == TIME_NONE) {
-        startBufferTime_ = timestamp;
-        buffer->flag_ = (uint32_t)Plugins::AVBufferFlag::SYNC_FRAME // 首帧标记 SYNC_FRAME
-                     | (uint32_t)Plugins::AVBufferFlag::CODEC_DATA; // 和 CODEC_DATA
-    }
-    latestBufferTime_ = timestamp;
-
-    // 刷新 totalPausedTime_（只在 Resume后的第一帧执行）
-    if (refreshTotalPauseTime_) {
-        if (latestPausedTime_ != TIME_NONE && latestBufferTime_ > latestPausedTime_) {
-            totalPausedTime_ += latestBufferTime_ - latestPausedTime_; // 累加本次暂停时长
-        }
-        refreshTotalPauseTime_ = false;
-    }
-
-    constexpr int32_t NS_PER_US = 1000;
-    buffer->pts_ = timestamp - startBufferTime_ - totalPausedTime_;
-    buffer->pts_ = buffer->pts_ / NS_PER_US; // 转换为微秒
-}
-```
-
-### 6.2 Pause/Resume 暂停时长修正语义
-
-```
-首帧 timestamp=0     startBufferTime_=0
-第N帧 timestamp=T pts = (T-0-0)/1000
-       ↓ DoPause
-       isStop_=true, latestPausedTime_=T
-       ↓ DoResume
-       refreshTotalPauseTime_=true
-第N+1帧 timestamp=T2
-       totalPausedTime_ += (T2 - T)  // 累加本次暂停
-       pts = (T2-0-totalPausedTime_)/1000  // 扣除暂停，跳过中间帧
-       refreshTotalPauseTime_=false
-```
+| 关联ID | 关系 |
+|--------|------|
+| S62 | AudioBuffersManager——Worker内的inputBuffer_/outputBuffer_都是AudioBuffersManager实例 |
+| S35 | AudioDecoderFilter——Filter层适配器，AudioCodecAdapter是Engine层适配器 |
+| S18 | AudioCodecServer——SA级服务，AudioCodecAdapter是Engine层Codec实例 |
+| S95 | AudioCodec C API——Native层API通过AudioCodecAdapter分发到底层引擎 |
+| S125 | FFmpeg音频编解码器——AudioBaseCodec的具体实现之一 |
 
 ---
 
-## 7. LinkNext 管线连接
-
-**E12**: `video_capture_filter.cpp L206-215` — LinkNext 注册下游 Filter 并触发 OnLinked
-
-```cpp
-Status VideoCaptureFilter::LinkNext(const std::shared_ptr<Filter> &nextFilter, StreamType outType)
-{
-    nextFilter_ = nextFilter;
-    nextFiltersMap_[outType].push_back(nextFilter_);
-    std::shared_ptr<FilterLinkCallback> filterLinkCallback =
-        std::make_shared<VideoCaptureFilterLinkCallback>(shared_from_this());
-    nextFilter->OnLinked(outType, configureParameter_, filterLinkCallback);
-    return Status::OK;
-}
-```
-
-LinkNext 时传入 configureParameter_（编码参数），下游 Filter 通过 OnLinked 获取。
-
----
-
-## 8. OnLinkedResult 下游 BufferQueue 回调
-
-**E13**: `video_capture_filter.cpp L222-229` — 接收 outputBufferQueueProducer_
-
-```cpp
-void VideoCaptureFilter::OnLinkedResult(
-    const sptr<AVBufferQueueProducer> &outputBufferQueue,
-    std::shared_ptr<Meta> &meta)
-{
-    outputBufferQueueProducer_ = outputBufferQueue;
-}
-```
-
-下游 VideoEncoderFilter 在 OnLinked 时将自己的 AVBufferQueueProducer 回调给 VideoCaptureFilter。
-
----
-
-## 9. 关键数据流总图
+## 附录：关键文件路径
 
 ```
-Camera (Producer Side)
-   │
-   ▼ Surface::CreateSurfaceAsProducer(producer)
-Surface Producer ──────────────────────────► Surface Consumer (VideoCaptureFilter)
-                                                    │
-  ┌────────────────────────────────────────────────┘
-   ▼ ConsumerSurfaceBufferListener::OnBufferAvailable()
-   │
-   ▼ AcquireInputBuffer()
-   │    inputSurface_->AcquireBuffer() [E9]
-   │    fence->Wait(waitForEver) [E9]
-   │    extraData->ExtraGet("timeStamp"/"dataSize"/"isKeyFrame") [E9]
-   │
-   ▼ ProcessAndPushOutputBuffer()
-   │    outputBufferQueueProducer_->RequestBuffer()  [E10]
-   │    bufferMem->Write(GetVirAddr(), bufferSize)   [E10]
-   │    UpdateBufferConfig(pts计算)                  [E11]
-   │    outputBufferQueueProducer_->PushBuffer()     [E10]
-   │
-   ▼ inputSurface_->ReleaseBuffer() [E8]
-        │
-        ▼
-   VideoEncoderFilter (下游)
+services/engine/codec/audio/audio_codec_adapter.cpp   (467行)
+services/engine/codec/audio/audio_codec_adapter.h      → include/audio/audio_codec_adapter.h
+services/engine/codec/audio/audio_codec_worker.cpp     (429行)
+services/engine/codec/include/audio/audio_codec_worker.h
+services/engine/codec/include/audio/audio_base_codec.h
+services/engine/codec/audio/audio_buffers_manager.cpp  (S62覆盖)
 ```
-
----
-
-## 10. 与相关记忆条目关联
-
-| 关联 | 说明 |
-|------|------|
-| S100(Filter框架) | Filter 基类、AutoRegisterFilter 自注册机制 |
-| S112(Surface机制) | OHOS Surface / SurfaceBuffer / Producer-Consumer 模型 |
-| S215(AVBuffer) | AVBuffer / AVBufferConfig / MemoryType / Flag 定义 |
-| S220(VideoEncoderFilter) | 下游编码器，消费 VideoCaptureFilter 输出的 AVBuffer |
-| S113(BufferQueue) | AVBufferQueueProducer / RequestBuffer / PushBuffer 机制 |
-
----
-
-## 11. Evidence 汇总
-
-| # | 文件 | 行号 | 内容 |
-|---|------|------|------|
-| E1 | video_capture_filter.cpp | 30-35 | AutoRegisterFilter 自注册宏 |
-| E2 | video_capture_filter.cpp | 37-66 | VideoCaptureFilterLinkCallback 弱引用桥 |
-| E3 | video_capture_filter.cpp | 68-80 | ConsumerSurfaceBufferListener 实现 |
-| E4 | video_capture_filter.cpp | 111-119 | SetInputSurface 外部注入模式 |
-| E5 | video_capture_filter.cpp | 121-145 | GetInputSurface 内部创建 Consumer Surface |
-| E6 | video_capture_filter.cpp | 147-182 | DoPrepare/DoStart/DoPause/DoResume生命周期 |
-| E7 | video_capture_filter.cpp | 184-195 | DoStop 重置时间状态 |
-| E8 | video_capture_filter.cpp | 230-244 | OnBufferAvailable触发采集主流程 |
-| E9 | video_capture_filter.cpp | 246-268 | AcquireInputBuffer Surface获取+同步等待+ExtraData提取 |
-| E10 | video_capture_filter.cpp | 270-295 | ProcessAndPushOutputBuffer Request+Write+Push |
-| E11 | video_capture_filter.cpp | 297-315 | UpdateBufferConfig PTS修正+暂停时长累积 |
-| E12 | video_capture_filter.cpp | 206-215 | LinkNext 下游 Filter 连接 |
-| E13 | video_capture_filter.cpp | 222-229 | OnLinkedResult 接收 outputBufferQueueProducer_ |
