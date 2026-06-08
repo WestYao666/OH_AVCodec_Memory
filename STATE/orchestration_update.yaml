@@ -17,3 +17,13 @@ message: |
   source_lines: 1111
   commit: local draft
   note: "S201 backlog已更新为submitted状态，草案已生成，主session可发送审批卡片给耀耀"
+---
+timestamp: "2026-06-09T07:20:00+08:00"
+  agent: builder-agent
+  action: draft_completed
+  mem_id: "MEM-ARCH-AVCODEC-S237"
+  status: "pending_approval"
+  evidence_count: 35
+  draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S237.md"
+  commit: "1f1085c"
+  summary: "S237 pending_approval：AVCodec Native CENC Info API（OH_AVCencInfo七函数+六算法+35条行号级evidence），E27-E35本地镜像源码增强，状态draft→pending_approval"
