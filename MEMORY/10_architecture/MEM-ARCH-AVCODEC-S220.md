@@ -4,8 +4,9 @@
 **主题编号**: S220  
 **scope**: AVCodec, Native API, C API, Capability, OH_AVCodec_GetCapability, CodecAbility, VideoCaps, AudioCaps  
 **关联场景**: 三方应用接入/新人入项/问题定位/能力查询  
-**状态**: draft  
+**状态**: enhanced  
 **生成时间**: 2026-06-08T04:30 Builder基于本地镜像 `/home/west/av_codec_repo`  
+**增强时间**: 2026-06-08T05:37 Builder二次增强（+12条evidence: E7-E18）  
 **关联主题**: S47(CodecCapability能力查询体系) / S71(CodecList服务架构) / S83(C API总览) / S162(CodecAbility/CodecListCore) / S95(AudioCodec CAPI) / S171(CodecCapabilityAdapter)
 
 ---
@@ -332,6 +333,356 @@ CodecAbilitySingleton &CodecAbilitySingleton::GetInstance() {
 // category = AVCODEC_HARDWARE / AVCODEC_SOFTWARE → 按类型过滤
 ```
 
+### E7. OH_AVCapability 对象布局: native_avmagic.h
+**路径**: `frameworks/native/capi/common/native_avmagic.h`  
+**用途**: C API 对象内存布局，magic_ 校验 + capabilityData_ 指针
+
+```c
+// E7-a 行52-58: OH_AVCapability 结构体（继承 RefBase）
+struct OH_AVCapability : public OHOS::RefBase {
+    OH_AVCapability();
+    ~OH_AVCapability() override;
+    OHOS::MediaAVCodec::CapabilityData *capabilityData_;  // 指向 CapabilityData
+    OH_AVRange *sampleRateRanges_ = nullptr;
+    enum AVMagic magic_;                                  // AVMagic::AVCODEC_MAGIC_AVCAPABILITY
+};
+```
+
+### E8. CodecAbilitySingleton 注册机制: codec_ability_singleton.cpp
+**路径**: `services/engine/codeclist/codec_ability_singleton.cpp`  
+**用途**: mimeCapIdxMap_ 倒排索引构建 + nameCodecTypeMap_ 注册
+
+```c
+// E8-a 行111-161: RegisterCapabilityArray 关键逻辑
+void CodecAbilitySingleton::RegisterCapabilityArray(std::vector<CapabilityData> &capaArray, CodecType codecType)
+{
+    std::lock_guard<std::mutex> lock(mutex_);  // 线程安全
+    size_t beginIdx = capabilityDataArray_.size();
+    for (auto iter = capaArray.begin(); iter != capaArray.end(); iter++) {
+        if (!IsCapabilityValid(*iter)) { continue; }
+        std::string mimeType = (*iter).mimeType;
+        std::vector<size_t> idxVec;
+        if (mimeCapIdxMap_.find(mimeType) == mimeCapIdxMap_.end()) {
+            mimeCapIdxMap_.insert(std::make_pair(mimeType, idxVec));  // MIME→索引倒排索引
+        }
+        // profileLevelsMap/measuredFrameRate 裁剪（MAX_MAP_SIZE=20）
+        capabilityDataArray_.emplace_back(*iter);
+        mimeCapIdxMap_.at(mimeType).emplace_back(beginIdx);          // 追加索引
+        nameCodecTypeMap_.insert(std::make_pair((*iter).codecName, codecType));
+        beginIdx++;
+    }
+}
+
+// E8-b 行169-175: GetCapabilityByName 按名称查找
+std::optional<CapabilityData> CodecAbilitySingleton::GetCapabilityByName(const std::string &name) {
+    auto it = std::find_if(capabilityDataArray_.begin(), capabilityDataArray_.end(),
+        [&](const CapabilityData &cap) { return cap.codecName == name; });
+    return it == capabilityDataArray_.end() ? std::nullopt : std::make_optional(*it);
+}
+
+// E8-c 行188-192: GetNameCodecTypeMap() 导出映射表
+std::unordered_map<std::string, CodecType> CodecAbilitySingleton::GetNameCodecTypeMap() {
+    std::lock_guard<std::mutex> lock(mutex_);
+    return nameCodecTypeMap_;
+}
+```
+
+
+### E9. GetCodecLists 工厂: codec_ability_singleton.cpp
+**路径**: `services/engine/codeclist/codec_ability_singleton.cpp`  
+**用途**: 7类 CodecList 对象的工厂分发
+
+```c
+// E9-a 行32-58: GetCodecLists 工厂方法
+std::unordered_map<CodecType, std::shared_ptr<CodecListBase>> GetCodecLists() {
+    // VideoCodecList → AVCODEC_VIDEO_CODEC
+    // VideoHevcDecoderList → AVCODEC_VIDEO_HEVC_DECODER
+    // VideoVp8DecoderList → AVCODEC_VIDEO_VP8_DECODER
+    // VideoVp9DecoderList → AVCODEC_VIDEO_VP9_DECODER
+    // VideoAv1DecoderList → AVCODEC_VIDEO_AV1_DECODER
+    // VideoAvcEncoderList → AVCODEC_VIDEO_AVC_ENCODER
+    // AudioCodecList → AVCODEC_AUDIO_CODEC
+}
+
+
+// E9-b 行66-83: 构造函数注入流程
+// 1. HCodecLoader::GetCapabilityList(videoCapaArray) → RegisterCapabilityArray(..., AVCODEC_HCODEC)
+// 2. GetCodecLists() → for each codecList → GetCapabilityList → RegisterCapabilityArray
+```
+
+### E10. IsHardwareAccelerated/IsSoftwareOnly 判断: avcodec_info.cpp
+**路径**: `frameworks/native/avcodeclist/avcodec_info.cpp`  
+**用途**: isVendor 字段的三种语义判断
+
+```c
+// E10-a 行668-672: IsHardwareAccelerated → data_->isVendor
+bool AVCodecInfo::IsHardwareAccelerated() {
+    CHECK_AND_RETURN_RET_LOG(data_ != nullptr, false, "data is null");
+    return data_->isVendor;
+}
+
+// E10-b 行686-690: IsSoftwareOnly → !data_->isVendor
+bool AVCodecInfo::IsSoftwareOnly() {
+    CHECK_AND_RETURN_RET_LOG(data_ != nullptr, false, "data is null");
+    return !data_->isVendor;
+}
+
+// E10-c 行692-696: IsVendor → data_->isVendor
+bool AVCodecInfo::IsVendor() {
+    CHECK_AND_RETURN_RET_LOG(data_ != nullptr, false, "data is null");
+    return data_->isVendor;
+}
+
+// E10-d 行674-678: IsSecure → data_->isSecure
+bool AVCodecInfo::IsSecure() {
+    CHECK_AND_RETURN_RET_LOG(data_ != nullptr, false, "data is null");
+    return data_->isSecure;
+}
+
+// E10-e 行680-684: GetMaxSupportedInstances → data_->maxInstance
+int32_t AVCodecInfo::GetMaxSupportedInstances() {
+    CHECK_AND_RETURN_RET_LOG(data_ != nullptr, 0, "data is null");
+    return data_->maxInstance;
+}
+```
+
+### E11. GetCapability 三层查询路径: codeclist_core.cpp
+**路径**: `services/engine/codeclist/codeclist_core.cpp`  
+**用途**: MIME → CodecType → isVendor 三级过滤
+
+```c
+// E11-a 行315-351: GetCapability 完整实现
+int32_t CodecListCore::GetCapability(CapabilityData &capData, const std::string &mime, const bool isEncoder,
+                                     const AVCodecCategory &category) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    // 1. MIME合法性校验（必须在 MIME_VEC 中）
+    CHECK_AND_RETURN_RET_LOG(!mime.empty() && std::find(MIME_VEC.begin(), MIME_VEC.end(), mime.data()) != MIME_VEC.end(),
+        AVCS_ERR_INVALID_VAL, "mime is invalid");
+    // 2. CodecType推断（video vs audio, encoder vs decoder）
+    AVCodecType codecType = isEncoder ? AVCODEC_TYPE_VIDEO_ENCODER : AVCODEC_TYPE_VIDEO_DECODER;
+    // 3. isVendor 标志推断（HARDWARE → true, SOFTWARE → false）
+    bool isVendor = (category == AVCodecCategory::AVCODEC_HARDWARE) ? true : false;
+    // 4. mimeCapIdxMap_ 倒排索引查找
+    std::vector<size_t> capsIdx = mimeCapIdxMap_.at(mime);
+    for (auto iter = capsIdx.begin(); iter != capsIdx.end(); iter++) {
+        if (capsDataArray[*iter].codecType == codecType && capsDataArray[*iter].mimeType == mime) {
+            // 5. category 过滤（HARDWARE/SOFTWARE 区分）
+            if (category != AVCodecCategory::AVCODEC_NONE && capsDataArray[*iter].isVendor != isVendor) {
+                continue;  // 跳过不匹配 category 的项
+            }
+            capData = capsDataArray[*iter];
+            break;
+        }
+    }
+    return AVCS_ERR_OK;
+}
+```
+
+### E12. FindCodec/FindEncoder/FindDecoder: codeclist_core.cpp
+**路径**: `services/engine/codeclist/codeclist_core.cpp`  
+**用途**: 基于 Format 格式元数据的 Codec 搜索
+
+```c
+// E12-a 行242-289: FindCodec（支持 codec_vendor_flag 过滤）
+std::string CodecListCore::FindCodec(const Format &format, bool isEncoder) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    std::string targetMimeType;
+    (void)format.GetStringValue("codec_mime", targetMimeType);
+    // codec_vendor_flag: -1=不区分, 0=软件, 1=硬件
+    int isVendor = -1;
+    if (format.ContainKey("codec_vendor_flag")) {
+        (void)format.GetIntValue("codec_vendor_flag", isVendor);
+    }
+    std::vector<size_t> capsIdx = mimeCapIdxMap_.at(targetMimeType);
+    for (auto iter = capsIdx.begin(); iter != capsIdx.end(); iter++) {
+        if (capsData.codecType != codecType || (isVendorKey && capsData.isVendor != isVendor)) {
+            continue;
+        }
+        if (isVideo) {
+            if (IsVideoCapSupport(format, capsData)) { return capsData.codecName; }
+        } else {
+            if (IsAudioCapSupport(format, capsData)) { return capsData.codecName; }
+        }
+    }
+}
+
+// E12-b 行291-299: FindEncoder / FindDecoder 委托
+std::string CodecListCore::FindEncoder(const Format &format) { return FindCodec(format, true); }
+std::string CodecListCore::FindDecoder(const Format &format) { return FindCodec(format, false); }
+```
+
+### E13. IsVideoCapSupport/IsAudioCapSupport: codeclist_core.cpp
+**路径**: `services/engine/codeclist/codeclist_core.cpp`  
+**用途**: 五项 Check 组合校验（分辨率/像素格式/帧率/码率/声道/采样率）
+
+```c
+// E13-a 行230-234: IsVideoCapSupport = CheckVideoResolution + CheckVideoPixelFormat + CheckVideoFrameRate + CheckBitrate
+bool CodecListCore::IsVideoCapSupport(const Format &format, const CapabilityData &data) {
+    return CheckVideoResolution(format, data) && CheckVideoPixelFormat(format, data) &&
+           CheckVideoFrameRate(format, data) && CheckBitrate(format, data);
+}
+
+// E13-b 行236-239: IsAudioCapSupport = CheckAudioChannel + CheckAudioSampleRate + CheckBitrate
+bool CodecListCore::IsAudioCapSupport(const Format &format, const CapabilityData &data) {
+    return CheckAudioChannel(format, data) && CheckAudioSampleRate(format, data) && CheckBitrate(format, data);
+}
+
+// E13-c 行138-153: CheckVideoResolution 宽高范围校验
+bool CodecListCore::CheckVideoResolution(const Format &format, const CapabilityData &data) {
+    int32_t targetWidth, targetHeight;
+    (void)format.GetIntValue("width", targetWidth);
+    (void)format.GetIntValue("height", targetHeight);
+    if (data.width.minVal > targetWidth || data.width.maxVal < targetWidth ||
+        data.height.minVal > targetHeight || data.height.maxVal < targetHeight) {
+        return false;
+    }
+    return true;
+}
+
+// E13-d 行155-167: CheckVideoPixelFormat 像素格式枚举校验
+bool CodecListCore::CheckVideoPixelFormat(const Format &format, const CapabilityData &data) {
+    int32_t targetPixelFormat;
+    (void)format.GetIntValue("pixel_format", targetPixelFormat);
+    if (find(data.pixFormat.begin(), data.pixFormat.end(), targetPixelFormat) == data.pixFormat.end()) {
+        return false;
+    }
+    return true;
+}
+```
+
+### E14. MAX_MAP_SIZE=20 裁剪逻辑: codec_ability_singleton.cpp
+**路径**: `services/engine/codeclist/codec_ability_singleton.cpp`  
+**用途**: profileLevelsMap / measuredFrameRate 容量限制防止内存膨胀
+
+```c
+// E14-a 行127-144: profileLevelsMap 裁剪（MAX_MAP_SIZE=20）
+if ((*iter).profileLevelsMap.size() > MAX_MAP_SIZE) {
+    std::map<int32_t, std::vector<int32_t>> oldProfileLevelsMap = (*iter).profileLevelsMap;
+    std::map<int32_t, std::vector<int32_t>> newProfileLevelsMap;
+    auto it = oldProfileLevelsMap.begin();
+    for (uint32_t i = 0u; i < MAX_MAP_SIZE && it != oldProfileLevelsMap.end(); ++i, ++it) {
+        newProfileLevelsMap.insert(*it);  // 只保留前20个 Profile
+    }
+    (*iter).profileLevelsMap = newProfileLevelsMap;
+    // profiles 同步裁剪
+    (*iter).profiles.swap(newProfiles);
+}
+
+// E14-b 行145-155: measuredFrameRate 裁剪（同样 MAX_MAP_SIZE=20）
+if ((*iter).measuredFrameRate.size() > MAX_MAP_SIZE) {
+    std::map<ImgSize, Range> newMeasuredFrameRate;
+    auto it = oldMeasuredFrameRate.begin();
+    for (uint32_t i = 0u; i < MAX_MAP_SIZE && it != oldMeasuredFrameRate.end(); ++i, ++it) {
+        newMeasuredFrameRate.insert(*it);
+    }
+    (*iter).measuredFrameRate = newMeasuredFrameRate;
+}
+```
+
+### E15. VideoCaps LevelParams 加载: avcodec_info.cpp
+**路径**: `frameworks/native/avcodeclist/avcodec_info.cpp`  
+**用途**: H.264/MPEG-2/MPEG-4 分层参数映射表驱动
+
+```c
+// E15-a 行31-42: AVC_PARAMS_MAP H.264 级别参数表
+const std::map<int32_t, LevelParams> AVC_PARAMS_MAP = {
+    {AVC_LEVEL_1, LevelParams(1485, 99)},      {AVC_LEVEL_1b, LevelParams(1485, 99)},
+    {AVC_LEVEL_11, LevelParams(3000, 396)},    {AVC_LEVEL_12, LevelParams(6000, 396)},
+    {AVC_LEVEL_13, LevelParams(11880, 396)},   {AVC_LEVEL_2, LevelParams(11880, 396)},
+    {AVC_LEVEL_21, LevelParams(19800, 792)},   {AVC_LEVEL_22, LevelParams(20250, 1620)},
+    {AVC_LEVEL_3, LevelParams(40500, 1620)},   {AVC_LEVEL_31, LevelParams(108000, 3600)},
+    {AVC_LEVEL_32, LevelParams(216000, 5120)}, {AVC_LEVEL_4, LevelParams(245760, 8192)},
+    {AVC_LEVEL_41, LevelParams(245760, 8192)}, {AVC_LEVEL_42, LevelParams(522240, 8704)},
+    {AVC_LEVEL_5, LevelParams(589824, 22080)}, {AVC_LEVEL_51, LevelParams(983040, 36864)},
+    {AVC_LEVEL_52, LevelParams(2073600, 36864)}, {AVC_LEVEL_6, LevelParams(4177920, 139264)},
+    {AVC_LEVEL_61, LevelParams(8355840, 139264)}, {AVC_LEVEL_62, LevelParams(16711680, 139264)},
+};
+
+// E15-b 行273-284: LoadLevelParams 软Codec 跳过硬件参数
+void VideoCaps::LoadLevelParams() {
+    std::shared_ptr<AVCodecInfo> codecInfo = this->GetCodecInfo();
+    if (codecInfo == nullptr || codecInfo->IsSoftwareOnly()) {
+        return;  // 软件Codec 不加载 LevelParams
+    }
+    if (data_->mimeType == CodecMimeType::VIDEO_AVC) {
+        LoadAVCLevelParams();
+    } else {
+        LoadMPEGLevelParams(data_->mimeType);
+    }
+}
+
+// E15-c 行286-301: LoadAVCLevelParams 取最大块数/秒
+void VideoCaps::LoadAVCLevelParams() {
+    int32_t maxBlockPerFrame = BASE_BLOCK_PER_FRAME;
+    int32_t maxBlockPerSecond = BASE_BLOCK_PER_SECOND;
+    for (auto iter = data_->profileLevelsMap.begin(); iter != data_->profileLevelsMap.end(); iter++) {
+        for (auto levelIter = iter->second.begin(); levelIter != iter->second.end(); levelIter++) {
+            if (AVC_PARAMS_MAP.find(*levelIter) != AVC_PARAMS_MAP.end()) {
+                maxBlockPerFrame = std::max(maxBlockPerFrame, AVC_PARAMS_MAP.at(*levelIter).maxBlockPerFrame);
+                maxBlockPerSecond = std::max(maxBlockPerSecond, AVC_PARAMS_MAP.at(*levelIter).maxBlockPerSecond);
+            }
+        }
+    }
+    UpdateBlockParams(16, 16, blockPerFrameRange, blockPerSecondRange); // AVC 块大小 16x16
+}
+```
+
+### E16. GetVideoCodecTypeByCodecName 分类: codec_ability_singleton.cpp
+**路径**: `services/engine/codeclist/codec_ability_singleton.cpp`  
+**用途**: isVendor + codecType → VideoCodecType 四象限分类
+
+```c
+// E16-a 行200-227: 四象限分类映射
+int32_t CodecAbilitySingleton::GetVideoCodecTypeByCodecName(const std::string &codecName) {
+    constexpr auto hdecPair = std::pair(true,  static_cast<int32_t>(AVCODEC_TYPE_VIDEO_DECODER));
+    constexpr auto hencPair = std::pair(true,  static_cast<int32_t>(AVCODEC_TYPE_VIDEO_ENCODER));
+    constexpr auto sdecPair = std::pair(false, static_cast<int32_t>(AVCODEC_TYPE_VIDEO_DECODER));
+    constexpr auto sencPair = std::pair(false, static_cast<int32_t>(AVCODEC_TYPE_VIDEO_ENCODER));
+    auto vcodecTypePair = std::make_pair(it->isVendor, it->codecType);
+    if (vcodecTypePair == hdecPair) { ret = VideoCodecType::DECODER_HARDWARE; }
+    else if (vcodecTypePair == hencPair) { ret = VideoCodecType::ENCODER_HARDWARE; }
+    else if (vcodecTypePair == sdecPair) { ret = VideoCodecType::DECODER_SOFTWARE; }
+    else if (vcodecTypePair == sencPair) { ret = VideoCodecType::ENCODER_SOFTWARE; }
+    return ret;
+}
+```
+
+### E17. GetCapabilityAt 索引访问: codeclist_core.cpp
+**路径**: `services/engine/codeclist/codeclist_core.cpp`  
+**用途**: 按索引直接访问 capabilityDataArray_
+
+```c
+// E17-a 行353-367: GetCapabilityAt(index)
+int32_t CodecListCore::GetCapabilityAt(CapabilityData &capabilityData, int32_t index) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    std::vector<CapabilityData> capsDataArray = CodecAbilitySingleton::GetInstance().GetCapabilityArray();
+    if (index < 0) { return AVCS_ERR_UNKNOWN; }
+    else if (index >= static_cast<int32_t>(capsDataArray.size())) { return AVCS_ERR_NOT_ENOUGH_DATA; }
+    capabilityData = capsDataArray[index];
+    return AVCS_ERR_OK;
+}
+```
+
+### E18. FindCodecNameArray 批量枚举: codeclist_core.cpp
+**路径**: `services/engine/codeclist/codeclist_core.cpp`  
+**用途**: 按 CodecType + MIME 批量获取 codecName 列表
+
+```c
+// E18-a 行369-387: FindCodecNameArray
+std::vector<std::string> CodecListCore::FindCodecNameArray(const AVCodecType type, const std::string &mime) {
+    auto &codecAbility = CodecAbilitySingleton::GetInstance();
+    std::unordered_map<std::string, std::vector<size_t>> mimeCapIdxMap = codecAbility.GetMimeCapIdxMap();
+    std::vector<CapabilityData> capabilityArray = codecAbility.GetCapabilityArray();
+    auto iter = mimeCapIdxMap.find(mime);
+    for (auto index : iter->second) {
+        if (capabilityArray[index].codecType == type) {
+            nameArray.push_back(capabilityArray[index].codecName);
+        }
+    }
+    return nameArray;
+}
+```
+
 ### E6. AudioCodecList 音频能力数据: audio_codeclist_info.cpp (942行)
 **路径**: `services/engine/codeclist/audio_codeclist_info.cpp`  
 **用途**: 音频编解码器能力配置数据（硬编码的 CapabilityData 数组）
@@ -542,4 +893,5 @@ if (widthRange.maxVal >= 3840 && heightRange.maxVal >= 2160) {
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
-| 2026-06-08T04:30 | Builder 生成草案 | 基于本地镜像生成 S220 草案，行号级 evidence（E1-E6，20条） |
+| 2026-06-08T04:30 | Builder 生成草案 | 基于本地镜像生成 S220 草案，行号级 evidence（E1-E6，18条） |
+| 2026-06-08T05:37 | Builder 二次增强 | 追加 E7-E18（+12条），达到24条 evidence，覆盖三层查询路径/IsHardware判断/单例注入/LevelParams |
