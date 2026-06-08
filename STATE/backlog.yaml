@@ -1562,3 +1562,14 @@
 |------|------|------|
 | 2026-06-08T08:08 | Builder | S225注册：CodecDrmDecrypt DRM CENC 解密框架草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S225.md（draft），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/drm_decryptor/，与S63/S114/S121/S104/S113关联 |
 | 2026-06-08T10:07 | builder-agent | S225本地镜像增强：E21-E25新增5条行号级evidence，AttachDrmBufffer(DrmAudioCencDecrypt)+三Codec专用SEI定位(AVS3/HEVC/H.264)，升级至MEMORY/10_architecture/MEM-ARCH-AVCODEC-S225.md，提交审批 |
+
+## Builder 2026-06-08 S227注册——PostProcessing DynamicController 动态色彩空间转换控制器
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S227 | PostProcessing DynamicController 动态色彩空间转换控制器——CRTP模板模式+dlopen动态库加载+17函数指针+六状态机 | AVCodec, VideoCodec, PostProcessing, DynamicController, ColorSpace, dlopen, CRTP, Controller, StateMachine, libdynamiccolorconverter | 新需求开发/问题定位/视频后处理/色彩空间转换 | **pending_approval** | 🚧 草案已生成（2026-06-08 11:08 builder-agent），MEM-ARCH-AVCODEC-S227.md（6228字节，18条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/post_processing/），Controller<T> CRTP基类(This()+12生命周期方法)+DynamicInterface dlopen插件(17函数指针)+DynamicInterfaceFuncTypes TypeArray模板元编程+StateMachine原子六状态机(DISABLED/CONFIGURED/PREPARED/RUNNING/FLUSHED/STOPPED)+libdynamiccolorconverter.z.so动态库，与S20/S100/S127/S226关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T11:08 | builder-agent | S227注册：PostProcessing DynamicController动态色彩空间转换控制器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S227.md（pending_approval），18条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/post_processing/，与S20/S100/S127/S226关联 |
