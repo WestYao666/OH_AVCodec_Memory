@@ -1647,3 +1647,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T19:37 | Builder | S234注册：HLS M3U8 Tag Parsing Framework草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S234.md（pending_approval），17条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/hls/，与S37/S86/S187/S138/S153/S210/S195关联 |
+
+## Builder 2026-06-08 S235注册——AudioCodecAdapter + AudioCodecWorker 双组件架构
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S235 | AudioCodecAdapter + AudioCodecWorker 双组件架构——CodecBase适配器+双TaskThread流水线+AudioBuffersManager双缓冲池 | AVCodec, AudioCodec, AudioCodecAdapter, AudioCodecWorker, CodecBase, TaskThread, AudioBuffersManager, Pipeline, CodecState, ProcessSendData, ProcessRecieveData | 新需求开发/问题定位/音频编码解码/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-08T23:53 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S235.md（6573字节，21条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/），AudioCodecAdapter三层架构(C++ API层→AudioCodecWorker双线程→AudioBaseCodec引擎)+AudioCodecWorker双TaskThread(OS_AuCodecIn/OS_AuCodecOut)+双AudioBuffersManager缓冲池(inputBuffer_/outputBuffer_)+CodecState七态机，与S62(S35/S18/S95/S125)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T23:53 | builder-agent | S235注册：AudioCodecAdapter + AudioCodecWorker 双组件架构草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S235.md（pending_approval），21条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/，与S62/S35/S18/S95/S125关联 |
