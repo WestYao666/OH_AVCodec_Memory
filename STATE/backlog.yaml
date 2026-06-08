@@ -1682,3 +1682,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-09T02:45 | builder-agent (subagent) | S202注册：MediaCodec Filter层编解码适配器草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S202.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/media_codec/，与S197/S212/S214/S218/S225/S221关联 |
+
+## Builder 2026-06-09 S236注册——HCodec DFX Module
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S236 | HCodec DFX Module——FuncTracker RAII + HiSysEvent FAULT + BufferOwner四持者 + TotalEvent累加 + CountTrace轨迹 + g_decCallers全局实例追踪 + RemoveCaller RSS上报 | AVCodec, HardwareCodec, HCodec, DFX, HiSysEvent, HiTrace, BufferOwner, FuncTracker, BufferDump, CountTrace, GlobalInstanceTracking, RSS | 问题定位/后台管理/DFX追踪 | **pending_approval** | 🚧 草案已生成（2026-06-09T03:24 builder-agent subagent）→行号增强（2026-06-09T04:00），MEM-ARCH-AVCODEC-S236.md（pending_approval，25条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hcodec/），FUNC_TRACKER RAII+HiSysEvent FAULT+BufferOwner四方+TotalEvent累加+IntervalAverage+CalculateInterval+Buffer循环停止检测+PrintAllCaller+RemoveCaller RSS，与S57/S160/S82/S200/S213关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-09T03:24 | builder-agent (subagent) | S236注册：HCodec DFX Module草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S236.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hcodec/，与S57/S160/S82/S200/S213关联 |
+| 2026-06-09T04:00 | builder-agent (subagent) | S236增强：E21-E25新增（ToString/g_decCallers注册/RemoveCaller+RSS阈值/CountTrace/DUMP_PATH BUILD_ENG_VERSION），25条行号级evidence，从DRAFTS升级至MEMORY/10_architecture/，pending_approval |
