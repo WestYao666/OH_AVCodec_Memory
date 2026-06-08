@@ -1573,3 +1573,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T11:08 | builder-agent | S227注册：PostProcessing DynamicController动态色彩空间转换控制器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S227.md（pending_approval），18条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/post_processing/，与S20/S100/S127/S226关联 |
+
+## 新增主题（Builder 2026-06-08 S228注册）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S228 | HevcDecoder HEVC 硬件解码器插件架构——libhevcdec_ohos.z.so 四函数HDI接口 + 单线程SendFrame + HDR三元组(SMPTE2086/CTA861/Vivid) | AVCodec, VideoDecoder, HEVC, H.265, HardwareCodec, HDI, dlopen, HDR, SMPTE2086, CTA861, Vivid, Surface, BitDepth | 新需求开发/问题定位/HEVC解码 | **pending_approval** | 🚧 草案已生成（2026-06-08T12:27），基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hevcdecoder/，17条行号级evidence，dlopen四函数HDI接口，单线程SendFrame解码，HDR三元组元数据注入，与S39/S54/S57/S70/S63/S225/S46/S45/S83/S55关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T12:27 | Builder | S228注册：HevcDecoder HEVC 硬件解码器插件架构草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S228.md（pending_approval），17条行号级evidence，基于本地镜像 services/engine/codec/video/hevcdecoder/ |
