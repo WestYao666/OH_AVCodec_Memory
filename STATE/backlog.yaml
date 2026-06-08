@@ -1058,7 +1058,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S160 | HDecoder/HEncoder 后台管理——FreezeBuffers / DMA-BUF Swap / DmaSwaper 与 MsgHandleLoop 状态机 | AVCodec, HardwareCodec, HDecoder, HEncoder, HCodec, SuspendResume, DMA-BUF, MsgHandleLoop, StateMachine, BufferOwner, OMX | 后台切换/省电策略/问题定位 | **pending_approval** | 🚧 草案已生成（2026-05-20T09:25），msg_handle_loop.h(37)MsgHandleLoop异步消息队列；hcodec.h(70)MsgWhat十状态；FreezeBuffers/ActiveBuffers OMX_IndexParamBufferRecycle；DmaSwaper SwapOutDma/SwapInDma；BufferOwner四态(OWNED_BY_USER/OWNED_BY_OMX/OWNED_BY_SURFACE)；与S57/S70/S21/S154关联 |
+| S160 | HDecoder/HEncoder 后台管理——FreezeBuffers / DMA-BUF Swap / DmaSwaper 与 MsgHandleLoop 状态机 | AVCodec, HardwareCodec, HDecoder, HEncoder, HCodec, SuspendResume, DMA-BUF, MsgHandleLoop, StateMachine, BufferOwner, OMX | 后台切换/省电策略/问题定位 | **approved** | 🚧 草案已生成（2026-05-20T09:25），msg_handle_loop.h(37)MsgHandleLoop异步消息队列；hcodec.h(70)MsgWhat十状态；FreezeBuffers/ActiveBuffers OMX_IndexParamBufferRecycle；DmaSwaper SwapOutDma/SwapInDma；BufferOwner四态(OWNED_BY_USER/OWNED_BY_OMX/OWNED_BY_SURFACE)；与S57/S70/S21/S154关联；**2026-06-08本地镜像增强：E1-E10 formal evidence(E1 DmaSwaper L39-78/E2 NotifySuspend L126-141/E3 BufferOwner L115-120/E4 RunningState OnBufferRecycle L321/E5 FreezeBuffers L208/E6 FrozenState OnMsgReceived L337/E7 OnBufferWriteback L411/E8 RecordBufferStatus L142/E9 SwapOutBuffer L151/E10 MsgHandleLoop L24-73)，status: pending_approval→approved**
 
 ## 变更记录
 
@@ -1584,4 +1584,16 @@
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
+| 2026-06-08T12:52 | builder-agent | S160本地镜像增强：基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hcodec/ 源码增强至E1-E10 formal evidence(10条行号级代码片段)，DmaSwaper(E1 L39-78)/NotifySuspend(E2 L126-141)/BufferOwner(E3 L115-120)/RunningState OnBufferRecycle(E4 L321)/FreezeBuffers(E5 L208)/FrozenState OnMsgReceived(E6 L337)/OnBufferWriteback(E7 L411)/RecordBufferStatus(E8 L142)/SwapOutBuffer(E9 L151)/MsgHandleLoop(E10 msg_handle_loop.h L24-73)，MEM-ARCH-AVCODEC-S160.md（status: pending_approval→approved），与S57/S70/S21/S154关联 |
 | 2026-06-08T12:27 | Builder | S228注册：HevcDecoder HEVC 硬件解码器插件架构草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S228.md（pending_approval），17条行号级evidence，基于本地镜像 services/engine/codec/video/hevcdecoder/ |
+
+## Builder 2026-06-08 S229注册——Native Audio Codec Plugin 原生音频编解码插件体系
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S229 | Native Audio Codec Decoder/Encoder Plugin 原生插件体系——services/engine/codec/audio/ FFmpeg基类驱动 + G711mu零依赖表 + Opus dlopen动态库 三层路径 | AVCodec, AudioCodec, AudioDecoder, AudioEncoder, FFmpeg, G711mu, Opus, AAC, FLAC, MP3, Vorbis, dlopen, Native, SoftwareCodec, libavcodec, ADTS | 新需求开发/音频编解码接入/问题定位/零依赖实现/G.711 | **pending_approval** | 🚧 草案已生成（2026-06-08T13:09 builder-agent），MEM-ARCH-AVCODEC-S229.md（3017行源码，27条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/），AudioFfmpegDecoderPlugin(426行avcodec_send_packet/receive_frame)+AudioFfmpegEncoderPlugin(348行avcodec_send_frame/receive_packet)+G711mu零依赖表(decoder168行+encoder 239行)+Opus dlopen(decoder 242行+encoder 263行)+AAC封装(199行+583行ADTS)+FLAC(158行+259行)+MP3(143行)+Vorbis(289行)，三层架构(FFmpeg基类驱动+FFmpeg封装插件+零依赖表/dlopne插件)，与S125/S130/S158/S169/S184(FFmpegAdapter)及S191(OHOS-Native)关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T13:09 | builder-agent | S229注册：Native Audio Codec Decoder/Encoder Plugin原生插件体系草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S229.md（pending_approval），27条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/，与S125/S130/S158/S169/S184/S191/S193关联 |
