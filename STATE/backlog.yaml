@@ -1624,3 +1624,14 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T16:11 | builder-agent | S232注册：Av1Decoder + Dav1d AV1软件解码器草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S232.md（pending_approval），18条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/av1decoder/，与S199/S231/S54/S57/S39/S225/S70/S163关联
+
+## Builder 2026-06-08 S233注册——AppClient + IMediaSourceLoader 双路由下载架构
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S233 | AppClient + IMediaSourceLoader 双路由下载架构——HttpCurlClient(libcurl)与AppClient(IMediaSourceLoader)双NetworkClient实现 + MediaSourceLoadingRequest五回调管理 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, NetworkClient, AppClient, HttpCurlClient, IMediaSourceLoader, IMediaSourceLoadingRequest, MediaSourceLoadingRequest, MediaSourceLoaderCombinations, DownloadRequest, Downloader, LoadingRequestError, AVSharedMemory, CallbackRouter | 新需求开发/问题定位/离线缓存/双路由下载 | **pending_approval** | 🚧 草案已生成（2026-06-08T18:07 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S233.md（9577字节，10条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/download/），AppClient(261行cpp+93行h)回调驱动架构(IMediaSourceLoader注入+RespondData/RespondHeader/FinishLoading三回调)+MediaSourceLoadingRequest(193行cpp)五回调路由(uuid→Elements映射)+MediaSourceLoaderCombinations离线缓存，与S195(上层Downloader)/S210(DownloadMonitor)/S172(离线缓存)关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T18:07 | builder-agent | S233注册：AppClient + IMediaSourceLoader 双路由下载架构草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S233.md（pending_approval），10条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/download/，与S195/S210/S172关联 |
