@@ -1635,3 +1635,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-08T18:07 | builder-agent | S233注册：AppClient + IMediaSourceLoader 双路由下载架构草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S233.md（pending_approval），10条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/download/，与S195/S210/S172关联 |
+
+## 新增主题（Builder 2026-06-08 S234注册——HLS M3U8 Tag Parsing Framework）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S234 | HLS M3U8 Tag Parsing Framework——hls_tags.cpp(648行)+m3u8.cpp(1435行)双文件架构，22个HLS标签注册表+g_exttagmapping，Tag工厂四类派生，Attribute八种值解析，ParseEntries三段式解析，tagUpdatersMap_七处理器驱动，UpdateFromTags分片累积，UriJoin五路相对路径，PrepareDecryptionKeys AES-128 DRM，M3U8MasterPlaylist变种流选择 | AVCodec, MediaEngine, SourcePlugin, HLS, M3U8, TagParser, Playlist, DRM, AES-128, TagFactory, Attribute, ParseEntries, UriJoin, VariantStream | 新需求开发/流媒体播放/HLS自适应码率/内容解密/问题定位 | **pending_approval** | 🚧 草案已生成（2026-06-08T19:37 builder-agent），MEM-ARCH-AVCODEC-S234.md（draft→pending_approval），17条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/hls/，与S37/S86/S187/S138/S153/S210/S195关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-08T19:37 | Builder | S234注册：HLS M3U8 Tag Parsing Framework草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S234.md（pending_approval），17条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/hls/，与S37/S86/S187/S138/S153/S210/S195关联 |
