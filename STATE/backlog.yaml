@@ -1712,3 +1712,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-09T06:25 | builder-agent (subagent) | S237增强：E21-E26新增（codec_drm_decrypt.cpp消费端证据：DRM_CRYPT_BYTE_BLOCK/DRM_SKIP_BYTE_BLOCK/DRM_TS_SUB_SAMPLE_NUM常量 + GetData读取 + UNENCRYPTED明文直通 + NOT_SET路径 + CTR-CBC算法分发），从20条增强至26条行号级evidence，状态更新为draft |
+
+## Builder 2026-06-09 S238注册——AVCodec Engine Common codec_utils 工具库
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S238 | AVCodec Engine Common codec_utils 工具库——Scale缩放结构体(swsscale RAII)+四路格式映射表(g_pixelFormatMap/g_colorPrimariesMap/g_transFuncMap/g_matrixMap)+WriteSurfaceData(Fence等待+stride对齐)+ColorSpace转换(PQ/HLG HDR)+TranslateSurfaceRotation | AVCodec, VideoCodec, Engine, Common, Format, PixelFormat, ColorSpace, swscale, FFmpeg, Scale, Surface, HDR, CM_ColorSpaceInfo, TranslateSurfaceFormat, ConvertVideoFrame, WriteSurfaceData, WriteBufferData | 新需求开发/问题定位/视频编解码/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-09T07:38 builder-agent subagent），MEM-ARCH-AVCODEC-S238.md（15063字节，15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/common/），Scale struct(sws_getContext+RAII shared_ptr)+四路映射表(VideoPixelFormat/ColorPrimary/TransferFunction/MatrixCoefficient)+WriteSurfaceData(Fence等待+stride不对齐走WriteYuvDataStride)+ConvertParamsToColorSpaceInfo(3路映射校验)+GetMetaDataTypeByTransFunc(PQ→HDR10/HLG→HLG)+TranslateSurfaceRotation(逆时针90°↔顺时针270°)，与S45/S39/S80/S130关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-09T07:38 | builder-agent (subagent) | S238注册：AVCodec Engine Common codec_utils 工具库草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S238.md（pending_approval），15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/common/，Scale struct(swsscale RAII)/四路格式映射表/WriteSurfaceData/ColorSpace/HDR元数据类型，与S45/S39/S80/S130关联 |
