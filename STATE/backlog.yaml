@@ -1694,3 +1694,14 @@
 |------|------|------|
 | 2026-06-09T03:24 | builder-agent (subagent) | S236注册：HCodec DFX Module草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S236.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hcodec/，与S57/S160/S82/S200/S213关联 |
 | 2026-06-09T04:00 | builder-agent (subagent) | S236增强：E21-E25新增（ToString/g_decCallers注册/RemoveCaller+RSS阈值/CountTrace/DUMP_PATH BUILD_ENG_VERSION），25条行号级evidence，从DRAFTS升级至MEMORY/10_architecture/，pending_approval |
+
+## Builder 2026-06-09 S209注册——HttpSourcePlugin Download Monitor 装饰器模式与错误恢复架构
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S209 | HttpSourcePlugin Download Monitor 装饰器模式与错误恢复架构——DownloadMonitor 842行装饰器 + retryTasks_重试队列 + clientErrorCodeMap_~50条映射 + serverErrorCodeMap_~30条映射 + NeedRetry六段式判定 | AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, DownloadMonitor, Retry, ErrorCode, HTTP, HTTPS, Decorator, MediaDownloader, RetryRequest | 新需求开发/问题定位/流媒体下载/错误恢复/DFX可观测性 | **pending_approval** | 🚧 草案已生成（2026-06-09T05:00 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S209.md（16727字节，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/），DownloadMonitor装饰器(842行)包裹MediaDownloader，重试队列retryTasks_(50ms周期)，CLIENT_NOT_RETRY_ERROR_CODES{992}/CLIENT_RETRY_ERROR_CODES{8个}/SERVER_RETRY_ERROR_CODES{9个含302}，clientErrorCodeMap_~50条/serverErrorCodeMap_~30条查表转换，RETRY_TIMES_TO_REPORT_ERROR=10/APP_DOWNLOAD_RETRY_TIMES=60/RETRY_TIMES=6000，与S210(S209增强版)/S195(Downloader Retry)/S172/S234/HLS关联 |
+
+## 变更记录
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-09T05:00 | builder-agent (subagent) | S209注册：HttpSourcePlugin Download Monitor 装饰器模式与错误恢复架构草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S209.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/，与S210/S195/S172/S234关联 |
