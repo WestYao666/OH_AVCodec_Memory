@@ -1,7 +1,7 @@
 ---
 id: MEM-ARCH-AVCODEC-S225
 title: "CodecDrmDecrypt：CODEC DRM CENC 解密框架——H.264/HEVC/AVS3 全Codec统一内容解密引擎"
-status: draft
+status: pending_approval
 scope: AVCodec, DRM, CENC, SVP, Decryption, H.264, HEVC, AVS3, SecureVideoPath
 created_at: "2026-06-08T08:08:00+08:00"
 evidence_count: 20

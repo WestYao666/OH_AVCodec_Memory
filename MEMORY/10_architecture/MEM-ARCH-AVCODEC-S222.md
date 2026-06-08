@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S222
 title: DASH Segment Downloader 环形缓冲架构——DashSegmentDownloader 1361行环形缓冲与分段下载管理
 scope: [AVCodec, MediaEngine, SourcePlugin, DASH, DashSegmentDownloader, RingBuffer, SegmentList, BitrateAdaptation, Buffering, WaterLine]
 topic: DASH分片下载器环形缓冲架构——DashSegmentDownloader 1361行核心（Open/Read/SaveData/PutRequestIntoDownloader五方法）+ DashBufferSegment分段管理 + RingBuffer环形缓冲 + WaterLineAbove缓冲水位线 + CalculateBitRate码率计算，与S138(DASH MPD Parser)深度关联，补充S138未覆盖的环形缓冲读写细节。
-status: draft
+status: pending_approval
 created_at: "2026-06-08T05:54:00+08:00"
 evidence_count: 30
 source_files: |

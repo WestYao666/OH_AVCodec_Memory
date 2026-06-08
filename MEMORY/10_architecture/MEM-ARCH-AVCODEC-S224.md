@@ -1,5 +1,5 @@
 ---
-status: draft
+status: pending_approval
 evidence_count: 20
 source_files:
   - services/services/codec/server/video/codec_param_checker.cpp (1005行)
