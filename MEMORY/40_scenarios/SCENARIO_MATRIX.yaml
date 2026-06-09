@@ -1,12 +1,12 @@
 # 40_scenarios/SCENARIO_MATRIX.yaml
 # AVCodec 四类场景矩阵 — 从 S 系列记忆自动提取生成
-# 生成时间: 2026-06-07
-# 来源: 209 个 S 系列记忆
+# 生成时间: 2026-06-10
+# 来源: 233 个 S 系列记忆
 # 状态: pending_approval
 
 ---
-matrix_version: "2026-06-07"
-source_memories: "209 S-series entries"
+matrix_version: "2026-06-10"
+source_memories: "233 S-series entries"
 status: pending_approval
 generated_by: synthesize_high_level_knowledge
 ---
@@ -20,7 +20,7 @@ generated_by: synthesize_high_level_knowledge
 
 ---
 
-## 新人入项 (54 个记忆)
+## 新人入项 (65 个记忆)
 
 | ID | 标题 | 关键 Scope |
 |----|------|----------|
@@ -45,9 +45,9 @@ generated_by: synthesize_high_level_knowledge
 | MEM-ARCH-AVCODEC-S164 | ARCH-AVCODEC-S164 — SA Codec IPC 服务框架 |  |
 | MEM-ARCH-AVCODEC-S165 | ARCH-AVCODEC-S165: av_codec 部件目录结构与媒体引擎分 |  |
 
-_... 还有 34 个记忆，请查看完整索引_
+_... 还有 45 个记忆，请查看完整索引_
 
-## 三方应用 (122 个记忆)
+## 三方应用 (140 个记忆)
 
 | ID | 标题 | 关键 Scope |
 |----|------|----------|
@@ -72,9 +72,9 @@ _... 还有 34 个记忆，请查看完整索引_
 | MEM-ARCH-AVCODEC-S135 | ARCH-AVCODEC-S135 |  |
 | MEM-ARCH-AVCODEC-S137 | ARCH-AVCODEC-S137: SA Codec 服务框架——AVCode |  |
 
-_... 还有 102 个记忆，请查看完整索引_
+_... 还有 120 个记忆，请查看完整索引_
 
-## 新需求开发 (171 个记忆)
+## 新需求开发 (188 个记忆)
 
 | ID | 标题 | 关键 Scope |
 |----|------|----------|
@@ -99,9 +99,9 @@ _... 还有 102 个记忆，请查看完整索引_
 | MEM-ARCH-AVCODEC-S117 | ARCH-AVCODEC-S117: TypeFinder 媒体类型探测与 De |  |
 | MEM-ARCH-AVCODEC-S12 | ARCH-AVCODEC-S12: VideoResizeFilter 转码增强 |  |
 
-_... 还有 151 个记忆，请查看完整索引_
+_... 还有 168 个记忆，请查看完整索引_
 
-## 问题定位 (186 个记忆)
+## 问题定位 (209 个记忆)
 
 | ID | 标题 | 关键 Scope |
 |----|------|----------|
@@ -126,5 +126,5 @@ _... 还有 151 个记忆，请查看完整索引_
 | MEM-ARCH-AVCODEC-S116 | ARCH-AVCODEC-S116: 三路 Sink 引擎协作架构——Video |  |
 | MEM-ARCH-AVCODEC-S117 | ARCH-AVCODEC-S117: TypeFinder 媒体类型探测与 De |  |
 
-_... 还有 166 个记忆，请查看完整索引_
+_... 还有 189 个记忆，请查看完整索引_
 

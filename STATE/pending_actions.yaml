@@ -1877,3 +1877,36 @@ timestamp: "2026-06-09T07:20:00+08:00"
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory
   associations: "S45/S39/S80/S130"
   note: "codec_utils.cpp 459行Engine Common工具库，Scale struct(swsscale RAII)+四路格式映射表(4+6+9+5)+WriteSurfaceData(Fence等待+stride对齐)+ConvertParamsToColorSpaceInfo三路映射+GetMetaDataTypeByTransFunc(PQ→HDR10/HLG→HLG)+TranslateSurfaceRotation(逆时针90°↔顺时针270°)"
+
+---
+type: approval_request
+mem_id: AVCODEC_TERMINOLOGY
+decision: pending_approval
+timestamp: '2026-06-10T00:03:42+08:00'
+submitted_by: synthesize-agent
+subject: 00_domain_map/AVCODEC_TERMINOLOGY.yaml — 从232个S系列记忆提取968个术语
+evidence_count: 968
+git_branch: master
+git_url: ''
+
+---
+type: approval_request
+mem_id: SCENARIO_MATRIX
+decision: pending_approval
+timestamp: '2026-06-10T00:03:42+08:00'
+submitted_by: synthesize-agent
+subject: 40_scenarios/SCENARIO_MATRIX.yaml — 四类场景矩阵（602个记忆匹配）
+evidence_count: 602
+git_branch: master
+git_url: ''
+
+---
+type: approval_request
+mem_id: ARCHITECTURE_DECISIONS
+decision: pending_approval
+timestamp: '2026-06-10T00:03:42+08:00'
+submitted_by: synthesize-agent
+subject: 90_decisions/ARCHITECTURE_DECISIONS.yaml — 59条架构决策记录
+evidence_count: 59
+git_branch: master
+git_url: ''

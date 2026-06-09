@@ -1,15 +1,15 @@
 # 90_decisions/ARCHITECTURE_DECISIONS.yaml
 # AVCodec 架构决策记录 — 从 S 系列记忆自动提取生成
-# 生成时间: 2026-06-07
-# 来源: 209 个 S 系列记忆
+# 生成时间: 2026-06-10
+# 来源: 233 个 S 系列记忆
 # 状态: pending_approval
 
 ---
-adr_version: "2026-06-07"
-source_memories: "209 S-series entries"
+adr_version: "2026-06-10"
+source_memories: "233 S-series entries"
 status: pending_approval
 generated_by: synthesize_high_level_knowledge
-decision_count: 56
+decision_count: 59
 ---
 
 ## 架构决策说明
@@ -119,7 +119,7 @@ _... 还有 11 条，请查看源记忆_
 
 _... 还有 9 条，请查看源记忆_
 
-## 动态加载 (14 条)
+## 动态加载 (17 条)
 
 ### ADR-S103.md: —dav1d 解码器集成与 Av1DecoderLoader 动态加载
 - **来源**: MEM-ARCH-AVCODEC-S103.md
@@ -161,5 +161,5 @@ _... 还有 9 条，请查看源记忆_
 - **来源**: MEM-ARCH-AVCODEC-S183.md
 - **证据片段**: ...Open...
 
-_... 还有 4 条，请查看源记忆_
+_... 还有 7 条，请查看源记忆_
 
