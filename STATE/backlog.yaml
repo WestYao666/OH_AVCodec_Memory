@@ -1724,3 +1724,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-09T07:38 | builder-agent (subagent) | S238注册：AVCodec Engine Common codec_utils 工具库草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S238.md（pending_approval），15条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/common/，Scale struct(swsscale RAII)/四路格式映射表/WriteSurfaceData/ColorSpace/HDR元数据类型，与S45/S39/S80/S130关联 |
+
+## Builder 2026-06-09 S239注册——AVCodec Engine Base Architecture
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S239 | AVCodec Engine Base Architecture——CodecBase 抽象基类(25+虚方法/双套API/七态机)+VideoCodecLoader dlopen模板(RTLD_LAZY+三函数指针)+七类Loader工厂(HCodec/FCodec/AvcEncoder/HevcDecoder/VP8/VP9/Av1)+CodecFactory/AudioCodecFactory双工厂(API_VERSION分发)+FCodecLoader引用计数延迟关闭 | AVCodec, Engine, CodecBase, VideoCodecLoader, dlopen, RTLD_LAZY, Factory, Plugin, HardwareCodec, SoftwareCodec, FCodecLoader, HCodecLoader, AvcEncoderLoader, CodecFactory, AudioCodecFactory, ReferenceCount | 新需求开发/问题定位/新人入项/代码导航 | **pending_approval** | 🚧 草案已生成（2026-06-09T08:08 builder-agent subagent），MEM-ARCH-AVCODEC-S239.md（478行，33条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/ + services/services/codec/server/），CodecBase(codecbase.h 163行+cpp 130行双套API)+VideoCodecLoader(cpp 67行dlopen模板)+七类Loader(HCodec/FCodec/AvcEncoder/Hevc/VP8/VP9/Av1)+CodecFactory(104行七路分发)+AudioCodecFactory(72行API_VERSION双版本)+AudioCodecAdapter(467行)，与S39/S57/S70/S178/S183/S229关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-09T08:08 | builder-agent (subagent) | S239注册：AVCodec Engine Base Architecture草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S239.md（pending_approval），33条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/ + services/services/codec/server/，与S39/S57/S70/S178/S183/S229关联 |

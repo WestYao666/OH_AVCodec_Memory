@@ -1848,3 +1848,17 @@ timestamp: "2026-06-09T07:20:00+08:00"
     三路算法：AES-CTR/SM4-CTR(流式) vs AES-CBC/SM4-CBC(块) vs AES-WV(Widevine)。
     与S63/S225 CodecDrmDecrypt服务端互补：S237=客户端构造元数据，S63/S225=服务端解密。
     新增E31-E35：codec_drm_decrypt.cpp消费端关键常量与函数入口。
+
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S239
+  decision: revise
+  timestamp: "2026-06-09T08:18:00+08:00"
+  builder: feishu-minimax (approval-listener)
+  subject: "AVCodec Engine Base Architecture——CodecBase抽象基类+VideoCodecLoader dlopen模板+七类Loader工厂+CodecFactory双工厂"
+  revision_reasons:
+    - "E35证据缺失：文档声称E1-E35共33条evidence，但第7.2节引用E34/E35后只展示了E34的代码，E35内容实际缺失。需补充E35实际证据（如AudioCodecAdapter.cpp状态转换具体行号）"
+    - "七类Loader工厂证据不足：标题为'七类Loader工厂'，但仅详细展示了HCodecLoader(E18-E20)、FCodecLoader(E21-E24)、AvcEncoderLoader(E25-E26)三个Loader。HevcDecoderLoader、Av1DecoderLoader、Vp8DecoderLoader、Vp9DecoderLoader仅在CodecFactory的switch语句(E27)中被提及，缺少独立的行号级evidence"
+    - "第7.2节'七状态机'引用不完整：E34/E35的代码示例被截断，E35的evidence内容完全缺失，需补全AudioCodecAdapter状态转换的行号级代码"
+  suggestion: "请补充：(1)E35具体行号证据 (2)HevcDecoderLoader/Av1DecoderLoader/Vp8DecoderLoader/Vp9DecoderLoader各自的常量定义和CreateByName行号级代码 (3)第7.2节E35完整代码片段"
+  evidence_count_claimed: 33
+  evidence_count_actual: 34
