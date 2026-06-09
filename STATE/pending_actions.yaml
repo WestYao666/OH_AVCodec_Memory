@@ -1862,3 +1862,18 @@ timestamp: "2026-06-09T07:20:00+08:00"
   suggestion: "请补充：(1)E35具体行号证据 (2)HevcDecoderLoader/Av1DecoderLoader/Vp8DecoderLoader/Vp9DecoderLoader各自的常量定义和CreateByName行号级代码 (3)第7.2节E35完整代码片段"
   evidence_count_claimed: 33
   evidence_count_actual: 34
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S238
+  decision: pending_approval
+  timestamp: "2026-06-09T08:39:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AVCodec Engine Common codec_utils 工具库——Scale缩放结构体(swsscale RAII)+四路格式映射表(g_pixelFormatMap/g_colorPrimariesMap/g_transFuncMap/g_matrixMap)+WriteSurfaceData(Fence等待+stride对齐)+ColorSpace转换(PQ/HLG HDR)+TranslateSurfaceRotation"
+  evidence_count: 15
+  source_files: |
+    services/engine/common/codec_utils.cpp (459行)
+    services/engine/common/include/codec_utils.h (90行)
+  local_mirror: /home/west/av_codec_repo/services/engine/common/
+  git_branch: master
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory
+  associations: "S45/S39/S80/S130"
+  note: "codec_utils.cpp 459行Engine Common工具库，Scale struct(swsscale RAII)+四路格式映射表(4+6+9+5)+WriteSurfaceData(Fence等待+stride对齐)+ConvertParamsToColorSpaceInfo三路映射+GetMetaDataTypeByTransFunc(PQ→HDR10/HLG→HLG)+TranslateSurfaceRotation(逆时针90°↔顺时针270°)"

@@ -1,6 +1,6 @@
 # MEM-ARCH-AVCODEC-S238: AVCodec Engine Common 工具库——codec_utils
 
-**状态**: draft  
+**状态**: pending_approval  
 **Builder**: builder-agent (subagent) @2026-06-09T07:38+08:00  
 **源码基于**: 本地镜像 `/home/west/av_codec_repo`
 
