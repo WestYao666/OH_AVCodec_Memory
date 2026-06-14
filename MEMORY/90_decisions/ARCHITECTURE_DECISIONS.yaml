@@ -1,12 +1,12 @@
 # 90_decisions/ARCHITECTURE_DECISIONS.yaml
 # AVCodec 架构决策记录 — 从 S 系列记忆自动提取生成
-# 生成时间: 2026-06-10
-# 来源: 233 个 S 系列记忆
+# 生成时间: 2026-06-15
+# 来源: 232 个 S 系列记忆
 # 状态: pending_approval
 
 ---
-adr_version: "2026-06-10"
-source_memories: "233 S-series entries"
+adr_version: "2026-06-15"
+source_memories: "232 S-series entries"
 status: pending_approval
 generated_by: synthesize_high_level_knowledge
 decision_count: 59

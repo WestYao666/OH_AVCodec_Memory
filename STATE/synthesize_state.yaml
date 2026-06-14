@@ -1,4 +1,8 @@
-phase: EXTRACTING_TERMS
+completed_at: '2026-06-15T00:05:07.069106+08:00'
+decisions_extracted: 59
+phase: COMPLETED
 s_series_count: 232
-started_at: '2026-06-10T00:03:08.073683+08:00'
+scenarios_extracted: 602
+started_at: '2026-06-15T00:04:26.509840+08:00'
+terms_extracted: 968
 workflow: synthesize_high_level_knowledge
