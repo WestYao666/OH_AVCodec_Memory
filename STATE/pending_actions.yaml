@@ -1985,3 +1985,15 @@ git_url: ''
     10. LagDetector 卡顿检测：VideoSink LAG_LIMIT_TIME=100ms，AudioSink AudioLagDetector
     11. VideoSink 集成：VIDEO_SINK_START_FRAME=4 前4帧不丢帧
     12. AudioSink 集成：syncerPriority_=AUDIO_SINK(2) 最高优先级
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S238
+  decision: pending_approval
+  timestamp: "2026-06-20T21:15:00+08:00"
+  builder: builder-agent (subagent)
+  subject: codec_utils——Scale RAII/四路格式映射表/WriteSurfaceData/ColorSpace/TranslateRotation
+  evidence_count: 42
+  source_files: codec_utils.cpp(459行) + codec_utils.h(90行) = 549行源码
+  git_branch: master
+  commit: cc9b863
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/cc9b863
