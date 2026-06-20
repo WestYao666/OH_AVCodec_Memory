@@ -1910,3 +1910,28 @@ subject: 90_decisions/ARCHITECTURE_DECISIONS.yaml — 59条架构决策记录
 evidence_count: 59
 git_branch: master
 git_url: ''
+
+- type: approval_response
+  mem_id: MEM-ARCH-AVCODEC-S239
+  decision: revise
+  timestamp: "2026-06-20T17:17:00+08:00"
+  builder: feishu-minimax (approval-listener)
+  subject: "AVCodec Engine Base Architecture——CodecBase抽象基类+VideoCodecLoader dlopen模板+七类Loader工厂+CodecFactory双工厂"
+  revision_reasons:
+    - "已于今日 PM 检查时被接管，请立即中止 S239 revise 工作"
+  note: "PM接管，中止本agent对S239的revise工作"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S238
+  decision: pending_approval
+  timestamp: "2026-06-20T17:17:00+08:00"
+  builder: feishu-minimax (approval-listener)
+  subject: "AVCodec Engine Common codec_utils 工具库——Scale缩放结构体(swsscale RAII)+四路格式映射表+WriteSurfaceData+ColorSpace转换+TranslateSurfaceRotation"
+  scope: "backlog-next"
+  directive: "从 backlog 取下一个 pending 主题 S238 codec_utils 继续探索"
+  local_mirror: /home/west/av_codec_repo
+  source_files: |
+    services/engine/common/codec_utils.cpp (459行)
+    services/engine/common/include/codec_utils.h (90行)
+  associations: "S45/S39/S80/S130"
+  note: "主session直接开始探索S238 codec_utils，不要等待确认"
