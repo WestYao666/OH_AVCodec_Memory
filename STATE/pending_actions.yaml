@@ -1868,7 +1868,7 @@ timestamp: "2026-06-09T07:20:00+08:00"
   timestamp: "2026-06-09T08:39:00+08:00"
   builder: builder-agent (subagent)
   subject: "AVCodec Engine Common codec_utils 工具库——Scale缩放结构体(swsscale RAII)+四路格式映射表(g_pixelFormatMap/g_colorPrimariesMap/g_transFuncMap/g_matrixMap)+WriteSurfaceData(Fence等待+stride对齐)+ColorSpace转换(PQ/HLG HDR)+TranslateSurfaceRotation"
-  evidence_count: 15
+  evidence_count: 22
   source_files: |
     services/engine/common/codec_utils.cpp (459行)
     services/engine/common/include/codec_utils.h (90行)
@@ -1934,4 +1934,5 @@ git_url: ''
     services/engine/common/codec_utils.cpp (459行)
     services/engine/common/include/codec_utils.h (90行)
   associations: "S45/S39/S80/S130"
-  note: "主session直接开始探索S238 codec_utils，不要等待确认"
+  evidence_count: 22
+  note: "增强版v2：22条evidence(+7条)，精确行号验证，基于本地镜像增强，commit 6842ab6"
