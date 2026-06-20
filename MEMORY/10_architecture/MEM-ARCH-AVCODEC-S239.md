@@ -6,6 +6,9 @@
 **状态**: revise
 **revise_reason**: (1)E35证据缺失：第7.2节引用E34/E35后E35内容实际缺失，需补充AudioCodecAdapter状态转换具体行号；(2)七类Loader工厂证据不足：HevcDecoderLoader/Av1DecoderLoader/Vp8DecoderLoader/Vp9DecoderLoader仅在switch语句中被提及，缺少独立行号级evidence；(3)第7.2节E35完整代码片段缺失。
 **revision_timestamp**: "2026-06-09T08:18:00+08:00"
+**pm_takeover**: true
+**pm_takeover_note**: PM已于2026-06-20接管S239 revise工作，builder-agent停止继续修订
+**pm_takeover_timestamp**: "2026-06-20T18:14:00+08:00"
 **来源**: 本地镜像 /home/west/av_codec_repo/services/engine/ + services/services/codec/server/
 **关联**: S39(VideoDecoder三层)/S57(HDecoder/HEncoder)/S70(VideoCodecFactory)/S178(双目录架构)/S183(AvcEncoder)/S229(Native Audio Codec)
 **生成时间**: 2026-06-09T08:08 GMT+8
