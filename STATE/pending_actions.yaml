@@ -1951,3 +1951,37 @@ git_url: ''
   draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S224.md
   associations: "S221/S59/S70/S84/S83/S57"
   note: "草案提升：draft→pending_approval，25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/ 探索"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S240
+  decision: pending_approval
+  timestamp: "2026-06-20T19:47:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "MediaSyncManager 媒体同步管理中心——音视频同步时钟锚点/Preroll同步/Seek-Pause-Resume/P速率控制/LagDetector卡顿检测"
+  evidence_count: 35
+  source_files: |
+    services/media_engine/modules/sink/media_sync_manager.cpp (491行)
+    services/media_engine/modules/sink/media_sync_manager.h (164行)
+    services/media_engine/modules/sink/media_synchronous_sink.cpp (123行)
+    services/media_engine/modules/sink/media_synchronous_sink.h (76行)
+    services/media_engine/modules/sink/i_media_sync_center.h (82行)
+    services/media_engine/modules/sink/video_sink.cpp (462行)
+    services/media_engine/modules/sink/audio_sink.cpp (1793行)
+  local_mirror: /home/west/av_codec_repo/services/media_engine/modules/sink/
+  draft_file: DRAFTS/MEM-ARCH-AVCODEC-S240.md
+  associations: "S22/S56/S98/S116/S185/S179/S218"
+  summary: |
+    S240 探索 MediaSyncManager 媒体同步管理中心（media_sync_manager.cpp 491行 + media_sync_manager.h 164行），生成 35 条行号级 evidence。
+    核心发现：
+    1. IMediaSynchronizer 优先级体系：AUDIO_SINK=2 > VIDEO_SINK=0 > 其他（音频主时钟原则）
+    2. 时间锚点机制：currentAnchorClockTime_ (系统纳秒) ↔ currentAnchorMediaTime_ (媒体微秒)
+    3. 四步检查链 GetMediaTimeNow：CheckSeekingMediaTime → CheckPausedMediaTime → CheckIfMediaTimeIsNone → CheckFirstMediaTimeAfterSeek
+    4. GetMediaTime 数学公式：mediaTime = anchorMediaTime + (clockTime - anchorClockTime + delayTime) × playRate - delayTime
+    5. Preroll 同步：所有同步器报告首帧后统一触发 NotifyAllPrerolled
+    6. Seek 操作：isSeeking_=true → 重置 Preroll → 重置锚点 → 等待第一帧
+    7. Pause/Resume：暂停时保存 pausedMediaTime_，恢复时重设锚点
+    8. SetPlaybackRate：变速播放，切换前重设锚点防止跳帧
+    9. GetMaxMediaProgress：音频优先原则（锚点+缓冲时长 vs 视频PTS）
+    10. LagDetector 卡顿检测：VideoSink LAG_LIMIT_TIME=100ms，AudioSink AudioLagDetector
+    11. VideoSink 集成：VIDEO_SINK_START_FRAME=4 前4帧不丢帧
+    12. AudioSink 集成：syncerPriority_=AUDIO_SINK(2) 最高优先级

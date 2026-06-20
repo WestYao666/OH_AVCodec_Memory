@@ -1736,3 +1736,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-09T08:08 | builder-agent (subagent) | S239注册：AVCodec Engine Base Architecture草案已生成，写入 MEMORY/10_architecture/MEM-ARCH-AVCODEC-S239.md（pending_approval），33条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/ + services/services/codec/server/，与S39/S57/S70/S178/S183/S229关联 |
+
+## Builder 2026-06-20 S240注册——MediaSyncManager 媒体同步管理中心
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S240 | MediaSyncManager 媒体同步管理中心——音视频同步时钟锚点/Preroll同步/Seek-Pause-Resume/P速率控制/LagDetector卡顿检测 | AVCodec, MediaEngine, MediaSyncManager, IMediaSyncCenter, IMediaSynchronizer, VideoSink, AudioSink, TimeAnchor, Preroll, AVSync, PlaybackRate, Seek, LagDetector | 新需求开发/问题定位/新人入项/音视频同步/播放器pipeline | **pending_approval** | 🚧 草案已生成（2026-06-20T19:47 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S240.md（17907字节，35条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/sink/），MediaSyncManager(491行cpp+164行h)+MediaSynchronousSink(123行cpp+76行h)+VideoSink(462行)+AudioSink(1793行)，Audio_SINK=2最高优先级更新锚点+四步检查链GetMediaTimeNow+Preroll全部报告后统一NotifyAll+LagDetector卡顿检测(100ms阈值)+SetPlaybackRate变速+Seek触发所有同步器重新等待Preroll，与S22/S56/S98/S116/S185/S179/S218关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-20T19:47 | builder-agent (subagent) | S240注册：MediaSyncManager 媒体同步管理中心草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S240.md（pending_approval），35条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/sink/，与S22/S56/S98/S116/S185/S179/S218关联 |
