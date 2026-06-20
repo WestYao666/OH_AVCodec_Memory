@@ -1,423 +1,341 @@
 ---
+id: MEM-ARCH-AVCODEC-S224
+title: VideoCodecParamChecker 视频编码参数校验框架——CodecScenario三场景+20+维度校验+自动修正
+type: architecture_fact
+scope: [AVCodec, VideoCodec, ParamChecker, CodecScenario, TemporalScalability, BFrame, AutoCorrection]
 status: pending_approval
-evidence_count: 20
-source_files:
-  - services/services/codec/server/video/codec_param_checker.cpp (1005行)
-  - services/services/codec/server/video/codec_param_checker.h (45行)
-  - services/services/codec/server/video/temporal_scalability.h (常量定义)
-  - services/services/codec/server/video/temporal_scalability.cpp (参考)
-关联主题: S19(时域可分级)/S84(VideoEncoder C API)/S221(编码器端口配置)/S42(编码核心)
+created: 2026-06-08T22:30
+source: /home/west/av_codec_repo/services/services/codec/server/video/codec_param_checker.cpp (1005行) + codec_param_checker.h (45行) + temporal_scalability.h
+association: [S19, S57, S70, S162]
 ---
 
-# MEM-ARCH-AVCODEC-S224 - VideoCodecParamChecker 视频编码参数校验框架
+# MEM-ARCH-AVCODEC-S224: VideoCodecParamChecker 视频编码参数校验框架
 
-## 概述
-
-CodecParamChecker 是 AVCodec 视频编解码器的**参数校验引擎**，位于 `services/services/codec/server/video/codec_param_checker.cpp`（1005行）。在 Configure() / SetParameter() 调用进入 CodecServer之前，CodecParamChecker 对所有用户传入的编码参数进行全面校验，包括分辨率、像素格式、帧率、码率、Profile、QP、I帧间隔、时域GOP、B帧、色彩空间等20+维度。
-
-**核心价值**：防止无效参数进入底层编码器，确保CodecAbility能力边界合规，并将不合法参数自动修正（如SQR模式转VBR、CBRHQ模式转CBR）。
+> 本地镜像源码探索 | 2026-06-08 | builder-agent (subagent)
+> 来源：/home/west/av_codec_repo/services/services/codec/server/video/
 
 ---
 
-## 1. CodecParamChecker 核心类与CodecScenario枚举
+## 主题
 
-### 1.1 类定义（codec_param_checker.h L23-45）
+CodecParamChecker 是视频编解码器的参数校验与自动修正框架，在 CodecServer Configure/Parameter 两阶段对输入 Format 进行 20+ 维度校验，支持 CodecScenario 三场景自动检测与场景化校验列表。
+
+---
+
+## 核心架构
+
+### 1. CodecScenario 三场景枚举
+
+**文件**: `codec_param_checker.h:24-30`
 
 ```cpp
 enum class CodecScenario : int32_t {
-    CODEC_SCENARIO_ENC_NORMAL = 0,
-    CODEC_SCENARIO_ENC_TEMPORAL_SCALABILITY,   // 时域可分级编码
-    CODEC_SCENARIO_ENC_ENABLE_B_FRAME,          // B帧使能编码
-    CODEC_SCENARIO_DEC_NORMAL = (1 << 30),       // 解码器（高位标识）
-};
-
-class CodecParamChecker {
-public:
-    static int32_t CheckConfigureValid(Media::Format &format, const std::string &codecName, CodecScenario scenario);
-    static int32_t CheckParameterValid(const Media::Format &format, Media::Format &oldFormat,
-                                       const std::string &codecName, CodecScenario scenario);
-    static std::optional<CodecScenario> CheckCodecScenario(const Media::Format &format, AVCodecType codecType,
-                                                           const std::string &codecName);
-private:
-    static void MergeFormat(const Media::Format &format, Media::Format &oldFormat);
+    CODEC_SCENARIO_ENC_NORMAL = 0,                  // 普通编码
+    CODEC_SCENARIO_ENC_TEMPORAL_SCALABILITY,        // 时域可分级编码
+    CODEC_SCENARIO_ENC_ENABLE_B_FRAME,               // B帧编码
+    CODEC_SCENARIO_DEC_NORMAL = (1 << 30),           // 普通解码
 };
 ```
 
-**E1** (codec_param_checker.h L24-29): CodecScenario四分场景枚举，编码器占前三位(CODEC_SCENARIO_ENC_NORMAL=0, TEMPORAL_SCALABILITY=1, ENABLE_B_FRAME=2)，解码器用 `(1<<30)` 高位标识区分。
+### 2. CodecParamChecker 公开接口
 
-**E2** (codec_param_checker.h L31-35): CodecParamChecker三静态方法入口：CheckConfigureValid（Configure阶段校验）、CheckParameterValid（SetParameter阶段校验）、CheckCodecScenario（场景自动推断）。
+**文件**: `codec_param_checker.h:32-43`
 
-### 1.2 CheckCodecScenario场景推断（L896-912）
+| 方法 | 阶段 | 说明 |
+|------|------|------|
+| `CheckConfigureValid(Format&, codecName, scenario)` | Configure | 配置校验，遍历场景对应全部 checker |
+| `CheckParameterValid(format, oldFormat, codecName, scenario)` | Parameter | 参数校验，合并 format 后遍历参数专用 checker |
+| `CheckCodecScenario(format, codecType, codecName)` | 场景推断 | 从 Format 自动推断 CodecScenario |
+
+### 3. 场景检测两路 Checker
+
+**文件**: `codec_param_checker.cpp:200-250`
 
 ```cpp
-std::optional<CodecScenario> CodecParamChecker::CheckCodecScenario(const Media::Format &format,
-                                                                   AVCodecType codecType,
-                                                                   const std::string &codecName)
-{
-    auto capData = CodecAbilitySingleton::GetInstance().GetCapabilityByName(codecName);
-    // ...
-    CodecScenario scenario = CodecScenario::CODEC_SCENARIO_DEC_NORMAL;
-    if (codecType == AVCODEC_TYPE_VIDEO_ENCODER) {
-        scenario = CodecScenario::CODEC_SCENARIO_ENC_NORMAL; // 默认普通编码
-    }
-    for (const auto& checker : VIDEO_SCENARIO_CHECKER_LIST) {
-        auto ret = checker(capData.value(), format, codecType);
-        if (ret == std::nullopt) continue;
-        scenario = ret.value(); break;
-    }
-    return scenario;
-}
+// 优先级：BFrameScenarioChecker > TemporalScalabilityChecker
+const ScenarioCheckerListType VIDEO_SCENARIO_CHECKER_LIST = {
+    BFrameScenarioChecker,         // 先检测 B-Frame 模式 (L247)
+    TemporalScalabilityChecker,     // 再检测时域可分级模式 (L201)
+};
+
+// CheckCodecScenario 实现：遍历 LIST，找到第一个非 nullopt 即返回 (L942-956)
+// 默认场景：ENCODER → ENC_NORMAL；DECODER → DEC_NORMAL
 ```
 
-**E3** (codec_param_checker.cpp L896-912): CheckCodecScenario自动推断算法，先设为默认值，再用VIDEO_SCENARIO_CHECKER_LIST链表遍历（BFrameScenarioChecker → TemporalScalabilityChecker），第一个返回非nullopt的checker胜出。
+**BFrameScenarioChecker** (L226-248):
+- Tag::VIDEO_ENCODER_ENABLE_B_FRAME = 1 时激活
+- 校验 `AVCapabilityFeature::VIDEO_ENCODER_B_FRAME` 能力存在
+- B-Frame 与 Temporal Scalability 互斥，优先使用 B-Frame
+
+**TemporalScalabilityChecker** (L201-224):
+- Tag::VIDEO_ENCODER_ENABLE_TEMPORAL_SCALABILITY = 1 时激活
+- 校验 `AVCapabilityFeature::VIDEO_ENCODER_TEMPORAL_SCALABILITY` 能力存在
 
 ---
 
-## 2. 参数校验器链表架构
+## 四组 Checker 列表（场景路由表）
 
-### 2.1 五类校验器链表（L114-136）
+**文件**: `codec_param_checker.cpp:100-145`
+
+### 编码器 Configure 校验（13项，正常场景）
 
 ```cpp
 const ParamCheckerListType VIDEO_ENCODER_CONFIGURE_CHECKER_LIST = {
-    ResolutionChecker, PixelFormatChecker, FramerateChecker, BitrateAndQualityChecker,
-    VideoProfileChecker, QPChecker, IFrameIntervalChecker, ColorPrimariesChecker,
-    TransferCharacteristicsChecker, MatrixCoefficientsChecker, LTRFrameCountChecker,
-    BFrameParamChecker, VideoCodecScenarioChecker, // 13个
-};
-
-const ParamCheckerListType VIDEO_ENCODER_TEMPORAL_SCALABILITY_CONFIGURE_CHECKER_LIST = {
-    ResolutionChecker, PixelFormatChecker, FramerateChecker, BitrateAndQualityChecker,
-    VideoProfileChecker, QPChecker, IFrameIntervalChecker,
-    TemporalGopSizeChecker, TemporalGopReferenceModeChecker, UniformlyScaledReferenceChecker, // 3个时域专用
-    ColorPrimariesChecker, TransferCharacteristicsChecker, MatrixCoefficientsChecker,
-    LTRFrameCountChecker, VideoCodecScenarioChecker, // 14个
-};
-
-const ParamCheckerListType VIDEO_DECODER_CONFIGURE_CHECKER_LIST = {
-    ResolutionChecker, PixelFormatChecker, FramerateChecker, RotationChecker,
-    ScalingModeChecker, PostProcessingChecker, TransformTypeChecker, // 7个
-};
-
-const ParamCheckerListType VIDEO_ENCODER_PARAMETER_CHECKER_LIST = {
-    FramerateChecker, BitrateAndQualityChecker, QPChecker, // 3个
-};
-
-const ParamCheckerListType VIDEO_DECODER_PARAMETER_CHECKER_LIST = {
-    TransformTypeChecker, // 1个
+    ResolutionChecker,             // 分辨率范围校验
+    PixelFormatChecker,            // 像素格式支持性
+    FramerateChecker,              // 帧率 > 0
+    BitrateAndQualityChecker,      // 码率/质量/码率模式（含 SQR/CBRHQ 自动修正）
+    VideoProfileChecker,           // Profile 支持性
+    QPChecker,                     // QP 范围 0-51
+    IFrameIntervalChecker,         // 默认填 1000ms
+    ColorPrimariesChecker,         // 色域主色
+    TransferCharacteristicsChecker,// 传输特性
+    MatrixCoefficientsChecker,     // 矩阵系数
+    LTRFrameCountChecker,          // LTR 帧数（与 Temporal Scalability 互斥）
+    BFrameParamChecker,            // B-Frame GOP 模式
+    VideoCodecScenarioChecker,     // 场景标识
 };
 ```
 
-**E4** (codec_param_checker.cpp L114-125): VIDEO_ENCODER_CONFIGURE_CHECKER_LIST含13个校验器，覆盖普通编码场景所有参数。
-
-**E5** (codec_param_checker.cpp L127-135): VIDEO_ENCODER_TEMPORAL_SCALABILITY_CONFIGURE_CHECKER_LIST含14个校验器（比普通多3个时域专用：TemporalGopSizeChecker、TemporalGopReferenceModeChecker、UniformlyScaledReferenceChecker；无B帧和QP）。
-
-### 2.2 Scenario→CheckerList查表（L185-193）
+### 编码器 Configure 校验（14项，时域可分级场景）
 
 ```cpp
-const std::unordered_map<CodecScenario, ParamCheckerListType> CONFIGURE_CHECKERS_TABLE = {
-    {CodecScenario::CODEC_SCENARIO_ENC_NORMAL,              VIDEO_ENCODER_CONFIGURE_CHECKER_LIST},
-    {CodecScenario::CODEC_SCENARIO_ENC_TEMPORAL_SCALABILITY, VIDEO_ENCODER_TEMPORAL_SCALABILITY_CONFIGURE_CHECKER_LIST},
-    {CodecScenario::CODEC_SCENARIO_ENC_ENABLE_B_FRAME, VIDEO_ENCODER_CONFIGURE_CHECKER_LIST},
-    {CodecScenario::CODEC_SCENARIO_DEC_NORMAL,               VIDEO_DECODER_CONFIGURE_CHECKER_LIST},
+const ParamCheckerListType VIDEO_ENCODER_TEMPORAL_SCALABILITY_CONFIGURE_CHECKER_LIST = {
+    ResolutionChecker,             // 同上
+    PixelFormatChecker,            // 同上
+    FramerateChecker,              // 同上
+    BitrateAndQualityChecker,      // 同上
+    VideoProfileChecker,           // 同上
+    QPChecker,                     // 同上
+    IFrameIntervalChecker,          // 同上
+    TemporalGopSizeChecker,        // GOP ≥ 2，时域 GOP < 总 GOP
+    TemporalGopReferenceModeChecker,// 参考模式 ADJACENT/UNIFORMLY_SCALED
+    UniformlyScaledReferenceChecker,// UNIFORMLY_SCALED 时 temporalGopSize 只能为 2 或 4
+    ColorPrimariesChecker,         // 同上
+    TransferCharacteristicsChecker, // 同上
+    MatrixCoefficientsChecker,      // 同上
+    LTRFrameCountChecker,          // ⚠️ 时域可分级场景禁止 LTR
+    VideoCodecScenarioChecker,     // 同上
 };
 ```
 
-**E6** (codec_param_checker.cpp L185-190): CONFIGURE_CHECKERS_TABLE路由表，CODEC_SCENARIO_ENC_ENABLE_B_FRAME路由到普通编码器LIST（13个），而非专用LIST，体现了B帧场景复用普通编码器校验逻辑的设计。
+### 解码器 Configure 校验（7项）
 
-### 2.3 CheckConfigureValid执行入口（L873-889）
+```cpp
+const ParamCheckerListType VIDEO_DECODER_CONFIGURE_CHECKER_LIST = {
+    ResolutionChecker,             // 分辨率范围
+    PixelFormatChecker,            // 像素格式
+    FramerateChecker,              // 帧率 > 0
+    RotationChecker,               // 仅支持 0/90/180/270
+    ScalingModeChecker,            // 缩放模式 SCALE_TO_WINDOW / SCALE_CROP
+    PostProcessingChecker,         // 输出色空间（仅 HEVC，支持 BT709_LTD/P3_FULL）
+    TransformTypeChecker,          // 旋转变换类型
+};
+```
+
+### Parameter 校验（运行时参数动态调整）
+
+```cpp
+// 编码器 Parameter：4项
+const ParamCheckerListType VIDEO_ENCODER_PARAMETER_CHECKER_LIST = {
+    FramerateChecker,
+    BitrateAndQualityChecker,
+    QPChecker,
+};
+
+// 解码器 Parameter：1项
+const ParamCheckerListType VIDEO_DECODER_PARAMETER_CHECKER_LIST = {
+    TransformTypeChecker,
+};
+```
+
+### 场景→校验表（路由分发）
+
+```cpp
+// CONFIGURE_CHECKERS_TABLE: 4场景 × 各场景校验列表 (L163-168)
+const std::unordered_map<CodecScenario, ParamCheckerListType> CONFIGURE_CHECKERS_TABLE = {
+    {CODEC_SCENARIO_ENC_NORMAL,          VIDEO_ENCODER_CONFIGURE_CHECKER_LIST},
+    {CODEC_SCENARIO_ENC_TEMPORAL_SCALABILITY, VIDEO_ENCODER_TEMPORAL_SCALABILITY_CONFIGURE_CHECKER_LIST},
+    {CODEC_SCENARIO_ENC_ENABLE_B_FRAME,  VIDEO_ENCODER_CONFIGURE_CHECKER_LIST},  // 同正常编码
+    {CODEC_SCENARIO_DEC_NORMAL,          VIDEO_DECODER_CONFIGURE_CHECKER_LIST},
+};
+
+// PARAMETER_CHECKERS_TABLE: 4场景 × 各场景参数校验列表 (L171-176)
+```
+
+---
+
+## 核心 Checker 实现详解
+
+### BitrateAndQualityChecker — 三码率模式自动修正
+
+**文件**: `codec_param_checker.cpp:463-513`
+
+三层校验逻辑：
+
+1. **SQR 模式检测** (L467): `CheckSqrMode()` — 若 sqrFactor 超范围则降级为 VBR
+2. **CBRHQ 模式检测** (L471): `CheckCBRHQMode()` — 若参数冲突则降级为 CBR
+3. **VBR/CBR/CQ 模式校验** (L476-509):
+   - CQ 模式未设 quality → 自动填 DEFAULT_QUALITY=50 (L458)
+   - quality 与 bitrate 互斥 (L480)
+   - bitrateMode 不支持 → 报错 (L505)
+   - 参数超范围 → 报错 (L507)
+
+### TemporalGopSizeChecker — 时域 GOP 校验
+
+**文件**: `codec_param_checker.cpp:618-655`
+
+- I-Frame 间隔为 0 时禁止全关键帧模式 (L623)
+- 未设帧率 → 默认 DEFAULT_FRAMERATE=30.0 (L630)
+- 未设 I-Frame 间隔 → 默认 DEFAULT_I_FRAME_INTERVAL=1000ms (L634)
+- GOP Size > MIN_TEMPORAL_GOPSIZE=2 (L638)
+- temporalGopSize ≥ 2 且 < gopSize (L646-649)
+
+### LTRFrameCountChecker — LTR 与时域可分级互斥
+
+**文件**: `codec_param_checker.cpp:726-745`
+
+```cpp
+// L722: 时域可分级场景禁止 LTR 帧数设置
+CHECK_AND_RETURN_RET_LOG(scenario != CodecScenario::CODEC_SCENARIO_ENC_TEMPORAL_SCALABILITY,
+    AVCS_ERR_UNSUPPORT, "Param invalid, not supported to set LTR frame count in temporal scalability scenario");
+
+// L731: 读取能力支持的 maxLTRFrameCount
+auto ltrCap = capData.featuresMap.find(VIDEO_ENCODER_LONG_TERM_REFERENCE);
+// L738: 校验 0 ≤ ltrFrameCount ≤ maxLTRFrameCount
+```
+
+### BFrameParamChecker — B-Frame 模式自动修正
+
+**文件**: `codec_param_checker.cpp:797-824`
+
+- 未定义 GOP_MODE → 默认 ADAPTIVE_B_MODE (L813)
+- VIDEO_ENCODER_MAX_B_FRAME → 不支持，直接移除 (L819)
+- 未启用 B-Frame → 移除 GOP_MODE (L807)
+
+---
+
+## CheckConfigureValid 主入口
+
+**文件**: `codec_param_checker.cpp:898-914`
 
 ```cpp
 int32_t CodecParamChecker::CheckConfigureValid(Media::Format &format, const std::string &codecName,
                                                CodecScenario scenario)
 {
+    // L900: 从 CodecAbilitySingleton 获取能力数据
     auto capData = CodecAbilitySingleton::GetInstance().GetCapabilityByName(codecName);
-    auto checkers = CONFIGURE_CHECKERS_TABLE.find(scenario)->second;
-    int32_t result = AVCS_ERR_OK;
+
+    // L904: 从 CONFIGURE_CHECKERS_TABLE 查场景对应的 checker list
+    auto checkers = CONFIGURE_CHECKERS_TABLE.find(scenario);
+
+    // L908: 遍历全部 checker，AVCS_ERR_CODEC_PARAM_INCORRECT 累积但不终止
     for (const auto &checker : checkers->second) {
         auto ret = checker(capData.value(), format, scenario);
-        if (ret == AVCS_ERR_CODEC_PARAM_INCORRECT) result = AVCS_ERR_CODEC_PARAM_INCORRECT;
-        CHECK_AND_RETURN_RET_LOG(ret == AVCS_ERR_OK || ret == AVCS_ERR_CODEC_PARAM_INCORRECT, ret, ...);
+        if (ret == AVCS_ERR_CODEC_PARAM_INCORRECT) {
+            result = AVCS_ERR_CODEC_PARAM_INCORRECT;  // 累积错误
+        }
+        // 其他错误码立即返回
     }
     return result;
 }
 ```
 
-**E7** (codec_param_checker.cpp L873-889): CheckConfigureValid实现，先查CodecAbility获取codec能力数据，再按scenario查表拿到checker列表，顺序遍历任一checker返回致命错误则立即返回，非致命错误（如参数范围警告）累积到result。
+**关键设计**: 错误累积机制 — 所有 `AVCS_ERR_CODEC_PARAM_INCORRECT` 被累积，最终返回第一个非 OK 的错误码，但继续执行所有检查（不 early return）。
 
 ---
 
-## 3. Scenario推断器：B帧与时域可分级
+## CheckParameterValid 主入口
 
-### 3.1 BFrameScenarioChecker（L225-244）
+**文件**: `codec_param_checker.cpp:916-940`
 
 ```cpp
-std::optional<CodecScenario> BFrameScenarioChecker(CapabilityData &capData, const Format &format,
-                                                  AVCodecType codecType)
+int32_t CodecParamChecker::CheckParameterValid(const Media::Format &format, Media::Format &oldFormat,
+                                               const std::string &codecName, CodecScenario scenario)
 {
-    int32_t enable = 0;
-    bool enableExist = format.GetIntValue(Tag::VIDEO_ENCODER_ENABLE_B_FRAME, enable);
-    if (codecType == AVCODEC_TYPE_VIDEO_DECODER) return std::nullopt;
-    if (!enableExist || !enable) return std::nullopt;
-    CHECK_AND_RETURN_RET_LOG(capData.featuresMap.count(
-        static_cast<int32_t>(AVCapabilityFeature::VIDEO_ENCODER_B_FRAME)), std::nullopt, ...);
-    int32_t temporalEnable = 0;
-    format.GetIntValue(Tag::VIDEO_ENCODER_ENABLE_TEMPORAL_SCALABILITY, temporalEnable);
-    if (temporalEnable) AVCODEC_LOGW("B-frame and temporal scalability incompatible, using B-frame by default!");
-    return CodecScenario::CODEC_SCENARIO_ENC_ENABLE_B_FRAME;
+    // L918: 获取能力数据
+    // L923: SQR 动态参数检查（maxBitrate/sqrFactor 超范围警告）
+    SQRDynamicParameterCheck(capData.value(), format, oldFormat);
+
+    // L925: MergeFormat — 将 format 中存在的新参数合并到 oldFormat
+    MergeFormat(format, oldFormat);
+
+    // L929: 遍历 PARAMETER_CHECKERS_TABLE（仅 1-4 项，场景化）
+    for (const auto &checker : checkers->second) {
+        auto ret = checker(capData.value(), oldFormat, scenario);
+        CHECK_AND_RETURN_RET_LOG(ret == AVCS_ERR_OK, ret, "Param check failed");
+    }
+    return AVCS_ERR_OK;
 }
 ```
 
-**E8** (codec_param_checker.cpp L225-244): BFrameScenarioChecker返回CODEC_SCENARIO_ENC_ENABLE_B_FRAME，若用户同时启用了时域可分级则警告并以B帧优先（B帧与时域不可兼用）。
-
-### 3.2 TemporalScalabilityChecker（L206-223）
-
-```cpp
-std::optional<CodecScenario> TemporalScalabilityChecker(CapabilityData &capData, const Format &format,
-                                                       AVCodecType codecType)
-{
-    int32_t enable = 0;
-    bool enableExist = format.GetIntValue(Tag::VIDEO_ENCODER_ENABLE_TEMPORAL_SCALABILITY, enable);
-    if (codecType == AVCODEC_TYPE_VIDEO_DECODER) return std::nullopt;
-    if (!enableExist || !enable) return std::nullopt;
-    CHECK_AND_RETURN_RET_LOG(capData.featuresMap.count(
-        static_cast<int32_t>(AVCapabilityFeature::VIDEO_ENCODER_TEMPORAL_SCALABILITY)), std::nullopt, ...);
-    return CodecScenario::CODEC_SCENARIO_ENC_TEMPORAL_SCALABILITY;
-}
-```
-
-**E9** (codec_param_checker.cpp L206-223): TemporalScalabilityChecker检查VIDEO_ENCODER_ENABLE_TEMPORAL_SCALABILITY标签和硬件能力特性VIDEO_ENCODER_TEMPORAL_SCALABILITY，两者都满足才返回时域可分级场景。
+**MergeFormat** (L958-1004): 将新 format 中的 7 个关键参数（bitrate/quality/framerate/qp_min/qp_max/orientation）合并到 oldFormat，支持 int32/int64/float/double/string 五种类型。
 
 ---
 
-## 4.核心校验器详解
+## 常量定义
 
-### 4.1 ResolutionChecker分辨率校验（L291-306）
+**文件**: `codec_param_checker.cpp:37-38` + `temporal_scalability.h:29-32`
 
-```cpp
-int32_t ResolutionChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    int32_t width = 0, height = 0;
-    format.GetIntValue(MediaDescriptionKey::MD_KEY_WIDTH, width);
-    format.GetIntValue(MediaDescriptionKey::MD_KEY_HEIGHT, height);
-    CHECK_AND_RETURN_RET_LOG(widthExist && heightExist, AVCS_ERR_INVALID_VAL, "Key param missing, width or height");
-    bool resolutionValid = true;
-    if (capData.supportSwapWidthHeight) {
-        resolutionValid = (capData.width.InRange(width) && capData.height.InRange(height)) ||
-                          (capData.width.InRange(height) && capData.height.InRange(width));
-    } else {
-        resolutionValid = capData.width.InRange(width) && capData.height.InRange(height);
-    }
-    CHECK_AND_RETURN_RET_LOG(resolutionValid, AVCS_ERR_INVALID_VAL, "Param invalid, resolution: %d*%d...", ...);
-}
-```
-
-**E10** (codec_param_checker.cpp L291-306): ResolutionChecker支持宽高互换（supportSwapWidthHeight）逻辑，宽高在capData范围内且支持旋转时允许交换width/height位置。
-
-### 4.2 BitrateAndQualityChecker码率质量综合校验（L437-515）
-
-```cpp
-int32_t BitrateAndQualityChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    // 1. SQR模式检测
-    if (CheckSqrMode(capData, format)) return AVCS_ERR_OK;
-    // 2. CBRHQ模式检测
-    if (!CheckCBRHQMode(capData, format)) return AVCS_ERR_CODEC_PARAM_INCORRECT;
-    // 3. 冲突检测：quality与bitrate互斥
-    CHECK_AND_RETURN_RET_LOG(!(qualityExist && bitrateExist), AVCS_ERR_CODEC_PARAM_INCORRECT, ...);
-    CHECK_AND_RETURN_RET_LOG(!(bitrateExist && bitrateMode == VideoEncodeBitrateMode::CQ), ...);
-    CHECK_AND_RETURN_RET_LOG(!(qualityExist && bitrateMode != VideoEncodeBitrateMode::CQ), ...);
-    // 4. 码率模式支持检测
-    CHECK_AND_RETURN_RET_LOG(CheckBitrateModeSupport(capData, format), ...);
-    // 5. 参数范围检测
-    CHECK_AND_RETURN_RET_LOG(CheckBitrateAndQualityParamRange(capData, format), ...);
-}
-```
-
-**E11** (codec_param_checker.cpp L437-515): BitrateAndQualityChecker五步逻辑：SQR检测→CBRHQ检测→冲突检测→模式支持检测→范围检测。SQR和CBRHQ检测失败不直接返回错误而自动降级（转VBR/CBR）。
-
-### 4.3 CheckSqrMode SQR智能降级（L340-377）
-
-```cpp
-bool CheckSqrMode(CapabilityData &capData, Format &format)
-{
-    // 若bitrateMode != SQR则返回false继续后续检测
-    if (!IsSupported(capData.bitrateMode, static_cast<int32_t>(VideoEncodeBitrateMode::SQR))) {
-        format.RemoveKey(MediaDescriptionKey::MD_KEY_VIDEO_ENCODE_BITRATE_MODE);
-        format.PutIntValue(..., VideoEncodeBitrateMode::VBR);
-        AVCODEC_LOGW("Param invalid, convert the mode to VBR!");
-        return false;
-    }
-    // SQR支持：校验sqrFactor/bitrate/maxBitrate范围，越界则移除并用bitrate替代
-    return true;
-}
-```
-
-**E12** (codec_param_checker.cpp L340-377): CheckSqrMode核心降级逻辑：若硬件不支持SQR模式，自动将bitrateMode转为VBR；若支持SQR但参数越界，自动移除超范围参数并用替代值。
-
-### 4.4 QPChecker量化参数校验（L568-580）
-
-```cpp
-int32_t QPChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    constexpr int32_t maxQP = 51;
-    int32_t qpMin, qpMax;
-    bool qpMinExist = format.GetIntValue(Tag::VIDEO_ENCODER_QP_MIN, qpMin);
-    bool qpMaxExist = format.GetIntValue(Tag::VIDEO_ENCODER_QP_MAX, qpMax);
-    CHECK_AND_RETURN_RET_LOG(!(qpMinExist != qpMaxExist), AVCS_ERR_INVALID_VAL,
-        "QPmin and QPmax are expected to be set in pairs");
-    CHECK_AND_RETURN_RET_LOG(qpMin >= 0 && qpMin <= qpMax, ...);
-    CHECK_AND_RETURN_RET_LOG(qpMax <= maxQP && qpMax >= qpMin, ...);
-}
-```
-
-**E13** (codec_param_checker.cpp L568-580): QPChecker强制QPmin/QPmax必须成对出现（qpMinExist != qpMaxExist则报错），且QPmax<=51（标准H.264最大QP值），QPmin<=QPmax。
-
-### 4.5 TemporalGopSizeChecker时域GOP大小校验（L637-651）
-
-```cpp
-int32_t TemporalGopSizeChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    // gopSize = frameRate * iFrameInterval / 1000; // ms→s
-    CHECK_AND_RETURN_RET_LOG(gopSize > MIN_TEMPORAL_GOPSIZE, AVCS_ERR_INVALID_VAL,
-        "Unsupported gop size, should be greater than %d!", MIN_TEMPORAL_GOPSIZE);
-    format.PutIntValue("video_encoder_gop_size", gopSize); // 注入计算后的gopSize
-    // temporalGopSize必须 >= MIN_TEMPORAL_GOPSIZE 且 < gopSize
-    CHECK_AND_RETURN_RET_LOG(temporalGopSize >= MIN_TEMPORAL_GOPSIZE, ...);
-    CHECK_AND_RETURN_RET_LOG(temporalGopSize < gopSize, ...);
-}
-```
-
-**E14** (codec_param_checker.cpp L637-651): TemporalGopSizeChecker将iFrameInterval（ms）按帧率转换为gopSize帧数，注入format；temporalGopSize必须>=2且<gopSize，保证时域分层有效性。
-
-### 4.6 UniformlyScaledReferenceChecker均匀缩放参考帧校验（L675-690）
-
-```cpp
-int32_t UniformlyScaledReferenceChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    format.GetIntValue(Tag::VIDEO_ENCODER_TEMPORAL_GOP_REFERENCE_MODE, mode);
-    if (mode == TemporalGopReferenceMode::UNIFORMLY_SCALED_REFERENCE) {
-        CHECK_AND_RETURN_RET_LOG(temporalGopSize == MIN_TEMPORAL_GOPSIZE || temporalGopSize == DEFAULT_TEMPORAL_GOPSIZE,
-                                 AVCS_ERR_INVALID_VAL, "expect2 or 4", ...);
-    }
-}
-```
-
-**E15** (codec_param_checker.cpp L675-690): UNIFORMLY_SCALED_REFERENCE模式要求temporalGopSize必须为2或4（MIN_TEMPORAL_GOPSIZE=2或DEFAULT_TEMPORAL_GOPSIZE=4），确保均匀缩放的有效性。
-
-### 4.7 LTRFrameCountChecker长期参考帧计数校验（L748-766）
-
-```cpp
-int32_t LTRFrameCountChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    CHECK_AND_RETURN_RET_LOG(scenario != CodecScenario::CODEC_SCENARIO_ENC_TEMPORAL_SCALABILITY,
-        AVCS_ERR_UNSUPPORT, "not supported to set LTR frame count in temporal scalability scenario");
-    auto ltrCap = capData.featuresMap.find(AVCapabilityFeature::VIDEO_ENCODER_LONG_TERM_REFERENCE);
-    if (ltrCap == capData.featuresMap.end()) {
-        format.RemoveKey(Tag::VIDEO_ENCODER_LTR_FRAME_COUNT); return AVCS_ERR_OK;
-    }
-    int32_t maxLTRFrameCount = 0;
-    ltrCap->second.GetIntValue(Tag::FEATURE_PROPERTY_VIDEO_ENCODER_MAX_LTR_FRAME_COUNT, maxLTRFrameCount);
-    CHECK_AND_RETURN_RET_LOG(ltrFrameCount >= 0 && ltrFrameCount <= maxLTRFrameCount, ...);
-}
-```
-
-**E16** (codec_param_checker.cpp L748-766): LTRFrameCountChecker时域可分级场景禁止使用LTR（AVCS_ERR_UNSUPPORT）；LTR能力从capData.featuresMap查询MAX_LTR_FRAME_COUNT上限。
-
-### 4.8 PostProcessingChecker解码后处理颜色空间校验（L548-566）
-
-```cpp
-int32_t PostProcessingChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    if (scenario != CodecScenario::CODEC_SCENARIO_DEC_NORMAL) return AVCS_ERR_OK;
-    CHECK_AND_RETURN_RET_LOG(colorSpace >= 0 && colorSpace <= 31, ...);
-    CHECK_AND_RETURN_RET_LOG(capData.mimeType == CodecMimeType::VIDEO_HEVC, AVCS_ERR_VIDEO_UNSUPPORT_COLOR_SPACE_CONVERSION, ...);
-    CHECK_AND_RETURN_RET_LOG(colorSpace == colorSpaceBt709Limited || colorSpace == colorSpaceP3Full, ...);
-}
-```
-
-**E17** (codec_param_checker.cpp L548-566): PostProcessingChecker仅适用于解码器CODEC_SCENARIO_DEC_NORMAL；颜色空间转换仅支持HEVC解码器；最终输出仅支持BT709_LIMITED(8)和P3_FULL(12)。
-
-### 4.9 BFrameParamChecker B帧参数校验（L793-812）
-
-```cpp
-int32_t BFrameParamChecker(CapabilityData &capData, Format &format, CodecScenario scenario)
-{
-    auto bFrameCap = capData.featuresMap.find(AVCapabilityFeature::VIDEO_ENCODER_B_FRAME);
-    if (bFrameCap == capData.featuresMap.end()) { format.RemoveKey(...); return AVCS_ERR_OK; }
-    bool condExist = format.GetIntValue(Tag::VIDEO_ENCODER_ENABLE_B_FRAME, cond);
-    if (!condExist || cond <= 0) { format.RemoveKey(...); return AVCS_ERR_OK; }
-    bool modeExist = format.GetIntValue(Tag::VIDEO_ENCODE_B_FRAME_GOP_MODE, mode);
-    if (!modeExist) mode = VIDEO_ENCODE_GOP_ADAPTIVE_B_MODE; // 默认自适应B帧模式
-    format.PutIntValue(Tag::VIDEO_ENCODE_B_FRAME_GOP_MODE, mode);
-    bool maxBFrameExist = format.GetIntValue(Tag::VIDEO_ENCODER_MAX_B_FRAME, maxBFrameCount);
-    if (maxBFrameExist) { AVCODEC_LOGE("UnSupported config VIDEO_ENCODER_MAX_B_FRAME!"); ... } // 拒绝用户设置maxBFrame
-}
-```
-
-**E18** (codec_param_checker.cpp L793-812): BFrameParamChecker拒绝用户手动设置maxBFrameCount（硬件控制）；未指定B帧GOP模式时默认ADAPTIVE_B_MODE；无条件移除不存在的B帧能力标志。
+| 常量 | 值 | 定义位置 | 说明 |
+|------|-----|---------|------|
+| `DEFAULT_QUALITY` | 50 | cpp:37 | CQ 模式默认质量 |
+| `DEFAULT_I_FRAME_INTERVAL` | 1000ms | cpp:38 | 默认 I-Frame 间隔 |
+| `DEFAULT_FRAMERATE` | 30.0 | temporal_scalability.h:29 | 未设帧率时的默认值 |
+| `MIN_TEMPORAL_GOPSIZE` | 2 | temporal_scalability.h:31 | 时域 GOP 最小值 |
+| `DEFAULT_TEMPORAL_GOPSIZE` | 4 | temporal_scalability.h:32 | 时域 GOP 默认值 |
+| `maxQP` | 51 | cpp:570 | QP 最大值 |
 
 ---
 
-## 5. MergeFormat参数合并机制
+## 与 S19 TemporalScalability 关联
 
-### 5.1 MergeFormat实现（L918-965）
-
-```cpp
-void CodecParamChecker::MergeFormat(const Media::Format &format, Media::Format &oldFormat)
-{
-    for (const auto& key : FORMAT_MERGE_LIST) {
-        if (!format.ContainKey(key)) continue;
-        auto keyType = format.GetValueType(key);
-        switch (keyType) {
-            case FORMAT_TYPE_INT32: { int32_t v; format.GetIntValue(key, v); oldFormat.PutIntValue(key, v); break; }
-            case FORMAT_TYPE_INT64: { int64_t v; format.GetLongValue(key, v); oldFormat.PutLongValue(key, v); break; }
-            case FORMAT_TYPE_FLOAT: { float v; format.GetFloatValue(key, v); oldFormat.PutFloatValue(key, v); break; }
-            case FORMAT_TYPE_DOUBLE: { double v; format.GetDoubleValue(key, v); oldFormat.PutDoubleValue(key, v); break; }
-            case FORMAT_TYPE_STRING: { std::string v; format.GetStringValue(key, v); oldFormat.PutStringValue(key, v); break; }
-        }
-    }
-}
-```
-
-**E19** (codec_param_checker.cpp L918-965): MergeFormat将SetParameter传入的新参数（format）合并到oldFormat（已Configure的旧参数），FORMAT_MERGE_LIST定义了哪些key允许从新参数覆盖旧参数，支持int32/int64/float/double/string五种类型。
+- S19 的 `IsLTRSolution` 判定依赖 `CodecParamChecker::CheckCodecScenario`
+- `TemporalGopSizeChecker` / `TemporalGopReferenceModeChecker` / `UniformlyScaledReferenceChecker` 三项专门服务于 SVC-TL / SVC-LTR 双模式校验
+- LTR 与 Temporal Scalability 互斥由 `LTRFrameCountChecker` (L722) 强制校验
 
 ---
 
-## 6.关键常量定义
+## 与 S162 CodecAbility 关联
 
-### 6.1 temporal_scalability.h常量（L29-32）
-
-```cpp
-constexpr double DEFAULT_FRAMERATE = 30.0; // 默认帧率30fps
-constexpr int32_t MIN_TEMPORAL_GOPSIZE = 2;          // 最小时域GOP大小=2
-constexpr int32_t DEFAULT_TEMPORAL_GOPSIZE = 4;      // 默认时域GOP大小=4
-```
-
-**E20** (temporal_scalability.h L29-32):三个核心常量定义，DEFAULT_FRAMERATE=30.0用于未指定帧率时注入；MIN_TEMPORAL_GOPSIZE=2保证至少2帧时域结构；DEFAULT_TEMPORAL_GOPSIZE=4是均匀缩放参考模式的推荐值。
+- `CodecAbilitySingleton::GetInstance().GetCapabilityByName(codecName)` (L900/L919/L945) — 所有校验的能力查询入口
+- `capData.featuresMap` — 能力特性查询（B_FRAME/LTR/TEMPORAL_SCALABILITY 等）
+- `capData.width/height/bitrate/pixFormat/profiles` — 范围校验数据来源
 
 ---
 
-## 附录：校验器完整列表
+## Evidence 汇总
 
-| 校验器 | 适用场景 | 检查内容 |
-|--------|---------|---------|
-| ResolutionChecker | Encoder+Decoder | 分辨率范围、宽高互换 |
-| PixelFormatChecker | Encoder+Decoder | 像素格式是否支持 |
-| FramerateChecker | Encoder+Decoder | 帧率>0 |
-| BitrateAndQualityChecker | Encoder Only | 码率模式(SQR/CBRHQ/VBR/CBR/CQ)、范围、冲突 |
-| VideoProfileChecker | Encoder Only | Profile是否支持 |
-| QPChecker | Encoder Only | QPmin/QPmax成对、范围0-51 |
-| IFrameIntervalChecker | Encoder Only | 默认注入1000ms |
-| RotationChecker | Decoder Only | 旋转角度0/90/180/270 |
-| PostProcessingChecker | Decoder Only | 颜色空间转换(仅HEVC、BT709/P3) |
-| ScalingModeChecker | Decoder Only | 缩放模式0-1 |
-| TransformTypeChecker | Decoder Only | 视频方向类型 |
-| ColorPrimariesChecker | Encoder Only | 色彩基色范围 |
-| TransferCharacteristicsChecker | Encoder Only | 传输特性范围 |
-| MatrixCoefficientsChecker | Encoder Only | 矩阵系数范围 |
-| LTRFrameCountChecker | Encoder Only | LTR帧数上限（时域可分级禁用） |
-| BFrameParamChecker | Encoder Only | B帧使能+默认ADAPTIVE_B_MODE |
-| VideoCodecScenarioChecker | Encoder Only | 编码场景类型枚举范围 |
-| TemporalGopSizeChecker | Temporal Scalability | GOP大小>2 |
-| TemporalGopReferenceModeChecker | Temporal Scalability | 参考模式枚举有效性 |
-| UniformlyScaledReferenceChecker | Temporal Scalability | 均匀缩放要求temporalGopSize=2或4 |
+| # | 文件 | 行号 | 内容 |
+|---|------|------|------|
+| E1 | codec_param_checker.h | 24-30 | CodecScenario 四场景枚举 |
+| E2 | codec_param_checker.h | 32-43 | CodecParamChecker 三公开接口 |
+| E3 | codec_param_checker.cpp | 37-38 | DEFAULT_QUALITY / DEFAULT_I_FRAME_INTERVAL |
+| E4 | codec_param_checker.cpp | 100-145 | 四组 ParamCheckerListType 定义 |
+| E5 | codec_param_checker.cpp | 163-176 | CONFIGURE/PARAMETER_CHECKERS_TABLE 路由表 |
+| E6 | codec_param_checker.cpp | 201-224 | TemporalScalabilityChecker 实现 |
+| E7 | codec_param_checker.cpp | 226-248 | BFrameScenarioChecker 实现（优先级最高） |
+| E8 | codec_param_checker.cpp | 256-292 | ResolutionChecker — swapWidthHeight 双轴校验 |
+| E9 | codec_param_checker.cpp | 294-314 | PixelFormatChecker — SURFACE_FORMAT 跳过 |
+| E10 | codec_param_checker.cpp | 316-331 | FramerateChecker — > 0 校验 |
+| E11 | codec_param_checker.cpp | 333-430 | CheckSqrMode / CheckCBRHQMode — 码率模式自动修正 |
+| E12 | codec_param_checker.cpp | 463-513 | BitrateAndQualityChecker — 三层码率校验 |
+| E13 | codec_param_checker.cpp | 549-572 | VideoProfileChecker — Profile 支持性 |
+| E14 | codec_param_checker.cpp | 574-591 | RotationChecker — 仅 0/90/180/270 |
+| E15 | codec_param_checker.cpp | 593-625 | PostProcessingChecker — HEVC 色空间限制 |
+| E16 | codec_param_checker.cpp | 627-655 | TemporalGopSizeChecker — GOP ≥ 2 + temporalGopSize < gopSize |
+| E17 | codec_param_checker.cpp | 657-677 | TemporalGopReferenceModeChecker — 参考模式枚举校验 |
+| E18 | codec_param_checker.cpp | 679-695 | UniformlyScaledReferenceChecker — 仅 2 或 4 |
+| E19 | codec_param_checker.cpp | 726-745 | LTRFrameCountChecker — 与时域可分级互斥 |
+| E20 | codec_param_checker.cpp | 797-824 | BFrameParamChecker — 默认 ADAPTIVE_B_MODE |
+| E21 | codec_param_checker.cpp | 898-914 | CheckConfigureValid 主入口（错误累积机制） |
+| E22 | codec_param_checker.cpp | 916-940 | CheckParameterValid 主入口（MergeFormat） |
+| E23 | codec_param_checker.cpp | 942-956 | CheckCodecScenario 场景推断（两路 LIST 遍历） |
+| E24 | codec_param_checker.cpp | 958-1004 | MergeFormat — 5 类型参数合并 |
+| E25 | temporal_scalability.h | 29-32 | DEFAULT_FRAMERATE / MIN/DEFAULT_TEMPORAL_GOPSIZE |
+
+---
+
+**Status**: draft
+**生成时间**: 2026-06-08T22:30
+**来源**: 本地镜像探索 `/home/west/av_codec_repo/services/services/codec/server/video/`
