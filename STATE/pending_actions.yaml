@@ -1934,8 +1934,8 @@ git_url: ''
     services/engine/common/codec_utils.cpp (459行)
     services/engine/common/include/codec_utils.h (90行)
   associations: "S45/S39/S80/S130"
-  evidence_count: 22
-  note: "增强版v2：22条evidence(+7条)，精确行号验证，基于本地镜像增强，commit 6842ab6"
+  evidence_count: 33
+  note: "增强版v3：33条evidence(+11条)，精确行号验证(E23-E33)，新增：INDEX_ARRAY(L27)、Scale::Convert(L450-458)、TranslateSurfaceRotation(L310-325)、TranslateSurfaceFormat(L327-346)、ConvertPixelFormatFromFFmpeg(L347-353)、ConvertPixelFormatToFFmpeg(L355-361)、AVStrError(L303-308)、ScalePara/Scale/SurfaceInfo(.h L35-60)、SURFACE_FORMAT排除(.cpp L69)；目标≥25条✅
 - type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S224
   decision: pending_approval
