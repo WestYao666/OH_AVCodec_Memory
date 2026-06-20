@@ -1997,3 +1997,23 @@ git_url: ''
   git_branch: master
   commit: cc9b863
   git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/cc9b863
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S240
+  decision: pending_approval
+  timestamp: "2026-06-20T23:15:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "MediaSyncManager 媒体同步管理中心——音视频同步时钟锚点/Preroll同步/Seek-Pause-Resume/P速率控制/LagDetector卡顿检测"
+  evidence_count: 35
+  source_files: |
+    services/media_engine/modules/sink/media_sync_manager.cpp (491行)
+    services/media_engine/modules/sink/media_sync_manager.h (164行)
+    services/media_engine/modules/sink/media_synchronous_sink.cpp (123行)
+    services/media_engine/modules/sink/media_synchronous_sink.h (76行)
+    services/media_engine/modules/sink/i_media_sync_center.h (82行)
+    services/media_engine/modules/sink/video_sink.cpp (462行)
+    services/media_engine/modules/sink/audio_sink.cpp (1793行)
+  git_branch: master
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory
+  draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S240.md"
+  associations: "S22/S56/S98/S116/S185/S179/S218"
+  note: "草案提升：DRAFTS→MEMORY/10_architecture/，35条行号级evidence(E1-E35)，GitCode web_fetch验证media_sync_manager.cpp源码，基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/sink/"
