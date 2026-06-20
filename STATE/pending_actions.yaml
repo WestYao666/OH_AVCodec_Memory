@@ -1936,3 +1936,18 @@ git_url: ''
   associations: "S45/S39/S80/S130"
   evidence_count: 22
   note: "增强版v2：22条evidence(+7条)，精确行号验证，基于本地镜像增强，commit 6842ab6"
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S224
+  decision: pending_approval
+  timestamp: "2026-06-20T18:17:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "VideoCodecParamChecker 视频编码参数校验框架——CodecScenario三场景+20+维度校验+自动修正"
+  evidence_count: 25
+  source_files: codec_param_checker.cpp(1005行)+codec_param_checker.h(45行)+temporal_scalability.h
+  local_mirror: /home/west/av_codec_repo/services/services/codec/server/video/
+  git_branch: master
+  commit: 97d280b
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory/commit/97d280b
+  draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S224.md
+  associations: "S221/S59/S70/S84/S83/S57"
+  note: "草案提升：draft→pending_approval，25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/ 探索"
