@@ -1780,3 +1780,15 @@
 |------|------|------|
 | 2026-06-21T13:46 | builder-agent (subagent) | S244注册：SmartFluencyDecoding（SFD）智能流畅解码草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S244.md（pending_approval），25条行号级evidence，基于GitCode web_fetch探索 services/services/codec/server/video/features/smart_fluency_decoding/，DropSyncCoordinator环形缓冲/RetentionStrategyFactory四策略/AdaptiveRetentionStrategy累加器/MvAnalyzer运动矢量，与S231/S232/S239/S236关联 |
 
+
+## Builder 2026-06-21 S243注册——AudioEncoderFilter 过滤层音频编码过滤器（orphan draft恢复）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S243 | AudioEncoderFilter 过滤层音频编码过滤器——MediaCodec引擎封装 + Filter基类继承 + TransCoder/Recorder双模式 + AVBufferQueue双队列 | AVCodec, MediaEngine, Filter, AudioEncoder, MediaCodec, TransCoder, Recorder, AVBufferQueue, FilterPipeline, AutoRegisterFilter, StreamType | 新需求开发/问题定位/录制管线/音频编码Filter适配 | **pending_approval** | 🚧 草案恢复：orphan draft正式登记入backlog（2026-06-21T14:46 builder-agent），MEMORY/10_architecture/MEM-ARCH-AVCODEC-S243.md（25条行号级evidence，基于本地镜像 /home/west/av_codec_repo），AudioEncoderFilter("builtin.recorder.audioencoder", FILTERTYPE_AENC)+mediaCodec_引擎组合+DoPrepare/DoStart/DoStop七生命周期+SetTranscoderMode双模式+LinkNext下游连接+OnLinkedResult双队列分发，与S202(S241/S235/S212/S214/S197)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-21T14:46 | builder-agent | S243 backlog恢复注册：orphan draft正式登记入backlog（backlog中缺失此条目），MEM-ARCH-AVCODEC-S243.md已从DRAFTS/迁移至MEMORY/10_architecture/，提交审批

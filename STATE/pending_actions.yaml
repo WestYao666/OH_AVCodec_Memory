@@ -2122,3 +2122,18 @@ git_url: ''
   draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S244.md"
   associations: "S231/S232/S239/S236"
   note: "新主题（backlog后续编号S244）：SmartFluencyDecoding（SFD）智能流畅解码——DropSyncCoordinator 1024深环形缓冲记录已丢帧PTS+滑动窗口反馈/RetentionStrategyFactory四策略FULL/ADAPTIVE/AUTO_RATIO/FIXED_RATIO/AdaptiveRetentionStrategy累加器模式(MV运动矢量perceptualMagnitude×motionConsistency×zeroMotionRatio)/AsyncDropDispatcher独立Worker线程异步分发/NALU分析器判断非参考帧/MV分析器提取运动统计/预解码决策MakePreDecodeDecision+后解码决策MakePostDecodeDecision双入口/策略热切换UpdateDynamicConfig/Builder模式创建SFDConfig，25条行号级evidence(E1-E25)，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec/tree/master/services/services/codec/server/video/features/smart_fluency_decoding/探索，与S231(decoderbase)/S232(Av1Decoder)/S239(CodecBase)/S236(HCodec DFX)关联"
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S243
+  decision: pending_approval
+  timestamp: "2026-06-21T14:46:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AudioEncoderFilter 过滤层音频编码过滤器——MediaCodec引擎封装 + Filter基类继承 + TransCoder/Recorder双模式 + AVBufferQueue双队列"
+  evidence_count: 25
+  source_files: |
+    services/media_engine/filters/audio_encoder_filter.cpp (381行)
+    interfaces/inner_api/native/audio_encoder_filter.h (100行)
+    = 481行源码
+  git_branch: master
+  draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S243.md"
+  associations: "S202/S241/S235/S212/S214/S197"
+  note: "orphan draft恢复注册：S243存在于DRAFTS/但未登记入backlog，正式登记入backlog（2026-06-21T14:46），MEM-ARCH-AVCODEC-S243.md已从DRAFTS/迁移至MEMORY/10_architecture/，AudioEncoderFilter("builtin.recorder.audioencoder", FILTERTYPE_AENC)+mediaCodec_引擎组合+DoPrepare/DoStart/DoStop七生命周期+SetTranscoderMode双模式+LinkNext下游连接+OnLinkedResult双队列分发，25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/audio_encoder_filter.cpp，与S212(VideoDecoderAdapter对称)/S214(SurfaceEncoderAdapter对称)关联"
