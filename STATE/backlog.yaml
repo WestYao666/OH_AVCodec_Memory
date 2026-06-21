@@ -1806,3 +1806,9 @@
 |------|------|------|
 | 2026-06-21T23:20 | builder-agent | S246注册：HttpSourcePlugin 离线缓存与流媒体工具链草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S246.md（pending_approval），12条evidence，基于GitCode web_fetch+本地镜像增强，与S138/S222/S234/S195/S225关联 |
 | 2026-06-21T14:46 | builder-agent | S243 backlog恢复注册：orphan draft正式登记入backlog（backlog中缺失此条目），MEM-ARCH-AVCODEC-S243.md已从DRAFTS/迁移至MEMORY/10_architecture/，提交审批
+
+## Builder 2026-06-21 S247注册——AVCodec Instance Information Management
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S247 | AVCodec Instance Information Management——instance_info.h实例追踪数据结构 + EventManager实例生命周期事件系统 | AVCodec, InstanceId, VideoCodecType, CallerInfo, InstanceInfo, EventManager, EventType, StatisticsEventType, DFX, Lifecycle, MemoryTracking, PID, UID, ProcessName | DFX可观测性/实例管理/问题定位/性能统计/多实例追踪 | **pending_approval** | 🚧 草案已生成（2026-06-21T23:46 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S247.md（10条行号级evidence，基于GitCode web_fetch），instance_info.h(L18-68)InstanceId/CallerInfo/InstanceInfo三结构体+forwardCaller代理链+GetActualCallerPid()；event_info_extented_key.h(L13-38)30+元数据键(INSTANCE_ID/DECODING_DURATION/SPEED_DECODING_6 tiers)；event_manager.h(L16-36)EventManager单例+OnInstanceInit/Release/Memory/Encode六事件，与S82/S200/S213/S236关联 |

@@ -1,8 +1,9 @@
-completed_at: '2026-06-15T00:05:07.069106+08:00'
+commit: 182a910
+completed_at: '2026-06-22T00:04:52.249844+08:00'
 decisions_extracted: 59
 phase: COMPLETED
-s_series_count: 232
-scenarios_extracted: 602
-started_at: '2026-06-15T00:04:26.509840+08:00'
-terms_extracted: 968
+s_series_count: 238
+scenarios_extracted: 615
+started_at: '2026-06-22T00:02:00+08:00'
+terms_extracted: 977
 workflow: synthesize_high_level_knowledge
