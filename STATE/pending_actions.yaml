@@ -285,3 +285,10 @@ pending_actions:
 
 
     从 S 系列记忆识别 59 条架构决策记录，请审批（approve/revise/reject）'
+- id: PA-S244-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S244
+  submitted_at: '2026-06-22T01:15:00+08:00'
+  submitted_by: builder-agent-subagent
+  message: 'Builder Agent 草案已就绪：SmartFluencyDecoding（SFD）智能流畅解码，25条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/，双阶段丢帧决策(MakePreDecodeDecision/MakePostDecodeDecision)、DropSyncCoordinator 128环形缓冲成对同步、AsyncDropDispatcher独立线程、RetentionStrategyFactory四策略(Adaptive/MV/FixedRatio/Auto)、MV/NaluAnalyzer dlopen分析器'
