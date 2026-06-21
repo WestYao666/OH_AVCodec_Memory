@@ -1812,3 +1812,15 @@
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S247 | AVCodec Instance Information Management——instance_info.h实例追踪数据结构 + EventManager实例生命周期事件系统 | AVCodec, InstanceId, VideoCodecType, CallerInfo, InstanceInfo, EventManager, EventType, StatisticsEventType, DFX, Lifecycle, MemoryTracking, PID, UID, ProcessName | DFX可观测性/实例管理/问题定位/性能统计/多实例追踪 | **pending_approval** | 🚧 草案已生成（2026-06-21T23:46 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S247.md（10条行号级evidence，基于GitCode web_fetch），instance_info.h(L18-68)InstanceId/CallerInfo/InstanceInfo三结构体+forwardCaller代理链+GetActualCallerPid()；event_info_extented_key.h(L13-38)30+元数据键(INSTANCE_ID/DECODING_DURATION/SPEED_DECODING_6 tiers)；event_manager.h(L16-36)EventManager单例+OnInstanceInit/Release/Memory/Encode六事件，与S82/S200/S213/S236关联 |
+
+## Builder 2026-06-22 S248注册——FFmpeg Adapter Audio Decoder Plugin 子插件体系（50 Codec变体与24子目录架构）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S248 | FFmpeg Adapter Audio Decoder Plugin 子插件体系——50 Codec变体与24子目录架构（ADPCM 34路由表/WMA三分发/Vorbis extradata/RAW自包含注册/DTS-TrueHD条件编译） | AVCodec, FFmpeg, AudioDecoder, Plugin, SoftwareCodec, ADPCM, DTS, AC3, EAC3, TrueHD, Vorbis, WMA, ALAC, AMR, APE, COOK, RAW, libavcodec | 新需求开发/音频解码接入/问题定位 | **pending_approval** | 🚧 草案已生成（2026-06-22T04:20 Builder基于本地镜像），DRAFTS/MEM-ARCH-AVCODEC-S248.md（26条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_decoder/），三层架构（ffmpeg_decoder_plugin.cpp集中注册50codec + FfmpegBaseDecoder公共引擎605行 + 24个子目录各codec特定实现），E1-E3注册层(codecVec 50项 L36-79 + RegisterAudioDecoderPlugins L201-221 + PLUGIN_DEFINITION L250)，E4-E7公共引擎(SendBuffer/ReceiveBuffer/SkipSamples)，E8-E9 ADPCM 34变体单类聚合(kAdpcmName2Ff路由表L26-59)，E10-E11 WMA三变体分发(wmav1/wmav2/wmapro)，E12-E15 AC3/EAC3/TrueHD/DTS四家庭影院codec，E16 Vorbis extradata处理，E17-E18 RAW自包含注册(APACHE_V2许可证)，与S184/S188/S191/S229互补 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-22T04:20 | Builder | S248注册：FFmpeg Adapter Audio Decoder Plugin子插件体系草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S248.md（pending_approval），26条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_decoder/，与S184/S188/S191/S229关联 |
