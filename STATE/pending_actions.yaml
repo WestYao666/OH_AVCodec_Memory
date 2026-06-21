@@ -312,3 +312,25 @@ pending_actions:
   - E25 smart_fluency_decoding.cpp L209 SetCallbacks
   timestamp: '2026-06-22T03:50:00+08:00'
   requester: builder-agent subagent
+- id: PA-S203-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S203
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S203.md
+  source_verified: true
+  evidence_count: 12
+  verification_notes:
+  - E1 avcodec_sysevent.h L29-35 FaultType枚举 (FREEZE/CRASH/INNER_ERROR)
+  - E2 avcodec_sysevent.h L46-52 FAULT_TYPE_TO_STRING映射表
+  - E3 avcodec_sysevent.h L57-70 CodecDfxInfo结构体12字段
+  - E4 avcodec_sysevent.cpp L160-175 EVP_sha256哈希CA证书隐私保护
+  - E5 avcodec_xcollie.h L29-45 AVCodecXCollie类接口声明
+  - E6 avcodec_xcollie.h L99-107 COLLIE_LISTEN宏RAII守卫
+  - E7 avcodec_xcollie.cpp L144-156 ServiceInterfaceTimerCallback进程退出逻辑
+  - E8 avcodec_trace.h L28-37 AVCODEC_SYNC_TRACE系列宏
+  - E9 avcodec_dump_utils.h L29-41 AVCodecDumpControler类声明
+  - E10 avcodec_dump_utils.cpp L66-73 GetLevel函数dumpIdx层级编码
+  - E11 avcodec_dfx_component.cpp L24-44 CreateVideoLogTag实例标签构造
+  - E12 hisysevent.yaml L47-62 STATISTICS_INFO事件域定义
+  timestamp: '2026-06-22T06:17:00+08:00'
+  requester: builder-agent subagent
