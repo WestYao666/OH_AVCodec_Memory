@@ -1788,6 +1788,12 @@
 |---|------|-------|---------|------|------|
 | S243 | AudioEncoderFilter 过滤层音频编码过滤器——MediaCodec引擎封装 + Filter基类继承 + TransCoder/Recorder双模式 + AVBufferQueue双队列 | AVCodec, MediaEngine, Filter, AudioEncoder, MediaCodec, TransCoder, Recorder, AVBufferQueue, FilterPipeline, AutoRegisterFilter, StreamType | 新需求开发/问题定位/录制管线/音频编码Filter适配 | **pending_approval** | 🚧 草案恢复：orphan draft正式登记入backlog（2026-06-21T14:46 builder-agent），MEMORY/10_architecture/MEM-ARCH-AVCODEC-S243.md（25条行号级evidence，基于本地镜像 /home/west/av_codec_repo），AudioEncoderFilter("builtin.recorder.audioencoder", FILTERTYPE_AENC)+mediaCodec_引擎组合+DoPrepare/DoStart/DoStop七生命周期+SetTranscoderMode双模式+LinkNext下游连接+OnLinkedResult双队列分发，与S202(S241/S235/S212/S214/S197)关联 |
 
+## Builder 2026-06-21 S245注册——HTTP Source Plugin MPD/Segment Download Manager 架构
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S245 | HTTP Source Plugin MPD/Segment Download Manager 架构——DashMpdDownloader五层管理器(Period/AdptSet/Representation)+HlsSegmentManager段生命周期(AES解密/缓冲自适应/码率选择)+DashMediaDownloader媒体段下载 | HTTP Source Plugin, DashMpdDownloader, HlsSegmentManager, DashMediaDownloader, adaptive-streaming, DRM, AES-128-CBC, bitrate-adaptation, CacheMediaChunkBuffer, WriteBitrateCaculator, BlockingQueue | DASH/HLS流播放/DASH manifest解析/段下载调度/DRM密钥提取/码率自适应/缓冲管理 | **pending_approval** | 🆕 新注册（2026-06-21T20:45 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S245.md（6条evidence，2495行+2582行源码分析，基于GitCode Web探索），DashMpdDownloader五层管理器(MPD/Parser→PeriodManager→AdptSetManager→RepresentationManager)+三种段构建策略(SegmentTemplate/List/Base)+SIDX Box解析+HlsSegmentManager段生命周期(播放列表变更响应+AES解密+缓冲自适应+码率估算)+与S138/S153/S187(S222/S182/S234)互补 |
+
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
