@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S244
 title: SmartFluencyDecoding（SFD）智能流畅解码——帧保留策略引擎 + DropSyncCoordinator环形缓冲 + MV运动矢量分析
 type: architecture_fact
 scope: [AVCodec, VideoDecoder, FrameRetention, SmartFluencyDecoding, DropSyncCoordinator, AdaptiveStrategy, MVAnalyzer, NaluAnalyzer, RetentionStrategyFactory, AsyncDropDispatcher, AVCodecDfxComponent]
-status: draft
+status: pending_approval
 created: 2026-06-21T13:46 GMT+8
 source: https://gitcode.com/openharmony/multimedia_av_codec (master分支)
 association: [S231, S232, S239, S236]

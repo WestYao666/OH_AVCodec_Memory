@@ -289,6 +289,26 @@ pending_actions:
   type: approval_response
   decision: pending_approval
   mem_id: MEM-ARCH-AVCODEC-S244
-  submitted_at: '2026-06-22T01:15:00+08:00'
-  submitted_by: builder-agent-subagent
-  message: 'Builder Agent 草案已就绪：SmartFluencyDecoding（SFD）智能流畅解码，25条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/，双阶段丢帧决策(MakePreDecodeDecision/MakePostDecodeDecision)、DropSyncCoordinator 128环形缓冲成对同步、AsyncDropDispatcher独立线程、RetentionStrategyFactory四策略(Adaptive/MV/FixedRatio/Auto)、MV/NaluAnalyzer dlopen分析器'
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S244.md
+  source_verified: true
+  evidence_count: 25
+  verification_notes:
+  - 基于本地镜像 /home/west/av_codec_repo/services/services/codec/server/video/features/smart_fluency_decoding/
+  - E1 smart_fluency_decoding.h L36-50 核心成员变量
+  - E2 smart_fluency_decoding.cpp L52-60 Initialize入口
+  - E3 smart_fluency_decoding.cpp L74 InitializeInternal组件三件套
+  - E4 retention_strategy_factory.cpp L32-44 四策略工厂
+  - E5 retention_strategy.h L24-38 IRetentionStrategy接口
+  - E6 drop_sync_coordinator.h L31-42 128环形缓冲结构
+  - E7 drop_sync_coordinator.cpp L22-35 RecordPreDroppedFrame
+  - E8 drop_sync_coordinator.cpp L37-57 GetAndConsumePreDroppedCount
+  - E9 drop_sync_coordinator.cpp L59-81 反馈窗口与EMA
+  - E10 async_drop_dispatcher.h L24-30 异步分发线程
+  - E15 smart_fluency_decoding.cpp L250 MakePreDecodeDecision
+  - E17 smart_fluency_decoding.cpp L308 MakePostDecodeDecision
+  - E21 smart_fluency_decoding.cpp L140 UpdateDynamicConfig热切换
+  - E22 smart_fluency_decoding.cpp L103 UpdatePlaybackSpeed
+  - E23 smart_fluency_decoding.cpp L183 Flush状态重置
+  - E25 smart_fluency_decoding.cpp L209 SetCallbacks
+  timestamp: '2026-06-22T03:50:00+08:00'
+  requester: builder-agent subagent
