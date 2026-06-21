@@ -2033,3 +2033,19 @@ git_url: ''
   draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S209.md"
   associations: "S210/S195/S172/S234/S153/S138"
   note: "草案增强：E21-E25新增5条行号级evidence(SetCallback双路注册/SetSourceStatisticsDfx透传/SelectBitRate ABR/SelectBitRate自动码率/Pause-Resume代理/GetDuration流信息查询)，共25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/monitor/"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S241
+  decision: pending_approval
+  timestamp: "2026-06-21T08:17:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AudioFFMpegAacEncoderPlugin FFmpeg AAC软件编码器（Engine层原生版）——ADTS封装/AudioResample/avcodec_send_frame双工管线/CodecRegister工厂注册，与S132形成对照"
+  evidence_count: 20
+  source_files: |
+    services/engine/codec/audio/encoder/audio_ffmpeg_aac_encoder_plugin.cpp (583行)
+    services/engine/codec/include/audio/encoder/audio_ffmpeg_aac_encoder_plugin.h (94行)
+  git_branch: master
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory
+  draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S241.md"
+  associations: "S132/S188/S183/S50/S240/S218"
+  note: "新主题：Engine层原生FFmpeg AAC编码器（677行），直接调用libavcodec API，使用AudioBaseCodec::CodecRegister注册，集成AudioResample格式转换和ADTS 7字节头部封装，与S132(FFmpegAdapter版AAC编码器)形成对照，20条行号级evidence(E1-E20)，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/encoder/"
