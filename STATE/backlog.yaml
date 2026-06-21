@@ -1817,10 +1817,11 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S248 | FFmpeg Adapter Audio Decoder Plugin 子插件体系——50 Codec变体与24子目录架构（ADPCM 34路由表/WMA三分发/Vorbis extradata/RAW自包含注册/DTS-TrueHD条件编译） | AVCodec, FFmpeg, AudioDecoder, Plugin, SoftwareCodec, ADPCM, DTS, AC3, EAC3, TrueHD, Vorbis, WMA, ALAC, AMR, APE, COOK, RAW, libavcodec | 新需求开发/音频解码接入/问题定位 | **pending_approval** | 🚧 草案已生成（2026-06-22T04:20 Builder基于本地镜像），DRAFTS/MEM-ARCH-AVCODEC-S248.md（26条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_decoder/），三层架构（ffmpeg_decoder_plugin.cpp集中注册50codec + FfmpegBaseDecoder公共引擎605行 + 24个子目录各codec特定实现），E1-E3注册层(codecVec 50项 L36-79 + RegisterAudioDecoderPlugins L201-221 + PLUGIN_DEFINITION L250)，E4-E7公共引擎(SendBuffer/ReceiveBuffer/SkipSamples)，E8-E9 ADPCM 34变体单类聚合(kAdpcmName2Ff路由表L26-59)，E10-E11 WMA三变体分发(wmav1/wmav2/wmapro)，E12-E15 AC3/EAC3/TrueHD/DTS四家庭影院codec，E16 Vorbis extradata处理，E17-E18 RAW自包含注册(APACHE_V2许可证)，与S184/S188/S191/S229互补 |
+| S248 | FFmpeg Adapter Audio Decoder Plugin 子插件体系——50 Codec变体与24子目录架构（ADPCM 34路由表/WMA三分发/Vorbis extradata/RAW自包含注册/DTS-TrueHD条件编译/G711mu-G711a-LBVC独立注册） | AVCodec, FFmpeg, AudioDecoder, Plugin, SoftwareCodec, ADPCM, DTS, AC3, EAC3, TrueHD, Vorbis, WMA, ALAC, AMR, APE, COOK, RAW, G711mu, G711a, LBVC, libavcodec | 新需求开发/音频解码接入/问题定位 | **pending_approval** | 🚧 草案增强（2026-06-22T06:50 Builder本地镜像验证+E27-E30新增独立注册插件证据），MEMORY/10_architecture/MEM-ARCH-AVCODEC-S248.md（30条行号级evidence E1-E30，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_decoder/），三层架构（ffmpeg_decoder_plugin.cpp集中注册50codec + FfmpegBaseDecoder公共引擎605行 + 24个子目录各codec特定实现），新增E27-E30：G711mu(APACHE_V2独立注册)/G711a(APACHE_V2独立注册)/LBVC(VENDOR独立注册)/MP3独立子目录，与S184/S188/S191/S229互补 |
 
 ## 变更记录
 
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-22T04:20 | Builder | S248注册：FFmpeg Adapter Audio Decoder Plugin子插件体系草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S248.md（pending_approval），26条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_decoder/，与S184/S188/S191/S229关联 |
+| 2026-06-22T06:50 | Builder | S248本地镜像增强：验证g711mu/g711a/lbvc独立注册架构（E27-E29）+mp3子目录（E30），升级至30条行号级evidence，迁移至MEMORY/10_architecture/，状态pending_approval |

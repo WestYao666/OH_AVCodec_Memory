@@ -334,3 +334,44 @@ pending_actions:
   - E12 hisysevent.yaml L47-62 STATISTICS_INFO事件域定义
   timestamp: '2026-06-22T06:17:00+08:00'
   requester: builder-agent subagent
+
+- id: PA-S248-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S248
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S248.md
+  source_verified: true
+  evidence_count: 30
+  verification_notes:
+  - E1 ffmpeg_decoder_plugin.cpp L36-79 codecVec 50个codec定义，ADPCM占34槽位(10-43)
+  - E2 ffmpeg_decoder_plugin.cpp L201-221 RegisterAudioDecoderPlugins，rank=100，CodecMode=SOFTWARE
+  - E3 ffmpeg_decoder_plugin.cpp L250 PLUGIN_DEFINITION，LicenseType=LGPL
+  - E4 ffmpeg_base_decoder.cpp L42-57 FfmpegBaseDecoder构造函数，againIndex_/avCodecContext_等
+  - E5 ffmpeg_base_decoder.cpp L125-158 SendBuffer调用avcodec_send_packet，EAGAIN/EOF/INVALID_DATA
+  - E6 ffmpeg_base_decoder.cpp L174-198 ReceiveBuffer调用avcodec_receive_frame，PTS回填
+  - E7 ffmpeg_base_decoder.cpp L104-119 SetSkipSamplesInfo对MP3/Vorbis注入skip samples
+  - E8 adpcm/ffmpeg_adpcm_decoder_plugin.cpp L26-59 kAdpcmName2Ff路由表34变体
+  - E9 adpcm/ffmpeg_adpcm_decoder_plugin.cpp L62-63 INPUT 24KB/OUTPUT 72KB，MAX_CHANNELS=255
+  - E10 wma/ffmpeg_wma_decoder_plugin.cpp L51-58 FFmpegWMADecoderPlugin三路ffCodecName_分发
+  - E11 wma/ffmpeg_wma_decoder_plugin.cpp L35-46 WMA Legacy约束vs WMA Pro约束
+  - E12 ac3/ffmpeg_ac3_decoder_plugin.cpp L26-28 AC3通道(1-8)/采样率表/SAMPLES=1536
+  - E13 eac3/ffmpeg_eac3_decoder_plugin.cpp L26-28 EAC3通道(1-16)/采样率表(6个)
+  - E14 truehd/ffmpeg_truehd_decoder_plugin.cpp L26-28 TrueHD通道(1-8)/SAMPLES=7680
+  - E15 dts/ffmpeg_dts_decoder_plugin.cpp L26-28 DTS通道(1-6)/9个采样率
+  - E16 vorbis/ffmpeg_vorbis_decoder_plugin.cpp L38-42 EXTRADATA_FIRST_CHAR=2
+  - E17 raw/audio_raw_decoder_plugin.cpp L37-58 RAW自包含注册(APACHE_V2)
+  - E18 raw/audio_raw_decoder_plugin.cpp L66-71 RAW六种位深格式
+  - E19 amrnb/ 294行 AMR-NB codec特定实现
+  - E20 gsm/ 186行 GSM 186行codec特定实现
+  - E21 ilbc/ 186行 iLBC codec特定实现
+  - E22 flac/ 198行 FLAC codec特定实现
+  - E23 ape/ 293行 APE codec特定实现
+  - E24 cook/ 190行 COOK codec特定实现
+  - E25 wma/ 233行 WMA三变体codec特定实现
+  - E26 alac/ 217行 ALAC codec特定实现
+  - E27 g711mu/audio_g711mu_decoder_plugin.cpp L68 G711mu独立PLUGIN_DEFINITION，LicenseType=APACHE_V2
+  - E28 g711a/audio_g711a_decoder_plugin.cpp L70 G711a独立PLUGIN_DEFINITION，LicenseType=APACHE_V2
+  - E29 lbvc/audio_lbvc_decoder_plugin.cpp L62 LBVC独立PLUGIN_DEFINITION，LicenseType=VENDOR
+  - E30 mp3/ffmpeg_mp3_decoder_plugin.cpp L139 MP3独立子目录，SAMPLES=1152
+  timestamp: '2026-06-22T06:52:00+08:00'
+  requester: builder-agent subagent
