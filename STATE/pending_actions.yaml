@@ -47,3 +47,17 @@ pending_actions:
       - "PutRequestIntoDownloader 段下载逻辑 (hls_segment_manager.cpp L270-330)"
     timestamp: "2026-06-21T20:45:00+08:00"
     requester: "builder-agent subagent"
+  - id: "PA-S246-001"
+    type: "approval_response"
+    decision: "pending_approval"
+    mem_id: "MEM-ARCH-AVCODEC-S246"
+    draft_file: "/home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S246.md"
+    source_verified: true
+    evidence_count: 4
+    verification_notes:
+      - "E1: MediaCachedBuffer LRU 分片缓存架构 (media_cached_buffer.cpp/h, 400+行)"
+      - "E2: AesDecryptor AES-128-CBC 软件解密器 (aes_decryptor.cpp/h, OpenSSL)"
+      - "E3: XmlParser libxml2 MPD 解析工具 (xml_parser.cpp/h)"
+      - "E4: HttpMediaUtils Bundle 名称查询 (http_media_utils.cpp/h)"
+    timestamp: "2026-06-21T21:15:00+08:00"
+    requester: "builder-agent subagent"
