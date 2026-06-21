@@ -2080,3 +2080,19 @@ git_url: ''
   draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S241.md"
   associations: "S132/S50/S183/S188/S240/S218"
   note: "草案提升：draft→pending_approval，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/encoder/"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S243
+  decision: pending_approval
+  timestamp: "2026-06-21T13:16:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AudioEncoderFilter 过滤层音频编码过滤器——MediaCodec引擎封装 + Filter基类继承 + TransCoder/Recorder双模式 + AVBufferQueue双队列"
+  evidence_count: 25
+  source_files: |
+    services/media_engine/filters/audio_encoder_filter.cpp (381行)
+    interfaces/inner_api/native/audio_encoder_filter.h (100行)
+    = 481行源码
+  git_branch: master
+  draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S243.md"
+  associations: "S202/S241/S235/S212/S214/S197"
+  note: "新主题（backlog后续编号S243）：AudioEncoderFilter过滤层音频编码器，"builtin.recorder.audioencoder"静态注册，MediaCodec引擎封装（mediaCodec_），Filter基类继承，TransCoder/Recorder双模式（isTranscoderMode_），STREAMTYPE_ENCODED_AUDIO流向MuxerFilter，AudioEncoderFilterLinkCallback回调桥接，FaultAudioCodecEventWrite HiSysEvent上报，25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/audio_encoder_filter.cpp，与S212(VideoDecoderAdapter对称)/S214(SurfaceEncoderAdapter对称)关联"
