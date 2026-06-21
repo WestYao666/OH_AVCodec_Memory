@@ -1767,3 +1767,16 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-21T10:46 | builder-agent (subagent) | S242注册：AvcEncoder 硬件H.264编码器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S242.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/，与S183/S229/S236/S239/S214/S228/S231关联 |
+
+## Builder 2026-06-21 S244注册——SmartFluencyDecoding（SFD）智能流畅解码
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S244 | SmartFluencyDecoding（SFD）智能流畅解码——帧保留策略引擎（RetentionStrategyFactory四策略）+ DropSyncCoordinator 1024深环形缓冲 + MV运动矢量自适应分析（AdaptiveRetentionStrategy累加器）+ NALU/AVBuffer异步丢帧分发（AsyncDropDispatcher）+ IMvAnalyzer/INaluAnalyzer双分析器 | AVCodec, VideoDecoder, FrameRetention, SmartFluencyDecoding, DropSyncCoordinator, AdaptiveStrategy, MVAnalyzer, NaluAnalyzer, RetentionStrategyFactory, AsyncDropDispatcher, AVCodecDfxComponent | 新需求开发/问题定位/视频解码流畅度优化/低端设备/倍速播放 | **pending_approval** | 🚧 草案已生成（2026-06-21T13:46 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S244.md（21462字节，25条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec/tree/master/services/services/codec/server/video/features/smart_fluency_decoding/），smart_fluency_decoding.cpp(hardware H.264 编码器) vs S242；SFD是解码器流畅度优化模块，与S231(decoderbase)/S232(Av1Decoder)/S239(CodecBase)/S236(HCodec DFX)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-21T13:46 | builder-agent (subagent) | S244注册：SmartFluencyDecoding（SFD）智能流畅解码草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S244.md（pending_approval），25条行号级evidence，基于GitCode web_fetch探索 services/services/codec/server/video/features/smart_fluency_decoding/，DropSyncCoordinator环形缓冲/RetentionStrategyFactory四策略/AdaptiveRetentionStrategy累加器/MvAnalyzer运动矢量，与S231/S232/S239/S236关联 |
+

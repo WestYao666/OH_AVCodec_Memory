@@ -2096,3 +2096,29 @@ git_url: ''
   draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S243.md"
   associations: "S202/S241/S235/S212/S214/S197"
   note: "新主题（backlog后续编号S243）：AudioEncoderFilter过滤层音频编码器，"builtin.recorder.audioencoder"静态注册，MediaCodec引擎封装（mediaCodec_），Filter基类继承，TransCoder/Recorder双模式（isTranscoderMode_），STREAMTYPE_ENCODED_AUDIO流向MuxerFilter，AudioEncoderFilterLinkCallback回调桥接，FaultAudioCodecEventWrite HiSysEvent上报，25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/audio_encoder_filter.cpp，与S212(VideoDecoderAdapter对称)/S214(SurfaceEncoderAdapter对称)关联"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S244
+  decision: pending_approval
+  timestamp: "2026-06-21T13:46:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "SmartFluencyDecoding（SFD）智能流畅解码——帧保留策略引擎（RetentionStrategyFactory四策略）+ DropSyncCoordinator 1024深环形缓冲 + MV运动矢量自适应分析（AdaptiveRetentionStrategy累加器）+ NALU/AVBuffer异步丢帧分发（AsyncDropDispatcher）+ IMvAnalyzer/INaluAnalyzer双分析器"
+  evidence_count: 25
+  source_files: |
+    services/services/codec/server/video/features/smart_fluency_decoding/
+      smart_fluency_decoding.cpp (~500行) + smart_fluency_decoding.h (~180行)
+      smart_fluency_decoding_builder.h (~80行)
+      smart_fluency_decoding_types.h
+      drop_sync_coordinator.cpp (~150行) + drop_sync_coordinator.h (~100行)
+      async_drop_dispatcher.cpp + async_drop_dispatcher.h (~100行)
+      strategies/retention_strategy.h (~60行)
+      strategies/retention_strategy_factory.cpp (~80行)
+      strategies/adaptive_retention_strategy.cpp (~250行) + adaptive_retention_strategy.h (~80行)
+      analyzers/mv_analyzer.h (~70行)
+      analyzers/nalu_analyzer.h (~50行)
+    = ~1900行源码
+  git_branch: master
+  git_url: https://gitcode.com/openharmony/multimedia_av_codec
+  draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S244.md"
+  associations: "S231/S232/S239/S236"
+  note: "新主题（backlog后续编号S244）：SmartFluencyDecoding（SFD）智能流畅解码——DropSyncCoordinator 1024深环形缓冲记录已丢帧PTS+滑动窗口反馈/RetentionStrategyFactory四策略FULL/ADAPTIVE/AUTO_RATIO/FIXED_RATIO/AdaptiveRetentionStrategy累加器模式(MV运动矢量perceptualMagnitude×motionConsistency×zeroMotionRatio)/AsyncDropDispatcher独立Worker线程异步分发/NALU分析器判断非参考帧/MV分析器提取运动统计/预解码决策MakePreDecodeDecision+后解码决策MakePostDecodeDecision双入口/策略热切换UpdateDynamicConfig/Builder模式创建SFDConfig，25条行号级evidence(E1-E25)，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec/tree/master/services/services/codec/server/video/features/smart_fluency_decoding/探索，与S231(decoderbase)/S232(Av1Decoder)/S239(CodecBase)/S236(HCodec DFX)关联"
