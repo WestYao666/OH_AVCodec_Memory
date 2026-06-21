@@ -1968,10 +1968,10 @@ git_url: ''
     services/media_engine/modules/sink/video_sink.cpp (462行)
     services/media_engine/modules/sink/audio_sink.cpp (1793行)
   local_mirror: /home/west/av_codec_repo/services/media_engine/modules/sink/
-  draft_file: DRAFTS/MEM-ARCH-AVCODEC-S240.md
+  draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S240.md
   associations: "S22/S56/S98/S116/S185/S179/S218"
   summary: |
-    S240 探索 MediaSyncManager 媒体同步管理中心（media_sync_manager.cpp 491行 + media_sync_manager.h 164行），生成 35 条行号级 evidence。
+    S240 探索 MediaSyncManager 媒体同步管理中心（media_sync_manager.cpp 491行 + media_sync_manager.h 164行），生成 40 条行号级 evidence。
     核心发现：
     1. IMediaSynchronizer 优先级体系：AUDIO_SINK=2 > VIDEO_SINK=0 > 其他（音频主时钟原则）
     2. 时间锚点机制：currentAnchorClockTime_ (系统纳秒) ↔ currentAnchorMediaTime_ (媒体微秒)

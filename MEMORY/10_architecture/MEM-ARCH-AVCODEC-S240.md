@@ -5,7 +5,7 @@
 > **增强时间**: 2026-06-20 23:15 CST+8（GitCode web_fetch 验证）
 > **Builder**: builder-agent (subagent)
 > **源码**: 基于本地镜像 `/home/west/av_codec_repo` + GitCode web_fetch 交叉验证
-> **evidence**: 35条行号级evidence（E1-E35）
+> **evidence**: 40条行号级evidence（E1-E40）
 > **关联**: S22/S56/S98/S116/S185/S179/S218
 
 ---
@@ -91,6 +91,11 @@ mediaTime = currentAnchorMediaTime_ + (clockTime - currentAnchorClockTime_ + del
 | E33 | `audio_sink.cpp` | L1029-1031 | SetLastAudioBufferDuration 音频缓冲时长追踪 |
 | E34 | `audio_sink.cpp` | L1358 | AudioLagDetector::CalcLag 音频卡顿检测 |
 | E35 | `audio_sink.cpp` | L1400-1406 | AudioLagDetector 使用 syncCenter->GetClockTimeNow() |
+| E36 | `media_sync_manager.cpp` | L185-198 | Reset() 实现（Stop + 清空syncer列表 + 重置seek/paused/anchor状态变量） |
+| E37 | `media_sync_manager.cpp` | L200-220 | Stop() 实现（State::PAUSED + ResetTimeAnchorNoLock + 重置playRate_=1.0f） |
+| E38 | `subtitle_sink.cpp` | L40 | syncerPriority_ = IMediaSynchronizer::SUBTITLE_SINK（优先级8，最低） |
+| E39 | `subtitle_sink.cpp` | L173-206 | Flush(bool isSeekFlush) 实现（字幕队列清理 + isFlush_原子标志管理） |
+| E40 | `video_sink.cpp` | L440-455 | VideoLagDetector::Reset 重置 discardFrameCnt_ = VIDEO_SINK_START_FRAME |
 
 ---
 
