@@ -2,6 +2,7 @@
 # Task: S216 draft verification and pending_approval marking
 # Time: 2026-06-21T19:55:00+08:00
 # Updated: 2026-06-21T22:44:00+08:00 (PM loop: added S171/S193/S209/S217/S219/S224/S233/S235/S236/S237/S240/S241/S243 - 13 drafts pending_approval but missing from queue)
+# Updated: 2026-06-21T23:20:00+08:00 (S246 new registration: HttpSourcePlugin offline cache utilities)
 
 pending_actions:
   - id: "PA-S212-001"
@@ -231,3 +232,16 @@ pending_actions:
       - "draft exists in DRAFTS/ (386 lines), backlog shows pending_approval"
     timestamp: "2026-06-21T22:44:00+08:00"
     requester: "PM loop cron"
+  - id: "PA-S246-001"
+    type: "approval_response"
+    decision: "pending_approval"
+    mem_id: "MEM-ARCH-AVCODEC-S246"
+    draft_file: "/home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S246.md"
+    source_verified: true
+    evidence_count: 12
+    verification_notes:
+      - "orphan draft discovered in DRAFTS/ with no backlog entry"
+      - "MediaCachedBuffer LRU分片缓存 + AesDecryptor AES-128 + XmlParser + HttpMediaUtils"
+      - "E1-E4 GitCode web_fetch + E5-E12 本地镜像行号增强（/home/west/av_codec_repo）"
+    timestamp: "2026-06-21T23:20:00+08:00"
+    requester: "builder-agent"

@@ -1,3 +1,15 @@
+---
+status: draft
+mem_id: MEM-ARCH-AVCODEC-S246
+title: "HttpSourcePlugin 离线缓存与流媒体工具链——MediaCachedBuffer LRU分片缓存 + AesDecryptor AES-128解密 + XmlParser + HttpMediaUtils DFX 四组件"
+scope: "AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, MediaCachedBuffer, AesDecryptor, XmlParser, HttpMediaUtils, LRU, AES-128, CBC, DRM, DASH, HLS, OfflineCache, Download"
+scenario: "DASH/HLS流播放/离线缓存/AES-128解密/DFX可观测性"
+assoc_s: "S138, S222, S234, S195, S225"
+evidence_count: 12
+source: "GitCode web_fetch + 本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/"
+builder_timestamp: "2026-06-21"
+---
+
 # MEM-ARCH-AVCODEC-S246: HttpSourcePlugin 离线缓存与流媒体工具链——MediaCachedBuffer LRU分片缓存 + AesDecryptor AES-128解密 + XmlParser + HttpMediaUtils DFX 四组件
 
 ## 概述
@@ -233,10 +245,14 @@ XmlParser → MPD XML 解析（为 DashMpdParser 提供工具支持）
 
 ---
 
-**来源**: GitCode 仓库 `https://gitcode.com/openharmony/multimedia_av_codec`
-- `services/media_engine/plugins/source/http_source/utils/media_cached_buffer.cpp` (web_fetch, 2026-06-21)
-- `services/media_engine/plugins/source/http_source/utils/media_cached_buffer.h` (web_fetch, 2026-06-21)
-- `services/media_engine/plugins/source/http_source/utils/aes_decryptor.cpp` (web_fetch, 2026-06-21)
-- `services/media_engine/plugins/source/http_source/utils/aes_decryptor.h` (web_fetch, 2026-06-21)
-- `services/media_engine/plugins/source/http_source/xml/xml_parser.cpp` (web_fetch, 2026-06-21)
-- `services/media_engine/plugins/source/http_source/utils/http_media_utils.cpp` (web_fetch, 2026-06-21)
+**来源**: GitCode 仓库 `https://gitcode.com/openharmony/multimedia_av_codec` + 本地镜像 `/home/west/av_codec_repo/services/media_engine/plugins/source/http_source/`
+
+**本地镜像行号增强**（E5-E12，2026-06-21 builder-agent）:
+- **E5** `media_cached_buffer.cpp` L28-37: CHUNK_SIZE=16KB / MAX_CACHE_BUFFER_SIZE=19MB / MAX_TOTAL_READ_SIZE=2MB 常量定义
+- **E6** `media_cached_buffer.cpp` L30-36: CACHE_FRAGMENT_MAX_NUM_DEFAULT=300 / CACHE_FRAGMENT_MAX_NUM_LARGE=10 / NEW_FRAGMENT_INIT_CHUNK_NUM=8 常量
+- **E7** `media_cached_buffer.cpp` L38-46: BoundedIntervalComp / LeftBoundedRightOpenComp 区间判断谓词（Seek优化）
+- **E8** `aes_decryptor.cpp` L31-49: AesDecryptor 构造函数初始化 aesKey_.rounds=0 / memset_s 清零
+- **E9** `aes_decryptor.cpp` L51-67: OnSourceKeyChange 密钥变更回调 / AES_set_decrypt_key / memcpy_s
+- **E10** `aes_decryptor.cpp` L69-71+: Decrypt 方法 AES_cbc_encrypt 调用
+- **E11** `http_media_utils.cpp` L33-49: GetClientBundleName / DEFAULT_ID=1003 / SAMgr 查询链
+- **E12** `xml_parser.cpp` 131行: libxml2 XML_PARSE_NONET|NOERROR|NOWARNING 安全标志 / 三种解析入口
