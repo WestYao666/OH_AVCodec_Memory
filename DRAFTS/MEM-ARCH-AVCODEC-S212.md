@@ -13,7 +13,7 @@
 | created | 2026-06-05T04:51 GMT+8 |
 | builder | builder-agent (subagent) |
 | source_files | services/media_engine/filters/video_decoder_adapter.cpp(609行) + interfaces/inner_api/native/video_decoder_adapter.h(123行) |
-| evidence_count | 14 |
+| evidence_count | 20 |
 | related_topics | S45(SurfaceDecoderFilter), S46(DecoderSurfaceFilter), S39(VideoDecoderFilter), S55(CodecCallback体系), S92(MediaCodec核心引擎) |
 
 ---
@@ -199,12 +199,12 @@ int32_t SetDecryptConfig(
 
 ---
 
-## 9. 行号级 Evidence（14条）
+## 9. 行号级 Evidence（20条）
 
 | # | 文件 | 行号范围 | 内容描述 |
 |---|------|---------|---------|
 | 1 | video_decoder_adapter.cpp | 50-79 | VideoDecoderCallback 四路回调桥接 |
-| 2 | video_decoder_adapter.cpp | 98-127 | VideoConsumerListener OnBufferAvailable |
+| 2 | video_decoder_adapter.cpp | 98-127 | VideoConsumerListener OnBufferAvailable Surface环形消费 |
 | 3 | video_decoder_adapter.cpp | 132-156 | Init → CreateByMime/CreateByName |
 | 4 | video_decoder_adapter.cpp | 158-180 | Configure → 设置文件类型/ MIME |
 | 5 | video_decoder_adapter.cpp | 158-180 | Configure: 检查 VC1/WMV3/RV30/MPEG4 |
@@ -217,6 +217,12 @@ int32_t SetDecryptConfig(
 | 12 | video_decoder_adapter.cpp | ~182-200 | OnInputBufferAvailable/OnOutputBufferAvailable |
 | 13 | video_decoder_adapter.cpp | ~115-126 | Surface Buffer 环形消费 AcquireBuffer+ReleaseBuffer |
 | 14 | video_decoder_adapter.h | 71 | IsHwDecoder 硬件解码器判定 |
+| 15 | video_decoder_adapter.cpp | 204-218 | Start(): ScopedTimer + FaultVideoCodecEventWrite 错误上报 |
+| 16 | video_decoder_adapter.cpp | 228-245 | Flush(): 清空 inputBufferDtsQue_ DTS队列 |
+| 17 | video_decoder_adapter.cpp | 296-314 | RecordTimeStamp: StallingStage 阶段标记 + 时间戳记录 |
+| 18 | video_decoder_adapter.cpp | 316-350 | AquireAvailableInputBuffer: 首帧 isRenderStarted_ 标记 + QueueInputBuffer |
+| 19 | video_decoder_adapter.cpp | 352-366 | GetInputBufferDts: dtsQueMutex_ 锁保护 + push_back DTS队列 |
+| 20 | video_decoder_adapter.cpp | 368-395 | SetOutputBufferPts: pop_front 取DTS + PTS设置 + 低水位警告 |
 
 ---
 

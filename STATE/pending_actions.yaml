@@ -1066,7 +1066,8 @@
   timestamp: "2026-06-05T04:51:00+08:00"
   builder: builder-agent (subagent)
   subject: VideoDecoderAdapter 过滤层编解码适配器——AVBufferQueue双队列与CodecEngine三层回调桥接
-  evidence_count: 14
+  evidence_count: 20
+  enhancement_note: "本地镜像源码增强（2026-06-21T19:16）：从14条增强至20条(E15-E20)：Start FaultVideoCodecEventWrite错误上报/Flush清空DTS队列/RecordTimeStamp阶段标记/AquireAvailableInputBuffer首帧标记+QueueInputBuffer/GetInputBufferDtsdtsQueMutex锁/S etOutputBufferPts PTS队列弹出，与S45/S46/S39/S55/S92关联"
   source_files: |
     video_decoder_adapter.cpp (609行) + video_decoder_adapter.h (123行)
     = 732行源码
@@ -2137,3 +2138,42 @@ git_url: ''
   draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S243.md"
   associations: "S202/S241/S235/S212/S214/S197"
   note: "orphan draft恢复注册：S243存在于DRAFTS/但未登记入backlog，正式登记入backlog（2026-06-21T14:46），MEM-ARCH-AVCODEC-S243.md已从DRAFTS/迁移至MEMORY/10_architecture/，AudioEncoderFilter("builtin.recorder.audioencoder", FILTERTYPE_AENC)+mediaCodec_引擎组合+DoPrepare/DoStart/DoStop七生命周期+SetTranscoderMode双模式+LinkNext下游连接+OnLinkedResult双队列分发，25条行号级evidence(E1-E25)，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/audio_encoder_filter.cpp，与S212(VideoDecoderAdapter对称)/S214(SurfaceEncoderAdapter对称)关联"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S242
+  decision: pending_approval
+  timestamp: "2026-06-21T19:14:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AvcEncoder 硬件H.264编码器——libavcenc_ohos.z.so HDI三层接口与CodecBase九态机，1765行cpp+10124行h+604行convert/util"
+  evidence_count: 20
+  source_files: |
+    services/engine/codec/video/avcencoder/avc_encoder.cpp (1765行)
+    services/engine/codec/video/avcencoder/avc_encoder.h (10124行)
+    services/engine/codec/video/avcencoder/avc_encoder_convert.cpp (369行)
+    services/engine/codec/video/avcencoder/avc_encoder_util.cpp (235行)
+  git_branch: master
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory
+  draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S242.md"
+  associations: "S183/S229/S236/S239/S214/S228/S231"
+  note: "draft发现自动上报，待耀耀审批"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S244
+  decision: pending_approval
+  timestamp: "2026-06-21T19:14:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "SmartFluencyDecoding（SFD）智能流畅解码——帧保留策略引擎（RetentionStrategyFactory四策略）+ DropSyncCoordinator 1024深环形缓冲 + MV运动矢量自适应分析"
+  evidence_count: 25
+  source_files: |
+    services/services/codec/server/video/features/smart_fluency_decoding/
+      smart_fluency_decoding.cpp + smart_fluency_decoding.h + smart_fluency_decoding_builder.h
+      drop_sync_coordinator.cpp + drop_sync_coordinator.h
+      async_drop_dispatcher.cpp + async_drop_dispatcher.h
+      strategies/retention_strategy.h + strategies/retention_strategy_factory.cpp
+      strategies/adaptive_retention_strategy.cpp + strategies/adaptive_retention_strategy.h
+      analyzers/mv_analyzer.h + analyzers/nalu_analyzer.h
+  git_branch: master
+  git_url: https://gitcode.com/openharmony/multimedia_av_codec
+  draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S244.md"
+  associations: "S231/S232/S239/S236"
+  note: "draft发现自动上报，待耀耀审批"
