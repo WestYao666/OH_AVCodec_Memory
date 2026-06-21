@@ -2049,3 +2049,21 @@ git_url: ''
   draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S241.md"
   associations: "S132/S188/S183/S50/S240/S218"
   note: "新主题：Engine层原生FFmpeg AAC编码器（677行），直接调用libavcodec API，使用AudioBaseCodec::CodecRegister注册，集成AudioResample格式转换和ADTS 7字节头部封装，与S132(FFmpegAdapter版AAC编码器)形成对照，20条行号级evidence(E1-E20)，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/encoder/"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S242
+  decision: pending_approval
+  timestamp: "2026-06-21T10:46:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AvcEncoder 硬件H.264编码器——libavcenc_ohos.z.so HDI三层接口与CodecBase九态机，1765行cpp+10124行h+604行convert/util"
+  evidence_count: 20
+  source_files: |
+    services/engine/codec/video/avcencoder/avc_encoder.cpp (1765行)
+    services/engine/codec/video/avcencoder/avc_encoder.h (10124行)
+    services/engine/codec/video/avcencoder/avc_encoder_convert.cpp (369行)
+    services/engine/codec/video/avcencoder/avc_encoder_util.cpp (235行)
+  git_branch: master
+  git_url: https://github.com/WestYao666/OH_AVCodec_Memory
+  draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S242.md"
+  associations: "S183/S229/S236/S239/S214/S228/S231"
+  note: "新主题：AvcEncoder硬件H.264编码器（Engine层），dlopen加载libavcenc_ohos.z.so HDI接口(InitEncoder/EncodeProcess/ReleaseEncoder)，CodecBase九态机+SendFrame TaskThread驱动，Surface输入模式+BlockQueue双队列+Fence同步，Profile(BASELINE/MAIN/HIGH)×Level(1~6.2)，20条行号级evidence(E1-E20)，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/"

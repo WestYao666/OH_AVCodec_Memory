@@ -1755,3 +1755,15 @@
 |------|------|------|
 | 2026-06-21T08:17 | builder-agent (subagent) | S241注册：AudioFFMpegAacEncoderPlugin FFmpeg AAC软件编码器（Engine层原生版）草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S241.md（draft），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/encoder/，与S132/S50/S183/S188/S240/S218关联 |
 | 2026-06-20T19:47 | builder-agent (subagent) | S240注册：MediaSyncManager 媒体同步管理中心草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S240.md（pending_approval），35条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/sink/，与S22/S56/S98/S116/S185/S179/S218关联 |
+
+## Builder 2026-06-21 S242注册——AvcEncoder 硬件H.264编码器
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S242 | AvcEncoder 硬件H.264编码器——libavcenc_ohos.z.so HDI三层接口与CodecBase九态机，1765行cpp+10124行h+604行convert/util | AVCodec, VideoEncoder, HardwareCodec, HDI, AVC, H.264, dlopen, SurfaceMode, CodecBase, RefBase, libavcenc_ohos, SendFrame, BlockQueue, Fence, Profile, Level, QP, BitRate, IDR | 新需求开发/问题定位/视频编码接入/新人入项 | **pending_approval** | 🚧 草案已生成（2026-06-21T10:46 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S242.md（19105字节，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/），AvcEncoder(codecbase.h继承+RefBase，L51-53类定义，1765行cpp)+avc_encoder.h(10124行)+avc_encoder_convert.cpp(369行)+avc_encoder_util.cpp(235行)=~13KB源码，HDI三函数(InitEncoder/EncodeProcess/ReleaseEncoder)+CodecBase九态机(UNINITIALIZED到ERROR九状态)+SendFrame TaskThread驱动+BlockQueue双队列+Surface输入模式+Fence同步+Profile(BASELINE/MAIN/HIGH)×Level(1~6.2)+16实例上限，与S183(AvcEncoder软件版)/S229/原生AudioCodec/S236(HCodec DFX)/S239(CodecBase)/S214(SurfaceEncoderAdapter对称)/S228(S231)HevcDecoder/VP8/VP9/Av1关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-21T10:46 | builder-agent (subagent) | S242注册：AvcEncoder 硬件H.264编码器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S242.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/，与S183/S229/S236/S239/S214/S228/S231关联 |
