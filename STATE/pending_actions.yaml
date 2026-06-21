@@ -2067,3 +2067,16 @@ git_url: ''
   draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S242.md"
   associations: "S183/S229/S236/S239/S214/S228/S231"
   note: "新主题：AvcEncoder硬件H.264编码器（Engine层），dlopen加载libavcenc_ohos.z.so HDI接口(InitEncoder/EncodeProcess/ReleaseEncoder)，CodecBase九态机+SendFrame TaskThread驱动，Surface输入模式+BlockQueue双队列+Fence同步，Profile(BASELINE/MAIN/HIGH)×Level(1~6.2)，20条行号级evidence(E1-E20)，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/"
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S241
+  decision: pending_approval
+  timestamp: "2026-06-21T11:14:00+08:00"
+  builder: builder-agent (subagent)
+  subject: "AudioFFMpegAacEncoderPlugin FFmpeg AAC软件编码器（Engine层原生版）——ADTS封装/AudioResample/avcodec_send_frame双工管线/CodecRegister工厂注册"
+  evidence_count: 20
+  source_files: "services/engine/codec/audio/encoder/audio_ffmpeg_aac_encoder_plugin.cpp (583行) + audio_ffmpeg_aac_encoder_plugin.h (94行) = 677行源码"
+  git_branch: master
+  draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S241.md"
+  associations: "S132/S50/S183/S188/S240/S218"
+  note: "草案提升：draft→pending_approval，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/audio/encoder/"
