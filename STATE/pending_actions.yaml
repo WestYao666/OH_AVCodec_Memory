@@ -456,3 +456,34 @@ pending_actions:
   - SetFaultEvent DFX事件（E15）
   timestamp: "2026-06-25T03:24:00+08:00"
   requester: builder-agent subagent
+- id: PA-S250-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S250
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S250.md
+  source_verified: true
+  evidence_count: 20
+  verification_notes:
+  - GitCode web_fetch 验证 8 个源码文件（interstitial_controller.h/cpp, interstitial_scheduler.h/cpp, interstitial_strategies.h, interstitial_vod_strategies.cpp/h, interstitial_live_strategies.cpp/h）
+  - E1: interstitial_controller.h L32-35 InterstitialPlayState 枚举
+  - E2: interstitial_controller.h L37-40 AdsEventType 枚举
+  - E3: interstitial_controller.h L42-45 AdsEndReason 枚举
+  - E4: interstitial_controller.h L47-52 AdsChangeEvent 结构体
+  - E5: interstitial_controller.h L54-61 InterstitialEntry 结构体
+  - E6: interstitial_controller.h Init 方法声明
+  - E7: interstitial_controller.cpp L89-97 SetLiveSource VOD/Live策略切换
+  - E8: interstitial_controller.h AddAdsMediaSource 方法声明
+  - E9: interstitial_controller.cpp L128-131 PreRoll广告检测（startMs==0）
+  - E10: interstitial_controller.h SkipCurrentAdsMediaSource 方法声明
+  - E11: interstitial_scheduler.h L55 NOTIFY_ADVANCE_MS = 2000 常量
+  - E12: interstitial_scheduler.cpp L65-78 OnPlaybackTick 播放Tick检查
+  - E13: interstitial_scheduler.cpp L86-105 CheckAndNotify 提前2秒触发回调
+  - E14: interstitial_strategies.h L28-40 IScheduleStrategy 接口
+  - E15: interstitial_vod_strategies.cpp L45-47 ShouldSaveResumePoint/ShouldHandleSeek 返回true
+  - E16: interstitial_live_strategies.cpp L47-63 GetResumeSeekMs回到直播边缘（duration）
+  - E17: interstitial_controller.cpp L358-395 DoSourceSwitch 完整Source切换流程
+  - E18: interstitial_controller.cpp L193-207 OnAdEos 广告EOS触发恢复
+  - E19: interstitial_controller.cpp L358+L390 码率保持 capturedBitRate→SelectBitRate
+  - E20: interstitial_controller.cpp L328-333 断点保存 resumePointMs_
+  timestamp: "2026-06-25T04:39:00+08:00"
+  requester: builder-agent subagent

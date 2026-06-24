@@ -5,10 +5,10 @@
 - **ID**: MEM-ARCH-AVCODEC-S250
 - **Title**: Interstitial Controller 动态插播模块——VOD/Live双策略/2000ms预通知/SourceSwitch切换/PreRoll广告/DRM加密广告
 - **Tags**: [avcodec, media_engine, modules, interstitial, dynamic-insert, ads, vod, live, demuxer, source-switch]
-- **evidence_count**: 15
+- **evidence_count**: 20
 - **source**: https://gitcode.com/openharmony/multimedia_av_codec (GitCode Web探索)
 - **registered**: 2026-06-25
-- **status**: draft
+- **status**: pending_approval
 - **generated**: 2026-06-25T03:43 GMT+8
 - **Builder**: builder-agent (GitCode web_fetch)
 - **关联**: S240(MediaSyncManager), S222(DashMpdDownloader), S233(AppClient+IMediaSourceLoader), S245(HLS/DASH Download Manager)
