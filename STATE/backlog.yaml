@@ -1837,3 +1837,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-25T03:24 | builder-agent subagent | S249注册：SurfaceEncoderAdapter Filter层编码器适配器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S249.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/，与S214/S23/S239/S242/S202/S212关联 |
+
+## Builder 2026-06-25 S250注册——Interstitial Controller 动态插播模块
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S250 | Interstitial Controller 动态插播模块——VOD/Live双策略/2000ms预通知/SourceSwitch切换/PreRoll广告/DRM加密广告 | AVCodec, MediaEngine, Modules, Interstitial, DynamicInsert, Ads, VOD, Live, Demuxer, SourceSwitch, MediaSyncManager, InterstitialScheduler, IScheduleStrategy, VodScheduleStrategy, LiveScheduleStrategy | 视频播放/广告插播/动态内容插入/VOD点播/Live直播/DRM加密广告/播放器中间件 | **pending_approval** | 🆕 新注册（2026-06-25T03:43 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S250.md（15条evidence，基于GitCode web_fetch探索），InterstitialController核心状态机(InterstitialPlayState IDLE/PLAYING)+InterstitialScheduler定时事件调度(NOTIFY_ADVANCE_MS=2000)+VOD/Live双策略接口(IScheduleStrategy)+SourceSwitch完整流程(SetDataSource/ReselectTracks/SeekTo/Start)+PreRoll检测(startMs==0)+Live边缘Seek(durationMs)，与S240/S222/S233/S245关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-25T03:43 | builder-agent | S250注册：Interstitial动态插播模块草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S250.md（pending_approval），15条行号级evidence，基于GitCode web_fetch探索，与S240/S222/S233/S245关联 |
