@@ -87,12 +87,17 @@ pending_actions:
   mem_id: MEM-ARCH-AVCODEC-S171
   draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S171.md
   source_verified: true
-  evidence_count: 0
+  evidence_count: 6
   verification_notes:
-  - draft exists in DRAFTS/ (230 lines), backlog shows pending_approval
-  - '主题: (see backlog S171 entry)'
-  timestamp: '2026-06-21T22:44:00+08:00'
-  requester: PM loop cron
+  - 'web_fetch GitCode 验证：codec_capability_adapter.cpp(78行)+.h(44行)'
+  - 'E1: codec_capability_adapter.cpp L23-26 Init() 工厂创建AVCodecList'
+  - 'E2: codec_capability_adapter.cpp L28-31 GetAvailableEncoder() 音频+视频双路分发'
+  - 'E3: codec_capability_adapter.cpp L33-54 IsWatermarkSupported() 硬件优先两段查询(AVCODEC_HARDWARE→SOFTWARE)'
+  - 'E4: codec_capability_adapter.cpp L56-63 GetAudioEncoder() AAC软件编码器查询'
+  - 'E5: codec_capability_adapter.cpp L65-78 GetVideoEncoder() AVC+HEVC硬件优先降级策略'
+  - 'E6: codec_capability_adapter.h L19-36 类定义 五方法+codeclist_成员'
+  timestamp: '2026-06-25T03:09:00+08:00'
+  requester: builder-agent subagent
 - id: PA-S193-001
   type: approval_response
   decision: pending_approval
