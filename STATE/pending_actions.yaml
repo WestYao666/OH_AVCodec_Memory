@@ -375,3 +375,21 @@ pending_actions:
   - E30 mp3/ffmpeg_mp3_decoder_plugin.cpp L139 MP3独立子目录，SAMPLES=1152
   timestamp: '2026-06-22T06:52:00+08:00'
   requester: builder-agent subagent
+
+- id: PA-S132-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S132
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/MEM-ARCH-AVCODEC-S132.md
+  source_verified: true
+  evidence_count: 21
+  verification_notes:
+  - 本地镜像验证 6 个源文件，21 条行号级 evidence
+  - ffmpeg_base_encoder.cpp L113/L149/L261/L312 编码管线
+  - ffmpeg_aac_encoder_plugin.cpp L37/L102-119 ADTS头/L694-700 AVAudioFifo
+  - ffmpeg_flac_encoder_plugin.cpp L55 组合 FFmpegBaseEncoder
+  - ffmpeg_encoder_plugin.cpp L44-60 注册层分发
+  - ffmpeg_convert.h L42-51 ResamplePara 六参数
+  timestamp: "2026-06-25T01:55:00+08:00"
+  requester: builder-agent subagent
+
