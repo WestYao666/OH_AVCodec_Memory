@@ -1825,3 +1825,15 @@
 |------|------|------|
 | 2026-06-22T04:20 | Builder | S248注册：FFmpeg Adapter Audio Decoder Plugin子插件体系草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S248.md（pending_approval），26条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/ffmpeg_adapter/audio_decoder/，与S184/S188/S191/S229关联 |
 | 2026-06-22T06:50 | Builder | S248本地镜像增强：验证g711mu/g711a/lbvc独立注册架构（E27-E29）+mp3子目录（E30），升级至30条行号级evidence，迁移至MEMORY/10_architecture/，状态pending_approval |
+
+## Builder 2026-06-25 S249注册——SurfaceEncoderAdapter Filter层编码器适配器（Surface输入/TransCoder双模式/AVBufferQueue输出/帧率自适应）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|------|------|-------|---------|------|------|
+| S249 | SurfaceEncoderAdapter Filter层编码器适配器——Surface输入编码/TransCoder双模式/AVBufferQueue输出/PTS回调/帧率Boost | AVCodec, MediaEngine, Filter, Encoder, Surface, TransCoder, AVBufferQueue, VideoEncoder, Adapter, PTS, FrameRateBoost, WaterMark | 新需求开发/问题定位/录制管线/视频编码Filter适配/转码 | **pending_approval** | 🚧 草案已生成（2026-06-25T03:24 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S249.md（23921字节，20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/），SurfaceEncoderAdapter(1037行cpp+183行h=1220行)+AVCodecVideoEncoder引擎+TransCoder双模式+AVBufferQueue双缓冲+Pause/Resume PTS队列+帧率Boost(KEY_camera.shot2see.speedup)+SetFaultEvent DFX，与S214(对称SurfaceDecoderAdapter)/S23(SurfaceEncoderFilter)/S239(CodecBase)/S242(AvcEncoder)/S202/S212关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-25T03:24 | builder-agent subagent | S249注册：SurfaceEncoderAdapter Filter层编码器适配器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S249.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/，与S214/S23/S239/S242/S202/S212关联 |

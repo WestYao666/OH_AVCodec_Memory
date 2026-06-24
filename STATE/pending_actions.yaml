@@ -435,3 +435,24 @@ pending_actions:
   timestamp: "2026-06-25T01:55:00+08:00"
   requester: builder-agent subagent
 
+
+- id: PA-S249-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S249
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S249.md
+  source_verified: true
+  evidence_count: 20
+  verification_notes:
+  - 本地镜像验证 surface_encoder_adapter.cpp(1037行) + surface_encoder_adapter.h(183行) = 1220行
+  - 20条行号级 evidence（E1-E20）
+  - Init→VideoEncoderFactory::CreateByMime（E3）
+  - Configure四段式配置（E4）
+  - TransCoder vs 普通录制双模式（E7/E8/E9）
+  - AVBufferQueue双缓冲池（E8/E9）
+  - Pause/Resume PTS队列管理（E6/E11）
+  - HandleWaitforStop超时检测（E12）
+  - 帧率Boost（E13/E14）
+  - SetFaultEvent DFX事件（E15）
+  timestamp: "2026-06-25T03:24:00+08:00"
+  requester: builder-agent subagent
