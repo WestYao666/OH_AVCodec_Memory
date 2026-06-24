@@ -1143,6 +1143,7 @@
 | 2026-05-21T06:20 | Builder | S171注册：CodecCapabilityAdapter编解码能力查询适配器草案已生成，写入 MEM-ARCH-AVCODEC-S171.md（pending_approval） |
 | 2026-05-21T13:09 | Builder | S171 in_progress：builder-agent开始处理 |
 | 2026-05-22T00:15 | Builder | S171行号增强：基于本地镜像/av_codec_repo行号级evidence增强，草案路径MEM-ARCH-AVCODEC-S171.md，提交审批
+| 2026-06-25T06:42 | builder-agent | S171本地镜像增强：E6-E13新增8条evidence(TEST_VIDEO_WATERMARK=3/VIDEO_RPR=4常量 + 5 UT用例 + fcodec_capability_register L419-L492)，共13条行号级evidence，DRAFTS/MEM-ARCH-AVCODEC-S171.md，基于 /home/west/av_codec_repo
 
 ## 变更记录
 

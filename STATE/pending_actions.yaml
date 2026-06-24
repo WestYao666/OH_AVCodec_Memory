@@ -87,16 +87,23 @@ pending_actions:
   mem_id: MEM-ARCH-AVCODEC-S171
   draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S171.md
   source_verified: true
-  evidence_count: 6
+  evidence_count: 13
   verification_notes:
-  - web_fetch GitCode 验证：codec_capability_adapter.cpp(78行)+.h(44行)
+  - 本地镜像 /home/west/av_codec_repo 增强验证（2026-06-25T06:42）
   - 'E1: codec_capability_adapter.cpp L23-26 Init() 工厂创建AVCodecList'
   - 'E2: codec_capability_adapter.cpp L28-31 GetAvailableEncoder() 音频+视频双路分发'
   - 'E3: codec_capability_adapter.cpp L33-54 IsWatermarkSupported() 硬件优先两段查询(AVCODEC_HARDWARE→SOFTWARE)'
   - 'E4: codec_capability_adapter.cpp L56-63 GetAudioEncoder() AAC软件编码器查询'
   - 'E5: codec_capability_adapter.cpp L65-78 GetVideoEncoder() AVC+HEVC硬件优先降级策略'
-  - 'E6: codec_capability_adapter.h L19-36 类定义 五方法+codeclist_成员'
-  timestamp: '2026-06-25T03:09:00+08:00'
+  - 'E6: unittest codec_capability_adapter_unittest.cpp L25-26: TEST_VIDEO_WATERMARK=3, TEST_VIDEO_RPR=4常量'
+  - 'E7: unittest L67-87 IsWatermarkSupported_002: featuresMap双阶段4次GetCapability，VIDEO_WATERMARK命中→true'
+  - 'E8: unittest L92-103 IsWatermarkSupported_003: 全nullptr→ERROR_UNKNOWN'
+  - 'E9: unittest L106-116 GetAudioEncoder_001: AAC=nullptr→空向量'
+  - 'E10: unittest L119-129 GetVideoEncoder_001: AVC+HEVC全nullptr→空向量'
+  - 'E11: unittest L131-146 GetVideoEncoder_002: AVC SW命中size=1; codeclist_=nullptr析构行为'
+  - 'E12: fcodec_capability_register.cpp L419-450 GetCapabilityData填充标准能力字段'
+  - 'E13: fcodec_capability_register.cpp L483-492 GetCodecCapability遍历SUPPORT_VCODEC数组注册解码器能力'
+  timestamp: '2026-06-25T06:42:00+08:00'
   requester: builder-agent subagent
 - id: PA-S193-001
   type: approval_response
