@@ -89,7 +89,7 @@ pending_actions:
   source_verified: true
   evidence_count: 6
   verification_notes:
-  - 'web_fetch GitCode 验证：codec_capability_adapter.cpp(78行)+.h(44行)'
+  - web_fetch GitCode 验证：codec_capability_adapter.cpp(78行)+.h(44行)
   - 'E1: codec_capability_adapter.cpp L23-26 Init() 工厂创建AVCodecList'
   - 'E2: codec_capability_adapter.cpp L28-31 GetAvailableEncoder() 音频+视频双路分发'
   - 'E3: codec_capability_adapter.cpp L33-54 IsWatermarkSupported() 硬件优先两段查询(AVCODEC_HARDWARE→SOFTWARE)'
@@ -155,7 +155,6 @@ pending_actions:
   - VideoCodecParamChecker 视频编码参数校验框架
   timestamp: '2026-06-21T22:44:00+08:00'
   requester: PM loop cron
-
 - id: PA-S224-002
   type: approval_response
   decision: pending_approval
@@ -180,7 +179,8 @@ pending_actions:
   - E13 codec_param_checker.cpp L549-572 VideoProfileChecker Profile 支持性
   - E14 codec_param_checker.cpp L574-591 RotationChecker 仅 0/90/180/270
   - E15 codec_param_checker.cpp L593-625 PostProcessingChecker HEVC 色空间限制
-  - E16 codec_param_checker.cpp L627-655 TemporalGopSizeChecker GOP ≥ 2 + temporalGopSize < gopSize
+  - E16 codec_param_checker.cpp L627-655 TemporalGopSizeChecker GOP ≥ 2 + temporalGopSize
+    < gopSize
   - E17 codec_param_checker.cpp L657-677 TemporalGopReferenceModeChecker 参考模式枚举校验
   - E18 codec_param_checker.cpp L679-695 UniformlyScaledReferenceChecker 仅 2 或 4
   - E19 codec_param_checker.cpp L726-745 LTRFrameCountChecker 与时域可分级互斥
@@ -376,7 +376,6 @@ pending_actions:
   - E12 hisysevent.yaml L47-62 STATISTICS_INFO事件域定义
   timestamp: '2026-06-22T06:17:00+08:00'
   requester: builder-agent subagent
-
 - id: PA-S248-001
   type: approval_response
   decision: pending_approval
@@ -417,7 +416,6 @@ pending_actions:
   - E30 mp3/ffmpeg_mp3_decoder_plugin.cpp L139 MP3独立子目录，SAMPLES=1152
   timestamp: '2026-06-22T06:52:00+08:00'
   requester: builder-agent subagent
-
 - id: PA-S132-001
   type: approval_response
   decision: pending_approval
@@ -432,10 +430,8 @@ pending_actions:
   - ffmpeg_flac_encoder_plugin.cpp L55 组合 FFmpegBaseEncoder
   - ffmpeg_encoder_plugin.cpp L44-60 注册层分发
   - ffmpeg_convert.h L42-51 ResamplePara 六参数
-  timestamp: "2026-06-25T01:55:00+08:00"
+  timestamp: '2026-06-25T01:55:00+08:00'
   requester: builder-agent subagent
-
-
 - id: PA-S249-001
   type: approval_response
   decision: pending_approval
@@ -444,7 +440,8 @@ pending_actions:
   source_verified: true
   evidence_count: 20
   verification_notes:
-  - 本地镜像验证 surface_encoder_adapter.cpp(1037行) + surface_encoder_adapter.h(183行) = 1220行
+  - 本地镜像验证 surface_encoder_adapter.cpp(1037行) + surface_encoder_adapter.h(183行) =
+    1220行
   - 20条行号级 evidence（E1-E20）
   - Init→VideoEncoderFactory::CreateByMime（E3）
   - Configure四段式配置（E4）
@@ -454,7 +451,7 @@ pending_actions:
   - HandleWaitforStop超时检测（E12）
   - 帧率Boost（E13/E14）
   - SetFaultEvent DFX事件（E15）
-  timestamp: "2026-06-25T03:24:00+08:00"
+  timestamp: '2026-06-25T03:24:00+08:00'
   requester: builder-agent subagent
 - id: PA-S250-001
   type: approval_response
@@ -464,7 +461,8 @@ pending_actions:
   source_verified: true
   evidence_count: 20
   verification_notes:
-  - GitCode web_fetch 验证 8 个源码文件（interstitial_controller.h/cpp, interstitial_scheduler.h/cpp, interstitial_strategies.h, interstitial_vod_strategies.cpp/h, interstitial_live_strategies.cpp/h）
+  - GitCode web_fetch 验证 8 个源码文件（interstitial_controller.h/cpp, interstitial_scheduler.h/cpp,
+    interstitial_strategies.h, interstitial_vod_strategies.cpp/h, interstitial_live_strategies.cpp/h）
   - E1: interstitial_controller.h L32-35 InterstitialPlayState 枚举
   - E2: interstitial_controller.h L37-40 AdsEventType 枚举
   - E3: interstitial_controller.h L42-45 AdsEndReason 枚举
@@ -479,11 +477,84 @@ pending_actions:
   - E12: interstitial_scheduler.cpp L65-78 OnPlaybackTick 播放Tick检查
   - E13: interstitial_scheduler.cpp L86-105 CheckAndNotify 提前2秒触发回调
   - E14: interstitial_strategies.h L28-40 IScheduleStrategy 接口
-  - E15: interstitial_vod_strategies.cpp L45-47 ShouldSaveResumePoint/ShouldHandleSeek 返回true
+  - E15: interstitial_vod_strategies.cpp L45-47 ShouldSaveResumePoint/ShouldHandleSeek
+      返回true
   - E16: interstitial_live_strategies.cpp L47-63 GetResumeSeekMs回到直播边缘（duration）
   - E17: interstitial_controller.cpp L358-395 DoSourceSwitch 完整Source切换流程
   - E18: interstitial_controller.cpp L193-207 OnAdEos 广告EOS触发恢复
   - E19: interstitial_controller.cpp L358+L390 码率保持 capturedBitRate→SelectBitRate
   - E20: interstitial_controller.cpp L328-333 断点保存 resumePointMs_
-  timestamp: "2026-06-25T04:39:00+08:00"
+  timestamp: '2026-06-25T04:39:00+08:00'
+  requester: builder-agent subagent
+- id: PA-S214-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S214
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S214.md
+  source_verified: true
+  evidence_count: 35
+  verification_notes:
+  - 基于本地镜像 /home/west/av_codec_repo/services/media_engine/filters/ 逐行验证
+  - E1 SurfaceEncoderAdapter类定义 (h L73-183)
+  - E2 SurfaceEncoderAdapterCallback四路回调桥接 (cpp L44-86)
+  - E3 DroppedFramesCallback丢帧监控 (cpp L88-106)
+  - E4 构造函数+releaseBufferTask_初始化 (cpp L109-148)
+  - E5 Init+VideoEncoderFactory::CreateByMime (cpp L123-148)
+  - E6 ConfigureGeneralFormat分辨率/帧率/码率配置 (cpp L150-194)
+  - E7 ConfigureEnableFormat使能特性 (cpp L195-204)
+  - E8 Configure双阶段+TransCoder/Recording模式分支 (cpp L205-243)
+  - E9 SetVideoEnableBFrame (cpp L263-271)
+  - E10 SetOutputBufferQueue (cpp L282-288)
+  - E11 SetEncoderAdapterCallback (cpp L289-308)
+  - E12 SetEncoderAdapterKeyFramePtsCallback (cpp L309-315)
+  - E13 SetTransCoderMode+GetInputSurface (cpp L317-333)
+  - E14 Start+releaseBufferTask_->Start (cpp L335-358)
+  - E15 Stop+HandleWaitforStop+AddStopPts (cpp L363-416)
+  - E16 Pause+pauseResumeQueue_双元素占位 (cpp L418-439)
+  - E17 Resume+totalPauseTime_累加 (cpp L441-471)
+  - E18 TransCoderOnOutputBufferAvailable+OnOutputBufferAvailable (cpp L569-629)
+  - E19 releaseBufferTask后台释放线程 (cpp L651-671)
+  - E20 ProcessStateCode五态机 (h L67-71)
+  - E21 Clear()全状态复位 (cpp L975-1000)
+  - E22 GetCurrentTime CLOCK_MONOTONIC时钟 (cpp L823-830)
+  - E23 AVBufferQueue TransCoder模式 (cpp L569-597)
+  - E24 AVBufferQueue 普通录制模式+PTS ns→μs转换 (cpp L599-629)
+  - E25 CheckFrames丢帧递归判断 (cpp L807-821)
+  - E26 AddPauseResumePts暂停恢复PTS追加 (cpp L875-913)
+  - E27 AddStartPts+AddStopPts起止PTS记录 (cpp L832-862)
+  - E28 OnInputParameterWithAttrAvailable录制模式丢帧检测+PTS调整 (cpp L673-712)
+  - E29 HandleTranscoderMode转码模式不丢帧 (cpp L713-719)
+  - E30 HandleWaitforStop EOS等待+超时错误 (cpp L921-934)
+  - E31 ReleaseBuffer后台线程主循环 (cpp L651-671)
+  - E32 ConfigureAboutRGBA+ConfigureAboutEnableTemporalScale (cpp L673-700)
+  - E33 SetWatermark+SetStopTime (cpp L244-281)
+  - E34 Flush+NotifyEos EOS控制 (cpp L503-545)
+  - E35 SetFaultEvent DFX HiSysEvent上报 (cpp L700-715)
+  timestamp: '2026-06-25T05:25:00+08:00'
+  requester: builder-agent subagent
+- id: PA-S113-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S113
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S113.md
+  source_verified: true
+  evidence_count: 23
+  verification_notes:
+  - 'sei_parser_filter.cpp: AutoRegisterFilter, AVBufferAvailableListener, DoPrepare,
+    SetSeiMessageCbStatus'
+  - 'sei_parser_helper.cpp: 工厂HELPER_CONSTRUCTOR_MAP(L44-50), FindNextSeiNaluPos(L71-91),
+    GetNaluStartSeq(L94-99)'
+  - 'sei_parser_helper.cpp: AvcSeiParserHelper::IsSeiNalu(L100-108), HevcSeiParserHelper::IsSeiNalu(L110-117)'
+  - 'sei_parser_helper.cpp: ParseSeiPayload(L51-68), ParseSeiRbsp(L119-144), GetSeiTypeOrSize(L147-154)'
+  - 'sei_parser_helper.cpp: FillTargetBuffer(L157-173,反仿射字节剔除), CreateHelper(L176-185)'
+  - 'sei_parser_helper.cpp: SeiParserListener构造(L177-182), OnBufferFilled(L185-223),
+    FlowLimit(L226-237)'
+  - 'sei_parser_helper.cpp: SetSeiMessageCbStatus(L245-260), SetPayloadTypeVec(L56-57)'
+  - 'sei_parser_helper.h: SeiPayloadInfo(L70-73), SeiPayloadInfoGroup(L75-77), HelperConstructFunc'
+  - 'sei_parser_filter.h: 成员变量 INPUT_BUFFER_QUEUE_NAME, inputBufferQueue_, producerListener_,
+    syncCenter_'
+  - 'sei_parser_filter.cpp: InputBufferQueue容量计算(L98-103), AttachBuffer(L106-120),
+    DfxEvent上报(L124-125)'
+  - 'sei_parser_filter.cpp: OnEvent EVENT_SEI_INFO发送(L221-222 in sei_parser_helper.cpp)'
+  timestamp: '2026-06-25T05:12:30.112734+08:00'
   requester: builder-agent subagent
