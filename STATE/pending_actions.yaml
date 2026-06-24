@@ -547,17 +547,10 @@ pending_actions:
   source_verified: true
   evidence_count: 23
   verification_notes:
-  - 'sei_parser_filter.cpp: AutoRegisterFilter, AVBufferAvailableListener, DoPrepare,
-    SetSeiMessageCbStatus'
-  - 'sei_parser_helper.cpp: 工厂HELPER_CONSTRUCTOR_MAP(L44-50), FindNextSeiNaluPos(L71-91),
-    GetNaluStartSeq(L94-99)'
-  - 'sei_parser_helper.cpp: AvcSeiParserHelper::IsSeiNalu(L100-108), HevcSeiParserHelper::IsSeiNalu(L110-117)'
-  - 'sei_parser_helper.cpp: ParseSeiPayload(L51-68), ParseSeiRbsp(L119-144), GetSeiTypeOrSize(L147-154)'
-  - 'sei_parser_helper.cpp: FillTargetBuffer(L157-173,反仿射字节剔除), CreateHelper(L176-185)'
-  - 'sei_parser_helper.cpp: SeiParserListener构造(L177-182), OnBufferFilled(L185-223),
-    FlowLimit(L226-237)'
-  - 'sei_parser_helper.cpp: SetSeiMessageCbStatus(L245-260), SetPayloadTypeVec(L56-57)'
-  - 'sei_parser_helper.h: SeiPayloadInfo(L70-73), SeiPayloadInfoGroup(L75-77), HelperConstructFunc'
+  - '2026-06-25 builder-agent本地镜像验证: 行号已修正（E1 44→63/E2 33→36/E4 71→86/E5 189→207/E6 177→244/E7 185→257/E8 226→294/E9 71→107/E10 94→134/E11 100→141/E12 110→152/E13 51→74/E14 119→163/E15 147→200/E16 157→212/E17 245→326/E18 98→115/E19 106→126/E20 124→146/E21 70→86(header)/E22 221→290/E23 56→101)'
+  - 'sei_parser_filter.cpp: AutoRegisterFilter(L36-38), AVBufferAvailableListener(L41-52), SetBufferAvailableListener(L86-87), SetSeiMessageCbStatus(L207-211), BufferQueue容量(L115-120), BufferQueue创建(L126-141), DFX内存上报(L146-147)'
+  - 'sei_parser_helper.cpp: HELPER_CONSTRUCTOR_MAP工厂(L63-69), FindNextSeiNaluPos(L107-128), GetNaluStartSeq(L134-138), AvcSei::IsSeiNalu(L141-151), HevcSei::IsSeiNalu(L152-159), ParseSeiPayload(L74-93), ParseSeiRbsp(L163-193), GetSeiTypeOrSize(L200-207), FillTargetBuffer(L212-229), CreateHelper(L236-240), SeiParserListener构造(L244-250), OnBufferFilled(L257-279), FlowLimit(L294-306), SetSeiMessageCbStatus(L326-342), SetPayloadTypeVec(L101-103), EVENT_SEI_INFO(L290-291)'
+  - 'sei_parser_helper.h(interfaces/inner_api/native/): SeiPayloadInfo(L86-89), SeiPayloadInfoGroup(L91-93)'
   - 'sei_parser_filter.h: 成员变量 INPUT_BUFFER_QUEUE_NAME, inputBufferQueue_, producerListener_,
     syncCenter_'
   - 'sei_parser_filter.cpp: InputBufferQueue容量计算(L98-103), AttachBuffer(L106-120),

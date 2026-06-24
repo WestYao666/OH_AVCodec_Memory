@@ -742,6 +742,7 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-25T07:15 | builder-agent subagent | S113 GitCode web_fetch 验证：sei_parser_helper.cpp(~270行) + sei_parser_filter.cpp(~220行) + sei_parser_helper.h(~100行) 全部23条 evidence 验证通过，从 DRAFTS/ 迁移至 MEMORY/10_architecture/，状态维持 pending_approval |
+| 2026-06-25T07:25 | builder-agent subagent | S113 本地镜像增强验证：/home/west/av_codec_repo逐行核对23条evidence行号，修正E1(44→63)/E2(33→36)/E4(71→86)/E5(189→207)/E6(177→244)/E7(185→257)/E8(226→294)/E9(71→107)/E10(94→134)/E11(100→141)/E12(110→152)/E13(51→74)/E14(119→163)/E15(147→200)/E16(157→212)/E17(245→326)/E18(98→115)/E19(106→126)/E20(124→146)/E21(70→86header)/E22(221→290)/E23(56→101)，同步更新pending_actions.yaml，pending_approval |
 
 ## 新增主题（Builder 2026-05-10 S114注册）
 

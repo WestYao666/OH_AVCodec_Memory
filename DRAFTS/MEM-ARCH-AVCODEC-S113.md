@@ -6,10 +6,10 @@
 |------|-----|
 | mem_id | MEM-ARCH-AVCODEC-S113 |
 | 主题 | SeiParserFilter 与 SeiParserHelper SEI信息解析框架 |
-| status | draft |
+| status | pending_approval |
 | created | 2026-06-25 |
 | 来源 | 本地源码镜像 /home/west/av_codec_repo |
-| evidence_count | 23 |
+| evidence_count | 23 (verified 2026-06-25 local mirror) |
 
 ## 架构概述
 
@@ -52,7 +52,7 @@ SeiParserFilter (FILTERTYPE_SEI)
 
 ### Evidence 1 — 工厂注册：AVC/HEVC 解析器构造函数映射
 **文件**: `sei_parser_helper.cpp`
-**行号**: 44-50
+**行号**: 63-69
 ```cpp
 const std::map<std::string, HelperConstructFunc> SeiParserHelperFactory::HELPER_CONSTRUCTOR_MAP = {
     { TYPE_AVC,
@@ -71,7 +71,7 @@ const std::map<std::string, HelperConstructFunc> SeiParserHelperFactory::HELPER_
 
 ### Evidence 2 — Filter 自动注册
 **文件**: `sei_parser_filter.cpp`
-**行号**: 33-35
+**行号**: 36-38
 ```cpp
 static AutoRegisterFilter<SeiParserFilter> g_registerSeiParserFilter(
     "builtin.player.seiParser", FilterType::FILTERTYPE_SEI, [](const std::string &name, const FilterType type) {
@@ -104,7 +104,7 @@ void SeiParserFilter::AVBufferAvailableListener::OnBufferAvailable()
 
 ### Evidence 4 — DoPrepare 中设置 BufferAvailableListener
 **文件**: `sei_parser_filter.cpp`
-**行号**: 71-73
+**行号**: 86-87
 ```cpp
 sptr<IConsumerListener> listener = new AVBufferAvailableListener(shared_from_this());
 inputBufferQueueConsumer_->SetBufferAvailableListener(listener);
@@ -115,7 +115,7 @@ inputBufferQueueConsumer_->SetBufferAvailableListener(listener);
 
 ### Evidence 5 — 开启 SEI 回调时创建 SeiParserListener
 **文件**: `sei_parser_filter.cpp`
-**行号**: 189-198
+**行号**: 207-211
 ```cpp
 if (producerListener_ == nullptr) {
     producerListener_ =
@@ -135,7 +135,7 @@ if (producerListener_ == nullptr) {
 
 ### Evidence 6 — SeiParserListener 构造时创建对应 MimeType 的解析器
 **文件**: `sei_parser_helper.cpp`
-**行号**: 177-182
+**行号**: 244-250
 ```cpp
 SeiParserListener::SeiParserListener(const std::string &mimeType, sptr<AVBufferQueueProducer> producer,
     std::shared_ptr<Pipeline::EventReceiver> eventReceiver, bool isFlowLimited)
@@ -152,7 +152,7 @@ SeiParserListener::SeiParserListener(const std::string &mimeType, sptr<AVBufferQ
 
 ### Evidence 7 — OnBufferFilled：Buffer 填充时触发解析主流程
 **文件**: `sei_parser_helper.cpp`
-**行号**: 185-223
+**行号**: 257-279
 ```cpp
 void SeiParserListener::OnBufferFilled(std::shared_ptr<AVBuffer> &avBuffer)
 {
@@ -179,7 +179,7 @@ void SeiParserListener::OnBufferFilled(std::shared_ptr<AVBuffer> &avBuffer)
 
 ### Evidence 8 — FlowLimit：根据 PTS 与 SyncCenter 限速
 **文件**: `sei_parser_helper.cpp`
-**行号**: 226-237
+**行号**: 294-306
 ```cpp
 void SeiParserListener::FlowLimit(const std::shared_ptr<AVBuffer> &avBuffer)
 {
@@ -204,7 +204,7 @@ void SeiParserListener::FlowLimit(const std::shared_ptr<AVBuffer> &avBuffer)
 
 ### Evidence 9 — FindNextSeiNaluPos：扫描 AnnexB StartCode
 **文件**: `sei_parser_helper.cpp`
-**行号**: 71-91
+**行号**: 107-128
 ```cpp
 bool SeiParserHelper::FindNextSeiNaluPos(uint8_t *&startPtr, const uint8_t *const maxPtr)
 {
@@ -234,7 +234,7 @@ bool SeiParserHelper::FindNextSeiNaluPos(uint8_t *&startPtr, const uint8_t *cons
 
 ### Evidence 10 — GetNaluStartSeq：跨平台 StartCode 字节序处理
 **文件**: `sei_parser_helper.cpp`
-**行号**: 94-99
+**行号**: 134-138
 ```cpp
 uint32_t SeiParserHelper::GetNaluStartSeq()
 {
@@ -248,7 +248,7 @@ uint32_t SeiParserHelper::GetNaluStartSeq()
 
 ### Evidence 11 — AvcSeiParserHelper::IsSeiNalu：AVC SEI 类型识别
 **文件**: `sei_parser_helper.cpp`
-**行号**: 100-108
+**行号**: 141-151
 ```cpp
 bool AvcSeiParserHelper::IsSeiNalu(uint8_t *&headerPtr)
 {
@@ -267,7 +267,7 @@ bool AvcSeiParserHelper::IsSeiNalu(uint8_t *&headerPtr)
 
 ### Evidence 12 — HevcSeiParserHelper::IsSeiNalu：HEVC SEI 类型识别
 **文件**: `sei_parser_helper.cpp`
-**行号**: 110-117
+**行号**: 152-159
 ```cpp
 bool HevcSeiParserHelper::IsSeiNalu(uint8_t *&headerPtr)
 {
@@ -286,7 +286,7 @@ bool HevcSeiParserHelper::IsSeiNalu(uint8_t *&headerPtr)
 
 ### Evidence 13 — ParseSeiPayload：多 SEI NALu 解析主循环
 **文件**: `sei_parser_helper.cpp`
-**行号**: 51-68
+**行号**: 74-93
 ```cpp
 Status SeiParserHelper::ParseSeiPayload(
     const std::shared_ptr<AVBuffer> &buffer, std::shared_ptr<SeiPayloadInfoGroup> &group)
@@ -318,7 +318,7 @@ Status SeiParserHelper::ParseSeiPayload(
 
 ### Evidence 14 — ParseSeiRbsp：SEI RBSP body 解析（带锁保护）
 **文件**: `sei_parser_helper.cpp`
-**行号**: 119-144
+**行号**: 163-193
 ```cpp
 Status SeiParserHelper::ParseSeiRbsp(
     uint8_t *&bodyPtr, const uint8_t *const maxPtr, const std::shared_ptr<SeiPayloadInfoGroup> &group)
@@ -344,7 +344,7 @@ Status SeiParserHelper::ParseSeiRbsp(
 
 ### Evidence 15 — GetSeiTypeOrSize：SEI type/size 可变长编码
 **文件**: `sei_parser_helper.cpp`
-**行号**: 147-154
+**行号**: 200-207
 ```cpp
 int32_t SeiParserHelper::GetSeiTypeOrSize(uint8_t *&bodyPtr, const uint8_t *const maxPtr)
 {
@@ -364,7 +364,7 @@ int32_t SeiParserHelper::GetSeiTypeOrSize(uint8_t *&bodyPtr, const uint8_t *cons
 
 ### Evidence 16 — FillTargetBuffer：反仿射字节剔除
 **文件**: `sei_parser_helper.cpp`
-**行号**: 157-173
+**行号**: 212-229
 ```cpp
 Status SeiParserHelper::FillTargetBuffer(const std::shared_ptr<AVBuffer> buffer,
     uint8_t *&payloadPtr, const uint8_t *const maxPtr, const int32_t payloadSize)
@@ -392,7 +392,7 @@ Status SeiParserHelper::FillTargetBuffer(const std::shared_ptr<AVBuffer> buffer,
 
 ### Evidence 17 — SetSeiMessageCbStatus：SEI 回调使能/禁能控制
 **文件**: `sei_parser_helper.cpp`
-**行号**: 245-260
+**行号**: 326-342
 ```cpp
 Status SeiParserListener::SetSeiMessageCbStatus(
     bool status, const std::vector<int32_t> &payloadTypes)
@@ -422,7 +422,7 @@ Status SeiParserListener::SetSeiMessageCbStatus(
 
 ### Evidence 18 — InputBufferQueue 容量计算（基于视频分辨率）
 **文件**: `sei_parser_filter.cpp`
-**行号**: 98-103
+**行号**: 115-120
 ```cpp
 int32_t videoHeight = 0;
 int32_t videoWidth = 0;
@@ -438,7 +438,7 @@ if (capacity <= 0 || capacity > INT32_MAX) {
 
 ### Evidence 19 — 输入 Buffer 队列创建与 Attach
 **文件**: `sei_parser_filter.cpp`
-**行号**: 106-120
+**行号**: 126-141
 ```cpp
 int32_t inputBufferNum = 1;
 if (inputBufferQueue_ == nullptr) {
@@ -463,7 +463,7 @@ for (int i = 0; i < inputBufferNum; i++) {
 
 ### Evidence 20 — 内存上报 DfxEvent
 **文件**: `sei_parser_filter.cpp`
-**行号**: 124-125
+**行号**: 146-147
 ```cpp
 FALSE_RETURN_V_NOLOG(eventReceiver_ != nullptr, Status::OK);
 eventReceiver_->OnMemoryUsageEvent({"SEI_BQ",
@@ -474,8 +474,8 @@ eventReceiver_->OnMemoryUsageEvent({"SEI_BQ",
 ---
 
 ### Evidence 21 — 数据结构：SeiPayloadInfo / SeiPayloadInfoGroup
-**文件**: `sei_parser_helper.h`
-**行号**: 70-77
+**文件**: `sei_parser_helper.h`（interfaces/inner_api/native/）
+**行号**: 86-93
 ```cpp
 struct SeiPayloadInfo {
     int32_t payloadType;
@@ -493,7 +493,7 @@ struct SeiPayloadInfoGroup {
 
 ### Evidence 22 — OnEvent 发送 EVENT_SEI_INFO
 **文件**: `sei_parser_helper.cpp`
-**行号**: 221-222
+**行号**: 290-291
 ```cpp
 seiInfoFormat.PutFormatVector(Tag::AV_PLAYER_SEI_PLAYBACK_GROUP, vec);
 eventReceiver_->OnEvent({ "SeiParserHelper", EventType::EVENT_SEI_INFO, seiInfoFormat });
@@ -504,7 +504,7 @@ eventReceiver_->OnEvent({ "SeiParserHelper", EventType::EVENT_SEI_INFO, seiInfoF
 
 ### Evidence 23 — SetPayloadTypeVec：Helper 层 payload 类型过滤
 **文件**: `sei_parser_helper.cpp`
-**行号**: 56-57
+**行号**: 101-103
 ```cpp
 void SeiParserHelper::SetPayloadTypeVec(const std::vector<int32_t> &vector)
 {
@@ -538,3 +538,12 @@ void SeiParserHelper::SetPayloadTypeVec(const std::vector<int32_t> &vector)
 ---
 
 ## 状态：pending_approval
+
+## 本地镜像验证记录（2026-06-25）
+| 字段 | 值 |
+|------|-----|
+| 验证时间 | 2026-06-25 07:25 |
+| 本地镜像 | /home/west/av_codec_repo |
+| 验证文件 | sei_parser_filter.cpp (235行) + sei_parser_helper.cpp (347行) + sei_parser_helper.h (interfaces/inner_api/native/, 134行) |
+| Evidence 修正 | E1 44→63 / E2 33→36 / E4 71→86 / E5 189→207 / E6 177→244 / E7 185→257 / E8 226→294 / E9 71→107 / E10 94→134 / E11 100→141 / E12 110→152 / E13 51→74 / E14 119→163 / E15 147→200 / E16 157→212 / E17 245→326 / E18 98→115 / E19 106→126 / E20 124→146 / E21 70→86(header) / E22 221→290 / E23 56→101 |
+| 状态 | pending_approval（行号已验证，builder-agent 2026-06-25） |
