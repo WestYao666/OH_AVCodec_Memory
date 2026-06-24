@@ -558,3 +558,34 @@ pending_actions:
   - 'sei_parser_filter.cpp: OnEvent EVENT_SEI_INFO发送(L221-222 in sei_parser_helper.cpp)'
   timestamp: '2026-06-25T05:12:30.112734+08:00'
   requester: builder-agent subagent
+- id: PA-S203-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S203
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S203.md
+  source_verified: true
+  evidence_count: 21
+  verification_notes:
+  - services/dfx/include/avcodec_sysevent.h L24-28: FaultType enum
+  - services/dfx/avcodec_sysevent.cpp L32-37: FAULT_TYPE_TO_STRING map
+  - services/dfx/include/avcodec_sysevent.h L44-58: CodecDfxInfo struct (12 fields)
+  - services/dfx/include/avcodec_sysevent.h L60-69: DemuxerFaultInfo struct
+  - services/dfx/include/avcodec_sysevent.h L70-80: MuxerFaultInfo struct
+  - services/dfx/include/avcodec_sysevent.h L81-88: AudioCodecFaultInfo struct
+  - services/dfx/include/avcodec_sysevent.h L89-103: VideoCodecFaultInfo struct
+  - services/dfx/include/avcodec_sysevent.h L104-112: SourceStatisticsReportInfo struct
+  - services/dfx/avcodec_sysevent.cpp L157-180: SourceStatisticsEventWrite with EVP_sha256 L167
+  - services/dfx/include/avcodec_xcollie.h L29-59: AVCodecXCollie class interface
+  - services/dfx/include/avcodec_xcollie.h L61-75: AVCodecXcollieTimer RAII wrapper
+  - services/dfx/include/avcodec_xcollie.h L77-92: AVCodecXcollieInterfaceTimer RAII wrapper
+  - services/dfx/include/avcodec_xcollie.h L93-107: COLLIE_LISTEN/CLIENT_COLLIE_LISTEN macros
+  - services/dfx/avcodec_xcollie.cpp L151-169: ServiceInterfaceTimerCallback, _exit(-1) L166
+  - services/dfx/include/avcodec_trace.h L25-35: AVCODEC_SYNC_TRACE series macros
+  - services/dfx/include/avcodec_trace.h L37-55: AVCodecTrace class, HITRACE_TAG_ZMEDIA
+  - services/dfx/include/avcodec_dump_utils.h L18-39: AVCodecDumpControler class
+  - services/dfx/avcodec_dump_utils.cpp L144-154: GetLevel function, dumpIdx level extraction
+  - services/dfx/avcodec_dfx_component.cpp L25-49: CreateVideoLogTag, h./s. vdec/venc detection
+  - services/dfx/include/avcodec_log.h L20-36: LOG_DOMAIN constants (6 domains)
+  - hisysevent.yaml L44-52: STATISTICS_INFO event definition
+  timestamp: '2026-06-25T05:55:00+08:00'
+  requester: builder-agent subagent

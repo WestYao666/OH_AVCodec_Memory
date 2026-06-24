@@ -1849,3 +1849,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-25T03:43 | builder-agent | S250注册：Interstitial动态插播模块草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S250.md（pending_approval），15条行号级evidence，基于GitCode web_fetch探索，与S240/S222/S233/S245关联 |
+
+## Builder 2026-06-25 S203注册——AVCodec DFX 可观测性模块架构（orphan draft补录）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|------|------|-------|---------|------|------|
+| S203 | AVCodec DFX 可观测性模块架构——HiSysEvent/XCollie/HiTrace/Dump四组件与services/dfx/六文件 | AVCodec, DFX, HiSysEvent, XCollie, HiTrace, Dump, FaultType, Trace, LogTag, Domain, FaultEvent | 问题定位/系统运维/性能分析/新人入项 | **pending_approval** | 🚧 草案增强（2026-06-25T05:55 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S203.md（190行，21条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/dfx/），六大组件（avcodec_sysevent/avcodec_xcollie/avcodec_trace/avcodec_dump_utils/avcodec_dfx_component/avcodec_log），FaultType三枚举(FREEZE/CRASH/INNER_ERROR)，XCollie ServiceInterfaceTimerCallback L166触发_exit(-1)，HiTrace HITRACE_TAG_ZMEDIA，LOG_DOMAIN六域(0xD002B30-0xD002B3B)，STATISTICS_INFO统计事件(QUERY_CAP_TIMES/CREATE_CODEC_TIMES)，与S82/S115/S77/S30关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-25T05:55 | builder-agent subagent | S203注册（orphan draft补录）：AVCodec DFX可观测性模块架构草案已增强21条行号级evidence，status: draft→pending_approval，写入 DRAFTS/MEM-ARCH-AVCODEC-S203.md，基于本地镜像 /home/west/av_codec_repo/services/dfx/，与S82/S115/S77/S30关联 |

@@ -4,7 +4,7 @@
 
 | 字段 | 值 |
 |------|-----|
-| status | draft |
+| status | pending_approval |
 | mem_id | MEM-ARCH-AVCODEC-S203 |
 | title | AVCodec DFX 可观测性模块架构 |
 | category | 架构/dfx |
@@ -44,10 +44,10 @@ services/*    ──> dfx/avcodec_dump_utils (调试信息)
 
 **核心数据结构**（`avcodec_sysevent.h`）：
 
-- `FaultType` 枚举（行29-35）：`FAULT_TYPE_FREEZE / CRASH / INNER_ERROR`
+- `FaultType` 枚举（L24-28）：`FAULT_TYPE_FREEZE / CRASH / INNER_ERROR`
 - 故障信息结构体：`DemuxerFaultInfo`, `AudioCodecFaultInfo`, `VideoCodecFaultInfo`, `MuxerFaultInfo`, `AudioSourceFaultInfo`
 - `CodecDfxInfo`：编解码器启动时的详细信息（PID/UID/分辨率/码率等，行57-70）
-- `SourceStatisticsReportInfo`：流媒体播放策略统计（行90-100）
+- `SourceStatisticsReportInfo`：流媒体播放策略统计（L104-112）
 
 **核心函数**：
 
@@ -66,9 +66,9 @@ services/*    ──> dfx/avcodec_dump_utils (调试信息)
 
 **关键实现细节**：
 
-- `SourceStatisticsEventWrite` 使用 OpenSSL EVP_sha256 对 CA 证书内容做哈希，保护隐私（行160-161）
-- `FAULT_TYPE_TO_STRING` 映射表将枚举转为字符串供 HiSysEvent 使用（行46-52）
-- 统计事件域为 `MULTI_MEDIA`，故障事件域为 `AV_CODEC`（行94-130）
+- `SourceStatisticsEventWrite` 使用 OpenSSL EVP_sha256 对 CA 证书内容做哈希，保护隐私（L167）
+- `FAULT_TYPE_TO_STRING` 映射表将枚举转为字符串供 HiSysEvent 使用（L32-37 in cpp）
+- 统计事件域为 `MULTI_MEDIA`，故障事件域为 `AV_CODEC`（L40-51 in cpp）
 
 #### 2.2 avcodec_xcollie — 超时看门狗与死锁检测
 
@@ -84,8 +84,8 @@ services/*    ──> dfx/avcodec_dump_utils (调试信息)
 
 **超时回调行为**（`avcodec_xcollie.cpp`）：
 
-- `ServiceInterfaceTimerCallback`（行144-156）：服务侧超时写 `FAULT_TYPE_FREEZE`，累计≥1次触发服务进程退出（`_exit(-1)`）
-- `ClientInterfaceTimerCallback`（行158-164）：客户端超时仅写日志和事件，不退出进程
+- `ServiceInterfaceTimerCallback`（L151-169）：服务侧超时写 `FAULT_TYPE_FREEZE`，累计≥1次触发服务进程退出（`_exit(-1)`）
+- `ClientInterfaceTimerCallback`（L170-176）：客户端超时仅写日志和事件，不退出进程
 
 **宏便捷封装**（`avcodec_xcollie.h` 行99-107）：
 
@@ -114,7 +114,7 @@ services/*    ──> dfx/avcodec_dump_utils (调试信息)
 
 **异步追踪 API**：`TraceBegin`/`TraceEnd`/`CounterTrace`，支持 `taskId` 关联起止
 
-**Tag 机制**：`AVCodecDfxComponent::tag_` 原子变量存储实例标签，追踪宏通过 `customArg` 参数注入（行37-43）
+**Tag 机制**：`AVCodecDfxComponent::tag_` 原子变量存储实例标签，追踪宏通过 `customArg` 参数注入（L37-55）
 
 #### 2.4 avcodec_dump_utils — Dump 信息格式化工具
 
@@ -137,7 +137,7 @@ services/*    ──> dfx/avcodec_dump_utils (调试信息)
 
 **定位**: 为每个编解码实例生成可读标签（如 `[123][h.vdec]`），用于日志和追踪中的实例识别。
 
-**`CreateVideoLogTag`**（行24-44）：从 `Meta` 元数据提取 `INSTANCE_ID` 和 `CODEC_NAME`，判断是硬件(`h.`)还是软件(`s.`)解码器，判断是视频解码(`vdec`)还是视频编码(`venc`)
+**`CreateVideoLogTag`**（L25-49）：从 `Meta` 元数据提取 `INSTANCE_ID` 和 `CODEC_NAME`，判断是硬件(`h.`)还是软件(`s.`)解码器，判断是视频解码(`vdec`)还是视频编码(`venc`)
 
 #### 2.6 hisysevent.yaml — 事件元数据声明
 
@@ -148,7 +148,7 @@ services/*    ──> dfx/avcodec_dump_utils (调试信息)
 - `CODEC_START_INFO`：行为事件，记录创建编解码器的完整参数（行16-28）
 - `CODEC_STOP_INFO`：行为事件，仅记录 PID/UID/实例ID（行30-37）
 - `FAULT`：故障事件，记录模块名、故障类型、描述（行39-45）
-- `STATISTICS_INFO`：统计事件，包含能力查询次数、创建次数、应用名词典等（行47-62）
+- `STATISTICS_INFO`：统计事件，包含能力查询次数、创建次数、应用名词典等（L44-52）
 
 ---
 
@@ -164,17 +164,27 @@ avcodec_dump_utils.cpp ──> meta/format.h
 
 ---
 
-## Evidence 列表
 
-1. `services/dfx/include/avcodec_sysevent.h` 行29-35：`FaultType` 枚举定义（FREEZE/CRASH/INNER_ERROR）
-2. `services/dfx/include/avcodec_sysevent.h` 行46-52：`FAULT_TYPE_TO_STRING` 故障类型映射表
-3. `services/dfx/include/avcodec_sysevent.h` 行57-70：`CodecDfxInfo` 结构体，定义编解码启动事件的12个字段
-4. `services/dfx/avcodec_sysevent.cpp` 行160-175：`SourceStatisticsEventWrite` 中 EVP_sha256 哈希 CA 证书的隐私保护实现
-5. `services/dfx/include/avcodec_xcollie.h` 行29-45：`AVCodecXCollie` 类接口声明（SetTimer/SetInterfaceTimer/CancelTimer/Dump）
-6. `services/dfx/avcodec_xcollie.h` 行99-107：`COLLIE_LISTEN` 和 `CLIENT_COLLIE_LISTEN` 宏，RAII 风格接口超时守卫
-7. `services/dfx/avcodec_xcollie.cpp` 行144-156：`ServiceInterfaceTimerCallback`，超时≥1次触发 `_exit(-1)` 进程退出
-8. `services/dfx/include/avcodec_trace.h` 行28-37：`AVCODEC_SYNC_TRACE` 系列宏，HiTrace 同步函数追踪
-9. `services/dfx/include/avcodec_dump_utils.h` 行29-41：`AVCodecDumpControler` 类声明，支持分层 dumpIdx 编码
-10. `services/dfx/avcodec_dump_utils.cpp` 行66-73：`GetLevel` 函数，基于 dumpIdx 高字节判定层级1-4
-11. `services/dfx/avcodec_dfx_component.cpp` 行24-44：`CreateVideoLogTag` 函数，从 Meta 构造实例标签 `[id][h.vdec/s.venc]`
-12. `hisysevent.yaml` 行47-62：`STATISTICS_INFO` 事件定义，包含 `QUERY_CAP_TIMES`、`CREATE_CODEC_TIMES`、`APP_NAME_DICT` 等统计字段
+## Evidence 列表（本地镜像验证，2026-06-25）
+
+1. `services/dfx/include/avcodec_sysevent.h` L24-28：`FaultType` 枚举（FAULT_TYPE_FREEZE=0 / FAULT_TYPE_CRASH / FAULT_TYPE_INNER_ERROR）
+2. `services/dfx/avcodec_sysevent.cpp` L32-37：`FAULT_TYPE_TO_STRING` 映射表（Freeze/Crash/Inner error）
+3. `services/dfx/include/avcodec_sysevent.h` L44-58：`CodecDfxInfo` 结构体，12个字段（pid_t/uid_t/codecInstanceId/codecName/codecIsVendor/codecMode/encoderBitRate/videoWidth/videoHeight/videoFrameRate/videoPixelFormat/audioChannelCount/audioSampleRate）
+4. `services/dfx/include/avcodec_sysevent.h` L60-69：`DemuxerFaultInfo` 结构体（sourceType/errorCode/stuckCount/stuckLastTime）
+5. `services/dfx/include/avcodec_sysevent.h` L70-80：`MuxerFaultInfo` 结构体（muxerMode/filePath/suffix/encrypted/tracksInfo）
+6. `services/dfx/include/avcodec_sysevent.h` L81-88：`AudioCodecFaultInfo` 结构体（audioEncBitrate/sampleRate/channelCount）
+7. `services/dfx/include/avcodec_sysevent.h` L89-103：`VideoCodecFaultInfo` 结构体（videoWidth/videoHeight/frameRate/encBitrate/pixelFormat）
+8. `services/dfx/include/avcodec_sysevent.h` L104-112：`SourceStatisticsReportInfo` 结构体（ca_/strategyType/sourceType/durationUs）
+9. `services/dfx/avcodec_sysevent.cpp` L157-180：`SourceStatisticsEventWrite` 函数，EVP_sha256() L167 行哈希 CA 证书隐私保护，SOURCE_STATISTICS_REPORT_HOURS=4
+10. `services/dfx/include/avcodec_xcollie.h` L29-59：`AVCodecXCollie` 类接口（GetInstance/SetTimer/SetInterfaceTimer/CancelTimer/Dump，timerTimeout=10）
+11. `services/dfx/include/avcodec_xcollie.h` L61-75：`AVCodecXcollieTimer` RAII 包装器（构造设置Timer/析构Cancel）
+12. `services/dfx/include/avcodec_xcollie.h` L77-92：`AVCodecXcollieInterfaceTimer` RAII 包装器（isService/recovery/timeout=30 默认）
+13. `services/dfx/include/avcodec_xcollie.h` L93-107：`COLLIE_LISTEN(statement, args...)` / `CLIENT_COLLIE_LISTEN(statement, name)` 宏
+14. `services/dfx/avcodec_xcollie.cpp` L151-169：`ServiceInterfaceTimerCallback`，threadDeadlockCount_≥1 触发 L166 `_exit(-1)` 服务进程退出
+15. `services/dfx/include/avcodec_trace.h` L25-35：`AVCODEC_SYNC_TRACE` / `AVCODEC_SYNC_CUSTOM_TRACE` / `AVCODEC_FUNC_TRACE_WITH_TAG` 系列宏
+16. `services/dfx/include/avcodec_trace.h` L37-55：`AVCodecTrace` 类，StartTraceEx/FinishAsyncTraceEx，HITRACE_TAG_ZMEDIA
+17. `services/dfx/include/avcodec_dump_utils.h` L18-39：`AVCodecDumpControler` 类声明，AddInfo/AddInfoFromFormat/GetDumpString/GetLevel
+18. `services/dfx/avcodec_dump_utils.cpp` L144-154：`GetLevel` 函数，dumpIdx 高字节判定层级 1-4（DUMP_OFFSET_24/16/8）
+19. `services/dfx/avcodec_dfx_component.cpp` L25-49：`CreateVideoLogTag` 函数，L36 判断 h./s.（omx=hardware），L37-40 判断 vdec/venc
+20. `services/dfx/include/avcodec_log.h` L20-36：LOG_DOMAIN_FRAMEWORK=0xD002B30 / AUDIO=0xD002B31 / HCODEC=0xD002B32 / SFD=0xD002B33 / DEMUXER=0xD002B3A / MUER=0xD002B3B
+21. `hisysevent.yaml` L44-52：`STATISTICS_INFO` 事件，QUERY_CAP_TIMES / CREATE_CODEC_TIMES / APP_NAME_DICT / CAP_UNSUPPORTED_INFO 等字段
