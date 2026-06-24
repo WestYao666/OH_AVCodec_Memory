@@ -589,3 +589,12 @@ pending_actions:
   - hisysevent.yaml L44-52: STATISTICS_INFO event definition
   timestamp: '2026-06-25T05:55:00+08:00'
   requester: builder-agent subagent
+
+- type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S251
+  topic: DownloadMonitor 下载监控与错误恢复架构
+  draft_path: DRAFTS/MEM-ARCH-AVCODEC-S251.md
+  timestamp: "2026-06-25T07:45:00+08:00"
+  priority: P1
+  scope: services/media_engine/plugins/source/http_source/monitor/
+  requester: builder-agent

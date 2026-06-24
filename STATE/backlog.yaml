@@ -1869,3 +1869,5 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-25T05:55 | builder-agent subagent | S203注册（orphan draft补录）：AVCodec DFX可观测性模块架构草案已增强21条行号级evidence，status: draft→pending_approval，写入 DRAFTS/MEM-ARCH-AVCODEC-S203.md，基于本地镜像 /home/west/av_codec_repo/services/dfx/，与S82/S115/S77/S30关联 |
+
+| S251 | P1 | 🆕 新注册 | 2026-06-25 | pending_approval | DownloadMonitor 下载监控与错误恢复架构 | services/media_engine/plugins/source/http_source/monitor/ | DRAFTS/MEM-ARCH-AVCODEC-S251.md |
