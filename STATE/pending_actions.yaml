@@ -143,13 +143,50 @@ pending_actions:
   mem_id: MEM-ARCH-AVCODEC-S224
   draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S224.md
   source_verified: true
-  evidence_count: 0
+  evidence_count: 25
   verification_notes:
   - draft exists in DRAFTS/ (340 lines), backlog shows pending_approval, status:draft
     in file
   - VideoCodecParamChecker 视频编码参数校验框架
   timestamp: '2026-06-21T22:44:00+08:00'
   requester: PM loop cron
+
+- id: PA-S224-002
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S224
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S224.md
+  source_verified: true
+  evidence_count: 25
+  verification_notes:
+  - builder-agent 本地镜像逐行验证完成
+  - E1 codec_param_checker.h L24-30 CodecScenario 四场景枚举
+  - E2 codec_param_checker.h L32-43 CodecParamChecker 三公开接口
+  - E3 codec_param_checker.cpp L37-38 DEFAULT_QUALITY/DEFAULT_I_FRAME_INTERVAL
+  - E4 codec_param_checker.cpp L100-145 四组 ParamCheckerListType 定义
+  - E5 codec_param_checker.cpp L163-176 CONFIGURE/PARAMETER_CHECKERS_TABLE 路由表
+  - E6 codec_param_checker.cpp L201-224 TemporalScalabilityChecker 实现
+  - E7 codec_param_checker.cpp L226-248 BFrameScenarioChecker 实现
+  - E8 codec_param_checker.cpp L256-292 ResolutionChecker swapWidthHeight 双轴校验
+  - E9 codec_param_checker.cpp L294-314 PixelFormatChecker SURFACE_FORMAT 跳过
+  - E10 codec_param_checker.cpp L316-331 FramerateChecker > 0 校验
+  - E11 codec_param_checker.cpp L333-430 CheckSqrMode/CheckCBRHQMode 码率模式自动修正
+  - E12 codec_param_checker.cpp L463-513 BitrateAndQualityChecker 三层码率校验
+  - E13 codec_param_checker.cpp L549-572 VideoProfileChecker Profile 支持性
+  - E14 codec_param_checker.cpp L574-591 RotationChecker 仅 0/90/180/270
+  - E15 codec_param_checker.cpp L593-625 PostProcessingChecker HEVC 色空间限制
+  - E16 codec_param_checker.cpp L627-655 TemporalGopSizeChecker GOP ≥ 2 + temporalGopSize < gopSize
+  - E17 codec_param_checker.cpp L657-677 TemporalGopReferenceModeChecker 参考模式枚举校验
+  - E18 codec_param_checker.cpp L679-695 UniformlyScaledReferenceChecker 仅 2 或 4
+  - E19 codec_param_checker.cpp L726-745 LTRFrameCountChecker 与时域可分级互斥
+  - E20 codec_param_checker.cpp L797-824 BFrameParamChecker 默认 ADAPTIVE_B_MODE
+  - E21 codec_param_checker.cpp L898-914 CheckConfigureValid 主入口（错误累积机制）
+  - E22 codec_param_checker.cpp L916-940 CheckParameterValid 主入口（MergeFormat）
+  - E23 codec_param_checker.cpp L942-956 CheckCodecScenario 场景推断
+  - E24 codec_param_checker.cpp L958-1004 MergeFormat 5类型参数合并
+  - E25 temporal_scalability.h L29-32 DEFAULT_FRAMERATE/MIN/DEFAULT_TEMPORAL_GOPSIZE
+  timestamp: '2026-06-25T02:10:00+08:00'
+  requester: builder-agent subagent
 - id: PA-S233-001
   type: approval_response
   decision: pending_approval

@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S224
 title: VideoCodecParamChecker 视频编码参数校验框架——CodecScenario三场景+20+维度校验+自动修正
 type: architecture_fact
 scope: [AVCodec, VideoCodec, ParamChecker, CodecScenario, TemporalScalability, BFrame, AutoCorrection]
-status: draft
+status: pending_approval
 created: 2026-06-08T22:30
 source: /home/west/av_codec_repo/services/services/codec/server/video/codec_param_checker.cpp (1005行) + codec_param_checker.h (45行) + temporal_scalability.h
 association: [S19, S57, S70, S162]
