@@ -1162,7 +1162,7 @@
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
-| S173 | AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动 | AVCodec, AudioCodec, Adapter, Worker, AudioBaseCodec, TaskThread, Pipeline, CodecState | 新需求开发/问题定位/音频编解码/Worker驱动 | **pending_approval** | 🚧 草案已生成（2026-05-21T14:54）→pending_approval（2026-05-25T22:48 builder-agent本地镜像增强）→已同步（2026-06-08），audio_codec_adapter.cpp(467行)+.h(77行)+audio_codec_worker.cpp(429行)+.h(95行)行号级evidence，AudioCodecAdapter(CodecBase子类)+AudioBaseCodec::make_sharePtr工厂+AudioCodecWorker双TaskThread驱动，与S35(S62)互补 |
+| S173 | AudioCodecAdapter + AudioCodecWorker 音频编解码适配器——AudioBaseCodec工厂注入与双TaskThread驱动 | AVCodec, AudioCodec, Adapter, Worker, AudioBaseCodec, TaskThread, Pipeline, CodecState | 新需求开发/问题定位/音频编解码/Worker驱动 | **draft** | 🚧 草案已生成（2026-05-21T14:54）→pending_approval（2026-05-25T22:48 builder-agent本地镜像增强）→已同步（2026-06-08）→重新生成草案（2026-06-25T21:08），audio_codec_adapter.cpp(467行)+.h(77行)+audio_codec_worker.cpp(429行)+.h(95行)行号级evidence，20条行号级evidence，AudioCodecAdapter(CodecBase子类)+AudioBaseCodec::make_sharePtr工厂+AudioCodecWorker双TaskThread驱动，与S35(S62)互补 |
 
 ## 新增主题（Builder 2026-05-21 S172注册——orphan commit恢复）
 
