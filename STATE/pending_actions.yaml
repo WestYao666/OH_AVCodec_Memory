@@ -776,3 +776,23 @@ pending_actions:
   - E20: avc_encoder.cpp L841-878 InitAvcEncoderParams/FillAvcInitParams
   timestamp: '2026-06-25T11:15:00+08:00'
   requester: builder-agent subagent
+- id: PA-S254-001
+  type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S254
+  topic: ROI Video Encoding 区域-of-Interest 视频编码——hcodec HDI/OMX_IndexParamRoi/六区域/DeltaQP/SemanticLabel
+  draft_file: DRAFTS/MEM-ARCH-AVCODEC-S254.md
+  source_verified: true
+  evidence_count: 10
+  verification_notes:
+    - E1: native_avcodec_base.h L1197-1226 OH_MD_KEY_VIDEO_ENCODER_ROI_PARAMS 字符串格式定义
+    - E2: native_avcodec_videobase.h L40-157 v26 细粒度 ROI key + OH_VideoMetadataRoiSemanticLabel 枚举 + AppendRoiString API
+    - E3: hencoder.h L74-81 RoiRect 结构体（top/left/bottom/right/deltaQP）
+    - E4: hencoder.h L140 GetROIBySurfaceBuffer 方法声明
+    - E5: hencoder.h L227 static constexpr size_t roiNum = 6 最大 ROI 数量
+    - E6: hencoder.cpp L1412-1439 ParseOneRoi 正则解析实现
+    - E7: hencoder.cpp L1439-1475 ParseRoiStringValid ROI 验证与 CodecRoiParam 填充
+    - E8: hencoder.cpp L1476-1490 WrapRoiParamIntoOmxBuffer OMX 参数打包
+    - E9: hencoder.cpp L1503-1511 ReportROIUsageEvent 高级特性事件上报
+    - E10: hencoder.cpp L1809-1830 GetROIBySurfaceBuffer Surface ATTRKEY_ROI_METADATA 提取
+  timestamp: '2026-06-25T13:40:00+08:00'
+  requester: builder-agent subagent

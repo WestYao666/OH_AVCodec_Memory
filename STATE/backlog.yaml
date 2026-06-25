@@ -1896,3 +1896,15 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-25T10:25 | builder-agent | S253 backlog恢复注册：orphan draft正式登记入backlog（backlog中缺失此条目），DRAFTS/MEM-ARCH-AVCODEC-S253.md已更新为pending_approval，30条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec/tree/master/services/utils/ + 本地镜像 /home/west/av_codec_repo/services/utils/，与S50/S167/S218关联 |
+
+## Builder 2026-06-25 S254注册——ROI Video Encoding 区域-of-Interest 视频编码
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S254 | ROI Video Encoding 区域-of-Interest 视频编码——hcodec HDI/OMX_IndexParamRoi/六区域/DeltaQP/SemanticLabel | AVCodec, VideoEncoder, ROI, RegionOfInterest, Hcodec, HDI, DeltaQP, FaceDetection, SmartEncoding | 视频编码优化/人脸区域高清/智能码率分配/边缘计算/安防监控 | **pending_approval** | 🆕 新注册（2026-06-25T13:40 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S254.md（10条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hcodec/ + interfaces/kits/c/），ROI编码特性（hcodec独有/最多6区域/总面积≤1/5帧/DeltaQP[-51,51]/SemanticLabel[OTHER=0,FACE=1]），OMX_IndexParamRoi HDI传递，Surface ATTRKEY_ROI_METADATA 提取，与S23/S42/S167/S203关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-25T13:40 | builder-agent subagent | S254注册：ROI Video Encoding草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S254.md（pending_approval），10条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hcodec/ + interfaces/kits/c/，与S23/S42/S167/S203关联 |
