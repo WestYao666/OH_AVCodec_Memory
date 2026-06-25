@@ -5,10 +5,10 @@
 - **ID**: MEM-ARCH-AVCODEC-S245
 - **Title**: HTTP Source Plugin MPD/Segment Download Manager Architecture
 - **Tags**: [avcodec, http-source, dash, hls, adaptive-streaming, segment-manager, mpd-downloader]
-- **evidence_count**: 6
+- **evidence_count**: 17
 - **source**: https://gitcode.com/openharmony/multimedia_av_codec (commit e1bcf691, 2025-05-19)
 - **registered**: 2026-06-21
-- **status**: draft
+- **status**: pending_approval
 
 ---
 
