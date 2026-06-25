@@ -2,7 +2,7 @@
 
 ## ROI Video Encoding 区域-of-Interest 视频编码
 
-**Status**: draft
+**Status**: pending_approval
 **Priority**: P1
 **Created**: 2026-06-25T13:40:00+08:00
 **Updated**: 2026-06-25T13:40:00+08:00
