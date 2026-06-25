@@ -11,3 +11,24 @@ entries: []
   mem_id: S250
   timestamp: "2026-06-25T16:35:00+08:00"
   note: "builder-agent fallback - pending manual review"
+
+# === 2026-06-25T16:50:00+08:00 ===
+# Source: builder-agent (fallback error - LLM timeout)
+# Action: update draft with enhanced evidence from local mirror
+- type: draft_update
+  status: pending
+  timestamp: "2026-06-25T16:50:00+08:00"
+  note: "builder-agent fallback - update draft with enhanced evidence from local mirror - pending manual review"
+
+# === 2026-06-25T17:10:00+08:00 ===
+# Source: builder-agent (success)
+# Action: S251 DownloadMonitor草案提交审批
+- type: approval_response
+  decision: pending_approval
+  mem_id: S251
+  timestamp: "2026-06-25T17:10:00+08:00"
+  note: "S251 DownloadMonitor草案已完成，front-matter已转换YAML格式，commit b20287f已推送GitHub。backlog中S251状态：pending_approval"
+  scope: "AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, Monitor, Retry, ErrorHandling, DFX, DASH, HLS, HTTP"
+  evidence_count: 9
+  source: "GitCode + 本地镜像 /home/west/av_codec_repo"
+  note_main: "仓库仍有S246.md和pending_actions.yaml的uncommitted changes待检查"

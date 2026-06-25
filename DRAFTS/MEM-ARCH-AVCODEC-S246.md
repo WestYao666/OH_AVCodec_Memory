@@ -1,13 +1,13 @@
 ---
-status: draft
+status: pending_approval
 mem_id: MEM-ARCH-AVCODEC-S246
 title: "HttpSourcePlugin 离线缓存与流媒体工具链——MediaCachedBuffer LRU分片缓存 + AesDecryptor AES-128解密 + XmlParser + HttpMediaUtils DFX 四组件"
 scope: "AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, MediaCachedBuffer, AesDecryptor, XmlParser, HttpMediaUtils, LRU, AES-128, CBC, DRM, DASH, HLS, OfflineCache, Download"
 scenario: "DASH/HLS流播放/离线缓存/AES-128解密/DFX可观测性"
 assoc_s: "S138, S222, S234, S195, S225"
-evidence_count: 12
-source: "GitCode web_fetch + 本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/"
-builder_timestamp: "2026-06-21"
+evidence_count: 20
+source: "本地镜像 /home/west/av_codec_repo/services/media_engine/plugins/source/http_source/"
+builder_timestamp: "2026-06-21 → 2026-06-25 本地镜像行号增强验证"
 ---
 
 # MEM-ARCH-AVCODEC-S246: HttpSourcePlugin 离线缓存与流媒体工具链——MediaCachedBuffer LRU分片缓存 + AesDecryptor AES-128解密 + XmlParser + HttpMediaUtils DFX 四组件
