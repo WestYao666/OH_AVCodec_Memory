@@ -33,15 +33,27 @@ pending_actions:
   mem_id: MEM-ARCH-AVCODEC-S245
   draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S245.md
   source_verified: true
-  evidence_count: 6
+  evidence_count: 17
   verification_notes:
-  - DashMpdDownloader 类声明 (dash_mpd_downloader.h L118-310)
-  - DashMpdDownloader 构造函数与五层管理器初始化 (dash_mpd_downloader.cpp L60-75)
-  - ParseManifest 核心流程 (dash_mpd_downloader.cpp L570-595)
-  - HlsSegmentManager 类完整声明 (hls_segment_manager.h L61-350)
-  - HlsSegmentManager Init 与 Downloader 设置 (hls_segment_manager.cpp L90-130)
-  - PutRequestIntoDownloader 段下载逻辑 (hls_segment_manager.cpp L270-330)
-  timestamp: '2026-06-21T20:45:00+08:00'
+  - E1: dash_mpd_downloader.h L118 class DashMpdDownloader declaration
+  - E2: dash_mpd_downloader.h L46-54 enum DashMpdGetRet (ERROR/DONE/UNDONE/FINISH)
+  - E3: dash_mpd_downloader.h L59-77 struct DashMpdBitrateParam
+  - E4: dash_mpd_downloader.h L80-98 struct DashMpdTrackParam
+  - E5: dash_mpd_downloader.h L289-292 五管理器成员变量 (mpdManager_/periodManager_/adptSetManager_/representationManager_)
+  - E6: dash_mpd_downloader.cpp L106-120 构造函数五层管理器初始化
+  - E7: dash_mpd_downloader.cpp L653-674 ParseManifest 核心流程
+  - E8: dash_mpd_downloader.cpp L765-802 GetDrmInfos PSSH Box Base64解码 DRM_UUID_OFFSET=12
+  - E9: dash_mpd_downloader.cpp L805-857 ProcessDrmInfos DRM处理
+  - E10: dash_mpd_downloader.cpp L930-970 BuildDashSegment const方法构建DashSegment子段索引
+  - E11: dash_mpd_downloader.cpp L335-366 GetNextSegmentByStreamId 按streamId获取下一段
+  - E12: dash_mpd_downloader.cpp L410-461 GetNextVideoStream DASH码率自适应核心
+  - E13: hls_segment_manager.h L72 class HlsSegmentManager声明
+  - E14: hls_segment_manager.cpp L100-124 第一构造函数 expectBufferDuration
+  - E15: hls_segment_manager.cpp L187-200 Init: downloader_+BlockingQueue+dataSave_lambda
+  - E16: hls_segment_manager.cpp L280-315 PutRequestIntoDownloader去重+tsStorageInfo_映射
+  - E17: hls_segment_manager.cpp L1750-1790 AutoSelectBitrate HLS码率自适应
+  - 行号修正: 构造函数L60→L106(ParseManifest L570→L653 Init L90→L187 PutRequestIntoDownloader L270→L280)
+  timestamp: '2026-06-25T08:15:00+08:00'
   requester: builder-agent subagent
 - id: PA-S246-001
   type: approval_response

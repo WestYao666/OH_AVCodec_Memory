@@ -489,3 +489,41 @@ S245 揭示了 HTTP Source Plugin 中两个最核心的**协调器组件**：
 - **HlsSegmentManager**：2582 行，担任 HLS 流的全生命周期管理器，负责播放列表变更响应、段下载调度、AES-128-CBC 解密、缓存缓冲管理、码率自适应和搜索精确定位
 
 这两个组件共同构成了 HTTP 自适应流播放的**大脑层**，与下层的 Downloader（网络）、PlaylistDownloader（ playlist解析）、AesDecryptor（解密）、CacheMediaChunkBufferImpl（缓冲）配合，实现完整的自适应流播放能力。
+
+---
+
+## 本地镜像增强验证（/home/west/av_codec_repo，2026-06-25）
+
+> builder-agent subagent 本地镜像逐行核对验证，行号全部以 /home/west/av_codec_repo 为准
+
+### 验证证据表（E1-E16）
+
+| ID | 文件（相对路径） | 实际行号 | 内容摘要 |
+|----|----------------|---------|---------|
+| E1 | dash_mpd_downloader.h | L118 | `class DashMpdDownloader : public std::enable_shared_from_this<DashMpdDownloader>` |
+| E2 | dash_mpd_downloader.h | L46-54 | `enum DashMpdGetRet`：`DASH_MPD_GET_ERROR / DONE / UNDONE / FINISH` |
+| E3 | dash_mpd_downloader.h | L59-77 | `struct DashMpdBitrateParam`：`waitSegmentFinish_ / streamId_ / bitrate_ / type_` |
+| E4 | dash_mpd_downloader.h | L80-98 | `struct DashMpdTrackParam`：`waitSidxFinish_ / isEnd_ / type_ / streamId_ / position_` |
+| E5 | dash_mpd_downloader.h | L289-292 | 五管理器成员：`mpdManager_ / periodManager_ / adptSetManager_ / representationManager_` |
+| E6 | dash_mpd_downloader.cpp | L106-120 | 构造函数：五管理器 + Downloader 初始化（make_shared 五层架构） |
+| E7 | dash_mpd_downloader.cpp | L653-674 | `ParseManifest`：mpdParser_->ParseMPD → mpdManager_->SetMpdInfo → ChooseStreamToPlay 三路 |
+| E8 | dash_mpd_downloader.cpp | L765-802 | `GetDrmInfos`：PSSH Box Base64 解码，DRM_UUID_OFFSET=12 |
+| E9 | dash_mpd_downloader.cpp | L805-857 | `ProcessDrmInfos`：DRM 信息处理，BuildDashSegment 构建段 |
+| E10 | dash_mpd_downloader.cpp | L930-970 | `BuildDashSegment`：const 方法，构建 DashSegment 子段索引 |
+| E11 | dash_mpd_downloader.cpp | L335-366 | `GetNextSegmentByStreamId`：按 streamId 获取下一段（环形缓冲） |
+| E12 | dash_mpd_downloader.cpp | L410-461 | `GetNextVideoStream`：DASH 码率自适应核心，选择最接近目标码率的 Representation |
+| E13 | hls_segment_manager.h | L72 | `class HlsSegmentManager : public PlayListChangeCallback, public std::enable_shared_from_this<HlsSegmentManager>` |
+| E14 | hls_segment_manager.cpp | L100-124 | 第一构造函数（expectBufferDuration）：Downloader + playlistDownloader_ 初始化 |
+| E15 | hls_segment_manager.cpp | L187-200 | `Init`：downloader_->Init + BlockingQueue + dataSave_ lambda 捕获 weak_from_this |
+| E16 | hls_segment_manager.cpp | L280-315 | `PutRequestIntoDownloader`：fragmentDownloadStart 去重 + SetDownloadRequest + tsStorageInfo_ 映射 |
+| E17 | hls_segment_manager.cpp | L1750-1790 | `AutoSelectBitrate`：HLS 码率自适应（片段速度计算） |
+
+### 关键修正说明
+
+| 项目 | 草案行号 | 本地镜像实际 | 偏差 |
+|------|---------|------------|------|
+| DashMpdDownloader 构造函数 | L60-75 | **L106-120** | +46行 |
+| ParseManifest | L570-595 | **L653-674** | +83行 |
+| HlsSegmentManager class 起始 | L61 | **L72** | +11行 |
+| HlsSegmentManager::Init | L90-130 | **L187-200** | +97行 |
+| PutRequestIntoDownloader | L270-330 | **L280-315** | +10行 |
