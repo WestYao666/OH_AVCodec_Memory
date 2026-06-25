@@ -1917,3 +1917,15 @@
 | S255 | HTTP Source Plugin Downloader Core Architecture——HttpCurlClient(libcurl)+AppClient(IMediaSourceLoader)双网络客户端+DownloadRequest五路构造+Range分段下载+Header轮询等待+码率实时估算 | AVCodec, MediaEngine, SourcePlugin, Downloader, NetworkClient, HTTP, Curl, RangeRequest, Retry, Streaming | DASH/HLS流媒体播放/HTTP下载/HTTPS/Range分段请求/重试机制/直播点播兼容 | **pending_approval** | 🚧 草案已生成（2026-06-25T18:25 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S255.md（10条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec），HttpCurlClient(CURL/libcurl) + AppClient(IMediaSourceLoader) 双客户端，DownloadRequest五路构造，Range 2MB分段，指数退避重试(3→15→75→375ms)，GetBitRate实时估算，与S245(上层SegmentManager)/S246(并列)/S251(DownloadMonitor)关联 |
 
 | 2026-06-25T18:25 | builder-agent subagent | S255注册：HTTP Source Plugin Downloader Core Architecture草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S255.md（pending_approval），10条行号级evidence，基于GitCode web_fetch，与S245/S246/S251关联 |
+
+## Builder 2026-06-25 S247注册——AVCodec Instance Information Management
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S247 | AVCodec Instance Information Management——instance_info.h InstanceId/CallerInfo/InstanceInfo + EventManager singleton lifecycle event system + EventType bit-field dispatch + EventInfoExtentedKey 30+ metadata keys | AVCodec, DFX, InstanceInfo, EventManager, EventType, StatisticsEventType, Lifecycle, MemoryTracking, PID, UID, ProcessName | DFX可观测性/实例管理/问题定位/性能统计/多实例追踪 | **pending_approval** | 🚧 草案已生成（2026-06-25T19:07 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S247.md（20条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec），instance_info.h(L18-75)InstanceId+CallerInfo+InstanceInfo+forwardCaller多级调用链+GetActualCallerPid()；event_info_extented_key.h(L13-38)30+元数据键(INSTANCE_ID/SPEED_DECODING_INFO_0_75X-3_00X/WIDTH/HEIGHT等)；event_manager.h(L14-36)EventManager单例+7种生命周期事件；event_manager.cpp(L30-117)位域分发+OnInit填充caller/forwardCaller；event_type.h(L24-81)EventType位域布局(8位类型码)+StatisticsEventType四类分层；statistics_event_handler.h(L27-65)StatisticsEventInfo单例+EventHook回调+AVCodecXcollieTimer；instance_memory_update_event_handler.h(L23-65)内存阈值监控+appMemoryExceedThresholdList_；与S82(DFX事件框架)/S236(HCodec实例追踪)/S239(CodecBase)关联 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-25T19:07 | builder-agent subagent | S247注册：AVCodec Instance Information Management草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S247.md（pending_approval），20条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec，与S82/S236/S239关联 |
