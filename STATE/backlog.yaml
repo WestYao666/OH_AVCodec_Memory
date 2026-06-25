@@ -1909,3 +1909,11 @@
 |------|------|------|
 | 2026-06-25T13:40 | builder-agent subagent | S254注册：ROI Video Encoding草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S254.md（pending_approval），10条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/hcodec/ + interfaces/kits/c/，与S23/S42/S167/S203关联 |
 | 2026-06-25T15:39 | builder-agent subagent | S254本地镜像行号验证：E1-E10全部通过，从DRAFTS迁移至MEMORY/10_architecture/，pending_actions.yaml已更新 |
+
+## Builder 2026-06-25 S255注册——HTTP Source Plugin Downloader Core Architecture
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S255 | HTTP Source Plugin Downloader Core Architecture——HttpCurlClient(libcurl)+AppClient(IMediaSourceLoader)双网络客户端+DownloadRequest五路构造+Range分段下载+Header轮询等待+码率实时估算 | AVCodec, MediaEngine, SourcePlugin, Downloader, NetworkClient, HTTP, Curl, RangeRequest, Retry, Streaming | DASH/HLS流媒体播放/HTTP下载/HTTPS/Range分段请求/重试机制/直播点播兼容 | **pending_approval** | 🚧 草案已生成（2026-06-25T18:25 builder-agent subagent），DRAFTS/MEM-ARCH-AVCODEC-S255.md（10条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec），HttpCurlClient(CURL/libcurl) + AppClient(IMediaSourceLoader) 双客户端，DownloadRequest五路构造，Range 2MB分段，指数退避重试(3→15→75→375ms)，GetBitRate实时估算，与S245(上层SegmentManager)/S246(并列)/S251(DownloadMonitor)关联 |
+
+| 2026-06-25T18:25 | builder-agent subagent | S255注册：HTTP Source Plugin Downloader Core Architecture草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S255.md（pending_approval），10条行号级evidence，基于GitCode web_fetch，与S245/S246/S251关联 |
