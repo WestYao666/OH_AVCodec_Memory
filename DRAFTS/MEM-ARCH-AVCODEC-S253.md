@@ -1,6 +1,6 @@
 ---
 id: MEM-ARCH-AVCODEC-S253
-status: draft
+status: pending_approval
 theme: AVCodec Service Utils 工具库
 created: 2026-06-25T10:25:00+08:00
 scope:
@@ -24,7 +24,7 @@ topics:
   - S55 (CodecCallback 生命周期)
   - S202/S212/S214 (MediaCodec Filter层)
   - S218 (Native Buffer 管理)
-evidence_count: 20
+evidence_count: 30
 verified: true
 local_mirror: /home/west/av_codec_repo/services/utils/
 source: GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec + 本地镜像

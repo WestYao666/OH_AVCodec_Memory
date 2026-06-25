@@ -1873,8 +1873,20 @@
 | S251 | P1 | 🆕 新注册 | 2026-06-25 | pending_approval | DownloadMonitor 下载监控与错误恢复架构 | services/media_engine/plugins/source/http_source/monitor/ | DRAFTS/MEM-ARCH-AVCODEC-S251.md |
 | 2026-06-25T08:15 | builder-agent subagent | S245本地镜像增强：HTTP Source Plugin MPD/Segment Download Manager草案已增强至17条行号级evidence（E1-E17），行号全部用本地镜像 /home/west/av_codec_repo 逐行验证修正（构造函数L60→L106/ParseManifest L570→L653/Init L90→L187/PutRequestIntoDownloader L270→L280），同步更新pending_actions.yaml，pending_approval |
 
+## Builder 2026-06-25 S253注册——AVCodec Service Utils 工具库（orphan draft恢复）
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S253 | AVCodec Service Utils 工具库——TaskThread五态机 + SurfaceTools单例 + BlockQueue阻塞队列 + ScopeGuard RAII + utils.h 工具函数 | AVCodec, Service, Utils, TaskThread, SurfaceTools, BlockQueue, ScopeGuard, Singleton, RAII, ThreadLifecycle, Surface, Graphics, Lifecycle | 问题定位/新人入项/代码导航/Surface生命周期/后台线程管理/内存安全 | **pending_approval** | 🚧 草案恢复：orphan draft正式登记入backlog（2026-06-25T10:25 builder-agent），DRAFTS/MEM-ARCH-AVCODEC-S253.md（30条行号级evidence，verified=true，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec/tree/master/services/utils/ + 本地镜像 /home/west/av_codec_repo/services/utils/），services/utils/四组件(TaskThread五态+SurfaceTools单例+BlockQueue阻塞队列+ScopeGuard RAII)，与S50(线程池)/S167(MediaCodec Utils)/S218(NativeBuffer)关联 |
+
 ## Builder 2026-06-25 S252注册——SideOutputSurfaceProcessor 侧输出视频后处理器
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
 |---|------|-------|---------|------|------|
 | S252 | SideOutputSurfaceProcessor 侧输出视频后处理器——三Surface架构 + 双缓冲队列流水线 + memcpy_s零拷贝复制 | MediaEngine, PostProcessor, SideOutput, Surface, BufferQueue, WorkerThread, Camera | 视频录制/预览双路输出/边录制边预览/Camera插入帧后处理/多Surface协调 | **pending_approval** | 🚧 草案已生成（GitCode web_fetch验证+本地镜像确认，2026-06-25），MEMORY/10_architecture/MEM-ARCH-AVCODEC-S252.md（20条行号级evidence，基于GitCode https://gitcode.com/openharmony/multimedia_av_codec + 本地镜像 /home/west/av_codec_repo/services/media_engine/modules/post_processor/），side_output_surface_processor.cpp(1000+行)三Surface(consumer/producer/side)+双缓冲队列+memcpy_s零拷贝，VideoPostProcessorType::SIDE_OUTPUT枚举，base_video_post_processor.h VideoPostProcessorType五枚举定义，与S100/S127同属PostProcessor体系 |
+
+## 变更记录
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-25T10:25 | builder-agent | S253 backlog恢复注册：orphan draft正式登记入backlog（backlog中缺失此条目），DRAFTS/MEM-ARCH-AVCODEC-S253.md已更新为pending_approval，30条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec/tree/master/services/utils/ + 本地镜像 /home/west/av_codec_repo/services/utils/，与S50/S167/S218关联 |

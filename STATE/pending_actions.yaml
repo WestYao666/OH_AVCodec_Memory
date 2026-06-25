@@ -732,7 +732,7 @@ pending_actions:
   topic: AVCodec Service Utils 工具库
   draft_file: DRAFTS/MEM-ARCH-AVCODEC-S253.md
   source_verified: true
-  evidence_count: 20
+  evidence_count: 30
   verification_notes:
     - 'TaskThread 五态生命周期管理线程'
     - 'SurfaceTools Surface生产者-实例ID映射单例'
