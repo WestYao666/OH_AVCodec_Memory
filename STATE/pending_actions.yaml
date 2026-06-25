@@ -55,3 +55,15 @@ entries: []
   scope: "AVCodec, MediaEngine, MediaDemuxer, HLS, PTS维护, 音视频同步, 断点续传, Timestamp Continuity"
   evidence_count: 20
   source: "GitCode https://gitcode.com/openharmony/multimedia_av_codec"
+
+# === 2026-06-25T21:08:00+08:00 ===
+# Source: builder-agent subagent
+# Action: S173 AudioCodecAdapter+AudioCodecWorker草案提交审批
+- type: approval_response
+  decision: pending_approval
+  mem_id: S173
+  timestamp: "2026-06-25T21:08:00+08:00"
+  note: "S173 AudioCodecAdapter+AudioCodecWorker草案已完成，20条evidence（行号级），commit 9720bde已推送GitHub，backlog.yaml已更新draft状态，scope: CodecBase子类+双TaskThread+AudioBaseCodec工厂"
+  scope: "AVCodec, AudioCodec, Adapter, Worker, AudioBaseCodec, TaskThread, Pipeline, CodecState, SoftwareCodec"
+  evidence_count: 20
+  source: "本地镜像 /home/west/av_codec_repo"
