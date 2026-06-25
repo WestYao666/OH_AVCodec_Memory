@@ -598,3 +598,34 @@ pending_actions:
   priority: P1
   scope: services/media_engine/plugins/source/http_source/monitor/
   requester: builder-agent
+- id: PA-S252-001
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S252
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S252.md
+  source_verified: true
+  evidence_count: 20
+  verification_notes:
+    - '基于本地镜像 /home/west/av_codec_repo/services/media_engine/modules/post_processor/'
+    - 'E1: AutoRegisterPostProcessor VideoPostProcessorType::SIDE_OUTPUT (L36-44, base_video_post_processor.h L40-46)'
+    - 'E2: ConsumerSurfaceBufferListener IBufferConsumerListener桥接 (L46-58)'
+    - 'E3: Init() Worker线程 + Task创建 (L73-97)'
+    - 'E4: ProcessorState三态机 IDLE/RUNNING/STOPPING (h L88)'
+    - 'E5: Start/Stop/Flush生命周期 (L99-137)'
+    - 'E6: Release() 资源释放+线程join+Surface断开 (L142-186)'
+    - 'E7: GetInputSurface返回producerSurface+SetOutputSurface设置sideSurface (L189-250)'
+    - 'E8: OnConsumerBufferAvailable AcquireBuffer+PushBufferToConsumer (L309-345)'
+    - 'E9: PushBufferToConsumer UpdateRequestConfigFromBuffer+HandleResolutionChange (L398-440)'
+    - 'E10: OnProducerBufferReleased RequestBuffer+producerBufferQueue_填充 (L423-473)'
+    - 'E11: ProcessBuffers核心循环 WaitTrigger+GetConsumerAndProducerBuffer (L694-722)'
+    - 'E12: ProcessBuffer memcpy_s零拷贝复制 (L525-558)'
+    - 'E13: OutputBuffer+HandleRenderBufferOverflow 5帧深渲染队列 (L577-608)'
+    - 'E14: CopyBufferToSideSurface memcpy_s→sideSurface (L899-943)'
+    - 'E15: RequestSideBuffer BufferRequestConfig+FlushSideBuffer (L946-982)'
+    - 'E16: GetVideoSample/HandleSampleTask Task单例+sampleDoneCond_ (L811-888)'
+    - 'E17: WaitTrigger cvTrigger_等待200ms超时+consumerSize>0触发 (L727-756)'
+    - 'E18: Buffer常量 BUFFER_QUEUE_SIZE=5/STRIDE_ALIGNMENT=32/GET_VIDEO_SAMPLE_TIMEOUT=1000 (L21-27)'
+    - 'E19: UpdateRequestConfigFromBuffer动态配置+分辨率变更检测 (L346-369)'
+    - 'E20: DealNoImage无数据降级 (L982-988)'
+  timestamp: '2026-06-25T07:58:00+08:00'
+  requester: builder-agent subagent
