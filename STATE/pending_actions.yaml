@@ -610,6 +610,26 @@ pending_actions:
   priority: P1
   scope: services/media_engine/plugins/source/http_source/monitor/
   requester: builder-agent
+- id: PA-S251-002
+  type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S251
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S251.md
+  source_verified: true
+  evidence_count: 9
+  verification_notes:
+    - '本地镜像验证 /home/west/av_codec_repo (2026-06-25T09:24)'
+    - 'E1: download_monitor.cpp L23-53 retry常量(RETRY_TIMES_TO_REPORT_ERROR=10/RETRY_SEG=50/CLIENT_NOT_RETRY_ERROR_CODES/CLIENT_RETRY_ERROR_CODES/SERVER_RETRY_ERROR_CODES) ✓'
+    - 'E2: download_monitor.h L37-53 LoadingRequestStage枚举+RetryRequest结构体+DownloadMonitor类定义 ✓'
+    - 'E3: download_monitor.cpp L83-95 HttpMonitorLoop 50ms轮询重试调度 ✓'
+    - 'E4: download_monitor.cpp L64-80 Init() SetStatusCallback+Task启动 ✓'
+    - 'E5: download_monitor.cpp L250-277 ReportLoadingErrorEvent 三阶段上报 ✓'
+    - 'E6: download_monitor.cpp L338-374 NeedRetry五层决策树 ✓'
+    - 'E7: download_monitor.cpp L384-393 OnDownloadStatus入队+去重 ✓'
+    - 'E8: http_source_plugin.cpp L276-350 SetDownloaderBySource三路分发(行号修正:294→276, 345→350) ✓'
+    - 'E9: http_source_plugin.cpp L80-88 析构异步SourceStatistics上报 ✓'
+  timestamp: "2026-06-25T09:24:00+08:00"
+  requester: builder-agent subagent
 - id: PA-S252-001
   type: approval_response
   decision: pending_approval
@@ -640,4 +660,35 @@ pending_actions:
     - 'E19: UpdateRequestConfigFromBuffer动态配置+分辨率变更检测 (L346-369)'
     - 'E20: DealNoImage无数据降级 (L982-988)'
   timestamp: '2026-06-25T07:58:00+08:00'
+  requester: builder-agent subagent
+- type: approval_response
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S203
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S203.md
+  source_verified: true
+  evidence_count: 21
+  verification_notes:
+    - "GitCode + 本地镜像 /home/west/av_codec_repo/services/dfx/ 多文件验证"
+    - "E1: avcodec_sysevent.h L24-28 FaultType枚举 (FAULT_TYPE_FREEZE=0/CRASH/INNER_ERROR)"
+    - "E2: avcodec_sysevent.cpp L32-37 FAULT_TYPE_TO_STRING映射表 (Freeze/Crash/Inner error)"
+    - "E3: avcodec_sysevent.h L44-58 CodecDfxInfo结构体 12字段 (pid/clientPid/codecName/分辨率/码率等)"
+    - "E4: avcodec_sysevent.h L60-69 DemuxerFaultInfo结构体"
+    - "E5: avcodec_sysevent.h L70-80 MuxerFaultInfo结构体"
+    - "E6: avcodec_sysevent.h L81-88 AudioCodecFaultInfo结构体"
+    - "E7: avcodec_sysevent.h L89-103 VideoCodecFaultInfo结构体"
+    - "E8: avcodec_sysevent.h L104-112 SourceStatisticsReportInfo结构体"
+    - "E9: avcodec_sysevent.cpp L157-180 SourceStatisticsEventWrite, EVP_sha256() L167哈希CA证书, SOURCE_STATISTICS_REPORT_HOURS=4"
+    - "E10: avcodec_xcollie.h L29-59 AVCodecXCollie类接口 (GetInstance/SetTimer/SetInterfaceTimer/timerTimeout=10)"
+    - "E11: avcodec_xcollie.h L61-75 AVCodecXcollieTimer RAII包装器"
+    - "E12: avcodec_xcollie.h L77-92 AVCodecXcollieInterfaceTimer (isService/recovery/timeout=30默认)"
+    - "E13: avcodec_xcollie.h L93-107 COLLIE_LISTEN/CLIENT_COLLIE_LISTEN宏"
+    - "E14: avcodec_xcollie.cpp L151-169 ServiceInterfaceTimerCallback, threadDeadlockCount_≥1触发L166 _exit(-1)"
+    - "E15: avcodec_trace.h L25-35 AVCODEC_SYNC_TRACE/AVCODEC_FUNC_TRACE_WITH_TAG系列宏"
+    - "E16: avcodec_trace.h L37-55 AVCodecTrace类 HITRACE_TAG_ZMEDIA"
+    - "E17: avcodec_dump_utils.h L18-39 AVCodecDumpControler类声明"
+    - "E18: avcodec_dump_utils.cpp L144-154 GetLevel函数 dumpIdx高字节判定层级 1-4"
+    - "E19: avcodec_dfx_component.cpp L25-49 CreateVideoLogTag, L36判断h./s., L37-40判断vdec/venc"
+    - "E20: avcodec_log.h L20-36 LOG_DOMAIN六域 (0xD002B30-0xD002B3B)"
+    - "E21: hisysevent.yaml L44-52 STATISTICS_INFO统计事件 (QUERY_CAP_TIMES/CREATE_CODEC_TIMES/APP_NAME_DICT)"
+  timestamp: '2026-06-25T09:10:00+08:00'
   requester: builder-agent subagent

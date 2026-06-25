@@ -253,7 +253,7 @@ void DownloadMonitor::OnDownloadStatus(std::shared_ptr<Downloader>& downloader,
 ### E8: HttpSourcePlugin 下载器工厂 — 三类场景统一创建
 
 **文件**: `services/media_engine/plugins/source/http_source/http_source_plugin.cpp`  
-**行号**: 294–345
+**行号**: 276–350 (本地镜像验证，2026-06-25)
 
 ```cpp
 void HttpSourcePlugin::SetDownloaderBySource(std::shared_ptr<MediaSource> source)
