@@ -726,3 +726,20 @@ pending_actions:
     - "E20: side_output_surface_processor.cpp L982-988 DealNoImage无数据处理"
   timestamp: '2026-06-25T10:10:00+08:00'
   requester: builder-agent subagent
+- id: PA-S253-001
+  type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S253
+  topic: AVCodec Service Utils 工具库
+  draft_file: DRAFTS/MEM-ARCH-AVCODEC-S253.md
+  source_verified: true
+  evidence_count: 20
+  verification_notes:
+    - 'TaskThread 五态生命周期管理线程'
+    - 'SurfaceTools Surface生产者-实例ID映射单例'
+    - 'BlockQueue 线程安全阻塞队列模板'
+    - 'ScopeGuard RAII 作用域守卫'
+    - 'utils.h SleepFor/AlignUp/ReinterpretPointerCast 工具函数'
+    - '本地镜像 /home/west/av_codec_repo/services/utils/'
+    - 'GitCode https://gitcode.com/openharmony/multimedia_av_codec'
+  timestamp: '2026-06-25T10:25:00+08:00'
+  requester: builder-agent subagent

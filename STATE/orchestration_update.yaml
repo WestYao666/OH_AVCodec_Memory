@@ -27,3 +27,43 @@ timestamp: "2026-06-09T07:20:00+08:00"
   draft_file: "DRAFTS/MEM-ARCH-AVCODEC-S237.md"
   commit: "1f1085c"
   summary: "S237 pending_approval：AVCodec Native CENC Info API（OH_AVCencInfo七函数+六算法+35条行号级evidence），E27-E35本地镜像源码增强，状态draft→pending_approval"
+---
+timestamp: "2026-06-25T10:10:00+08:00"
+agent: builder-agent
+action: draft_completed
+mem_id: "MEM-ARCH-AVCODEC-S252"
+status: "pending_approval"
+evidence_count: 20
+draft_file: "MEMORY/10_architecture/MEM-ARCH-AVCODEC-S252.md"
+commit: "a117513"
+summary: "S252 pending_approval：SideOutputSurfaceProcessor侧输出视频后处理器，20条行号级evidence，GitCode验证，base_video_post_processor.h VideoPostProcessorType枚举，side_output_surface_processor.cpp三Surface架构+memcpy_s零拷贝"
+---
+type: approval_request
+decision: pending_approval
+mem_id: MEM-ARCH-AVCODEC-S252
+evidence_count: 20
+source: GitCode web_fetch验证
+line_numbers:
+  - "side_output_surface_processor.cpp: L21-27 (Buffer常量)"
+  - "side_output_surface_processor.cpp: L36-44 (AutoRegisterPostProcessor)"
+  - "side_output_surface_processor.cpp: L46-58 (ConsumerSurfaceBufferListener)"
+  - "side_output_surface_processor.cpp: L73-97 (Init工作线程)"
+  - "side_output_surface_processor.cpp: L99-186 (Flush/Stop/Start生命周期)"
+  - "side_output_surface_processor.cpp: L142-186 (Release资源释放)"
+  - "side_output_surface_processor.cpp: L189-250 (GetInputSurface/SetOutputSurface)"
+  - "side_output_surface_processor.cpp: L309-345 (OnConsumerBufferAvailable)"
+  - "side_output_surface_processor.cpp: L346-369 (UpdateRequestConfigFromBuffer)"
+  - "side_output_surface_processor.cpp: L398-440 (PushBufferToConsumer)"
+  - "side_output_surface_processor.cpp: L423-473 (OnProducerBufferReleased)"
+  - "side_output_surface_processor.cpp: L525-558 (ProcessBuffer memcpy_s)"
+  - "side_output_surface_processor.cpp: L577-608 (OutputBuffer渲染队列)"
+  - "side_output_surface_processor.cpp: L694-722 (ProcessBuffers核心循环)"
+  - "side_output_surface_processor.cpp: L727-756 (WaitTrigger条件触发)"
+  - "side_output_surface_processor.cpp: L811-888 (GetVideoSample/HandleSampleTask)"
+  - "side_output_surface_processor.cpp: L899-943 (CopyBufferToSideSurface)"
+  - "side_output_surface_processor.cpp: L946-982 (RequestSideBuffer/FlushSideBuffer)"
+  - "side_output_surface_processor.cpp: L982-988 (DealNoImage)"
+  - "base_video_post_processor.h: L35-40 (VideoPostProcessorType枚举)"
+  - "side_output_surface_processor.h: L88 (ProcessorState三态机)"
+timestamp: "2026-06-25T10:10:00+08:00"
+requester: builder-agent subagent
