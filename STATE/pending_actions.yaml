@@ -694,3 +694,35 @@ pending_actions:
     - "E21: hisysevent.yaml L44-52 STATISTICS_INFO统计事件 (QUERY_CAP_TIMES/CREATE_CODEC_TIMES/APP_NAME_DICT)"
   timestamp: '2026-06-25T09:10:00+08:00'
   requester: builder-agent subagent
+
+- type: approval_request
+  decision: pending_approval
+  mem_id: MEM-ARCH-AVCODEC-S252
+  draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/MEMORY/10_architecture/MEM-ARCH-AVCODEC-S252.md
+  source_verified: true
+  evidence_count: 20
+  verification_notes:
+    - "GitCode验证: side_output_surface_processor.cpp (1000+行) + side_output_surface_processor.h"
+    - "base_video_post_processor.h: VideoPostProcessorType枚举 (SIDE_OUTPUT=4)"
+    - "E1: side_output_surface_processor.cpp L36-44 AutoRegisterPostProcessor自注册"
+    - "E2: side_output_surface_processor.cpp L46-58 ConsumerSurfaceBufferListener消费缓冲监听器"
+    - "E3: side_output_surface_processor.cpp L73-97 Init()工作线程启动"
+    - "E4: side_output_surface_processor.h L88 ProcessorState三态机 (IDLE/RUNNING/STOPPING)"
+    - "E5: side_output_surface_processor.cpp L99-186 Flush/Stop/Start生命周期"
+    - "E6: side_output_surface_processor.cpp L142-186 Release()资源释放"
+    - "E7: side_output_surface_processor.cpp L189-250 GetInputSurface/SetOutputSurface"
+    - "E8: side_output_surface_processor.cpp L309-345 OnConsumerBufferAvailable消费侧缓冲获取"
+    - "E9: side_output_surface_processor.cpp L398-440 PushBufferToConsumer缓冲入队"
+    - "E10: side_output_surface_processor.cpp L423-473 OnProducerBufferReleased生产者缓冲释放"
+    - "E11: side_output_surface_processor.cpp L694-722 ProcessBuffers核心处理循环"
+    - "E12: side_output_surface_processor.cpp L525-558 ProcessBuffer memcpy_s零拷贝"
+    - "E13: side_output_surface_processor.cpp L577-608 OutputBuffer渲染队列管理"
+    - "E14: side_output_surface_processor.cpp L899-943 CopyBufferToSideSurface侧输出"
+    - "E15: side_output_surface_processor.cpp L946-982 RequestSideBuffer/FlushSideBuffer"
+    - "E16: side_output_surface_processor.cpp L811-888 GetVideoSample/HandleSampleTask"
+    - "E17: side_output_surface_processor.cpp L727-756 WaitTrigger条件触发"
+    - "E18: side_output_surface_processor.cpp L21-27 Buffer常量定义"
+    - "E19: side_output_surface_processor.cpp L346-369 UpdateRequestConfigFromBuffer动态配置"
+    - "E20: side_output_surface_processor.cpp L982-988 DealNoImage无数据处理"
+  timestamp: '2026-06-25T10:10:00+08:00'
+  requester: builder-agent subagent

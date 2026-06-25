@@ -1872,3 +1872,9 @@
 
 | S251 | P1 | 🆕 新注册 | 2026-06-25 | pending_approval | DownloadMonitor 下载监控与错误恢复架构 | services/media_engine/plugins/source/http_source/monitor/ | DRAFTS/MEM-ARCH-AVCODEC-S251.md |
 | 2026-06-25T08:15 | builder-agent subagent | S245本地镜像增强：HTTP Source Plugin MPD/Segment Download Manager草案已增强至17条行号级evidence（E1-E17），行号全部用本地镜像 /home/west/av_codec_repo 逐行验证修正（构造函数L60→L106/ParseManifest L570→L653/Init L90→L187/PutRequestIntoDownloader L270→L280），同步更新pending_actions.yaml，pending_approval |
+
+## Builder 2026-06-25 S252注册——SideOutputSurfaceProcessor 侧输出视频后处理器
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S252 | SideOutputSurfaceProcessor 侧输出视频后处理器——三Surface架构 + 双缓冲队列流水线 + memcpy_s零拷贝复制 | MediaEngine, PostProcessor, SideOutput, Surface, BufferQueue, WorkerThread, Camera | 视频录制/预览双路输出/边录制边预览/Camera插入帧后处理/多Surface协调 | **pending_approval** | 🚧 草案已生成（GitCode web_fetch验证+本地镜像确认，2026-06-25），MEMORY/10_architecture/MEM-ARCH-AVCODEC-S252.md（20条行号级evidence，基于GitCode https://gitcode.com/openharmony/multimedia_av_codec + 本地镜像 /home/west/av_codec_repo/services/media_engine/modules/post_processor/），side_output_surface_processor.cpp(1000+行)三Surface(consumer/producer/side)+双缓冲队列+memcpy_s零拷贝，VideoPostProcessorType::SIDE_OUTPUT枚举，base_video_post_processor.h VideoPostProcessorType五枚举定义，与S100/S127同属PostProcessor体系 |
