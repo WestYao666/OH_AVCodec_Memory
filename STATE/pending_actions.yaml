@@ -43,3 +43,15 @@ entries: []
   scope: "AVCodec, MediaEngine, SourcePlugin, Downloader, NetworkClient, HTTP, Curl, RangeRequest, Retry, Streaming"
   evidence_count: 10
   source: "GitCode https://gitcode.com/openharmony/multimedia_av_codec"
+
+# === 2026-06-25T21:08:00+08:00 ===
+# Source: builder-agent subagent
+# Action: S175 MediaDemuxer PTS自动维护机制提交审批
+- type: approval_response
+  decision: pending_approval
+  mem_id: S175
+  timestamp: "2026-06-25T21:08:00+08:00"
+  note: "S175 MediaDemuxer PTS自动维护架构草案已完成，20条evidence，commit c6dc85e已推送GitHub，MEMORY/10_architecture/已归档"
+  scope: "AVCodec, MediaEngine, MediaDemuxer, HLS, PTS维护, 音视频同步, 断点续传, Timestamp Continuity"
+  evidence_count: 20
+  source: "GitCode https://gitcode.com/openharmony/multimedia_av_codec"
