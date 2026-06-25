@@ -67,3 +67,15 @@ entries: []
   scope: "AVCodec, AudioCodec, Adapter, Worker, AudioBaseCodec, TaskThread, Pipeline, CodecState, SoftwareCodec"
   evidence_count: 20
   source: "本地镜像 /home/west/av_codec_repo"
+
+# === 2026-06-25T22:06:00+08:00 ===
+# Source: builder-agent subagent
+# Action: S219 MediaEngine Source Plugin三件套草案迁移审批
+- type: approval_response
+  decision: pending_approval
+  mem_id: S219
+  timestamp: "2026-06-25T22:06:00+08:00"
+  note: "S219 MediaEngine Source Plugin三件套草案已从DRAFTS迁移至MEMORY/，状态pending_approval，21条行号级evidence，commit b4cdcbf已推送GitHub"
+  scope: "AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, FD, FILE, STREAM, HMDFS, RingBuffer, Seekable"
+  evidence_count: 21
+  source: "本地镜像 /home/west/av_codec_repo"

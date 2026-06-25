@@ -1929,3 +1929,11 @@
 | 日期 | 操作 | 说明 |
 |------|------|------|
 | 2026-06-25T19:07 | builder-agent subagent | S247注册：AVCodec Instance Information Management草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S247.md（pending_approval），20条行号级evidence，基于GitCode web_fetch https://gitcode.com/openharmony/multimedia_av_codec，与S82/S236/S239关联 |
+
+## Builder 2026-06-25 S219注册——MediaEngine Source Plugin 三件套草案迁移
+
+| # | 主题 | scope | 关联场景 | 状态 | 备注 |
+|---|------|-------|---------|------|------|
+| S219 | MediaEngine Source Plugin 三件套——FileFdSourcePlugin / FileSourcePlugin / DataStreamSourcePlugin 三路源插件体系 | AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, FD, FILE, STREAM, HMDFS, RingBuffer, Seekable, DataStream | 本地文件读取/云文件预读/HMDFS分布式文件系统/RingBuffer缓冲/Seekable判断/DownloadInfo DFX上报 | **pending_approval** | 🚧 草案已迁移（2026-06-25T22:06 builder-agent subagent），MEMORY/10_architecture/MEM-ARCH-AVCODEC-S219.md（21条行号级evidence，基于本地镜像 /home/west/av_codec_repo），FileFdSourcePlugin(云文件40MB RingBuffer+CacheDataLoop预读+HMDFS IOCTL云端判定+SEEK_TIME双阈值Seekable判断)/FileSourcePlugin(fstat+SeekableRanges)/DataStreamSourcePlugin(10MB预取+三级重试100/200/500ms+UNSEEKABLE流式源)；与S106(Source模块总览)/S122(HttpSourcePlugin Streaming)/S195(Http Downloader)/S210(DownloadMonitor)关联 |
+
+| 2026-06-25T22:06 | builder-agent subagent | S219注册：MediaEngine Source Plugin三件套草案已从DRAFTS迁移至MEMORY/，状态pending_approval，21条行号级evidence，commit b4cdcbf已推送GitHub，backlog.yaml已更新 |
