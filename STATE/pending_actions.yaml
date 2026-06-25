@@ -79,3 +79,15 @@ entries: []
   scope: "AVCodec, MediaEngine, Source, SourcePlugin, ProtocolType, FD, FILE, STREAM, HMDFS, RingBuffer, Seekable"
   evidence_count: 21
   source: "本地镜像 /home/west/av_codec_repo"
+
+# === 2026-06-25T22:21:00+08:00 ===
+# Source: builder-agent subagent
+# Action: S245 MPD/Segment Download Manager草案迁移审批
+- type: approval_response
+  decision: pending_approval
+  mem_id: S245
+  timestamp: "2026-06-25T22:21:00+08:00"
+  note: "S245 MPD/Segment Download Manager草案已从DRAFTS迁移至MEMORY/10_architecture/，状态pending_approval，17条行号级evidence，commit c8f7438已推送GitHub，backlog.yaml已更新迁移记录"
+  scope: "HTTP Source Plugin, DashMpdDownloader, HlsSegmentManager, DashMediaDownloader, adaptive-streaming, DRM, AES-128-CBC, bitrate-adaptation, CacheMediaChunkBuffer, WriteBitrateCaculator, BlockingQueue"
+  evidence_count: 17
+  source: "本地镜像 /home/west/av_codec_repo"
