@@ -1,17 +1,15 @@
+---
+status: pending_approval
+mem_id: S251
+title: "DownloadMonitor 下载监控与错误恢复架构"
+scope: "AVCodec, MediaEngine, SourcePlugin, HttpSourcePlugin, Monitor, Retry, ErrorHandling, DFX, DASH, HLS, HTTP"
+scenario: "HTTP/HTTPS 流媒体播放（HLS/DASH/MP4）/ 问题定位 / DFX可观测性"
+assoc_s: "S245, S246, S247"
+evidence_count: 9
+source: "GitCode https://gitcode.com/openharmony/multimedia_av_codec + 本地镜像 /home/west/av_codec_repo"
+---
+
 # MEM-ARCH-AVCODEC-S251: DownloadMonitor 下载监控与错误恢复架构
-
-## 元信息
-
-| 字段 | 值 |
-|------|-----|
-| mem_id | MEM-ARCH-AVCODEC-S251 |
-| 主题 | DownloadMonitor 下载监控与错误恢复架构 |
-| scope | services/media_engine/plugins/source/http_source/monitor/ |
-| 关联场景 | HTTP/HTTPS 流媒体播放（HLS/DASH/MP4）|
-| status | draft |
-| priority | P1 |
-| author | Builder Agent |
-| created | 2026-06-25 |
 
 ---
 
