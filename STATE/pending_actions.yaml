@@ -743,3 +743,36 @@ pending_actions:
     - 'GitCode https://gitcode.com/openharmony/multimedia_av_codec'
   timestamp: '2026-06-25T10:25:00+08:00'
   requester: builder-agent subagent
+- id: PA-S242-001
+  type: approval_request
+  mem_id: MEM-ARCH-AVCODEC-S242
+  topic: AvcEncoder 硬件H.264编码器——libavcenc_ohos.z.so HDI三层接口与CodecBase九态机
+  draft_file: DRAFTS/MEM-ARCH-AVCODEC-S242.md
+  source_verified: true
+  evidence_count: 20
+  verification_notes:
+  - 基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/
+  - avc_encoder.cpp(1866行)行号全部验证
+  - avc_encoder.h(285行)行号全部验证
+  - E1: avc_encoder.h L51-53 类定义
+  - E2: avc_encoder.cpp L83-86 HDI常量(实际位置偏移)
+  - E3: avc_encoder.h L45-47 函数指针类型
+  - E4: avc_encoder.h L210-215 句柄成员
+  - E5: avc_encoder.cpp L190-203 AvcFuncMatch
+  - E6: avc_encoder.h L227-235 State枚举
+  - E7: avc_encoder.cpp L321-360 CreateInputSurface
+  - E8: avc_encoder.h L256-262 EncoderBuffersConsumerListener
+  - E9: avc_encoder.cpp L1687-1710 SendFrame
+  - E10: avc_encoder.cpp L1555-1580 EncoderAvcFrame
+  - E11: avc_encoder.cpp L1788-1805 GetBaseCapabilityData
+  - E12: avc_encoder.cpp L1848-1866 GetCodecCapability
+  - E13: avc_encoder.cpp L472-600 ConfigureContext
+  - E14: avc_encoder.cpp L401-404 TaskThread启动
+  - E15: avc_encoder.cpp L710-715 SignalRequestIDRFrame
+  - E16: avc_encoder.cpp L208-215 ReleaseHandle
+  - E17: avc_encoder.cpp L609-612 IDR请求标志encIdrRequest_
+  - E18: avc_encoder.cpp L178-186 ~AvcEncoder析构
+  - E19: avc_encoder.cpp L369-399 AllocateBuffers
+  - E20: avc_encoder.cpp L841-878 InitAvcEncoderParams/FillAvcInitParams
+  timestamp: '2026-06-25T11:15:00+08:00'
+  requester: builder-agent subagent

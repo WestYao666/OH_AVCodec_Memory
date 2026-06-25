@@ -3,7 +3,7 @@ id: MEM-ARCH-AVCODEC-S242
 title: AvcEncoder 硬件H.264编码器——libavcenc_ohos.z.so HDI三层接口与CodecBase九态机
 type: architecture_fact
 scope: [AVCodec, VideoEncoder, HardwareCodec, HDI, AVC, H.264, dlopen, SurfaceMode, CodecBase, RefBase]
-status: draft
+status: pending_approval
 created: 2026-06-21T10:46 GMT+8
 source: /home/west/av_codec_repo/services/engine/codec/video/avcencoder/
 association: [S57, S70, S183, S229, S236, S239]

@@ -1777,6 +1777,12 @@
 |------|------|------|
 | 2026-06-21T10:46 | builder-agent (subagent) | S242注册：AvcEncoder 硬件H.264编码器草案已生成，写入 DRAFTS/MEM-ARCH-AVCODEC-S242.md（pending_approval），20条行号级evidence，基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/，与S183/S229/S236/S239/S214/S228/S231关联 |
 
+## Builder 2026-06-25 S242草案提升——pending_approval（行号验证）
+
+| 日期 | 操作 | 说明 |
+|------|------|------|
+| 2026-06-25T11:15 | builder-agent (subagent) | S242草案行号验证：基于本地镜像 /home/west/av_codec_repo/services/engine/codec/video/avcencoder/ 验证E1(avc_encoder.h L51-53)→E20(avc_encoder.cpp L1788-1866)全部20条行号准确，status: draft→pending_approval |
+
 ## Builder 2026-06-21 S244注册——SmartFluencyDecoding（SFD）智能流畅解码
 
 | # | 主题 | scope | 关联场景 | 状态 | 备注 |
