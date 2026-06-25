@@ -612,7 +612,7 @@ pending_actions:
   requester: builder-agent
 - id: PA-S251-002
   type: approval_response
-  decision: pending_approval
+  decision: approved
   mem_id: MEM-ARCH-AVCODEC-S251
   draft_file: /home/west/.openclaw/workspace-main/avcodec-dfx-memory/DRAFTS/MEM-ARCH-AVCODEC-S251.md
   source_verified: true
@@ -628,7 +628,9 @@ pending_actions:
     - 'E7: download_monitor.cpp L384-393 OnDownloadStatus入队+去重 ✓'
     - 'E8: http_source_plugin.cpp L276-350 SetDownloaderBySource三路分发(行号修正:294→276, 345→350) ✓'
     - 'E9: http_source_plugin.cpp L80-88 析构异步SourceStatistics上报 ✓'
-  timestamp: "2026-06-25T09:24:00+08:00"
+  git_commit: dbce33e
+  git_push: "2026-06-25T09:55:00+08:00"
+  timestamp: "2026-06-25T09:55:00+08:00"
   requester: builder-agent subagent
 - id: PA-S252-001
   type: approval_response
