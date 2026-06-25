@@ -780,7 +780,7 @@ pending_actions:
   type: approval_request
   mem_id: MEM-ARCH-AVCODEC-S254
   topic: ROI Video Encoding 区域-of-Interest 视频编码——hcodec HDI/OMX_IndexParamRoi/六区域/DeltaQP/SemanticLabel
-  draft_file: DRAFTS/MEM-ARCH-AVCODEC-S254.md
+  draft_file: MEMORY/10_architecture/MEM-ARCH-AVCODEC-S254.md
   source_verified: true
   evidence_count: 10
   verification_notes:
